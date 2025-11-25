@@ -1,0 +1,5557 @@
+openapi: 3.0.3
+info:
+  description: HTTP API used by Tsuga customers
+  title: Tsuga Public API
+  version: 1.0.0
+servers:
+- url: https://api.tsuga-staging.com
+security:
+- bearerAuth: []
+paths:
+  /v1/dashboards:
+    get:
+      description: Retrieve all dashboards
+      operationId: listDashboards
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+    post:
+      description: Create a new dashboard
+      operationId: createDashboard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createDashboard_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createDashboard_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+  /v1/dashboards/{id}:
+    delete:
+      description: Delete a dashboard by its id
+      operationId: deleteDashboard
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/deleteDashboard_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+    get:
+      description: Retrieve a dashboard by its id
+      operationId: getDashboard
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createDashboard_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+    put:
+      description: Update a dashboard by its id
+      operationId: updateDashboard
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/updateDashboard_request"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createDashboard_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+  /v1/notification-rules:
+    get:
+      description: Retrieve all notification rules
+      operationId: listNotificationRules
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listNotificationRules_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+    post:
+      description: Create a new notification rule
+      operationId: createNotificationRule
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createNotificationRule_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createNotificationRule_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+  /v1/notification-rules/{id}:
+    delete:
+      description: Delete a notification rule by its id
+      operationId: deleteNotificationRule
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/deleteDashboard_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+    get:
+      description: Retrieve a notification rule by its id
+      operationId: getNotificationRule
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createNotificationRule_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+    put:
+      description: Update a notification rule by its id
+      operationId: updateNotificationRule
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createNotificationRule_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createNotificationRule_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+  /v1/routes:
+    get:
+      description: Retrieve all routes
+      operationId: listRoutes
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listRoutes_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+    post:
+      description: Create a new route
+      operationId: createRoute
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createRoute_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createRoute_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+  /v1/routes/{id}:
+    delete:
+      description: Delete a route by its id
+      operationId: deleteRoute
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/deleteDashboard_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+    get:
+      description: Retrieve a route by its id
+      operationId: getRoute
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createRoute_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+    put:
+      description: Update a route by its id
+      operationId: updateRoute
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createRoute_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createRoute_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+  /v1/teams:
+    get:
+      description: Retrieve all teams
+      operationId: listTeams
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listTeams_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+    post:
+      description: Create a new team
+      operationId: createTeam
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createTeam_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createTeam_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+  /v1/teams/{id}:
+    delete:
+      description: Delete a team by its id
+      operationId: deleteTeam
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/deleteDashboard_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+    get:
+      description: Retrieve a team by its id
+      operationId: getTeam
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createTeam_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+    put:
+      description: Update a team by its id
+      operationId: updateTeam
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createTeam_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createTeam_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+components:
+  schemas:
+    AggregateCount:
+      example:
+        type: count
+      properties:
+        type:
+          description: Counts the total number of records
+          enum:
+          - count
+          type: string
+      required:
+      - type
+      type: object
+    AggregateSum:
+      properties:
+        type:
+          description: Sums the values of the selected field
+          enum:
+          - sum
+          type: string
+        field:
+          description: Attribute containing the values to aggregate
+          maxLength: 250
+          minLength: 0
+          type: string
+      required:
+      - field
+      - type
+      type: object
+    AggregateAverage:
+      properties:
+        type:
+          description: Calculates the average value of the selected field
+          enum:
+          - average
+          type: string
+        field:
+          description: Attribute containing the values to aggregate
+          maxLength: 250
+          minLength: 0
+          type: string
+      required:
+      - field
+      - type
+      type: object
+    AggregateMin:
+      properties:
+        type:
+          description: Finds the smallest value of the field
+          enum:
+          - min
+          type: string
+        field:
+          description: Attribute containing the values to aggregate
+          maxLength: 250
+          minLength: 0
+          type: string
+      required:
+      - field
+      - type
+      type: object
+    AggregateMax:
+      properties:
+        type:
+          description: Finds the largest value of the field
+          enum:
+          - max
+          type: string
+        field:
+          description: Attribute containing the values to aggregate
+          maxLength: 250
+          minLength: 0
+          type: string
+      required:
+      - field
+      - type
+      type: object
+    AggregateUniqueCount:
+      properties:
+        type:
+          description: Counts the distinct values of the field
+          enum:
+          - unique-count
+          type: string
+        field:
+          description: Attribute containing the values to aggregate
+          maxLength: 250
+          minLength: 0
+          type: string
+      required:
+      - field
+      - type
+      type: object
+    AggregatePercentile:
+      properties:
+        type:
+          description: Calculates a percentile of the selected field
+          enum:
+          - percentile
+          type: string
+        field:
+          description: Attribute containing the values to aggregate
+          maxLength: 250
+          minLength: 0
+          type: string
+        percentile:
+          type: number
+      required:
+      - field
+      - percentile
+      - type
+      type: object
+    FunctionPerSecond:
+      example:
+        type: per-second
+      properties:
+        type:
+          description: Normalizes the metric to events per second
+          enum:
+          - per-second
+          type: string
+      required:
+      - type
+      type: object
+    FunctionPerMinute:
+      properties:
+        type:
+          description: Normalizes the metric to events per minute
+          enum:
+          - per-minute
+          type: string
+      required:
+      - type
+      type: object
+    FunctionPerHour:
+      properties:
+        type:
+          description: Normalizes the metric to events per hour
+          enum:
+          - per-hour
+          type: string
+      required:
+      - type
+      type: object
+    FunctionRate:
+      properties:
+        type:
+          description: Calculates the rate of change
+          enum:
+          - rate
+          type: string
+      required:
+      - type
+      type: object
+    FunctionRolling:
+      properties:
+        type:
+          description: Computes a rolling window aggregate
+          enum:
+          - rolling
+          type: string
+        window:
+          description: Duration of the rolling window
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - type
+      - window
+      type: object
+    RuleTargetInputSlack:
+      properties:
+        type:
+          enum:
+          - slack
+          type: string
+        channel:
+          description: Slack channel ID that receives the notification
+          maxLength: 250
+          minLength: 0
+          type: string
+        integrationId:
+          description: Slack workspace ID that receives the notification
+          maxLength: 250
+          minLength: 0
+          type: string
+      required:
+      - channel
+      - integrationId
+      - type
+      type: object
+    RuleTargetInputIncidentIo:
+      properties:
+        type:
+          enum:
+          - incident-io
+          type: string
+        integrationId:
+          description: Identifier of the incident.io integration to use
+          maxLength: 250
+          minLength: 0
+          type: string
+      required:
+      - integrationId
+      - type
+      type: object
+    RuleTargetInputPagerDuty:
+      properties:
+        type:
+          enum:
+          - pagerduty
+          type: string
+        integrationId:
+          description: Identifier of the PagerDuty integration to use
+          maxLength: 250
+          minLength: 0
+          type: string
+      required:
+      - integrationId
+      - type
+      type: object
+    RuleTargetInputEmail:
+      properties:
+        type:
+          enum:
+          - email
+          type: string
+        addresses:
+          description: Email addresses that will receive the alert
+          items:
+            format: email
+            type: string
+          minItems: 1
+          type: array
+      required:
+      - addresses
+      - type
+      type: object
+    RuleTargetInputGrafanaIrm:
+      properties:
+        type:
+          enum:
+          - grafana-irm
+          type: string
+        integrationId:
+          description: Identifier of the Grafana IRM integration to use
+          maxLength: 250
+          minLength: 0
+          type: string
+      required:
+      - integrationId
+      - type
+      type: object
+    RuleTargetInputMicrosoftTeams:
+      properties:
+        type:
+          enum:
+          - microsoft-teams
+          type: string
+        integrationId:
+          description: Identifier of the Microsoft Teams integration to use
+          maxLength: 250
+          minLength: 0
+          type: string
+      required:
+      - integrationId
+      - type
+      type: object
+    RuleTargetInputWebhook:
+      properties:
+        type:
+          enum:
+          - webhook
+          type: string
+        integrationId:
+          description: Identifier of the webhook integration to use
+          maxLength: 250
+          minLength: 0
+          type: string
+      required:
+      - integrationId
+      - type
+      type: object
+    RuleTargetConfigSlack:
+      example:
+        integrationName: integrationName
+        channel: channel
+        integrationId: integrationId
+        type: slack
+      properties:
+        type:
+          enum:
+          - slack
+          type: string
+        channel:
+          description: Slack channel ID that receives the notification
+          type: string
+        integrationId:
+          description: Slack workspace ID that receives the notification
+          type: string
+        integrationName:
+          description: Human readable name of the Slack integration
+          type: string
+      required:
+      - channel
+      - integrationId
+      - integrationName
+      - type
+      type: object
+    RuleTargetConfigIncidentIo:
+      properties:
+        type:
+          enum:
+          - incident-io
+          type: string
+        integrationId:
+          description: Identifier of the incident.io integration to use
+          type: string
+        integrationName:
+          description: Human readable name of the incident.io integration
+          type: string
+      required:
+      - integrationId
+      - integrationName
+      - type
+      type: object
+    RuleTargetConfigEmail:
+      properties:
+        type:
+          enum:
+          - email
+          type: string
+        addresses:
+          description: Email addresses that will receive the alert
+          items:
+            format: email
+            type: string
+          type: array
+      required:
+      - addresses
+      - type
+      type: object
+    RuleTargetConfigGrafanaIrm:
+      properties:
+        type:
+          enum:
+          - grafana-irm
+          type: string
+        integrationId:
+          description: Identifier of the Grafana IRM integration to use
+          type: string
+        integrationName:
+          description: Human readable name of the Grafana IRM integration
+          type: string
+      required:
+      - integrationId
+      - integrationName
+      - type
+      type: object
+    RuleTargetConfigPagerDuty:
+      properties:
+        type:
+          enum:
+          - pagerduty
+          type: string
+        integrationId:
+          description: Identifier of the PagerDuty integration to use
+          type: string
+        integrationName:
+          description: Human readable name of the PagerDuty integration
+          type: string
+      required:
+      - integrationId
+      - integrationName
+      - type
+      type: object
+    RuleTargetConfigMicrosoftTeams:
+      properties:
+        type:
+          enum:
+          - microsoft-teams
+          type: string
+        integrationId:
+          description: Identifier of the Microsoft Teams integration to use
+          type: string
+        integrationName:
+          description: Human readable name of the Microsoft Teams integration
+          type: string
+      required:
+      - integrationId
+      - integrationName
+      - type
+      type: object
+    RuleTargetConfigWebhook:
+      properties:
+        type:
+          enum:
+          - webhook
+          type: string
+        integrationId:
+          description: Identifier of the webhook integration to use
+          type: string
+        integrationName:
+          description: Human readable name of the webhook integration
+          type: string
+      required:
+      - integrationId
+      - integrationName
+      - type
+      type: object
+    ProcessorParamsCreatorFormatString:
+      properties:
+        targetAttribute:
+          description: Attribute that will receive the formatted value
+          maxLength: 250
+          minLength: 0
+          type: string
+        formatString:
+          description: Template string used to build the target attribute value
+          maxLength: 50000
+          minLength: 0
+          type: string
+        overrideTarget:
+          description: Set to true to overwrite an existing target attribute value
+            (defaults to true)
+          type: boolean
+        subtype:
+          enum:
+          - format-string
+          type: string
+        replaceMissingByEmpty:
+          type: boolean
+      required:
+      - formatString
+      - subtype
+      - targetAttribute
+      type: object
+    ProcessorParamsCreatorMathFormula:
+      properties:
+        targetAttribute:
+          description: Attribute that will receive the computed value
+          maxLength: 250
+          minLength: 0
+          type: string
+        formula:
+          description: Mathematical formula evaluated to populate the target attribute
+          maxLength: 50000
+          minLength: 0
+          type: string
+        overrideTarget:
+          description: Set to true to overwrite an existing target attribute value
+            (defaults to true)
+          type: boolean
+        subtype:
+          enum:
+          - math-formula
+          type: string
+        replaceMissingBy0:
+          type: boolean
+      required:
+      - formula
+      - subtype
+      - targetAttribute
+      type: object
+    ProcessorParamsMapperMapAttributes:
+      example:
+        subtype: map-attributes
+        attributes:
+        - keepOrigin: true
+          originAttribute: originAttribute
+          targetAttribute: targetAttribute
+          overrideTarget: true
+        - keepOrigin: true
+          originAttribute: originAttribute
+          targetAttribute: targetAttribute
+          overrideTarget: true
+        - keepOrigin: true
+          originAttribute: originAttribute
+          targetAttribute: targetAttribute
+          overrideTarget: true
+        - keepOrigin: true
+          originAttribute: originAttribute
+          targetAttribute: targetAttribute
+          overrideTarget: true
+        - keepOrigin: true
+          originAttribute: originAttribute
+          targetAttribute: targetAttribute
+          overrideTarget: true
+      properties:
+        attributes:
+          description: Mappings that map individual attributes to new targets
+          items:
+            $ref: "#/components/schemas/ProcessorParamsMapperMapAttributes_attributes_inner"
+          maxItems: 50
+          type: array
+        subtype:
+          enum:
+          - map-attributes
+          type: string
+      required:
+      - attributes
+      - subtype
+      type: object
+    ProcessorParamsMapperMapLevel:
+      properties:
+        attributeName:
+          description: Attribute whose value will determine the log level
+          maxLength: 250
+          minLength: 0
+          type: string
+        subtype:
+          enum:
+          - map-level
+          type: string
+      required:
+      - attributeName
+      - subtype
+      type: object
+    ProcessorParamsMapperMapTimestamp:
+      properties:
+        attributeName:
+          description: Attribute whose value will determine the log timestamp
+          maxLength: 250
+          minLength: 0
+          type: string
+        subtype:
+          enum:
+          - map-timestamp
+          type: string
+      required:
+      - attributeName
+      - subtype
+      type: object
+    DataNormalizerDuration:
+      example:
+        unit: days
+        type: duration
+      properties:
+        type:
+          description: Normalizes values as durations using standard time units
+          enum:
+          - duration
+          type: string
+        unit:
+          description: Time unit used to present the normalized values
+          enum:
+          - days
+          - h
+          - m
+          - s
+          - ms
+          - us
+          - ns
+          type: string
+      required:
+      - type
+      - unit
+      type: object
+    DataNormalizerData:
+      properties:
+        type:
+          description: Normalizes values as data sizes using byte units
+          enum:
+          - data
+          type: string
+        unit:
+          description: Data size unit used to present the normalized values
+          enum:
+          - B
+          - KB
+          - MB
+          - GB
+          - TB
+          - PB
+          type: string
+      required:
+      - type
+      - unit
+      type: object
+    DataNormalizerCustom:
+      properties:
+        type:
+          description: Normalizes values using a custom unit label
+          enum:
+          - custom
+          type: string
+        unit:
+          description: Text label describing the custom unit
+          type: string
+      required:
+      - type
+      - unit
+      type: object
+    DataNormalizerDate:
+      properties:
+        type:
+          description: Formats values as calendar dates
+          enum:
+          - date
+          type: string
+      required:
+      - type
+      type: object
+    DataNormalizerLevel:
+      properties:
+        type:
+          description: Displays values using their log level name
+          enum:
+          - level
+          type: string
+      required:
+      - type
+      type: object
+    GraphVisualizationTimeseries:
+      example:
+        visibleSeries:
+        - true
+        - true
+        normalizer:
+          unit: days
+          type: duration
+        formula: formula
+        source: logs
+        groupBy:
+        - limit: 0.8008281904610115
+          fields:
+          - fields
+          - fields
+        - limit: 0.8008281904610115
+          fields:
+          - fields
+          - fields
+        - limit: 0.8008281904610115
+          fields:
+          - fields
+          - fields
+        type: timeseries
+        queries:
+        - filter: filter
+          functions:
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          aggregate:
+            type: count
+        - filter: filter
+          functions:
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          aggregate:
+            type: count
+        - filter: filter
+          functions:
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          aggregate:
+            type: count
+        - filter: filter
+          functions:
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          aggregate:
+            type: count
+        - filter: filter
+          functions:
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          aggregate:
+            type: count
+      properties:
+        type:
+          description: Displays the aggregation as a time series chart
+          enum:
+          - timeseries
+          type: string
+        source:
+          description: Data source being queried for this aggregation
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/GraphVisualizationTimeseries_queries_inner"
+          maxItems: 10
+          type: array
+        formula:
+          description: Formula referencing query outputs (e.g. q1+q2) to compute derived
+            series
+          maxLength: 250
+          minLength: 0
+          type: string
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+        groupBy:
+          description: Fields used to group the results
+          items:
+            $ref: "#/components/schemas/GraphVisualizationTimeseries_groupBy_inner"
+          maxItems: 3
+          type: array
+        normalizer:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_normalizer"
+      required:
+      - queries
+      - source
+      - type
+      type: object
+    GraphVisualizationTopList:
+      properties:
+        type:
+          description: Displays the aggregation as a ranked list of top results
+          enum:
+          - top-list
+          type: string
+        source:
+          description: Data source being queried for this aggregation
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/GraphVisualizationTimeseries_queries_inner"
+          maxItems: 10
+          type: array
+        formula:
+          description: Formula referencing query outputs (e.g. q1+q2) to compute derived
+            series
+          maxLength: 250
+          minLength: 0
+          type: string
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+        groupBy:
+          description: Fields used to group the results
+          items:
+            $ref: "#/components/schemas/GraphVisualizationTimeseries_groupBy_inner"
+          maxItems: 3
+          type: array
+        normalizer:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_normalizer"
+      required:
+      - queries
+      - source
+      - type
+      type: object
+    GraphVisualizationPie:
+      properties:
+        type:
+          description: Displays the aggregation as a pie chart
+          enum:
+          - pie
+          type: string
+        source:
+          description: Data source being queried for this aggregation
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/GraphVisualizationTimeseries_queries_inner"
+          maxItems: 10
+          type: array
+        formula:
+          description: Formula referencing query outputs (e.g. q1+q2) to compute derived
+            series
+          maxLength: 250
+          minLength: 0
+          type: string
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+        groupBy:
+          description: Fields used to group the results
+          items:
+            $ref: "#/components/schemas/GraphVisualizationTimeseries_groupBy_inner"
+          maxItems: 3
+          type: array
+        normalizer:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_normalizer"
+      required:
+      - queries
+      - source
+      - type
+      type: object
+    GraphVisualizationQueryValue:
+      properties:
+        type:
+          description: Displays the aggregation as a single value
+          enum:
+          - query-value
+          type: string
+        source:
+          description: Data source being queried for this aggregation
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/GraphVisualizationTimeseries_queries_inner"
+          maxItems: 10
+          type: array
+        formula:
+          description: Formula referencing query outputs (e.g. q1+q2) to compute derived
+            series
+          maxLength: 250
+          minLength: 0
+          type: string
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+        backgroundMode:
+          description: Controls whether the widget uses a solid or transparent background
+          enum:
+          - background
+          - no-background
+          type: string
+        conditions:
+          description: Conditional formatting rules applied to the displayed value
+          items:
+            $ref: "#/components/schemas/GraphVisualizationQueryValue_conditions_inner"
+          type: array
+        normalizer:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_normalizer"
+      required:
+      - queries
+      - source
+      - type
+      type: object
+    GraphVisualizationBar:
+      properties:
+        type:
+          description: Displays the aggregation as a bar chart
+          enum:
+          - bar
+          type: string
+        source:
+          description: Data source being queried for this aggregation
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/GraphVisualizationTimeseries_queries_inner"
+          maxItems: 10
+          type: array
+        formula:
+          description: Formula referencing query outputs (e.g. q1+q2) to compute derived
+            series
+          maxLength: 250
+          minLength: 0
+          type: string
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+        groupBy:
+          description: Fields used to group the results
+          items:
+            $ref: "#/components/schemas/GraphVisualizationTimeseries_groupBy_inner"
+          maxItems: 3
+          type: array
+        timeBucket:
+          $ref: "#/components/schemas/GraphVisualizationBar_timeBucket"
+        normalizer:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_normalizer"
+      required:
+      - queries
+      - source
+      - type
+      type: object
+    GraphVisualizationList:
+      properties:
+        type:
+          description: Displays matching logs in a tabular list
+          enum:
+          - list
+          type: string
+        source:
+          description: Indicates that the widget queries logs
+          enum:
+          - logs
+          type: string
+        query:
+          description: Log query that selects records for the list
+          maxLength: 10000
+          minLength: 0
+          type: string
+        listColumns:
+          description: Custom columns to display for each log entry
+          items:
+            $ref: "#/components/schemas/GraphVisualizationList_listColumns_inner"
+          type: array
+      required:
+      - query
+      - source
+      - type
+      type: object
+    GraphVisualizationNote:
+      properties:
+        type:
+          description: Displays static text on the dashboard
+          enum:
+          - note
+          type: string
+        note:
+          description: Markdown-compatible text shown in the note
+          maxLength: 50000
+          minLength: 0
+          type: string
+        noteColor:
+          description: Background color used to render the note
+          enum:
+          - white
+          - gray.100
+          - amber.200
+          - lime.200
+          - emerald.200
+          - cyan.200
+          - blue.200
+          - violet.200
+          - fuchsia.200
+          - pink.200
+          - red.200
+          type: string
+        noteAlign:
+          description: Flex alignment keyword used for widget layout
+          enum:
+          - flex-start
+          - center
+          - flex-end
+          type: string
+        noteJustifyContent:
+          description: Flex alignment keyword used for widget layout
+          enum:
+          - flex-start
+          - center
+          - flex-end
+          type: string
+      required:
+      - type
+      type: object
+    Processor:
+      anyOf:
+      - $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf"
+      - $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_1"
+      - $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_2"
+      - $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_3"
+      - $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_4"
+      description: Processing step executed sequentially on route logs
+    ErrorResponse:
+      description: Standard envelope for API errors
+      example:
+        code: ABORT_ERROR
+        message: message
+        statusCode: 2.3021358869347655
+      properties:
+        code:
+          description: Machine readable error code describing what went wrong
+          enum:
+          - ABORT_ERROR
+          - BAD_REQUEST
+          - FST_ERR_VALIDATION
+          - INVALID_INPUT
+          - INTERNAL_ERROR
+          - INVALID_QUERY_TO_CLUSTER
+          - NETWORK_ERROR
+          - NOT_AUTHORIZED
+          - ORG_NOT_FOUND_AUTHENTICATION_ERROR
+          - RATE_LIMITED
+          - RESERVED_TAG_POLICY_ERROR
+          - RESOURCE_NOT_FOUND
+          - RESPONSE_PARSE_ERROR
+          - TAG_POLICY_ALREADY_EXISTS_ERROR
+          - TAG_POLICY_VALIDATION_ERROR
+          - URL_NOT_FOUND
+          type: string
+        message:
+          description: Human readable explanation of the error
+          type: string
+        statusCode:
+          description: HTTP status code that was returned
+          type: number
+      required:
+      - message
+      - statusCode
+      type: object
+    Dashboard:
+      description: Visualization of telemetry data with customizable graphs and filters
+      example:
+        owner: owner
+        graphs:
+        - layout:
+            w: 5.962133916683182
+            x: 6.027456183070403
+            h: 5.637376656633329
+            "y": 1.4658129805029452
+          visualization:
+            visibleSeries:
+            - true
+            - true
+            normalizer:
+              unit: days
+              type: duration
+            formula: formula
+            source: logs
+            groupBy:
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+              - fields
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+              - fields
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+              - fields
+            type: timeseries
+            queries:
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+          name: name
+          id: id
+        - layout:
+            w: 5.962133916683182
+            x: 6.027456183070403
+            h: 5.637376656633329
+            "y": 1.4658129805029452
+          visualization:
+            visibleSeries:
+            - true
+            - true
+            normalizer:
+              unit: days
+              type: duration
+            formula: formula
+            source: logs
+            groupBy:
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+              - fields
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+              - fields
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+              - fields
+            type: timeseries
+            queries:
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+          name: name
+          id: id
+        name: name
+        id: id
+        filters:
+        - filters
+        - filters
+        - filters
+        - filters
+        - filters
+        tags:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+      properties:
+        id:
+          description: Identifier of the dashboard
+          type: string
+        name:
+          description: Display name of the dashboard
+          type: string
+        owner:
+          description: Team ID that owns and manages the dashboard
+          type: string
+        graphs:
+          description: Ordered widgets that compose the dashboard
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_graphs_inner"
+          type: array
+        filters:
+          description: Filters applied to every widget on the dashboard
+          items:
+            type: string
+          maxItems: 10
+          type: array
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_tags_inner"
+          maxItems: 50
+          type: array
+      required:
+      - graphs
+      - id
+      - name
+      - owner
+      type: object
+    Rule:
+      description: Rules to trigger notifications to targets based on alert events
+      example:
+        owner: owner
+        transitionTypesFilter:
+        - triggered
+        - triggered
+        name: name
+        prioritiesFilter:
+        - 1
+        - 1
+        id: id
+        isActive: true
+        teamsFilter:
+        - teamsFilter
+        - teamsFilter
+        targets:
+        - rateLimit:
+            minutes: 1
+            maxMessages: 1
+          renotifyConfig:
+            mode: each
+            renotifyIntervalMinutes: 1
+            renotificationStates:
+            - alert
+            - alert
+          id: id
+          config:
+            integrationName: integrationName
+            channel: channel
+            integrationId: integrationId
+            type: slack
+        - rateLimit:
+            minutes: 1
+            maxMessages: 1
+          renotifyConfig:
+            mode: each
+            renotifyIntervalMinutes: 1
+            renotificationStates:
+            - alert
+            - alert
+          id: id
+          config:
+            integrationName: integrationName
+            channel: channel
+            integrationId: integrationId
+            type: slack
+        tags:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+      properties:
+        id:
+          description: Identifier of the notification rule
+          type: string
+        name:
+          description: Display name of the notification rule
+          type: string
+        teamsFilter:
+          description: Team IDs that narrow down the teams that can receive notifications
+            from this rule
+          items:
+            type: string
+          type: array
+        prioritiesFilter:
+          description: Priorities that narrow down the alerts that can trigger a notification
+          items:
+            maximum: 5
+            minimum: 1
+            type: integer
+          type: array
+        transitionTypesFilter:
+          description: Alert state transitions that can trigger a notification
+          items:
+            enum:
+            - triggered
+            - resolved
+            - no-data
+            type: string
+          type: array
+        owner:
+          description: Team ID that owns and manages the rule
+          type: string
+        isActive:
+          type: boolean
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_tags_inner"
+          maxItems: 50
+          type: array
+        targets:
+          description: Notification targets that can receive notifications when the
+            rule matches
+          items:
+            $ref: "#/components/schemas/listNotificationRules_200_response_data_inner_targets_inner"
+          type: array
+      required:
+      - id
+      - isActive
+      - name
+      - owner
+      - prioritiesFilter
+      - targets
+      - teamsFilter
+      - transitionTypesFilter
+      type: object
+    Route:
+      description: Log route allowing to standardize logs and enrich them with additional
+        data
+      example:
+        owner: owner
+        isEnabled: true
+        query: query
+        name: name
+        description: description
+        id: id
+        processors:
+        - name: name
+          description: description
+          id: id
+          type: mapper
+          params:
+            subtype: map-attributes
+            attributes:
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+          example:
+            manual: true
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - name: name
+          description: description
+          id: id
+          type: mapper
+          params:
+            subtype: map-attributes
+            attributes:
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+          example:
+            manual: true
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - name: name
+          description: description
+          id: id
+          type: mapper
+          params:
+            subtype: map-attributes
+            attributes:
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+          example:
+            manual: true
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - name: name
+          description: description
+          id: id
+          type: mapper
+          params:
+            subtype: map-attributes
+            attributes:
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+          example:
+            manual: true
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - name: name
+          description: description
+          id: id
+          type: mapper
+          params:
+            subtype: map-attributes
+            attributes:
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+          example:
+            manual: true
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        tags:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+      properties:
+        id:
+          description: Identifier of the log route
+          maxLength: 250
+          minLength: 0
+          type: string
+        name:
+          description: Human readable name shown for the route
+          maxLength: 250
+          minLength: 0
+          type: string
+        description:
+          maxLength: 50000
+          minLength: 0
+          type: string
+        isEnabled:
+          type: boolean
+        query:
+          description: Query that selects which logs should enter the route
+          maxLength: 250
+          minLength: 0
+          type: string
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_tags_inner"
+          maxItems: 50
+          type: array
+        owner:
+          description: Team ID owning and managing the route
+          maxLength: 250
+          minLength: 1
+          type: string
+        processors:
+          description: Ordered processors applied to logs that match the route
+          items:
+            $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner"
+          maxItems: 50
+          type: array
+      required:
+      - id
+      - isEnabled
+      - name
+      - owner
+      - processors
+      - query
+      type: object
+    Team:
+      description: Collection of users used to manage ownership and access to resources
+      example:
+        visibility: public
+        name: name
+        description: description
+        id: id
+        tags:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+      properties:
+        id:
+          description: Identifier of the team
+          type: string
+        name:
+          description: Human readable team name displayed throughout the app
+          type: string
+        description:
+          type: string
+        visibility:
+          description: Controls whether the resources of the team are discoverable
+            by users
+          enum:
+          - public
+          - private
+          type: string
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_tags_inner"
+          maxItems: 50
+          type: array
+      required:
+      - id
+      - name
+      - visibility
+      type: object
+    listDashboards_200_response_data_inner_graphs_inner_visualization:
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/GraphVisualizationTimeseries"
+      - $ref: "#/components/schemas/GraphVisualizationTopList"
+      - $ref: "#/components/schemas/GraphVisualizationPie"
+      - $ref: "#/components/schemas/GraphVisualizationQueryValue"
+      - $ref: "#/components/schemas/GraphVisualizationBar"
+      - $ref: "#/components/schemas/GraphVisualizationList"
+      - $ref: "#/components/schemas/GraphVisualizationNote"
+      required:
+      - type
+      type: object
+    listDashboards_200_response_data_inner_graphs_inner_layout:
+      description: Grid layout coordinates for this widget
+      example:
+        w: 5.962133916683182
+        x: 6.027456183070403
+        h: 5.637376656633329
+        "y": 1.4658129805029452
+      properties:
+        x:
+          description: Horizontal grid position of the widget
+          type: number
+        "y":
+          description: Vertical grid position of the widget
+          type: number
+        w:
+          description: Width of the widget in grid units
+          type: number
+        h:
+          description: Height of the widget in grid units
+          type: number
+      required:
+      - h
+      - w
+      - x
+      - "y"
+      type: object
+    listDashboards_200_response_data_inner_graphs_inner:
+      example:
+        layout:
+          w: 5.962133916683182
+          x: 6.027456183070403
+          h: 5.637376656633329
+          "y": 1.4658129805029452
+        visualization:
+          visibleSeries:
+          - true
+          - true
+          normalizer:
+            unit: days
+            type: duration
+          formula: formula
+          source: logs
+          groupBy:
+          - limit: 0.8008281904610115
+            fields:
+            - fields
+            - fields
+          - limit: 0.8008281904610115
+            fields:
+            - fields
+            - fields
+          - limit: 0.8008281904610115
+            fields:
+            - fields
+            - fields
+          type: timeseries
+          queries:
+          - filter: filter
+            functions:
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            aggregate:
+              type: count
+          - filter: filter
+            functions:
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            aggregate:
+              type: count
+          - filter: filter
+            functions:
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            aggregate:
+              type: count
+          - filter: filter
+            functions:
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            aggregate:
+              type: count
+          - filter: filter
+            functions:
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            aggregate:
+              type: count
+        name: name
+        id: id
+      properties:
+        id:
+          description: Stable identifier of the graph widget
+          maxLength: 250
+          minLength: 0
+          type: string
+        name:
+          description: Display name of the graph widget
+          maxLength: 250
+          minLength: 0
+          type: string
+        visualization:
+          $ref: "#/components/schemas/listDashboards_200_response_data_inner_graphs_inner_visualization"
+        layout:
+          $ref: "#/components/schemas/listDashboards_200_response_data_inner_graphs_inner_layout"
+      required:
+      - id
+      - visualization
+      type: object
+    listDashboards_200_response_data_inner_tags_inner:
+      example:
+        value: value
+        key: key
+      properties:
+        key:
+          maxLength: 128
+          type: string
+        value:
+          maxLength: 256
+          type: string
+      required:
+      - key
+      - value
+      type: object
+    listDashboards_200_response_data_inner:
+      description: Visualization of telemetry data with customizable graphs and filters
+      example:
+        owner: owner
+        graphs:
+        - layout:
+            w: 5.962133916683182
+            x: 6.027456183070403
+            h: 5.637376656633329
+            "y": 1.4658129805029452
+          visualization:
+            visibleSeries:
+            - true
+            - true
+            normalizer:
+              unit: days
+              type: duration
+            formula: formula
+            source: logs
+            groupBy:
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+              - fields
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+              - fields
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+              - fields
+            type: timeseries
+            queries:
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+          name: name
+          id: id
+        - layout:
+            w: 5.962133916683182
+            x: 6.027456183070403
+            h: 5.637376656633329
+            "y": 1.4658129805029452
+          visualization:
+            visibleSeries:
+            - true
+            - true
+            normalizer:
+              unit: days
+              type: duration
+            formula: formula
+            source: logs
+            groupBy:
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+              - fields
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+              - fields
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+              - fields
+            type: timeseries
+            queries:
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              aggregate:
+                type: count
+          name: name
+          id: id
+        name: name
+        id: id
+        filters:
+        - filters
+        - filters
+        - filters
+        - filters
+        - filters
+        tags:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+      properties:
+        id:
+          description: Identifier of the dashboard
+          type: string
+        name:
+          description: Display name of the dashboard
+          type: string
+        owner:
+          description: Team ID that owns and manages the dashboard
+          type: string
+        graphs:
+          description: Ordered widgets that compose the dashboard
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_graphs_inner"
+          type: array
+        filters:
+          description: Filters applied to every widget on the dashboard
+          items:
+            type: string
+          maxItems: 10
+          type: array
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_tags_inner"
+          maxItems: 50
+          type: array
+      required:
+      - graphs
+      - id
+      - name
+      - owner
+      type: object
+    listDashboards_200_response:
+      example:
+        data:
+        - owner: owner
+          graphs:
+          - layout:
+              w: 5.962133916683182
+              x: 6.027456183070403
+              h: 5.637376656633329
+              "y": 1.4658129805029452
+            visualization:
+              visibleSeries:
+              - true
+              - true
+              normalizer:
+                unit: days
+                type: duration
+              formula: formula
+              source: logs
+              groupBy:
+              - limit: 0.8008281904610115
+                fields:
+                - fields
+                - fields
+              - limit: 0.8008281904610115
+                fields:
+                - fields
+                - fields
+              - limit: 0.8008281904610115
+                fields:
+                - fields
+                - fields
+              type: timeseries
+              queries:
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+            name: name
+            id: id
+          - layout:
+              w: 5.962133916683182
+              x: 6.027456183070403
+              h: 5.637376656633329
+              "y": 1.4658129805029452
+            visualization:
+              visibleSeries:
+              - true
+              - true
+              normalizer:
+                unit: days
+                type: duration
+              formula: formula
+              source: logs
+              groupBy:
+              - limit: 0.8008281904610115
+                fields:
+                - fields
+                - fields
+              - limit: 0.8008281904610115
+                fields:
+                - fields
+                - fields
+              - limit: 0.8008281904610115
+                fields:
+                - fields
+                - fields
+              type: timeseries
+              queries:
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+            name: name
+            id: id
+          name: name
+          id: id
+          filters:
+          - filters
+          - filters
+          - filters
+          - filters
+          - filters
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        - owner: owner
+          graphs:
+          - layout:
+              w: 5.962133916683182
+              x: 6.027456183070403
+              h: 5.637376656633329
+              "y": 1.4658129805029452
+            visualization:
+              visibleSeries:
+              - true
+              - true
+              normalizer:
+                unit: days
+                type: duration
+              formula: formula
+              source: logs
+              groupBy:
+              - limit: 0.8008281904610115
+                fields:
+                - fields
+                - fields
+              - limit: 0.8008281904610115
+                fields:
+                - fields
+                - fields
+              - limit: 0.8008281904610115
+                fields:
+                - fields
+                - fields
+              type: timeseries
+              queries:
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+            name: name
+            id: id
+          - layout:
+              w: 5.962133916683182
+              x: 6.027456183070403
+              h: 5.637376656633329
+              "y": 1.4658129805029452
+            visualization:
+              visibleSeries:
+              - true
+              - true
+              normalizer:
+                unit: days
+                type: duration
+              formula: formula
+              source: logs
+              groupBy:
+              - limit: 0.8008281904610115
+                fields:
+                - fields
+                - fields
+              - limit: 0.8008281904610115
+                fields:
+                - fields
+                - fields
+              - limit: 0.8008281904610115
+                fields:
+                - fields
+                - fields
+              type: timeseries
+              queries:
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+            name: name
+            id: id
+          name: name
+          id: id
+          filters:
+          - filters
+          - filters
+          - filters
+          - filters
+          - filters
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner"
+          type: array
+      required:
+      - data
+      - requestId
+      type: object
+    listDashboards_4XX_response:
+      example:
+        requestId: requestId
+        error:
+          code: ABORT_ERROR
+          message: message
+          statusCode: 2.3021358869347655
+      properties:
+        requestId:
+          type: string
+        error:
+          $ref: "#/components/schemas/ErrorResponse"
+      required:
+      - error
+      - requestId
+      type: object
+    createDashboard_request:
+      properties:
+        name:
+          description: Display name of the dashboard
+          maxLength: 250
+          minLength: 0
+          type: string
+        owner:
+          description: Team ID that owns and manages the dashboard
+          maxLength: 250
+          minLength: 1
+          type: string
+        graphs:
+          description: Ordered widgets that compose the dashboard
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_graphs_inner"
+          type: array
+        filters:
+          description: Filters applied to every widget on the dashboard
+          items:
+            type: string
+          maxItems: 10
+          type: array
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_tags_inner"
+          maxItems: 50
+          type: array
+      required:
+      - graphs
+      - name
+      - owner
+      type: object
+    createDashboard_200_response:
+      example:
+        data:
+          owner: owner
+          graphs:
+          - layout:
+              w: 5.962133916683182
+              x: 6.027456183070403
+              h: 5.637376656633329
+              "y": 1.4658129805029452
+            visualization:
+              visibleSeries:
+              - true
+              - true
+              normalizer:
+                unit: days
+                type: duration
+              formula: formula
+              source: logs
+              groupBy:
+              - limit: 0.8008281904610115
+                fields:
+                - fields
+                - fields
+              - limit: 0.8008281904610115
+                fields:
+                - fields
+                - fields
+              - limit: 0.8008281904610115
+                fields:
+                - fields
+                - fields
+              type: timeseries
+              queries:
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+            name: name
+            id: id
+          - layout:
+              w: 5.962133916683182
+              x: 6.027456183070403
+              h: 5.637376656633329
+              "y": 1.4658129805029452
+            visualization:
+              visibleSeries:
+              - true
+              - true
+              normalizer:
+                unit: days
+                type: duration
+              formula: formula
+              source: logs
+              groupBy:
+              - limit: 0.8008281904610115
+                fields:
+                - fields
+                - fields
+              - limit: 0.8008281904610115
+                fields:
+                - fields
+                - fields
+              - limit: 0.8008281904610115
+                fields:
+                - fields
+                - fields
+              type: timeseries
+              queries:
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+              - filter: filter
+                functions:
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                - type: per-second
+                aggregate:
+                  type: count
+            name: name
+            id: id
+          name: name
+          id: id
+          filters:
+          - filters
+          - filters
+          - filters
+          - filters
+          - filters
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Dashboard"
+      required:
+      - data
+      - requestId
+      type: object
+    updateDashboard_request:
+      properties:
+        name:
+          description: Display name of the dashboard
+          maxLength: 250
+          minLength: 0
+          type: string
+        owner:
+          description: Team ID that owns and manages the dashboard
+          maxLength: 250
+          minLength: 1
+          type: string
+        graphs:
+          description: Ordered widgets that compose the dashboard
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_graphs_inner"
+          type: array
+        filters:
+          description: Filters applied to every widget on the dashboard
+          items:
+            type: string
+          maxItems: 10
+          type: array
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_tags_inner"
+          maxItems: 50
+          type: array
+      type: object
+    deleteDashboard_200_response_data:
+      example:
+        success: true
+      properties:
+        success:
+          description: Indicates the resource was deleted successfully
+          type: boolean
+      required:
+      - success
+      type: object
+    deleteDashboard_200_response:
+      example:
+        data:
+          success: true
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/deleteDashboard_200_response_data"
+      required:
+      - data
+      - requestId
+      type: object
+    listNotificationRules_200_response_data_inner_targets_inner_rateLimit:
+      description: Per-target rate-limiting configuration
+      example:
+        minutes: 1
+        maxMessages: 1
+      properties:
+        maxMessages:
+          description: Maximum number of messages allowed during the rate-limiting
+            window
+          minimum: 1
+          type: integer
+        minutes:
+          description: Length of the rate-limiting window in minutes
+          minimum: 1
+          type: integer
+      required:
+      - maxMessages
+      - minutes
+      type: object
+    listNotificationRules_200_response_data_inner_targets_inner_renotifyConfig:
+      description: Configuration for repeating notifications over time
+      example:
+        mode: each
+        renotifyIntervalMinutes: 1
+        renotificationStates:
+        - alert
+        - alert
+      properties:
+        mode:
+          enum:
+          - each
+          type: string
+        renotificationStates:
+          description: Alert states that will trigger a renotification
+          items:
+            enum:
+            - alert
+            - alert_no_data
+            type: string
+          type: array
+        renotifyIntervalMinutes:
+          description: Minimum number of minutes to wait before renotifying
+          minimum: 1
+          type: integer
+      required:
+      - mode
+      - renotificationStates
+      - renotifyIntervalMinutes
+      type: object
+    listNotificationRules_200_response_data_inner_targets_inner_config:
+      description: Configuration describing how the alert was delivered
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/RuleTargetConfigSlack"
+      - $ref: "#/components/schemas/RuleTargetConfigIncidentIo"
+      - $ref: "#/components/schemas/RuleTargetConfigEmail"
+      - $ref: "#/components/schemas/RuleTargetConfigGrafanaIrm"
+      - $ref: "#/components/schemas/RuleTargetConfigPagerDuty"
+      - $ref: "#/components/schemas/RuleTargetConfigMicrosoftTeams"
+      - $ref: "#/components/schemas/RuleTargetConfigWebhook"
+      required:
+      - type
+      type: object
+    listNotificationRules_200_response_data_inner_targets_inner:
+      example:
+        rateLimit:
+          minutes: 1
+          maxMessages: 1
+        renotifyConfig:
+          mode: each
+          renotifyIntervalMinutes: 1
+          renotificationStates:
+          - alert
+          - alert
+        id: id
+        config:
+          integrationName: integrationName
+          channel: channel
+          integrationId: integrationId
+          type: slack
+      properties:
+        id:
+          description: Identifier of the notification target
+          type: string
+        rateLimit:
+          $ref: "#/components/schemas/listNotificationRules_200_response_data_inner_targets_inner_rateLimit"
+        renotifyConfig:
+          $ref: "#/components/schemas/listNotificationRules_200_response_data_inner_targets_inner_renotifyConfig"
+        config:
+          $ref: "#/components/schemas/listNotificationRules_200_response_data_inner_targets_inner_config"
+      required:
+      - config
+      - id
+      type: object
+    listNotificationRules_200_response_data_inner:
+      description: Rules to trigger notifications to targets based on alert events
+      example:
+        owner: owner
+        transitionTypesFilter:
+        - triggered
+        - triggered
+        name: name
+        prioritiesFilter:
+        - 1
+        - 1
+        id: id
+        isActive: true
+        teamsFilter:
+        - teamsFilter
+        - teamsFilter
+        targets:
+        - rateLimit:
+            minutes: 1
+            maxMessages: 1
+          renotifyConfig:
+            mode: each
+            renotifyIntervalMinutes: 1
+            renotificationStates:
+            - alert
+            - alert
+          id: id
+          config:
+            integrationName: integrationName
+            channel: channel
+            integrationId: integrationId
+            type: slack
+        - rateLimit:
+            minutes: 1
+            maxMessages: 1
+          renotifyConfig:
+            mode: each
+            renotifyIntervalMinutes: 1
+            renotificationStates:
+            - alert
+            - alert
+          id: id
+          config:
+            integrationName: integrationName
+            channel: channel
+            integrationId: integrationId
+            type: slack
+        tags:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+      properties:
+        id:
+          description: Identifier of the notification rule
+          type: string
+        name:
+          description: Display name of the notification rule
+          type: string
+        teamsFilter:
+          description: Team IDs that narrow down the teams that can receive notifications
+            from this rule
+          items:
+            type: string
+          type: array
+        prioritiesFilter:
+          description: Priorities that narrow down the alerts that can trigger a notification
+          items:
+            maximum: 5
+            minimum: 1
+            type: integer
+          type: array
+        transitionTypesFilter:
+          description: Alert state transitions that can trigger a notification
+          items:
+            enum:
+            - triggered
+            - resolved
+            - no-data
+            type: string
+          type: array
+        owner:
+          description: Team ID that owns and manages the rule
+          type: string
+        isActive:
+          type: boolean
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_tags_inner"
+          maxItems: 50
+          type: array
+        targets:
+          description: Notification targets that can receive notifications when the
+            rule matches
+          items:
+            $ref: "#/components/schemas/listNotificationRules_200_response_data_inner_targets_inner"
+          type: array
+      required:
+      - id
+      - isActive
+      - name
+      - owner
+      - prioritiesFilter
+      - targets
+      - teamsFilter
+      - transitionTypesFilter
+      type: object
+    listNotificationRules_200_response:
+      example:
+        data:
+        - owner: owner
+          transitionTypesFilter:
+          - triggered
+          - triggered
+          name: name
+          prioritiesFilter:
+          - 1
+          - 1
+          id: id
+          isActive: true
+          teamsFilter:
+          - teamsFilter
+          - teamsFilter
+          targets:
+          - rateLimit:
+              minutes: 1
+              maxMessages: 1
+            renotifyConfig:
+              mode: each
+              renotifyIntervalMinutes: 1
+              renotificationStates:
+              - alert
+              - alert
+            id: id
+            config:
+              integrationName: integrationName
+              channel: channel
+              integrationId: integrationId
+              type: slack
+          - rateLimit:
+              minutes: 1
+              maxMessages: 1
+            renotifyConfig:
+              mode: each
+              renotifyIntervalMinutes: 1
+              renotificationStates:
+              - alert
+              - alert
+            id: id
+            config:
+              integrationName: integrationName
+              channel: channel
+              integrationId: integrationId
+              type: slack
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        - owner: owner
+          transitionTypesFilter:
+          - triggered
+          - triggered
+          name: name
+          prioritiesFilter:
+          - 1
+          - 1
+          id: id
+          isActive: true
+          teamsFilter:
+          - teamsFilter
+          - teamsFilter
+          targets:
+          - rateLimit:
+              minutes: 1
+              maxMessages: 1
+            renotifyConfig:
+              mode: each
+              renotifyIntervalMinutes: 1
+              renotificationStates:
+              - alert
+              - alert
+            id: id
+            config:
+              integrationName: integrationName
+              channel: channel
+              integrationId: integrationId
+              type: slack
+          - rateLimit:
+              minutes: 1
+              maxMessages: 1
+            renotifyConfig:
+              mode: each
+              renotifyIntervalMinutes: 1
+              renotificationStates:
+              - alert
+              - alert
+            id: id
+            config:
+              integrationName: integrationName
+              channel: channel
+              integrationId: integrationId
+              type: slack
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/listNotificationRules_200_response_data_inner"
+          type: array
+      required:
+      - data
+      - requestId
+      type: object
+    createNotificationRule_request_targets_inner_config:
+      description: Configuration describing how the alert should be delivered
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/RuleTargetInputSlack"
+      - $ref: "#/components/schemas/RuleTargetInputIncidentIo"
+      - $ref: "#/components/schemas/RuleTargetInputPagerDuty"
+      - $ref: "#/components/schemas/RuleTargetInputEmail"
+      - $ref: "#/components/schemas/RuleTargetInputGrafanaIrm"
+      - $ref: "#/components/schemas/RuleTargetInputMicrosoftTeams"
+      - $ref: "#/components/schemas/RuleTargetInputWebhook"
+      required:
+      - type
+      type: object
+    createNotificationRule_request_targets_inner:
+      properties:
+        id:
+          description: Identifier of the notification target
+          maxLength: 250
+          minLength: 0
+          type: string
+        rateLimit:
+          $ref: "#/components/schemas/listNotificationRules_200_response_data_inner_targets_inner_rateLimit"
+        config:
+          $ref: "#/components/schemas/createNotificationRule_request_targets_inner_config"
+        renotifyConfig:
+          $ref: "#/components/schemas/listNotificationRules_200_response_data_inner_targets_inner_renotifyConfig"
+      required:
+      - config
+      - id
+      type: object
+    createNotificationRule_request:
+      properties:
+        name:
+          description: Display name of the notification rule
+          maxLength: 250
+          minLength: 0
+          type: string
+        teamsFilter:
+          description: Team IDs that narrow down the teams that can receive notifications
+            from this rule
+          items:
+            maxLength: 250
+            minLength: 0
+            type: string
+          type: array
+        prioritiesFilter:
+          description: Priorities that narrow down the alerts that can trigger a notification
+          items:
+            maximum: 5
+            minimum: 1
+            type: integer
+          type: array
+        transitionTypesFilter:
+          description: Alert state transitions that can trigger a notification
+          items:
+            enum:
+            - triggered
+            - resolved
+            - no-data
+            type: string
+          type: array
+        owner:
+          description: Team ID that owns and manages the rule
+          maxLength: 250
+          minLength: 1
+          type: string
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_tags_inner"
+          maxItems: 50
+          type: array
+        isActive:
+          type: boolean
+        targets:
+          description: Notification targets that can receive notifications when the
+            rule matches
+          items:
+            $ref: "#/components/schemas/createNotificationRule_request_targets_inner"
+          minItems: 1
+          type: array
+      required:
+      - isActive
+      - name
+      - owner
+      - prioritiesFilter
+      - targets
+      - teamsFilter
+      - transitionTypesFilter
+      type: object
+    createNotificationRule_200_response:
+      example:
+        data:
+          owner: owner
+          transitionTypesFilter:
+          - triggered
+          - triggered
+          name: name
+          prioritiesFilter:
+          - 1
+          - 1
+          id: id
+          isActive: true
+          teamsFilter:
+          - teamsFilter
+          - teamsFilter
+          targets:
+          - rateLimit:
+              minutes: 1
+              maxMessages: 1
+            renotifyConfig:
+              mode: each
+              renotifyIntervalMinutes: 1
+              renotificationStates:
+              - alert
+              - alert
+            id: id
+            config:
+              integrationName: integrationName
+              channel: channel
+              integrationId: integrationId
+              type: slack
+          - rateLimit:
+              minutes: 1
+              maxMessages: 1
+            renotifyConfig:
+              mode: each
+              renotifyIntervalMinutes: 1
+              renotificationStates:
+              - alert
+              - alert
+            id: id
+            config:
+              integrationName: integrationName
+              channel: channel
+              integrationId: integrationId
+              type: slack
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Rule"
+      required:
+      - data
+      - requestId
+      type: object
+    listRoutes_200_response_data_inner_processors_inner_anyOf_example:
+      example:
+        manual: true
+      properties:
+        manual:
+          type: boolean
+      required:
+      - manual
+      type: object
+    listRoutes_200_response_data_inner_processors_inner_anyOf_params:
+      discriminator:
+        propertyName: subtype
+      oneOf:
+      - $ref: "#/components/schemas/ProcessorParamsMapperMapAttributes"
+      - $ref: "#/components/schemas/ProcessorParamsMapperMapLevel"
+      - $ref: "#/components/schemas/ProcessorParamsMapperMapTimestamp"
+      required:
+      - subtype
+      type: object
+    listRoutes_200_response_data_inner_processors_inner_anyOf:
+      example:
+        name: name
+        description: description
+        id: id
+        type: mapper
+        params:
+          subtype: map-attributes
+          attributes:
+          - keepOrigin: true
+            originAttribute: originAttribute
+            targetAttribute: targetAttribute
+            overrideTarget: true
+          - keepOrigin: true
+            originAttribute: originAttribute
+            targetAttribute: targetAttribute
+            overrideTarget: true
+          - keepOrigin: true
+            originAttribute: originAttribute
+            targetAttribute: targetAttribute
+            overrideTarget: true
+          - keepOrigin: true
+            originAttribute: originAttribute
+            targetAttribute: targetAttribute
+            overrideTarget: true
+          - keepOrigin: true
+            originAttribute: originAttribute
+            targetAttribute: targetAttribute
+            overrideTarget: true
+        example:
+          manual: true
+        tags:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          description: Identifier of the processor
+          maxLength: 250
+          minLength: 0
+          type: string
+        name:
+          description: Display name of the processor
+          maxLength: 250
+          minLength: 0
+          type: string
+        description:
+          maxLength: 50000
+          minLength: 0
+          type: string
+        example:
+          $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_example"
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_tags_inner"
+          maxItems: 50
+          type: array
+        updatedAt:
+          format: date-time
+          type: string
+        type:
+          enum:
+          - mapper
+          type: string
+        params:
+          $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_params"
+      required:
+      - id
+      - name
+      - params
+      - type
+      type: object
+    listRoutes_200_response_data_inner_processors_inner_anyOf_1_params_oneOf:
+      properties:
+        attributeName:
+          description: Attribute whose value will be parsed with Grok rules
+          maxLength: 250
+          minLength: 0
+          type: string
+        rules:
+          description: Ordered Grok rules evaluated until one matches
+          items:
+            description: Grok rule applied to parse text
+            maxLength: 50000
+            minLength: 0
+            type: string
+          maxItems: 5
+          type: array
+        samples:
+          description: Example log lines for validation
+          items:
+            maxLength: 50000
+            minLength: 0
+            type: string
+          maxItems: 5
+          type: array
+        subtype:
+          enum:
+          - grok
+          type: string
+      required:
+      - attributeName
+      - rules
+      - subtype
+      type: object
+    listRoutes_200_response_data_inner_processors_inner_anyOf_1_params_oneOf_1:
+      properties:
+        sourceAttribute:
+          description: Attribute containing the URL to parse
+          maxLength: 250
+          minLength: 0
+          type: string
+        subtype:
+          enum:
+          - url
+          type: string
+      required:
+      - sourceAttribute
+      - subtype
+      type: object
+    listRoutes_200_response_data_inner_processors_inner_anyOf_1_params_oneOf_2:
+      properties:
+        sourceAttribute:
+          description: Attribute containing the user agent string to parse
+          maxLength: 250
+          minLength: 0
+          type: string
+        subtype:
+          enum:
+          - user-agent
+          type: string
+      required:
+      - sourceAttribute
+      - subtype
+      type: object
+    listRoutes_200_response_data_inner_processors_inner_anyOf_1_params_oneOf_3:
+      properties:
+        sourceAttribute:
+          description: Attribute containing the key/value string segment to parse
+          maxLength: 250
+          minLength: 0
+          type: string
+        targetAttribute:
+          description: Attribute prefix where extracted key/value pairs will be written
+          maxLength: 250
+          minLength: 0
+          type: string
+        keyValueSplitter:
+          description: Delimiter separating keys from values in the source string
+          maxLength: 250
+          minLength: 0
+          type: string
+        pairsSplitter:
+          description: Delimiter separating each key/value pair
+          maxLength: 250
+          minLength: 0
+          type: string
+        acceptStandaloneKey:
+          type: boolean
+        subtype:
+          enum:
+          - key-value
+          type: string
+      required:
+      - acceptStandaloneKey
+      - keyValueSplitter
+      - pairsSplitter
+      - sourceAttribute
+      - subtype
+      - targetAttribute
+      type: object
+    listRoutes_200_response_data_inner_processors_inner_anyOf_1_params:
+      discriminator:
+        propertyName: subtype
+      oneOf:
+      - $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_1_params_oneOf"
+      - $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_1_params_oneOf_1"
+      - $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_1_params_oneOf_2"
+      - $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_1_params_oneOf_3"
+      required:
+      - subtype
+      type: object
+    listRoutes_200_response_data_inner_processors_inner_anyOf_1:
+      properties:
+        id:
+          description: Identifier of the processor
+          maxLength: 250
+          minLength: 0
+          type: string
+        name:
+          description: Display name of the processor
+          maxLength: 250
+          minLength: 0
+          type: string
+        description:
+          maxLength: 50000
+          minLength: 0
+          type: string
+        example:
+          $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_example"
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_tags_inner"
+          maxItems: 50
+          type: array
+        updatedAt:
+          format: date-time
+          type: string
+        type:
+          enum:
+          - parse-attribute
+          type: string
+        params:
+          $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_1_params"
+      required:
+      - id
+      - name
+      - params
+      - type
+      type: object
+    listRoutes_200_response_data_inner_processors_inner_anyOf_2_params:
+      discriminator:
+        propertyName: subtype
+      oneOf:
+      - $ref: "#/components/schemas/ProcessorParamsCreatorFormatString"
+      - $ref: "#/components/schemas/ProcessorParamsCreatorMathFormula"
+      required:
+      - subtype
+      type: object
+    listRoutes_200_response_data_inner_processors_inner_anyOf_2:
+      properties:
+        id:
+          description: Identifier of the processor
+          maxLength: 250
+          minLength: 0
+          type: string
+        name:
+          description: Display name of the processor
+          maxLength: 250
+          minLength: 0
+          type: string
+        description:
+          maxLength: 50000
+          minLength: 0
+          type: string
+        example:
+          $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_example"
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_tags_inner"
+          maxItems: 50
+          type: array
+        updatedAt:
+          format: date-time
+          type: string
+        type:
+          enum:
+          - creator
+          type: string
+        params:
+          $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_2_params"
+      required:
+      - id
+      - name
+      - params
+      - type
+      type: object
+    listRoutes_200_response_data_inner_processors_inner_anyOf_3_params:
+      properties:
+        integrationId:
+          maxLength: 250
+          minLength: 0
+          type: string
+      required:
+      - integrationId
+      type: object
+    listRoutes_200_response_data_inner_processors_inner_anyOf_3:
+      properties:
+        id:
+          description: Identifier of the processor
+          maxLength: 250
+          minLength: 0
+          type: string
+        name:
+          description: Display name of the processor
+          maxLength: 250
+          minLength: 0
+          type: string
+        description:
+          maxLength: 50000
+          minLength: 0
+          type: string
+        example:
+          $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_example"
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_tags_inner"
+          maxItems: 50
+          type: array
+        updatedAt:
+          format: date-time
+          type: string
+        params:
+          $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_3_params"
+        type:
+          enum:
+          - integration
+          type: string
+      required:
+      - id
+      - name
+      - params
+      - type
+      type: object
+    listRoutes_200_response_data_inner_processors_inner_anyOf_4_params_items_inner:
+      properties:
+        query:
+          description: Query that determines whether logs enter this branch
+          maxLength: 50000
+          minLength: 0
+          type: string
+        processors:
+          description: Processors executed when the branch query matches
+          items:
+            $ref: "#/components/schemas/Processor"
+          maxItems: 50
+          type: array
+      required:
+      - processors
+      - query
+      type: object
+    listRoutes_200_response_data_inner_processors_inner_anyOf_4_params:
+      properties:
+        items:
+          description: Conditional branches evaluated in order before falling back
+            to the default
+          items:
+            $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_4_params_items_inner"
+          maxItems: 11
+          type: array
+      required:
+      - items
+      type: object
+    listRoutes_200_response_data_inner_processors_inner_anyOf_4:
+      properties:
+        id:
+          description: Identifier of the processor
+          maxLength: 250
+          minLength: 0
+          type: string
+        name:
+          description: Display name of the processor
+          maxLength: 250
+          minLength: 0
+          type: string
+        description:
+          maxLength: 50000
+          minLength: 0
+          type: string
+        example:
+          $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_example"
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_tags_inner"
+          maxItems: 50
+          type: array
+        updatedAt:
+          format: date-time
+          type: string
+        params:
+          $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_4_params"
+        type:
+          enum:
+          - split
+          type: string
+      required:
+      - id
+      - name
+      - params
+      - type
+      type: object
+    listRoutes_200_response_data_inner_processors_inner:
+      anyOf:
+      - $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf"
+      - $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_1"
+      - $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_2"
+      - $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_3"
+      - $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner_anyOf_4"
+      description: Processing step executed sequentially on route logs
+    listRoutes_200_response_data_inner:
+      description: Log route allowing to standardize logs and enrich them with additional
+        data
+      example:
+        owner: owner
+        isEnabled: true
+        query: query
+        name: name
+        description: description
+        id: id
+        processors:
+        - name: name
+          description: description
+          id: id
+          type: mapper
+          params:
+            subtype: map-attributes
+            attributes:
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+          example:
+            manual: true
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - name: name
+          description: description
+          id: id
+          type: mapper
+          params:
+            subtype: map-attributes
+            attributes:
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+          example:
+            manual: true
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - name: name
+          description: description
+          id: id
+          type: mapper
+          params:
+            subtype: map-attributes
+            attributes:
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+          example:
+            manual: true
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - name: name
+          description: description
+          id: id
+          type: mapper
+          params:
+            subtype: map-attributes
+            attributes:
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+          example:
+            manual: true
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - name: name
+          description: description
+          id: id
+          type: mapper
+          params:
+            subtype: map-attributes
+            attributes:
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+            - keepOrigin: true
+              originAttribute: originAttribute
+              targetAttribute: targetAttribute
+              overrideTarget: true
+          example:
+            manual: true
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        tags:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+      properties:
+        id:
+          description: Identifier of the log route
+          maxLength: 250
+          minLength: 0
+          type: string
+        name:
+          description: Human readable name shown for the route
+          maxLength: 250
+          minLength: 0
+          type: string
+        description:
+          maxLength: 50000
+          minLength: 0
+          type: string
+        isEnabled:
+          type: boolean
+        query:
+          description: Query that selects which logs should enter the route
+          maxLength: 250
+          minLength: 0
+          type: string
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_tags_inner"
+          maxItems: 50
+          type: array
+        owner:
+          description: Team ID owning and managing the route
+          maxLength: 250
+          minLength: 1
+          type: string
+        processors:
+          description: Ordered processors applied to logs that match the route
+          items:
+            $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner"
+          maxItems: 50
+          type: array
+      required:
+      - id
+      - isEnabled
+      - name
+      - owner
+      - processors
+      - query
+      type: object
+    listRoutes_200_response:
+      example:
+        data:
+        - owner: owner
+          isEnabled: true
+          query: query
+          name: name
+          description: description
+          id: id
+          processors:
+          - name: name
+            description: description
+            id: id
+            type: mapper
+            params:
+              subtype: map-attributes
+              attributes:
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+            example:
+              manual: true
+            tags:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - name: name
+            description: description
+            id: id
+            type: mapper
+            params:
+              subtype: map-attributes
+              attributes:
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+            example:
+              manual: true
+            tags:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - name: name
+            description: description
+            id: id
+            type: mapper
+            params:
+              subtype: map-attributes
+              attributes:
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+            example:
+              manual: true
+            tags:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - name: name
+            description: description
+            id: id
+            type: mapper
+            params:
+              subtype: map-attributes
+              attributes:
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+            example:
+              manual: true
+            tags:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - name: name
+            description: description
+            id: id
+            type: mapper
+            params:
+              subtype: map-attributes
+              attributes:
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+            example:
+              manual: true
+            tags:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        - owner: owner
+          isEnabled: true
+          query: query
+          name: name
+          description: description
+          id: id
+          processors:
+          - name: name
+            description: description
+            id: id
+            type: mapper
+            params:
+              subtype: map-attributes
+              attributes:
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+            example:
+              manual: true
+            tags:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - name: name
+            description: description
+            id: id
+            type: mapper
+            params:
+              subtype: map-attributes
+              attributes:
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+            example:
+              manual: true
+            tags:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - name: name
+            description: description
+            id: id
+            type: mapper
+            params:
+              subtype: map-attributes
+              attributes:
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+            example:
+              manual: true
+            tags:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - name: name
+            description: description
+            id: id
+            type: mapper
+            params:
+              subtype: map-attributes
+              attributes:
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+            example:
+              manual: true
+            tags:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - name: name
+            description: description
+            id: id
+            type: mapper
+            params:
+              subtype: map-attributes
+              attributes:
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+            example:
+              manual: true
+            tags:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/listRoutes_200_response_data_inner"
+          type: array
+      required:
+      - data
+      - requestId
+      type: object
+    createRoute_request:
+      properties:
+        name:
+          description: Human readable name shown for the route
+          maxLength: 250
+          minLength: 0
+          type: string
+        description:
+          maxLength: 50000
+          minLength: 0
+          type: string
+        isEnabled:
+          type: boolean
+        query:
+          description: Query that selects which logs should enter the route
+          maxLength: 250
+          minLength: 0
+          type: string
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_tags_inner"
+          maxItems: 50
+          type: array
+        owner:
+          description: Team ID owning and managing the route
+          maxLength: 250
+          minLength: 1
+          type: string
+        processors:
+          description: Ordered processors applied to logs that match the route
+          items:
+            $ref: "#/components/schemas/listRoutes_200_response_data_inner_processors_inner"
+          maxItems: 50
+          type: array
+      required:
+      - isEnabled
+      - name
+      - owner
+      - processors
+      - query
+      type: object
+    createRoute_200_response:
+      example:
+        data:
+          owner: owner
+          isEnabled: true
+          query: query
+          name: name
+          description: description
+          id: id
+          processors:
+          - name: name
+            description: description
+            id: id
+            type: mapper
+            params:
+              subtype: map-attributes
+              attributes:
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+            example:
+              manual: true
+            tags:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - name: name
+            description: description
+            id: id
+            type: mapper
+            params:
+              subtype: map-attributes
+              attributes:
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+            example:
+              manual: true
+            tags:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - name: name
+            description: description
+            id: id
+            type: mapper
+            params:
+              subtype: map-attributes
+              attributes:
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+            example:
+              manual: true
+            tags:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - name: name
+            description: description
+            id: id
+            type: mapper
+            params:
+              subtype: map-attributes
+              attributes:
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+            example:
+              manual: true
+            tags:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - name: name
+            description: description
+            id: id
+            type: mapper
+            params:
+              subtype: map-attributes
+              attributes:
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+              - keepOrigin: true
+                originAttribute: originAttribute
+                targetAttribute: targetAttribute
+                overrideTarget: true
+            example:
+              manual: true
+            tags:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            - value: value
+              key: key
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Route"
+      required:
+      - data
+      - requestId
+      type: object
+    listTeams_200_response_data_inner:
+      description: Collection of users used to manage ownership and access to resources
+      example:
+        visibility: public
+        name: name
+        description: description
+        id: id
+        tags:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+      properties:
+        id:
+          description: Identifier of the team
+          type: string
+        name:
+          description: Human readable team name displayed throughout the app
+          type: string
+        description:
+          type: string
+        visibility:
+          description: Controls whether the resources of the team are discoverable
+            by users
+          enum:
+          - public
+          - private
+          type: string
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_tags_inner"
+          maxItems: 50
+          type: array
+      required:
+      - id
+      - name
+      - visibility
+      type: object
+    listTeams_200_response:
+      example:
+        data:
+        - visibility: public
+          name: name
+          description: description
+          id: id
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        - visibility: public
+          name: name
+          description: description
+          id: id
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/listTeams_200_response_data_inner"
+          type: array
+      required:
+      - data
+      - requestId
+      type: object
+    createTeam_request:
+      properties:
+        name:
+          description: Name to assign to the team
+          maxLength: 100
+          minLength: 1
+          type: string
+        description:
+          maxLength: 250
+          type: string
+        visibility:
+          description: Controls whether the resources of the team are discoverable
+            by users
+          enum:
+          - public
+          - private
+          type: string
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/listDashboards_200_response_data_inner_tags_inner"
+          maxItems: 50
+          type: array
+      required:
+      - name
+      - visibility
+      type: object
+    createTeam_200_response:
+      example:
+        data:
+          visibility: public
+          name: name
+          description: description
+          id: id
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Team"
+      required:
+      - data
+      - requestId
+      type: object
+    ProcessorParamsMapperMapAttributes_attributes_inner:
+      example:
+        keepOrigin: true
+        originAttribute: originAttribute
+        targetAttribute: targetAttribute
+        overrideTarget: true
+      properties:
+        originAttribute:
+          description: Attribute name to map to the target attribute
+          maxLength: 250
+          minLength: 0
+          type: string
+        keepOrigin:
+          description: Preserve the source attribute after mapping (defaults to false)
+          type: boolean
+        overrideTarget:
+          description: Overwrite the target attribute when it already exists (defaults
+            to true)
+          type: boolean
+        targetAttribute:
+          description: Attribute name that will receive the mapped value
+          maxLength: 250
+          minLength: 0
+          type: string
+      required:
+      - originAttribute
+      - targetAttribute
+      type: object
+    GraphVisualizationTimeseries_queries_inner_aggregate:
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/AggregateCount"
+      - $ref: "#/components/schemas/AggregateSum"
+      - $ref: "#/components/schemas/AggregateAverage"
+      - $ref: "#/components/schemas/AggregateMin"
+      - $ref: "#/components/schemas/AggregateMax"
+      - $ref: "#/components/schemas/AggregateUniqueCount"
+      - $ref: "#/components/schemas/AggregatePercentile"
+      required:
+      - type
+      type: object
+    GraphVisualizationTimeseries_queries_inner_functions_inner:
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/FunctionPerSecond"
+      - $ref: "#/components/schemas/FunctionPerMinute"
+      - $ref: "#/components/schemas/FunctionPerHour"
+      - $ref: "#/components/schemas/FunctionRate"
+      - $ref: "#/components/schemas/FunctionRolling"
+      required:
+      - type
+      type: object
+    GraphVisualizationTimeseries_queries_inner:
+      example:
+        filter: filter
+        functions:
+        - type: per-second
+        - type: per-second
+        - type: per-second
+        - type: per-second
+        - type: per-second
+        aggregate:
+          type: count
+      properties:
+        aggregate:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_queries_inner_aggregate"
+        filter:
+          maxLength: 10000
+          minLength: 0
+          type: string
+        functions:
+          description: Post-processing functions applied to aggregation results
+          items:
+            $ref: "#/components/schemas/GraphVisualizationTimeseries_queries_inner_functions_inner"
+          maxItems: 10
+          type: array
+      required:
+      - aggregate
+      type: object
+    GraphVisualizationTimeseries_groupBy_inner:
+      example:
+        limit: 0.8008281904610115
+        fields:
+        - fields
+        - fields
+      properties:
+        fields:
+          items:
+            maxLength: 250
+            minLength: 0
+            type: string
+          type: array
+        limit:
+          type: number
+      required:
+      - fields
+      - limit
+      type: object
+    GraphVisualizationTimeseries_normalizer:
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/DataNormalizerDuration"
+      - $ref: "#/components/schemas/DataNormalizerData"
+      - $ref: "#/components/schemas/DataNormalizerCustom"
+      - $ref: "#/components/schemas/DataNormalizerDate"
+      - $ref: "#/components/schemas/DataNormalizerLevel"
+      required:
+      - type
+      type: object
+    GraphVisualizationQueryValue_conditions_inner:
+      properties:
+        operator:
+          description: Comparator used to evaluate the metric value
+          enum:
+          - greater_than
+          - less_than
+          - equal
+          - not_equal
+          - greater_than_or_equal
+          - less_than_or_equal
+          type: string
+        value:
+          description: Threshold value used when evaluating the operator
+          type: number
+        color:
+          description: Color applied when the condition is met
+          enum:
+          - alert
+          - warning
+          - success
+          type: string
+      required:
+      - color
+      - operator
+      - value
+      type: object
+    GraphVisualizationBar_timeBucket:
+      properties:
+        time:
+          description: Number of units that make up each bar bucket
+          type: number
+        metric:
+          description: Unit used to measure the bucket width
+          enum:
+          - sec
+          - min
+          - hour
+          - day
+          type: string
+      required:
+      - metric
+      - time
+      type: object
+    GraphVisualizationList_listColumns_inner:
+      properties:
+        attribute:
+          description: Attribute displayed as a column in the log list
+          type: string
+        normalizer:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_normalizer"
+      required:
+      - attribute
+      type: object
+  securitySchemes:
+    bearerAuth:
+      scheme: bearer
+      type: http
