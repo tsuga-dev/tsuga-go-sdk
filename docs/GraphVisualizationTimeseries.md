@@ -6,17 +6,17 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a time series chart | 
 **Source** | **string** | Data source being queried for this aggregation | 
-**Queries** | [**[]GraphVisualizationTimeseriesQueriesInner**](GraphVisualizationTimeseriesQueriesInner.md) | Aggregations that may be combined together in the same query | 
+**Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query | 
 **Formula** | Pointer to **string** | Formula referencing query outputs (e.g. q1+q2) to compute derived series | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
-**GroupBy** | Pointer to [**[]GraphVisualizationTimeseriesGroupByInner**](GraphVisualizationTimeseriesGroupByInner.md) | Fields used to group the results | [optional] 
-**Normalizer** | Pointer to [**GraphVisualizationTimeseriesNormalizer**](GraphVisualizationTimeseriesNormalizer.md) |  | [optional] 
+**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
+**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 
 ## Methods
 
 ### NewGraphVisualizationTimeseries
 
-`func NewGraphVisualizationTimeseries(type_ string, source string, queries []GraphVisualizationTimeseriesQueriesInner, ) *GraphVisualizationTimeseries`
+`func NewGraphVisualizationTimeseries(type_ string, source string, queries []AggregationQuery, ) *GraphVisualizationTimeseries`
 
 NewGraphVisualizationTimeseries instantiates a new GraphVisualizationTimeseries object
 This constructor will assign default values to properties that have it defined,
@@ -73,20 +73,20 @@ SetSource sets Source field to given value.
 
 ### GetQueries
 
-`func (o *GraphVisualizationTimeseries) GetQueries() []GraphVisualizationTimeseriesQueriesInner`
+`func (o *GraphVisualizationTimeseries) GetQueries() []AggregationQuery`
 
 GetQueries returns the Queries field if non-nil, zero value otherwise.
 
 ### GetQueriesOk
 
-`func (o *GraphVisualizationTimeseries) GetQueriesOk() (*[]GraphVisualizationTimeseriesQueriesInner, bool)`
+`func (o *GraphVisualizationTimeseries) GetQueriesOk() (*[]AggregationQuery, bool)`
 
 GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueries
 
-`func (o *GraphVisualizationTimeseries) SetQueries(v []GraphVisualizationTimeseriesQueriesInner)`
+`func (o *GraphVisualizationTimeseries) SetQueries(v []AggregationQuery)`
 
 SetQueries sets Queries field to given value.
 
@@ -143,20 +143,20 @@ HasVisibleSeries returns a boolean if a field has been set.
 
 ### GetGroupBy
 
-`func (o *GraphVisualizationTimeseries) GetGroupBy() []GraphVisualizationTimeseriesGroupByInner`
+`func (o *GraphVisualizationTimeseries) GetGroupBy() []AggregationGroupBy`
 
 GetGroupBy returns the GroupBy field if non-nil, zero value otherwise.
 
 ### GetGroupByOk
 
-`func (o *GraphVisualizationTimeseries) GetGroupByOk() (*[]GraphVisualizationTimeseriesGroupByInner, bool)`
+`func (o *GraphVisualizationTimeseries) GetGroupByOk() (*[]AggregationGroupBy, bool)`
 
 GetGroupByOk returns a tuple with the GroupBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroupBy
 
-`func (o *GraphVisualizationTimeseries) SetGroupBy(v []GraphVisualizationTimeseriesGroupByInner)`
+`func (o *GraphVisualizationTimeseries) SetGroupBy(v []AggregationGroupBy)`
 
 SetGroupBy sets GroupBy field to given value.
 
@@ -168,20 +168,20 @@ HasGroupBy returns a boolean if a field has been set.
 
 ### GetNormalizer
 
-`func (o *GraphVisualizationTimeseries) GetNormalizer() GraphVisualizationTimeseriesNormalizer`
+`func (o *GraphVisualizationTimeseries) GetNormalizer() Normalizer`
 
 GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
 
 ### GetNormalizerOk
 
-`func (o *GraphVisualizationTimeseries) GetNormalizerOk() (*GraphVisualizationTimeseriesNormalizer, bool)`
+`func (o *GraphVisualizationTimeseries) GetNormalizerOk() (*Normalizer, bool)`
 
 GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNormalizer
 
-`func (o *GraphVisualizationTimeseries) SetNormalizer(v GraphVisualizationTimeseriesNormalizer)`
+`func (o *GraphVisualizationTimeseries) SetNormalizer(v Normalizer)`
 
 SetNormalizer sets Normalizer field to given value.
 

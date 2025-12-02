@@ -7,17 +7,17 @@ Name | Type | Description | Notes
 **Id** | **string** | Identifier of the processor | 
 **Name** | **string** | Display name of the processor | 
 **Description** | Pointer to **string** |  | [optional] 
-**Example** | Pointer to [**ListRoutes200ResponseDataInnerProcessorsInnerAnyOfExample**](ListRoutes200ResponseDataInnerProcessorsInnerAnyOfExample.md) |  | [optional] 
-**Tags** | Pointer to [**[]ListDashboards200ResponseDataInnerTagsInner**](ListDashboards200ResponseDataInnerTagsInner.md) | List of key/value tags applied to the resource | [optional] 
+**Example** | Pointer to [**Route1ProcessorsInnerAnyOfExample**](Route1ProcessorsInnerAnyOfExample.md) |  | [optional] 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **Type** | **string** |  | 
-**Params** | [**ListRoutes200ResponseDataInnerProcessorsInnerAnyOf4Params**](ListRoutes200ResponseDataInnerProcessorsInnerAnyOf4Params.md) |  | 
+**Params** | [**Route1ProcessorsInnerAnyOf3Params**](Route1ProcessorsInnerAnyOf3Params.md) |  | 
 
 ## Methods
 
 ### NewProcessor
 
-`func NewProcessor(id string, name string, type_ string, params ListRoutes200ResponseDataInnerProcessorsInnerAnyOf4Params, ) *Processor`
+`func NewProcessor(id string, name string, type_ string, params Route1ProcessorsInnerAnyOf3Params, ) *Processor`
 
 NewProcessor instantiates a new Processor object
 This constructor will assign default values to properties that have it defined,
@@ -99,20 +99,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetExample
 
-`func (o *Processor) GetExample() ListRoutes200ResponseDataInnerProcessorsInnerAnyOfExample`
+`func (o *Processor) GetExample() Route1ProcessorsInnerAnyOfExample`
 
 GetExample returns the Example field if non-nil, zero value otherwise.
 
 ### GetExampleOk
 
-`func (o *Processor) GetExampleOk() (*ListRoutes200ResponseDataInnerProcessorsInnerAnyOfExample, bool)`
+`func (o *Processor) GetExampleOk() (*Route1ProcessorsInnerAnyOfExample, bool)`
 
 GetExampleOk returns a tuple with the Example field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExample
 
-`func (o *Processor) SetExample(v ListRoutes200ResponseDataInnerProcessorsInnerAnyOfExample)`
+`func (o *Processor) SetExample(v Route1ProcessorsInnerAnyOfExample)`
 
 SetExample sets Example field to given value.
 
@@ -124,20 +124,20 @@ HasExample returns a boolean if a field has been set.
 
 ### GetTags
 
-`func (o *Processor) GetTags() []ListDashboards200ResponseDataInnerTagsInner`
+`func (o *Processor) GetTags() []Tag`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *Processor) GetTagsOk() (*[]ListDashboards200ResponseDataInnerTagsInner, bool)`
+`func (o *Processor) GetTagsOk() (*[]Tag, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *Processor) SetTags(v []ListDashboards200ResponseDataInnerTagsInner)`
+`func (o *Processor) SetTags(v []Tag)`
 
 SetTags sets Tags field to given value.
 
@@ -194,20 +194,20 @@ SetType sets Type field to given value.
 
 ### GetParams
 
-`func (o *Processor) GetParams() ListRoutes200ResponseDataInnerProcessorsInnerAnyOf4Params`
+`func (o *Processor) GetParams() Route1ProcessorsInnerAnyOf3Params`
 
 GetParams returns the Params field if non-nil, zero value otherwise.
 
 ### GetParamsOk
 
-`func (o *Processor) GetParamsOk() (*ListRoutes200ResponseDataInnerProcessorsInnerAnyOf4Params, bool)`
+`func (o *Processor) GetParamsOk() (*Route1ProcessorsInnerAnyOf3Params, bool)`
 
 GetParamsOk returns a tuple with the Params field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetParams
 
-`func (o *Processor) SetParams(v ListRoutes200ResponseDataInnerProcessorsInnerAnyOf4Params)`
+`func (o *Processor) SetParams(v Route1ProcessorsInnerAnyOf3Params)`
 
 SetParams sets Params field to given value.
 

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Name** | **string** | Name to assign to the team | 
 **Description** | Pointer to **string** |  | [optional] 
 **Visibility** | **string** | Controls whether the resources of the team are discoverable by users | 
-**Tags** | Pointer to [**[]ListDashboards200ResponseDataInnerTagsInner**](ListDashboards200ResponseDataInnerTagsInner.md) | List of key/value tags applied to the resource | [optional] 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
 
 ## Methods
 
@@ -95,20 +95,20 @@ SetVisibility sets Visibility field to given value.
 
 ### GetTags
 
-`func (o *CreateTeamRequest) GetTags() []ListDashboards200ResponseDataInnerTagsInner`
+`func (o *CreateTeamRequest) GetTags() []Tag`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *CreateTeamRequest) GetTagsOk() (*[]ListDashboards200ResponseDataInnerTagsInner, bool)`
+`func (o *CreateTeamRequest) GetTagsOk() (*[]Tag, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *CreateTeamRequest) SetTags(v []ListDashboards200ResponseDataInnerTagsInner)`
+`func (o *CreateTeamRequest) SetTags(v []Tag)`
 
 SetTags sets Tags field to given value.
 

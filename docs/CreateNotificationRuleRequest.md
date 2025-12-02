@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **PrioritiesFilter** | **[]int32** | Priorities that narrow down the alerts that can trigger a notification | 
 **TransitionTypesFilter** | **[]string** | Alert state transitions that can trigger a notification | 
 **Owner** | **string** | Team ID that owns and manages the rule | 
-**Tags** | Pointer to [**[]ListDashboards200ResponseDataInnerTagsInner**](ListDashboards200ResponseDataInnerTagsInner.md) | List of key/value tags applied to the resource | [optional] 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
 **IsActive** | **bool** |  | 
 **Targets** | [**[]CreateNotificationRuleRequestTargetsInner**](CreateNotificationRuleRequestTargetsInner.md) | Notification targets that can receive notifications when the rule matches | 
 
@@ -134,20 +134,20 @@ SetOwner sets Owner field to given value.
 
 ### GetTags
 
-`func (o *CreateNotificationRuleRequest) GetTags() []ListDashboards200ResponseDataInnerTagsInner`
+`func (o *CreateNotificationRuleRequest) GetTags() []Tag`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *CreateNotificationRuleRequest) GetTagsOk() (*[]ListDashboards200ResponseDataInnerTagsInner, bool)`
+`func (o *CreateNotificationRuleRequest) GetTagsOk() (*[]Tag, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *CreateNotificationRuleRequest) SetTags(v []ListDashboards200ResponseDataInnerTagsInner)`
+`func (o *CreateNotificationRuleRequest) SetTags(v []Tag)`
 
 SetTags sets Tags field to given value.
 

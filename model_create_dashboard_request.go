@@ -26,11 +26,11 @@ type CreateDashboardRequest struct {
 	// Team ID that owns and manages the dashboard
 	Owner string `json:"owner"`
 	// Ordered widgets that compose the dashboard
-	Graphs []ListDashboards200ResponseDataInnerGraphsInner `json:"graphs"`
+	Graphs []Graph `json:"graphs"`
 	// Filters applied to every widget on the dashboard
 	Filters []string `json:"filters,omitempty"`
 	// List of key/value tags applied to the resource
-	Tags []ListDashboards200ResponseDataInnerTagsInner `json:"tags,omitempty"`
+	Tags []Tag `json:"tags,omitempty"`
 }
 
 type _CreateDashboardRequest CreateDashboardRequest
@@ -39,7 +39,7 @@ type _CreateDashboardRequest CreateDashboardRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateDashboardRequest(name string, owner string, graphs []ListDashboards200ResponseDataInnerGraphsInner) *CreateDashboardRequest {
+func NewCreateDashboardRequest(name string, owner string, graphs []Graph) *CreateDashboardRequest {
 	this := CreateDashboardRequest{}
 	this.Name = name
 	this.Owner = owner
@@ -104,9 +104,9 @@ func (o *CreateDashboardRequest) SetOwner(v string) {
 }
 
 // GetGraphs returns the Graphs field value
-func (o *CreateDashboardRequest) GetGraphs() []ListDashboards200ResponseDataInnerGraphsInner {
+func (o *CreateDashboardRequest) GetGraphs() []Graph {
 	if o == nil {
-		var ret []ListDashboards200ResponseDataInnerGraphsInner
+		var ret []Graph
 		return ret
 	}
 
@@ -115,7 +115,7 @@ func (o *CreateDashboardRequest) GetGraphs() []ListDashboards200ResponseDataInne
 
 // GetGraphsOk returns a tuple with the Graphs field value
 // and a boolean to check if the value has been set.
-func (o *CreateDashboardRequest) GetGraphsOk() ([]ListDashboards200ResponseDataInnerGraphsInner, bool) {
+func (o *CreateDashboardRequest) GetGraphsOk() ([]Graph, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -123,7 +123,7 @@ func (o *CreateDashboardRequest) GetGraphsOk() ([]ListDashboards200ResponseDataI
 }
 
 // SetGraphs sets field value
-func (o *CreateDashboardRequest) SetGraphs(v []ListDashboards200ResponseDataInnerGraphsInner) {
+func (o *CreateDashboardRequest) SetGraphs(v []Graph) {
 	o.Graphs = v
 }
 
@@ -160,9 +160,9 @@ func (o *CreateDashboardRequest) SetFilters(v []string) {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *CreateDashboardRequest) GetTags() []ListDashboards200ResponseDataInnerTagsInner {
+func (o *CreateDashboardRequest) GetTags() []Tag {
 	if o == nil || IsNil(o.Tags) {
-		var ret []ListDashboards200ResponseDataInnerTagsInner
+		var ret []Tag
 		return ret
 	}
 	return o.Tags
@@ -170,7 +170,7 @@ func (o *CreateDashboardRequest) GetTags() []ListDashboards200ResponseDataInnerT
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateDashboardRequest) GetTagsOk() ([]ListDashboards200ResponseDataInnerTagsInner, bool) {
+func (o *CreateDashboardRequest) GetTagsOk() ([]Tag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -186,8 +186,8 @@ func (o *CreateDashboardRequest) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []ListDashboards200ResponseDataInnerTagsInner and assigns it to the Tags field.
-func (o *CreateDashboardRequest) SetTags(v []ListDashboards200ResponseDataInnerTagsInner) {
+// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
+func (o *CreateDashboardRequest) SetTags(v []Tag) {
 	o.Tags = v
 }
 

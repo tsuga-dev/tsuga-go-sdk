@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Type** | **string** | Displays matching logs in a tabular list | 
 **Source** | **string** | Indicates that the widget queries logs | 
 **Query** | **string** | Log query that selects records for the list | 
-**ListColumns** | Pointer to [**[]GraphVisualizationListListColumnsInner**](GraphVisualizationListListColumnsInner.md) | Custom columns to display for each log entry | [optional] 
+**ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each log entry | [optional] 
 
 ## Methods
 
@@ -90,20 +90,20 @@ SetQuery sets Query field to given value.
 
 ### GetListColumns
 
-`func (o *GraphVisualizationList) GetListColumns() []GraphVisualizationListListColumnsInner`
+`func (o *GraphVisualizationList) GetListColumns() []WidgetListColumn`
 
 GetListColumns returns the ListColumns field if non-nil, zero value otherwise.
 
 ### GetListColumnsOk
 
-`func (o *GraphVisualizationList) GetListColumnsOk() (*[]GraphVisualizationListListColumnsInner, bool)`
+`func (o *GraphVisualizationList) GetListColumnsOk() (*[]WidgetListColumn, bool)`
 
 GetListColumnsOk returns a tuple with the ListColumns field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetListColumns
 
-`func (o *GraphVisualizationList) SetListColumns(v []GraphVisualizationListListColumnsInner)`
+`func (o *GraphVisualizationList) SetListColumns(v []WidgetListColumn)`
 
 SetListColumns sets ListColumns field to given value.
 

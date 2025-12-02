@@ -18,79 +18,65 @@ import (
 
 // Processor Processing step executed sequentially on route logs
 type Processor struct {
-	ListRoutes200ResponseDataInnerProcessorsInnerAnyOf *ListRoutes200ResponseDataInnerProcessorsInnerAnyOf
-	ListRoutes200ResponseDataInnerProcessorsInnerAnyOf1 *ListRoutes200ResponseDataInnerProcessorsInnerAnyOf1
-	ListRoutes200ResponseDataInnerProcessorsInnerAnyOf2 *ListRoutes200ResponseDataInnerProcessorsInnerAnyOf2
-	ListRoutes200ResponseDataInnerProcessorsInnerAnyOf3 *ListRoutes200ResponseDataInnerProcessorsInnerAnyOf3
-	ListRoutes200ResponseDataInnerProcessorsInnerAnyOf4 *ListRoutes200ResponseDataInnerProcessorsInnerAnyOf4
+	Route1ProcessorsInnerAnyOf *Route1ProcessorsInnerAnyOf
+	Route1ProcessorsInnerAnyOf1 *Route1ProcessorsInnerAnyOf1
+	Route1ProcessorsInnerAnyOf2 *Route1ProcessorsInnerAnyOf2
+	Route1ProcessorsInnerAnyOf3 *Route1ProcessorsInnerAnyOf3
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
 func (dst *Processor) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal JSON data into ListRoutes200ResponseDataInnerProcessorsInnerAnyOf
-	err = json.Unmarshal(data, &dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf);
+	// try to unmarshal JSON data into Route1ProcessorsInnerAnyOf
+	err = json.Unmarshal(data, &dst.Route1ProcessorsInnerAnyOf);
 	if err == nil {
-		jsonListRoutes200ResponseDataInnerProcessorsInnerAnyOf, _ := json.Marshal(dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf)
-		if string(jsonListRoutes200ResponseDataInnerProcessorsInnerAnyOf) == "{}" { // empty struct
-			dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf = nil
+		jsonRoute1ProcessorsInnerAnyOf, _ := json.Marshal(dst.Route1ProcessorsInnerAnyOf)
+		if string(jsonRoute1ProcessorsInnerAnyOf) == "{}" { // empty struct
+			dst.Route1ProcessorsInnerAnyOf = nil
 		} else {
-			return nil // data stored in dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf, return on the first match
+			return nil // data stored in dst.Route1ProcessorsInnerAnyOf, return on the first match
 		}
 	} else {
-		dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf = nil
+		dst.Route1ProcessorsInnerAnyOf = nil
 	}
 
-	// try to unmarshal JSON data into ListRoutes200ResponseDataInnerProcessorsInnerAnyOf1
-	err = json.Unmarshal(data, &dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf1);
+	// try to unmarshal JSON data into Route1ProcessorsInnerAnyOf1
+	err = json.Unmarshal(data, &dst.Route1ProcessorsInnerAnyOf1);
 	if err == nil {
-		jsonListRoutes200ResponseDataInnerProcessorsInnerAnyOf1, _ := json.Marshal(dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf1)
-		if string(jsonListRoutes200ResponseDataInnerProcessorsInnerAnyOf1) == "{}" { // empty struct
-			dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf1 = nil
+		jsonRoute1ProcessorsInnerAnyOf1, _ := json.Marshal(dst.Route1ProcessorsInnerAnyOf1)
+		if string(jsonRoute1ProcessorsInnerAnyOf1) == "{}" { // empty struct
+			dst.Route1ProcessorsInnerAnyOf1 = nil
 		} else {
-			return nil // data stored in dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf1, return on the first match
+			return nil // data stored in dst.Route1ProcessorsInnerAnyOf1, return on the first match
 		}
 	} else {
-		dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf1 = nil
+		dst.Route1ProcessorsInnerAnyOf1 = nil
 	}
 
-	// try to unmarshal JSON data into ListRoutes200ResponseDataInnerProcessorsInnerAnyOf2
-	err = json.Unmarshal(data, &dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf2);
+	// try to unmarshal JSON data into Route1ProcessorsInnerAnyOf2
+	err = json.Unmarshal(data, &dst.Route1ProcessorsInnerAnyOf2);
 	if err == nil {
-		jsonListRoutes200ResponseDataInnerProcessorsInnerAnyOf2, _ := json.Marshal(dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf2)
-		if string(jsonListRoutes200ResponseDataInnerProcessorsInnerAnyOf2) == "{}" { // empty struct
-			dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf2 = nil
+		jsonRoute1ProcessorsInnerAnyOf2, _ := json.Marshal(dst.Route1ProcessorsInnerAnyOf2)
+		if string(jsonRoute1ProcessorsInnerAnyOf2) == "{}" { // empty struct
+			dst.Route1ProcessorsInnerAnyOf2 = nil
 		} else {
-			return nil // data stored in dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf2, return on the first match
+			return nil // data stored in dst.Route1ProcessorsInnerAnyOf2, return on the first match
 		}
 	} else {
-		dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf2 = nil
+		dst.Route1ProcessorsInnerAnyOf2 = nil
 	}
 
-	// try to unmarshal JSON data into ListRoutes200ResponseDataInnerProcessorsInnerAnyOf3
-	err = json.Unmarshal(data, &dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf3);
+	// try to unmarshal JSON data into Route1ProcessorsInnerAnyOf3
+	err = json.Unmarshal(data, &dst.Route1ProcessorsInnerAnyOf3);
 	if err == nil {
-		jsonListRoutes200ResponseDataInnerProcessorsInnerAnyOf3, _ := json.Marshal(dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf3)
-		if string(jsonListRoutes200ResponseDataInnerProcessorsInnerAnyOf3) == "{}" { // empty struct
-			dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf3 = nil
+		jsonRoute1ProcessorsInnerAnyOf3, _ := json.Marshal(dst.Route1ProcessorsInnerAnyOf3)
+		if string(jsonRoute1ProcessorsInnerAnyOf3) == "{}" { // empty struct
+			dst.Route1ProcessorsInnerAnyOf3 = nil
 		} else {
-			return nil // data stored in dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf3, return on the first match
+			return nil // data stored in dst.Route1ProcessorsInnerAnyOf3, return on the first match
 		}
 	} else {
-		dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf3 = nil
-	}
-
-	// try to unmarshal JSON data into ListRoutes200ResponseDataInnerProcessorsInnerAnyOf4
-	err = json.Unmarshal(data, &dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf4);
-	if err == nil {
-		jsonListRoutes200ResponseDataInnerProcessorsInnerAnyOf4, _ := json.Marshal(dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf4)
-		if string(jsonListRoutes200ResponseDataInnerProcessorsInnerAnyOf4) == "{}" { // empty struct
-			dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf4 = nil
-		} else {
-			return nil // data stored in dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf4, return on the first match
-		}
-	} else {
-		dst.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf4 = nil
+		dst.Route1ProcessorsInnerAnyOf3 = nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in anyOf(Processor)")
@@ -98,24 +84,20 @@ func (dst *Processor) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Processor) MarshalJSON() ([]byte, error) {
-	if src.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf != nil {
-		return json.Marshal(&src.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf)
+	if src.Route1ProcessorsInnerAnyOf != nil {
+		return json.Marshal(&src.Route1ProcessorsInnerAnyOf)
 	}
 
-	if src.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf1 != nil {
-		return json.Marshal(&src.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf1)
+	if src.Route1ProcessorsInnerAnyOf1 != nil {
+		return json.Marshal(&src.Route1ProcessorsInnerAnyOf1)
 	}
 
-	if src.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf2 != nil {
-		return json.Marshal(&src.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf2)
+	if src.Route1ProcessorsInnerAnyOf2 != nil {
+		return json.Marshal(&src.Route1ProcessorsInnerAnyOf2)
 	}
 
-	if src.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf3 != nil {
-		return json.Marshal(&src.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf3)
-	}
-
-	if src.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf4 != nil {
-		return json.Marshal(&src.ListRoutes200ResponseDataInnerProcessorsInnerAnyOf4)
+	if src.Route1ProcessorsInnerAnyOf3 != nil {
+		return json.Marshal(&src.Route1ProcessorsInnerAnyOf3)
 	}
 
 	return nil, nil // no data in anyOf schemas

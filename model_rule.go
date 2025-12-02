@@ -35,9 +35,9 @@ type Rule struct {
 	Owner string `json:"owner"`
 	IsActive bool `json:"isActive"`
 	// List of key/value tags applied to the resource
-	Tags []ListDashboards200ResponseDataInnerTagsInner `json:"tags,omitempty"`
+	Tags []Tag `json:"tags,omitempty"`
 	// Notification targets that can receive notifications when the rule matches
-	Targets []ListNotificationRules200ResponseDataInnerTargetsInner `json:"targets"`
+	Targets []RuleTargetsInner `json:"targets"`
 }
 
 type _Rule Rule
@@ -46,7 +46,7 @@ type _Rule Rule
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRule(id string, name string, teamsFilter []string, prioritiesFilter []int32, transitionTypesFilter []string, owner string, isActive bool, targets []ListNotificationRules200ResponseDataInnerTargetsInner) *Rule {
+func NewRule(id string, name string, teamsFilter []string, prioritiesFilter []int32, transitionTypesFilter []string, owner string, isActive bool, targets []RuleTargetsInner) *Rule {
 	this := Rule{}
 	this.Id = id
 	this.Name = name
@@ -236,9 +236,9 @@ func (o *Rule) SetIsActive(v bool) {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *Rule) GetTags() []ListDashboards200ResponseDataInnerTagsInner {
+func (o *Rule) GetTags() []Tag {
 	if o == nil || IsNil(o.Tags) {
-		var ret []ListDashboards200ResponseDataInnerTagsInner
+		var ret []Tag
 		return ret
 	}
 	return o.Tags
@@ -246,7 +246,7 @@ func (o *Rule) GetTags() []ListDashboards200ResponseDataInnerTagsInner {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Rule) GetTagsOk() ([]ListDashboards200ResponseDataInnerTagsInner, bool) {
+func (o *Rule) GetTagsOk() ([]Tag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -262,15 +262,15 @@ func (o *Rule) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []ListDashboards200ResponseDataInnerTagsInner and assigns it to the Tags field.
-func (o *Rule) SetTags(v []ListDashboards200ResponseDataInnerTagsInner) {
+// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
+func (o *Rule) SetTags(v []Tag) {
 	o.Tags = v
 }
 
 // GetTargets returns the Targets field value
-func (o *Rule) GetTargets() []ListNotificationRules200ResponseDataInnerTargetsInner {
+func (o *Rule) GetTargets() []RuleTargetsInner {
 	if o == nil {
-		var ret []ListNotificationRules200ResponseDataInnerTargetsInner
+		var ret []RuleTargetsInner
 		return ret
 	}
 
@@ -279,7 +279,7 @@ func (o *Rule) GetTargets() []ListNotificationRules200ResponseDataInnerTargetsIn
 
 // GetTargetsOk returns a tuple with the Targets field value
 // and a boolean to check if the value has been set.
-func (o *Rule) GetTargetsOk() ([]ListNotificationRules200ResponseDataInnerTargetsInner, bool) {
+func (o *Rule) GetTargetsOk() ([]RuleTargetsInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -287,7 +287,7 @@ func (o *Rule) GetTargetsOk() ([]ListNotificationRules200ResponseDataInnerTarget
 }
 
 // SetTargets sets field value
-func (o *Rule) SetTargets(v []ListNotificationRules200ResponseDataInnerTargetsInner) {
+func (o *Rule) SetTargets(v []RuleTargetsInner) {
 	o.Targets = v
 }
 

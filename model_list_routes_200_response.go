@@ -23,7 +23,7 @@ var _ MappedNullable = &ListRoutes200Response{}
 type ListRoutes200Response struct {
 	// Identifier used to trace the lifecycle of this API request
 	RequestId string `json:"requestId"`
-	Data []ListRoutes200ResponseDataInner `json:"data"`
+	Data []Route `json:"data"`
 }
 
 type _ListRoutes200Response ListRoutes200Response
@@ -32,7 +32,7 @@ type _ListRoutes200Response ListRoutes200Response
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListRoutes200Response(requestId string, data []ListRoutes200ResponseDataInner) *ListRoutes200Response {
+func NewListRoutes200Response(requestId string, data []Route) *ListRoutes200Response {
 	this := ListRoutes200Response{}
 	this.RequestId = requestId
 	this.Data = data
@@ -72,9 +72,9 @@ func (o *ListRoutes200Response) SetRequestId(v string) {
 }
 
 // GetData returns the Data field value
-func (o *ListRoutes200Response) GetData() []ListRoutes200ResponseDataInner {
+func (o *ListRoutes200Response) GetData() []Route {
 	if o == nil {
-		var ret []ListRoutes200ResponseDataInner
+		var ret []Route
 		return ret
 	}
 
@@ -83,7 +83,7 @@ func (o *ListRoutes200Response) GetData() []ListRoutes200ResponseDataInner {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *ListRoutes200Response) GetDataOk() ([]ListRoutes200ResponseDataInner, bool) {
+func (o *ListRoutes200Response) GetDataOk() ([]Route, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -91,7 +91,7 @@ func (o *ListRoutes200Response) GetDataOk() ([]ListRoutes200ResponseDataInner, b
 }
 
 // SetData sets field value
-func (o *ListRoutes200Response) SetData(v []ListRoutes200ResponseDataInner) {
+func (o *ListRoutes200Response) SetData(v []Route) {
 	o.Data = v
 }
 

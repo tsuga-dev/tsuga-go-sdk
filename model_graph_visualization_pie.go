@@ -26,14 +26,14 @@ type GraphVisualizationPie struct {
 	// Data source being queried for this aggregation
 	Source string `json:"source"`
 	// Aggregations that may be combined together in the same query
-	Queries []GraphVisualizationTimeseriesQueriesInner `json:"queries"`
+	Queries []AggregationQuery `json:"queries"`
 	// Formula referencing query outputs (e.g. q1+q2) to compute derived series
 	Formula *string `json:"formula,omitempty"`
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Fields used to group the results
-	GroupBy []GraphVisualizationTimeseriesGroupByInner `json:"groupBy,omitempty"`
-	Normalizer *GraphVisualizationTimeseriesNormalizer `json:"normalizer,omitempty"`
+	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
+	Normalizer *Normalizer `json:"normalizer,omitempty"`
 }
 
 type _GraphVisualizationPie GraphVisualizationPie
@@ -42,7 +42,7 @@ type _GraphVisualizationPie GraphVisualizationPie
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGraphVisualizationPie(type_ string, source string, queries []GraphVisualizationTimeseriesQueriesInner) *GraphVisualizationPie {
+func NewGraphVisualizationPie(type_ string, source string, queries []AggregationQuery) *GraphVisualizationPie {
 	this := GraphVisualizationPie{}
 	this.Type = type_
 	this.Source = source
@@ -107,9 +107,9 @@ func (o *GraphVisualizationPie) SetSource(v string) {
 }
 
 // GetQueries returns the Queries field value
-func (o *GraphVisualizationPie) GetQueries() []GraphVisualizationTimeseriesQueriesInner {
+func (o *GraphVisualizationPie) GetQueries() []AggregationQuery {
 	if o == nil {
-		var ret []GraphVisualizationTimeseriesQueriesInner
+		var ret []AggregationQuery
 		return ret
 	}
 
@@ -118,7 +118,7 @@ func (o *GraphVisualizationPie) GetQueries() []GraphVisualizationTimeseriesQueri
 
 // GetQueriesOk returns a tuple with the Queries field value
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationPie) GetQueriesOk() ([]GraphVisualizationTimeseriesQueriesInner, bool) {
+func (o *GraphVisualizationPie) GetQueriesOk() ([]AggregationQuery, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -126,7 +126,7 @@ func (o *GraphVisualizationPie) GetQueriesOk() ([]GraphVisualizationTimeseriesQu
 }
 
 // SetQueries sets field value
-func (o *GraphVisualizationPie) SetQueries(v []GraphVisualizationTimeseriesQueriesInner) {
+func (o *GraphVisualizationPie) SetQueries(v []AggregationQuery) {
 	o.Queries = v
 }
 
@@ -195,9 +195,9 @@ func (o *GraphVisualizationPie) SetVisibleSeries(v []bool) {
 }
 
 // GetGroupBy returns the GroupBy field value if set, zero value otherwise.
-func (o *GraphVisualizationPie) GetGroupBy() []GraphVisualizationTimeseriesGroupByInner {
+func (o *GraphVisualizationPie) GetGroupBy() []AggregationGroupBy {
 	if o == nil || IsNil(o.GroupBy) {
-		var ret []GraphVisualizationTimeseriesGroupByInner
+		var ret []AggregationGroupBy
 		return ret
 	}
 	return o.GroupBy
@@ -205,7 +205,7 @@ func (o *GraphVisualizationPie) GetGroupBy() []GraphVisualizationTimeseriesGroup
 
 // GetGroupByOk returns a tuple with the GroupBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationPie) GetGroupByOk() ([]GraphVisualizationTimeseriesGroupByInner, bool) {
+func (o *GraphVisualizationPie) GetGroupByOk() ([]AggregationGroupBy, bool) {
 	if o == nil || IsNil(o.GroupBy) {
 		return nil, false
 	}
@@ -221,15 +221,15 @@ func (o *GraphVisualizationPie) HasGroupBy() bool {
 	return false
 }
 
-// SetGroupBy gets a reference to the given []GraphVisualizationTimeseriesGroupByInner and assigns it to the GroupBy field.
-func (o *GraphVisualizationPie) SetGroupBy(v []GraphVisualizationTimeseriesGroupByInner) {
+// SetGroupBy gets a reference to the given []AggregationGroupBy and assigns it to the GroupBy field.
+func (o *GraphVisualizationPie) SetGroupBy(v []AggregationGroupBy) {
 	o.GroupBy = v
 }
 
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
-func (o *GraphVisualizationPie) GetNormalizer() GraphVisualizationTimeseriesNormalizer {
+func (o *GraphVisualizationPie) GetNormalizer() Normalizer {
 	if o == nil || IsNil(o.Normalizer) {
-		var ret GraphVisualizationTimeseriesNormalizer
+		var ret Normalizer
 		return ret
 	}
 	return *o.Normalizer
@@ -237,7 +237,7 @@ func (o *GraphVisualizationPie) GetNormalizer() GraphVisualizationTimeseriesNorm
 
 // GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationPie) GetNormalizerOk() (*GraphVisualizationTimeseriesNormalizer, bool) {
+func (o *GraphVisualizationPie) GetNormalizerOk() (*Normalizer, bool) {
 	if o == nil || IsNil(o.Normalizer) {
 		return nil, false
 	}
@@ -253,8 +253,8 @@ func (o *GraphVisualizationPie) HasNormalizer() bool {
 	return false
 }
 
-// SetNormalizer gets a reference to the given GraphVisualizationTimeseriesNormalizer and assigns it to the Normalizer field.
-func (o *GraphVisualizationPie) SetNormalizer(v GraphVisualizationTimeseriesNormalizer) {
+// SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
+func (o *GraphVisualizationPie) SetNormalizer(v Normalizer) {
 	o.Normalizer = &v
 }
 
