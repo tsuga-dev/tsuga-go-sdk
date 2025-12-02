@@ -27,7 +27,7 @@ type CreateTeamRequest struct {
 	// Controls whether the resources of the team are discoverable by users
 	Visibility string `json:"visibility"`
 	// List of key/value tags applied to the resource
-	Tags []ListDashboards200ResponseDataInnerTagsInner `json:"tags,omitempty"`
+	Tags []Tag `json:"tags,omitempty"`
 }
 
 type _CreateTeamRequest CreateTeamRequest
@@ -132,9 +132,9 @@ func (o *CreateTeamRequest) SetVisibility(v string) {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *CreateTeamRequest) GetTags() []ListDashboards200ResponseDataInnerTagsInner {
+func (o *CreateTeamRequest) GetTags() []Tag {
 	if o == nil || IsNil(o.Tags) {
-		var ret []ListDashboards200ResponseDataInnerTagsInner
+		var ret []Tag
 		return ret
 	}
 	return o.Tags
@@ -142,7 +142,7 @@ func (o *CreateTeamRequest) GetTags() []ListDashboards200ResponseDataInnerTagsIn
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateTeamRequest) GetTagsOk() ([]ListDashboards200ResponseDataInnerTagsInner, bool) {
+func (o *CreateTeamRequest) GetTagsOk() ([]Tag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -158,8 +158,8 @@ func (o *CreateTeamRequest) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []ListDashboards200ResponseDataInnerTagsInner and assigns it to the Tags field.
-func (o *CreateTeamRequest) SetTags(v []ListDashboards200ResponseDataInnerTagsInner) {
+// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
+func (o *CreateTeamRequest) SetTags(v []Tag) {
 	o.Tags = v
 }
 

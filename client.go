@@ -49,7 +49,13 @@ type APIClient struct {
 
 	// API Services
 
-	DefaultAPI *DefaultAPIService
+	DashboardsAPI *DashboardsAPIService
+
+	NotificationRulesAPI *NotificationRulesAPIService
+
+	RoutesAPI *RoutesAPIService
+
+	TeamsAPI *TeamsAPIService
 }
 
 type service struct {
@@ -68,7 +74,10 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.DefaultAPI = (*DefaultAPIService)(&c.common)
+	c.DashboardsAPI = (*DashboardsAPIService)(&c.common)
+	c.NotificationRulesAPI = (*NotificationRulesAPIService)(&c.common)
+	c.RoutesAPI = (*RoutesAPIService)(&c.common)
+	c.TeamsAPI = (*TeamsAPIService)(&c.common)
 
 	return c
 }

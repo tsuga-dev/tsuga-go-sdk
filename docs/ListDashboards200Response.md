@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RequestId** | **string** | Identifier used to trace the lifecycle of this API request | 
-**Data** | [**[]ListDashboards200ResponseDataInner**](ListDashboards200ResponseDataInner.md) |  | 
+**Data** | [**[]Dashboard**](Dashboard.md) |  | 
 
 ## Methods
 
 ### NewListDashboards200Response
 
-`func NewListDashboards200Response(requestId string, data []ListDashboards200ResponseDataInner, ) *ListDashboards200Response`
+`func NewListDashboards200Response(requestId string, data []Dashboard, ) *ListDashboards200Response`
 
 NewListDashboards200Response instantiates a new ListDashboards200Response object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetRequestId sets RequestId field to given value.
 
 ### GetData
 
-`func (o *ListDashboards200Response) GetData() []ListDashboards200ResponseDataInner`
+`func (o *ListDashboards200Response) GetData() []Dashboard`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *ListDashboards200Response) GetDataOk() (*[]ListDashboards200ResponseDataInner, bool)`
+`func (o *ListDashboards200Response) GetDataOk() (*[]Dashboard, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *ListDashboards200Response) SetData(v []ListDashboards200ResponseDataInner)`
+`func (o *ListDashboards200Response) SetData(v []Dashboard)`
 
 SetData sets Data field to given value.
 

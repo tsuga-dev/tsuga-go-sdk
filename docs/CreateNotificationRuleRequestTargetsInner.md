@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Identifier of the notification target | 
-**RateLimit** | Pointer to [**ListNotificationRules200ResponseDataInnerTargetsInnerRateLimit**](ListNotificationRules200ResponseDataInnerTargetsInnerRateLimit.md) |  | [optional] 
+**RateLimit** | Pointer to [**CreateNotificationRuleRequestTargetsInnerRateLimit**](CreateNotificationRuleRequestTargetsInnerRateLimit.md) |  | [optional] 
 **Config** | [**CreateNotificationRuleRequestTargetsInnerConfig**](CreateNotificationRuleRequestTargetsInnerConfig.md) |  | 
-**RenotifyConfig** | Pointer to [**ListNotificationRules200ResponseDataInnerTargetsInnerRenotifyConfig**](ListNotificationRules200ResponseDataInnerTargetsInnerRenotifyConfig.md) |  | [optional] 
+**RenotifyConfig** | Pointer to [**CreateNotificationRuleRequestTargetsInnerRenotifyConfig**](CreateNotificationRuleRequestTargetsInnerRenotifyConfig.md) |  | [optional] 
 
 ## Methods
 
@@ -50,20 +50,20 @@ SetId sets Id field to given value.
 
 ### GetRateLimit
 
-`func (o *CreateNotificationRuleRequestTargetsInner) GetRateLimit() ListNotificationRules200ResponseDataInnerTargetsInnerRateLimit`
+`func (o *CreateNotificationRuleRequestTargetsInner) GetRateLimit() CreateNotificationRuleRequestTargetsInnerRateLimit`
 
 GetRateLimit returns the RateLimit field if non-nil, zero value otherwise.
 
 ### GetRateLimitOk
 
-`func (o *CreateNotificationRuleRequestTargetsInner) GetRateLimitOk() (*ListNotificationRules200ResponseDataInnerTargetsInnerRateLimit, bool)`
+`func (o *CreateNotificationRuleRequestTargetsInner) GetRateLimitOk() (*CreateNotificationRuleRequestTargetsInnerRateLimit, bool)`
 
 GetRateLimitOk returns a tuple with the RateLimit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRateLimit
 
-`func (o *CreateNotificationRuleRequestTargetsInner) SetRateLimit(v ListNotificationRules200ResponseDataInnerTargetsInnerRateLimit)`
+`func (o *CreateNotificationRuleRequestTargetsInner) SetRateLimit(v CreateNotificationRuleRequestTargetsInnerRateLimit)`
 
 SetRateLimit sets RateLimit field to given value.
 
@@ -95,20 +95,20 @@ SetConfig sets Config field to given value.
 
 ### GetRenotifyConfig
 
-`func (o *CreateNotificationRuleRequestTargetsInner) GetRenotifyConfig() ListNotificationRules200ResponseDataInnerTargetsInnerRenotifyConfig`
+`func (o *CreateNotificationRuleRequestTargetsInner) GetRenotifyConfig() CreateNotificationRuleRequestTargetsInnerRenotifyConfig`
 
 GetRenotifyConfig returns the RenotifyConfig field if non-nil, zero value otherwise.
 
 ### GetRenotifyConfigOk
 
-`func (o *CreateNotificationRuleRequestTargetsInner) GetRenotifyConfigOk() (*ListNotificationRules200ResponseDataInnerTargetsInnerRenotifyConfig, bool)`
+`func (o *CreateNotificationRuleRequestTargetsInner) GetRenotifyConfigOk() (*CreateNotificationRuleRequestTargetsInnerRenotifyConfig, bool)`
 
 GetRenotifyConfigOk returns a tuple with the RenotifyConfig field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRenotifyConfig
 
-`func (o *CreateNotificationRuleRequestTargetsInner) SetRenotifyConfig(v ListNotificationRules200ResponseDataInnerTargetsInnerRenotifyConfig)`
+`func (o *CreateNotificationRuleRequestTargetsInner) SetRenotifyConfig(v CreateNotificationRuleRequestTargetsInnerRenotifyConfig)`
 
 SetRenotifyConfig sets RenotifyConfig field to given value.
 

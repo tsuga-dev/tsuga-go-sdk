@@ -28,7 +28,7 @@ type GraphVisualizationList struct {
 	// Log query that selects records for the list
 	Query string `json:"query"`
 	// Custom columns to display for each log entry
-	ListColumns []GraphVisualizationListListColumnsInner `json:"listColumns,omitempty"`
+	ListColumns []WidgetListColumn `json:"listColumns,omitempty"`
 }
 
 type _GraphVisualizationList GraphVisualizationList
@@ -126,9 +126,9 @@ func (o *GraphVisualizationList) SetQuery(v string) {
 }
 
 // GetListColumns returns the ListColumns field value if set, zero value otherwise.
-func (o *GraphVisualizationList) GetListColumns() []GraphVisualizationListListColumnsInner {
+func (o *GraphVisualizationList) GetListColumns() []WidgetListColumn {
 	if o == nil || IsNil(o.ListColumns) {
-		var ret []GraphVisualizationListListColumnsInner
+		var ret []WidgetListColumn
 		return ret
 	}
 	return o.ListColumns
@@ -136,7 +136,7 @@ func (o *GraphVisualizationList) GetListColumns() []GraphVisualizationListListCo
 
 // GetListColumnsOk returns a tuple with the ListColumns field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationList) GetListColumnsOk() ([]GraphVisualizationListListColumnsInner, bool) {
+func (o *GraphVisualizationList) GetListColumnsOk() ([]WidgetListColumn, bool) {
 	if o == nil || IsNil(o.ListColumns) {
 		return nil, false
 	}
@@ -152,8 +152,8 @@ func (o *GraphVisualizationList) HasListColumns() bool {
 	return false
 }
 
-// SetListColumns gets a reference to the given []GraphVisualizationListListColumnsInner and assigns it to the ListColumns field.
-func (o *GraphVisualizationList) SetListColumns(v []GraphVisualizationListListColumnsInner) {
+// SetListColumns gets a reference to the given []WidgetListColumn and assigns it to the ListColumns field.
+func (o *GraphVisualizationList) SetListColumns(v []WidgetListColumn) {
 	o.ListColumns = v
 }
 

@@ -93,7 +93,7 @@ func NewConfiguration() *Configuration {
 		Debug:            false,
 		Servers:          ServerConfigurations{
 			{
-				URL: "https://api.tsuga-staging.com",
+				URL: "https://api.tsuga.com",
 				Description: "No description provided",
 			},
 		},

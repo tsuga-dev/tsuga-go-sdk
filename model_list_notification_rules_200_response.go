@@ -23,7 +23,7 @@ var _ MappedNullable = &ListNotificationRules200Response{}
 type ListNotificationRules200Response struct {
 	// Identifier used to trace the lifecycle of this API request
 	RequestId string `json:"requestId"`
-	Data []ListNotificationRules200ResponseDataInner `json:"data"`
+	Data []Rule `json:"data"`
 }
 
 type _ListNotificationRules200Response ListNotificationRules200Response
@@ -32,7 +32,7 @@ type _ListNotificationRules200Response ListNotificationRules200Response
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListNotificationRules200Response(requestId string, data []ListNotificationRules200ResponseDataInner) *ListNotificationRules200Response {
+func NewListNotificationRules200Response(requestId string, data []Rule) *ListNotificationRules200Response {
 	this := ListNotificationRules200Response{}
 	this.RequestId = requestId
 	this.Data = data
@@ -72,9 +72,9 @@ func (o *ListNotificationRules200Response) SetRequestId(v string) {
 }
 
 // GetData returns the Data field value
-func (o *ListNotificationRules200Response) GetData() []ListNotificationRules200ResponseDataInner {
+func (o *ListNotificationRules200Response) GetData() []Rule {
 	if o == nil {
-		var ret []ListNotificationRules200ResponseDataInner
+		var ret []Rule
 		return ret
 	}
 
@@ -83,7 +83,7 @@ func (o *ListNotificationRules200Response) GetData() []ListNotificationRules200R
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *ListNotificationRules200Response) GetDataOk() ([]ListNotificationRules200ResponseDataInner, bool) {
+func (o *ListNotificationRules200Response) GetDataOk() ([]Rule, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -91,7 +91,7 @@ func (o *ListNotificationRules200Response) GetDataOk() ([]ListNotificationRules2
 }
 
 // SetData sets field value
-func (o *ListNotificationRules200Response) SetData(v []ListNotificationRules200ResponseDataInner) {
+func (o *ListNotificationRules200Response) SetData(v []Rule) {
 	o.Data = v
 }
 

@@ -6,18 +6,18 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a single value | 
 **Source** | **string** | Data source being queried for this aggregation | 
-**Queries** | [**[]GraphVisualizationTimeseriesQueriesInner**](GraphVisualizationTimeseriesQueriesInner.md) | Aggregations that may be combined together in the same query | 
+**Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query | 
 **Formula** | Pointer to **string** | Formula referencing query outputs (e.g. q1+q2) to compute derived series | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
 **BackgroundMode** | Pointer to **string** | Controls whether the widget uses a solid or transparent background | [optional] 
-**Conditions** | Pointer to [**[]GraphVisualizationQueryValueConditionsInner**](GraphVisualizationQueryValueConditionsInner.md) | Conditional formatting rules applied to the displayed value | [optional] 
-**Normalizer** | Pointer to [**GraphVisualizationTimeseriesNormalizer**](GraphVisualizationTimeseriesNormalizer.md) |  | [optional] 
+**Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the displayed value | [optional] 
+**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 
 ## Methods
 
 ### NewGraphVisualizationQueryValue
 
-`func NewGraphVisualizationQueryValue(type_ string, source string, queries []GraphVisualizationTimeseriesQueriesInner, ) *GraphVisualizationQueryValue`
+`func NewGraphVisualizationQueryValue(type_ string, source string, queries []AggregationQuery, ) *GraphVisualizationQueryValue`
 
 NewGraphVisualizationQueryValue instantiates a new GraphVisualizationQueryValue object
 This constructor will assign default values to properties that have it defined,
@@ -74,20 +74,20 @@ SetSource sets Source field to given value.
 
 ### GetQueries
 
-`func (o *GraphVisualizationQueryValue) GetQueries() []GraphVisualizationTimeseriesQueriesInner`
+`func (o *GraphVisualizationQueryValue) GetQueries() []AggregationQuery`
 
 GetQueries returns the Queries field if non-nil, zero value otherwise.
 
 ### GetQueriesOk
 
-`func (o *GraphVisualizationQueryValue) GetQueriesOk() (*[]GraphVisualizationTimeseriesQueriesInner, bool)`
+`func (o *GraphVisualizationQueryValue) GetQueriesOk() (*[]AggregationQuery, bool)`
 
 GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueries
 
-`func (o *GraphVisualizationQueryValue) SetQueries(v []GraphVisualizationTimeseriesQueriesInner)`
+`func (o *GraphVisualizationQueryValue) SetQueries(v []AggregationQuery)`
 
 SetQueries sets Queries field to given value.
 
@@ -169,20 +169,20 @@ HasBackgroundMode returns a boolean if a field has been set.
 
 ### GetConditions
 
-`func (o *GraphVisualizationQueryValue) GetConditions() []GraphVisualizationQueryValueConditionsInner`
+`func (o *GraphVisualizationQueryValue) GetConditions() []ConditionalFormatting`
 
 GetConditions returns the Conditions field if non-nil, zero value otherwise.
 
 ### GetConditionsOk
 
-`func (o *GraphVisualizationQueryValue) GetConditionsOk() (*[]GraphVisualizationQueryValueConditionsInner, bool)`
+`func (o *GraphVisualizationQueryValue) GetConditionsOk() (*[]ConditionalFormatting, bool)`
 
 GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConditions
 
-`func (o *GraphVisualizationQueryValue) SetConditions(v []GraphVisualizationQueryValueConditionsInner)`
+`func (o *GraphVisualizationQueryValue) SetConditions(v []ConditionalFormatting)`
 
 SetConditions sets Conditions field to given value.
 
@@ -194,20 +194,20 @@ HasConditions returns a boolean if a field has been set.
 
 ### GetNormalizer
 
-`func (o *GraphVisualizationQueryValue) GetNormalizer() GraphVisualizationTimeseriesNormalizer`
+`func (o *GraphVisualizationQueryValue) GetNormalizer() Normalizer`
 
 GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
 
 ### GetNormalizerOk
 
-`func (o *GraphVisualizationQueryValue) GetNormalizerOk() (*GraphVisualizationTimeseriesNormalizer, bool)`
+`func (o *GraphVisualizationQueryValue) GetNormalizerOk() (*Normalizer, bool)`
 
 GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNormalizer
 
-`func (o *GraphVisualizationQueryValue) SetNormalizer(v GraphVisualizationTimeseriesNormalizer)`
+`func (o *GraphVisualizationQueryValue) SetNormalizer(v Normalizer)`
 
 SetNormalizer sets Normalizer field to given value.
 

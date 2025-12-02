@@ -23,7 +23,7 @@ var _ MappedNullable = &ListDashboards200Response{}
 type ListDashboards200Response struct {
 	// Identifier used to trace the lifecycle of this API request
 	RequestId string `json:"requestId"`
-	Data []ListDashboards200ResponseDataInner `json:"data"`
+	Data []Dashboard `json:"data"`
 }
 
 type _ListDashboards200Response ListDashboards200Response
@@ -32,7 +32,7 @@ type _ListDashboards200Response ListDashboards200Response
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListDashboards200Response(requestId string, data []ListDashboards200ResponseDataInner) *ListDashboards200Response {
+func NewListDashboards200Response(requestId string, data []Dashboard) *ListDashboards200Response {
 	this := ListDashboards200Response{}
 	this.RequestId = requestId
 	this.Data = data
@@ -72,9 +72,9 @@ func (o *ListDashboards200Response) SetRequestId(v string) {
 }
 
 // GetData returns the Data field value
-func (o *ListDashboards200Response) GetData() []ListDashboards200ResponseDataInner {
+func (o *ListDashboards200Response) GetData() []Dashboard {
 	if o == nil {
-		var ret []ListDashboards200ResponseDataInner
+		var ret []Dashboard
 		return ret
 	}
 
@@ -83,7 +83,7 @@ func (o *ListDashboards200Response) GetData() []ListDashboards200ResponseDataInn
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *ListDashboards200Response) GetDataOk() ([]ListDashboards200ResponseDataInner, bool) {
+func (o *ListDashboards200Response) GetDataOk() ([]Dashboard, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -91,7 +91,7 @@ func (o *ListDashboards200Response) GetDataOk() ([]ListDashboards200ResponseData
 }
 
 // SetData sets field value
-func (o *ListDashboards200Response) SetData(v []ListDashboards200ResponseDataInner) {
+func (o *ListDashboards200Response) SetData(v []Dashboard) {
 	o.Data = v
 }
 

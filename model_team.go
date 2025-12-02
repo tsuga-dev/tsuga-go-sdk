@@ -29,7 +29,7 @@ type Team struct {
 	// Controls whether the resources of the team are discoverable by users
 	Visibility string `json:"visibility"`
 	// List of key/value tags applied to the resource
-	Tags []ListDashboards200ResponseDataInnerTagsInner `json:"tags,omitempty"`
+	Tags []Tag `json:"tags,omitempty"`
 }
 
 type _Team Team
@@ -159,9 +159,9 @@ func (o *Team) SetVisibility(v string) {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *Team) GetTags() []ListDashboards200ResponseDataInnerTagsInner {
+func (o *Team) GetTags() []Tag {
 	if o == nil || IsNil(o.Tags) {
-		var ret []ListDashboards200ResponseDataInnerTagsInner
+		var ret []Tag
 		return ret
 	}
 	return o.Tags
@@ -169,7 +169,7 @@ func (o *Team) GetTags() []ListDashboards200ResponseDataInnerTagsInner {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Team) GetTagsOk() ([]ListDashboards200ResponseDataInnerTagsInner, bool) {
+func (o *Team) GetTagsOk() ([]Tag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -185,8 +185,8 @@ func (o *Team) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []ListDashboards200ResponseDataInnerTagsInner and assigns it to the Tags field.
-func (o *Team) SetTags(v []ListDashboards200ResponseDataInnerTagsInner) {
+// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
+func (o *Team) SetTags(v []Tag) {
 	o.Tags = v
 }
 

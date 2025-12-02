@@ -9,15 +9,15 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** |  | [optional] 
 **IsEnabled** | **bool** |  | 
 **Query** | **string** | Query that selects which logs should enter the route | 
-**Tags** | Pointer to [**[]ListDashboards200ResponseDataInnerTagsInner**](ListDashboards200ResponseDataInnerTagsInner.md) | List of key/value tags applied to the resource | [optional] 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
 **Owner** | **string** | Team ID owning and managing the route | 
-**Processors** | [**[]ListRoutes200ResponseDataInnerProcessorsInner**](ListRoutes200ResponseDataInnerProcessorsInner.md) | Ordered processors applied to logs that match the route | 
+**Processors** | [**[]Route1ProcessorsInner**](Route1ProcessorsInner.md) | Ordered processors applied to logs that match the route | 
 
 ## Methods
 
 ### NewRoute
 
-`func NewRoute(id string, name string, isEnabled bool, query string, owner string, processors []ListRoutes200ResponseDataInnerProcessorsInner, ) *Route`
+`func NewRoute(id string, name string, isEnabled bool, query string, owner string, processors []Route1ProcessorsInner, ) *Route`
 
 NewRoute instantiates a new Route object
 This constructor will assign default values to properties that have it defined,
@@ -139,20 +139,20 @@ SetQuery sets Query field to given value.
 
 ### GetTags
 
-`func (o *Route) GetTags() []ListDashboards200ResponseDataInnerTagsInner`
+`func (o *Route) GetTags() []Tag`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *Route) GetTagsOk() (*[]ListDashboards200ResponseDataInnerTagsInner, bool)`
+`func (o *Route) GetTagsOk() (*[]Tag, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *Route) SetTags(v []ListDashboards200ResponseDataInnerTagsInner)`
+`func (o *Route) SetTags(v []Tag)`
 
 SetTags sets Tags field to given value.
 
@@ -184,20 +184,20 @@ SetOwner sets Owner field to given value.
 
 ### GetProcessors
 
-`func (o *Route) GetProcessors() []ListRoutes200ResponseDataInnerProcessorsInner`
+`func (o *Route) GetProcessors() []Route1ProcessorsInner`
 
 GetProcessors returns the Processors field if non-nil, zero value otherwise.
 
 ### GetProcessorsOk
 
-`func (o *Route) GetProcessorsOk() (*[]ListRoutes200ResponseDataInnerProcessorsInner, bool)`
+`func (o *Route) GetProcessorsOk() (*[]Route1ProcessorsInner, bool)`
 
 GetProcessorsOk returns a tuple with the Processors field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProcessors
 
-`func (o *Route) SetProcessors(v []ListRoutes200ResponseDataInnerProcessorsInner)`
+`func (o *Route) SetProcessors(v []Route1ProcessorsInner)`
 
 SetProcessors sets Processors field to given value.
 

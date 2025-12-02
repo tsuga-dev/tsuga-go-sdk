@@ -32,7 +32,7 @@ type CreateNotificationRuleRequest struct {
 	// Team ID that owns and manages the rule
 	Owner string `json:"owner"`
 	// List of key/value tags applied to the resource
-	Tags []ListDashboards200ResponseDataInnerTagsInner `json:"tags,omitempty"`
+	Tags []Tag `json:"tags,omitempty"`
 	IsActive bool `json:"isActive"`
 	// Notification targets that can receive notifications when the rule matches
 	Targets []CreateNotificationRuleRequestTargetsInner `json:"targets"`
@@ -185,9 +185,9 @@ func (o *CreateNotificationRuleRequest) SetOwner(v string) {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *CreateNotificationRuleRequest) GetTags() []ListDashboards200ResponseDataInnerTagsInner {
+func (o *CreateNotificationRuleRequest) GetTags() []Tag {
 	if o == nil || IsNil(o.Tags) {
-		var ret []ListDashboards200ResponseDataInnerTagsInner
+		var ret []Tag
 		return ret
 	}
 	return o.Tags
@@ -195,7 +195,7 @@ func (o *CreateNotificationRuleRequest) GetTags() []ListDashboards200ResponseDat
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateNotificationRuleRequest) GetTagsOk() ([]ListDashboards200ResponseDataInnerTagsInner, bool) {
+func (o *CreateNotificationRuleRequest) GetTagsOk() ([]Tag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -211,8 +211,8 @@ func (o *CreateNotificationRuleRequest) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []ListDashboards200ResponseDataInnerTagsInner and assigns it to the Tags field.
-func (o *CreateNotificationRuleRequest) SetTags(v []ListDashboards200ResponseDataInnerTagsInner) {
+// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
+func (o *CreateNotificationRuleRequest) SetTags(v []Tag) {
 	o.Tags = v
 }
 
