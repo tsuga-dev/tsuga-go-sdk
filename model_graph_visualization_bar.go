@@ -26,15 +26,15 @@ type GraphVisualizationBar struct {
 	// Data source being queried for this aggregation
 	Source string `json:"source"`
 	// Aggregations that may be combined together in the same query
-	Queries []GraphVisualizationTimeseriesQueriesInner `json:"queries"`
+	Queries []AggregationQuery `json:"queries"`
 	// Formula referencing query outputs (e.g. q1+q2) to compute derived series
 	Formula *string `json:"formula,omitempty"`
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Fields used to group the results
-	GroupBy []GraphVisualizationTimeseriesGroupByInner `json:"groupBy,omitempty"`
+	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
 	TimeBucket *GraphVisualizationBarTimeBucket `json:"timeBucket,omitempty"`
-	Normalizer *GraphVisualizationTimeseriesNormalizer `json:"normalizer,omitempty"`
+	Normalizer *Normalizer `json:"normalizer,omitempty"`
 }
 
 type _GraphVisualizationBar GraphVisualizationBar
@@ -43,7 +43,7 @@ type _GraphVisualizationBar GraphVisualizationBar
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGraphVisualizationBar(type_ string, source string, queries []GraphVisualizationTimeseriesQueriesInner) *GraphVisualizationBar {
+func NewGraphVisualizationBar(type_ string, source string, queries []AggregationQuery) *GraphVisualizationBar {
 	this := GraphVisualizationBar{}
 	this.Type = type_
 	this.Source = source
@@ -108,9 +108,9 @@ func (o *GraphVisualizationBar) SetSource(v string) {
 }
 
 // GetQueries returns the Queries field value
-func (o *GraphVisualizationBar) GetQueries() []GraphVisualizationTimeseriesQueriesInner {
+func (o *GraphVisualizationBar) GetQueries() []AggregationQuery {
 	if o == nil {
-		var ret []GraphVisualizationTimeseriesQueriesInner
+		var ret []AggregationQuery
 		return ret
 	}
 
@@ -119,7 +119,7 @@ func (o *GraphVisualizationBar) GetQueries() []GraphVisualizationTimeseriesQueri
 
 // GetQueriesOk returns a tuple with the Queries field value
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationBar) GetQueriesOk() ([]GraphVisualizationTimeseriesQueriesInner, bool) {
+func (o *GraphVisualizationBar) GetQueriesOk() ([]AggregationQuery, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -127,7 +127,7 @@ func (o *GraphVisualizationBar) GetQueriesOk() ([]GraphVisualizationTimeseriesQu
 }
 
 // SetQueries sets field value
-func (o *GraphVisualizationBar) SetQueries(v []GraphVisualizationTimeseriesQueriesInner) {
+func (o *GraphVisualizationBar) SetQueries(v []AggregationQuery) {
 	o.Queries = v
 }
 
@@ -196,9 +196,9 @@ func (o *GraphVisualizationBar) SetVisibleSeries(v []bool) {
 }
 
 // GetGroupBy returns the GroupBy field value if set, zero value otherwise.
-func (o *GraphVisualizationBar) GetGroupBy() []GraphVisualizationTimeseriesGroupByInner {
+func (o *GraphVisualizationBar) GetGroupBy() []AggregationGroupBy {
 	if o == nil || IsNil(o.GroupBy) {
-		var ret []GraphVisualizationTimeseriesGroupByInner
+		var ret []AggregationGroupBy
 		return ret
 	}
 	return o.GroupBy
@@ -206,7 +206,7 @@ func (o *GraphVisualizationBar) GetGroupBy() []GraphVisualizationTimeseriesGroup
 
 // GetGroupByOk returns a tuple with the GroupBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationBar) GetGroupByOk() ([]GraphVisualizationTimeseriesGroupByInner, bool) {
+func (o *GraphVisualizationBar) GetGroupByOk() ([]AggregationGroupBy, bool) {
 	if o == nil || IsNil(o.GroupBy) {
 		return nil, false
 	}
@@ -222,8 +222,8 @@ func (o *GraphVisualizationBar) HasGroupBy() bool {
 	return false
 }
 
-// SetGroupBy gets a reference to the given []GraphVisualizationTimeseriesGroupByInner and assigns it to the GroupBy field.
-func (o *GraphVisualizationBar) SetGroupBy(v []GraphVisualizationTimeseriesGroupByInner) {
+// SetGroupBy gets a reference to the given []AggregationGroupBy and assigns it to the GroupBy field.
+func (o *GraphVisualizationBar) SetGroupBy(v []AggregationGroupBy) {
 	o.GroupBy = v
 }
 
@@ -260,9 +260,9 @@ func (o *GraphVisualizationBar) SetTimeBucket(v GraphVisualizationBarTimeBucket)
 }
 
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
-func (o *GraphVisualizationBar) GetNormalizer() GraphVisualizationTimeseriesNormalizer {
+func (o *GraphVisualizationBar) GetNormalizer() Normalizer {
 	if o == nil || IsNil(o.Normalizer) {
-		var ret GraphVisualizationTimeseriesNormalizer
+		var ret Normalizer
 		return ret
 	}
 	return *o.Normalizer
@@ -270,7 +270,7 @@ func (o *GraphVisualizationBar) GetNormalizer() GraphVisualizationTimeseriesNorm
 
 // GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationBar) GetNormalizerOk() (*GraphVisualizationTimeseriesNormalizer, bool) {
+func (o *GraphVisualizationBar) GetNormalizerOk() (*Normalizer, bool) {
 	if o == nil || IsNil(o.Normalizer) {
 		return nil, false
 	}
@@ -286,8 +286,8 @@ func (o *GraphVisualizationBar) HasNormalizer() bool {
 	return false
 }
 
-// SetNormalizer gets a reference to the given GraphVisualizationTimeseriesNormalizer and assigns it to the Normalizer field.
-func (o *GraphVisualizationBar) SetNormalizer(v GraphVisualizationTimeseriesNormalizer) {
+// SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
+func (o *GraphVisualizationBar) SetNormalizer(v Normalizer) {
 	o.Normalizer = &v
 }
 

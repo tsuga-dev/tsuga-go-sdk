@@ -30,11 +30,11 @@ type Route struct {
 	// Query that selects which logs should enter the route
 	Query string `json:"query"`
 	// List of key/value tags applied to the resource
-	Tags []ListDashboards200ResponseDataInnerTagsInner `json:"tags,omitempty"`
+	Tags []Tag `json:"tags,omitempty"`
 	// Team ID owning and managing the route
 	Owner string `json:"owner"`
 	// Ordered processors applied to logs that match the route
-	Processors []ListRoutes200ResponseDataInnerProcessorsInner `json:"processors"`
+	Processors []Route1ProcessorsInner `json:"processors"`
 }
 
 type _Route Route
@@ -43,7 +43,7 @@ type _Route Route
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRoute(id string, name string, isEnabled bool, query string, owner string, processors []ListRoutes200ResponseDataInnerProcessorsInner) *Route {
+func NewRoute(id string, name string, isEnabled bool, query string, owner string, processors []Route1ProcessorsInner) *Route {
 	this := Route{}
 	this.Id = id
 	this.Name = name
@@ -191,9 +191,9 @@ func (o *Route) SetQuery(v string) {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *Route) GetTags() []ListDashboards200ResponseDataInnerTagsInner {
+func (o *Route) GetTags() []Tag {
 	if o == nil || IsNil(o.Tags) {
-		var ret []ListDashboards200ResponseDataInnerTagsInner
+		var ret []Tag
 		return ret
 	}
 	return o.Tags
@@ -201,7 +201,7 @@ func (o *Route) GetTags() []ListDashboards200ResponseDataInnerTagsInner {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Route) GetTagsOk() ([]ListDashboards200ResponseDataInnerTagsInner, bool) {
+func (o *Route) GetTagsOk() ([]Tag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -217,8 +217,8 @@ func (o *Route) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []ListDashboards200ResponseDataInnerTagsInner and assigns it to the Tags field.
-func (o *Route) SetTags(v []ListDashboards200ResponseDataInnerTagsInner) {
+// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
+func (o *Route) SetTags(v []Tag) {
 	o.Tags = v
 }
 
@@ -247,9 +247,9 @@ func (o *Route) SetOwner(v string) {
 }
 
 // GetProcessors returns the Processors field value
-func (o *Route) GetProcessors() []ListRoutes200ResponseDataInnerProcessorsInner {
+func (o *Route) GetProcessors() []Route1ProcessorsInner {
 	if o == nil {
-		var ret []ListRoutes200ResponseDataInnerProcessorsInner
+		var ret []Route1ProcessorsInner
 		return ret
 	}
 
@@ -258,7 +258,7 @@ func (o *Route) GetProcessors() []ListRoutes200ResponseDataInnerProcessorsInner 
 
 // GetProcessorsOk returns a tuple with the Processors field value
 // and a boolean to check if the value has been set.
-func (o *Route) GetProcessorsOk() ([]ListRoutes200ResponseDataInnerProcessorsInner, bool) {
+func (o *Route) GetProcessorsOk() ([]Route1ProcessorsInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -266,7 +266,7 @@ func (o *Route) GetProcessorsOk() ([]ListRoutes200ResponseDataInnerProcessorsInn
 }
 
 // SetProcessors sets field value
-func (o *Route) SetProcessors(v []ListRoutes200ResponseDataInnerProcessorsInner) {
+func (o *Route) SetProcessors(v []Route1ProcessorsInner) {
 	o.Processors = v
 }
 

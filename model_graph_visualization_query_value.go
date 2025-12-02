@@ -26,7 +26,7 @@ type GraphVisualizationQueryValue struct {
 	// Data source being queried for this aggregation
 	Source string `json:"source"`
 	// Aggregations that may be combined together in the same query
-	Queries []GraphVisualizationTimeseriesQueriesInner `json:"queries"`
+	Queries []AggregationQuery `json:"queries"`
 	// Formula referencing query outputs (e.g. q1+q2) to compute derived series
 	Formula *string `json:"formula,omitempty"`
 	// Flags indicating whether each query or formula series is visible
@@ -34,8 +34,8 @@ type GraphVisualizationQueryValue struct {
 	// Controls whether the widget uses a solid or transparent background
 	BackgroundMode *string `json:"backgroundMode,omitempty"`
 	// Conditional formatting rules applied to the displayed value
-	Conditions []GraphVisualizationQueryValueConditionsInner `json:"conditions,omitempty"`
-	Normalizer *GraphVisualizationTimeseriesNormalizer `json:"normalizer,omitempty"`
+	Conditions []ConditionalFormatting `json:"conditions,omitempty"`
+	Normalizer *Normalizer `json:"normalizer,omitempty"`
 }
 
 type _GraphVisualizationQueryValue GraphVisualizationQueryValue
@@ -44,7 +44,7 @@ type _GraphVisualizationQueryValue GraphVisualizationQueryValue
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGraphVisualizationQueryValue(type_ string, source string, queries []GraphVisualizationTimeseriesQueriesInner) *GraphVisualizationQueryValue {
+func NewGraphVisualizationQueryValue(type_ string, source string, queries []AggregationQuery) *GraphVisualizationQueryValue {
 	this := GraphVisualizationQueryValue{}
 	this.Type = type_
 	this.Source = source
@@ -109,9 +109,9 @@ func (o *GraphVisualizationQueryValue) SetSource(v string) {
 }
 
 // GetQueries returns the Queries field value
-func (o *GraphVisualizationQueryValue) GetQueries() []GraphVisualizationTimeseriesQueriesInner {
+func (o *GraphVisualizationQueryValue) GetQueries() []AggregationQuery {
 	if o == nil {
-		var ret []GraphVisualizationTimeseriesQueriesInner
+		var ret []AggregationQuery
 		return ret
 	}
 
@@ -120,7 +120,7 @@ func (o *GraphVisualizationQueryValue) GetQueries() []GraphVisualizationTimeseri
 
 // GetQueriesOk returns a tuple with the Queries field value
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationQueryValue) GetQueriesOk() ([]GraphVisualizationTimeseriesQueriesInner, bool) {
+func (o *GraphVisualizationQueryValue) GetQueriesOk() ([]AggregationQuery, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -128,7 +128,7 @@ func (o *GraphVisualizationQueryValue) GetQueriesOk() ([]GraphVisualizationTimes
 }
 
 // SetQueries sets field value
-func (o *GraphVisualizationQueryValue) SetQueries(v []GraphVisualizationTimeseriesQueriesInner) {
+func (o *GraphVisualizationQueryValue) SetQueries(v []AggregationQuery) {
 	o.Queries = v
 }
 
@@ -229,9 +229,9 @@ func (o *GraphVisualizationQueryValue) SetBackgroundMode(v string) {
 }
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
-func (o *GraphVisualizationQueryValue) GetConditions() []GraphVisualizationQueryValueConditionsInner {
+func (o *GraphVisualizationQueryValue) GetConditions() []ConditionalFormatting {
 	if o == nil || IsNil(o.Conditions) {
-		var ret []GraphVisualizationQueryValueConditionsInner
+		var ret []ConditionalFormatting
 		return ret
 	}
 	return o.Conditions
@@ -239,7 +239,7 @@ func (o *GraphVisualizationQueryValue) GetConditions() []GraphVisualizationQuery
 
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationQueryValue) GetConditionsOk() ([]GraphVisualizationQueryValueConditionsInner, bool) {
+func (o *GraphVisualizationQueryValue) GetConditionsOk() ([]ConditionalFormatting, bool) {
 	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
@@ -255,15 +255,15 @@ func (o *GraphVisualizationQueryValue) HasConditions() bool {
 	return false
 }
 
-// SetConditions gets a reference to the given []GraphVisualizationQueryValueConditionsInner and assigns it to the Conditions field.
-func (o *GraphVisualizationQueryValue) SetConditions(v []GraphVisualizationQueryValueConditionsInner) {
+// SetConditions gets a reference to the given []ConditionalFormatting and assigns it to the Conditions field.
+func (o *GraphVisualizationQueryValue) SetConditions(v []ConditionalFormatting) {
 	o.Conditions = v
 }
 
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
-func (o *GraphVisualizationQueryValue) GetNormalizer() GraphVisualizationTimeseriesNormalizer {
+func (o *GraphVisualizationQueryValue) GetNormalizer() Normalizer {
 	if o == nil || IsNil(o.Normalizer) {
-		var ret GraphVisualizationTimeseriesNormalizer
+		var ret Normalizer
 		return ret
 	}
 	return *o.Normalizer
@@ -271,7 +271,7 @@ func (o *GraphVisualizationQueryValue) GetNormalizer() GraphVisualizationTimeser
 
 // GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationQueryValue) GetNormalizerOk() (*GraphVisualizationTimeseriesNormalizer, bool) {
+func (o *GraphVisualizationQueryValue) GetNormalizerOk() (*Normalizer, bool) {
 	if o == nil || IsNil(o.Normalizer) {
 		return nil, false
 	}
@@ -287,8 +287,8 @@ func (o *GraphVisualizationQueryValue) HasNormalizer() bool {
 	return false
 }
 
-// SetNormalizer gets a reference to the given GraphVisualizationTimeseriesNormalizer and assigns it to the Normalizer field.
-func (o *GraphVisualizationQueryValue) SetNormalizer(v GraphVisualizationTimeseriesNormalizer) {
+// SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
+func (o *GraphVisualizationQueryValue) SetNormalizer(v Normalizer) {
 	o.Normalizer = &v
 }
 

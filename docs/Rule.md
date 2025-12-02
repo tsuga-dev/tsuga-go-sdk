@@ -11,14 +11,14 @@ Name | Type | Description | Notes
 **TransitionTypesFilter** | **[]string** | Alert state transitions that can trigger a notification | 
 **Owner** | **string** | Team ID that owns and manages the rule | 
 **IsActive** | **bool** |  | 
-**Tags** | Pointer to [**[]ListDashboards200ResponseDataInnerTagsInner**](ListDashboards200ResponseDataInnerTagsInner.md) | List of key/value tags applied to the resource | [optional] 
-**Targets** | [**[]ListNotificationRules200ResponseDataInnerTargetsInner**](ListNotificationRules200ResponseDataInnerTargetsInner.md) | Notification targets that can receive notifications when the rule matches | 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
+**Targets** | [**[]RuleTargetsInner**](RuleTargetsInner.md) | Notification targets that can receive notifications when the rule matches | 
 
 ## Methods
 
 ### NewRule
 
-`func NewRule(id string, name string, teamsFilter []string, prioritiesFilter []int32, transitionTypesFilter []string, owner string, isActive bool, targets []ListNotificationRules200ResponseDataInnerTargetsInner, ) *Rule`
+`func NewRule(id string, name string, teamsFilter []string, prioritiesFilter []int32, transitionTypesFilter []string, owner string, isActive bool, targets []RuleTargetsInner, ) *Rule`
 
 NewRule instantiates a new Rule object
 This constructor will assign default values to properties that have it defined,
@@ -175,20 +175,20 @@ SetIsActive sets IsActive field to given value.
 
 ### GetTags
 
-`func (o *Rule) GetTags() []ListDashboards200ResponseDataInnerTagsInner`
+`func (o *Rule) GetTags() []Tag`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *Rule) GetTagsOk() (*[]ListDashboards200ResponseDataInnerTagsInner, bool)`
+`func (o *Rule) GetTagsOk() (*[]Tag, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *Rule) SetTags(v []ListDashboards200ResponseDataInnerTagsInner)`
+`func (o *Rule) SetTags(v []Tag)`
 
 SetTags sets Tags field to given value.
 
@@ -200,20 +200,20 @@ HasTags returns a boolean if a field has been set.
 
 ### GetTargets
 
-`func (o *Rule) GetTargets() []ListNotificationRules200ResponseDataInnerTargetsInner`
+`func (o *Rule) GetTargets() []RuleTargetsInner`
 
 GetTargets returns the Targets field if non-nil, zero value otherwise.
 
 ### GetTargetsOk
 
-`func (o *Rule) GetTargetsOk() (*[]ListNotificationRules200ResponseDataInnerTargetsInner, bool)`
+`func (o *Rule) GetTargetsOk() (*[]RuleTargetsInner, bool)`
 
 GetTargetsOk returns a tuple with the Targets field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTargets
 
-`func (o *Rule) SetTargets(v []ListNotificationRules200ResponseDataInnerTargetsInner)`
+`func (o *Rule) SetTargets(v []RuleTargetsInner)`
 
 SetTargets sets Targets field to given value.
 

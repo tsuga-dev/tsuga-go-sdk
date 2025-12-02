@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+concurrency:
+  # In PRs, a new push cancels the current workflow run
+  group: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  go-test:
+    name: Go Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # pin@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@4dc6199c7b1a012772edbd06daecab0f50c9053c # pin@v6.1
+        with:
+          go-version: "1.25.3"
+
+      - name: Go Lint
+        uses: golangci/golangci-lint-action@e7fa5ac41e1cf5b7d48e45e42232ce7ada589601 # pin@v9
+        with:
+          version: v2.6
+
+      - name: Download dependencies
+        run: go mod download
+
+      - name: Go format
+        run: go fmt ./...
+
+      - name: Go test
+        run: go test -v ./...
+
+      - name: Go vet
+        run: go vet ./...

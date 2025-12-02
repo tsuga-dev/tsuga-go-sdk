@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RequestId** | **string** | Identifier used to trace the lifecycle of this API request | 
-**Data** | [**[]ListNotificationRules200ResponseDataInner**](ListNotificationRules200ResponseDataInner.md) |  | 
+**Data** | [**[]Rule**](Rule.md) |  | 
 
 ## Methods
 
 ### NewListNotificationRules200Response
 
-`func NewListNotificationRules200Response(requestId string, data []ListNotificationRules200ResponseDataInner, ) *ListNotificationRules200Response`
+`func NewListNotificationRules200Response(requestId string, data []Rule, ) *ListNotificationRules200Response`
 
 NewListNotificationRules200Response instantiates a new ListNotificationRules200Response object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetRequestId sets RequestId field to given value.
 
 ### GetData
 
-`func (o *ListNotificationRules200Response) GetData() []ListNotificationRules200ResponseDataInner`
+`func (o *ListNotificationRules200Response) GetData() []Rule`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *ListNotificationRules200Response) GetDataOk() (*[]ListNotificationRules200ResponseDataInner, bool)`
+`func (o *ListNotificationRules200Response) GetDataOk() (*[]Rule, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *ListNotificationRules200Response) SetData(v []ListNotificationRules200ResponseDataInner)`
+`func (o *ListNotificationRules200Response) SetData(v []Rule)`
 
 SetData sets Data field to given value.
 

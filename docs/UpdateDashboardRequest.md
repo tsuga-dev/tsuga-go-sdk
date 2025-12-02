@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | Display name of the dashboard | [optional] 
 **Owner** | Pointer to **string** | Team ID that owns and manages the dashboard | [optional] 
-**Graphs** | Pointer to [**[]ListDashboards200ResponseDataInnerGraphsInner**](ListDashboards200ResponseDataInnerGraphsInner.md) | Ordered widgets that compose the dashboard | [optional] 
+**Graphs** | Pointer to [**[]Graph**](Graph.md) | Ordered widgets that compose the dashboard | [optional] 
 **Filters** | Pointer to **[]string** | Filters applied to every widget on the dashboard | [optional] 
-**Tags** | Pointer to [**[]ListDashboards200ResponseDataInnerTagsInner**](ListDashboards200ResponseDataInnerTagsInner.md) | List of key/value tags applied to the resource | [optional] 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
 
 ## Methods
 
@@ -81,20 +81,20 @@ HasOwner returns a boolean if a field has been set.
 
 ### GetGraphs
 
-`func (o *UpdateDashboardRequest) GetGraphs() []ListDashboards200ResponseDataInnerGraphsInner`
+`func (o *UpdateDashboardRequest) GetGraphs() []Graph`
 
 GetGraphs returns the Graphs field if non-nil, zero value otherwise.
 
 ### GetGraphsOk
 
-`func (o *UpdateDashboardRequest) GetGraphsOk() (*[]ListDashboards200ResponseDataInnerGraphsInner, bool)`
+`func (o *UpdateDashboardRequest) GetGraphsOk() (*[]Graph, bool)`
 
 GetGraphsOk returns a tuple with the Graphs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGraphs
 
-`func (o *UpdateDashboardRequest) SetGraphs(v []ListDashboards200ResponseDataInnerGraphsInner)`
+`func (o *UpdateDashboardRequest) SetGraphs(v []Graph)`
 
 SetGraphs sets Graphs field to given value.
 
@@ -131,20 +131,20 @@ HasFilters returns a boolean if a field has been set.
 
 ### GetTags
 
-`func (o *UpdateDashboardRequest) GetTags() []ListDashboards200ResponseDataInnerTagsInner`
+`func (o *UpdateDashboardRequest) GetTags() []Tag`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *UpdateDashboardRequest) GetTagsOk() (*[]ListDashboards200ResponseDataInnerTagsInner, bool)`
+`func (o *UpdateDashboardRequest) GetTagsOk() (*[]Tag, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *UpdateDashboardRequest) SetTags(v []ListDashboards200ResponseDataInnerTagsInner)`
+`func (o *UpdateDashboardRequest) SetTags(v []Tag)`
 
 SetTags sets Tags field to given value.
 

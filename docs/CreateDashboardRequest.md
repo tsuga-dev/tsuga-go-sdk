@@ -6,15 +6,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Display name of the dashboard | 
 **Owner** | **string** | Team ID that owns and manages the dashboard | 
-**Graphs** | [**[]ListDashboards200ResponseDataInnerGraphsInner**](ListDashboards200ResponseDataInnerGraphsInner.md) | Ordered widgets that compose the dashboard | 
+**Graphs** | [**[]Graph**](Graph.md) | Ordered widgets that compose the dashboard | 
 **Filters** | Pointer to **[]string** | Filters applied to every widget on the dashboard | [optional] 
-**Tags** | Pointer to [**[]ListDashboards200ResponseDataInnerTagsInner**](ListDashboards200ResponseDataInnerTagsInner.md) | List of key/value tags applied to the resource | [optional] 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
 
 ## Methods
 
 ### NewCreateDashboardRequest
 
-`func NewCreateDashboardRequest(name string, owner string, graphs []ListDashboards200ResponseDataInnerGraphsInner, ) *CreateDashboardRequest`
+`func NewCreateDashboardRequest(name string, owner string, graphs []Graph, ) *CreateDashboardRequest`
 
 NewCreateDashboardRequest instantiates a new CreateDashboardRequest object
 This constructor will assign default values to properties that have it defined,
@@ -71,20 +71,20 @@ SetOwner sets Owner field to given value.
 
 ### GetGraphs
 
-`func (o *CreateDashboardRequest) GetGraphs() []ListDashboards200ResponseDataInnerGraphsInner`
+`func (o *CreateDashboardRequest) GetGraphs() []Graph`
 
 GetGraphs returns the Graphs field if non-nil, zero value otherwise.
 
 ### GetGraphsOk
 
-`func (o *CreateDashboardRequest) GetGraphsOk() (*[]ListDashboards200ResponseDataInnerGraphsInner, bool)`
+`func (o *CreateDashboardRequest) GetGraphsOk() (*[]Graph, bool)`
 
 GetGraphsOk returns a tuple with the Graphs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGraphs
 
-`func (o *CreateDashboardRequest) SetGraphs(v []ListDashboards200ResponseDataInnerGraphsInner)`
+`func (o *CreateDashboardRequest) SetGraphs(v []Graph)`
 
 SetGraphs sets Graphs field to given value.
 
@@ -116,20 +116,20 @@ HasFilters returns a boolean if a field has been set.
 
 ### GetTags
 
-`func (o *CreateDashboardRequest) GetTags() []ListDashboards200ResponseDataInnerTagsInner`
+`func (o *CreateDashboardRequest) GetTags() []Tag`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *CreateDashboardRequest) GetTagsOk() (*[]ListDashboards200ResponseDataInnerTagsInner, bool)`
+`func (o *CreateDashboardRequest) GetTagsOk() (*[]Tag, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *CreateDashboardRequest) SetTags(v []ListDashboards200ResponseDataInnerTagsInner)`
+`func (o *CreateDashboardRequest) SetTags(v []Tag)`
 
 SetTags sets Tags field to given value.
 

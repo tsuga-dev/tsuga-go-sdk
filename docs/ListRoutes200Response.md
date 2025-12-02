@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RequestId** | **string** | Identifier used to trace the lifecycle of this API request | 
-**Data** | [**[]ListRoutes200ResponseDataInner**](ListRoutes200ResponseDataInner.md) |  | 
+**Data** | [**[]Route**](Route.md) |  | 
 
 ## Methods
 
 ### NewListRoutes200Response
 
-`func NewListRoutes200Response(requestId string, data []ListRoutes200ResponseDataInner, ) *ListRoutes200Response`
+`func NewListRoutes200Response(requestId string, data []Route, ) *ListRoutes200Response`
 
 NewListRoutes200Response instantiates a new ListRoutes200Response object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetRequestId sets RequestId field to given value.
 
 ### GetData
 
-`func (o *ListRoutes200Response) GetData() []ListRoutes200ResponseDataInner`
+`func (o *ListRoutes200Response) GetData() []Route`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *ListRoutes200Response) GetDataOk() (*[]ListRoutes200ResponseDataInner, bool)`
+`func (o *ListRoutes200Response) GetDataOk() (*[]Route, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *ListRoutes200Response) SetData(v []ListRoutes200ResponseDataInner)`
+`func (o *ListRoutes200Response) SetData(v []Route)`
 
 SetData sets Data field to given value.
 
