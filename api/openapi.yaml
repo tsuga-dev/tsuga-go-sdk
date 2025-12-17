@@ -13,6 +13,8 @@ security:
 tags:
 - description: Visualization of telemetry data with customizable graphs and filters
   name: dashboards
+- description: Monitors for sending alerts based on telemetry data
+  name: monitors
 - description: Notification rules for alerts
   name: notification-rules
 - description: Routes for processing log data
@@ -183,6 +185,170 @@ paths:
           description: Default Response
       tags:
       - dashboards
+  /v1/monitors:
+    get:
+      description: Retrieve all monitors
+      operationId: listMonitors
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listMonitors_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+      tags:
+      - monitors
+    post:
+      description: Create a new monitor
+      operationId: createMonitor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createMonitor_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createMonitor_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+      tags:
+      - monitors
+  /v1/monitors/{id}:
+    delete:
+      description: Delete a monitor by its id
+      operationId: deleteMonitor
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/deleteDashboard_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+      tags:
+      - monitors
+    get:
+      description: Retrieve a monitor by its id
+      operationId: getMonitor
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createMonitor_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+      tags:
+      - monitors
+    put:
+      description: Update a monitor by its id
+      operationId: updateMonitor
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createMonitor_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createMonitor_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listDashboards_4XX_response"
+          description: Default Response
+      tags:
+      - monitors
   /v1/notification-rules:
     get:
       description: Retrieve all notification rules
@@ -379,7 +545,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Route_1"
+              $ref: "#/components/schemas/createRoute_request"
         required: true
       responses:
         "200":
@@ -488,7 +654,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Route_1"
+              $ref: "#/components/schemas/createRoute_request"
         required: true
       responses:
         "200":
@@ -683,10 +849,10 @@ components:
         owner: owner
         graphs:
         - layout:
-            w: 5.962133916683182
-            x: 6.027456183070403
-            h: 5.637376656633329
-            "y": 1.4658129805029452
+            w: 5.637376656633329
+            x: 1.4658129805029452
+            h: 2.3021358869347655
+            "y": 5.962133916683182
           visualization:
             visibleSeries:
             - true
@@ -695,6 +861,9 @@ components:
               unit: days
               type: duration
             formula: formula
+            timeBucket:
+              metric: sec
+              time: 6.027456183070403
             source: logs
             groupBy:
             - limit: 0.8008281904610115
@@ -759,10 +928,10 @@ components:
           name: name
           id: id
         - layout:
-            w: 5.962133916683182
-            x: 6.027456183070403
-            h: 5.637376656633329
-            "y": 1.4658129805029452
+            w: 5.637376656633329
+            x: 1.4658129805029452
+            h: 2.3021358869347655
+            "y": 5.962133916683182
           visualization:
             visibleSeries:
             - true
@@ -771,6 +940,9 @@ components:
               unit: days
               type: duration
             formula: formula
+            timeBucket:
+              metric: sec
+              time: 6.027456183070403
             source: logs
             groupBy:
             - limit: 0.8008281904610115
@@ -834,12 +1006,10 @@ components:
                 type: count
           name: name
           id: id
+        timePreset: past-15-minutes
         name: name
         id: id
         filters:
-        - filters
-        - filters
-        - filters
         - filters
         - filters
         tags:
@@ -872,7 +1042,6 @@ components:
           description: Filters applied to every widget on the dashboard
           items:
             type: string
-          maxItems: 10
           type: array
         tags:
           description: List of key/value tags applied to the resource
@@ -881,6 +1050,31 @@ components:
           maxItems: 50
           title: Tags
           type: array
+        timePreset:
+          enum:
+          - past-15-minutes
+          - past-30-minutes
+          - past-1-hour
+          - past-2-hours
+          - past-4-hours
+          - past-6-hours
+          - past-12-hours
+          - past-24-hours
+          - past-2-days
+          - past-3-days
+          - past-7-days
+          - past-30-days
+          - past-3-months
+          - current-day
+          - current-week
+          - current-month
+          - current-year
+          - previous-day
+          - previous-week
+          - previous-month
+          - previous-3-months
+          - previous-year
+          type: string
       required:
       - graphs
       - id
@@ -892,7 +1086,7 @@ components:
       example:
         code: ABORT_ERROR
         message: message
-        statusCode: 2.3021358869347655
+        statusCode: 7.061401241503109
       properties:
         code:
           description: Machine readable error code describing what went wrong
@@ -924,6 +1118,123 @@ components:
       - message
       - statusCode
       type: object
+    Monitor:
+      description: Monitor allowing to send alerts based on telemetry data
+      example:
+        owner: owner
+        configuration:
+          timeframe: 6.027456183070403
+          condition:
+            formula: formula
+            threshold: 0.8008281904610115
+            operator: greater_than
+          groupByFields:
+          - limit: 0.8008281904610115
+            fields:
+            - fields
+            - fields
+          aggregationAlertLogic: no_aggregation
+          type: metric
+          proportionAlertThreshold: 15.364967208928864
+          queries:
+          - filter: filter
+            name: name
+            aggregate:
+              field: field
+              type: unique-count
+            value_if_no_data: Zero
+          - filter: filter
+            name: name
+            aggregate:
+              field: field
+              type: unique-count
+            value_if_no_data: Zero
+          - filter: filter
+            name: name
+            aggregate:
+              field: field
+              type: unique-count
+            value_if_no_data: Zero
+          - filter: filter
+            name: name
+            aggregate:
+              field: field
+              type: unique-count
+            value_if_no_data: Zero
+          - filter: filter
+            name: name
+            aggregate:
+              field: field
+              type: unique-count
+            value_if_no_data: Zero
+          noDataBehavior: alert
+        dashboardId: dashboardId
+        permissions: all
+        name: name
+        id: id
+        message: message
+        priority: 5.962133916683182
+        tags:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+      properties:
+        id:
+          description: Identifier of the monitor
+          type: string
+        name:
+          description: Display name of the monitor
+          type: string
+        message:
+          description: Message to be displayed if a notification is triggered
+          type: string
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/Tag"
+          maxItems: 50
+          title: Tags
+          type: array
+        configuration:
+          $ref: "#/components/schemas/createMonitor_request_configuration"
+        priority:
+          description: Priority of the monitor
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          type: number
+        owner:
+          description: Team ID that owns and manages the monitor
+          type: string
+        dashboardId:
+          description: Identifier of a dashboard related to the monitor
+          type: string
+        permissions:
+          description: This controls which data the monitor can see.
+          enum:
+          - all
+          - owning-team-only
+          - owning-team-and-public
+          type: string
+      required:
+      - configuration
+      - id
+      - name
+      - owner
+      - permissions
+      - priority
+      title: Monitor
+      type: object
     Rule:
       description: Rules to trigger notifications to targets based on alert events
       example:
@@ -933,8 +1244,8 @@ components:
         - triggered
         name: name
         prioritiesFilter:
-        - 1
-        - 1
+        - 0
+        - 0
         id: id
         isActive: true
         teamsFilter:
@@ -998,8 +1309,6 @@ components:
         prioritiesFilter:
           description: Priorities that narrow down the alerts that can trigger a notification
           items:
-            maximum: 5
-            minimum: 1
             type: integer
           type: array
         transitionTypesFilter:
@@ -1132,129 +1441,6 @@ components:
           - value: value
             key: key
           updatedAt: 2000-01-23T04:56:07.000+00:00
-        - name: name
-          description: description
-          id: id
-          type: mapper
-          params:
-            subtype: map-attributes
-            attributes:
-            - keepOrigin: true
-              originAttribute: originAttribute
-              targetAttribute: targetAttribute
-              overrideTarget: true
-            - keepOrigin: true
-              originAttribute: originAttribute
-              targetAttribute: targetAttribute
-              overrideTarget: true
-            - keepOrigin: true
-              originAttribute: originAttribute
-              targetAttribute: targetAttribute
-              overrideTarget: true
-            - keepOrigin: true
-              originAttribute: originAttribute
-              targetAttribute: targetAttribute
-              overrideTarget: true
-            - keepOrigin: true
-              originAttribute: originAttribute
-              targetAttribute: targetAttribute
-              overrideTarget: true
-          example:
-            manual: true
-          tags:
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - name: name
-          description: description
-          id: id
-          type: mapper
-          params:
-            subtype: map-attributes
-            attributes:
-            - keepOrigin: true
-              originAttribute: originAttribute
-              targetAttribute: targetAttribute
-              overrideTarget: true
-            - keepOrigin: true
-              originAttribute: originAttribute
-              targetAttribute: targetAttribute
-              overrideTarget: true
-            - keepOrigin: true
-              originAttribute: originAttribute
-              targetAttribute: targetAttribute
-              overrideTarget: true
-            - keepOrigin: true
-              originAttribute: originAttribute
-              targetAttribute: targetAttribute
-              overrideTarget: true
-            - keepOrigin: true
-              originAttribute: originAttribute
-              targetAttribute: targetAttribute
-              overrideTarget: true
-          example:
-            manual: true
-          tags:
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - name: name
-          description: description
-          id: id
-          type: mapper
-          params:
-            subtype: map-attributes
-            attributes:
-            - keepOrigin: true
-              originAttribute: originAttribute
-              targetAttribute: targetAttribute
-              overrideTarget: true
-            - keepOrigin: true
-              originAttribute: originAttribute
-              targetAttribute: targetAttribute
-              overrideTarget: true
-            - keepOrigin: true
-              originAttribute: originAttribute
-              targetAttribute: targetAttribute
-              overrideTarget: true
-            - keepOrigin: true
-              originAttribute: originAttribute
-              targetAttribute: targetAttribute
-              overrideTarget: true
-            - keepOrigin: true
-              originAttribute: originAttribute
-              targetAttribute: targetAttribute
-              overrideTarget: true
-          example:
-            manual: true
-          tags:
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          updatedAt: 2000-01-23T04:56:07.000+00:00
         tags:
         - value: value
           key: key
@@ -1269,24 +1455,16 @@ components:
       properties:
         id:
           description: Identifier of the log route
-          maxLength: 250
-          minLength: 0
           type: string
         name:
           description: Human readable name shown for the route
-          maxLength: 250
-          minLength: 0
           type: string
         description:
-          maxLength: 50000
-          minLength: 0
           type: string
         isEnabled:
           type: boolean
         query:
           description: Query that selects which logs should enter the route
-          maxLength: 250
-          minLength: 0
           type: string
         tags:
           description: List of key/value tags applied to the resource
@@ -1297,14 +1475,11 @@ components:
           type: array
         owner:
           description: Team ID owning and managing the route
-          maxLength: 250
-          minLength: 1
           type: string
         processors:
           description: Ordered processors applied to logs that match the route
           items:
-            $ref: "#/components/schemas/Route_1_processors_inner"
-          maxItems: 50
+            $ref: "#/components/schemas/createRoute_request_processors_inner"
           type: array
       required:
       - id
@@ -1317,10 +1492,10 @@ components:
       type: object
     Processor:
       anyOf:
-      - $ref: "#/components/schemas/Route_1_processors_inner_anyOf"
-      - $ref: "#/components/schemas/Route_1_processors_inner_anyOf_1"
-      - $ref: "#/components/schemas/Route_1_processors_inner_anyOf_2"
-      - $ref: "#/components/schemas/Route_1_processors_inner_anyOf_3"
+      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf"
+      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_1"
+      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_2"
+      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_3"
       description: Processing step executed sequentially on route logs
     Team:
       description: Collection of users used to manage ownership and access to resources
@@ -1368,25 +1543,15 @@ components:
       - name
       - visibility
       type: object
-    AggregateCount:
+    AggregateUniqueCount:
       example:
-        type: count
+        field: field
+        type: unique-count
       properties:
         type:
-          description: Counts the total number of records
+          description: Counts the distinct values of the field
           enum:
-          - count
-          type: string
-      required:
-      - type
-      title: Count
-      type: object
-    AggregateSum:
-      properties:
-        type:
-          description: Sums the values of the selected field
-          enum:
-          - sum
+          - unique-count
           type: string
         field:
           description: Attribute containing the values to aggregate
@@ -1396,7 +1561,7 @@ components:
       required:
       - field
       - type
-      title: Sum
+      title: UniqueCount
       type: object
     AggregateAverage:
       properties:
@@ -1415,23 +1580,6 @@ components:
       - type
       title: Average
       type: object
-    AggregateMin:
-      properties:
-        type:
-          description: Finds the smallest value of the field
-          enum:
-          - min
-          type: string
-        field:
-          description: Attribute containing the values to aggregate
-          maxLength: 250
-          minLength: 0
-          type: string
-      required:
-      - field
-      - type
-      title: Min
-      type: object
     AggregateMax:
       properties:
         type:
@@ -1449,12 +1597,12 @@ components:
       - type
       title: Max
       type: object
-    AggregateUniqueCount:
+    AggregateMin:
       properties:
         type:
-          description: Counts the distinct values of the field
+          description: Finds the smallest value of the field
           enum:
-          - unique-count
+          - min
           type: string
         field:
           description: Attribute containing the values to aggregate
@@ -1464,7 +1612,24 @@ components:
       required:
       - field
       - type
-      title: UniqueCount
+      title: Min
+      type: object
+    AggregateSum:
+      properties:
+        type:
+          description: Sums the values of the selected field
+          enum:
+          - sum
+          type: string
+        field:
+          description: Attribute containing the values to aggregate
+          maxLength: 250
+          minLength: 0
+          type: string
+      required:
+      - field
+      - type
+      title: Sum
       type: object
     AggregatePercentile:
       properties:
@@ -1485,6 +1650,19 @@ components:
       - percentile
       - type
       title: Percentile
+      type: object
+    AggregateCount:
+      example:
+        type: count
+      properties:
+        type:
+          description: Counts the total number of records
+          enum:
+          - count
+          type: string
+      required:
+      - type
+      title: Count
       type: object
     FunctionPerSecond:
       example:
@@ -1531,6 +1709,17 @@ components:
       required:
       - type
       title: Rate
+      type: object
+    FunctionIncrease:
+      properties:
+        type:
+          description: Calculates the increase between values
+          enum:
+          - increase
+          type: string
+      required:
+      - type
+      title: Increase
       type: object
     FunctionRolling:
       properties:
@@ -1610,7 +1799,10 @@ components:
           description: Email addresses that will receive the alert
           items:
             format: email
+            maxLength: 254
+            minLength: 0
             type: string
+          maxItems: 20
           minItems: 1
           type: array
       required:
@@ -1787,6 +1979,250 @@ components:
       required:
       - integrationId
       - integrationName
+      - type
+      type: object
+    MonitorConfigurationMetric:
+      example:
+        timeframe: 6.027456183070403
+        condition:
+          formula: formula
+          threshold: 0.8008281904610115
+          operator: greater_than
+        groupByFields:
+        - limit: 0.8008281904610115
+          fields:
+          - fields
+          - fields
+        aggregationAlertLogic: no_aggregation
+        type: metric
+        proportionAlertThreshold: 15.364967208928864
+        queries:
+        - filter: filter
+          name: name
+          aggregate:
+            field: field
+            type: unique-count
+          value_if_no_data: Zero
+        - filter: filter
+          name: name
+          aggregate:
+            field: field
+            type: unique-count
+          value_if_no_data: Zero
+        - filter: filter
+          name: name
+          aggregate:
+            field: field
+            type: unique-count
+          value_if_no_data: Zero
+        - filter: filter
+          name: name
+          aggregate:
+            field: field
+            type: unique-count
+          value_if_no_data: Zero
+        - filter: filter
+          name: name
+          aggregate:
+            field: field
+            type: unique-count
+          value_if_no_data: Zero
+        noDataBehavior: alert
+      properties:
+        type:
+          enum:
+          - metric
+          type: string
+        condition:
+          $ref: "#/components/schemas/MonitorConfigurationMetric_condition"
+        noDataBehavior:
+          enum:
+          - alert
+          - resolve
+          - keep_last_status
+          - consider_zero
+          type: string
+        timeframe:
+          description: Timeframe of the monitor in minutes
+          type: number
+        groupByFields:
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy"
+          maxItems: 1
+          type: array
+        aggregationAlertLogic:
+          enum:
+          - no_aggregation
+          - all
+          - any
+          - each
+          - proportion
+          type: string
+        proportionAlertThreshold:
+          maximum: 99
+          minimum: 1
+          multipleOf: 1
+          type: number
+        queries:
+          items:
+            $ref: "#/components/schemas/MonitorConfigurationMetric_queries_inner"
+          maxItems: 5
+          minItems: 1
+          type: array
+      required:
+      - condition
+      - groupByFields
+      - noDataBehavior
+      - queries
+      - timeframe
+      - type
+      type: object
+    MonitorConfigurationLog:
+      properties:
+        type:
+          enum:
+          - log
+          type: string
+        condition:
+          $ref: "#/components/schemas/MonitorConfigurationMetric_condition"
+        noDataBehavior:
+          enum:
+          - alert
+          - resolve
+          - keep_last_status
+          - consider_zero
+          type: string
+        timeframe:
+          description: Timeframe of the monitor in minutes
+          type: number
+        groupByFields:
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy"
+          maxItems: 1
+          type: array
+        aggregationAlertLogic:
+          enum:
+          - no_aggregation
+          - all
+          - any
+          - each
+          - proportion
+          type: string
+        proportionAlertThreshold:
+          maximum: 99
+          minimum: 1
+          multipleOf: 1
+          type: number
+        queries:
+          items:
+            $ref: "#/components/schemas/MonitorConfigurationLog_queries_inner"
+          maxItems: 5
+          minItems: 1
+          type: array
+      required:
+      - condition
+      - groupByFields
+      - noDataBehavior
+      - queries
+      - timeframe
+      - type
+      type: object
+    MonitorConfigurationAnomalyLog:
+      properties:
+        type:
+          enum:
+          - anomaly-log
+          type: string
+        condition:
+          $ref: "#/components/schemas/MonitorConfigurationAnomalyLog_condition"
+        noDataBehavior:
+          enum:
+          - alert
+          - resolve
+          - keep_last_status
+          type: string
+        timeframe:
+          description: Timeframe of the monitor in minutes
+          type: number
+        groupByFields:
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy"
+          maxItems: 1
+          type: array
+        aggregationAlertLogic:
+          enum:
+          - no_aggregation
+          - all
+          - any
+          - each
+          - proportion
+          type: string
+        proportionAlertThreshold:
+          maximum: 99
+          minimum: 1
+          multipleOf: 1
+          type: number
+        queries:
+          items:
+            $ref: "#/components/schemas/MonitorConfigurationLog_queries_inner"
+          maxItems: 5
+          minItems: 1
+          type: array
+      required:
+      - condition
+      - groupByFields
+      - noDataBehavior
+      - queries
+      - timeframe
+      - type
+      type: object
+    MonitorConfigurationAnomalyMetric:
+      properties:
+        type:
+          enum:
+          - anomaly-metric
+          type: string
+        condition:
+          $ref: "#/components/schemas/MonitorConfigurationAnomalyLog_condition"
+        noDataBehavior:
+          enum:
+          - alert
+          - resolve
+          - keep_last_status
+          type: string
+        timeframe:
+          description: Timeframe of the monitor in minutes
+          type: number
+        groupByFields:
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy"
+          maxItems: 1
+          type: array
+        aggregationAlertLogic:
+          enum:
+          - no_aggregation
+          - all
+          - any
+          - each
+          - proportion
+          type: string
+        proportionAlertThreshold:
+          maximum: 99
+          minimum: 1
+          multipleOf: 1
+          type: number
+        queries:
+          items:
+            $ref: "#/components/schemas/MonitorConfigurationMetric_queries_inner"
+          maxItems: 5
+          minItems: 1
+          type: array
+      required:
+      - condition
+      - groupByFields
+      - noDataBehavior
+      - queries
+      - timeframe
       - type
       type: object
     ProcessorParamsCreatorFormatString:
@@ -2006,6 +2442,9 @@ components:
           unit: days
           type: duration
         formula: formula
+        timeBucket:
+          metric: sec
+          time: 6.027456183070403
         source: logs
         groupBy:
         - limit: 0.8008281904610115
@@ -2103,6 +2542,8 @@ components:
             $ref: "#/components/schemas/AggregationGroupBy"
           maxItems: 3
           type: array
+        timeBucket:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_timeBucket"
         normalizer:
           $ref: "#/components/schemas/Normalizer"
       required:
@@ -2289,7 +2730,7 @@ components:
           maxItems: 3
           type: array
         timeBucket:
-          $ref: "#/components/schemas/GraphVisualizationBar_timeBucket"
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_timeBucket"
         normalizer:
           $ref: "#/components/schemas/Normalizer"
       required:
@@ -2312,6 +2753,7 @@ components:
           type: string
         query:
           description: Log query that selects records for the list
+          format: tsuga-query
           maxLength: 10000
           minLength: 0
           type: string
@@ -2377,10 +2819,10 @@ components:
         - owner: owner
           graphs:
           - layout:
-              w: 5.962133916683182
-              x: 6.027456183070403
-              h: 5.637376656633329
-              "y": 1.4658129805029452
+              w: 5.637376656633329
+              x: 1.4658129805029452
+              h: 2.3021358869347655
+              "y": 5.962133916683182
             visualization:
               visibleSeries:
               - true
@@ -2389,6 +2831,9 @@ components:
                 unit: days
                 type: duration
               formula: formula
+              timeBucket:
+                metric: sec
+                time: 6.027456183070403
               source: logs
               groupBy:
               - limit: 0.8008281904610115
@@ -2453,10 +2898,10 @@ components:
             name: name
             id: id
           - layout:
-              w: 5.962133916683182
-              x: 6.027456183070403
-              h: 5.637376656633329
-              "y": 1.4658129805029452
+              w: 5.637376656633329
+              x: 1.4658129805029452
+              h: 2.3021358869347655
+              "y": 5.962133916683182
             visualization:
               visibleSeries:
               - true
@@ -2465,6 +2910,9 @@ components:
                 unit: days
                 type: duration
               formula: formula
+              timeBucket:
+                metric: sec
+                time: 6.027456183070403
               source: logs
               groupBy:
               - limit: 0.8008281904610115
@@ -2528,12 +2976,10 @@ components:
                   type: count
             name: name
             id: id
+          timePreset: past-15-minutes
           name: name
           id: id
           filters:
-          - filters
-          - filters
-          - filters
           - filters
           - filters
           tags:
@@ -2550,10 +2996,10 @@ components:
         - owner: owner
           graphs:
           - layout:
-              w: 5.962133916683182
-              x: 6.027456183070403
-              h: 5.637376656633329
-              "y": 1.4658129805029452
+              w: 5.637376656633329
+              x: 1.4658129805029452
+              h: 2.3021358869347655
+              "y": 5.962133916683182
             visualization:
               visibleSeries:
               - true
@@ -2562,6 +3008,9 @@ components:
                 unit: days
                 type: duration
               formula: formula
+              timeBucket:
+                metric: sec
+                time: 6.027456183070403
               source: logs
               groupBy:
               - limit: 0.8008281904610115
@@ -2626,10 +3075,10 @@ components:
             name: name
             id: id
           - layout:
-              w: 5.962133916683182
-              x: 6.027456183070403
-              h: 5.637376656633329
-              "y": 1.4658129805029452
+              w: 5.637376656633329
+              x: 1.4658129805029452
+              h: 2.3021358869347655
+              "y": 5.962133916683182
             visualization:
               visibleSeries:
               - true
@@ -2638,6 +3087,9 @@ components:
                 unit: days
                 type: duration
               formula: formula
+              timeBucket:
+                metric: sec
+                time: 6.027456183070403
               source: logs
               groupBy:
               - limit: 0.8008281904610115
@@ -2701,12 +3153,10 @@ components:
                   type: count
             name: name
             id: id
+          timePreset: past-15-minutes
           name: name
           id: id
           filters:
-          - filters
-          - filters
-          - filters
           - filters
           - filters
           tags:
@@ -2739,7 +3189,7 @@ components:
         error:
           code: ABORT_ERROR
           message: message
-          statusCode: 2.3021358869347655
+          statusCode: 7.061401241503109
       properties:
         requestId:
           type: string
@@ -2766,10 +3216,10 @@ components:
     Graph_layout:
       description: Grid layout coordinates for this widget
       example:
-        w: 5.962133916683182
-        x: 6.027456183070403
-        h: 5.637376656633329
-        "y": 1.4658129805029452
+        w: 5.637376656633329
+        x: 1.4658129805029452
+        h: 2.3021358869347655
+        "y": 5.962133916683182
       properties:
         x:
           description: Horizontal grid position of the widget
@@ -2792,10 +3242,10 @@ components:
     Graph:
       example:
         layout:
-          w: 5.962133916683182
-          x: 6.027456183070403
-          h: 5.637376656633329
-          "y": 1.4658129805029452
+          w: 5.637376656633329
+          x: 1.4658129805029452
+          h: 2.3021358869347655
+          "y": 5.962133916683182
         visualization:
           visibleSeries:
           - true
@@ -2804,6 +3254,9 @@ components:
             unit: days
             type: duration
           formula: formula
+          timeBucket:
+            metric: sec
+            time: 6.027456183070403
           source: logs
           groupBy:
           - limit: 0.8008281904610115
@@ -2923,6 +3376,8 @@ components:
         filters:
           description: Filters applied to every widget on the dashboard
           items:
+            maxLength: 250
+            minLength: 0
             type: string
           maxItems: 10
           type: array
@@ -2933,6 +3388,31 @@ components:
           maxItems: 50
           title: Tags
           type: array
+        timePreset:
+          enum:
+          - past-15-minutes
+          - past-30-minutes
+          - past-1-hour
+          - past-2-hours
+          - past-4-hours
+          - past-6-hours
+          - past-12-hours
+          - past-24-hours
+          - past-2-days
+          - past-3-days
+          - past-7-days
+          - past-30-days
+          - past-3-months
+          - current-day
+          - current-week
+          - current-month
+          - current-year
+          - previous-day
+          - previous-week
+          - previous-month
+          - previous-3-months
+          - previous-year
+          type: string
       required:
       - graphs
       - name
@@ -2944,10 +3424,10 @@ components:
           owner: owner
           graphs:
           - layout:
-              w: 5.962133916683182
-              x: 6.027456183070403
-              h: 5.637376656633329
-              "y": 1.4658129805029452
+              w: 5.637376656633329
+              x: 1.4658129805029452
+              h: 2.3021358869347655
+              "y": 5.962133916683182
             visualization:
               visibleSeries:
               - true
@@ -2956,6 +3436,9 @@ components:
                 unit: days
                 type: duration
               formula: formula
+              timeBucket:
+                metric: sec
+                time: 6.027456183070403
               source: logs
               groupBy:
               - limit: 0.8008281904610115
@@ -3020,10 +3503,10 @@ components:
             name: name
             id: id
           - layout:
-              w: 5.962133916683182
-              x: 6.027456183070403
-              h: 5.637376656633329
-              "y": 1.4658129805029452
+              w: 5.637376656633329
+              x: 1.4658129805029452
+              h: 2.3021358869347655
+              "y": 5.962133916683182
             visualization:
               visibleSeries:
               - true
@@ -3032,6 +3515,9 @@ components:
                 unit: days
                 type: duration
               formula: formula
+              timeBucket:
+                metric: sec
+                time: 6.027456183070403
               source: logs
               groupBy:
               - limit: 0.8008281904610115
@@ -3095,12 +3581,10 @@ components:
                   type: count
             name: name
             id: id
+          timePreset: past-15-minutes
           name: name
           id: id
           filters:
-          - filters
-          - filters
-          - filters
           - filters
           - filters
           tags:
@@ -3145,6 +3629,8 @@ components:
         filters:
           description: Filters applied to every widget on the dashboard
           items:
+            maxLength: 250
+            minLength: 0
             type: string
           maxItems: 10
           type: array
@@ -3155,6 +3641,31 @@ components:
           maxItems: 50
           title: Tags
           type: array
+        timePreset:
+          enum:
+          - past-15-minutes
+          - past-30-minutes
+          - past-1-hour
+          - past-2-hours
+          - past-4-hours
+          - past-6-hours
+          - past-12-hours
+          - past-24-hours
+          - past-2-days
+          - past-3-days
+          - past-7-days
+          - past-30-days
+          - past-3-months
+          - current-day
+          - current-week
+          - current-month
+          - current-year
+          - previous-day
+          - previous-week
+          - previous-month
+          - previous-3-months
+          - previous-year
+          type: string
       type: object
     deleteDashboard_200_response_data:
       example:
@@ -3181,6 +3692,288 @@ components:
       - data
       - requestId
       type: object
+    listMonitors_200_response:
+      example:
+        data:
+        - owner: owner
+          configuration:
+            timeframe: 6.027456183070403
+            condition:
+              formula: formula
+              threshold: 0.8008281904610115
+              operator: greater_than
+            groupByFields:
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+              - fields
+            aggregationAlertLogic: no_aggregation
+            type: metric
+            proportionAlertThreshold: 15.364967208928864
+            queries:
+            - filter: filter
+              name: name
+              aggregate:
+                field: field
+                type: unique-count
+              value_if_no_data: Zero
+            - filter: filter
+              name: name
+              aggregate:
+                field: field
+                type: unique-count
+              value_if_no_data: Zero
+            - filter: filter
+              name: name
+              aggregate:
+                field: field
+                type: unique-count
+              value_if_no_data: Zero
+            - filter: filter
+              name: name
+              aggregate:
+                field: field
+                type: unique-count
+              value_if_no_data: Zero
+            - filter: filter
+              name: name
+              aggregate:
+                field: field
+                type: unique-count
+              value_if_no_data: Zero
+            noDataBehavior: alert
+          dashboardId: dashboardId
+          permissions: all
+          name: name
+          id: id
+          message: message
+          priority: 5.962133916683182
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        - owner: owner
+          configuration:
+            timeframe: 6.027456183070403
+            condition:
+              formula: formula
+              threshold: 0.8008281904610115
+              operator: greater_than
+            groupByFields:
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+              - fields
+            aggregationAlertLogic: no_aggregation
+            type: metric
+            proportionAlertThreshold: 15.364967208928864
+            queries:
+            - filter: filter
+              name: name
+              aggregate:
+                field: field
+                type: unique-count
+              value_if_no_data: Zero
+            - filter: filter
+              name: name
+              aggregate:
+                field: field
+                type: unique-count
+              value_if_no_data: Zero
+            - filter: filter
+              name: name
+              aggregate:
+                field: field
+                type: unique-count
+              value_if_no_data: Zero
+            - filter: filter
+              name: name
+              aggregate:
+                field: field
+                type: unique-count
+              value_if_no_data: Zero
+            - filter: filter
+              name: name
+              aggregate:
+                field: field
+                type: unique-count
+              value_if_no_data: Zero
+            noDataBehavior: alert
+          dashboardId: dashboardId
+          permissions: all
+          name: name
+          id: id
+          message: message
+          priority: 5.962133916683182
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/Monitor"
+          type: array
+      required:
+      - data
+      - requestId
+      type: object
+    createMonitor_request_configuration:
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/MonitorConfigurationMetric"
+      - $ref: "#/components/schemas/MonitorConfigurationLog"
+      - $ref: "#/components/schemas/MonitorConfigurationAnomalyLog"
+      - $ref: "#/components/schemas/MonitorConfigurationAnomalyMetric"
+      required:
+      - type
+      type: object
+    createMonitor_request:
+      properties:
+        name:
+          maxLength: 250
+          minLength: 0
+          type: string
+        message:
+          maxLength: 50000
+          minLength: 0
+          type: string
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/Tag"
+          maxItems: 50
+          title: Tags
+          type: array
+        configuration:
+          $ref: "#/components/schemas/createMonitor_request_configuration"
+        priority:
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          type: number
+        owner:
+          maxLength: 250
+          minLength: 1
+          type: string
+        dashboardId:
+          maxLength: 250
+          minLength: 0
+          type: string
+        permissions:
+          description: This controls which data the monitor can see.
+          enum:
+          - all
+          - owning-team-only
+          - owning-team-and-public
+          type: string
+      required:
+      - configuration
+      - name
+      - owner
+      - permissions
+      - priority
+      type: object
+    createMonitor_200_response:
+      example:
+        data:
+          owner: owner
+          configuration:
+            timeframe: 6.027456183070403
+            condition:
+              formula: formula
+              threshold: 0.8008281904610115
+              operator: greater_than
+            groupByFields:
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+              - fields
+            aggregationAlertLogic: no_aggregation
+            type: metric
+            proportionAlertThreshold: 15.364967208928864
+            queries:
+            - filter: filter
+              name: name
+              aggregate:
+                field: field
+                type: unique-count
+              value_if_no_data: Zero
+            - filter: filter
+              name: name
+              aggregate:
+                field: field
+                type: unique-count
+              value_if_no_data: Zero
+            - filter: filter
+              name: name
+              aggregate:
+                field: field
+                type: unique-count
+              value_if_no_data: Zero
+            - filter: filter
+              name: name
+              aggregate:
+                field: field
+                type: unique-count
+              value_if_no_data: Zero
+            - filter: filter
+              name: name
+              aggregate:
+                field: field
+                type: unique-count
+              value_if_no_data: Zero
+            noDataBehavior: alert
+          dashboardId: dashboardId
+          permissions: all
+          name: name
+          id: id
+          message: message
+          priority: 5.962133916683182
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Monitor"
+      required:
+      - data
+      - requestId
+      type: object
     listNotificationRules_200_response:
       example:
         data:
@@ -3190,8 +3983,8 @@ components:
           - triggered
           name: name
           prioritiesFilter:
-          - 1
-          - 1
+          - 0
+          - 0
           id: id
           isActive: true
           teamsFilter:
@@ -3245,8 +4038,8 @@ components:
           - triggered
           name: name
           prioritiesFilter:
-          - 1
-          - 1
+          - 0
+          - 0
           id: id
           isActive: true
           teamsFilter:
@@ -3402,6 +4195,7 @@ components:
             maxLength: 250
             minLength: 0
             type: string
+          maxItems: 100
           type: array
         prioritiesFilter:
           description: Priorities that narrow down the alerts that can trigger a notification
@@ -3458,8 +4252,8 @@ components:
           - triggered
           name: name
           prioritiesFilter:
-          - 1
-          - 1
+          - 0
+          - 0
           id: id
           isActive: true
           teamsFilter:
@@ -3610,129 +4404,6 @@ components:
             - value: value
               key: key
             updatedAt: 2000-01-23T04:56:07.000+00:00
-          - name: name
-            description: description
-            id: id
-            type: mapper
-            params:
-              subtype: map-attributes
-              attributes:
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-            example:
-              manual: true
-            tags:
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - name: name
-            description: description
-            id: id
-            type: mapper
-            params:
-              subtype: map-attributes
-              attributes:
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-            example:
-              manual: true
-            tags:
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - name: name
-            description: description
-            id: id
-            type: mapper
-            params:
-              subtype: map-attributes
-              attributes:
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-            example:
-              manual: true
-            tags:
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            updatedAt: 2000-01-23T04:56:07.000+00:00
           tags:
           - value: value
             key: key
@@ -3751,129 +4422,6 @@ components:
           description: description
           id: id
           processors:
-          - name: name
-            description: description
-            id: id
-            type: mapper
-            params:
-              subtype: map-attributes
-              attributes:
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-            example:
-              manual: true
-            tags:
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - name: name
-            description: description
-            id: id
-            type: mapper
-            params:
-              subtype: map-attributes
-              attributes:
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-            example:
-              manual: true
-            tags:
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - name: name
-            description: description
-            id: id
-            type: mapper
-            params:
-              subtype: map-attributes
-              attributes:
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-            example:
-              manual: true
-            tags:
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            updatedAt: 2000-01-23T04:56:07.000+00:00
           - name: name
             description: description
             id: id
@@ -3980,7 +4528,7 @@ components:
       - data
       - requestId
       type: object
-    Route_1_processors_inner_anyOf_example:
+    createRoute_request_processors_inner_anyOf_example:
       example:
         manual: true
       properties:
@@ -3989,7 +4537,7 @@ components:
       required:
       - manual
       type: object
-    Route_1_processors_inner_anyOf_params:
+    createRoute_request_processors_inner_anyOf_params:
       discriminator:
         propertyName: subtype
       oneOf:
@@ -3999,7 +4547,7 @@ components:
       required:
       - subtype
       type: object
-    Route_1_processors_inner_anyOf:
+    createRoute_request_processors_inner_anyOf:
       example:
         name: name
         description: description
@@ -4058,7 +4606,7 @@ components:
           minLength: 0
           type: string
         example:
-          $ref: "#/components/schemas/Route_1_processors_inner_anyOf_example"
+          $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_example"
         tags:
           description: List of key/value tags applied to the resource
           items:
@@ -4074,14 +4622,14 @@ components:
           - mapper
           type: string
         params:
-          $ref: "#/components/schemas/Route_1_processors_inner_anyOf_params"
+          $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_params"
       required:
       - id
       - name
       - params
       - type
       type: object
-    Route_1_processors_inner_anyOf_1_params_oneOf:
+    createRoute_request_processors_inner_anyOf_1_params_oneOf:
       properties:
         attributeName:
           description: Attribute whose value will be parsed with Grok rules
@@ -4114,7 +4662,7 @@ components:
       - rules
       - subtype
       type: object
-    Route_1_processors_inner_anyOf_1_params_oneOf_1:
+    createRoute_request_processors_inner_anyOf_1_params_oneOf_1:
       properties:
         sourceAttribute:
           description: Attribute containing the URL to parse
@@ -4129,7 +4677,7 @@ components:
       - sourceAttribute
       - subtype
       type: object
-    Route_1_processors_inner_anyOf_1_params_oneOf_2:
+    createRoute_request_processors_inner_anyOf_1_params_oneOf_2:
       properties:
         sourceAttribute:
           description: Attribute containing the user agent string to parse
@@ -4144,7 +4692,7 @@ components:
       - sourceAttribute
       - subtype
       type: object
-    Route_1_processors_inner_anyOf_1_params_oneOf_3:
+    createRoute_request_processors_inner_anyOf_1_params_oneOf_3:
       properties:
         sourceAttribute:
           description: Attribute containing the key/value string segment to parse
@@ -4180,18 +4728,18 @@ components:
       - subtype
       - targetAttribute
       type: object
-    Route_1_processors_inner_anyOf_1_params:
+    createRoute_request_processors_inner_anyOf_1_params:
       discriminator:
         propertyName: subtype
       oneOf:
-      - $ref: "#/components/schemas/Route_1_processors_inner_anyOf_1_params_oneOf"
-      - $ref: "#/components/schemas/Route_1_processors_inner_anyOf_1_params_oneOf_1"
-      - $ref: "#/components/schemas/Route_1_processors_inner_anyOf_1_params_oneOf_2"
-      - $ref: "#/components/schemas/Route_1_processors_inner_anyOf_1_params_oneOf_3"
+      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_1_params_oneOf"
+      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_1_params_oneOf_1"
+      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_1_params_oneOf_2"
+      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_1_params_oneOf_3"
       required:
       - subtype
       type: object
-    Route_1_processors_inner_anyOf_1:
+    createRoute_request_processors_inner_anyOf_1:
       properties:
         id:
           description: Identifier of the processor
@@ -4208,7 +4756,7 @@ components:
           minLength: 0
           type: string
         example:
-          $ref: "#/components/schemas/Route_1_processors_inner_anyOf_example"
+          $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_example"
         tags:
           description: List of key/value tags applied to the resource
           items:
@@ -4224,14 +4772,14 @@ components:
           - parse-attribute
           type: string
         params:
-          $ref: "#/components/schemas/Route_1_processors_inner_anyOf_1_params"
+          $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_1_params"
       required:
       - id
       - name
       - params
       - type
       type: object
-    Route_1_processors_inner_anyOf_2_params:
+    createRoute_request_processors_inner_anyOf_2_params:
       discriminator:
         propertyName: subtype
       oneOf:
@@ -4240,7 +4788,7 @@ components:
       required:
       - subtype
       type: object
-    Route_1_processors_inner_anyOf_2:
+    createRoute_request_processors_inner_anyOf_2:
       properties:
         id:
           description: Identifier of the processor
@@ -4257,7 +4805,7 @@ components:
           minLength: 0
           type: string
         example:
-          $ref: "#/components/schemas/Route_1_processors_inner_anyOf_example"
+          $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_example"
         tags:
           description: List of key/value tags applied to the resource
           items:
@@ -4273,18 +4821,19 @@ components:
           - creator
           type: string
         params:
-          $ref: "#/components/schemas/Route_1_processors_inner_anyOf_2_params"
+          $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_2_params"
       required:
       - id
       - name
       - params
       - type
       type: object
-    Route_1_processors_inner_anyOf_3_params_items_inner:
+    createRoute_request_processors_inner_anyOf_3_params_items_inner:
       properties:
         query:
           description: Query that determines whether logs enter this branch
-          maxLength: 50000
+          format: tsuga-query
+          maxLength: 10000
           minLength: 0
           type: string
         processors:
@@ -4297,19 +4846,19 @@ components:
       - processors
       - query
       type: object
-    Route_1_processors_inner_anyOf_3_params:
+    createRoute_request_processors_inner_anyOf_3_params:
       properties:
         items:
           description: Conditional branches evaluated in order before falling back
             to the default
           items:
-            $ref: "#/components/schemas/Route_1_processors_inner_anyOf_3_params_items_inner"
+            $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_3_params_items_inner"
           maxItems: 11
           type: array
       required:
       - items
       type: object
-    Route_1_processors_inner_anyOf_3:
+    createRoute_request_processors_inner_anyOf_3:
       properties:
         id:
           description: Identifier of the processor
@@ -4326,7 +4875,7 @@ components:
           minLength: 0
           type: string
         example:
-          $ref: "#/components/schemas/Route_1_processors_inner_anyOf_example"
+          $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_example"
         tags:
           description: List of key/value tags applied to the resource
           items:
@@ -4338,7 +4887,7 @@ components:
           format: date-time
           type: string
         params:
-          $ref: "#/components/schemas/Route_1_processors_inner_anyOf_3_params"
+          $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_3_params"
         type:
           enum:
           - split
@@ -4349,14 +4898,14 @@ components:
       - params
       - type
       type: object
-    Route_1_processors_inner:
+    createRoute_request_processors_inner:
       anyOf:
-      - $ref: "#/components/schemas/Route_1_processors_inner_anyOf"
-      - $ref: "#/components/schemas/Route_1_processors_inner_anyOf_1"
-      - $ref: "#/components/schemas/Route_1_processors_inner_anyOf_2"
-      - $ref: "#/components/schemas/Route_1_processors_inner_anyOf_3"
+      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf"
+      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_1"
+      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_2"
+      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_3"
       description: Processing step executed sequentially on route logs
-    Route_1:
+    createRoute_request:
       properties:
         name:
           description: Human readable name shown for the route
@@ -4371,7 +4920,8 @@ components:
           type: boolean
         query:
           description: Query that selects which logs should enter the route
-          maxLength: 250
+          format: tsuga-query
+          maxLength: 10000
           minLength: 0
           type: string
         tags:
@@ -4389,7 +4939,7 @@ components:
         processors:
           description: Ordered processors applied to logs that match the route
           items:
-            $ref: "#/components/schemas/Route_1_processors_inner"
+            $ref: "#/components/schemas/createRoute_request_processors_inner"
           maxItems: 50
           type: array
       required:
@@ -4398,7 +4948,6 @@ components:
       - owner
       - processors
       - query
-      title: Route
       type: object
     createRoute_200_response:
       example:
@@ -4410,129 +4959,6 @@ components:
           description: description
           id: id
           processors:
-          - name: name
-            description: description
-            id: id
-            type: mapper
-            params:
-              subtype: map-attributes
-              attributes:
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-            example:
-              manual: true
-            tags:
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - name: name
-            description: description
-            id: id
-            type: mapper
-            params:
-              subtype: map-attributes
-              attributes:
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-            example:
-              manual: true
-            tags:
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - name: name
-            description: description
-            id: id
-            type: mapper
-            params:
-              subtype: map-attributes
-              attributes:
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-              - keepOrigin: true
-                originAttribute: originAttribute
-                targetAttribute: targetAttribute
-                overrideTarget: true
-            example:
-              manual: true
-            tags:
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            - value: value
-              key: key
-            updatedAt: 2000-01-23T04:56:07.000+00:00
           - name: name
             description: description
             id: id
@@ -4786,6 +5212,152 @@ components:
       - config
       - id
       type: object
+    MonitorConfigurationMetric_condition:
+      example:
+        formula: formula
+        threshold: 0.8008281904610115
+        operator: greater_than
+      properties:
+        formula:
+          maxLength: 250
+          minLength: 0
+          type: string
+        operator:
+          enum:
+          - greater_than
+          - less_than
+          - equal
+          - not_equal
+          - greater_than_or_equal
+          - less_than_or_equal
+          type: string
+        threshold:
+          type: number
+      required:
+      - formula
+      - operator
+      - threshold
+      type: object
+    AggregationGroupBy:
+      example:
+        limit: 0.8008281904610115
+        fields:
+        - fields
+        - fields
+      properties:
+        fields:
+          items:
+            maxLength: 250
+            minLength: 0
+            type: string
+          type: array
+        limit:
+          type: number
+      required:
+      - fields
+      - limit
+      title: AggregationGroupBy
+      type: object
+    MetricAggregate:
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/AggregateUniqueCount"
+      - $ref: "#/components/schemas/AggregateAverage"
+      - $ref: "#/components/schemas/AggregateMax"
+      - $ref: "#/components/schemas/AggregateMin"
+      - $ref: "#/components/schemas/AggregateSum"
+      - $ref: "#/components/schemas/AggregatePercentile"
+      required:
+      - type
+      title: MetricAggregate
+      type: object
+    MonitorConfigurationMetric_queries_inner:
+      example:
+        filter: filter
+        name: name
+        aggregate:
+          field: field
+          type: unique-count
+        value_if_no_data: Zero
+      properties:
+        name:
+          maxLength: 250
+          minLength: 0
+          type: string
+        filter:
+          format: tsuga-query
+          maxLength: 10000
+          minLength: 0
+          type: string
+        aggregate:
+          $ref: "#/components/schemas/MetricAggregate"
+        value_if_no_data:
+          enum:
+          - Zero
+          - NaN
+          type: string
+      required:
+      - aggregate
+      - filter
+      - name
+      type: object
+    LogAggregate:
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/AggregateCount"
+      - $ref: "#/components/schemas/AggregateUniqueCount"
+      - $ref: "#/components/schemas/AggregateAverage"
+      - $ref: "#/components/schemas/AggregateMax"
+      - $ref: "#/components/schemas/AggregateMin"
+      - $ref: "#/components/schemas/AggregateSum"
+      - $ref: "#/components/schemas/AggregatePercentile"
+      required:
+      - type
+      title: LogAggregate
+      type: object
+    MonitorConfigurationLog_queries_inner:
+      properties:
+        name:
+          maxLength: 250
+          minLength: 0
+          type: string
+        filter:
+          format: tsuga-query
+          maxLength: 10000
+          minLength: 0
+          type: string
+        aggregate:
+          $ref: "#/components/schemas/LogAggregate"
+        value_if_no_data:
+          enum:
+          - Zero
+          - NaN
+          type: string
+      required:
+      - aggregate
+      - filter
+      - name
+      type: object
+    MonitorConfigurationAnomalyLog_condition:
+      properties:
+        formula:
+          maxLength: 250
+          minLength: 0
+          type: string
+        conditionType:
+          enum:
+          - rate
+          - error
+          - cpu
+          - general
+          - to_be_set
+          type: string
+      required:
+      - conditionType
+      - formula
+      type: object
     ProcessorParamsMapperMapAttributes_attributes_inner:
       example:
         keepOrigin: true
@@ -4819,11 +5391,11 @@ components:
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/AggregateCount"
-      - $ref: "#/components/schemas/AggregateSum"
-      - $ref: "#/components/schemas/AggregateAverage"
-      - $ref: "#/components/schemas/AggregateMin"
-      - $ref: "#/components/schemas/AggregateMax"
       - $ref: "#/components/schemas/AggregateUniqueCount"
+      - $ref: "#/components/schemas/AggregateAverage"
+      - $ref: "#/components/schemas/AggregateMax"
+      - $ref: "#/components/schemas/AggregateMin"
+      - $ref: "#/components/schemas/AggregateSum"
       - $ref: "#/components/schemas/AggregatePercentile"
       required:
       - type
@@ -4837,6 +5409,7 @@ components:
       - $ref: "#/components/schemas/FunctionPerMinute"
       - $ref: "#/components/schemas/FunctionPerHour"
       - $ref: "#/components/schemas/FunctionRate"
+      - $ref: "#/components/schemas/FunctionIncrease"
       - $ref: "#/components/schemas/FunctionRolling"
       required:
       - type
@@ -4857,6 +5430,7 @@ components:
         aggregate:
           $ref: "#/components/schemas/Aggregate"
         filter:
+          format: tsuga-query
           maxLength: 10000
           minLength: 0
           type: string
@@ -4870,25 +5444,25 @@ components:
       - aggregate
       title: AggregationQuery
       type: object
-    AggregationGroupBy:
+    GraphVisualizationTimeseries_timeBucket:
       example:
-        limit: 0.8008281904610115
-        fields:
-        - fields
-        - fields
+        metric: sec
+        time: 6.027456183070403
       properties:
-        fields:
-          items:
-            maxLength: 250
-            minLength: 0
-            type: string
-          type: array
-        limit:
+        time:
+          description: Number of units that make up each bar bucket
           type: number
+        metric:
+          description: Unit used to measure the bucket width
+          enum:
+          - sec
+          - min
+          - hour
+          - day
+          type: string
       required:
-      - fields
-      - limit
-      title: AggregationGroupBy
+      - metric
+      - time
       type: object
     Normalizer:
       discriminator:
@@ -4930,23 +5504,6 @@ components:
       - operator
       - value
       title: ConditionalFormatting
-      type: object
-    GraphVisualizationBar_timeBucket:
-      properties:
-        time:
-          description: Number of units that make up each bar bucket
-          type: number
-        metric:
-          description: Unit used to measure the bucket width
-          enum:
-          - sec
-          - min
-          - hour
-          - day
-          type: string
-      required:
-      - metric
-      - time
       type: object
     WidgetListColumn:
       properties:

@@ -26,11 +26,11 @@ type RoutesAPIService service
 type ApiCreateRouteRequest struct {
 	ctx context.Context
 	ApiService *RoutesAPIService
-	route1 *Route1
+	createRouteRequest *CreateRouteRequest
 }
 
-func (r ApiCreateRouteRequest) Route1(route1 Route1) ApiCreateRouteRequest {
-	r.route1 = &route1
+func (r ApiCreateRouteRequest) CreateRouteRequest(createRouteRequest CreateRouteRequest) ApiCreateRouteRequest {
+	r.createRouteRequest = &createRouteRequest
 	return r
 }
 
@@ -73,8 +73,8 @@ func (a *RoutesAPIService) CreateRouteExecute(r ApiCreateRouteRequest) (*CreateR
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.route1 == nil {
-		return localVarReturnValue, nil, reportError("route1 is required and must be specified")
+	if r.createRouteRequest == nil {
+		return localVarReturnValue, nil, reportError("createRouteRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -95,7 +95,7 @@ func (a *RoutesAPIService) CreateRouteExecute(r ApiCreateRouteRequest) (*CreateR
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.route1
+	localVarPostBody = r.createRouteRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -538,11 +538,11 @@ type ApiUpdateRouteRequest struct {
 	ctx context.Context
 	ApiService *RoutesAPIService
 	id string
-	route1 *Route1
+	createRouteRequest *CreateRouteRequest
 }
 
-func (r ApiUpdateRouteRequest) Route1(route1 Route1) ApiUpdateRouteRequest {
-	r.route1 = &route1
+func (r ApiUpdateRouteRequest) CreateRouteRequest(createRouteRequest CreateRouteRequest) ApiUpdateRouteRequest {
+	r.createRouteRequest = &createRouteRequest
 	return r
 }
 
@@ -594,8 +594,8 @@ func (a *RoutesAPIService) UpdateRouteExecute(r ApiUpdateRouteRequest) (*CreateR
 	if strlen(r.id) > 250 {
 		return localVarReturnValue, nil, reportError("id must have less than 250 elements")
 	}
-	if r.route1 == nil {
-		return localVarReturnValue, nil, reportError("route1 is required and must be specified")
+	if r.createRouteRequest == nil {
+		return localVarReturnValue, nil, reportError("createRouteRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -616,7 +616,7 @@ func (a *RoutesAPIService) UpdateRouteExecute(r ApiUpdateRouteRequest) (*CreateR
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.route1
+	localVarPostBody = r.createRouteRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

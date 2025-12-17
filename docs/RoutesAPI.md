@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateRoute
 
-> CreateRoute200Response CreateRoute(ctx).Route1(route1).Execute()
+> CreateRoute200Response CreateRoute(ctx).CreateRouteRequest(createRouteRequest).Execute()
 
 
 
@@ -33,11 +33,11 @@ import (
 )
 
 func main() {
-	route1 := *openapiclient.NewRoute1("Name_example", false, "Query_example", "Owner_example", []openapiclient.Route1ProcessorsInner{*openapiclient.NewRoute1ProcessorsInner("Id_example", "Name_example", "Type_example", *openapiclient.NewRoute1ProcessorsInnerAnyOf3Params([]openapiclient.Route1ProcessorsInnerAnyOf3ParamsItemsInner{*openapiclient.NewRoute1ProcessorsInnerAnyOf3ParamsItemsInner("Query_example", []openapiclient.Processor{*openapiclient.NewProcessor("Id_example", "Name_example", "Type_example", *openapiclient.NewRoute1ProcessorsInnerAnyOf3Params([]openapiclient.Route1ProcessorsInnerAnyOf3ParamsItemsInner{*openapiclient.NewRoute1ProcessorsInnerAnyOf3ParamsItemsInner("Query_example", []openapiclient.Processor{*openapiclient.NewProcessor("Id_example", "Name_example", "Type_example", )})}))})}))}) // Route1 | 
+	createRouteRequest := *openapiclient.NewCreateRouteRequest("Name_example", false, "Query_example", "Owner_example", []openapiclient.CreateRouteRequestProcessorsInner{*openapiclient.NewCreateRouteRequestProcessorsInner("Id_example", "Name_example", "Type_example", *openapiclient.NewCreateRouteRequestProcessorsInnerAnyOf3Params([]openapiclient.CreateRouteRequestProcessorsInnerAnyOf3ParamsItemsInner{*openapiclient.NewCreateRouteRequestProcessorsInnerAnyOf3ParamsItemsInner("Query_example", []openapiclient.Processor{*openapiclient.NewProcessor("Id_example", "Name_example", "Type_example", *openapiclient.NewCreateRouteRequestProcessorsInnerAnyOf3Params([]openapiclient.CreateRouteRequestProcessorsInnerAnyOf3ParamsItemsInner{*openapiclient.NewCreateRouteRequestProcessorsInnerAnyOf3ParamsItemsInner("Query_example", []openapiclient.Processor{*openapiclient.NewProcessor("Id_example", "Name_example", "Type_example", )})}))})}))}) // CreateRouteRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoutesAPI.CreateRoute(context.Background()).Route1(route1).Execute()
+	resp, r, err := apiClient.RoutesAPI.CreateRoute(context.Background()).CreateRouteRequest(createRouteRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoutesAPI.CreateRoute``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -58,7 +58,7 @@ Other parameters are passed through a pointer to a apiCreateRouteRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **route1** | [**Route1**](Route1.md) |  | 
+ **createRouteRequest** | [**CreateRouteRequest**](CreateRouteRequest.md) |  | 
 
 ### Return type
 
@@ -281,7 +281,7 @@ Other parameters are passed through a pointer to a apiListRoutesRequest struct v
 
 ## UpdateRoute
 
-> CreateRoute200Response UpdateRoute(ctx, id).Route1(route1).Execute()
+> CreateRoute200Response UpdateRoute(ctx, id).CreateRouteRequest(createRouteRequest).Execute()
 
 
 
@@ -301,11 +301,11 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	route1 := *openapiclient.NewRoute1("Name_example", false, "Query_example", "Owner_example", []openapiclient.Route1ProcessorsInner{*openapiclient.NewRoute1ProcessorsInner("Id_example", "Name_example", "Type_example", *openapiclient.NewRoute1ProcessorsInnerAnyOf3Params([]openapiclient.Route1ProcessorsInnerAnyOf3ParamsItemsInner{*openapiclient.NewRoute1ProcessorsInnerAnyOf3ParamsItemsInner("Query_example", []openapiclient.Processor{*openapiclient.NewProcessor("Id_example", "Name_example", "Type_example", *openapiclient.NewRoute1ProcessorsInnerAnyOf3Params([]openapiclient.Route1ProcessorsInnerAnyOf3ParamsItemsInner{*openapiclient.NewRoute1ProcessorsInnerAnyOf3ParamsItemsInner("Query_example", []openapiclient.Processor{*openapiclient.NewProcessor("Id_example", "Name_example", "Type_example", )})}))})}))}) // Route1 | 
+	createRouteRequest := *openapiclient.NewCreateRouteRequest("Name_example", false, "Query_example", "Owner_example", []openapiclient.CreateRouteRequestProcessorsInner{*openapiclient.NewCreateRouteRequestProcessorsInner("Id_example", "Name_example", "Type_example", *openapiclient.NewCreateRouteRequestProcessorsInnerAnyOf3Params([]openapiclient.CreateRouteRequestProcessorsInnerAnyOf3ParamsItemsInner{*openapiclient.NewCreateRouteRequestProcessorsInnerAnyOf3ParamsItemsInner("Query_example", []openapiclient.Processor{*openapiclient.NewProcessor("Id_example", "Name_example", "Type_example", *openapiclient.NewCreateRouteRequestProcessorsInnerAnyOf3Params([]openapiclient.CreateRouteRequestProcessorsInnerAnyOf3ParamsItemsInner{*openapiclient.NewCreateRouteRequestProcessorsInnerAnyOf3ParamsItemsInner("Query_example", []openapiclient.Processor{*openapiclient.NewProcessor("Id_example", "Name_example", "Type_example", )})}))})}))}) // CreateRouteRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoutesAPI.UpdateRoute(context.Background(), id).Route1(route1).Execute()
+	resp, r, err := apiClient.RoutesAPI.UpdateRoute(context.Background(), id).CreateRouteRequest(createRouteRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoutesAPI.UpdateRoute``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -331,7 +331,7 @@ Other parameters are passed through a pointer to a apiUpdateRouteRequest struct 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **route1** | [**Route1**](Route1.md) |  | 
+ **createRouteRequest** | [**CreateRouteRequest**](CreateRouteRequest.md) |  | 
 
 ### Return type
 

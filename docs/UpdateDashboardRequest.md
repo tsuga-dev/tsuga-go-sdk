@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Graphs** | Pointer to [**[]Graph**](Graph.md) | Ordered widgets that compose the dashboard | [optional] 
 **Filters** | Pointer to **[]string** | Filters applied to every widget on the dashboard | [optional] 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
+**TimePreset** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -153,6 +154,31 @@ SetTags sets Tags field to given value.
 `func (o *UpdateDashboardRequest) HasTags() bool`
 
 HasTags returns a boolean if a field has been set.
+
+### GetTimePreset
+
+`func (o *UpdateDashboardRequest) GetTimePreset() string`
+
+GetTimePreset returns the TimePreset field if non-nil, zero value otherwise.
+
+### GetTimePresetOk
+
+`func (o *UpdateDashboardRequest) GetTimePresetOk() (*string, bool)`
+
+GetTimePresetOk returns a tuple with the TimePreset field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTimePreset
+
+`func (o *UpdateDashboardRequest) SetTimePreset(v string)`
+
+SetTimePreset sets TimePreset field to given value.
+
+### HasTimePreset
+
+`func (o *UpdateDashboardRequest) HasTimePreset() bool`
+
+HasTimePreset returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
