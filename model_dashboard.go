@@ -33,6 +33,7 @@ type Dashboard struct {
 	Filters []string `json:"filters,omitempty"`
 	// List of key/value tags applied to the resource
 	Tags []Tag `json:"tags,omitempty"`
+	TimePreset *string `json:"timePreset,omitempty"`
 }
 
 type _Dashboard Dashboard
@@ -218,6 +219,38 @@ func (o *Dashboard) SetTags(v []Tag) {
 	o.Tags = v
 }
 
+// GetTimePreset returns the TimePreset field value if set, zero value otherwise.
+func (o *Dashboard) GetTimePreset() string {
+	if o == nil || IsNil(o.TimePreset) {
+		var ret string
+		return ret
+	}
+	return *o.TimePreset
+}
+
+// GetTimePresetOk returns a tuple with the TimePreset field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Dashboard) GetTimePresetOk() (*string, bool) {
+	if o == nil || IsNil(o.TimePreset) {
+		return nil, false
+	}
+	return o.TimePreset, true
+}
+
+// HasTimePreset returns a boolean if a field has been set.
+func (o *Dashboard) HasTimePreset() bool {
+	if o != nil && !IsNil(o.TimePreset) {
+		return true
+	}
+
+	return false
+}
+
+// SetTimePreset gets a reference to the given string and assigns it to the TimePreset field.
+func (o *Dashboard) SetTimePreset(v string) {
+	o.TimePreset = &v
+}
+
 func (o Dashboard) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -237,6 +270,9 @@ func (o Dashboard) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.TimePreset) {
+		toSerialize["timePreset"] = o.TimePreset
 	}
 	return toSerialize, nil
 }

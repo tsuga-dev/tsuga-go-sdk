@@ -10,10 +10,10 @@ Name | Type | Description | Notes
 **Formula** | Pointer to **string** | Formula referencing query outputs (e.g. q1+q2) to compute derived series | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
 **GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
+**TimeBucket** | Pointer to [**GraphVisualizationTimeseriesTimeBucket**](GraphVisualizationTimeseriesTimeBucket.md) |  | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 **BackgroundMode** | Pointer to **string** | Controls whether the widget uses a solid or transparent background | [optional] 
 **Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the displayed value | [optional] 
-**TimeBucket** | Pointer to [**GraphVisualizationBarTimeBucket**](GraphVisualizationBarTimeBucket.md) |  | [optional] 
 **Query** | **string** | Log query that selects records for the list | 
 **ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each log entry | [optional] 
 **Note** | Pointer to **string** | Markdown-compatible text shown in the note | [optional] 
@@ -175,6 +175,31 @@ SetGroupBy sets GroupBy field to given value.
 
 HasGroupBy returns a boolean if a field has been set.
 
+### GetTimeBucket
+
+`func (o *GraphVisualization) GetTimeBucket() GraphVisualizationTimeseriesTimeBucket`
+
+GetTimeBucket returns the TimeBucket field if non-nil, zero value otherwise.
+
+### GetTimeBucketOk
+
+`func (o *GraphVisualization) GetTimeBucketOk() (*GraphVisualizationTimeseriesTimeBucket, bool)`
+
+GetTimeBucketOk returns a tuple with the TimeBucket field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTimeBucket
+
+`func (o *GraphVisualization) SetTimeBucket(v GraphVisualizationTimeseriesTimeBucket)`
+
+SetTimeBucket sets TimeBucket field to given value.
+
+### HasTimeBucket
+
+`func (o *GraphVisualization) HasTimeBucket() bool`
+
+HasTimeBucket returns a boolean if a field has been set.
+
 ### GetNormalizer
 
 `func (o *GraphVisualization) GetNormalizer() Normalizer`
@@ -249,31 +274,6 @@ SetConditions sets Conditions field to given value.
 `func (o *GraphVisualization) HasConditions() bool`
 
 HasConditions returns a boolean if a field has been set.
-
-### GetTimeBucket
-
-`func (o *GraphVisualization) GetTimeBucket() GraphVisualizationBarTimeBucket`
-
-GetTimeBucket returns the TimeBucket field if non-nil, zero value otherwise.
-
-### GetTimeBucketOk
-
-`func (o *GraphVisualization) GetTimeBucketOk() (*GraphVisualizationBarTimeBucket, bool)`
-
-GetTimeBucketOk returns a tuple with the TimeBucket field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTimeBucket
-
-`func (o *GraphVisualization) SetTimeBucket(v GraphVisualizationBarTimeBucket)`
-
-SetTimeBucket sets TimeBucket field to given value.
-
-### HasTimeBucket
-
-`func (o *GraphVisualization) HasTimeBucket() bool`
-
-HasTimeBucket returns a boolean if a field has been set.
 
 ### GetQuery
 

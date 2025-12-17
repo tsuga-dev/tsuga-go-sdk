@@ -18,11 +18,19 @@ import (
 
 // Function - struct for Function
 type Function struct {
+	FunctionIncrease *FunctionIncrease
 	FunctionPerHour *FunctionPerHour
 	FunctionPerMinute *FunctionPerMinute
 	FunctionPerSecond *FunctionPerSecond
 	FunctionRate *FunctionRate
 	FunctionRolling *FunctionRolling
+}
+
+// FunctionIncreaseAsFunction is a convenience function that returns FunctionIncrease wrapped in Function
+func FunctionIncreaseAsFunction(v *FunctionIncrease) Function {
+	return Function{
+		FunctionIncrease: v,
+	}
 }
 
 // FunctionPerHourAsFunction is a convenience function that returns FunctionPerHour wrapped in Function
@@ -65,6 +73,23 @@ func FunctionRollingAsFunction(v *FunctionRolling) Function {
 func (dst *Function) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
+	// try to unmarshal data into FunctionIncrease
+	err = newStrictDecoder(data).Decode(&dst.FunctionIncrease)
+	if err == nil {
+		jsonFunctionIncrease, _ := json.Marshal(dst.FunctionIncrease)
+		if string(jsonFunctionIncrease) == "{}" { // empty struct
+			dst.FunctionIncrease = nil
+		} else {
+			if err = validator.Validate(dst.FunctionIncrease); err != nil {
+				dst.FunctionIncrease = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.FunctionIncrease = nil
+	}
+
 	// try to unmarshal data into FunctionPerHour
 	err = newStrictDecoder(data).Decode(&dst.FunctionPerHour)
 	if err == nil {
@@ -152,6 +177,7 @@ func (dst *Function) UnmarshalJSON(data []byte) error {
 
 	if match > 1 { // more than 1 match
 		// reset to nil
+		dst.FunctionIncrease = nil
 		dst.FunctionPerHour = nil
 		dst.FunctionPerMinute = nil
 		dst.FunctionPerSecond = nil
@@ -168,6 +194,10 @@ func (dst *Function) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Function) MarshalJSON() ([]byte, error) {
+	if src.FunctionIncrease != nil {
+		return json.Marshal(&src.FunctionIncrease)
+	}
+
 	if src.FunctionPerHour != nil {
 		return json.Marshal(&src.FunctionPerHour)
 	}
@@ -196,6 +226,10 @@ func (obj *Function) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
+	if obj.FunctionIncrease != nil {
+		return obj.FunctionIncrease
+	}
+
 	if obj.FunctionPerHour != nil {
 		return obj.FunctionPerHour
 	}
@@ -222,6 +256,10 @@ func (obj *Function) GetActualInstance() (interface{}) {
 
 // Get the actual instance value
 func (obj Function) GetActualInstanceValue() (interface{}) {
+	if obj.FunctionIncrease != nil {
+		return *obj.FunctionIncrease
+	}
+
 	if obj.FunctionPerHour != nil {
 		return *obj.FunctionPerHour
 	}

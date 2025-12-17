@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Formula** | Pointer to **string** | Formula referencing query outputs (e.g. q1+q2) to compute derived series | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
 **GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
-**TimeBucket** | Pointer to [**GraphVisualizationBarTimeBucket**](GraphVisualizationBarTimeBucket.md) |  | [optional] 
+**TimeBucket** | Pointer to [**GraphVisualizationTimeseriesTimeBucket**](GraphVisualizationTimeseriesTimeBucket.md) |  | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 
 ## Methods
@@ -169,20 +169,20 @@ HasGroupBy returns a boolean if a field has been set.
 
 ### GetTimeBucket
 
-`func (o *GraphVisualizationBar) GetTimeBucket() GraphVisualizationBarTimeBucket`
+`func (o *GraphVisualizationBar) GetTimeBucket() GraphVisualizationTimeseriesTimeBucket`
 
 GetTimeBucket returns the TimeBucket field if non-nil, zero value otherwise.
 
 ### GetTimeBucketOk
 
-`func (o *GraphVisualizationBar) GetTimeBucketOk() (*GraphVisualizationBarTimeBucket, bool)`
+`func (o *GraphVisualizationBar) GetTimeBucketOk() (*GraphVisualizationTimeseriesTimeBucket, bool)`
 
 GetTimeBucketOk returns a tuple with the TimeBucket field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeBucket
 
-`func (o *GraphVisualizationBar) SetTimeBucket(v GraphVisualizationBarTimeBucket)`
+`func (o *GraphVisualizationBar) SetTimeBucket(v GraphVisualizationTimeseriesTimeBucket)`
 
 SetTimeBucket sets TimeBucket field to given value.
 

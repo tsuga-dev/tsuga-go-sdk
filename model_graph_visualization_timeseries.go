@@ -33,6 +33,7 @@ type GraphVisualizationTimeseries struct {
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Fields used to group the results
 	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
+	TimeBucket *GraphVisualizationTimeseriesTimeBucket `json:"timeBucket,omitempty"`
 	Normalizer *Normalizer `json:"normalizer,omitempty"`
 }
 
@@ -226,6 +227,38 @@ func (o *GraphVisualizationTimeseries) SetGroupBy(v []AggregationGroupBy) {
 	o.GroupBy = v
 }
 
+// GetTimeBucket returns the TimeBucket field value if set, zero value otherwise.
+func (o *GraphVisualizationTimeseries) GetTimeBucket() GraphVisualizationTimeseriesTimeBucket {
+	if o == nil || IsNil(o.TimeBucket) {
+		var ret GraphVisualizationTimeseriesTimeBucket
+		return ret
+	}
+	return *o.TimeBucket
+}
+
+// GetTimeBucketOk returns a tuple with the TimeBucket field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationTimeseries) GetTimeBucketOk() (*GraphVisualizationTimeseriesTimeBucket, bool) {
+	if o == nil || IsNil(o.TimeBucket) {
+		return nil, false
+	}
+	return o.TimeBucket, true
+}
+
+// HasTimeBucket returns a boolean if a field has been set.
+func (o *GraphVisualizationTimeseries) HasTimeBucket() bool {
+	if o != nil && !IsNil(o.TimeBucket) {
+		return true
+	}
+
+	return false
+}
+
+// SetTimeBucket gets a reference to the given GraphVisualizationTimeseriesTimeBucket and assigns it to the TimeBucket field.
+func (o *GraphVisualizationTimeseries) SetTimeBucket(v GraphVisualizationTimeseriesTimeBucket) {
+	o.TimeBucket = &v
+}
+
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
 func (o *GraphVisualizationTimeseries) GetNormalizer() Normalizer {
 	if o == nil || IsNil(o.Normalizer) {
@@ -279,6 +312,9 @@ func (o GraphVisualizationTimeseries) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.GroupBy) {
 		toSerialize["groupBy"] = o.GroupBy
+	}
+	if !IsNil(o.TimeBucket) {
+		toSerialize["timeBucket"] = o.TimeBucket
 	}
 	if !IsNil(o.Normalizer) {
 		toSerialize["normalizer"] = o.Normalizer

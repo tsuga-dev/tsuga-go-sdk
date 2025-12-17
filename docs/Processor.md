@@ -7,17 +7,17 @@ Name | Type | Description | Notes
 **Id** | **string** | Identifier of the processor | 
 **Name** | **string** | Display name of the processor | 
 **Description** | Pointer to **string** |  | [optional] 
-**Example** | Pointer to [**Route1ProcessorsInnerAnyOfExample**](Route1ProcessorsInnerAnyOfExample.md) |  | [optional] 
+**Example** | Pointer to [**CreateRouteRequestProcessorsInnerAnyOfExample**](CreateRouteRequestProcessorsInnerAnyOfExample.md) |  | [optional] 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **Type** | **string** |  | 
-**Params** | [**Route1ProcessorsInnerAnyOf3Params**](Route1ProcessorsInnerAnyOf3Params.md) |  | 
+**Params** | [**CreateRouteRequestProcessorsInnerAnyOf3Params**](CreateRouteRequestProcessorsInnerAnyOf3Params.md) |  | 
 
 ## Methods
 
 ### NewProcessor
 
-`func NewProcessor(id string, name string, type_ string, params Route1ProcessorsInnerAnyOf3Params, ) *Processor`
+`func NewProcessor(id string, name string, type_ string, params CreateRouteRequestProcessorsInnerAnyOf3Params, ) *Processor`
 
 NewProcessor instantiates a new Processor object
 This constructor will assign default values to properties that have it defined,
@@ -99,20 +99,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetExample
 
-`func (o *Processor) GetExample() Route1ProcessorsInnerAnyOfExample`
+`func (o *Processor) GetExample() CreateRouteRequestProcessorsInnerAnyOfExample`
 
 GetExample returns the Example field if non-nil, zero value otherwise.
 
 ### GetExampleOk
 
-`func (o *Processor) GetExampleOk() (*Route1ProcessorsInnerAnyOfExample, bool)`
+`func (o *Processor) GetExampleOk() (*CreateRouteRequestProcessorsInnerAnyOfExample, bool)`
 
 GetExampleOk returns a tuple with the Example field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExample
 
-`func (o *Processor) SetExample(v Route1ProcessorsInnerAnyOfExample)`
+`func (o *Processor) SetExample(v CreateRouteRequestProcessorsInnerAnyOfExample)`
 
 SetExample sets Example field to given value.
 
@@ -194,20 +194,20 @@ SetType sets Type field to given value.
 
 ### GetParams
 
-`func (o *Processor) GetParams() Route1ProcessorsInnerAnyOf3Params`
+`func (o *Processor) GetParams() CreateRouteRequestProcessorsInnerAnyOf3Params`
 
 GetParams returns the Params field if non-nil, zero value otherwise.
 
 ### GetParamsOk
 
-`func (o *Processor) GetParamsOk() (*Route1ProcessorsInnerAnyOf3Params, bool)`
+`func (o *Processor) GetParamsOk() (*CreateRouteRequestProcessorsInnerAnyOf3Params, bool)`
 
 GetParamsOk returns a tuple with the Params field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetParams
 
-`func (o *Processor) SetParams(v Route1ProcessorsInnerAnyOf3Params)`
+`func (o *Processor) SetParams(v CreateRouteRequestProcessorsInnerAnyOf3Params)`
 
 SetParams sets Params field to given value.
 

@@ -33,7 +33,7 @@ type GraphVisualizationBar struct {
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Fields used to group the results
 	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
-	TimeBucket *GraphVisualizationBarTimeBucket `json:"timeBucket,omitempty"`
+	TimeBucket *GraphVisualizationTimeseriesTimeBucket `json:"timeBucket,omitempty"`
 	Normalizer *Normalizer `json:"normalizer,omitempty"`
 }
 
@@ -228,9 +228,9 @@ func (o *GraphVisualizationBar) SetGroupBy(v []AggregationGroupBy) {
 }
 
 // GetTimeBucket returns the TimeBucket field value if set, zero value otherwise.
-func (o *GraphVisualizationBar) GetTimeBucket() GraphVisualizationBarTimeBucket {
+func (o *GraphVisualizationBar) GetTimeBucket() GraphVisualizationTimeseriesTimeBucket {
 	if o == nil || IsNil(o.TimeBucket) {
-		var ret GraphVisualizationBarTimeBucket
+		var ret GraphVisualizationTimeseriesTimeBucket
 		return ret
 	}
 	return *o.TimeBucket
@@ -238,7 +238,7 @@ func (o *GraphVisualizationBar) GetTimeBucket() GraphVisualizationBarTimeBucket 
 
 // GetTimeBucketOk returns a tuple with the TimeBucket field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationBar) GetTimeBucketOk() (*GraphVisualizationBarTimeBucket, bool) {
+func (o *GraphVisualizationBar) GetTimeBucketOk() (*GraphVisualizationTimeseriesTimeBucket, bool) {
 	if o == nil || IsNil(o.TimeBucket) {
 		return nil, false
 	}
@@ -254,8 +254,8 @@ func (o *GraphVisualizationBar) HasTimeBucket() bool {
 	return false
 }
 
-// SetTimeBucket gets a reference to the given GraphVisualizationBarTimeBucket and assigns it to the TimeBucket field.
-func (o *GraphVisualizationBar) SetTimeBucket(v GraphVisualizationBarTimeBucket) {
+// SetTimeBucket gets a reference to the given GraphVisualizationTimeseriesTimeBucket and assigns it to the TimeBucket field.
+func (o *GraphVisualizationBar) SetTimeBucket(v GraphVisualizationTimeseriesTimeBucket) {
 	o.TimeBucket = &v
 }
 
