@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	createMonitorRequest := *openapiclient.NewCreateMonitorRequest("Name_example", openapiclient.createMonitor_request_configuration{MonitorConfigurationAnomalyLog: openapiclient.NewMonitorConfigurationAnomalyLog("Type_example", *openapiclient.NewMonitorConfigurationAnomalyLogCondition("Formula_example", "ConditionType_example"), "NoDataBehavior_example", float32(123), []openapiclient.AggregationGroupBy{*openapiclient.NewAggregationGroupBy([]string{"Fields_example"}, float32(123))}, []openapiclient.MonitorConfigurationLogQueriesInner{*openapiclient.NewMonitorConfigurationLogQueriesInner("Name_example", "Filter_example", openapiclient.LogAggregate{AggregateAverage: openapiclient.NewAggregateAverage("Type_example", "Field_example")})})}, float32(123), "Owner_example", "Permissions_example") // CreateMonitorRequest | 
+	createMonitorRequest := *openapiclient.NewCreateMonitorRequest("Name_example", openapiclient.createMonitor_request_configuration{MonitorConfigurationAnomalyLog: openapiclient.NewMonitorConfigurationAnomalyLog("Type_example", *openapiclient.NewMonitorConfigurationAnomalyLogCondition("Formula_example", "ConditionType_example"), "NoDataBehavior_example", float32(123), []openapiclient.AggregationGroupBy{*openapiclient.NewAggregationGroupBy([]string{"Fields_example"}, float32(123))}, []openapiclient.MonitorAggregationQuery{*openapiclient.NewMonitorAggregationQuery(openapiclient.Aggregate{AggregateAverage: openapiclient.NewAggregateAverage("Type_example", "Field_example")}, "Filter_example")})}, float32(123), "Owner_example", "Permissions_example") // CreateMonitorRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## DeleteMonitor
 
-> DeleteDashboard200Response DeleteMonitor(ctx, id).Execute()
+> DeleteIngestionApiKey200Response DeleteMonitor(ctx, id).Execute()
 
 
 
@@ -108,7 +108,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MonitorsAPI.DeleteMonitor``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteMonitor`: DeleteDashboard200Response
+	// response from `DeleteMonitor`: DeleteIngestionApiKey200Response
 	fmt.Fprintf(os.Stdout, "Response from `MonitorsAPI.DeleteMonitor`: %v\n", resp)
 }
 ```
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteDashboard200Response**](DeleteDashboard200Response.md)
+[**DeleteIngestionApiKey200Response**](DeleteIngestionApiKey200Response.md)
 
 ### Authorization
 
@@ -301,7 +301,7 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	createMonitorRequest := *openapiclient.NewCreateMonitorRequest("Name_example", openapiclient.createMonitor_request_configuration{MonitorConfigurationAnomalyLog: openapiclient.NewMonitorConfigurationAnomalyLog("Type_example", *openapiclient.NewMonitorConfigurationAnomalyLogCondition("Formula_example", "ConditionType_example"), "NoDataBehavior_example", float32(123), []openapiclient.AggregationGroupBy{*openapiclient.NewAggregationGroupBy([]string{"Fields_example"}, float32(123))}, []openapiclient.MonitorConfigurationLogQueriesInner{*openapiclient.NewMonitorConfigurationLogQueriesInner("Name_example", "Filter_example", openapiclient.LogAggregate{AggregateAverage: openapiclient.NewAggregateAverage("Type_example", "Field_example")})})}, float32(123), "Owner_example", "Permissions_example") // CreateMonitorRequest | 
+	createMonitorRequest := *openapiclient.NewCreateMonitorRequest("Name_example", openapiclient.createMonitor_request_configuration{MonitorConfigurationAnomalyLog: openapiclient.NewMonitorConfigurationAnomalyLog("Type_example", *openapiclient.NewMonitorConfigurationAnomalyLogCondition("Formula_example", "ConditionType_example"), "NoDataBehavior_example", float32(123), []openapiclient.AggregationGroupBy{*openapiclient.NewAggregationGroupBy([]string{"Fields_example"}, float32(123))}, []openapiclient.MonitorAggregationQuery{*openapiclient.NewMonitorAggregationQuery(openapiclient.Aggregate{AggregateAverage: openapiclient.NewAggregateAverage("Type_example", "Field_example")}, "Filter_example")})}, float32(123), "Owner_example", "Permissions_example") // CreateMonitorRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

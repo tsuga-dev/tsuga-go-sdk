@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	createRouteRequest := *openapiclient.NewCreateRouteRequest("Name_example", false, "Query_example", "Owner_example", []openapiclient.CreateRouteRequestProcessorsInner{*openapiclient.NewCreateRouteRequestProcessorsInner("Id_example", "Name_example", "Type_example", *openapiclient.NewCreateRouteRequestProcessorsInnerAnyOf3Params([]openapiclient.CreateRouteRequestProcessorsInnerAnyOf3ParamsItemsInner{*openapiclient.NewCreateRouteRequestProcessorsInnerAnyOf3ParamsItemsInner("Query_example", []openapiclient.Processor{*openapiclient.NewProcessor("Id_example", "Name_example", "Type_example", *openapiclient.NewCreateRouteRequestProcessorsInnerAnyOf3Params([]openapiclient.CreateRouteRequestProcessorsInnerAnyOf3ParamsItemsInner{*openapiclient.NewCreateRouteRequestProcessorsInnerAnyOf3ParamsItemsInner("Query_example", []openapiclient.Processor{*openapiclient.NewProcessor("Id_example", "Name_example", "Type_example", )})}))})}))}) // CreateRouteRequest | 
+	createRouteRequest := *openapiclient.NewCreateRouteRequest("Name_example", false, "Query_example", "Owner_example", []openapiclient.Processor{*openapiclient.NewProcessor("Id_example", "Type_example", *openapiclient.NewProcessorAnyOf3Params([]openapiclient.ProcessorAnyOf3ParamsItemsInner{*openapiclient.NewProcessorAnyOf3ParamsItemsInner("Query_example", []openapiclient.Processor{*openapiclient.NewProcessor("Id_example", "Type_example", *openapiclient.NewProcessorAnyOf3Params([]openapiclient.ProcessorAnyOf3ParamsItemsInner{*openapiclient.NewProcessorAnyOf3ParamsItemsInner("Query_example", []openapiclient.Processor{})}))})}))}) // CreateRouteRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## DeleteRoute
 
-> DeleteDashboard200Response DeleteRoute(ctx, id).Execute()
+> DeleteIngestionApiKey200Response DeleteRoute(ctx, id).Execute()
 
 
 
@@ -108,7 +108,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoutesAPI.DeleteRoute``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteRoute`: DeleteDashboard200Response
+	// response from `DeleteRoute`: DeleteIngestionApiKey200Response
 	fmt.Fprintf(os.Stdout, "Response from `RoutesAPI.DeleteRoute`: %v\n", resp)
 }
 ```
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteDashboard200Response**](DeleteDashboard200Response.md)
+[**DeleteIngestionApiKey200Response**](DeleteIngestionApiKey200Response.md)
 
 ### Authorization
 
@@ -301,7 +301,7 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	createRouteRequest := *openapiclient.NewCreateRouteRequest("Name_example", false, "Query_example", "Owner_example", []openapiclient.CreateRouteRequestProcessorsInner{*openapiclient.NewCreateRouteRequestProcessorsInner("Id_example", "Name_example", "Type_example", *openapiclient.NewCreateRouteRequestProcessorsInnerAnyOf3Params([]openapiclient.CreateRouteRequestProcessorsInnerAnyOf3ParamsItemsInner{*openapiclient.NewCreateRouteRequestProcessorsInnerAnyOf3ParamsItemsInner("Query_example", []openapiclient.Processor{*openapiclient.NewProcessor("Id_example", "Name_example", "Type_example", *openapiclient.NewCreateRouteRequestProcessorsInnerAnyOf3Params([]openapiclient.CreateRouteRequestProcessorsInnerAnyOf3ParamsItemsInner{*openapiclient.NewCreateRouteRequestProcessorsInnerAnyOf3ParamsItemsInner("Query_example", []openapiclient.Processor{*openapiclient.NewProcessor("Id_example", "Name_example", "Type_example", )})}))})}))}) // CreateRouteRequest | 
+	createRouteRequest := *openapiclient.NewCreateRouteRequest("Name_example", false, "Query_example", "Owner_example", []openapiclient.Processor{*openapiclient.NewProcessor("Id_example", "Type_example", *openapiclient.NewProcessorAnyOf3Params([]openapiclient.ProcessorAnyOf3ParamsItemsInner{*openapiclient.NewProcessorAnyOf3ParamsItemsInner("Query_example", []openapiclient.Processor{*openapiclient.NewProcessor("Id_example", "Type_example", *openapiclient.NewProcessorAnyOf3Params([]openapiclient.ProcessorAnyOf3ParamsItemsInner{*openapiclient.NewProcessorAnyOf3ParamsItemsInner("Query_example", []openapiclient.Processor{})}))})}))}) // CreateRouteRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

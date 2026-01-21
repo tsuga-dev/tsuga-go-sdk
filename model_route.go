@@ -34,7 +34,7 @@ type Route struct {
 	// Team ID owning and managing the route
 	Owner string `json:"owner"`
 	// Ordered processors applied to logs that match the route
-	Processors []CreateRouteRequestProcessorsInner `json:"processors"`
+	Processors []Processor `json:"processors"`
 }
 
 type _Route Route
@@ -43,7 +43,7 @@ type _Route Route
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRoute(id string, name string, isEnabled bool, query string, owner string, processors []CreateRouteRequestProcessorsInner) *Route {
+func NewRoute(id string, name string, isEnabled bool, query string, owner string, processors []Processor) *Route {
 	this := Route{}
 	this.Id = id
 	this.Name = name
@@ -247,9 +247,9 @@ func (o *Route) SetOwner(v string) {
 }
 
 // GetProcessors returns the Processors field value
-func (o *Route) GetProcessors() []CreateRouteRequestProcessorsInner {
+func (o *Route) GetProcessors() []Processor {
 	if o == nil {
-		var ret []CreateRouteRequestProcessorsInner
+		var ret []Processor
 		return ret
 	}
 
@@ -258,7 +258,7 @@ func (o *Route) GetProcessors() []CreateRouteRequestProcessorsInner {
 
 // GetProcessorsOk returns a tuple with the Processors field value
 // and a boolean to check if the value has been set.
-func (o *Route) GetProcessorsOk() ([]CreateRouteRequestProcessorsInner, bool) {
+func (o *Route) GetProcessorsOk() ([]Processor, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -266,7 +266,7 @@ func (o *Route) GetProcessorsOk() ([]CreateRouteRequestProcessorsInner, bool) {
 }
 
 // SetProcessors sets field value
-func (o *Route) SetProcessors(v []CreateRouteRequestProcessorsInner) {
+func (o *Route) SetProcessors(v []Processor) {
 	o.Processors = v
 }
 

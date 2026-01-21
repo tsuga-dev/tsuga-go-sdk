@@ -11,13 +11,13 @@ Name | Type | Description | Notes
 **GroupByFields** | [**[]AggregationGroupBy**](AggregationGroupBy.md) |  | 
 **AggregationAlertLogic** | Pointer to **string** |  | [optional] 
 **ProportionAlertThreshold** | Pointer to **float32** |  | [optional] 
-**Queries** | [**[]MonitorConfigurationMetricQueriesInner**](MonitorConfigurationMetricQueriesInner.md) |  | 
+**Queries** | [**[]MonitorAggregationQuery**](MonitorAggregationQuery.md) | Aggregations that may be combined together in the same query | 
 
 ## Methods
 
 ### NewMonitorConfigurationMetric
 
-`func NewMonitorConfigurationMetric(type_ string, condition MonitorConfigurationMetricCondition, noDataBehavior string, timeframe float32, groupByFields []AggregationGroupBy, queries []MonitorConfigurationMetricQueriesInner, ) *MonitorConfigurationMetric`
+`func NewMonitorConfigurationMetric(type_ string, condition MonitorConfigurationMetricCondition, noDataBehavior string, timeframe float32, groupByFields []AggregationGroupBy, queries []MonitorAggregationQuery, ) *MonitorConfigurationMetric`
 
 NewMonitorConfigurationMetric instantiates a new MonitorConfigurationMetric object
 This constructor will assign default values to properties that have it defined,
@@ -184,20 +184,20 @@ HasProportionAlertThreshold returns a boolean if a field has been set.
 
 ### GetQueries
 
-`func (o *MonitorConfigurationMetric) GetQueries() []MonitorConfigurationMetricQueriesInner`
+`func (o *MonitorConfigurationMetric) GetQueries() []MonitorAggregationQuery`
 
 GetQueries returns the Queries field if non-nil, zero value otherwise.
 
 ### GetQueriesOk
 
-`func (o *MonitorConfigurationMetric) GetQueriesOk() (*[]MonitorConfigurationMetricQueriesInner, bool)`
+`func (o *MonitorConfigurationMetric) GetQueriesOk() (*[]MonitorAggregationQuery, bool)`
 
 GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueries
 
-`func (o *MonitorConfigurationMetric) SetQueries(v []MonitorConfigurationMetricQueriesInner)`
+`func (o *MonitorConfigurationMetric) SetQueries(v []MonitorAggregationQuery)`
 
 SetQueries sets Queries field to given value.
 

@@ -12,6 +12,8 @@ Name | Type | Description | Notes
 **GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
 **TimeBucket** | Pointer to [**GraphVisualizationTimeseriesTimeBucket**](GraphVisualizationTimeseriesTimeBucket.md) |  | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
+**LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
+**Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
 
 ## Methods
 
@@ -216,6 +218,56 @@ SetNormalizer sets Normalizer field to given value.
 `func (o *GraphVisualizationTimeseries) HasNormalizer() bool`
 
 HasNormalizer returns a boolean if a field has been set.
+
+### GetLegendMode
+
+`func (o *GraphVisualizationTimeseries) GetLegendMode() string`
+
+GetLegendMode returns the LegendMode field if non-nil, zero value otherwise.
+
+### GetLegendModeOk
+
+`func (o *GraphVisualizationTimeseries) GetLegendModeOk() (*string, bool)`
+
+GetLegendModeOk returns a tuple with the LegendMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLegendMode
+
+`func (o *GraphVisualizationTimeseries) SetLegendMode(v string)`
+
+SetLegendMode sets LegendMode field to given value.
+
+### HasLegendMode
+
+`func (o *GraphVisualizationTimeseries) HasLegendMode() bool`
+
+HasLegendMode returns a boolean if a field has been set.
+
+### GetThresholds
+
+`func (o *GraphVisualizationTimeseries) GetThresholds() []ThresholdMarker`
+
+GetThresholds returns the Thresholds field if non-nil, zero value otherwise.
+
+### GetThresholdsOk
+
+`func (o *GraphVisualizationTimeseries) GetThresholdsOk() (*[]ThresholdMarker, bool)`
+
+GetThresholdsOk returns a tuple with the Thresholds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetThresholds
+
+`func (o *GraphVisualizationTimeseries) SetThresholds(v []ThresholdMarker)`
+
+SetThresholds sets Thresholds field to given value.
+
+### HasThresholds
+
+`func (o *GraphVisualizationTimeseries) HasThresholds() bool`
+
+HasThresholds returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

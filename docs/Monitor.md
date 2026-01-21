@@ -6,19 +6,19 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Identifier of the monitor | 
 **Name** | **string** | Display name of the monitor | 
+**Owner** | **string** | Team ID that owns and manages the monitor | 
 **Message** | Pointer to **string** | Message to be displayed if a notification is triggered | [optional] 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
 **Configuration** | [**CreateMonitorRequestConfiguration**](CreateMonitorRequestConfiguration.md) |  | 
 **Priority** | **float32** | Priority of the monitor | 
-**Owner** | **string** | Team ID that owns and manages the monitor | 
+**Permissions** | **string** | This controls which data the monitor can see | 
 **DashboardId** | Pointer to **string** | Identifier of a dashboard related to the monitor | [optional] 
-**Permissions** | **string** | This controls which data the monitor can see. | 
 
 ## Methods
 
 ### NewMonitor
 
-`func NewMonitor(id string, name string, configuration CreateMonitorRequestConfiguration, priority float32, owner string, permissions string, ) *Monitor`
+`func NewMonitor(id string, name string, owner string, configuration CreateMonitorRequestConfiguration, priority float32, permissions string, ) *Monitor`
 
 NewMonitor instantiates a new Monitor object
 This constructor will assign default values to properties that have it defined,
@@ -71,6 +71,26 @@ and a boolean to check if the value has been set.
 `func (o *Monitor) SetName(v string)`
 
 SetName sets Name field to given value.
+
+
+### GetOwner
+
+`func (o *Monitor) GetOwner() string`
+
+GetOwner returns the Owner field if non-nil, zero value otherwise.
+
+### GetOwnerOk
+
+`func (o *Monitor) GetOwnerOk() (*string, bool)`
+
+GetOwnerOk returns a tuple with the Owner field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOwner
+
+`func (o *Monitor) SetOwner(v string)`
+
+SetOwner sets Owner field to given value.
 
 
 ### GetMessage
@@ -163,24 +183,24 @@ and a boolean to check if the value has been set.
 SetPriority sets Priority field to given value.
 
 
-### GetOwner
+### GetPermissions
 
-`func (o *Monitor) GetOwner() string`
+`func (o *Monitor) GetPermissions() string`
 
-GetOwner returns the Owner field if non-nil, zero value otherwise.
+GetPermissions returns the Permissions field if non-nil, zero value otherwise.
 
-### GetOwnerOk
+### GetPermissionsOk
 
-`func (o *Monitor) GetOwnerOk() (*string, bool)`
+`func (o *Monitor) GetPermissionsOk() (*string, bool)`
 
-GetOwnerOk returns a tuple with the Owner field if it's non-nil, zero value otherwise
+GetPermissionsOk returns a tuple with the Permissions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetOwner
+### SetPermissions
 
-`func (o *Monitor) SetOwner(v string)`
+`func (o *Monitor) SetPermissions(v string)`
 
-SetOwner sets Owner field to given value.
+SetPermissions sets Permissions field to given value.
 
 
 ### GetDashboardId
@@ -207,26 +227,6 @@ SetDashboardId sets DashboardId field to given value.
 `func (o *Monitor) HasDashboardId() bool`
 
 HasDashboardId returns a boolean if a field has been set.
-
-### GetPermissions
-
-`func (o *Monitor) GetPermissions() string`
-
-GetPermissions returns the Permissions field if non-nil, zero value otherwise.
-
-### GetPermissionsOk
-
-`func (o *Monitor) GetPermissionsOk() (*string, bool)`
-
-GetPermissionsOk returns a tuple with the Permissions field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPermissions
-
-`func (o *Monitor) SetPermissions(v string)`
-
-SetPermissions sets Permissions field to given value.
-
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

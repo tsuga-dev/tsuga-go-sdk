@@ -19,17 +19,27 @@ import (
 // Function - struct for Function
 type Function struct {
 	FunctionIncrease *FunctionIncrease
+	FunctionLog *FunctionLog
 	FunctionPerHour *FunctionPerHour
 	FunctionPerMinute *FunctionPerMinute
 	FunctionPerSecond *FunctionPerSecond
+	FunctionPower *FunctionPower
 	FunctionRate *FunctionRate
 	FunctionRolling *FunctionRolling
+	FunctionSqrt *FunctionSqrt
 }
 
 // FunctionIncreaseAsFunction is a convenience function that returns FunctionIncrease wrapped in Function
 func FunctionIncreaseAsFunction(v *FunctionIncrease) Function {
 	return Function{
 		FunctionIncrease: v,
+	}
+}
+
+// FunctionLogAsFunction is a convenience function that returns FunctionLog wrapped in Function
+func FunctionLogAsFunction(v *FunctionLog) Function {
+	return Function{
+		FunctionLog: v,
 	}
 }
 
@@ -54,6 +64,13 @@ func FunctionPerSecondAsFunction(v *FunctionPerSecond) Function {
 	}
 }
 
+// FunctionPowerAsFunction is a convenience function that returns FunctionPower wrapped in Function
+func FunctionPowerAsFunction(v *FunctionPower) Function {
+	return Function{
+		FunctionPower: v,
+	}
+}
+
 // FunctionRateAsFunction is a convenience function that returns FunctionRate wrapped in Function
 func FunctionRateAsFunction(v *FunctionRate) Function {
 	return Function{
@@ -65,6 +82,13 @@ func FunctionRateAsFunction(v *FunctionRate) Function {
 func FunctionRollingAsFunction(v *FunctionRolling) Function {
 	return Function{
 		FunctionRolling: v,
+	}
+}
+
+// FunctionSqrtAsFunction is a convenience function that returns FunctionSqrt wrapped in Function
+func FunctionSqrtAsFunction(v *FunctionSqrt) Function {
+	return Function{
+		FunctionSqrt: v,
 	}
 }
 
@@ -88,6 +112,23 @@ func (dst *Function) UnmarshalJSON(data []byte) error {
 		}
 	} else {
 		dst.FunctionIncrease = nil
+	}
+
+	// try to unmarshal data into FunctionLog
+	err = newStrictDecoder(data).Decode(&dst.FunctionLog)
+	if err == nil {
+		jsonFunctionLog, _ := json.Marshal(dst.FunctionLog)
+		if string(jsonFunctionLog) == "{}" { // empty struct
+			dst.FunctionLog = nil
+		} else {
+			if err = validator.Validate(dst.FunctionLog); err != nil {
+				dst.FunctionLog = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.FunctionLog = nil
 	}
 
 	// try to unmarshal data into FunctionPerHour
@@ -141,6 +182,23 @@ func (dst *Function) UnmarshalJSON(data []byte) error {
 		dst.FunctionPerSecond = nil
 	}
 
+	// try to unmarshal data into FunctionPower
+	err = newStrictDecoder(data).Decode(&dst.FunctionPower)
+	if err == nil {
+		jsonFunctionPower, _ := json.Marshal(dst.FunctionPower)
+		if string(jsonFunctionPower) == "{}" { // empty struct
+			dst.FunctionPower = nil
+		} else {
+			if err = validator.Validate(dst.FunctionPower); err != nil {
+				dst.FunctionPower = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.FunctionPower = nil
+	}
+
 	// try to unmarshal data into FunctionRate
 	err = newStrictDecoder(data).Decode(&dst.FunctionRate)
 	if err == nil {
@@ -175,14 +233,34 @@ func (dst *Function) UnmarshalJSON(data []byte) error {
 		dst.FunctionRolling = nil
 	}
 
+	// try to unmarshal data into FunctionSqrt
+	err = newStrictDecoder(data).Decode(&dst.FunctionSqrt)
+	if err == nil {
+		jsonFunctionSqrt, _ := json.Marshal(dst.FunctionSqrt)
+		if string(jsonFunctionSqrt) == "{}" { // empty struct
+			dst.FunctionSqrt = nil
+		} else {
+			if err = validator.Validate(dst.FunctionSqrt); err != nil {
+				dst.FunctionSqrt = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.FunctionSqrt = nil
+	}
+
 	if match > 1 { // more than 1 match
 		// reset to nil
 		dst.FunctionIncrease = nil
+		dst.FunctionLog = nil
 		dst.FunctionPerHour = nil
 		dst.FunctionPerMinute = nil
 		dst.FunctionPerSecond = nil
+		dst.FunctionPower = nil
 		dst.FunctionRate = nil
 		dst.FunctionRolling = nil
+		dst.FunctionSqrt = nil
 
 		return fmt.Errorf("data matches more than one schema in oneOf(Function)")
 	} else if match == 1 {
@@ -198,6 +276,10 @@ func (src Function) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.FunctionIncrease)
 	}
 
+	if src.FunctionLog != nil {
+		return json.Marshal(&src.FunctionLog)
+	}
+
 	if src.FunctionPerHour != nil {
 		return json.Marshal(&src.FunctionPerHour)
 	}
@@ -210,12 +292,20 @@ func (src Function) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.FunctionPerSecond)
 	}
 
+	if src.FunctionPower != nil {
+		return json.Marshal(&src.FunctionPower)
+	}
+
 	if src.FunctionRate != nil {
 		return json.Marshal(&src.FunctionRate)
 	}
 
 	if src.FunctionRolling != nil {
 		return json.Marshal(&src.FunctionRolling)
+	}
+
+	if src.FunctionSqrt != nil {
+		return json.Marshal(&src.FunctionSqrt)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -230,6 +320,10 @@ func (obj *Function) GetActualInstance() (interface{}) {
 		return obj.FunctionIncrease
 	}
 
+	if obj.FunctionLog != nil {
+		return obj.FunctionLog
+	}
+
 	if obj.FunctionPerHour != nil {
 		return obj.FunctionPerHour
 	}
@@ -242,12 +336,20 @@ func (obj *Function) GetActualInstance() (interface{}) {
 		return obj.FunctionPerSecond
 	}
 
+	if obj.FunctionPower != nil {
+		return obj.FunctionPower
+	}
+
 	if obj.FunctionRate != nil {
 		return obj.FunctionRate
 	}
 
 	if obj.FunctionRolling != nil {
 		return obj.FunctionRolling
+	}
+
+	if obj.FunctionSqrt != nil {
+		return obj.FunctionSqrt
 	}
 
 	// all schemas are nil
@@ -258,6 +360,10 @@ func (obj *Function) GetActualInstance() (interface{}) {
 func (obj Function) GetActualInstanceValue() (interface{}) {
 	if obj.FunctionIncrease != nil {
 		return *obj.FunctionIncrease
+	}
+
+	if obj.FunctionLog != nil {
+		return *obj.FunctionLog
 	}
 
 	if obj.FunctionPerHour != nil {
@@ -272,12 +378,20 @@ func (obj Function) GetActualInstanceValue() (interface{}) {
 		return *obj.FunctionPerSecond
 	}
 
+	if obj.FunctionPower != nil {
+		return *obj.FunctionPower
+	}
+
 	if obj.FunctionRate != nil {
 		return *obj.FunctionRate
 	}
 
 	if obj.FunctionRolling != nil {
 		return *obj.FunctionRolling
+	}
+
+	if obj.FunctionSqrt != nil {
+		return *obj.FunctionSqrt
 	}
 
 	// all schemas are nil

@@ -11,13 +11,13 @@ Name | Type | Description | Notes
 **GroupByFields** | [**[]AggregationGroupBy**](AggregationGroupBy.md) |  | 
 **AggregationAlertLogic** | Pointer to **string** |  | [optional] 
 **ProportionAlertThreshold** | Pointer to **float32** |  | [optional] 
-**Queries** | [**[]MonitorConfigurationMetricQueriesInner**](MonitorConfigurationMetricQueriesInner.md) |  | 
+**Queries** | [**[]MonitorAggregationQuery**](MonitorAggregationQuery.md) | Aggregations that may be combined together in the same query | 
 
 ## Methods
 
 ### NewCreateMonitorRequestConfiguration
 
-`func NewCreateMonitorRequestConfiguration(type_ string, condition MonitorConfigurationAnomalyLogCondition, noDataBehavior string, timeframe float32, groupByFields []AggregationGroupBy, queries []MonitorConfigurationMetricQueriesInner, ) *CreateMonitorRequestConfiguration`
+`func NewCreateMonitorRequestConfiguration(type_ string, condition MonitorConfigurationAnomalyLogCondition, noDataBehavior string, timeframe float32, groupByFields []AggregationGroupBy, queries []MonitorAggregationQuery, ) *CreateMonitorRequestConfiguration`
 
 NewCreateMonitorRequestConfiguration instantiates a new CreateMonitorRequestConfiguration object
 This constructor will assign default values to properties that have it defined,
@@ -184,20 +184,20 @@ HasProportionAlertThreshold returns a boolean if a field has been set.
 
 ### GetQueries
 
-`func (o *CreateMonitorRequestConfiguration) GetQueries() []MonitorConfigurationMetricQueriesInner`
+`func (o *CreateMonitorRequestConfiguration) GetQueries() []MonitorAggregationQuery`
 
 GetQueries returns the Queries field if non-nil, zero value otherwise.
 
 ### GetQueriesOk
 
-`func (o *CreateMonitorRequestConfiguration) GetQueriesOk() (*[]MonitorConfigurationMetricQueriesInner, bool)`
+`func (o *CreateMonitorRequestConfiguration) GetQueriesOk() (*[]MonitorAggregationQuery, bool)`
 
 GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueries
 
-`func (o *CreateMonitorRequestConfiguration) SetQueries(v []MonitorConfigurationMetricQueriesInner)`
+`func (o *CreateMonitorRequestConfiguration) SetQueries(v []MonitorAggregationQuery)`
 
 SetQueries sets Queries field to given value.
 

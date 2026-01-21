@@ -16,67 +16,67 @@ import (
 )
 
 
-// Processor Processing step executed sequentially on route logs
+// Processor struct for Processor
 type Processor struct {
-	CreateRouteRequestProcessorsInnerAnyOf *CreateRouteRequestProcessorsInnerAnyOf
-	CreateRouteRequestProcessorsInnerAnyOf1 *CreateRouteRequestProcessorsInnerAnyOf1
-	CreateRouteRequestProcessorsInnerAnyOf2 *CreateRouteRequestProcessorsInnerAnyOf2
-	CreateRouteRequestProcessorsInnerAnyOf3 *CreateRouteRequestProcessorsInnerAnyOf3
+	ProcessorAnyOf *ProcessorAnyOf
+	ProcessorAnyOf1 *ProcessorAnyOf1
+	ProcessorAnyOf2 *ProcessorAnyOf2
+	ProcessorAnyOf3 *ProcessorAnyOf3
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
 func (dst *Processor) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal JSON data into CreateRouteRequestProcessorsInnerAnyOf
-	err = json.Unmarshal(data, &dst.CreateRouteRequestProcessorsInnerAnyOf);
+	// try to unmarshal JSON data into ProcessorAnyOf
+	err = json.Unmarshal(data, &dst.ProcessorAnyOf);
 	if err == nil {
-		jsonCreateRouteRequestProcessorsInnerAnyOf, _ := json.Marshal(dst.CreateRouteRequestProcessorsInnerAnyOf)
-		if string(jsonCreateRouteRequestProcessorsInnerAnyOf) == "{}" { // empty struct
-			dst.CreateRouteRequestProcessorsInnerAnyOf = nil
+		jsonProcessorAnyOf, _ := json.Marshal(dst.ProcessorAnyOf)
+		if string(jsonProcessorAnyOf) == "{}" { // empty struct
+			dst.ProcessorAnyOf = nil
 		} else {
-			return nil // data stored in dst.CreateRouteRequestProcessorsInnerAnyOf, return on the first match
+			return nil // data stored in dst.ProcessorAnyOf, return on the first match
 		}
 	} else {
-		dst.CreateRouteRequestProcessorsInnerAnyOf = nil
+		dst.ProcessorAnyOf = nil
 	}
 
-	// try to unmarshal JSON data into CreateRouteRequestProcessorsInnerAnyOf1
-	err = json.Unmarshal(data, &dst.CreateRouteRequestProcessorsInnerAnyOf1);
+	// try to unmarshal JSON data into ProcessorAnyOf1
+	err = json.Unmarshal(data, &dst.ProcessorAnyOf1);
 	if err == nil {
-		jsonCreateRouteRequestProcessorsInnerAnyOf1, _ := json.Marshal(dst.CreateRouteRequestProcessorsInnerAnyOf1)
-		if string(jsonCreateRouteRequestProcessorsInnerAnyOf1) == "{}" { // empty struct
-			dst.CreateRouteRequestProcessorsInnerAnyOf1 = nil
+		jsonProcessorAnyOf1, _ := json.Marshal(dst.ProcessorAnyOf1)
+		if string(jsonProcessorAnyOf1) == "{}" { // empty struct
+			dst.ProcessorAnyOf1 = nil
 		} else {
-			return nil // data stored in dst.CreateRouteRequestProcessorsInnerAnyOf1, return on the first match
+			return nil // data stored in dst.ProcessorAnyOf1, return on the first match
 		}
 	} else {
-		dst.CreateRouteRequestProcessorsInnerAnyOf1 = nil
+		dst.ProcessorAnyOf1 = nil
 	}
 
-	// try to unmarshal JSON data into CreateRouteRequestProcessorsInnerAnyOf2
-	err = json.Unmarshal(data, &dst.CreateRouteRequestProcessorsInnerAnyOf2);
+	// try to unmarshal JSON data into ProcessorAnyOf2
+	err = json.Unmarshal(data, &dst.ProcessorAnyOf2);
 	if err == nil {
-		jsonCreateRouteRequestProcessorsInnerAnyOf2, _ := json.Marshal(dst.CreateRouteRequestProcessorsInnerAnyOf2)
-		if string(jsonCreateRouteRequestProcessorsInnerAnyOf2) == "{}" { // empty struct
-			dst.CreateRouteRequestProcessorsInnerAnyOf2 = nil
+		jsonProcessorAnyOf2, _ := json.Marshal(dst.ProcessorAnyOf2)
+		if string(jsonProcessorAnyOf2) == "{}" { // empty struct
+			dst.ProcessorAnyOf2 = nil
 		} else {
-			return nil // data stored in dst.CreateRouteRequestProcessorsInnerAnyOf2, return on the first match
+			return nil // data stored in dst.ProcessorAnyOf2, return on the first match
 		}
 	} else {
-		dst.CreateRouteRequestProcessorsInnerAnyOf2 = nil
+		dst.ProcessorAnyOf2 = nil
 	}
 
-	// try to unmarshal JSON data into CreateRouteRequestProcessorsInnerAnyOf3
-	err = json.Unmarshal(data, &dst.CreateRouteRequestProcessorsInnerAnyOf3);
+	// try to unmarshal JSON data into ProcessorAnyOf3
+	err = json.Unmarshal(data, &dst.ProcessorAnyOf3);
 	if err == nil {
-		jsonCreateRouteRequestProcessorsInnerAnyOf3, _ := json.Marshal(dst.CreateRouteRequestProcessorsInnerAnyOf3)
-		if string(jsonCreateRouteRequestProcessorsInnerAnyOf3) == "{}" { // empty struct
-			dst.CreateRouteRequestProcessorsInnerAnyOf3 = nil
+		jsonProcessorAnyOf3, _ := json.Marshal(dst.ProcessorAnyOf3)
+		if string(jsonProcessorAnyOf3) == "{}" { // empty struct
+			dst.ProcessorAnyOf3 = nil
 		} else {
-			return nil // data stored in dst.CreateRouteRequestProcessorsInnerAnyOf3, return on the first match
+			return nil // data stored in dst.ProcessorAnyOf3, return on the first match
 		}
 	} else {
-		dst.CreateRouteRequestProcessorsInnerAnyOf3 = nil
+		dst.ProcessorAnyOf3 = nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in anyOf(Processor)")
@@ -84,20 +84,20 @@ func (dst *Processor) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Processor) MarshalJSON() ([]byte, error) {
-	if src.CreateRouteRequestProcessorsInnerAnyOf != nil {
-		return json.Marshal(&src.CreateRouteRequestProcessorsInnerAnyOf)
+	if src.ProcessorAnyOf != nil {
+		return json.Marshal(&src.ProcessorAnyOf)
 	}
 
-	if src.CreateRouteRequestProcessorsInnerAnyOf1 != nil {
-		return json.Marshal(&src.CreateRouteRequestProcessorsInnerAnyOf1)
+	if src.ProcessorAnyOf1 != nil {
+		return json.Marshal(&src.ProcessorAnyOf1)
 	}
 
-	if src.CreateRouteRequestProcessorsInnerAnyOf2 != nil {
-		return json.Marshal(&src.CreateRouteRequestProcessorsInnerAnyOf2)
+	if src.ProcessorAnyOf2 != nil {
+		return json.Marshal(&src.ProcessorAnyOf2)
 	}
 
-	if src.CreateRouteRequestProcessorsInnerAnyOf3 != nil {
-		return json.Marshal(&src.CreateRouteRequestProcessorsInnerAnyOf3)
+	if src.ProcessorAnyOf3 != nil {
+		return json.Marshal(&src.ProcessorAnyOf3)
 	}
 
 	return nil, nil // no data in anyOf schemas

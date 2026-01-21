@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## DeleteTeam
 
-> DeleteDashboard200Response DeleteTeam(ctx, id).Execute()
+> DeleteIngestionApiKey200Response DeleteTeam(ctx, id).Execute()
 
 
 
@@ -108,7 +108,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamsAPI.DeleteTeam``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteTeam`: DeleteDashboard200Response
+	// response from `DeleteTeam`: DeleteIngestionApiKey200Response
 	fmt.Fprintf(os.Stdout, "Response from `TeamsAPI.DeleteTeam`: %v\n", resp)
 }
 ```
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteDashboard200Response**](DeleteDashboard200Response.md)
+[**DeleteIngestionApiKey200Response**](DeleteIngestionApiKey200Response.md)
 
 ### Authorization
 

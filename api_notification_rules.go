@@ -119,7 +119,7 @@ func (a *NotificationRulesAPIService) CreateNotificationRuleExecute(r ApiCreateN
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -130,7 +130,7 @@ func (a *NotificationRulesAPIService) CreateNotificationRuleExecute(r ApiCreateN
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -160,7 +160,7 @@ type ApiDeleteNotificationRuleRequest struct {
 	id string
 }
 
-func (r ApiDeleteNotificationRuleRequest) Execute() (*DeleteDashboard200Response, *http.Response, error) {
+func (r ApiDeleteNotificationRuleRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	return r.ApiService.DeleteNotificationRuleExecute(r)
 }
 
@@ -182,13 +182,13 @@ func (a *NotificationRulesAPIService) DeleteNotificationRule(ctx context.Context
 }
 
 // Execute executes the request
-//  @return DeleteDashboard200Response
-func (a *NotificationRulesAPIService) DeleteNotificationRuleExecute(r ApiDeleteNotificationRuleRequest) (*DeleteDashboard200Response, *http.Response, error) {
+//  @return DeleteIngestionApiKey200Response
+func (a *NotificationRulesAPIService) DeleteNotificationRuleExecute(r ApiDeleteNotificationRuleRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeleteDashboard200Response
+		localVarReturnValue  *DeleteIngestionApiKey200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationRulesAPIService.DeleteNotificationRule")
@@ -249,7 +249,7 @@ func (a *NotificationRulesAPIService) DeleteNotificationRuleExecute(r ApiDeleteN
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -260,7 +260,7 @@ func (a *NotificationRulesAPIService) DeleteNotificationRuleExecute(r ApiDeleteN
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -379,7 +379,7 @@ func (a *NotificationRulesAPIService) GetNotificationRuleExecute(r ApiGetNotific
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -390,7 +390,7 @@ func (a *NotificationRulesAPIService) GetNotificationRuleExecute(r ApiGetNotific
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -499,7 +499,7 @@ func (a *NotificationRulesAPIService) ListNotificationRulesExecute(r ApiListNoti
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -510,7 +510,7 @@ func (a *NotificationRulesAPIService) ListNotificationRulesExecute(r ApiListNoti
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -640,7 +640,7 @@ func (a *NotificationRulesAPIService) UpdateNotificationRuleExecute(r ApiUpdateN
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -651,7 +651,7 @@ func (a *NotificationRulesAPIService) UpdateNotificationRuleExecute(r ApiUpdateN
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

@@ -23,10 +23,9 @@ var _ MappedNullable = &CreateNotificationRuleRequest{}
 type CreateNotificationRuleRequest struct {
 	// Display name of the notification rule
 	Name string `json:"name"`
-	// Team IDs that narrow down the teams that can receive notifications from this rule
-	TeamsFilter []string `json:"teamsFilter"`
+	TeamsFilter CreateNotificationRuleRequestTeamsFilter `json:"teamsFilter"`
 	// Priorities that narrow down the alerts that can trigger a notification
-	PrioritiesFilter []int32 `json:"prioritiesFilter"`
+	PrioritiesFilter []float32 `json:"prioritiesFilter"`
 	// Alert state transitions that can trigger a notification
 	TransitionTypesFilter []string `json:"transitionTypesFilter"`
 	// Team ID that owns and manages the rule
@@ -44,7 +43,7 @@ type _CreateNotificationRuleRequest CreateNotificationRuleRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateNotificationRuleRequest(name string, teamsFilter []string, prioritiesFilter []int32, transitionTypesFilter []string, owner string, isActive bool, targets []CreateNotificationRuleRequestTargetsInner) *CreateNotificationRuleRequest {
+func NewCreateNotificationRuleRequest(name string, teamsFilter CreateNotificationRuleRequestTeamsFilter, prioritiesFilter []float32, transitionTypesFilter []string, owner string, isActive bool, targets []CreateNotificationRuleRequestTargetsInner) *CreateNotificationRuleRequest {
 	this := CreateNotificationRuleRequest{}
 	this.Name = name
 	this.TeamsFilter = teamsFilter
@@ -89,9 +88,9 @@ func (o *CreateNotificationRuleRequest) SetName(v string) {
 }
 
 // GetTeamsFilter returns the TeamsFilter field value
-func (o *CreateNotificationRuleRequest) GetTeamsFilter() []string {
+func (o *CreateNotificationRuleRequest) GetTeamsFilter() CreateNotificationRuleRequestTeamsFilter {
 	if o == nil {
-		var ret []string
+		var ret CreateNotificationRuleRequestTeamsFilter
 		return ret
 	}
 
@@ -100,22 +99,22 @@ func (o *CreateNotificationRuleRequest) GetTeamsFilter() []string {
 
 // GetTeamsFilterOk returns a tuple with the TeamsFilter field value
 // and a boolean to check if the value has been set.
-func (o *CreateNotificationRuleRequest) GetTeamsFilterOk() ([]string, bool) {
+func (o *CreateNotificationRuleRequest) GetTeamsFilterOk() (*CreateNotificationRuleRequestTeamsFilter, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.TeamsFilter, true
+	return &o.TeamsFilter, true
 }
 
 // SetTeamsFilter sets field value
-func (o *CreateNotificationRuleRequest) SetTeamsFilter(v []string) {
+func (o *CreateNotificationRuleRequest) SetTeamsFilter(v CreateNotificationRuleRequestTeamsFilter) {
 	o.TeamsFilter = v
 }
 
 // GetPrioritiesFilter returns the PrioritiesFilter field value
-func (o *CreateNotificationRuleRequest) GetPrioritiesFilter() []int32 {
+func (o *CreateNotificationRuleRequest) GetPrioritiesFilter() []float32 {
 	if o == nil {
-		var ret []int32
+		var ret []float32
 		return ret
 	}
 
@@ -124,7 +123,7 @@ func (o *CreateNotificationRuleRequest) GetPrioritiesFilter() []int32 {
 
 // GetPrioritiesFilterOk returns a tuple with the PrioritiesFilter field value
 // and a boolean to check if the value has been set.
-func (o *CreateNotificationRuleRequest) GetPrioritiesFilterOk() ([]int32, bool) {
+func (o *CreateNotificationRuleRequest) GetPrioritiesFilterOk() ([]float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -132,7 +131,7 @@ func (o *CreateNotificationRuleRequest) GetPrioritiesFilterOk() ([]int32, bool) 
 }
 
 // SetPrioritiesFilter sets field value
-func (o *CreateNotificationRuleRequest) SetPrioritiesFilter(v []int32) {
+func (o *CreateNotificationRuleRequest) SetPrioritiesFilter(v []float32) {
 	o.PrioritiesFilter = v
 }
 

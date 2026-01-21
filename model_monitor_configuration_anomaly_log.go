@@ -29,7 +29,8 @@ type MonitorConfigurationAnomalyLog struct {
 	GroupByFields []AggregationGroupBy `json:"groupByFields"`
 	AggregationAlertLogic *string `json:"aggregationAlertLogic,omitempty"`
 	ProportionAlertThreshold *float32 `json:"proportionAlertThreshold,omitempty"`
-	Queries []MonitorConfigurationLogQueriesInner `json:"queries"`
+	// Aggregations that may be combined together in the same query
+	Queries []MonitorAggregationQuery `json:"queries"`
 }
 
 type _MonitorConfigurationAnomalyLog MonitorConfigurationAnomalyLog
@@ -38,7 +39,7 @@ type _MonitorConfigurationAnomalyLog MonitorConfigurationAnomalyLog
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMonitorConfigurationAnomalyLog(type_ string, condition MonitorConfigurationAnomalyLogCondition, noDataBehavior string, timeframe float32, groupByFields []AggregationGroupBy, queries []MonitorConfigurationLogQueriesInner) *MonitorConfigurationAnomalyLog {
+func NewMonitorConfigurationAnomalyLog(type_ string, condition MonitorConfigurationAnomalyLogCondition, noDataBehavior string, timeframe float32, groupByFields []AggregationGroupBy, queries []MonitorAggregationQuery) *MonitorConfigurationAnomalyLog {
 	this := MonitorConfigurationAnomalyLog{}
 	this.Type = type_
 	this.Condition = condition
@@ -242,9 +243,9 @@ func (o *MonitorConfigurationAnomalyLog) SetProportionAlertThreshold(v float32) 
 }
 
 // GetQueries returns the Queries field value
-func (o *MonitorConfigurationAnomalyLog) GetQueries() []MonitorConfigurationLogQueriesInner {
+func (o *MonitorConfigurationAnomalyLog) GetQueries() []MonitorAggregationQuery {
 	if o == nil {
-		var ret []MonitorConfigurationLogQueriesInner
+		var ret []MonitorAggregationQuery
 		return ret
 	}
 
@@ -253,7 +254,7 @@ func (o *MonitorConfigurationAnomalyLog) GetQueries() []MonitorConfigurationLogQ
 
 // GetQueriesOk returns a tuple with the Queries field value
 // and a boolean to check if the value has been set.
-func (o *MonitorConfigurationAnomalyLog) GetQueriesOk() ([]MonitorConfigurationLogQueriesInner, bool) {
+func (o *MonitorConfigurationAnomalyLog) GetQueriesOk() ([]MonitorAggregationQuery, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -261,7 +262,7 @@ func (o *MonitorConfigurationAnomalyLog) GetQueriesOk() ([]MonitorConfigurationL
 }
 
 // SetQueries sets field value
-func (o *MonitorConfigurationAnomalyLog) SetQueries(v []MonitorConfigurationLogQueriesInner) {
+func (o *MonitorConfigurationAnomalyLog) SetQueries(v []MonitorAggregationQuery) {
 	o.Queries = v
 }
 

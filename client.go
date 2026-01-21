@@ -51,9 +51,13 @@ type APIClient struct {
 
 	DashboardsAPI *DashboardsAPIService
 
+	IngestionApiKeysAPI *IngestionApiKeysAPIService
+
 	MonitorsAPI *MonitorsAPIService
 
 	NotificationRulesAPI *NotificationRulesAPIService
+
+	RetentionPoliciesAPI *RetentionPoliciesAPIService
 
 	RoutesAPI *RoutesAPIService
 
@@ -77,8 +81,10 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 
 	// API Services
 	c.DashboardsAPI = (*DashboardsAPIService)(&c.common)
+	c.IngestionApiKeysAPI = (*IngestionApiKeysAPIService)(&c.common)
 	c.MonitorsAPI = (*MonitorsAPIService)(&c.common)
 	c.NotificationRulesAPI = (*NotificationRulesAPIService)(&c.common)
+	c.RetentionPoliciesAPI = (*RetentionPoliciesAPIService)(&c.common)
 	c.RoutesAPI = (*RoutesAPIService)(&c.common)
 	c.TeamsAPI = (*TeamsAPIService)(&c.common)
 

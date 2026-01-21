@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Identifier of the notification rule | 
 **Name** | **string** | Display name of the notification rule | 
-**TeamsFilter** | **[]string** | Team IDs that narrow down the teams that can receive notifications from this rule | 
-**PrioritiesFilter** | **[]int32** | Priorities that narrow down the alerts that can trigger a notification | 
+**TeamsFilter** | [**RuleTeamsFilter**](RuleTeamsFilter.md) |  | 
+**PrioritiesFilter** | **[]float32** | Priorities that narrow down the alerts that can trigger a notification | 
 **TransitionTypesFilter** | **[]string** | Alert state transitions that can trigger a notification | 
 **Owner** | **string** | Team ID that owns and manages the rule | 
 **IsActive** | **bool** |  | 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewRule
 
-`func NewRule(id string, name string, teamsFilter []string, prioritiesFilter []int32, transitionTypesFilter []string, owner string, isActive bool, targets []RuleTargetsInner, ) *Rule`
+`func NewRule(id string, name string, teamsFilter RuleTeamsFilter, prioritiesFilter []float32, transitionTypesFilter []string, owner string, isActive bool, targets []RuleTargetsInner, ) *Rule`
 
 NewRule instantiates a new Rule object
 This constructor will assign default values to properties that have it defined,
@@ -75,40 +75,40 @@ SetName sets Name field to given value.
 
 ### GetTeamsFilter
 
-`func (o *Rule) GetTeamsFilter() []string`
+`func (o *Rule) GetTeamsFilter() RuleTeamsFilter`
 
 GetTeamsFilter returns the TeamsFilter field if non-nil, zero value otherwise.
 
 ### GetTeamsFilterOk
 
-`func (o *Rule) GetTeamsFilterOk() (*[]string, bool)`
+`func (o *Rule) GetTeamsFilterOk() (*RuleTeamsFilter, bool)`
 
 GetTeamsFilterOk returns a tuple with the TeamsFilter field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTeamsFilter
 
-`func (o *Rule) SetTeamsFilter(v []string)`
+`func (o *Rule) SetTeamsFilter(v RuleTeamsFilter)`
 
 SetTeamsFilter sets TeamsFilter field to given value.
 
 
 ### GetPrioritiesFilter
 
-`func (o *Rule) GetPrioritiesFilter() []int32`
+`func (o *Rule) GetPrioritiesFilter() []float32`
 
 GetPrioritiesFilter returns the PrioritiesFilter field if non-nil, zero value otherwise.
 
 ### GetPrioritiesFilterOk
 
-`func (o *Rule) GetPrioritiesFilterOk() (*[]int32, bool)`
+`func (o *Rule) GetPrioritiesFilterOk() (*[]float32, bool)`
 
 GetPrioritiesFilterOk returns a tuple with the PrioritiesFilter field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrioritiesFilter
 
-`func (o *Rule) SetPrioritiesFilter(v []int32)`
+`func (o *Rule) SetPrioritiesFilter(v []float32)`
 
 SetPrioritiesFilter sets PrioritiesFilter field to given value.
 

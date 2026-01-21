@@ -21,7 +21,7 @@ var _ MappedNullable = &FunctionIncrease{}
 
 // FunctionIncrease struct for FunctionIncrease
 type FunctionIncrease struct {
-	// Calculates the increase between values
+	// `Increase` is designed for cumulative metrics. It computes the increase of cumulative metrics automatically handling counter resets. When used with an aggregation like `sum` it combines all series without requiring an explicit group-by.
 	Type string `json:"type"`
 }
 
