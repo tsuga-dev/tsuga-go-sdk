@@ -119,7 +119,7 @@ func (a *DashboardsAPIService) CreateDashboardExecute(r ApiCreateDashboardReques
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -130,7 +130,7 @@ func (a *DashboardsAPIService) CreateDashboardExecute(r ApiCreateDashboardReques
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -160,7 +160,7 @@ type ApiDeleteDashboardRequest struct {
 	id string
 }
 
-func (r ApiDeleteDashboardRequest) Execute() (*DeleteDashboard200Response, *http.Response, error) {
+func (r ApiDeleteDashboardRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	return r.ApiService.DeleteDashboardExecute(r)
 }
 
@@ -182,13 +182,13 @@ func (a *DashboardsAPIService) DeleteDashboard(ctx context.Context, id string) A
 }
 
 // Execute executes the request
-//  @return DeleteDashboard200Response
-func (a *DashboardsAPIService) DeleteDashboardExecute(r ApiDeleteDashboardRequest) (*DeleteDashboard200Response, *http.Response, error) {
+//  @return DeleteIngestionApiKey200Response
+func (a *DashboardsAPIService) DeleteDashboardExecute(r ApiDeleteDashboardRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeleteDashboard200Response
+		localVarReturnValue  *DeleteIngestionApiKey200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DashboardsAPIService.DeleteDashboard")
@@ -249,7 +249,7 @@ func (a *DashboardsAPIService) DeleteDashboardExecute(r ApiDeleteDashboardReques
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -260,7 +260,7 @@ func (a *DashboardsAPIService) DeleteDashboardExecute(r ApiDeleteDashboardReques
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -379,7 +379,7 @@ func (a *DashboardsAPIService) GetDashboardExecute(r ApiGetDashboardRequest) (*C
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -390,7 +390,7 @@ func (a *DashboardsAPIService) GetDashboardExecute(r ApiGetDashboardRequest) (*C
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -499,7 +499,7 @@ func (a *DashboardsAPIService) ListDashboardsExecute(r ApiListDashboardsRequest)
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -510,7 +510,7 @@ func (a *DashboardsAPIService) ListDashboardsExecute(r ApiListDashboardsRequest)
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -637,7 +637,7 @@ func (a *DashboardsAPIService) UpdateDashboardExecute(r ApiUpdateDashboardReques
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -648,7 +648,7 @@ func (a *DashboardsAPIService) UpdateDashboardExecute(r ApiUpdateDashboardReques
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

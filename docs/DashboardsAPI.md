@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## DeleteDashboard
 
-> DeleteDashboard200Response DeleteDashboard(ctx, id).Execute()
+> DeleteIngestionApiKey200Response DeleteDashboard(ctx, id).Execute()
 
 
 
@@ -108,7 +108,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.DeleteDashboard``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteDashboard`: DeleteDashboard200Response
+	// response from `DeleteDashboard`: DeleteIngestionApiKey200Response
 	fmt.Fprintf(os.Stdout, "Response from `DashboardsAPI.DeleteDashboard`: %v\n", resp)
 }
 ```
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteDashboard200Response**](DeleteDashboard200Response.md)
+[**DeleteIngestionApiKey200Response**](DeleteIngestionApiKey200Response.md)
 
 ### Authorization
 

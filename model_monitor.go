@@ -25,6 +25,8 @@ type Monitor struct {
 	Id string `json:"id"`
 	// Display name of the monitor
 	Name string `json:"name"`
+	// Team ID that owns and manages the monitor
+	Owner string `json:"owner"`
 	// Message to be displayed if a notification is triggered
 	Message *string `json:"message,omitempty"`
 	// List of key/value tags applied to the resource
@@ -32,12 +34,10 @@ type Monitor struct {
 	Configuration CreateMonitorRequestConfiguration `json:"configuration"`
 	// Priority of the monitor
 	Priority float32 `json:"priority"`
-	// Team ID that owns and manages the monitor
-	Owner string `json:"owner"`
+	// This controls which data the monitor can see
+	Permissions string `json:"permissions"`
 	// Identifier of a dashboard related to the monitor
 	DashboardId *string `json:"dashboardId,omitempty"`
-	// This controls which data the monitor can see.
-	Permissions string `json:"permissions"`
 }
 
 type _Monitor Monitor
@@ -46,13 +46,13 @@ type _Monitor Monitor
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMonitor(id string, name string, configuration CreateMonitorRequestConfiguration, priority float32, owner string, permissions string) *Monitor {
+func NewMonitor(id string, name string, owner string, configuration CreateMonitorRequestConfiguration, priority float32, permissions string) *Monitor {
 	this := Monitor{}
 	this.Id = id
 	this.Name = name
+	this.Owner = owner
 	this.Configuration = configuration
 	this.Priority = priority
-	this.Owner = owner
 	this.Permissions = permissions
 	return &this
 }
@@ -111,6 +111,30 @@ func (o *Monitor) GetNameOk() (*string, bool) {
 // SetName sets field value
 func (o *Monitor) SetName(v string) {
 	o.Name = v
+}
+
+// GetOwner returns the Owner field value
+func (o *Monitor) GetOwner() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Owner
+}
+
+// GetOwnerOk returns a tuple with the Owner field value
+// and a boolean to check if the value has been set.
+func (o *Monitor) GetOwnerOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Owner, true
+}
+
+// SetOwner sets field value
+func (o *Monitor) SetOwner(v string) {
+	o.Owner = v
 }
 
 // GetMessage returns the Message field value if set, zero value otherwise.
@@ -225,28 +249,28 @@ func (o *Monitor) SetPriority(v float32) {
 	o.Priority = v
 }
 
-// GetOwner returns the Owner field value
-func (o *Monitor) GetOwner() string {
+// GetPermissions returns the Permissions field value
+func (o *Monitor) GetPermissions() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Owner
+	return o.Permissions
 }
 
-// GetOwnerOk returns a tuple with the Owner field value
+// GetPermissionsOk returns a tuple with the Permissions field value
 // and a boolean to check if the value has been set.
-func (o *Monitor) GetOwnerOk() (*string, bool) {
+func (o *Monitor) GetPermissionsOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Owner, true
+	return &o.Permissions, true
 }
 
-// SetOwner sets field value
-func (o *Monitor) SetOwner(v string) {
-	o.Owner = v
+// SetPermissions sets field value
+func (o *Monitor) SetPermissions(v string) {
+	o.Permissions = v
 }
 
 // GetDashboardId returns the DashboardId field value if set, zero value otherwise.
@@ -281,30 +305,6 @@ func (o *Monitor) SetDashboardId(v string) {
 	o.DashboardId = &v
 }
 
-// GetPermissions returns the Permissions field value
-func (o *Monitor) GetPermissions() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Permissions
-}
-
-// GetPermissionsOk returns a tuple with the Permissions field value
-// and a boolean to check if the value has been set.
-func (o *Monitor) GetPermissionsOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Permissions, true
-}
-
-// SetPermissions sets field value
-func (o *Monitor) SetPermissions(v string) {
-	o.Permissions = v
-}
-
 func (o Monitor) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -317,6 +317,7 @@ func (o Monitor) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
+	toSerialize["owner"] = o.Owner
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
@@ -325,11 +326,10 @@ func (o Monitor) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["configuration"] = o.Configuration
 	toSerialize["priority"] = o.Priority
-	toSerialize["owner"] = o.Owner
+	toSerialize["permissions"] = o.Permissions
 	if !IsNil(o.DashboardId) {
 		toSerialize["dashboardId"] = o.DashboardId
 	}
-	toSerialize["permissions"] = o.Permissions
 	return toSerialize, nil
 }
 
@@ -340,9 +340,9 @@ func (o *Monitor) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"id",
 		"name",
+		"owner",
 		"configuration",
 		"priority",
-		"owner",
 		"permissions",
 	}
 

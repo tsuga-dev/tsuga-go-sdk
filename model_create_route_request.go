@@ -32,7 +32,7 @@ type CreateRouteRequest struct {
 	// Team ID owning and managing the route
 	Owner string `json:"owner"`
 	// Ordered processors applied to logs that match the route
-	Processors []CreateRouteRequestProcessorsInner `json:"processors"`
+	Processors []Processor `json:"processors"`
 }
 
 type _CreateRouteRequest CreateRouteRequest
@@ -41,7 +41,7 @@ type _CreateRouteRequest CreateRouteRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateRouteRequest(name string, isEnabled bool, query string, owner string, processors []CreateRouteRequestProcessorsInner) *CreateRouteRequest {
+func NewCreateRouteRequest(name string, isEnabled bool, query string, owner string, processors []Processor) *CreateRouteRequest {
 	this := CreateRouteRequest{}
 	this.Name = name
 	this.IsEnabled = isEnabled
@@ -220,9 +220,9 @@ func (o *CreateRouteRequest) SetOwner(v string) {
 }
 
 // GetProcessors returns the Processors field value
-func (o *CreateRouteRequest) GetProcessors() []CreateRouteRequestProcessorsInner {
+func (o *CreateRouteRequest) GetProcessors() []Processor {
 	if o == nil {
-		var ret []CreateRouteRequestProcessorsInner
+		var ret []Processor
 		return ret
 	}
 
@@ -231,7 +231,7 @@ func (o *CreateRouteRequest) GetProcessors() []CreateRouteRequestProcessorsInner
 
 // GetProcessorsOk returns a tuple with the Processors field value
 // and a boolean to check if the value has been set.
-func (o *CreateRouteRequest) GetProcessorsOk() ([]CreateRouteRequestProcessorsInner, bool) {
+func (o *CreateRouteRequest) GetProcessorsOk() ([]Processor, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -239,7 +239,7 @@ func (o *CreateRouteRequest) GetProcessorsOk() ([]CreateRouteRequestProcessorsIn
 }
 
 // SetProcessors sets field value
-func (o *CreateRouteRequest) SetProcessors(v []CreateRouteRequestProcessorsInner) {
+func (o *CreateRouteRequest) SetProcessors(v []Processor) {
 	o.Processors = v
 }
 

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
 **GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
+**LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 
 ## Methods
 
@@ -190,6 +191,31 @@ SetNormalizer sets Normalizer field to given value.
 `func (o *GraphVisualizationPie) HasNormalizer() bool`
 
 HasNormalizer returns a boolean if a field has been set.
+
+### GetLegendMode
+
+`func (o *GraphVisualizationPie) GetLegendMode() string`
+
+GetLegendMode returns the LegendMode field if non-nil, zero value otherwise.
+
+### GetLegendModeOk
+
+`func (o *GraphVisualizationPie) GetLegendModeOk() (*string, bool)`
+
+GetLegendModeOk returns a tuple with the LegendMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLegendMode
+
+`func (o *GraphVisualizationPie) SetLegendMode(v string)`
+
+SetLegendMode sets LegendMode field to given value.
+
+### HasLegendMode
+
+`func (o *GraphVisualizationPie) HasLegendMode() bool`
+
+HasLegendMode returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

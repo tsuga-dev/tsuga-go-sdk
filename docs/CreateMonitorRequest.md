@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Priority** | **float32** |  | 
 **Owner** | **string** |  | 
 **DashboardId** | Pointer to **string** |  | [optional] 
-**Permissions** | **string** | This controls which data the monitor can see. | 
+**Permissions** | **string** | This controls which data the monitor can see | 
 
 ## Methods
 

@@ -13,6 +13,8 @@ security:
 tags:
 - description: Visualization of telemetry data with customizable graphs and filters
   name: dashboards
+- description: API keys for ingesting telemetry data
+  name: ingestion-api-keys
 - description: Monitors for sending alerts based on telemetry data
   name: monitors
 - description: Notification rules for alerts
@@ -21,7 +23,139 @@ tags:
   name: routes
 - description: Collection of users for managing ownership and access to resources
   name: teams
+- description: Data retention rules for telemetry sources
+  name: retention-policies
 paths:
+  /v1/ingestion-api-keys:
+    get:
+      description: Retrieve all ingestion API keys
+      operationId: listIngestionApiKeys
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
+          description: Default Response
+      tags:
+      - ingestion-api-keys
+    post:
+      description: Create a new ingestion API key
+      operationId: createIngestionApiKey
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createIngestionApiKey_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createIngestionApiKey_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
+          description: Default Response
+      tags:
+      - ingestion-api-keys
+  /v1/ingestion-api-keys/{id}:
+    delete:
+      description: Delete an ingestion API key by its id
+      operationId: deleteIngestionApiKey
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/deleteIngestionApiKey_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
+          description: Default Response
+      tags:
+      - ingestion-api-keys
+    put:
+      description: Update an ingestion API key by its id
+      operationId: updateIngestionApiKey
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createIngestionApiKey_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/updateIngestionApiKey_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
+          description: Default Response
+      tags:
+      - ingestion-api-keys
   /v1/dashboards:
     get:
       description: Retrieve all dashboards
@@ -37,13 +171,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - dashboards
@@ -67,13 +201,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - dashboards
@@ -96,19 +230,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/deleteDashboard_200_response"
+                $ref: "#/components/schemas/deleteIngestionApiKey_200_response"
           description: Default Response
         "4XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - dashboards
@@ -136,13 +270,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - dashboards
@@ -175,13 +309,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - dashboards
@@ -200,13 +334,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - monitors
@@ -230,13 +364,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - monitors
@@ -259,19 +393,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/deleteDashboard_200_response"
+                $ref: "#/components/schemas/deleteIngestionApiKey_200_response"
           description: Default Response
         "4XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - monitors
@@ -299,13 +433,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - monitors
@@ -339,13 +473,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - monitors
@@ -364,13 +498,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - notification-rules
@@ -394,13 +528,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - notification-rules
@@ -423,19 +557,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/deleteDashboard_200_response"
+                $ref: "#/components/schemas/deleteIngestionApiKey_200_response"
           description: Default Response
         "4XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - notification-rules
@@ -463,13 +597,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - notification-rules
@@ -503,16 +637,180 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - notification-rules
+  /v1/retention-policies:
+    get:
+      description: Retrieve all retention policies
+      operationId: listRetentionPolicies
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listRetentionPolicies_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
+          description: Default Response
+      tags:
+      - retention-policies
+    post:
+      description: Create a new retention policy
+      operationId: createRetentionPolicy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createRetentionPolicy_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createRetentionPolicy_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
+          description: Default Response
+      tags:
+      - retention-policies
+  /v1/retention-policies/{id}:
+    delete:
+      description: Delete a retention policy by its id
+      operationId: deleteRetentionPolicy
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/deleteIngestionApiKey_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
+          description: Default Response
+      tags:
+      - retention-policies
+    get:
+      description: Retrieve a retention policy by its id
+      operationId: getRetentionPolicy
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createRetentionPolicy_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
+          description: Default Response
+      tags:
+      - retention-policies
+    put:
+      description: Update a retention policy by its id
+      operationId: updateRetentionPolicy
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createRetentionPolicy_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createRetentionPolicy_200_response"
+          description: Default Response
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
+          description: Default Response
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
+          description: Default Response
+      tags:
+      - retention-policies
   /v1/routes:
     get:
       description: Retrieve all routes
@@ -528,13 +826,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - routes
@@ -558,13 +856,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - routes
@@ -587,19 +885,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/deleteDashboard_200_response"
+                $ref: "#/components/schemas/deleteIngestionApiKey_200_response"
           description: Default Response
         "4XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - routes
@@ -627,13 +925,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - routes
@@ -667,13 +965,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - routes
@@ -692,13 +990,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - teams
@@ -722,13 +1020,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - teams
@@ -751,19 +1049,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/deleteDashboard_200_response"
+                $ref: "#/components/schemas/deleteIngestionApiKey_200_response"
           description: Default Response
         "4XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - teams
@@ -791,13 +1089,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - teams
@@ -831,35 +1129,126 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
         "5XX":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_4XX_response"
+                $ref: "#/components/schemas/listIngestionApiKeys_4XX_response"
           description: Default Response
       tags:
       - teams
 components:
   schemas:
+    ErrorResponse:
+      description: Standard envelope for API errors
+      example:
+        code: ABORT_ERROR
+        message: message
+        statusCode: 0.8008281904610115
+      properties:
+        code:
+          description: Machine readable error code describing what went wrong
+          enum:
+          - ABORT_ERROR
+          - BAD_REQUEST
+          - FST_ERR_VALIDATION
+          - INVALID_INPUT
+          - INTERNAL_ERROR
+          - INVALID_QUERY_TO_CLUSTER
+          - NETWORK_ERROR
+          - MISSING_PERMISSION
+          - PRIVILEGE_ESCALATION
+          - ORG_NOT_FOUND_AUTHENTICATION_ERROR
+          - RATE_LIMITED
+          - RESERVED_TAG_POLICY_ERROR
+          - RESOURCE_NOT_FOUND
+          - RESPONSE_PARSE_ERROR
+          - TAG_POLICY_ALREADY_EXISTS_ERROR
+          - TAG_POLICY_VALIDATION_ERROR
+          - URL_NOT_FOUND
+          type: string
+        message:
+          description: Human readable explanation of the error
+          type: string
+        statusCode:
+          description: HTTP status code that was returned
+          type: number
+      required:
+      - message
+      - statusCode
+      type: object
+    IngestionApiKey:
+      description: API key used to send telemetry data to Tsuga
+      example:
+        owner: owner
+        keyLastCharacters: keyLastCharacters
+        name: name
+        id: id
+        teamOverrideFields:
+        - teamOverrideFields
+        - teamOverrideFields
+        tags:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        keyLastCharacters:
+          type: string
+        owner:
+          type: string
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/Tag"
+          maxItems: 50
+          title: Tags
+          type: array
+        teamOverrideFields:
+          items:
+            type: string
+          type: array
+      required:
+      - id
+      - keyLastCharacters
+      - name
+      - owner
+      type: object
     Dashboard:
       description: Visualization of telemetry data with customizable graphs and filters
       example:
         owner: owner
         graphs:
         - layout:
-            w: 5.637376656633329
-            x: 1.4658129805029452
-            h: 2.3021358869347655
-            "y": 5.962133916683182
+            w: 2.3021358869347655
+            x: 5.962133916683182
+            h: 7.061401241503109
+            "y": 5.637376656633329
           visualization:
             visibleSeries:
             - true
             - true
+            thresholds:
+            - level: alert
+              value: 1.4658129805029452
+            - level: alert
+              value: 1.4658129805029452
             normalizer:
-              unit: days
+              unit: ns
               type: duration
+            legendMode: table
             formula: formula
             timeBucket:
               metric: sec
@@ -887,6 +1276,9 @@ components:
               - type: per-second
               - type: per-second
               - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
                 type: count
             - filter: filter
@@ -896,6 +1288,9 @@ components:
               - type: per-second
               - type: per-second
               - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
                 type: count
             - filter: filter
@@ -905,6 +1300,9 @@ components:
               - type: per-second
               - type: per-second
               - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
                 type: count
             - filter: filter
@@ -914,6 +1312,9 @@ components:
               - type: per-second
               - type: per-second
               - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
                 type: count
             - filter: filter
@@ -923,22 +1324,31 @@ components:
               - type: per-second
               - type: per-second
               - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
                 type: count
           name: name
           id: id
         - layout:
-            w: 5.637376656633329
-            x: 1.4658129805029452
-            h: 2.3021358869347655
-            "y": 5.962133916683182
+            w: 2.3021358869347655
+            x: 5.962133916683182
+            h: 7.061401241503109
+            "y": 5.637376656633329
           visualization:
             visibleSeries:
             - true
             - true
+            thresholds:
+            - level: alert
+              value: 1.4658129805029452
+            - level: alert
+              value: 1.4658129805029452
             normalizer:
-              unit: days
+              unit: ns
               type: duration
+            legendMode: table
             formula: formula
             timeBucket:
               metric: sec
@@ -966,6 +1376,9 @@ components:
               - type: per-second
               - type: per-second
               - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
                 type: count
             - filter: filter
@@ -975,6 +1388,9 @@ components:
               - type: per-second
               - type: per-second
               - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
                 type: count
             - filter: filter
@@ -984,6 +1400,9 @@ components:
               - type: per-second
               - type: per-second
               - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
                 type: count
             - filter: filter
@@ -993,6 +1412,9 @@ components:
               - type: per-second
               - type: per-second
               - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
                 type: count
             - filter: filter
@@ -1002,11 +1424,14 @@ components:
               - type: per-second
               - type: per-second
               - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
                 type: count
           name: name
           id: id
-        timePreset: past-15-minutes
+        timePreset: past-5-minutes
         name: name
         id: id
         filters:
@@ -1052,6 +1477,7 @@ components:
           type: array
         timePreset:
           enum:
+          - past-5-minutes
           - past-15-minutes
           - past-30-minutes
           - past-1-hour
@@ -1081,43 +1507,6 @@ components:
       - name
       - owner
       type: object
-    ErrorResponse:
-      description: Standard envelope for API errors
-      example:
-        code: ABORT_ERROR
-        message: message
-        statusCode: 7.061401241503109
-      properties:
-        code:
-          description: Machine readable error code describing what went wrong
-          enum:
-          - ABORT_ERROR
-          - BAD_REQUEST
-          - FST_ERR_VALIDATION
-          - INVALID_INPUT
-          - INTERNAL_ERROR
-          - INVALID_QUERY_TO_CLUSTER
-          - NETWORK_ERROR
-          - NOT_AUTHORIZED
-          - ORG_NOT_FOUND_AUTHENTICATION_ERROR
-          - RATE_LIMITED
-          - RESERVED_TAG_POLICY_ERROR
-          - RESOURCE_NOT_FOUND
-          - RESPONSE_PARSE_ERROR
-          - TAG_POLICY_ALREADY_EXISTS_ERROR
-          - TAG_POLICY_VALIDATION_ERROR
-          - URL_NOT_FOUND
-          type: string
-        message:
-          description: Human readable explanation of the error
-          type: string
-        statusCode:
-          description: HTTP status code that was returned
-          type: number
-      required:
-      - message
-      - statusCode
-      type: object
     Monitor:
       description: Monitor allowing to send alerts based on telemetry data
       example:
@@ -1138,35 +1527,65 @@ components:
           proportionAlertThreshold: 15.364967208928864
           queries:
           - filter: filter
-            name: name
+            functions:
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            fill:
+              mode:
+                type: zero
             aggregate:
-              field: field
-              type: unique-count
-            value_if_no_data: Zero
+              type: count
           - filter: filter
-            name: name
+            functions:
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            fill:
+              mode:
+                type: zero
             aggregate:
-              field: field
-              type: unique-count
-            value_if_no_data: Zero
+              type: count
           - filter: filter
-            name: name
+            functions:
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            fill:
+              mode:
+                type: zero
             aggregate:
-              field: field
-              type: unique-count
-            value_if_no_data: Zero
+              type: count
           - filter: filter
-            name: name
+            functions:
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            fill:
+              mode:
+                type: zero
             aggregate:
-              field: field
-              type: unique-count
-            value_if_no_data: Zero
+              type: count
           - filter: filter
-            name: name
+            functions:
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            fill:
+              mode:
+                type: zero
             aggregate:
-              field: field
-              type: unique-count
-            value_if_no_data: Zero
+              type: count
           noDataBehavior: alert
         dashboardId: dashboardId
         permissions: all
@@ -1192,6 +1611,9 @@ components:
         name:
           description: Display name of the monitor
           type: string
+        owner:
+          description: Team ID that owns and manages the monitor
+          type: string
         message:
           description: Message to be displayed if a notification is triggered
           type: string
@@ -1213,18 +1635,15 @@ components:
           - 4
           - 5
           type: number
-        owner:
-          description: Team ID that owns and manages the monitor
+        permissions:
+          description: This controls which data the monitor can see
+          enum:
+          - all
+          - owning-team-and-public
+          - owning-team-only
           type: string
         dashboardId:
           description: Identifier of a dashboard related to the monitor
-          type: string
-        permissions:
-          description: This controls which data the monitor can see.
-          enum:
-          - all
-          - owning-team-only
-          - owning-team-and-public
           type: string
       required:
       - configuration
@@ -1233,7 +1652,6 @@ components:
       - owner
       - permissions
       - priority
-      title: Monitor
       type: object
     Rule:
       description: Rules to trigger notifications to targets based on alert events
@@ -1244,13 +1662,13 @@ components:
         - triggered
         name: name
         prioritiesFilter:
-        - 0
-        - 0
+        - 0.8008281904610115
+        - 0.8008281904610115
         id: id
         isActive: true
         teamsFilter:
-        - teamsFilter
-        - teamsFilter
+        - Rule_teamsFilter
+        - Rule_teamsFilter
         targets:
         - rateLimit:
             minutes: 1
@@ -1263,9 +1681,11 @@ components:
             - alert
           id: id
           config:
+            hideTransition: true
             integrationName: integrationName
             channel: channel
             integrationId: integrationId
+            hideTime: true
             type: slack
         - rateLimit:
             minutes: 1
@@ -1278,9 +1698,11 @@ components:
             - alert
           id: id
           config:
+            hideTransition: true
             integrationName: integrationName
             channel: channel
             integrationId: integrationId
+            hideTime: true
             type: slack
         tags:
         - value: value
@@ -1301,15 +1723,17 @@ components:
           description: Display name of the notification rule
           type: string
         teamsFilter:
-          description: Team IDs that narrow down the teams that can receive notifications
-            from this rule
-          items:
-            type: string
-          type: array
+          $ref: "#/components/schemas/Rule_teamsFilter"
         prioritiesFilter:
           description: Priorities that narrow down the alerts that can trigger a notification
           items:
-            type: integer
+            enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            type: number
           type: array
         transitionTypesFilter:
           description: Alert state transitions that can trigger a notification
@@ -1348,6 +1772,49 @@ components:
       - teamsFilter
       - transitionTypesFilter
       type: object
+    RetentionPolicy:
+      description: Data retention rule for a data source within an environment
+      example:
+        durationDays: 1-day
+        teamId: teamId
+        isEnabled: true
+        id: id
+        env: env
+        dataSource: logs
+      properties:
+        id:
+          type: string
+        env:
+          type: string
+        teamId:
+          type: string
+        dataSource:
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        durationDays:
+          enum:
+          - 1-day
+          - 3-days
+          - 15-days
+          - 30-days
+          - 60-days
+          - 90-days
+          - 120-days
+          - 180-days
+          - 360-days
+          - 10-years
+          type: string
+        isEnabled:
+          type: boolean
+      required:
+      - dataSource
+      - durationDays
+      - id
+      - isEnabled
+      type: object
     Route:
       description: Log route allowing to standardize logs and enrich them with additional
         data
@@ -1359,8 +1826,7 @@ components:
         description: description
         id: id
         processors:
-        - name: name
-          description: description
+        - description: description
           id: id
           type: mapper
           params:
@@ -1400,8 +1866,7 @@ components:
           - value: value
             key: key
           updatedAt: 2000-01-23T04:56:07.000+00:00
-        - name: name
-          description: description
+        - description: description
           id: id
           type: mapper
           params:
@@ -1479,7 +1944,7 @@ components:
         processors:
           description: Ordered processors applied to logs that match the route
           items:
-            $ref: "#/components/schemas/createRoute_request_processors_inner"
+            $ref: "#/components/schemas/Processor"
           type: array
       required:
       - id
@@ -1488,15 +1953,13 @@ components:
       - owner
       - processors
       - query
-      title: Route
       type: object
     Processor:
       anyOf:
-      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf"
-      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_1"
-      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_2"
-      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_3"
-      description: Processing step executed sequentially on route logs
+      - $ref: "#/components/schemas/Processor_anyOf"
+      - $ref: "#/components/schemas/Processor_anyOf_1"
+      - $ref: "#/components/schemas/Processor_anyOf_2"
+      - $ref: "#/components/schemas/Processor_anyOf_3"
     Team:
       description: Collection of users used to manage ownership and access to resources
       example:
@@ -1543,10 +2006,20 @@ components:
       - name
       - visibility
       type: object
-    AggregateUniqueCount:
+    AggregateCount:
       example:
-        field: field
-        type: unique-count
+        type: count
+      properties:
+        type:
+          description: Counts the total number of records
+          enum:
+          - count
+          type: string
+      required:
+      - type
+      title: Count
+      type: object
+    AggregateUniqueCount:
       properties:
         type:
           description: Counts the distinct values of the field
@@ -1651,19 +2124,6 @@ components:
       - type
       title: Percentile
       type: object
-    AggregateCount:
-      example:
-        type: count
-      properties:
-        type:
-          description: Counts the total number of records
-          enum:
-          - count
-          type: string
-      required:
-      - type
-      title: Count
-      type: object
     FunctionPerSecond:
       example:
         type: per-second
@@ -1713,7 +2173,10 @@ components:
     FunctionIncrease:
       properties:
         type:
-          description: Calculates the increase between values
+          description: '`Increase` is designed for cumulative metrics. It computes
+            the increase of cumulative metrics automatically handling counter resets.
+            When used with an aggregation like `sum` it combines all series without
+            requiring an explicit group-by.'
           enum:
           - increase
           type: string
@@ -1738,6 +2201,346 @@ components:
       - window
       title: Rolling
       type: object
+    FunctionLog:
+      properties:
+        type:
+          description: Applies a logarithm transformation to the values
+          enum:
+          - log
+          type: string
+        base:
+          description: The base of the logarithm
+          minimum: 2
+          multipleOf: 1
+          type: number
+      required:
+      - base
+      - type
+      title: Log
+      type: object
+    FunctionPower:
+      properties:
+        type:
+          description: Raises values to a specified power
+          enum:
+          - power
+          type: string
+        exponent:
+          description: The exponent to raise values to
+          multipleOf: 1
+          type: number
+      required:
+      - exponent
+      - type
+      title: Power
+      type: object
+    FunctionSqrt:
+      properties:
+        type:
+          description: Applies a square root transformation to the values
+          enum:
+          - sqrt
+          type: string
+      required:
+      - type
+      title: Sqrt
+      type: object
+    MonitorConfigurationMetric:
+      example:
+        timeframe: 6.027456183070403
+        condition:
+          formula: formula
+          threshold: 0.8008281904610115
+          operator: greater_than
+        groupByFields:
+        - limit: 0.8008281904610115
+          fields:
+          - fields
+          - fields
+        aggregationAlertLogic: no_aggregation
+        type: metric
+        proportionAlertThreshold: 15.364967208928864
+        queries:
+        - filter: filter
+          functions:
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          fill:
+            mode:
+              type: zero
+          aggregate:
+            type: count
+        - filter: filter
+          functions:
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          fill:
+            mode:
+              type: zero
+          aggregate:
+            type: count
+        - filter: filter
+          functions:
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          fill:
+            mode:
+              type: zero
+          aggregate:
+            type: count
+        - filter: filter
+          functions:
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          fill:
+            mode:
+              type: zero
+          aggregate:
+            type: count
+        - filter: filter
+          functions:
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          fill:
+            mode:
+              type: zero
+          aggregate:
+            type: count
+        noDataBehavior: alert
+      properties:
+        type:
+          enum:
+          - metric
+          type: string
+        condition:
+          $ref: "#/components/schemas/MonitorConfigurationMetric_condition"
+        noDataBehavior:
+          enum:
+          - alert
+          - resolve
+          - keep_last_status
+          - consider_zero
+          type: string
+        timeframe:
+          description: Timeframe of the monitor in minutes
+          type: number
+        groupByFields:
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy"
+          maxItems: 1
+          type: array
+        aggregationAlertLogic:
+          enum:
+          - no_aggregation
+          - all
+          - any
+          - each
+          - proportion
+          type: string
+        proportionAlertThreshold:
+          maximum: 99
+          minimum: 1
+          multipleOf: 1
+          type: number
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/MonitorAggregationQuery"
+          maxItems: 15
+          type: array
+      required:
+      - condition
+      - groupByFields
+      - noDataBehavior
+      - queries
+      - timeframe
+      - type
+      type: object
+    MonitorConfigurationLog:
+      properties:
+        type:
+          enum:
+          - log
+          type: string
+        condition:
+          $ref: "#/components/schemas/MonitorConfigurationMetric_condition"
+        noDataBehavior:
+          enum:
+          - alert
+          - resolve
+          - keep_last_status
+          - consider_zero
+          type: string
+        timeframe:
+          description: Timeframe of the monitor in minutes
+          type: number
+        groupByFields:
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy"
+          maxItems: 1
+          type: array
+        aggregationAlertLogic:
+          enum:
+          - no_aggregation
+          - all
+          - any
+          - each
+          - proportion
+          type: string
+        proportionAlertThreshold:
+          maximum: 99
+          minimum: 1
+          multipleOf: 1
+          type: number
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/MonitorAggregationQuery"
+          maxItems: 15
+          type: array
+      required:
+      - condition
+      - groupByFields
+      - noDataBehavior
+      - queries
+      - timeframe
+      - type
+      type: object
+    MonitorConfigurationAnomalyLog:
+      properties:
+        type:
+          enum:
+          - anomaly-log
+          type: string
+        condition:
+          $ref: "#/components/schemas/MonitorConfigurationAnomalyLog_condition"
+        noDataBehavior:
+          enum:
+          - alert
+          - resolve
+          - keep_last_status
+          type: string
+        timeframe:
+          description: Timeframe of the monitor in minutes
+          type: number
+        groupByFields:
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy"
+          maxItems: 1
+          type: array
+        aggregationAlertLogic:
+          enum:
+          - no_aggregation
+          - all
+          - any
+          - each
+          - proportion
+          type: string
+        proportionAlertThreshold:
+          maximum: 99
+          minimum: 1
+          multipleOf: 1
+          type: number
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/MonitorAggregationQuery"
+          maxItems: 15
+          type: array
+      required:
+      - condition
+      - groupByFields
+      - noDataBehavior
+      - queries
+      - timeframe
+      - type
+      type: object
+    MonitorConfigurationAnomalyMetric:
+      properties:
+        type:
+          enum:
+          - anomaly-metric
+          type: string
+        condition:
+          $ref: "#/components/schemas/MonitorConfigurationAnomalyLog_condition"
+        noDataBehavior:
+          enum:
+          - alert
+          - resolve
+          - keep_last_status
+          type: string
+        timeframe:
+          description: Timeframe of the monitor in minutes
+          type: number
+        groupByFields:
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy"
+          maxItems: 1
+          type: array
+        aggregationAlertLogic:
+          enum:
+          - no_aggregation
+          - all
+          - any
+          - each
+          - proportion
+          type: string
+        proportionAlertThreshold:
+          maximum: 99
+          minimum: 1
+          multipleOf: 1
+          type: number
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/MonitorAggregationQuery"
+          maxItems: 15
+          type: array
+      required:
+      - condition
+      - groupByFields
+      - noDataBehavior
+      - queries
+      - timeframe
+      - type
+      type: object
+    MonitorConfigurationLogErrorPattern:
+      properties:
+        type:
+          enum:
+          - log-error-pattern
+          type: string
+        aggregationAlertLogic:
+          enum:
+          - each
+          type: string
+        noDataBehavior:
+          enum:
+          - resolve
+          type: string
+        filter:
+          $ref: "#/components/schemas/MonitorConfigurationLogErrorPattern_filter"
+      required:
+      - aggregationAlertLogic
+      - filter
+      - noDataBehavior
+      - type
+      type: object
     RuleTargetInputSlack:
       properties:
         type:
@@ -1754,6 +2557,13 @@ components:
           maxLength: 250
           minLength: 0
           type: string
+        hideTransition:
+          description: "When true, the transition info (e.g., \"from ok to alert\"\
+            ) is hidden from the Slack message"
+          type: boolean
+        hideTime:
+          description: "When true, the timestamp is hidden from the Slack message"
+          type: boolean
       required:
       - channel
       - integrationId
@@ -1854,11 +2664,50 @@ components:
       - integrationId
       - type
       type: object
+    RuleTargetInputServiceNow:
+      properties:
+        type:
+          enum:
+          - servicenow
+          type: string
+        integrationId:
+          description: Identifier of the ServiceNow integration to use
+          maxLength: 250
+          minLength: 0
+          type: string
+      required:
+      - integrationId
+      - type
+      type: object
+    RuleTargetInputGoogleChat:
+      properties:
+        type:
+          enum:
+          - google-chat
+          type: string
+        integrationId:
+          description: Identifier of the Google Chat integration to use
+          maxLength: 250
+          minLength: 0
+          type: string
+        hideTransition:
+          description: "When true, the transition info (e.g., \"from ok to alert\"\
+            ) is hidden from the Google Chat message"
+          type: boolean
+        hideTime:
+          description: "When true, the timestamp is hidden from the Google Chat message"
+          type: boolean
+      required:
+      - integrationId
+      - type
+      type: object
     RuleTargetConfigSlack:
       example:
+        hideTransition: true
         integrationName: integrationName
         channel: channel
         integrationId: integrationId
+        hideTime: true
         type: slack
       properties:
         type:
@@ -1874,6 +2723,13 @@ components:
         integrationName:
           description: Human readable name of the Slack integration
           type: string
+        hideTransition:
+          description: "When true, the transition info (e.g., \"from ok to alert\"\
+            ) is hidden from the Slack message"
+          type: boolean
+        hideTime:
+          description: "When true, the timestamp is hidden from the Slack message"
+          type: boolean
       required:
       - channel
       - integrationId
@@ -1981,248 +2837,45 @@ components:
       - integrationName
       - type
       type: object
-    MonitorConfigurationMetric:
-      example:
-        timeframe: 6.027456183070403
-        condition:
-          formula: formula
-          threshold: 0.8008281904610115
-          operator: greater_than
-        groupByFields:
-        - limit: 0.8008281904610115
-          fields:
-          - fields
-          - fields
-        aggregationAlertLogic: no_aggregation
-        type: metric
-        proportionAlertThreshold: 15.364967208928864
-        queries:
-        - filter: filter
-          name: name
-          aggregate:
-            field: field
-            type: unique-count
-          value_if_no_data: Zero
-        - filter: filter
-          name: name
-          aggregate:
-            field: field
-            type: unique-count
-          value_if_no_data: Zero
-        - filter: filter
-          name: name
-          aggregate:
-            field: field
-            type: unique-count
-          value_if_no_data: Zero
-        - filter: filter
-          name: name
-          aggregate:
-            field: field
-            type: unique-count
-          value_if_no_data: Zero
-        - filter: filter
-          name: name
-          aggregate:
-            field: field
-            type: unique-count
-          value_if_no_data: Zero
-        noDataBehavior: alert
+    RuleTargetConfigServiceNow:
       properties:
         type:
           enum:
-          - metric
+          - servicenow
           type: string
-        condition:
-          $ref: "#/components/schemas/MonitorConfigurationMetric_condition"
-        noDataBehavior:
-          enum:
-          - alert
-          - resolve
-          - keep_last_status
-          - consider_zero
+        integrationId:
+          description: Identifier of the ServiceNow integration to use
           type: string
-        timeframe:
-          description: Timeframe of the monitor in minutes
-          type: number
-        groupByFields:
-          items:
-            $ref: "#/components/schemas/AggregationGroupBy"
-          maxItems: 1
-          type: array
-        aggregationAlertLogic:
-          enum:
-          - no_aggregation
-          - all
-          - any
-          - each
-          - proportion
+        integrationName:
+          description: Human readable name of the ServiceNow integration
           type: string
-        proportionAlertThreshold:
-          maximum: 99
-          minimum: 1
-          multipleOf: 1
-          type: number
-        queries:
-          items:
-            $ref: "#/components/schemas/MonitorConfigurationMetric_queries_inner"
-          maxItems: 5
-          minItems: 1
-          type: array
       required:
-      - condition
-      - groupByFields
-      - noDataBehavior
-      - queries
-      - timeframe
+      - integrationId
+      - integrationName
       - type
       type: object
-    MonitorConfigurationLog:
+    RuleTargetConfigGoogleChat:
       properties:
         type:
           enum:
-          - log
+          - google-chat
           type: string
-        condition:
-          $ref: "#/components/schemas/MonitorConfigurationMetric_condition"
-        noDataBehavior:
-          enum:
-          - alert
-          - resolve
-          - keep_last_status
-          - consider_zero
+        integrationId:
+          description: Identifier of the Google Chat integration to use
           type: string
-        timeframe:
-          description: Timeframe of the monitor in minutes
-          type: number
-        groupByFields:
-          items:
-            $ref: "#/components/schemas/AggregationGroupBy"
-          maxItems: 1
-          type: array
-        aggregationAlertLogic:
-          enum:
-          - no_aggregation
-          - all
-          - any
-          - each
-          - proportion
+        integrationName:
+          description: Human readable name of the Google Chat integration
           type: string
-        proportionAlertThreshold:
-          maximum: 99
-          minimum: 1
-          multipleOf: 1
-          type: number
-        queries:
-          items:
-            $ref: "#/components/schemas/MonitorConfigurationLog_queries_inner"
-          maxItems: 5
-          minItems: 1
-          type: array
+        hideTransition:
+          description: "When true, the transition info (e.g., \"from ok to alert\"\
+            ) is hidden from the Google Chat message"
+          type: boolean
+        hideTime:
+          description: "When true, the timestamp is hidden from the Google Chat message"
+          type: boolean
       required:
-      - condition
-      - groupByFields
-      - noDataBehavior
-      - queries
-      - timeframe
-      - type
-      type: object
-    MonitorConfigurationAnomalyLog:
-      properties:
-        type:
-          enum:
-          - anomaly-log
-          type: string
-        condition:
-          $ref: "#/components/schemas/MonitorConfigurationAnomalyLog_condition"
-        noDataBehavior:
-          enum:
-          - alert
-          - resolve
-          - keep_last_status
-          type: string
-        timeframe:
-          description: Timeframe of the monitor in minutes
-          type: number
-        groupByFields:
-          items:
-            $ref: "#/components/schemas/AggregationGroupBy"
-          maxItems: 1
-          type: array
-        aggregationAlertLogic:
-          enum:
-          - no_aggregation
-          - all
-          - any
-          - each
-          - proportion
-          type: string
-        proportionAlertThreshold:
-          maximum: 99
-          minimum: 1
-          multipleOf: 1
-          type: number
-        queries:
-          items:
-            $ref: "#/components/schemas/MonitorConfigurationLog_queries_inner"
-          maxItems: 5
-          minItems: 1
-          type: array
-      required:
-      - condition
-      - groupByFields
-      - noDataBehavior
-      - queries
-      - timeframe
-      - type
-      type: object
-    MonitorConfigurationAnomalyMetric:
-      properties:
-        type:
-          enum:
-          - anomaly-metric
-          type: string
-        condition:
-          $ref: "#/components/schemas/MonitorConfigurationAnomalyLog_condition"
-        noDataBehavior:
-          enum:
-          - alert
-          - resolve
-          - keep_last_status
-          type: string
-        timeframe:
-          description: Timeframe of the monitor in minutes
-          type: number
-        groupByFields:
-          items:
-            $ref: "#/components/schemas/AggregationGroupBy"
-          maxItems: 1
-          type: array
-        aggregationAlertLogic:
-          enum:
-          - no_aggregation
-          - all
-          - any
-          - each
-          - proportion
-          type: string
-        proportionAlertThreshold:
-          maximum: 99
-          minimum: 1
-          multipleOf: 1
-          type: number
-        queries:
-          items:
-            $ref: "#/components/schemas/MonitorConfigurationMetric_queries_inner"
-          maxItems: 5
-          minItems: 1
-          type: array
-      required:
-      - condition
-      - groupByFields
-      - noDataBehavior
-      - queries
-      - timeframe
+      - integrationId
+      - integrationName
       - type
       type: object
     ProcessorParamsCreatorFormatString:
@@ -2350,7 +3003,7 @@ components:
       type: object
     DataNormalizerDuration:
       example:
-        unit: days
+        unit: ns
         type: duration
       properties:
         type:
@@ -2361,13 +3014,13 @@ components:
         unit:
           description: Time unit used to present the normalized values
           enum:
-          - days
-          - h
-          - m
-          - s
-          - ms
-          - us
           - ns
+          - us
+          - ms
+          - s
+          - m
+          - h
+          - days
           type: string
       required:
       - type
@@ -2396,20 +3049,16 @@ components:
       - unit
       title: Data
       type: object
-    DataNormalizerCustom:
+    DataNormalizerPercent:
       properties:
         type:
-          description: Normalizes values using a custom unit label
+          description: Format values as percentages
           enum:
-          - custom
-          type: string
-        unit:
-          description: Text label describing the custom unit
+          - percent
           type: string
       required:
       - type
-      - unit
-      title: Custom
+      title: Percent
       type: object
     DataNormalizerDate:
       properties:
@@ -2433,14 +3082,35 @@ components:
       - type
       title: Level
       type: object
+    DataNormalizerCustom:
+      properties:
+        type:
+          description: Normalizes values using a custom unit label
+          enum:
+          - custom
+          type: string
+        unit:
+          description: Text label describing the custom unit
+          type: string
+      required:
+      - type
+      - unit
+      title: Custom
+      type: object
     GraphVisualizationTimeseries:
       example:
         visibleSeries:
         - true
         - true
+        thresholds:
+        - level: alert
+          value: 1.4658129805029452
+        - level: alert
+          value: 1.4658129805029452
         normalizer:
-          unit: days
+          unit: ns
           type: duration
+        legendMode: table
         formula: formula
         timeBucket:
           metric: sec
@@ -2468,6 +3138,9 @@ components:
           - type: per-second
           - type: per-second
           - type: per-second
+          fill:
+            mode:
+              type: zero
           aggregate:
             type: count
         - filter: filter
@@ -2477,6 +3150,9 @@ components:
           - type: per-second
           - type: per-second
           - type: per-second
+          fill:
+            mode:
+              type: zero
           aggregate:
             type: count
         - filter: filter
@@ -2486,6 +3162,9 @@ components:
           - type: per-second
           - type: per-second
           - type: per-second
+          fill:
+            mode:
+              type: zero
           aggregate:
             type: count
         - filter: filter
@@ -2495,6 +3174,9 @@ components:
           - type: per-second
           - type: per-second
           - type: per-second
+          fill:
+            mode:
+              type: zero
           aggregate:
             type: count
         - filter: filter
@@ -2504,6 +3186,9 @@ components:
           - type: per-second
           - type: per-second
           - type: per-second
+          fill:
+            mode:
+              type: zero
           aggregate:
             type: count
       properties:
@@ -2523,7 +3208,7 @@ components:
           description: Aggregations that may be combined together in the same query
           items:
             $ref: "#/components/schemas/AggregationQuery"
-          maxItems: 10
+          maxItems: 15
           type: array
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
@@ -2546,6 +3231,19 @@ components:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_timeBucket"
         normalizer:
           $ref: "#/components/schemas/Normalizer"
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
+        thresholds:
+          description: Threshold markers displayed on the chart
+          items:
+            $ref: "#/components/schemas/ThresholdMarker"
+          type: array
       required:
       - queries
       - source
@@ -2570,7 +3268,7 @@ components:
           description: Aggregations that may be combined together in the same query
           items:
             $ref: "#/components/schemas/AggregationQuery"
-          maxItems: 10
+          maxItems: 15
           type: array
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
@@ -2615,7 +3313,7 @@ components:
           description: Aggregations that may be combined together in the same query
           items:
             $ref: "#/components/schemas/AggregationQuery"
-          maxItems: 10
+          maxItems: 15
           type: array
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
@@ -2636,6 +3334,14 @@ components:
           type: array
         normalizer:
           $ref: "#/components/schemas/Normalizer"
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
       required:
       - queries
       - source
@@ -2660,7 +3366,7 @@ components:
           description: Aggregations that may be combined together in the same query
           items:
             $ref: "#/components/schemas/AggregationQuery"
-          maxItems: 10
+          maxItems: 15
           type: array
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
@@ -2684,8 +3390,19 @@ components:
           items:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
         normalizer:
           $ref: "#/components/schemas/Normalizer"
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
       required:
       - queries
       - source
@@ -2710,7 +3427,7 @@ components:
           description: Aggregations that may be combined together in the same query
           items:
             $ref: "#/components/schemas/AggregationQuery"
-          maxItems: 10
+          maxItems: 15
           type: array
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
@@ -2733,6 +3450,19 @@ components:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_timeBucket"
         normalizer:
           $ref: "#/components/schemas/Normalizer"
+        thresholds:
+          description: Threshold markers displayed on the chart
+          items:
+            $ref: "#/components/schemas/ThresholdMarker"
+          type: array
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
       required:
       - queries
       - source
@@ -2813,23 +3543,425 @@ components:
       - type
       title: Note
       type: object
+    BigQueryConnectionInput:
+      properties:
+        type:
+          enum:
+          - big-query
+          type: string
+        auth:
+          $ref: "#/components/schemas/BigQueryConnectionInput_auth"
+      required:
+      - auth
+      - type
+      type: object
+    BigQueryWifDirectAccessAuthInput:
+      properties:
+        type:
+          enum:
+          - workload-identity-direct-access
+          type: string
+        projectId:
+          maxLength: 250
+          minLength: 0
+          type: string
+        workloadIdentityCredentialFile:
+          maxLength: 50000
+          minLength: 0
+          type: string
+      required:
+      - projectId
+      - type
+      - workloadIdentityCredentialFile
+      type: object
+    PostgresConnectionInput:
+      properties:
+        type:
+          enum:
+          - postgres
+          type: string
+        user:
+          maxLength: 250
+          minLength: 0
+          type: string
+        password:
+          maxLength: 250
+          minLength: 0
+          type: string
+        host:
+          maxLength: 250
+          minLength: 0
+          type: string
+        port:
+          maximum: 65535
+          minimum: 1
+          multipleOf: 1
+          type: number
+        dbName:
+          maxLength: 250
+          minLength: 0
+          type: string
+        sslRequire:
+          default: true
+          type: boolean
+      required:
+      - dbName
+      - host
+      - password
+      - port
+      - sslRequire
+      - type
+      - user
+      type: object
+    MySqlConnectionInput:
+      properties:
+        type:
+          enum:
+          - my-sql
+          type: string
+        user:
+          maxLength: 250
+          minLength: 0
+          type: string
+        password:
+          maxLength: 250
+          minLength: 0
+          type: string
+        host:
+          maxLength: 250
+          minLength: 0
+          type: string
+        port:
+          maximum: 65535
+          minimum: 1
+          multipleOf: 1
+          type: number
+        dbName:
+          maxLength: 250
+          minLength: 0
+          type: string
+        sslRequire:
+          default: true
+          type: boolean
+      required:
+      - dbName
+      - host
+      - password
+      - port
+      - sslRequire
+      - type
+      - user
+      type: object
+    TimestreamForInfluxDBConnectionInput:
+      properties:
+        type:
+          enum:
+          - timestream-for-influxdb
+          type: string
+        token:
+          maxLength: 250
+          minLength: 0
+          type: string
+        endpoint:
+          maxLength: 250
+          minLength: 0
+          type: string
+        bucket:
+          maxLength: 250
+          minLength: 0
+          type: string
+        org:
+          maxLength: 250
+          minLength: 0
+          type: string
+      required:
+      - bucket
+      - endpoint
+      - org
+      - token
+      - type
+      type: object
+    listIngestionApiKeys_200_response:
+      example:
+        data:
+        - owner: owner
+          keyLastCharacters: keyLastCharacters
+          name: name
+          id: id
+          teamOverrideFields:
+          - teamOverrideFields
+          - teamOverrideFields
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        - owner: owner
+          keyLastCharacters: keyLastCharacters
+          name: name
+          id: id
+          teamOverrideFields:
+          - teamOverrideFields
+          - teamOverrideFields
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/IngestionApiKey"
+          type: array
+      required:
+      - data
+      - requestId
+      type: object
+    listIngestionApiKeys_4XX_response:
+      example:
+        requestId: requestId
+        error:
+          code: ABORT_ERROR
+          message: message
+          statusCode: 0.8008281904610115
+      properties:
+        requestId:
+          type: string
+        error:
+          $ref: "#/components/schemas/ErrorResponse"
+      required:
+      - error
+      - requestId
+      type: object
+    Tag:
+      example:
+        value: value
+        key: key
+      properties:
+        key:
+          maxLength: 128
+          type: string
+        value:
+          maxLength: 256
+          type: string
+      required:
+      - key
+      - value
+      title: Tag
+      type: object
+    createIngestionApiKey_request:
+      properties:
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+        owner:
+          maxLength: 250
+          minLength: 1
+          type: string
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/Tag"
+          maxItems: 50
+          title: Tags
+          type: array
+        teamOverrideFields:
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 3
+          minItems: 1
+          type: array
+      required:
+      - name
+      - owner
+      type: object
+    createIngestionApiKey_200_response_data:
+      allOf:
+      - description: API key used to send telemetry data to Tsuga
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+          keyLastCharacters:
+            type: string
+          owner:
+            type: string
+          tags:
+            description: List of key/value tags applied to the resource
+            items:
+              $ref: "#/components/schemas/Tag"
+            maxItems: 50
+            title: Tags
+            type: array
+          teamOverrideFields:
+            items:
+              type: string
+            type: array
+        required:
+        - id
+        - keyLastCharacters
+        - name
+        - owner
+        type: object
+      - properties:
+          key:
+            type: string
+        required:
+        - key
+        type: object
+      example:
+        owner: owner
+        keyLastCharacters: keyLastCharacters
+        name: name
+        id: id
+        teamOverrideFields:
+        - teamOverrideFields
+        - teamOverrideFields
+        key: key
+        tags:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+    createIngestionApiKey_200_response:
+      example:
+        data:
+          owner: owner
+          keyLastCharacters: keyLastCharacters
+          name: name
+          id: id
+          teamOverrideFields:
+          - teamOverrideFields
+          - teamOverrideFields
+          key: key
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/createIngestionApiKey_200_response_data"
+      required:
+      - data
+      - requestId
+      type: object
+    updateIngestionApiKey_200_response:
+      example:
+        data:
+          owner: owner
+          keyLastCharacters: keyLastCharacters
+          name: name
+          id: id
+          teamOverrideFields:
+          - teamOverrideFields
+          - teamOverrideFields
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/IngestionApiKey"
+      required:
+      - data
+      - requestId
+      type: object
+    deleteIngestionApiKey_200_response_data:
+      example:
+        success: true
+      properties:
+        success:
+          description: Indicates the resource was deleted successfully
+          type: boolean
+      required:
+      - success
+      type: object
+    deleteIngestionApiKey_200_response:
+      example:
+        data:
+          success: true
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/deleteIngestionApiKey_200_response_data"
+      required:
+      - data
+      - requestId
+      type: object
     listDashboards_200_response:
       example:
         data:
         - owner: owner
           graphs:
           - layout:
-              w: 5.637376656633329
-              x: 1.4658129805029452
-              h: 2.3021358869347655
-              "y": 5.962133916683182
+              w: 2.3021358869347655
+              x: 5.962133916683182
+              h: 7.061401241503109
+              "y": 5.637376656633329
             visualization:
               visibleSeries:
               - true
               - true
+              thresholds:
+              - level: alert
+                value: 1.4658129805029452
+              - level: alert
+                value: 1.4658129805029452
               normalizer:
-                unit: days
+                unit: ns
                 type: duration
+              legendMode: table
               formula: formula
               timeBucket:
                 metric: sec
@@ -2857,6 +3989,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -2866,6 +4001,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -2875,6 +4013,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -2884,6 +4025,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -2893,22 +4037,31 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
             name: name
             id: id
           - layout:
-              w: 5.637376656633329
-              x: 1.4658129805029452
-              h: 2.3021358869347655
-              "y": 5.962133916683182
+              w: 2.3021358869347655
+              x: 5.962133916683182
+              h: 7.061401241503109
+              "y": 5.637376656633329
             visualization:
               visibleSeries:
               - true
               - true
+              thresholds:
+              - level: alert
+                value: 1.4658129805029452
+              - level: alert
+                value: 1.4658129805029452
               normalizer:
-                unit: days
+                unit: ns
                 type: duration
+              legendMode: table
               formula: formula
               timeBucket:
                 metric: sec
@@ -2936,6 +4089,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -2945,6 +4101,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -2954,6 +4113,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -2963,6 +4125,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -2972,11 +4137,14 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
             name: name
             id: id
-          timePreset: past-15-minutes
+          timePreset: past-5-minutes
           name: name
           id: id
           filters:
@@ -2996,17 +4164,23 @@ components:
         - owner: owner
           graphs:
           - layout:
-              w: 5.637376656633329
-              x: 1.4658129805029452
-              h: 2.3021358869347655
-              "y": 5.962133916683182
+              w: 2.3021358869347655
+              x: 5.962133916683182
+              h: 7.061401241503109
+              "y": 5.637376656633329
             visualization:
               visibleSeries:
               - true
               - true
+              thresholds:
+              - level: alert
+                value: 1.4658129805029452
+              - level: alert
+                value: 1.4658129805029452
               normalizer:
-                unit: days
+                unit: ns
                 type: duration
+              legendMode: table
               formula: formula
               timeBucket:
                 metric: sec
@@ -3034,6 +4208,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -3043,6 +4220,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -3052,6 +4232,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -3061,6 +4244,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -3070,22 +4256,31 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
             name: name
             id: id
           - layout:
-              w: 5.637376656633329
-              x: 1.4658129805029452
-              h: 2.3021358869347655
-              "y": 5.962133916683182
+              w: 2.3021358869347655
+              x: 5.962133916683182
+              h: 7.061401241503109
+              "y": 5.637376656633329
             visualization:
               visibleSeries:
               - true
               - true
+              thresholds:
+              - level: alert
+                value: 1.4658129805029452
+              - level: alert
+                value: 1.4658129805029452
               normalizer:
-                unit: days
+                unit: ns
                 type: duration
+              legendMode: table
               formula: formula
               timeBucket:
                 metric: sec
@@ -3113,6 +4308,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -3122,6 +4320,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -3131,6 +4332,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -3140,6 +4344,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -3149,11 +4356,14 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
             name: name
             id: id
-          timePreset: past-15-minutes
+          timePreset: past-5-minutes
           name: name
           id: id
           filters:
@@ -3183,22 +4393,6 @@ components:
       - data
       - requestId
       type: object
-    listDashboards_4XX_response:
-      example:
-        requestId: requestId
-        error:
-          code: ABORT_ERROR
-          message: message
-          statusCode: 7.061401241503109
-      properties:
-        requestId:
-          type: string
-        error:
-          $ref: "#/components/schemas/ErrorResponse"
-      required:
-      - error
-      - requestId
-      type: object
     Graph_visualization:
       discriminator:
         propertyName: type
@@ -3216,10 +4410,10 @@ components:
     Graph_layout:
       description: Grid layout coordinates for this widget
       example:
-        w: 5.637376656633329
-        x: 1.4658129805029452
-        h: 2.3021358869347655
-        "y": 5.962133916683182
+        w: 2.3021358869347655
+        x: 5.962133916683182
+        h: 7.061401241503109
+        "y": 5.637376656633329
       properties:
         x:
           description: Horizontal grid position of the widget
@@ -3242,17 +4436,23 @@ components:
     Graph:
       example:
         layout:
-          w: 5.637376656633329
-          x: 1.4658129805029452
-          h: 2.3021358869347655
-          "y": 5.962133916683182
+          w: 2.3021358869347655
+          x: 5.962133916683182
+          h: 7.061401241503109
+          "y": 5.637376656633329
         visualization:
           visibleSeries:
           - true
           - true
+          thresholds:
+          - level: alert
+            value: 1.4658129805029452
+          - level: alert
+            value: 1.4658129805029452
           normalizer:
-            unit: days
+            unit: ns
             type: duration
+          legendMode: table
           formula: formula
           timeBucket:
             metric: sec
@@ -3280,6 +4480,9 @@ components:
             - type: per-second
             - type: per-second
             - type: per-second
+            fill:
+              mode:
+                type: zero
             aggregate:
               type: count
           - filter: filter
@@ -3289,6 +4492,9 @@ components:
             - type: per-second
             - type: per-second
             - type: per-second
+            fill:
+              mode:
+                type: zero
             aggregate:
               type: count
           - filter: filter
@@ -3298,6 +4504,9 @@ components:
             - type: per-second
             - type: per-second
             - type: per-second
+            fill:
+              mode:
+                type: zero
             aggregate:
               type: count
           - filter: filter
@@ -3307,6 +4516,9 @@ components:
             - type: per-second
             - type: per-second
             - type: per-second
+            fill:
+              mode:
+                type: zero
             aggregate:
               type: count
           - filter: filter
@@ -3316,6 +4528,9 @@ components:
             - type: per-second
             - type: per-second
             - type: per-second
+            fill:
+              mode:
+                type: zero
             aggregate:
               type: count
         name: name
@@ -3339,22 +4554,6 @@ components:
       - id
       - visualization
       title: Graph
-      type: object
-    Tag:
-      example:
-        value: value
-        key: key
-      properties:
-        key:
-          maxLength: 128
-          type: string
-        value:
-          maxLength: 256
-          type: string
-      required:
-      - key
-      - value
-      title: Tag
       type: object
     createDashboard_request:
       properties:
@@ -3390,6 +4589,7 @@ components:
           type: array
         timePreset:
           enum:
+          - past-5-minutes
           - past-15-minutes
           - past-30-minutes
           - past-1-hour
@@ -3424,17 +4624,23 @@ components:
           owner: owner
           graphs:
           - layout:
-              w: 5.637376656633329
-              x: 1.4658129805029452
-              h: 2.3021358869347655
-              "y": 5.962133916683182
+              w: 2.3021358869347655
+              x: 5.962133916683182
+              h: 7.061401241503109
+              "y": 5.637376656633329
             visualization:
               visibleSeries:
               - true
               - true
+              thresholds:
+              - level: alert
+                value: 1.4658129805029452
+              - level: alert
+                value: 1.4658129805029452
               normalizer:
-                unit: days
+                unit: ns
                 type: duration
+              legendMode: table
               formula: formula
               timeBucket:
                 metric: sec
@@ -3462,6 +4668,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -3471,6 +4680,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -3480,6 +4692,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -3489,6 +4704,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -3498,22 +4716,31 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
             name: name
             id: id
           - layout:
-              w: 5.637376656633329
-              x: 1.4658129805029452
-              h: 2.3021358869347655
-              "y": 5.962133916683182
+              w: 2.3021358869347655
+              x: 5.962133916683182
+              h: 7.061401241503109
+              "y": 5.637376656633329
             visualization:
               visibleSeries:
               - true
               - true
+              thresholds:
+              - level: alert
+                value: 1.4658129805029452
+              - level: alert
+                value: 1.4658129805029452
               normalizer:
-                unit: days
+                unit: ns
                 type: duration
+              legendMode: table
               formula: formula
               timeBucket:
                 metric: sec
@@ -3541,6 +4768,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -3550,6 +4780,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -3559,6 +4792,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -3568,6 +4804,9 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
               - filter: filter
@@ -3577,11 +4816,14 @@ components:
                 - type: per-second
                 - type: per-second
                 - type: per-second
+                fill:
+                  mode:
+                    type: zero
                 aggregate:
                   type: count
             name: name
             id: id
-          timePreset: past-15-minutes
+          timePreset: past-5-minutes
           name: name
           id: id
           filters:
@@ -3643,6 +4885,7 @@ components:
           type: array
         timePreset:
           enum:
+          - past-5-minutes
           - past-15-minutes
           - past-30-minutes
           - past-1-hour
@@ -3667,31 +4910,6 @@ components:
           - previous-year
           type: string
       type: object
-    deleteDashboard_200_response_data:
-      example:
-        success: true
-      properties:
-        success:
-          description: Indicates the resource was deleted successfully
-          type: boolean
-      required:
-      - success
-      type: object
-    deleteDashboard_200_response:
-      example:
-        data:
-          success: true
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/deleteDashboard_200_response_data"
-      required:
-      - data
-      - requestId
-      type: object
     listMonitors_200_response:
       example:
         data:
@@ -3712,35 +4930,65 @@ components:
             proportionAlertThreshold: 15.364967208928864
             queries:
             - filter: filter
-              name: name
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
-                field: field
-                type: unique-count
-              value_if_no_data: Zero
+                type: count
             - filter: filter
-              name: name
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
-                field: field
-                type: unique-count
-              value_if_no_data: Zero
+                type: count
             - filter: filter
-              name: name
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
-                field: field
-                type: unique-count
-              value_if_no_data: Zero
+                type: count
             - filter: filter
-              name: name
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
-                field: field
-                type: unique-count
-              value_if_no_data: Zero
+                type: count
             - filter: filter
-              name: name
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
-                field: field
-                type: unique-count
-              value_if_no_data: Zero
+                type: count
             noDataBehavior: alert
           dashboardId: dashboardId
           permissions: all
@@ -3776,35 +5024,65 @@ components:
             proportionAlertThreshold: 15.364967208928864
             queries:
             - filter: filter
-              name: name
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
-                field: field
-                type: unique-count
-              value_if_no_data: Zero
+                type: count
             - filter: filter
-              name: name
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
-                field: field
-                type: unique-count
-              value_if_no_data: Zero
+                type: count
             - filter: filter
-              name: name
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
-                field: field
-                type: unique-count
-              value_if_no_data: Zero
+                type: count
             - filter: filter
-              name: name
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
-                field: field
-                type: unique-count
-              value_if_no_data: Zero
+                type: count
             - filter: filter
-              name: name
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
-                field: field
-                type: unique-count
-              value_if_no_data: Zero
+                type: count
             noDataBehavior: alert
           dashboardId: dashboardId
           permissions: all
@@ -3883,11 +5161,11 @@ components:
           minLength: 0
           type: string
         permissions:
-          description: This controls which data the monitor can see.
+          description: This controls which data the monitor can see
           enum:
           - all
-          - owning-team-only
           - owning-team-and-public
+          - owning-team-only
           type: string
       required:
       - configuration
@@ -3916,35 +5194,65 @@ components:
             proportionAlertThreshold: 15.364967208928864
             queries:
             - filter: filter
-              name: name
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
-                field: field
-                type: unique-count
-              value_if_no_data: Zero
+                type: count
             - filter: filter
-              name: name
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
-                field: field
-                type: unique-count
-              value_if_no_data: Zero
+                type: count
             - filter: filter
-              name: name
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
-                field: field
-                type: unique-count
-              value_if_no_data: Zero
+                type: count
             - filter: filter
-              name: name
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
-                field: field
-                type: unique-count
-              value_if_no_data: Zero
+                type: count
             - filter: filter
-              name: name
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
               aggregate:
-                field: field
-                type: unique-count
-              value_if_no_data: Zero
+                type: count
             noDataBehavior: alert
           dashboardId: dashboardId
           permissions: all
@@ -3983,13 +5291,13 @@ components:
           - triggered
           name: name
           prioritiesFilter:
-          - 0
-          - 0
+          - 0.8008281904610115
+          - 0.8008281904610115
           id: id
           isActive: true
           teamsFilter:
-          - teamsFilter
-          - teamsFilter
+          - Rule_teamsFilter
+          - Rule_teamsFilter
           targets:
           - rateLimit:
               minutes: 1
@@ -4002,9 +5310,11 @@ components:
               - alert
             id: id
             config:
+              hideTransition: true
               integrationName: integrationName
               channel: channel
               integrationId: integrationId
+              hideTime: true
               type: slack
           - rateLimit:
               minutes: 1
@@ -4017,9 +5327,11 @@ components:
               - alert
             id: id
             config:
+              hideTransition: true
               integrationName: integrationName
               channel: channel
               integrationId: integrationId
+              hideTime: true
               type: slack
           tags:
           - value: value
@@ -4038,13 +5350,13 @@ components:
           - triggered
           name: name
           prioritiesFilter:
-          - 0
-          - 0
+          - 0.8008281904610115
+          - 0.8008281904610115
           id: id
           isActive: true
           teamsFilter:
-          - teamsFilter
-          - teamsFilter
+          - Rule_teamsFilter
+          - Rule_teamsFilter
           targets:
           - rateLimit:
               minutes: 1
@@ -4057,9 +5369,11 @@ components:
               - alert
             id: id
             config:
+              hideTransition: true
               integrationName: integrationName
               channel: channel
               integrationId: integrationId
+              hideTime: true
               type: slack
           - rateLimit:
               minutes: 1
@@ -4072,9 +5386,11 @@ components:
               - alert
             id: id
             config:
+              hideTransition: true
               integrationName: integrationName
               channel: channel
               integrationId: integrationId
+              hideTime: true
               type: slack
           tags:
           - value: value
@@ -4099,6 +5415,53 @@ components:
       required:
       - data
       - requestId
+      type: object
+    createNotificationRule_request_teamsFilter_oneOf:
+      properties:
+        type:
+          enum:
+          - specific-teams
+          type: string
+        teams:
+          description: Team IDs that narrow down the teams that can receive notifications
+            from this rule
+          items:
+            maxLength: 250
+            minLength: 0
+            type: string
+          maxItems: 100
+          type: array
+      required:
+      - teams
+      - type
+      type: object
+    createNotificationRule_request_teamsFilter_oneOf_1:
+      properties:
+        type:
+          enum:
+          - all-teams
+          type: string
+      required:
+      - type
+      type: object
+    createNotificationRule_request_teamsFilter_oneOf_2:
+      properties:
+        type:
+          enum:
+          - all-public-teams
+          type: string
+      required:
+      - type
+      type: object
+    createNotificationRule_request_teamsFilter:
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/createNotificationRule_request_teamsFilter_oneOf"
+      - $ref: "#/components/schemas/createNotificationRule_request_teamsFilter_oneOf_1"
+      - $ref: "#/components/schemas/createNotificationRule_request_teamsFilter_oneOf_2"
+      required:
+      - type
       type: object
     createNotificationRule_request_targets_inner_rateLimit:
       description: Per-target rate-limiting configuration
@@ -4131,6 +5494,8 @@ components:
       - $ref: "#/components/schemas/RuleTargetInputGrafanaIrm"
       - $ref: "#/components/schemas/RuleTargetInputMicrosoftTeams"
       - $ref: "#/components/schemas/RuleTargetInputWebhook"
+      - $ref: "#/components/schemas/RuleTargetInputServiceNow"
+      - $ref: "#/components/schemas/RuleTargetInputGoogleChat"
       required:
       - type
       type: object
@@ -4189,20 +5554,18 @@ components:
           minLength: 0
           type: string
         teamsFilter:
-          description: Team IDs that narrow down the teams that can receive notifications
-            from this rule
-          items:
-            maxLength: 250
-            minLength: 0
-            type: string
-          maxItems: 100
-          type: array
+          $ref: "#/components/schemas/createNotificationRule_request_teamsFilter"
         prioritiesFilter:
           description: Priorities that narrow down the alerts that can trigger a notification
           items:
-            maximum: 5
-            minimum: 1
-            type: integer
+            enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            type: number
+          maxItems: 5
           type: array
         transitionTypesFilter:
           description: Alert state transitions that can trigger a notification
@@ -4212,6 +5575,7 @@ components:
             - resolved
             - no-data
             type: string
+          maxItems: 3
           type: array
         owner:
           description: Team ID that owns and manages the rule
@@ -4252,13 +5616,13 @@ components:
           - triggered
           name: name
           prioritiesFilter:
-          - 0
-          - 0
+          - 0.8008281904610115
+          - 0.8008281904610115
           id: id
           isActive: true
           teamsFilter:
-          - teamsFilter
-          - teamsFilter
+          - Rule_teamsFilter
+          - Rule_teamsFilter
           targets:
           - rateLimit:
               minutes: 1
@@ -4271,9 +5635,11 @@ components:
               - alert
             id: id
             config:
+              hideTransition: true
               integrationName: integrationName
               channel: channel
               integrationId: integrationId
+              hideTime: true
               type: slack
           - rateLimit:
               minutes: 1
@@ -4286,9 +5652,11 @@ components:
               - alert
             id: id
             config:
+              hideTransition: true
               integrationName: integrationName
               channel: channel
               integrationId: integrationId
+              hideTime: true
               type: slack
           tags:
           - value: value
@@ -4312,6 +5680,90 @@ components:
       - data
       - requestId
       type: object
+    listRetentionPolicies_200_response:
+      example:
+        data:
+        - durationDays: 1-day
+          teamId: teamId
+          isEnabled: true
+          id: id
+          env: env
+          dataSource: logs
+        - durationDays: 1-day
+          teamId: teamId
+          isEnabled: true
+          id: id
+          env: env
+          dataSource: logs
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/RetentionPolicy"
+          type: array
+      required:
+      - data
+      - requestId
+      type: object
+    createRetentionPolicy_request:
+      properties:
+        env:
+          maxLength: 250
+          minLength: 0
+          type: string
+        teamId:
+          maxLength: 250
+          minLength: 0
+          type: string
+        dataSource:
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        durationDays:
+          enum:
+          - 1-day
+          - 3-days
+          - 15-days
+          - 30-days
+          - 60-days
+          - 90-days
+          - 120-days
+          - 180-days
+          - 360-days
+          - 10-years
+          type: string
+        isEnabled:
+          type: boolean
+      required:
+      - dataSource
+      - durationDays
+      - isEnabled
+      type: object
+    createRetentionPolicy_200_response:
+      example:
+        data:
+          durationDays: 1-day
+          teamId: teamId
+          isEnabled: true
+          id: id
+          env: env
+          dataSource: logs
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/RetentionPolicy"
+      required:
+      - data
+      - requestId
+      type: object
     listRoutes_200_response:
       example:
         data:
@@ -4322,8 +5774,7 @@ components:
           description: description
           id: id
           processors:
-          - name: name
-            description: description
+          - description: description
             id: id
             type: mapper
             params:
@@ -4363,8 +5814,7 @@ components:
             - value: value
               key: key
             updatedAt: 2000-01-23T04:56:07.000+00:00
-          - name: name
-            description: description
+          - description: description
             id: id
             type: mapper
             params:
@@ -4422,8 +5872,7 @@ components:
           description: description
           id: id
           processors:
-          - name: name
-            description: description
+          - description: description
             id: id
             type: mapper
             params:
@@ -4463,8 +5912,7 @@ components:
             - value: value
               key: key
             updatedAt: 2000-01-23T04:56:07.000+00:00
-          - name: name
-            description: description
+          - description: description
             id: id
             type: mapper
             params:
@@ -4528,383 +5976,6 @@ components:
       - data
       - requestId
       type: object
-    createRoute_request_processors_inner_anyOf_example:
-      example:
-        manual: true
-      properties:
-        manual:
-          type: boolean
-      required:
-      - manual
-      type: object
-    createRoute_request_processors_inner_anyOf_params:
-      discriminator:
-        propertyName: subtype
-      oneOf:
-      - $ref: "#/components/schemas/ProcessorParamsMapperMapAttributes"
-      - $ref: "#/components/schemas/ProcessorParamsMapperMapLevel"
-      - $ref: "#/components/schemas/ProcessorParamsMapperMapTimestamp"
-      required:
-      - subtype
-      type: object
-    createRoute_request_processors_inner_anyOf:
-      example:
-        name: name
-        description: description
-        id: id
-        type: mapper
-        params:
-          subtype: map-attributes
-          attributes:
-          - keepOrigin: true
-            originAttribute: originAttribute
-            targetAttribute: targetAttribute
-            overrideTarget: true
-          - keepOrigin: true
-            originAttribute: originAttribute
-            targetAttribute: targetAttribute
-            overrideTarget: true
-          - keepOrigin: true
-            originAttribute: originAttribute
-            targetAttribute: targetAttribute
-            overrideTarget: true
-          - keepOrigin: true
-            originAttribute: originAttribute
-            targetAttribute: targetAttribute
-            overrideTarget: true
-          - keepOrigin: true
-            originAttribute: originAttribute
-            targetAttribute: targetAttribute
-            overrideTarget: true
-        example:
-          manual: true
-        tags:
-        - value: value
-          key: key
-        - value: value
-          key: key
-        - value: value
-          key: key
-        - value: value
-          key: key
-        - value: value
-          key: key
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        id:
-          description: Identifier of the processor
-          maxLength: 250
-          minLength: 0
-          type: string
-        name:
-          description: Display name of the processor
-          maxLength: 250
-          minLength: 0
-          type: string
-        description:
-          maxLength: 50000
-          minLength: 0
-          type: string
-        example:
-          $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_example"
-        tags:
-          description: List of key/value tags applied to the resource
-          items:
-            $ref: "#/components/schemas/Tag"
-          maxItems: 50
-          title: Tags
-          type: array
-        updatedAt:
-          format: date-time
-          type: string
-        type:
-          enum:
-          - mapper
-          type: string
-        params:
-          $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_params"
-      required:
-      - id
-      - name
-      - params
-      - type
-      type: object
-    createRoute_request_processors_inner_anyOf_1_params_oneOf:
-      properties:
-        attributeName:
-          description: Attribute whose value will be parsed with Grok rules
-          maxLength: 250
-          minLength: 0
-          type: string
-        rules:
-          description: Ordered Grok rules evaluated until one matches
-          items:
-            description: Grok rule applied to parse text
-            maxLength: 50000
-            minLength: 0
-            type: string
-          maxItems: 5
-          type: array
-        samples:
-          description: Example log lines for validation
-          items:
-            maxLength: 50000
-            minLength: 0
-            type: string
-          maxItems: 5
-          type: array
-        subtype:
-          enum:
-          - grok
-          type: string
-      required:
-      - attributeName
-      - rules
-      - subtype
-      type: object
-    createRoute_request_processors_inner_anyOf_1_params_oneOf_1:
-      properties:
-        sourceAttribute:
-          description: Attribute containing the URL to parse
-          maxLength: 250
-          minLength: 0
-          type: string
-        subtype:
-          enum:
-          - url
-          type: string
-      required:
-      - sourceAttribute
-      - subtype
-      type: object
-    createRoute_request_processors_inner_anyOf_1_params_oneOf_2:
-      properties:
-        sourceAttribute:
-          description: Attribute containing the user agent string to parse
-          maxLength: 250
-          minLength: 0
-          type: string
-        subtype:
-          enum:
-          - user-agent
-          type: string
-      required:
-      - sourceAttribute
-      - subtype
-      type: object
-    createRoute_request_processors_inner_anyOf_1_params_oneOf_3:
-      properties:
-        sourceAttribute:
-          description: Attribute containing the key/value string segment to parse
-          maxLength: 250
-          minLength: 0
-          type: string
-        targetAttribute:
-          description: Attribute prefix where extracted key/value pairs will be written
-          maxLength: 250
-          minLength: 0
-          type: string
-        keyValueSplitter:
-          description: Delimiter separating keys from values in the source string
-          maxLength: 250
-          minLength: 0
-          type: string
-        pairsSplitter:
-          description: Delimiter separating each key/value pair
-          maxLength: 250
-          minLength: 0
-          type: string
-        acceptStandaloneKey:
-          type: boolean
-        subtype:
-          enum:
-          - key-value
-          type: string
-      required:
-      - acceptStandaloneKey
-      - keyValueSplitter
-      - pairsSplitter
-      - sourceAttribute
-      - subtype
-      - targetAttribute
-      type: object
-    createRoute_request_processors_inner_anyOf_1_params:
-      discriminator:
-        propertyName: subtype
-      oneOf:
-      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_1_params_oneOf"
-      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_1_params_oneOf_1"
-      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_1_params_oneOf_2"
-      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_1_params_oneOf_3"
-      required:
-      - subtype
-      type: object
-    createRoute_request_processors_inner_anyOf_1:
-      properties:
-        id:
-          description: Identifier of the processor
-          maxLength: 250
-          minLength: 0
-          type: string
-        name:
-          description: Display name of the processor
-          maxLength: 250
-          minLength: 0
-          type: string
-        description:
-          maxLength: 50000
-          minLength: 0
-          type: string
-        example:
-          $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_example"
-        tags:
-          description: List of key/value tags applied to the resource
-          items:
-            $ref: "#/components/schemas/Tag"
-          maxItems: 50
-          title: Tags
-          type: array
-        updatedAt:
-          format: date-time
-          type: string
-        type:
-          enum:
-          - parse-attribute
-          type: string
-        params:
-          $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_1_params"
-      required:
-      - id
-      - name
-      - params
-      - type
-      type: object
-    createRoute_request_processors_inner_anyOf_2_params:
-      discriminator:
-        propertyName: subtype
-      oneOf:
-      - $ref: "#/components/schemas/ProcessorParamsCreatorFormatString"
-      - $ref: "#/components/schemas/ProcessorParamsCreatorMathFormula"
-      required:
-      - subtype
-      type: object
-    createRoute_request_processors_inner_anyOf_2:
-      properties:
-        id:
-          description: Identifier of the processor
-          maxLength: 250
-          minLength: 0
-          type: string
-        name:
-          description: Display name of the processor
-          maxLength: 250
-          minLength: 0
-          type: string
-        description:
-          maxLength: 50000
-          minLength: 0
-          type: string
-        example:
-          $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_example"
-        tags:
-          description: List of key/value tags applied to the resource
-          items:
-            $ref: "#/components/schemas/Tag"
-          maxItems: 50
-          title: Tags
-          type: array
-        updatedAt:
-          format: date-time
-          type: string
-        type:
-          enum:
-          - creator
-          type: string
-        params:
-          $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_2_params"
-      required:
-      - id
-      - name
-      - params
-      - type
-      type: object
-    createRoute_request_processors_inner_anyOf_3_params_items_inner:
-      properties:
-        query:
-          description: Query that determines whether logs enter this branch
-          format: tsuga-query
-          maxLength: 10000
-          minLength: 0
-          type: string
-        processors:
-          description: Processors executed when the branch query matches
-          items:
-            $ref: "#/components/schemas/Processor"
-          maxItems: 50
-          type: array
-      required:
-      - processors
-      - query
-      type: object
-    createRoute_request_processors_inner_anyOf_3_params:
-      properties:
-        items:
-          description: Conditional branches evaluated in order before falling back
-            to the default
-          items:
-            $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_3_params_items_inner"
-          maxItems: 11
-          type: array
-      required:
-      - items
-      type: object
-    createRoute_request_processors_inner_anyOf_3:
-      properties:
-        id:
-          description: Identifier of the processor
-          maxLength: 250
-          minLength: 0
-          type: string
-        name:
-          description: Display name of the processor
-          maxLength: 250
-          minLength: 0
-          type: string
-        description:
-          maxLength: 50000
-          minLength: 0
-          type: string
-        example:
-          $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_example"
-        tags:
-          description: List of key/value tags applied to the resource
-          items:
-            $ref: "#/components/schemas/Tag"
-          maxItems: 50
-          title: Tags
-          type: array
-        updatedAt:
-          format: date-time
-          type: string
-        params:
-          $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_3_params"
-        type:
-          enum:
-          - split
-          type: string
-      required:
-      - id
-      - name
-      - params
-      - type
-      type: object
-    createRoute_request_processors_inner:
-      anyOf:
-      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf"
-      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_1"
-      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_2"
-      - $ref: "#/components/schemas/createRoute_request_processors_inner_anyOf_3"
-      description: Processing step executed sequentially on route logs
     createRoute_request:
       properties:
         name:
@@ -4939,7 +6010,7 @@ components:
         processors:
           description: Ordered processors applied to logs that match the route
           items:
-            $ref: "#/components/schemas/createRoute_request_processors_inner"
+            $ref: "#/components/schemas/Processor"
           maxItems: 50
           type: array
       required:
@@ -4959,8 +6030,7 @@ components:
           description: description
           id: id
           processors:
-          - name: name
-            description: description
+          - description: description
             id: id
             type: mapper
             params:
@@ -5000,8 +6070,7 @@ components:
             - value: value
               key: key
             updatedAt: 2000-01-23T04:56:07.000+00:00
-          - name: name
-            description: description
+          - description: description
             id: id
             type: mapper
             params:
@@ -5166,6 +6235,32 @@ components:
       - data
       - requestId
       type: object
+    Rule_teamsFilter_anyOf:
+      properties:
+        type:
+          enum:
+          - specific-teams
+          type: string
+        teams:
+          description: Team IDs that narrow down the teams that can receive notifications
+            from this rule
+          items:
+            type: string
+          type: array
+      required:
+      - teams
+      - type
+      type: object
+    Rule_teamsFilter:
+      anyOf:
+      - description: Team IDs that narrow down the teams that can receive notifications
+          from this rule
+        items:
+          type: string
+        type: array
+      - $ref: "#/components/schemas/Rule_teamsFilter_anyOf"
+      - $ref: "#/components/schemas/createNotificationRule_request_teamsFilter_oneOf_1"
+      - $ref: "#/components/schemas/createNotificationRule_request_teamsFilter_oneOf_2"
     Rule_targets_inner_config:
       description: Configuration describing how the alert was delivered
       discriminator:
@@ -5178,6 +6273,8 @@ components:
       - $ref: "#/components/schemas/RuleTargetConfigPagerDuty"
       - $ref: "#/components/schemas/RuleTargetConfigMicrosoftTeams"
       - $ref: "#/components/schemas/RuleTargetConfigWebhook"
+      - $ref: "#/components/schemas/RuleTargetConfigServiceNow"
+      - $ref: "#/components/schemas/RuleTargetConfigGoogleChat"
       required:
       - type
       type: object
@@ -5194,9 +6291,11 @@ components:
           - alert
         id: id
         config:
+          hideTransition: true
           integrationName: integrationName
           channel: channel
           integrationId: integrationId
+          hideTime: true
           type: slack
       properties:
         id:
@@ -5212,6 +6311,351 @@ components:
       - config
       - id
       type: object
+    Processor_anyOf_example:
+      example:
+        manual: true
+      properties:
+        manual:
+          type: boolean
+      required:
+      - manual
+      type: object
+    Processor_anyOf_params:
+      discriminator:
+        propertyName: subtype
+      oneOf:
+      - $ref: "#/components/schemas/ProcessorParamsMapperMapAttributes"
+      - $ref: "#/components/schemas/ProcessorParamsMapperMapLevel"
+      - $ref: "#/components/schemas/ProcessorParamsMapperMapTimestamp"
+      required:
+      - subtype
+      type: object
+    Processor_anyOf:
+      example:
+        description: description
+        id: id
+        type: mapper
+        params:
+          subtype: map-attributes
+          attributes:
+          - keepOrigin: true
+            originAttribute: originAttribute
+            targetAttribute: targetAttribute
+            overrideTarget: true
+          - keepOrigin: true
+            originAttribute: originAttribute
+            targetAttribute: targetAttribute
+            overrideTarget: true
+          - keepOrigin: true
+            originAttribute: originAttribute
+            targetAttribute: targetAttribute
+            overrideTarget: true
+          - keepOrigin: true
+            originAttribute: originAttribute
+            targetAttribute: targetAttribute
+            overrideTarget: true
+          - keepOrigin: true
+            originAttribute: originAttribute
+            targetAttribute: targetAttribute
+            overrideTarget: true
+        example:
+          manual: true
+        tags:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        - value: value
+          key: key
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          description: Identifier of the processor
+          maxLength: 250
+          minLength: 0
+          type: string
+        description:
+          maxLength: 50000
+          minLength: 0
+          type: string
+        example:
+          $ref: "#/components/schemas/Processor_anyOf_example"
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/Tag"
+          maxItems: 50
+          title: Tags
+          type: array
+        updatedAt:
+          format: date-time
+          type: string
+        type:
+          enum:
+          - mapper
+          type: string
+        params:
+          $ref: "#/components/schemas/Processor_anyOf_params"
+      required:
+      - id
+      - params
+      - type
+      type: object
+    Processor_anyOf_1_params_oneOf:
+      properties:
+        attributeName:
+          description: Attribute whose value will be parsed with Grok rules
+          maxLength: 250
+          minLength: 0
+          type: string
+        rules:
+          description: Ordered Grok rules evaluated until one matches
+          items:
+            description: Grok rule applied to parse text
+            maxLength: 50000
+            minLength: 0
+            type: string
+          maxItems: 5
+          type: array
+        samples:
+          description: Example log lines for validation
+          items:
+            maxLength: 50000
+            minLength: 0
+            type: string
+          maxItems: 5
+          type: array
+        subtype:
+          enum:
+          - grok
+          type: string
+      required:
+      - attributeName
+      - rules
+      - subtype
+      type: object
+    Processor_anyOf_1_params_oneOf_1:
+      properties:
+        sourceAttribute:
+          description: Attribute containing the URL to parse
+          maxLength: 250
+          minLength: 0
+          type: string
+        subtype:
+          enum:
+          - url
+          type: string
+      required:
+      - sourceAttribute
+      - subtype
+      type: object
+    Processor_anyOf_1_params_oneOf_2:
+      properties:
+        sourceAttribute:
+          description: Attribute containing the user agent string to parse
+          maxLength: 250
+          minLength: 0
+          type: string
+        subtype:
+          enum:
+          - user-agent
+          type: string
+      required:
+      - sourceAttribute
+      - subtype
+      type: object
+    Processor_anyOf_1_params_oneOf_3:
+      properties:
+        sourceAttribute:
+          description: Attribute containing the key/value string segment to parse
+          maxLength: 250
+          minLength: 0
+          type: string
+        targetAttribute:
+          description: Attribute prefix where extracted key/value pairs will be written
+          maxLength: 250
+          minLength: 0
+          type: string
+        keyValueSplitter:
+          description: Delimiter separating keys from values in the source string
+          maxLength: 250
+          minLength: 0
+          type: string
+        pairsSplitter:
+          description: Delimiter separating each key/value pair
+          maxLength: 250
+          minLength: 0
+          type: string
+        acceptStandaloneKey:
+          type: boolean
+        subtype:
+          enum:
+          - key-value
+          type: string
+      required:
+      - acceptStandaloneKey
+      - keyValueSplitter
+      - pairsSplitter
+      - sourceAttribute
+      - subtype
+      - targetAttribute
+      type: object
+    Processor_anyOf_1_params:
+      discriminator:
+        propertyName: subtype
+      oneOf:
+      - $ref: "#/components/schemas/Processor_anyOf_1_params_oneOf"
+      - $ref: "#/components/schemas/Processor_anyOf_1_params_oneOf_1"
+      - $ref: "#/components/schemas/Processor_anyOf_1_params_oneOf_2"
+      - $ref: "#/components/schemas/Processor_anyOf_1_params_oneOf_3"
+      required:
+      - subtype
+      type: object
+    Processor_anyOf_1:
+      properties:
+        id:
+          description: Identifier of the processor
+          maxLength: 250
+          minLength: 0
+          type: string
+        description:
+          maxLength: 50000
+          minLength: 0
+          type: string
+        example:
+          $ref: "#/components/schemas/Processor_anyOf_example"
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/Tag"
+          maxItems: 50
+          title: Tags
+          type: array
+        updatedAt:
+          format: date-time
+          type: string
+        type:
+          enum:
+          - parse-attribute
+          type: string
+        params:
+          $ref: "#/components/schemas/Processor_anyOf_1_params"
+      required:
+      - id
+      - params
+      - type
+      type: object
+    Processor_anyOf_2_params:
+      discriminator:
+        propertyName: subtype
+      oneOf:
+      - $ref: "#/components/schemas/ProcessorParamsCreatorFormatString"
+      - $ref: "#/components/schemas/ProcessorParamsCreatorMathFormula"
+      required:
+      - subtype
+      type: object
+    Processor_anyOf_2:
+      properties:
+        id:
+          description: Identifier of the processor
+          maxLength: 250
+          minLength: 0
+          type: string
+        description:
+          maxLength: 50000
+          minLength: 0
+          type: string
+        example:
+          $ref: "#/components/schemas/Processor_anyOf_example"
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/Tag"
+          maxItems: 50
+          title: Tags
+          type: array
+        updatedAt:
+          format: date-time
+          type: string
+        type:
+          enum:
+          - creator
+          type: string
+        params:
+          $ref: "#/components/schemas/Processor_anyOf_2_params"
+      required:
+      - id
+      - params
+      - type
+      type: object
+    Processor_anyOf_3_params_items_inner:
+      properties:
+        query:
+          description: Query that determines whether logs enter this branch
+          format: tsuga-query
+          maxLength: 10000
+          minLength: 0
+          type: string
+        processors:
+          description: Processors executed when the branch query matches
+          items:
+            $ref: "#/components/schemas/Processor"
+          maxItems: 50
+          type: array
+      required:
+      - processors
+      - query
+      type: object
+    Processor_anyOf_3_params:
+      properties:
+        items:
+          description: Conditional branches evaluated in order before falling back
+            to the default
+          items:
+            $ref: "#/components/schemas/Processor_anyOf_3_params_items_inner"
+          maxItems: 11
+          type: array
+      required:
+      - items
+      type: object
+    Processor_anyOf_3:
+      properties:
+        id:
+          description: Identifier of the processor
+          maxLength: 250
+          minLength: 0
+          type: string
+        description:
+          maxLength: 50000
+          minLength: 0
+          type: string
+        example:
+          $ref: "#/components/schemas/Processor_anyOf_example"
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/Tag"
+          maxItems: 50
+          title: Tags
+          type: array
+        updatedAt:
+          format: date-time
+          type: string
+        params:
+          $ref: "#/components/schemas/Processor_anyOf_3_params"
+        type:
+          enum:
+          - split
+          type: string
+      required:
+      - id
+      - params
+      - type
+      type: object
     MonitorConfigurationMetric_condition:
       example:
         formula: formula
@@ -5219,7 +6663,8 @@ components:
         operator: greater_than
       properties:
         formula:
-          maxLength: 250
+          format: math-formula
+          maxLength: 10000
           minLength: 0
           type: string
         operator:
@@ -5258,51 +6703,7 @@ components:
       - limit
       title: AggregationGroupBy
       type: object
-    MetricAggregate:
-      discriminator:
-        propertyName: type
-      oneOf:
-      - $ref: "#/components/schemas/AggregateUniqueCount"
-      - $ref: "#/components/schemas/AggregateAverage"
-      - $ref: "#/components/schemas/AggregateMax"
-      - $ref: "#/components/schemas/AggregateMin"
-      - $ref: "#/components/schemas/AggregateSum"
-      - $ref: "#/components/schemas/AggregatePercentile"
-      required:
-      - type
-      title: MetricAggregate
-      type: object
-    MonitorConfigurationMetric_queries_inner:
-      example:
-        filter: filter
-        name: name
-        aggregate:
-          field: field
-          type: unique-count
-        value_if_no_data: Zero
-      properties:
-        name:
-          maxLength: 250
-          minLength: 0
-          type: string
-        filter:
-          format: tsuga-query
-          maxLength: 10000
-          minLength: 0
-          type: string
-        aggregate:
-          $ref: "#/components/schemas/MetricAggregate"
-        value_if_no_data:
-          enum:
-          - Zero
-          - NaN
-          type: string
-      required:
-      - aggregate
-      - filter
-      - name
-      type: object
-    LogAggregate:
+    Aggregate:
       discriminator:
         propertyName: type
       oneOf:
@@ -5315,35 +6716,87 @@ components:
       - $ref: "#/components/schemas/AggregatePercentile"
       required:
       - type
-      title: LogAggregate
+      title: Aggregate
       type: object
-    MonitorConfigurationLog_queries_inner:
+    Function:
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/FunctionPerSecond"
+      - $ref: "#/components/schemas/FunctionPerMinute"
+      - $ref: "#/components/schemas/FunctionPerHour"
+      - $ref: "#/components/schemas/FunctionRate"
+      - $ref: "#/components/schemas/FunctionIncrease"
+      - $ref: "#/components/schemas/FunctionRolling"
+      - $ref: "#/components/schemas/FunctionLog"
+      - $ref: "#/components/schemas/FunctionPower"
+      - $ref: "#/components/schemas/FunctionSqrt"
+      required:
+      - type
+      title: Function
+      type: object
+    MonitorAggregationQuery_fill_mode:
+      example:
+        type: zero
       properties:
-        name:
-          maxLength: 250
-          minLength: 0
+        type:
+          enum:
+          - zero
+          - "null"
           type: string
+      required:
+      - type
+      type: object
+    MonitorAggregationQuery_fill:
+      example:
+        mode:
+          type: zero
+      properties:
+        mode:
+          $ref: "#/components/schemas/MonitorAggregationQuery_fill_mode"
+      required:
+      - mode
+      type: object
+    MonitorAggregationQuery:
+      example:
+        filter: filter
+        functions:
+        - type: per-second
+        - type: per-second
+        - type: per-second
+        - type: per-second
+        - type: per-second
+        fill:
+          mode:
+            type: zero
+        aggregate:
+          type: count
+      properties:
+        aggregate:
+          $ref: "#/components/schemas/Aggregate"
+        functions:
+          description: Post-processing functions applied to aggregation results
+          items:
+            $ref: "#/components/schemas/Function"
+          maxItems: 10
+          type: array
+        fill:
+          $ref: "#/components/schemas/MonitorAggregationQuery_fill"
         filter:
           format: tsuga-query
           maxLength: 10000
           minLength: 0
           type: string
-        aggregate:
-          $ref: "#/components/schemas/LogAggregate"
-        value_if_no_data:
-          enum:
-          - Zero
-          - NaN
-          type: string
       required:
       - aggregate
       - filter
-      - name
+      title: MonitorAggregationQuery
       type: object
     MonitorConfigurationAnomalyLog_condition:
       properties:
         formula:
-          maxLength: 250
+          format: math-formula
+          maxLength: 10000
           minLength: 0
           type: string
         conditionType:
@@ -5357,6 +6810,20 @@ components:
       required:
       - conditionType
       - formula
+      type: object
+    MonitorConfigurationLogErrorPattern_filter:
+      properties:
+        teamName:
+          items:
+            type: string
+          type: array
+        env:
+          type: string
+        service:
+          type: string
+      required:
+      - env
+      - teamName
       type: object
     ProcessorParamsMapperMapAttributes_attributes_inner:
       example:
@@ -5386,35 +6853,6 @@ components:
       - originAttribute
       - targetAttribute
       type: object
-    Aggregate:
-      discriminator:
-        propertyName: type
-      oneOf:
-      - $ref: "#/components/schemas/AggregateCount"
-      - $ref: "#/components/schemas/AggregateUniqueCount"
-      - $ref: "#/components/schemas/AggregateAverage"
-      - $ref: "#/components/schemas/AggregateMax"
-      - $ref: "#/components/schemas/AggregateMin"
-      - $ref: "#/components/schemas/AggregateSum"
-      - $ref: "#/components/schemas/AggregatePercentile"
-      required:
-      - type
-      title: Aggregate
-      type: object
-    Function:
-      discriminator:
-        propertyName: type
-      oneOf:
-      - $ref: "#/components/schemas/FunctionPerSecond"
-      - $ref: "#/components/schemas/FunctionPerMinute"
-      - $ref: "#/components/schemas/FunctionPerHour"
-      - $ref: "#/components/schemas/FunctionRate"
-      - $ref: "#/components/schemas/FunctionIncrease"
-      - $ref: "#/components/schemas/FunctionRolling"
-      required:
-      - type
-      title: Function
-      type: object
     AggregationQuery:
       example:
         filter: filter
@@ -5424,22 +6862,27 @@ components:
         - type: per-second
         - type: per-second
         - type: per-second
+        fill:
+          mode:
+            type: zero
         aggregate:
           type: count
       properties:
         aggregate:
           $ref: "#/components/schemas/Aggregate"
-        filter:
-          format: tsuga-query
-          maxLength: 10000
-          minLength: 0
-          type: string
         functions:
           description: Post-processing functions applied to aggregation results
           items:
             $ref: "#/components/schemas/Function"
           maxItems: 10
           type: array
+        fill:
+          $ref: "#/components/schemas/MonitorAggregationQuery_fill"
+        filter:
+          format: tsuga-query
+          maxLength: 10000
+          minLength: 0
+          type: string
       required:
       - aggregate
       title: AggregationQuery
@@ -5470,12 +6913,33 @@ components:
       oneOf:
       - $ref: "#/components/schemas/DataNormalizerDuration"
       - $ref: "#/components/schemas/DataNormalizerData"
-      - $ref: "#/components/schemas/DataNormalizerCustom"
+      - $ref: "#/components/schemas/DataNormalizerPercent"
       - $ref: "#/components/schemas/DataNormalizerDate"
       - $ref: "#/components/schemas/DataNormalizerLevel"
+      - $ref: "#/components/schemas/DataNormalizerCustom"
       required:
       - type
       title: Normalizer
+      type: object
+    ThresholdMarker:
+      example:
+        level: alert
+        value: 1.4658129805029452
+      properties:
+        value:
+          description: Y-axis value where the threshold marker is placed
+          type: number
+        level:
+          description: Level applied to the threshold marker
+          enum:
+          - alert
+          - warning
+          - success
+          type: string
+      required:
+      - level
+      - value
+      title: ThresholdMarker
       type: object
     ConditionalFormatting:
       properties:
@@ -5515,6 +6979,25 @@ components:
       required:
       - attribute
       title: WidgetListColumn
+      type: object
+    BigQueryConnectionInput_auth:
+      properties:
+        type:
+          enum:
+          - workload-identity-direct-access
+          type: string
+        projectId:
+          maxLength: 250
+          minLength: 0
+          type: string
+        workloadIdentityCredentialFile:
+          maxLength: 50000
+          minLength: 0
+          type: string
+      required:
+      - projectId
+      - type
+      - workloadIdentityCredentialFile
       type: object
   securitySchemes:
     bearerAuth:

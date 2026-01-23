@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **Type** | **string** |  | 
 **Channel** | **string** | Slack channel ID that receives the notification | 
 **IntegrationId** | **string** | Slack workspace ID that receives the notification | 
+**HideTransition** | Pointer to **bool** | When true, the transition info (e.g., \&quot;from ok to alert\&quot;) is hidden from the Slack message | [optional] 
+**HideTime** | Pointer to **bool** | When true, the timestamp is hidden from the Slack message | [optional] 
 
 ## Methods
 
@@ -86,6 +88,56 @@ and a boolean to check if the value has been set.
 
 SetIntegrationId sets IntegrationId field to given value.
 
+
+### GetHideTransition
+
+`func (o *RuleTargetInputSlack) GetHideTransition() bool`
+
+GetHideTransition returns the HideTransition field if non-nil, zero value otherwise.
+
+### GetHideTransitionOk
+
+`func (o *RuleTargetInputSlack) GetHideTransitionOk() (*bool, bool)`
+
+GetHideTransitionOk returns a tuple with the HideTransition field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHideTransition
+
+`func (o *RuleTargetInputSlack) SetHideTransition(v bool)`
+
+SetHideTransition sets HideTransition field to given value.
+
+### HasHideTransition
+
+`func (o *RuleTargetInputSlack) HasHideTransition() bool`
+
+HasHideTransition returns a boolean if a field has been set.
+
+### GetHideTime
+
+`func (o *RuleTargetInputSlack) GetHideTime() bool`
+
+GetHideTime returns the HideTime field if non-nil, zero value otherwise.
+
+### GetHideTimeOk
+
+`func (o *RuleTargetInputSlack) GetHideTimeOk() (*bool, bool)`
+
+GetHideTimeOk returns a tuple with the HideTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHideTime
+
+`func (o *RuleTargetInputSlack) SetHideTime(v bool)`
+
+SetHideTime sets HideTime field to given value.
+
+### HasHideTime
+
+`func (o *RuleTargetInputSlack) HasHideTime() bool`
+
+HasHideTime returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

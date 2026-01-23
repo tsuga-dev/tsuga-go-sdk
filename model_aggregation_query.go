@@ -22,9 +22,10 @@ var _ MappedNullable = &AggregationQuery{}
 // AggregationQuery struct for AggregationQuery
 type AggregationQuery struct {
 	Aggregate Aggregate `json:"aggregate"`
-	Filter *string `json:"filter,omitempty"`
 	// Post-processing functions applied to aggregation results
 	Functions []Function `json:"functions,omitempty"`
+	Fill *MonitorAggregationQueryFill `json:"fill,omitempty"`
+	Filter *string `json:"filter,omitempty"`
 }
 
 type _AggregationQuery AggregationQuery
@@ -71,38 +72,6 @@ func (o *AggregationQuery) SetAggregate(v Aggregate) {
 	o.Aggregate = v
 }
 
-// GetFilter returns the Filter field value if set, zero value otherwise.
-func (o *AggregationQuery) GetFilter() string {
-	if o == nil || IsNil(o.Filter) {
-		var ret string
-		return ret
-	}
-	return *o.Filter
-}
-
-// GetFilterOk returns a tuple with the Filter field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AggregationQuery) GetFilterOk() (*string, bool) {
-	if o == nil || IsNil(o.Filter) {
-		return nil, false
-	}
-	return o.Filter, true
-}
-
-// HasFilter returns a boolean if a field has been set.
-func (o *AggregationQuery) HasFilter() bool {
-	if o != nil && !IsNil(o.Filter) {
-		return true
-	}
-
-	return false
-}
-
-// SetFilter gets a reference to the given string and assigns it to the Filter field.
-func (o *AggregationQuery) SetFilter(v string) {
-	o.Filter = &v
-}
-
 // GetFunctions returns the Functions field value if set, zero value otherwise.
 func (o *AggregationQuery) GetFunctions() []Function {
 	if o == nil || IsNil(o.Functions) {
@@ -135,6 +104,70 @@ func (o *AggregationQuery) SetFunctions(v []Function) {
 	o.Functions = v
 }
 
+// GetFill returns the Fill field value if set, zero value otherwise.
+func (o *AggregationQuery) GetFill() MonitorAggregationQueryFill {
+	if o == nil || IsNil(o.Fill) {
+		var ret MonitorAggregationQueryFill
+		return ret
+	}
+	return *o.Fill
+}
+
+// GetFillOk returns a tuple with the Fill field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AggregationQuery) GetFillOk() (*MonitorAggregationQueryFill, bool) {
+	if o == nil || IsNil(o.Fill) {
+		return nil, false
+	}
+	return o.Fill, true
+}
+
+// HasFill returns a boolean if a field has been set.
+func (o *AggregationQuery) HasFill() bool {
+	if o != nil && !IsNil(o.Fill) {
+		return true
+	}
+
+	return false
+}
+
+// SetFill gets a reference to the given MonitorAggregationQueryFill and assigns it to the Fill field.
+func (o *AggregationQuery) SetFill(v MonitorAggregationQueryFill) {
+	o.Fill = &v
+}
+
+// GetFilter returns the Filter field value if set, zero value otherwise.
+func (o *AggregationQuery) GetFilter() string {
+	if o == nil || IsNil(o.Filter) {
+		var ret string
+		return ret
+	}
+	return *o.Filter
+}
+
+// GetFilterOk returns a tuple with the Filter field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AggregationQuery) GetFilterOk() (*string, bool) {
+	if o == nil || IsNil(o.Filter) {
+		return nil, false
+	}
+	return o.Filter, true
+}
+
+// HasFilter returns a boolean if a field has been set.
+func (o *AggregationQuery) HasFilter() bool {
+	if o != nil && !IsNil(o.Filter) {
+		return true
+	}
+
+	return false
+}
+
+// SetFilter gets a reference to the given string and assigns it to the Filter field.
+func (o *AggregationQuery) SetFilter(v string) {
+	o.Filter = &v
+}
+
 func (o AggregationQuery) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -146,11 +179,14 @@ func (o AggregationQuery) MarshalJSON() ([]byte, error) {
 func (o AggregationQuery) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["aggregate"] = o.Aggregate
-	if !IsNil(o.Filter) {
-		toSerialize["filter"] = o.Filter
-	}
 	if !IsNil(o.Functions) {
 		toSerialize["functions"] = o.Functions
+	}
+	if !IsNil(o.Fill) {
+		toSerialize["fill"] = o.Fill
+	}
+	if !IsNil(o.Filter) {
+		toSerialize["filter"] = o.Filter
 	}
 	return toSerialize, nil
 }

@@ -19,10 +19,12 @@ import (
 // CreateNotificationRuleRequestTargetsInnerConfig - Configuration describing how the alert should be delivered
 type CreateNotificationRuleRequestTargetsInnerConfig struct {
 	RuleTargetInputEmail *RuleTargetInputEmail
+	RuleTargetInputGoogleChat *RuleTargetInputGoogleChat
 	RuleTargetInputGrafanaIrm *RuleTargetInputGrafanaIrm
 	RuleTargetInputIncidentIo *RuleTargetInputIncidentIo
 	RuleTargetInputMicrosoftTeams *RuleTargetInputMicrosoftTeams
 	RuleTargetInputPagerDuty *RuleTargetInputPagerDuty
+	RuleTargetInputServiceNow *RuleTargetInputServiceNow
 	RuleTargetInputSlack *RuleTargetInputSlack
 	RuleTargetInputWebhook *RuleTargetInputWebhook
 }
@@ -31,6 +33,13 @@ type CreateNotificationRuleRequestTargetsInnerConfig struct {
 func RuleTargetInputEmailAsCreateNotificationRuleRequestTargetsInnerConfig(v *RuleTargetInputEmail) CreateNotificationRuleRequestTargetsInnerConfig {
 	return CreateNotificationRuleRequestTargetsInnerConfig{
 		RuleTargetInputEmail: v,
+	}
+}
+
+// RuleTargetInputGoogleChatAsCreateNotificationRuleRequestTargetsInnerConfig is a convenience function that returns RuleTargetInputGoogleChat wrapped in CreateNotificationRuleRequestTargetsInnerConfig
+func RuleTargetInputGoogleChatAsCreateNotificationRuleRequestTargetsInnerConfig(v *RuleTargetInputGoogleChat) CreateNotificationRuleRequestTargetsInnerConfig {
+	return CreateNotificationRuleRequestTargetsInnerConfig{
+		RuleTargetInputGoogleChat: v,
 	}
 }
 
@@ -59,6 +68,13 @@ func RuleTargetInputMicrosoftTeamsAsCreateNotificationRuleRequestTargetsInnerCon
 func RuleTargetInputPagerDutyAsCreateNotificationRuleRequestTargetsInnerConfig(v *RuleTargetInputPagerDuty) CreateNotificationRuleRequestTargetsInnerConfig {
 	return CreateNotificationRuleRequestTargetsInnerConfig{
 		RuleTargetInputPagerDuty: v,
+	}
+}
+
+// RuleTargetInputServiceNowAsCreateNotificationRuleRequestTargetsInnerConfig is a convenience function that returns RuleTargetInputServiceNow wrapped in CreateNotificationRuleRequestTargetsInnerConfig
+func RuleTargetInputServiceNowAsCreateNotificationRuleRequestTargetsInnerConfig(v *RuleTargetInputServiceNow) CreateNotificationRuleRequestTargetsInnerConfig {
+	return CreateNotificationRuleRequestTargetsInnerConfig{
+		RuleTargetInputServiceNow: v,
 	}
 }
 
@@ -96,6 +112,23 @@ func (dst *CreateNotificationRuleRequestTargetsInnerConfig) UnmarshalJSON(data [
 		}
 	} else {
 		dst.RuleTargetInputEmail = nil
+	}
+
+	// try to unmarshal data into RuleTargetInputGoogleChat
+	err = newStrictDecoder(data).Decode(&dst.RuleTargetInputGoogleChat)
+	if err == nil {
+		jsonRuleTargetInputGoogleChat, _ := json.Marshal(dst.RuleTargetInputGoogleChat)
+		if string(jsonRuleTargetInputGoogleChat) == "{}" { // empty struct
+			dst.RuleTargetInputGoogleChat = nil
+		} else {
+			if err = validator.Validate(dst.RuleTargetInputGoogleChat); err != nil {
+				dst.RuleTargetInputGoogleChat = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.RuleTargetInputGoogleChat = nil
 	}
 
 	// try to unmarshal data into RuleTargetInputGrafanaIrm
@@ -166,6 +199,23 @@ func (dst *CreateNotificationRuleRequestTargetsInnerConfig) UnmarshalJSON(data [
 		dst.RuleTargetInputPagerDuty = nil
 	}
 
+	// try to unmarshal data into RuleTargetInputServiceNow
+	err = newStrictDecoder(data).Decode(&dst.RuleTargetInputServiceNow)
+	if err == nil {
+		jsonRuleTargetInputServiceNow, _ := json.Marshal(dst.RuleTargetInputServiceNow)
+		if string(jsonRuleTargetInputServiceNow) == "{}" { // empty struct
+			dst.RuleTargetInputServiceNow = nil
+		} else {
+			if err = validator.Validate(dst.RuleTargetInputServiceNow); err != nil {
+				dst.RuleTargetInputServiceNow = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.RuleTargetInputServiceNow = nil
+	}
+
 	// try to unmarshal data into RuleTargetInputSlack
 	err = newStrictDecoder(data).Decode(&dst.RuleTargetInputSlack)
 	if err == nil {
@@ -203,10 +253,12 @@ func (dst *CreateNotificationRuleRequestTargetsInnerConfig) UnmarshalJSON(data [
 	if match > 1 { // more than 1 match
 		// reset to nil
 		dst.RuleTargetInputEmail = nil
+		dst.RuleTargetInputGoogleChat = nil
 		dst.RuleTargetInputGrafanaIrm = nil
 		dst.RuleTargetInputIncidentIo = nil
 		dst.RuleTargetInputMicrosoftTeams = nil
 		dst.RuleTargetInputPagerDuty = nil
+		dst.RuleTargetInputServiceNow = nil
 		dst.RuleTargetInputSlack = nil
 		dst.RuleTargetInputWebhook = nil
 
@@ -224,6 +276,10 @@ func (src CreateNotificationRuleRequestTargetsInnerConfig) MarshalJSON() ([]byte
 		return json.Marshal(&src.RuleTargetInputEmail)
 	}
 
+	if src.RuleTargetInputGoogleChat != nil {
+		return json.Marshal(&src.RuleTargetInputGoogleChat)
+	}
+
 	if src.RuleTargetInputGrafanaIrm != nil {
 		return json.Marshal(&src.RuleTargetInputGrafanaIrm)
 	}
@@ -238,6 +294,10 @@ func (src CreateNotificationRuleRequestTargetsInnerConfig) MarshalJSON() ([]byte
 
 	if src.RuleTargetInputPagerDuty != nil {
 		return json.Marshal(&src.RuleTargetInputPagerDuty)
+	}
+
+	if src.RuleTargetInputServiceNow != nil {
+		return json.Marshal(&src.RuleTargetInputServiceNow)
 	}
 
 	if src.RuleTargetInputSlack != nil {
@@ -260,6 +320,10 @@ func (obj *CreateNotificationRuleRequestTargetsInnerConfig) GetActualInstance() 
 		return obj.RuleTargetInputEmail
 	}
 
+	if obj.RuleTargetInputGoogleChat != nil {
+		return obj.RuleTargetInputGoogleChat
+	}
+
 	if obj.RuleTargetInputGrafanaIrm != nil {
 		return obj.RuleTargetInputGrafanaIrm
 	}
@@ -274,6 +338,10 @@ func (obj *CreateNotificationRuleRequestTargetsInnerConfig) GetActualInstance() 
 
 	if obj.RuleTargetInputPagerDuty != nil {
 		return obj.RuleTargetInputPagerDuty
+	}
+
+	if obj.RuleTargetInputServiceNow != nil {
+		return obj.RuleTargetInputServiceNow
 	}
 
 	if obj.RuleTargetInputSlack != nil {
@@ -294,6 +362,10 @@ func (obj CreateNotificationRuleRequestTargetsInnerConfig) GetActualInstanceValu
 		return *obj.RuleTargetInputEmail
 	}
 
+	if obj.RuleTargetInputGoogleChat != nil {
+		return *obj.RuleTargetInputGoogleChat
+	}
+
 	if obj.RuleTargetInputGrafanaIrm != nil {
 		return *obj.RuleTargetInputGrafanaIrm
 	}
@@ -308,6 +380,10 @@ func (obj CreateNotificationRuleRequestTargetsInnerConfig) GetActualInstanceValu
 
 	if obj.RuleTargetInputPagerDuty != nil {
 		return *obj.RuleTargetInputPagerDuty
+	}
+
+	if obj.RuleTargetInputServiceNow != nil {
+		return *obj.RuleTargetInputServiceNow
 	}
 
 	if obj.RuleTargetInputSlack != nil {

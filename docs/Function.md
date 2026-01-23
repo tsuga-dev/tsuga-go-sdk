@@ -6,12 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Normalizes the metric to events per second | 
 **Window** | **string** | Duration of the rolling window | 
+**Base** | **float32** | The base of the logarithm | 
+**Exponent** | **float32** | The exponent to raise values to | 
 
 ## Methods
 
 ### NewFunction
 
-`func NewFunction(type_ string, window string, ) *Function`
+`func NewFunction(type_ string, window string, base float32, exponent float32, ) *Function`
 
 NewFunction instantiates a new Function object
 This constructor will assign default values to properties that have it defined,
@@ -64,6 +66,46 @@ and a boolean to check if the value has been set.
 `func (o *Function) SetWindow(v string)`
 
 SetWindow sets Window field to given value.
+
+
+### GetBase
+
+`func (o *Function) GetBase() float32`
+
+GetBase returns the Base field if non-nil, zero value otherwise.
+
+### GetBaseOk
+
+`func (o *Function) GetBaseOk() (*float32, bool)`
+
+GetBaseOk returns a tuple with the Base field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBase
+
+`func (o *Function) SetBase(v float32)`
+
+SetBase sets Base field to given value.
+
+
+### GetExponent
+
+`func (o *Function) GetExponent() float32`
+
+GetExponent returns the Exponent field if non-nil, zero value otherwise.
+
+### GetExponentOk
+
+`func (o *Function) GetExponentOk() (*float32, bool)`
+
+GetExponentOk returns a tuple with the Exponent field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExponent
+
+`func (o *Function) SetExponent(v float32)`
+
+SetExponent sets Exponent field to given value.
 
 
 
