@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Display name of the notification rule | 
-**TeamsFilter** | **[]string** | Team IDs that narrow down the teams that can receive notifications from this rule | 
-**PrioritiesFilter** | **[]int32** | Priorities that narrow down the alerts that can trigger a notification | 
+**TeamsFilter** | [**CreateNotificationRuleRequestTeamsFilter**](CreateNotificationRuleRequestTeamsFilter.md) |  | 
+**PrioritiesFilter** | **[]float32** | Priorities that narrow down the alerts that can trigger a notification | 
 **TransitionTypesFilter** | **[]string** | Alert state transitions that can trigger a notification | 
 **Owner** | **string** | Team ID that owns and manages the rule | 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewCreateNotificationRuleRequest
 
-`func NewCreateNotificationRuleRequest(name string, teamsFilter []string, prioritiesFilter []int32, transitionTypesFilter []string, owner string, isActive bool, targets []CreateNotificationRuleRequestTargetsInner, ) *CreateNotificationRuleRequest`
+`func NewCreateNotificationRuleRequest(name string, teamsFilter CreateNotificationRuleRequestTeamsFilter, prioritiesFilter []float32, transitionTypesFilter []string, owner string, isActive bool, targets []CreateNotificationRuleRequestTargetsInner, ) *CreateNotificationRuleRequest`
 
 NewCreateNotificationRuleRequest instantiates a new CreateNotificationRuleRequest object
 This constructor will assign default values to properties that have it defined,
@@ -54,40 +54,40 @@ SetName sets Name field to given value.
 
 ### GetTeamsFilter
 
-`func (o *CreateNotificationRuleRequest) GetTeamsFilter() []string`
+`func (o *CreateNotificationRuleRequest) GetTeamsFilter() CreateNotificationRuleRequestTeamsFilter`
 
 GetTeamsFilter returns the TeamsFilter field if non-nil, zero value otherwise.
 
 ### GetTeamsFilterOk
 
-`func (o *CreateNotificationRuleRequest) GetTeamsFilterOk() (*[]string, bool)`
+`func (o *CreateNotificationRuleRequest) GetTeamsFilterOk() (*CreateNotificationRuleRequestTeamsFilter, bool)`
 
 GetTeamsFilterOk returns a tuple with the TeamsFilter field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTeamsFilter
 
-`func (o *CreateNotificationRuleRequest) SetTeamsFilter(v []string)`
+`func (o *CreateNotificationRuleRequest) SetTeamsFilter(v CreateNotificationRuleRequestTeamsFilter)`
 
 SetTeamsFilter sets TeamsFilter field to given value.
 
 
 ### GetPrioritiesFilter
 
-`func (o *CreateNotificationRuleRequest) GetPrioritiesFilter() []int32`
+`func (o *CreateNotificationRuleRequest) GetPrioritiesFilter() []float32`
 
 GetPrioritiesFilter returns the PrioritiesFilter field if non-nil, zero value otherwise.
 
 ### GetPrioritiesFilterOk
 
-`func (o *CreateNotificationRuleRequest) GetPrioritiesFilterOk() (*[]int32, bool)`
+`func (o *CreateNotificationRuleRequest) GetPrioritiesFilterOk() (*[]float32, bool)`
 
 GetPrioritiesFilterOk returns a tuple with the PrioritiesFilter field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrioritiesFilter
 
-`func (o *CreateNotificationRuleRequest) SetPrioritiesFilter(v []int32)`
+`func (o *CreateNotificationRuleRequest) SetPrioritiesFilter(v []float32)`
 
 SetPrioritiesFilter sets PrioritiesFilter field to given value.
 

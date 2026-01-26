@@ -12,8 +12,11 @@ Name | Type | Description | Notes
 **GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
 **TimeBucket** | Pointer to [**GraphVisualizationTimeseriesTimeBucket**](GraphVisualizationTimeseriesTimeBucket.md) |  | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
+**LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
+**Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
 **BackgroundMode** | Pointer to **string** | Controls whether the widget uses a solid or transparent background | [optional] 
 **Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the displayed value | [optional] 
+**Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
 **Query** | **string** | Log query that selects records for the list | 
 **ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each log entry | [optional] 
 **Note** | Pointer to **string** | Markdown-compatible text shown in the note | [optional] 
@@ -225,6 +228,56 @@ SetNormalizer sets Normalizer field to given value.
 
 HasNormalizer returns a boolean if a field has been set.
 
+### GetLegendMode
+
+`func (o *GraphVisualization) GetLegendMode() string`
+
+GetLegendMode returns the LegendMode field if non-nil, zero value otherwise.
+
+### GetLegendModeOk
+
+`func (o *GraphVisualization) GetLegendModeOk() (*string, bool)`
+
+GetLegendModeOk returns a tuple with the LegendMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLegendMode
+
+`func (o *GraphVisualization) SetLegendMode(v string)`
+
+SetLegendMode sets LegendMode field to given value.
+
+### HasLegendMode
+
+`func (o *GraphVisualization) HasLegendMode() bool`
+
+HasLegendMode returns a boolean if a field has been set.
+
+### GetThresholds
+
+`func (o *GraphVisualization) GetThresholds() []ThresholdMarker`
+
+GetThresholds returns the Thresholds field if non-nil, zero value otherwise.
+
+### GetThresholdsOk
+
+`func (o *GraphVisualization) GetThresholdsOk() (*[]ThresholdMarker, bool)`
+
+GetThresholdsOk returns a tuple with the Thresholds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetThresholds
+
+`func (o *GraphVisualization) SetThresholds(v []ThresholdMarker)`
+
+SetThresholds sets Thresholds field to given value.
+
+### HasThresholds
+
+`func (o *GraphVisualization) HasThresholds() bool`
+
+HasThresholds returns a boolean if a field has been set.
+
 ### GetBackgroundMode
 
 `func (o *GraphVisualization) GetBackgroundMode() string`
@@ -274,6 +327,31 @@ SetConditions sets Conditions field to given value.
 `func (o *GraphVisualization) HasConditions() bool`
 
 HasConditions returns a boolean if a field has been set.
+
+### GetPrecision
+
+`func (o *GraphVisualization) GetPrecision() float32`
+
+GetPrecision returns the Precision field if non-nil, zero value otherwise.
+
+### GetPrecisionOk
+
+`func (o *GraphVisualization) GetPrecisionOk() (*float32, bool)`
+
+GetPrecisionOk returns a tuple with the Precision field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrecision
+
+`func (o *GraphVisualization) SetPrecision(v float32)`
+
+SetPrecision sets Precision field to given value.
+
+### HasPrecision
+
+`func (o *GraphVisualization) HasPrecision() bool`
+
+HasPrecision returns a boolean if a field has been set.
 
 ### GetQuery
 

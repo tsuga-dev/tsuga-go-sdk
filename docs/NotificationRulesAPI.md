@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	createNotificationRuleRequest := *openapiclient.NewCreateNotificationRuleRequest("Name_example", []string{"TeamsFilter_example"}, []int32{int32(123)}, []string{"TransitionTypesFilter_example"}, "Owner_example", false, []openapiclient.CreateNotificationRuleRequestTargetsInner{*openapiclient.NewCreateNotificationRuleRequestTargetsInner("Id_example", openapiclient.createNotificationRule_request_targets_inner_config{RuleTargetInputEmail: openapiclient.NewRuleTargetInputEmail("Type_example", []string{"Addresses_example"})})}) // CreateNotificationRuleRequest | 
+	createNotificationRuleRequest := *openapiclient.NewCreateNotificationRuleRequest("Name_example", openapiclient.createNotificationRule_request_teamsFilter{CreateNotificationRuleRequestTeamsFilterOneOf: openapiclient.NewCreateNotificationRuleRequestTeamsFilterOneOf("Type_example", []string{"Teams_example"})}, []float32{float32(123)}, []string{"TransitionTypesFilter_example"}, "Owner_example", false, []openapiclient.CreateNotificationRuleRequestTargetsInner{*openapiclient.NewCreateNotificationRuleRequestTargetsInner("Id_example", openapiclient.createNotificationRule_request_targets_inner_config{RuleTargetInputEmail: openapiclient.NewRuleTargetInputEmail("Type_example", []string{"Addresses_example"})})}) // CreateNotificationRuleRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## DeleteNotificationRule
 
-> DeleteDashboard200Response DeleteNotificationRule(ctx, id).Execute()
+> DeleteIngestionApiKey200Response DeleteNotificationRule(ctx, id).Execute()
 
 
 
@@ -108,7 +108,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NotificationRulesAPI.DeleteNotificationRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteNotificationRule`: DeleteDashboard200Response
+	// response from `DeleteNotificationRule`: DeleteIngestionApiKey200Response
 	fmt.Fprintf(os.Stdout, "Response from `NotificationRulesAPI.DeleteNotificationRule`: %v\n", resp)
 }
 ```
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteDashboard200Response**](DeleteDashboard200Response.md)
+[**DeleteIngestionApiKey200Response**](DeleteIngestionApiKey200Response.md)
 
 ### Authorization
 
@@ -301,7 +301,7 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	createNotificationRuleRequest := *openapiclient.NewCreateNotificationRuleRequest("Name_example", []string{"TeamsFilter_example"}, []int32{int32(123)}, []string{"TransitionTypesFilter_example"}, "Owner_example", false, []openapiclient.CreateNotificationRuleRequestTargetsInner{*openapiclient.NewCreateNotificationRuleRequestTargetsInner("Id_example", openapiclient.createNotificationRule_request_targets_inner_config{RuleTargetInputEmail: openapiclient.NewRuleTargetInputEmail("Type_example", []string{"Addresses_example"})})}) // CreateNotificationRuleRequest | 
+	createNotificationRuleRequest := *openapiclient.NewCreateNotificationRuleRequest("Name_example", openapiclient.createNotificationRule_request_teamsFilter{CreateNotificationRuleRequestTeamsFilterOneOf: openapiclient.NewCreateNotificationRuleRequestTeamsFilterOneOf("Type_example", []string{"Teams_example"})}, []float32{float32(123)}, []string{"TransitionTypesFilter_example"}, "Owner_example", false, []openapiclient.CreateNotificationRuleRequestTargetsInner{*openapiclient.NewCreateNotificationRuleRequestTargetsInner("Id_example", openapiclient.createNotificationRule_request_targets_inner_config{RuleTargetInputEmail: openapiclient.NewRuleTargetInputEmail("Type_example", []string{"Addresses_example"})})}) // CreateNotificationRuleRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

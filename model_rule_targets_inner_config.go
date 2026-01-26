@@ -19,10 +19,12 @@ import (
 // RuleTargetsInnerConfig - Configuration describing how the alert was delivered
 type RuleTargetsInnerConfig struct {
 	RuleTargetConfigEmail *RuleTargetConfigEmail
+	RuleTargetConfigGoogleChat *RuleTargetConfigGoogleChat
 	RuleTargetConfigGrafanaIrm *RuleTargetConfigGrafanaIrm
 	RuleTargetConfigIncidentIo *RuleTargetConfigIncidentIo
 	RuleTargetConfigMicrosoftTeams *RuleTargetConfigMicrosoftTeams
 	RuleTargetConfigPagerDuty *RuleTargetConfigPagerDuty
+	RuleTargetConfigServiceNow *RuleTargetConfigServiceNow
 	RuleTargetConfigSlack *RuleTargetConfigSlack
 	RuleTargetConfigWebhook *RuleTargetConfigWebhook
 }
@@ -31,6 +33,13 @@ type RuleTargetsInnerConfig struct {
 func RuleTargetConfigEmailAsRuleTargetsInnerConfig(v *RuleTargetConfigEmail) RuleTargetsInnerConfig {
 	return RuleTargetsInnerConfig{
 		RuleTargetConfigEmail: v,
+	}
+}
+
+// RuleTargetConfigGoogleChatAsRuleTargetsInnerConfig is a convenience function that returns RuleTargetConfigGoogleChat wrapped in RuleTargetsInnerConfig
+func RuleTargetConfigGoogleChatAsRuleTargetsInnerConfig(v *RuleTargetConfigGoogleChat) RuleTargetsInnerConfig {
+	return RuleTargetsInnerConfig{
+		RuleTargetConfigGoogleChat: v,
 	}
 }
 
@@ -59,6 +68,13 @@ func RuleTargetConfigMicrosoftTeamsAsRuleTargetsInnerConfig(v *RuleTargetConfigM
 func RuleTargetConfigPagerDutyAsRuleTargetsInnerConfig(v *RuleTargetConfigPagerDuty) RuleTargetsInnerConfig {
 	return RuleTargetsInnerConfig{
 		RuleTargetConfigPagerDuty: v,
+	}
+}
+
+// RuleTargetConfigServiceNowAsRuleTargetsInnerConfig is a convenience function that returns RuleTargetConfigServiceNow wrapped in RuleTargetsInnerConfig
+func RuleTargetConfigServiceNowAsRuleTargetsInnerConfig(v *RuleTargetConfigServiceNow) RuleTargetsInnerConfig {
+	return RuleTargetsInnerConfig{
+		RuleTargetConfigServiceNow: v,
 	}
 }
 
@@ -96,6 +112,23 @@ func (dst *RuleTargetsInnerConfig) UnmarshalJSON(data []byte) error {
 		}
 	} else {
 		dst.RuleTargetConfigEmail = nil
+	}
+
+	// try to unmarshal data into RuleTargetConfigGoogleChat
+	err = newStrictDecoder(data).Decode(&dst.RuleTargetConfigGoogleChat)
+	if err == nil {
+		jsonRuleTargetConfigGoogleChat, _ := json.Marshal(dst.RuleTargetConfigGoogleChat)
+		if string(jsonRuleTargetConfigGoogleChat) == "{}" { // empty struct
+			dst.RuleTargetConfigGoogleChat = nil
+		} else {
+			if err = validator.Validate(dst.RuleTargetConfigGoogleChat); err != nil {
+				dst.RuleTargetConfigGoogleChat = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.RuleTargetConfigGoogleChat = nil
 	}
 
 	// try to unmarshal data into RuleTargetConfigGrafanaIrm
@@ -166,6 +199,23 @@ func (dst *RuleTargetsInnerConfig) UnmarshalJSON(data []byte) error {
 		dst.RuleTargetConfigPagerDuty = nil
 	}
 
+	// try to unmarshal data into RuleTargetConfigServiceNow
+	err = newStrictDecoder(data).Decode(&dst.RuleTargetConfigServiceNow)
+	if err == nil {
+		jsonRuleTargetConfigServiceNow, _ := json.Marshal(dst.RuleTargetConfigServiceNow)
+		if string(jsonRuleTargetConfigServiceNow) == "{}" { // empty struct
+			dst.RuleTargetConfigServiceNow = nil
+		} else {
+			if err = validator.Validate(dst.RuleTargetConfigServiceNow); err != nil {
+				dst.RuleTargetConfigServiceNow = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.RuleTargetConfigServiceNow = nil
+	}
+
 	// try to unmarshal data into RuleTargetConfigSlack
 	err = newStrictDecoder(data).Decode(&dst.RuleTargetConfigSlack)
 	if err == nil {
@@ -203,10 +253,12 @@ func (dst *RuleTargetsInnerConfig) UnmarshalJSON(data []byte) error {
 	if match > 1 { // more than 1 match
 		// reset to nil
 		dst.RuleTargetConfigEmail = nil
+		dst.RuleTargetConfigGoogleChat = nil
 		dst.RuleTargetConfigGrafanaIrm = nil
 		dst.RuleTargetConfigIncidentIo = nil
 		dst.RuleTargetConfigMicrosoftTeams = nil
 		dst.RuleTargetConfigPagerDuty = nil
+		dst.RuleTargetConfigServiceNow = nil
 		dst.RuleTargetConfigSlack = nil
 		dst.RuleTargetConfigWebhook = nil
 
@@ -224,6 +276,10 @@ func (src RuleTargetsInnerConfig) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.RuleTargetConfigEmail)
 	}
 
+	if src.RuleTargetConfigGoogleChat != nil {
+		return json.Marshal(&src.RuleTargetConfigGoogleChat)
+	}
+
 	if src.RuleTargetConfigGrafanaIrm != nil {
 		return json.Marshal(&src.RuleTargetConfigGrafanaIrm)
 	}
@@ -238,6 +294,10 @@ func (src RuleTargetsInnerConfig) MarshalJSON() ([]byte, error) {
 
 	if src.RuleTargetConfigPagerDuty != nil {
 		return json.Marshal(&src.RuleTargetConfigPagerDuty)
+	}
+
+	if src.RuleTargetConfigServiceNow != nil {
+		return json.Marshal(&src.RuleTargetConfigServiceNow)
 	}
 
 	if src.RuleTargetConfigSlack != nil {
@@ -260,6 +320,10 @@ func (obj *RuleTargetsInnerConfig) GetActualInstance() (interface{}) {
 		return obj.RuleTargetConfigEmail
 	}
 
+	if obj.RuleTargetConfigGoogleChat != nil {
+		return obj.RuleTargetConfigGoogleChat
+	}
+
 	if obj.RuleTargetConfigGrafanaIrm != nil {
 		return obj.RuleTargetConfigGrafanaIrm
 	}
@@ -274,6 +338,10 @@ func (obj *RuleTargetsInnerConfig) GetActualInstance() (interface{}) {
 
 	if obj.RuleTargetConfigPagerDuty != nil {
 		return obj.RuleTargetConfigPagerDuty
+	}
+
+	if obj.RuleTargetConfigServiceNow != nil {
+		return obj.RuleTargetConfigServiceNow
 	}
 
 	if obj.RuleTargetConfigSlack != nil {
@@ -294,6 +362,10 @@ func (obj RuleTargetsInnerConfig) GetActualInstanceValue() (interface{}) {
 		return *obj.RuleTargetConfigEmail
 	}
 
+	if obj.RuleTargetConfigGoogleChat != nil {
+		return *obj.RuleTargetConfigGoogleChat
+	}
+
 	if obj.RuleTargetConfigGrafanaIrm != nil {
 		return *obj.RuleTargetConfigGrafanaIrm
 	}
@@ -308,6 +380,10 @@ func (obj RuleTargetsInnerConfig) GetActualInstanceValue() (interface{}) {
 
 	if obj.RuleTargetConfigPagerDuty != nil {
 		return *obj.RuleTargetConfigPagerDuty
+	}
+
+	if obj.RuleTargetConfigServiceNow != nil {
+		return *obj.RuleTargetConfigServiceNow
 	}
 
 	if obj.RuleTargetConfigSlack != nil {

@@ -10,13 +10,13 @@ Name | Type | Description | Notes
 **Query** | **string** | Query that selects which logs should enter the route | 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
 **Owner** | **string** | Team ID owning and managing the route | 
-**Processors** | [**[]CreateRouteRequestProcessorsInner**](CreateRouteRequestProcessorsInner.md) | Ordered processors applied to logs that match the route | 
+**Processors** | [**[]Processor**](Processor.md) | Ordered processors applied to logs that match the route | 
 
 ## Methods
 
 ### NewCreateRouteRequest
 
-`func NewCreateRouteRequest(name string, isEnabled bool, query string, owner string, processors []CreateRouteRequestProcessorsInner, ) *CreateRouteRequest`
+`func NewCreateRouteRequest(name string, isEnabled bool, query string, owner string, processors []Processor, ) *CreateRouteRequest`
 
 NewCreateRouteRequest instantiates a new CreateRouteRequest object
 This constructor will assign default values to properties that have it defined,
@@ -163,20 +163,20 @@ SetOwner sets Owner field to given value.
 
 ### GetProcessors
 
-`func (o *CreateRouteRequest) GetProcessors() []CreateRouteRequestProcessorsInner`
+`func (o *CreateRouteRequest) GetProcessors() []Processor`
 
 GetProcessors returns the Processors field if non-nil, zero value otherwise.
 
 ### GetProcessorsOk
 
-`func (o *CreateRouteRequest) GetProcessorsOk() (*[]CreateRouteRequestProcessorsInner, bool)`
+`func (o *CreateRouteRequest) GetProcessorsOk() (*[]Processor, bool)`
 
 GetProcessorsOk returns a tuple with the Processors field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProcessors
 
-`func (o *CreateRouteRequest) SetProcessors(v []CreateRouteRequestProcessorsInner)`
+`func (o *CreateRouteRequest) SetProcessors(v []Processor)`
 
 SetProcessors sets Processors field to given value.
 

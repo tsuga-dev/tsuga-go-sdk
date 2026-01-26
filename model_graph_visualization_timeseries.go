@@ -35,6 +35,10 @@ type GraphVisualizationTimeseries struct {
 	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
 	TimeBucket *GraphVisualizationTimeseriesTimeBucket `json:"timeBucket,omitempty"`
 	Normalizer *Normalizer `json:"normalizer,omitempty"`
+	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
+	LegendMode *string `json:"legendMode,omitempty"`
+	// Threshold markers displayed on the chart
+	Thresholds []ThresholdMarker `json:"thresholds,omitempty"`
 }
 
 type _GraphVisualizationTimeseries GraphVisualizationTimeseries
@@ -291,6 +295,70 @@ func (o *GraphVisualizationTimeseries) SetNormalizer(v Normalizer) {
 	o.Normalizer = &v
 }
 
+// GetLegendMode returns the LegendMode field value if set, zero value otherwise.
+func (o *GraphVisualizationTimeseries) GetLegendMode() string {
+	if o == nil || IsNil(o.LegendMode) {
+		var ret string
+		return ret
+	}
+	return *o.LegendMode
+}
+
+// GetLegendModeOk returns a tuple with the LegendMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationTimeseries) GetLegendModeOk() (*string, bool) {
+	if o == nil || IsNil(o.LegendMode) {
+		return nil, false
+	}
+	return o.LegendMode, true
+}
+
+// HasLegendMode returns a boolean if a field has been set.
+func (o *GraphVisualizationTimeseries) HasLegendMode() bool {
+	if o != nil && !IsNil(o.LegendMode) {
+		return true
+	}
+
+	return false
+}
+
+// SetLegendMode gets a reference to the given string and assigns it to the LegendMode field.
+func (o *GraphVisualizationTimeseries) SetLegendMode(v string) {
+	o.LegendMode = &v
+}
+
+// GetThresholds returns the Thresholds field value if set, zero value otherwise.
+func (o *GraphVisualizationTimeseries) GetThresholds() []ThresholdMarker {
+	if o == nil || IsNil(o.Thresholds) {
+		var ret []ThresholdMarker
+		return ret
+	}
+	return o.Thresholds
+}
+
+// GetThresholdsOk returns a tuple with the Thresholds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationTimeseries) GetThresholdsOk() ([]ThresholdMarker, bool) {
+	if o == nil || IsNil(o.Thresholds) {
+		return nil, false
+	}
+	return o.Thresholds, true
+}
+
+// HasThresholds returns a boolean if a field has been set.
+func (o *GraphVisualizationTimeseries) HasThresholds() bool {
+	if o != nil && !IsNil(o.Thresholds) {
+		return true
+	}
+
+	return false
+}
+
+// SetThresholds gets a reference to the given []ThresholdMarker and assigns it to the Thresholds field.
+func (o *GraphVisualizationTimeseries) SetThresholds(v []ThresholdMarker) {
+	o.Thresholds = v
+}
+
 func (o GraphVisualizationTimeseries) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -318,6 +386,12 @@ func (o GraphVisualizationTimeseries) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Normalizer) {
 		toSerialize["normalizer"] = o.Normalizer
+	}
+	if !IsNil(o.LegendMode) {
+		toSerialize["legendMode"] = o.LegendMode
+	}
+	if !IsNil(o.Thresholds) {
+		toSerialize["thresholds"] = o.Thresholds
 	}
 	return toSerialize, nil
 }

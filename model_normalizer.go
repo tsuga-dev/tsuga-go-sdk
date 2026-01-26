@@ -23,6 +23,7 @@ type Normalizer struct {
 	DataNormalizerDate *DataNormalizerDate
 	DataNormalizerDuration *DataNormalizerDuration
 	DataNormalizerLevel *DataNormalizerLevel
+	DataNormalizerPercent *DataNormalizerPercent
 }
 
 // DataNormalizerCustomAsNormalizer is a convenience function that returns DataNormalizerCustom wrapped in Normalizer
@@ -57,6 +58,13 @@ func DataNormalizerDurationAsNormalizer(v *DataNormalizerDuration) Normalizer {
 func DataNormalizerLevelAsNormalizer(v *DataNormalizerLevel) Normalizer {
 	return Normalizer{
 		DataNormalizerLevel: v,
+	}
+}
+
+// DataNormalizerPercentAsNormalizer is a convenience function that returns DataNormalizerPercent wrapped in Normalizer
+func DataNormalizerPercentAsNormalizer(v *DataNormalizerPercent) Normalizer {
+	return Normalizer{
+		DataNormalizerPercent: v,
 	}
 }
 
@@ -150,6 +158,23 @@ func (dst *Normalizer) UnmarshalJSON(data []byte) error {
 		dst.DataNormalizerLevel = nil
 	}
 
+	// try to unmarshal data into DataNormalizerPercent
+	err = newStrictDecoder(data).Decode(&dst.DataNormalizerPercent)
+	if err == nil {
+		jsonDataNormalizerPercent, _ := json.Marshal(dst.DataNormalizerPercent)
+		if string(jsonDataNormalizerPercent) == "{}" { // empty struct
+			dst.DataNormalizerPercent = nil
+		} else {
+			if err = validator.Validate(dst.DataNormalizerPercent); err != nil {
+				dst.DataNormalizerPercent = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.DataNormalizerPercent = nil
+	}
+
 	if match > 1 { // more than 1 match
 		// reset to nil
 		dst.DataNormalizerCustom = nil
@@ -157,6 +182,7 @@ func (dst *Normalizer) UnmarshalJSON(data []byte) error {
 		dst.DataNormalizerDate = nil
 		dst.DataNormalizerDuration = nil
 		dst.DataNormalizerLevel = nil
+		dst.DataNormalizerPercent = nil
 
 		return fmt.Errorf("data matches more than one schema in oneOf(Normalizer)")
 	} else if match == 1 {
@@ -188,6 +214,10 @@ func (src Normalizer) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.DataNormalizerLevel)
 	}
 
+	if src.DataNormalizerPercent != nil {
+		return json.Marshal(&src.DataNormalizerPercent)
+	}
+
 	return nil, nil // no data in oneOf schemas
 }
 
@@ -216,6 +246,10 @@ func (obj *Normalizer) GetActualInstance() (interface{}) {
 		return obj.DataNormalizerLevel
 	}
 
+	if obj.DataNormalizerPercent != nil {
+		return obj.DataNormalizerPercent
+	}
+
 	// all schemas are nil
 	return nil
 }
@@ -240,6 +274,10 @@ func (obj Normalizer) GetActualInstanceValue() (interface{}) {
 
 	if obj.DataNormalizerLevel != nil {
 		return *obj.DataNormalizerLevel
+	}
+
+	if obj.DataNormalizerPercent != nil {
+		return *obj.DataNormalizerPercent
 	}
 
 	// all schemas are nil

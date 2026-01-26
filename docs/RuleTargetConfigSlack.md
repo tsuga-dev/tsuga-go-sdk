@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **Channel** | **string** | Slack channel ID that receives the notification | 
 **IntegrationId** | **string** | Slack workspace ID that receives the notification | 
 **IntegrationName** | **string** | Human readable name of the Slack integration | 
+**HideTransition** | Pointer to **bool** | When true, the transition info (e.g., \&quot;from ok to alert\&quot;) is hidden from the Slack message | [optional] 
+**HideTime** | Pointer to **bool** | When true, the timestamp is hidden from the Slack message | [optional] 
 
 ## Methods
 
@@ -107,6 +109,56 @@ and a boolean to check if the value has been set.
 
 SetIntegrationName sets IntegrationName field to given value.
 
+
+### GetHideTransition
+
+`func (o *RuleTargetConfigSlack) GetHideTransition() bool`
+
+GetHideTransition returns the HideTransition field if non-nil, zero value otherwise.
+
+### GetHideTransitionOk
+
+`func (o *RuleTargetConfigSlack) GetHideTransitionOk() (*bool, bool)`
+
+GetHideTransitionOk returns a tuple with the HideTransition field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHideTransition
+
+`func (o *RuleTargetConfigSlack) SetHideTransition(v bool)`
+
+SetHideTransition sets HideTransition field to given value.
+
+### HasHideTransition
+
+`func (o *RuleTargetConfigSlack) HasHideTransition() bool`
+
+HasHideTransition returns a boolean if a field has been set.
+
+### GetHideTime
+
+`func (o *RuleTargetConfigSlack) GetHideTime() bool`
+
+GetHideTime returns the HideTime field if non-nil, zero value otherwise.
+
+### GetHideTimeOk
+
+`func (o *RuleTargetConfigSlack) GetHideTimeOk() (*bool, bool)`
+
+GetHideTimeOk returns a tuple with the HideTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHideTime
+
+`func (o *RuleTargetConfigSlack) SetHideTime(v bool)`
+
+SetHideTime sets HideTime field to given value.
+
+### HasHideTime
+
+`func (o *RuleTargetConfigSlack) HasHideTime() bool`
+
+HasHideTime returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
