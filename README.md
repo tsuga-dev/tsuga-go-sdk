@@ -255,7 +255,7 @@ Class | Method | HTTP request | Description
  - [RuleTargetsInner](docs/RuleTargetsInner.md)
  - [RuleTargetsInnerConfig](docs/RuleTargetsInnerConfig.md)
  - [RuleTeamsFilter](docs/RuleTeamsFilter.md)
- - [RuleTeamsFilterAnyOf](docs/RuleTeamsFilterAnyOf.md)
+ - [RuleTeamsFilterOneOf](docs/RuleTeamsFilterOneOf.md)
  - [Tag](docs/Tag.md)
  - [Team](docs/Team.md)
  - [ThresholdMarker](docs/ThresholdMarker.md)
