@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** |  | 
-**Teams** | **[]string** | Team IDs that narrow down the teams that can receive notifications from this rule | 
+**Teams** | **[]string** | Team IDs to select | 
 
 ## Methods
 

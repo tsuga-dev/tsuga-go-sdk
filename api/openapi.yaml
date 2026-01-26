@@ -1153,6 +1153,8 @@ components:
           enum:
           - ABORT_ERROR
           - BAD_REQUEST
+          - DUPLICATE_KEY_VIOLATION
+          - FOREIGN_KEY_VIOLATION
           - FST_ERR_VALIDATION
           - INVALID_INPUT
           - INTERNAL_ERROR
@@ -1232,23 +1234,24 @@ components:
         owner: owner
         graphs:
         - layout:
-            w: 2.3021358869347655
-            x: 5.962133916683182
-            h: 7.061401241503109
-            "y": 5.637376656633329
+            w: 7.061401241503109
+            x: 5.637376656633329
+            h: 9.301444243932576
+            "y": 2.3021358869347655
           visualization:
             visibleSeries:
             - true
             - true
             thresholds:
             - level: alert
-              value: 1.4658129805029452
+              value: 5.962133916683182
             - level: alert
-              value: 1.4658129805029452
+              value: 5.962133916683182
             normalizer:
               unit: ns
               type: duration
             legendMode: table
+            precision: 1.4658129805029452
             formula: formula
             timeBucket:
               metric: sec
@@ -1332,23 +1335,24 @@ components:
           name: name
           id: id
         - layout:
-            w: 2.3021358869347655
-            x: 5.962133916683182
-            h: 7.061401241503109
-            "y": 5.637376656633329
+            w: 7.061401241503109
+            x: 5.637376656633329
+            h: 9.301444243932576
+            "y": 2.3021358869347655
           visualization:
             visibleSeries:
             - true
             - true
             thresholds:
             - level: alert
-              value: 1.4658129805029452
+              value: 5.962133916683182
             - level: alert
-              value: 1.4658129805029452
+              value: 5.962133916683182
             normalizer:
               unit: ns
               type: duration
             legendMode: table
+            precision: 1.4658129805029452
             formula: formula
             timeBucket:
               metric: sec
@@ -1667,8 +1671,10 @@ components:
         id: id
         isActive: true
         teamsFilter:
-        - Rule_teamsFilter
-        - Rule_teamsFilter
+          teams:
+          - teams
+          - teams
+          type: specific-teams
         targets:
         - rateLimit:
             minutes: 1
@@ -2531,7 +2537,7 @@ components:
           type: string
         noDataBehavior:
           enum:
-          - resolve
+          - keep_last_status
           type: string
         filter:
           $ref: "#/components/schemas/MonitorConfigurationLogErrorPattern_filter"
@@ -3104,13 +3110,14 @@ components:
         - true
         thresholds:
         - level: alert
-          value: 1.4658129805029452
+          value: 5.962133916683182
         - level: alert
-          value: 1.4658129805029452
+          value: 5.962133916683182
         normalizer:
           unit: ns
           type: duration
         legendMode: table
+        precision: 1.4658129805029452
         formula: formula
         timeBucket:
           metric: sec
@@ -3231,6 +3238,9 @@ components:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_timeBucket"
         normalizer:
           $ref: "#/components/schemas/Normalizer"
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
         legendMode:
           description: "Controls whether and how the widget displays legend or series\
             \ details (e.g. table, legend-only, or no legend)"
@@ -3289,6 +3299,9 @@ components:
           type: array
         normalizer:
           $ref: "#/components/schemas/Normalizer"
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
       required:
       - queries
       - source
@@ -3334,6 +3347,9 @@ components:
           type: array
         normalizer:
           $ref: "#/components/schemas/Normalizer"
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
         legendMode:
           description: "Controls whether and how the widget displays legend or series\
             \ details (e.g. table, legend-only, or no legend)"
@@ -3448,6 +3464,9 @@ components:
           type: array
         timeBucket:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_timeBucket"
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
         normalizer:
           $ref: "#/components/schemas/Normalizer"
         thresholds:
@@ -3945,23 +3964,24 @@ components:
         - owner: owner
           graphs:
           - layout:
-              w: 2.3021358869347655
-              x: 5.962133916683182
-              h: 7.061401241503109
-              "y": 5.637376656633329
+              w: 7.061401241503109
+              x: 5.637376656633329
+              h: 9.301444243932576
+              "y": 2.3021358869347655
             visualization:
               visibleSeries:
               - true
               - true
               thresholds:
               - level: alert
-                value: 1.4658129805029452
+                value: 5.962133916683182
               - level: alert
-                value: 1.4658129805029452
+                value: 5.962133916683182
               normalizer:
                 unit: ns
                 type: duration
               legendMode: table
+              precision: 1.4658129805029452
               formula: formula
               timeBucket:
                 metric: sec
@@ -4045,23 +4065,24 @@ components:
             name: name
             id: id
           - layout:
-              w: 2.3021358869347655
-              x: 5.962133916683182
-              h: 7.061401241503109
-              "y": 5.637376656633329
+              w: 7.061401241503109
+              x: 5.637376656633329
+              h: 9.301444243932576
+              "y": 2.3021358869347655
             visualization:
               visibleSeries:
               - true
               - true
               thresholds:
               - level: alert
-                value: 1.4658129805029452
+                value: 5.962133916683182
               - level: alert
-                value: 1.4658129805029452
+                value: 5.962133916683182
               normalizer:
                 unit: ns
                 type: duration
               legendMode: table
+              precision: 1.4658129805029452
               formula: formula
               timeBucket:
                 metric: sec
@@ -4164,23 +4185,24 @@ components:
         - owner: owner
           graphs:
           - layout:
-              w: 2.3021358869347655
-              x: 5.962133916683182
-              h: 7.061401241503109
-              "y": 5.637376656633329
+              w: 7.061401241503109
+              x: 5.637376656633329
+              h: 9.301444243932576
+              "y": 2.3021358869347655
             visualization:
               visibleSeries:
               - true
               - true
               thresholds:
               - level: alert
-                value: 1.4658129805029452
+                value: 5.962133916683182
               - level: alert
-                value: 1.4658129805029452
+                value: 5.962133916683182
               normalizer:
                 unit: ns
                 type: duration
               legendMode: table
+              precision: 1.4658129805029452
               formula: formula
               timeBucket:
                 metric: sec
@@ -4264,23 +4286,24 @@ components:
             name: name
             id: id
           - layout:
-              w: 2.3021358869347655
-              x: 5.962133916683182
-              h: 7.061401241503109
-              "y": 5.637376656633329
+              w: 7.061401241503109
+              x: 5.637376656633329
+              h: 9.301444243932576
+              "y": 2.3021358869347655
             visualization:
               visibleSeries:
               - true
               - true
               thresholds:
               - level: alert
-                value: 1.4658129805029452
+                value: 5.962133916683182
               - level: alert
-                value: 1.4658129805029452
+                value: 5.962133916683182
               normalizer:
                 unit: ns
                 type: duration
               legendMode: table
+              precision: 1.4658129805029452
               formula: formula
               timeBucket:
                 metric: sec
@@ -4410,10 +4433,10 @@ components:
     Graph_layout:
       description: Grid layout coordinates for this widget
       example:
-        w: 2.3021358869347655
-        x: 5.962133916683182
-        h: 7.061401241503109
-        "y": 5.637376656633329
+        w: 7.061401241503109
+        x: 5.637376656633329
+        h: 9.301444243932576
+        "y": 2.3021358869347655
       properties:
         x:
           description: Horizontal grid position of the widget
@@ -4436,23 +4459,24 @@ components:
     Graph:
       example:
         layout:
-          w: 2.3021358869347655
-          x: 5.962133916683182
-          h: 7.061401241503109
-          "y": 5.637376656633329
+          w: 7.061401241503109
+          x: 5.637376656633329
+          h: 9.301444243932576
+          "y": 2.3021358869347655
         visualization:
           visibleSeries:
           - true
           - true
           thresholds:
           - level: alert
-            value: 1.4658129805029452
+            value: 5.962133916683182
           - level: alert
-            value: 1.4658129805029452
+            value: 5.962133916683182
           normalizer:
             unit: ns
             type: duration
           legendMode: table
+          precision: 1.4658129805029452
           formula: formula
           timeBucket:
             metric: sec
@@ -4624,23 +4648,24 @@ components:
           owner: owner
           graphs:
           - layout:
-              w: 2.3021358869347655
-              x: 5.962133916683182
-              h: 7.061401241503109
-              "y": 5.637376656633329
+              w: 7.061401241503109
+              x: 5.637376656633329
+              h: 9.301444243932576
+              "y": 2.3021358869347655
             visualization:
               visibleSeries:
               - true
               - true
               thresholds:
               - level: alert
-                value: 1.4658129805029452
+                value: 5.962133916683182
               - level: alert
-                value: 1.4658129805029452
+                value: 5.962133916683182
               normalizer:
                 unit: ns
                 type: duration
               legendMode: table
+              precision: 1.4658129805029452
               formula: formula
               timeBucket:
                 metric: sec
@@ -4724,23 +4749,24 @@ components:
             name: name
             id: id
           - layout:
-              w: 2.3021358869347655
-              x: 5.962133916683182
-              h: 7.061401241503109
-              "y": 5.637376656633329
+              w: 7.061401241503109
+              x: 5.637376656633329
+              h: 9.301444243932576
+              "y": 2.3021358869347655
             visualization:
               visibleSeries:
               - true
               - true
               thresholds:
               - level: alert
-                value: 1.4658129805029452
+                value: 5.962133916683182
               - level: alert
-                value: 1.4658129805029452
+                value: 5.962133916683182
               normalizer:
                 unit: ns
                 type: duration
               legendMode: table
+              precision: 1.4658129805029452
               formula: formula
               timeBucket:
                 metric: sec
@@ -5296,8 +5322,10 @@ components:
           id: id
           isActive: true
           teamsFilter:
-          - Rule_teamsFilter
-          - Rule_teamsFilter
+            teams:
+            - teams
+            - teams
+            type: specific-teams
           targets:
           - rateLimit:
               minutes: 1
@@ -5355,8 +5383,10 @@ components:
           id: id
           isActive: true
           teamsFilter:
-          - Rule_teamsFilter
-          - Rule_teamsFilter
+            teams:
+            - teams
+            - teams
+            type: specific-teams
           targets:
           - rateLimit:
               minutes: 1
@@ -5423,13 +5453,13 @@ components:
           - specific-teams
           type: string
         teams:
-          description: Team IDs that narrow down the teams that can receive notifications
-            from this rule
+          description: Team IDs to select
           items:
             maxLength: 250
             minLength: 0
             type: string
           maxItems: 100
+          minItems: 1
           type: array
       required:
       - teams
@@ -5621,8 +5651,10 @@ components:
           id: id
           isActive: true
           teamsFilter:
-          - Rule_teamsFilter
-          - Rule_teamsFilter
+            teams:
+            - teams
+            - teams
+            type: specific-teams
           targets:
           - rateLimit:
               minutes: 1
@@ -6235,15 +6267,19 @@ components:
       - data
       - requestId
       type: object
-    Rule_teamsFilter_anyOf:
+    Rule_teamsFilter_oneOf:
+      example:
+        teams:
+        - teams
+        - teams
+        type: specific-teams
       properties:
         type:
           enum:
           - specific-teams
           type: string
         teams:
-          description: Team IDs that narrow down the teams that can receive notifications
-            from this rule
+          description: Team IDs to select
           items:
             type: string
           type: array
@@ -6252,15 +6288,15 @@ components:
       - type
       type: object
     Rule_teamsFilter:
-      anyOf:
-      - description: Team IDs that narrow down the teams that can receive notifications
-          from this rule
-        items:
-          type: string
-        type: array
-      - $ref: "#/components/schemas/Rule_teamsFilter_anyOf"
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/Rule_teamsFilter_oneOf"
       - $ref: "#/components/schemas/createNotificationRule_request_teamsFilter_oneOf_1"
       - $ref: "#/components/schemas/createNotificationRule_request_teamsFilter_oneOf_2"
+      required:
+      - type
+      type: object
     Rule_targets_inner_config:
       description: Configuration describing how the alert was delivered
       discriminator:
@@ -6924,7 +6960,7 @@ components:
     ThresholdMarker:
       example:
         level: alert
-        value: 1.4658129805029452
+        value: 5.962133916683182
       properties:
         value:
           description: Y-axis value where the threshold marker is placed

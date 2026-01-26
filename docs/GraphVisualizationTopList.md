@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
 **GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
+**Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
 
 ## Methods
 
@@ -190,6 +191,31 @@ SetNormalizer sets Normalizer field to given value.
 `func (o *GraphVisualizationTopList) HasNormalizer() bool`
 
 HasNormalizer returns a boolean if a field has been set.
+
+### GetPrecision
+
+`func (o *GraphVisualizationTopList) GetPrecision() float32`
+
+GetPrecision returns the Precision field if non-nil, zero value otherwise.
+
+### GetPrecisionOk
+
+`func (o *GraphVisualizationTopList) GetPrecisionOk() (*float32, bool)`
+
+GetPrecisionOk returns a tuple with the Precision field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrecision
+
+`func (o *GraphVisualizationTopList) SetPrecision(v float32)`
+
+SetPrecision sets Precision field to given value.
+
+### HasPrecision
+
+`func (o *GraphVisualizationTopList) HasPrecision() bool`
+
+HasPrecision returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

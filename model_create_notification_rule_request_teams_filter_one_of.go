@@ -22,7 +22,7 @@ var _ MappedNullable = &CreateNotificationRuleRequestTeamsFilterOneOf{}
 // CreateNotificationRuleRequestTeamsFilterOneOf struct for CreateNotificationRuleRequestTeamsFilterOneOf
 type CreateNotificationRuleRequestTeamsFilterOneOf struct {
 	Type string `json:"type"`
-	// Team IDs that narrow down the teams that can receive notifications from this rule
+	// Team IDs to select
 	Teams []string `json:"teams"`
 }
 

@@ -13,73 +13,105 @@ package tsuga
 import (
 	"encoding/json"
 	"fmt"
+	"gopkg.in/validator.v2"
 )
 
-
-// RuleTeamsFilter struct for RuleTeamsFilter
+// RuleTeamsFilter - struct for RuleTeamsFilter
 type RuleTeamsFilter struct {
 	CreateNotificationRuleRequestTeamsFilterOneOf1 *CreateNotificationRuleRequestTeamsFilterOneOf1
 	CreateNotificationRuleRequestTeamsFilterOneOf2 *CreateNotificationRuleRequestTeamsFilterOneOf2
-	RuleTeamsFilterAnyOf *RuleTeamsFilterAnyOf
-	ArrayOfString *[]string
+	RuleTeamsFilterOneOf *RuleTeamsFilterOneOf
 }
 
-// Unmarshal JSON data into any of the pointers in the struct
+// CreateNotificationRuleRequestTeamsFilterOneOf1AsRuleTeamsFilter is a convenience function that returns CreateNotificationRuleRequestTeamsFilterOneOf1 wrapped in RuleTeamsFilter
+func CreateNotificationRuleRequestTeamsFilterOneOf1AsRuleTeamsFilter(v *CreateNotificationRuleRequestTeamsFilterOneOf1) RuleTeamsFilter {
+	return RuleTeamsFilter{
+		CreateNotificationRuleRequestTeamsFilterOneOf1: v,
+	}
+}
+
+// CreateNotificationRuleRequestTeamsFilterOneOf2AsRuleTeamsFilter is a convenience function that returns CreateNotificationRuleRequestTeamsFilterOneOf2 wrapped in RuleTeamsFilter
+func CreateNotificationRuleRequestTeamsFilterOneOf2AsRuleTeamsFilter(v *CreateNotificationRuleRequestTeamsFilterOneOf2) RuleTeamsFilter {
+	return RuleTeamsFilter{
+		CreateNotificationRuleRequestTeamsFilterOneOf2: v,
+	}
+}
+
+// RuleTeamsFilterOneOfAsRuleTeamsFilter is a convenience function that returns RuleTeamsFilterOneOf wrapped in RuleTeamsFilter
+func RuleTeamsFilterOneOfAsRuleTeamsFilter(v *RuleTeamsFilterOneOf) RuleTeamsFilter {
+	return RuleTeamsFilter{
+		RuleTeamsFilterOneOf: v,
+	}
+}
+
+
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *RuleTeamsFilter) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal JSON data into CreateNotificationRuleRequestTeamsFilterOneOf1
-	err = json.Unmarshal(data, &dst.CreateNotificationRuleRequestTeamsFilterOneOf1);
+	match := 0
+	// try to unmarshal data into CreateNotificationRuleRequestTeamsFilterOneOf1
+	err = newStrictDecoder(data).Decode(&dst.CreateNotificationRuleRequestTeamsFilterOneOf1)
 	if err == nil {
 		jsonCreateNotificationRuleRequestTeamsFilterOneOf1, _ := json.Marshal(dst.CreateNotificationRuleRequestTeamsFilterOneOf1)
 		if string(jsonCreateNotificationRuleRequestTeamsFilterOneOf1) == "{}" { // empty struct
 			dst.CreateNotificationRuleRequestTeamsFilterOneOf1 = nil
 		} else {
-			return nil // data stored in dst.CreateNotificationRuleRequestTeamsFilterOneOf1, return on the first match
+			if err = validator.Validate(dst.CreateNotificationRuleRequestTeamsFilterOneOf1); err != nil {
+				dst.CreateNotificationRuleRequestTeamsFilterOneOf1 = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.CreateNotificationRuleRequestTeamsFilterOneOf1 = nil
 	}
 
-	// try to unmarshal JSON data into CreateNotificationRuleRequestTeamsFilterOneOf2
-	err = json.Unmarshal(data, &dst.CreateNotificationRuleRequestTeamsFilterOneOf2);
+	// try to unmarshal data into CreateNotificationRuleRequestTeamsFilterOneOf2
+	err = newStrictDecoder(data).Decode(&dst.CreateNotificationRuleRequestTeamsFilterOneOf2)
 	if err == nil {
 		jsonCreateNotificationRuleRequestTeamsFilterOneOf2, _ := json.Marshal(dst.CreateNotificationRuleRequestTeamsFilterOneOf2)
 		if string(jsonCreateNotificationRuleRequestTeamsFilterOneOf2) == "{}" { // empty struct
 			dst.CreateNotificationRuleRequestTeamsFilterOneOf2 = nil
 		} else {
-			return nil // data stored in dst.CreateNotificationRuleRequestTeamsFilterOneOf2, return on the first match
+			if err = validator.Validate(dst.CreateNotificationRuleRequestTeamsFilterOneOf2); err != nil {
+				dst.CreateNotificationRuleRequestTeamsFilterOneOf2 = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.CreateNotificationRuleRequestTeamsFilterOneOf2 = nil
 	}
 
-	// try to unmarshal JSON data into RuleTeamsFilterAnyOf
-	err = json.Unmarshal(data, &dst.RuleTeamsFilterAnyOf);
+	// try to unmarshal data into RuleTeamsFilterOneOf
+	err = newStrictDecoder(data).Decode(&dst.RuleTeamsFilterOneOf)
 	if err == nil {
-		jsonRuleTeamsFilterAnyOf, _ := json.Marshal(dst.RuleTeamsFilterAnyOf)
-		if string(jsonRuleTeamsFilterAnyOf) == "{}" { // empty struct
-			dst.RuleTeamsFilterAnyOf = nil
+		jsonRuleTeamsFilterOneOf, _ := json.Marshal(dst.RuleTeamsFilterOneOf)
+		if string(jsonRuleTeamsFilterOneOf) == "{}" { // empty struct
+			dst.RuleTeamsFilterOneOf = nil
 		} else {
-			return nil // data stored in dst.RuleTeamsFilterAnyOf, return on the first match
+			if err = validator.Validate(dst.RuleTeamsFilterOneOf); err != nil {
+				dst.RuleTeamsFilterOneOf = nil
+			} else {
+				match++
+			}
 		}
 	} else {
-		dst.RuleTeamsFilterAnyOf = nil
+		dst.RuleTeamsFilterOneOf = nil
 	}
 
-	// try to unmarshal JSON data into ArrayOfString
-	err = json.Unmarshal(data, &dst.ArrayOfString);
-	if err == nil {
-		jsonArrayOfString, _ := json.Marshal(dst.ArrayOfString)
-		if string(jsonArrayOfString) == "{}" { // empty struct
-			dst.ArrayOfString = nil
-		} else {
-			return nil // data stored in dst.ArrayOfString, return on the first match
-		}
-	} else {
-		dst.ArrayOfString = nil
-	}
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.CreateNotificationRuleRequestTeamsFilterOneOf1 = nil
+		dst.CreateNotificationRuleRequestTeamsFilterOneOf2 = nil
+		dst.RuleTeamsFilterOneOf = nil
 
-	return fmt.Errorf("data failed to match schemas in anyOf(RuleTeamsFilter)")
+		return fmt.Errorf("data matches more than one schema in oneOf(RuleTeamsFilter)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(RuleTeamsFilter)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -92,17 +124,51 @@ func (src RuleTeamsFilter) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.CreateNotificationRuleRequestTeamsFilterOneOf2)
 	}
 
-	if src.RuleTeamsFilterAnyOf != nil {
-		return json.Marshal(&src.RuleTeamsFilterAnyOf)
+	if src.RuleTeamsFilterOneOf != nil {
+		return json.Marshal(&src.RuleTeamsFilterOneOf)
 	}
 
-	if src.ArrayOfString != nil {
-		return json.Marshal(&src.ArrayOfString)
-	}
-
-	return nil, nil // no data in anyOf schemas
+	return nil, nil // no data in oneOf schemas
 }
 
+// Get the actual instance
+func (obj *RuleTeamsFilter) GetActualInstance() (interface{}) {
+	if obj == nil {
+		return nil
+	}
+	if obj.CreateNotificationRuleRequestTeamsFilterOneOf1 != nil {
+		return obj.CreateNotificationRuleRequestTeamsFilterOneOf1
+	}
+
+	if obj.CreateNotificationRuleRequestTeamsFilterOneOf2 != nil {
+		return obj.CreateNotificationRuleRequestTeamsFilterOneOf2
+	}
+
+	if obj.RuleTeamsFilterOneOf != nil {
+		return obj.RuleTeamsFilterOneOf
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj RuleTeamsFilter) GetActualInstanceValue() (interface{}) {
+	if obj.CreateNotificationRuleRequestTeamsFilterOneOf1 != nil {
+		return *obj.CreateNotificationRuleRequestTeamsFilterOneOf1
+	}
+
+	if obj.CreateNotificationRuleRequestTeamsFilterOneOf2 != nil {
+		return *obj.CreateNotificationRuleRequestTeamsFilterOneOf2
+	}
+
+	if obj.RuleTeamsFilterOneOf != nil {
+		return *obj.RuleTeamsFilterOneOf
+	}
+
+	// all schemas are nil
+	return nil
+}
 
 type NullableRuleTeamsFilter struct {
 	value *RuleTeamsFilter
