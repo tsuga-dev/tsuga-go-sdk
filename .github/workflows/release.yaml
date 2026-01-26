@@ -1,9 +1,8 @@
-name: goreleaser
+name: Publish
 
 on:
-  push:
-    tags:
-      - "*"
+  repository_dispatch:
+    types: [publish-event]
 
 permissions:
   contents: write
