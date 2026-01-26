@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
 **GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
 **TimeBucket** | Pointer to [**GraphVisualizationTimeseriesTimeBucket**](GraphVisualizationTimeseriesTimeBucket.md) |  | [optional] 
+**Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 **Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
@@ -193,6 +194,31 @@ SetTimeBucket sets TimeBucket field to given value.
 `func (o *GraphVisualizationBar) HasTimeBucket() bool`
 
 HasTimeBucket returns a boolean if a field has been set.
+
+### GetPrecision
+
+`func (o *GraphVisualizationBar) GetPrecision() float32`
+
+GetPrecision returns the Precision field if non-nil, zero value otherwise.
+
+### GetPrecisionOk
+
+`func (o *GraphVisualizationBar) GetPrecisionOk() (*float32, bool)`
+
+GetPrecisionOk returns a tuple with the Precision field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrecision
+
+`func (o *GraphVisualizationBar) SetPrecision(v float32)`
+
+SetPrecision sets Precision field to given value.
+
+### HasPrecision
+
+`func (o *GraphVisualizationBar) HasPrecision() bool`
+
+HasPrecision returns a boolean if a field has been set.
 
 ### GetNormalizer
 

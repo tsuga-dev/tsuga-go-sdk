@@ -34,6 +34,8 @@ type GraphVisualizationPie struct {
 	// Fields used to group the results
 	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
 	Normalizer *Normalizer `json:"normalizer,omitempty"`
+	// Number of decimal places to display in the value
+	Precision *float32 `json:"precision,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode *string `json:"legendMode,omitempty"`
 }
@@ -260,6 +262,38 @@ func (o *GraphVisualizationPie) SetNormalizer(v Normalizer) {
 	o.Normalizer = &v
 }
 
+// GetPrecision returns the Precision field value if set, zero value otherwise.
+func (o *GraphVisualizationPie) GetPrecision() float32 {
+	if o == nil || IsNil(o.Precision) {
+		var ret float32
+		return ret
+	}
+	return *o.Precision
+}
+
+// GetPrecisionOk returns a tuple with the Precision field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationPie) GetPrecisionOk() (*float32, bool) {
+	if o == nil || IsNil(o.Precision) {
+		return nil, false
+	}
+	return o.Precision, true
+}
+
+// HasPrecision returns a boolean if a field has been set.
+func (o *GraphVisualizationPie) HasPrecision() bool {
+	if o != nil && !IsNil(o.Precision) {
+		return true
+	}
+
+	return false
+}
+
+// SetPrecision gets a reference to the given float32 and assigns it to the Precision field.
+func (o *GraphVisualizationPie) SetPrecision(v float32) {
+	o.Precision = &v
+}
+
 // GetLegendMode returns the LegendMode field value if set, zero value otherwise.
 func (o *GraphVisualizationPie) GetLegendMode() string {
 	if o == nil || IsNil(o.LegendMode) {
@@ -316,6 +350,9 @@ func (o GraphVisualizationPie) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Normalizer) {
 		toSerialize["normalizer"] = o.Normalizer
+	}
+	if !IsNil(o.Precision) {
+		toSerialize["precision"] = o.Precision
 	}
 	if !IsNil(o.LegendMode) {
 		toSerialize["legendMode"] = o.LegendMode

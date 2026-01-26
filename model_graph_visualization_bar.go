@@ -34,6 +34,8 @@ type GraphVisualizationBar struct {
 	// Fields used to group the results
 	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
 	TimeBucket *GraphVisualizationTimeseriesTimeBucket `json:"timeBucket,omitempty"`
+	// Number of decimal places to display in the value
+	Precision *float32 `json:"precision,omitempty"`
 	Normalizer *Normalizer `json:"normalizer,omitempty"`
 	// Threshold markers displayed on the chart
 	Thresholds []ThresholdMarker `json:"thresholds,omitempty"`
@@ -263,6 +265,38 @@ func (o *GraphVisualizationBar) SetTimeBucket(v GraphVisualizationTimeseriesTime
 	o.TimeBucket = &v
 }
 
+// GetPrecision returns the Precision field value if set, zero value otherwise.
+func (o *GraphVisualizationBar) GetPrecision() float32 {
+	if o == nil || IsNil(o.Precision) {
+		var ret float32
+		return ret
+	}
+	return *o.Precision
+}
+
+// GetPrecisionOk returns a tuple with the Precision field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationBar) GetPrecisionOk() (*float32, bool) {
+	if o == nil || IsNil(o.Precision) {
+		return nil, false
+	}
+	return o.Precision, true
+}
+
+// HasPrecision returns a boolean if a field has been set.
+func (o *GraphVisualizationBar) HasPrecision() bool {
+	if o != nil && !IsNil(o.Precision) {
+		return true
+	}
+
+	return false
+}
+
+// SetPrecision gets a reference to the given float32 and assigns it to the Precision field.
+func (o *GraphVisualizationBar) SetPrecision(v float32) {
+	o.Precision = &v
+}
+
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
 func (o *GraphVisualizationBar) GetNormalizer() Normalizer {
 	if o == nil || IsNil(o.Normalizer) {
@@ -383,6 +417,9 @@ func (o GraphVisualizationBar) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.TimeBucket) {
 		toSerialize["timeBucket"] = o.TimeBucket
+	}
+	if !IsNil(o.Precision) {
+		toSerialize["precision"] = o.Precision
 	}
 	if !IsNil(o.Normalizer) {
 		toSerialize["normalizer"] = o.Normalizer

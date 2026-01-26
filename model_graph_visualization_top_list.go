@@ -34,6 +34,8 @@ type GraphVisualizationTopList struct {
 	// Fields used to group the results
 	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
 	Normalizer *Normalizer `json:"normalizer,omitempty"`
+	// Number of decimal places to display in the value
+	Precision *float32 `json:"precision,omitempty"`
 }
 
 type _GraphVisualizationTopList GraphVisualizationTopList
@@ -258,6 +260,38 @@ func (o *GraphVisualizationTopList) SetNormalizer(v Normalizer) {
 	o.Normalizer = &v
 }
 
+// GetPrecision returns the Precision field value if set, zero value otherwise.
+func (o *GraphVisualizationTopList) GetPrecision() float32 {
+	if o == nil || IsNil(o.Precision) {
+		var ret float32
+		return ret
+	}
+	return *o.Precision
+}
+
+// GetPrecisionOk returns a tuple with the Precision field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationTopList) GetPrecisionOk() (*float32, bool) {
+	if o == nil || IsNil(o.Precision) {
+		return nil, false
+	}
+	return o.Precision, true
+}
+
+// HasPrecision returns a boolean if a field has been set.
+func (o *GraphVisualizationTopList) HasPrecision() bool {
+	if o != nil && !IsNil(o.Precision) {
+		return true
+	}
+
+	return false
+}
+
+// SetPrecision gets a reference to the given float32 and assigns it to the Precision field.
+func (o *GraphVisualizationTopList) SetPrecision(v float32) {
+	o.Precision = &v
+}
+
 func (o GraphVisualizationTopList) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -282,6 +316,9 @@ func (o GraphVisualizationTopList) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Normalizer) {
 		toSerialize["normalizer"] = o.Normalizer
+	}
+	if !IsNil(o.Precision) {
+		toSerialize["precision"] = o.Precision
 	}
 	return toSerialize, nil
 }
