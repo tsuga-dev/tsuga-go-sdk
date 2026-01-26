@@ -154,7 +154,7 @@ docs/RuleTargetInputWebhook.md
 docs/RuleTargetsInner.md
 docs/RuleTargetsInnerConfig.md
 docs/RuleTeamsFilter.md
-docs/RuleTeamsFilterAnyOf.md
+docs/RuleTeamsFilterOneOf.md
 docs/Tag.md
 docs/Team.md
 docs/TeamsAPI.md
@@ -303,7 +303,7 @@ model_rule_target_input_webhook.go
 model_rule_targets_inner.go
 model_rule_targets_inner_config.go
 model_rule_teams_filter.go
-model_rule_teams_filter_any_of.go
+model_rule_teams_filter_one_of.go
 model_tag.go
 model_team.go
 model_threshold_marker.go
