@@ -2,8 +2,12 @@ name: Create Tag and Release on Preprod
 
 on:
   push:
-    branches:
-      - main
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: write
 
 jobs:
   create_tag_release:
@@ -17,7 +21,7 @@ jobs:
 
       - name: Get short commit hash
         id: git_short_hash
-        run: echo "::set-output name=hash::$(git rev-parse --short HEAD)"
+        run: echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       # Create a new tag based on the commit SHA
       - name: Create Tag
