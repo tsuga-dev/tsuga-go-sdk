@@ -24,16 +24,16 @@ jobs:
         id: release-label
         # if: ${{ github.event.pull_request.merged == true }}
 
-      - uses: actions-ecosystem/action-get-latest-tag@v1
-        id: get-latest-tag
-        if: ${{ steps.release-label.outputs.level != null }}
+      # - uses: actions-ecosystem/action-get-latest-tag@v1
+      #   id: get-latest-tag
+      #   if: ${{ steps.release-label.outputs.level != null }}
 
       - uses: actions-ecosystem/action-bump-semver@v1
         id: bump-semver
         if: ${{ steps.release-label.outputs.level != null }}
         with:
           current_version: ${{ steps.get-latest-tag.outputs.tag }}
-          level: ${{ steps.release-label.outputs.level }}
+          level: minor
 
       - uses: actions-ecosystem/action-push-tag@v1
         if: ${{ steps.release-label.outputs.level != null }}
