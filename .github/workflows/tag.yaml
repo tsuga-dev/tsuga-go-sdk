@@ -1,0 +1,27 @@
+name: Create Tag and Release on Preprod
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create_tag_release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get short commit hash
+        id: git_short_hash
+        run: echo "::set-output name=hash::$(git rev-parse --short HEAD)"
+
+      # Create a new tag based on the commit SHA
+      - name: Create Tag
+        id: create_tag
+        run: |
+          git tag v1.${{ steps.git_short_hash.outputs.hash }}
+          git push origin v1.${{ steps.git_short_hash.outputs.hash }}
