@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   create_tag_release:
     runs-on: ubuntu-latest
@@ -17,7 +20,7 @@ jobs:
 
       - name: Get short commit hash
         id: git_short_hash
-        run: echo "::set-output name=hash::$(git rev-parse --short HEAD)"
+        run: echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       # Create a new tag based on the commit SHA
       - name: Create Tag
