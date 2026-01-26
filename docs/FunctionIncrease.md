@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | Calculates the increase between values | 
+**Type** | **string** | &#x60;Increase&#x60; is designed for cumulative metrics. It computes the increase of cumulative metrics automatically handling counter resets. When used with an aggregation like &#x60;sum&#x60; it combines all series without requiring an explicit group-by. | 
 
 ## Methods
 

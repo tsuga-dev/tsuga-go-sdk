@@ -11,13 +11,13 @@ Name | Type | Description | Notes
 **GroupByFields** | [**[]AggregationGroupBy**](AggregationGroupBy.md) |  | 
 **AggregationAlertLogic** | Pointer to **string** |  | [optional] 
 **ProportionAlertThreshold** | Pointer to **float32** |  | [optional] 
-**Queries** | [**[]MonitorConfigurationLogQueriesInner**](MonitorConfigurationLogQueriesInner.md) |  | 
+**Queries** | [**[]MonitorAggregationQuery**](MonitorAggregationQuery.md) | Aggregations that may be combined together in the same query | 
 
 ## Methods
 
 ### NewMonitorConfigurationLog
 
-`func NewMonitorConfigurationLog(type_ string, condition MonitorConfigurationMetricCondition, noDataBehavior string, timeframe float32, groupByFields []AggregationGroupBy, queries []MonitorConfigurationLogQueriesInner, ) *MonitorConfigurationLog`
+`func NewMonitorConfigurationLog(type_ string, condition MonitorConfigurationMetricCondition, noDataBehavior string, timeframe float32, groupByFields []AggregationGroupBy, queries []MonitorAggregationQuery, ) *MonitorConfigurationLog`
 
 NewMonitorConfigurationLog instantiates a new MonitorConfigurationLog object
 This constructor will assign default values to properties that have it defined,
@@ -184,20 +184,20 @@ HasProportionAlertThreshold returns a boolean if a field has been set.
 
 ### GetQueries
 
-`func (o *MonitorConfigurationLog) GetQueries() []MonitorConfigurationLogQueriesInner`
+`func (o *MonitorConfigurationLog) GetQueries() []MonitorAggregationQuery`
 
 GetQueries returns the Queries field if non-nil, zero value otherwise.
 
 ### GetQueriesOk
 
-`func (o *MonitorConfigurationLog) GetQueriesOk() (*[]MonitorConfigurationLogQueriesInner, bool)`
+`func (o *MonitorConfigurationLog) GetQueriesOk() (*[]MonitorAggregationQuery, bool)`
 
 GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueries
 
-`func (o *MonitorConfigurationLog) SetQueries(v []MonitorConfigurationLogQueriesInner)`
+`func (o *MonitorConfigurationLog) SetQueries(v []MonitorAggregationQuery)`
 
 SetQueries sets Queries field to given value.
 

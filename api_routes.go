@@ -119,7 +119,7 @@ func (a *RoutesAPIService) CreateRouteExecute(r ApiCreateRouteRequest) (*CreateR
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -130,7 +130,7 @@ func (a *RoutesAPIService) CreateRouteExecute(r ApiCreateRouteRequest) (*CreateR
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -160,7 +160,7 @@ type ApiDeleteRouteRequest struct {
 	id string
 }
 
-func (r ApiDeleteRouteRequest) Execute() (*DeleteDashboard200Response, *http.Response, error) {
+func (r ApiDeleteRouteRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	return r.ApiService.DeleteRouteExecute(r)
 }
 
@@ -182,13 +182,13 @@ func (a *RoutesAPIService) DeleteRoute(ctx context.Context, id string) ApiDelete
 }
 
 // Execute executes the request
-//  @return DeleteDashboard200Response
-func (a *RoutesAPIService) DeleteRouteExecute(r ApiDeleteRouteRequest) (*DeleteDashboard200Response, *http.Response, error) {
+//  @return DeleteIngestionApiKey200Response
+func (a *RoutesAPIService) DeleteRouteExecute(r ApiDeleteRouteRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeleteDashboard200Response
+		localVarReturnValue  *DeleteIngestionApiKey200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoutesAPIService.DeleteRoute")
@@ -249,7 +249,7 @@ func (a *RoutesAPIService) DeleteRouteExecute(r ApiDeleteRouteRequest) (*DeleteD
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -260,7 +260,7 @@ func (a *RoutesAPIService) DeleteRouteExecute(r ApiDeleteRouteRequest) (*DeleteD
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -379,7 +379,7 @@ func (a *RoutesAPIService) GetRouteExecute(r ApiGetRouteRequest) (*CreateRoute20
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -390,7 +390,7 @@ func (a *RoutesAPIService) GetRouteExecute(r ApiGetRouteRequest) (*CreateRoute20
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -499,7 +499,7 @@ func (a *RoutesAPIService) ListRoutesExecute(r ApiListRoutesRequest) (*ListRoute
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -510,7 +510,7 @@ func (a *RoutesAPIService) ListRoutesExecute(r ApiListRoutesRequest) (*ListRoute
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -640,7 +640,7 @@ func (a *RoutesAPIService) UpdateRouteExecute(r ApiUpdateRouteRequest) (*CreateR
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -651,7 +651,7 @@ func (a *RoutesAPIService) UpdateRouteExecute(r ApiUpdateRouteRequest) (*CreateR
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListDashboards4XXResponse
+			var v ListIngestionApiKeys4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

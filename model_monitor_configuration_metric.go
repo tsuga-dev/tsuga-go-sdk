@@ -29,7 +29,8 @@ type MonitorConfigurationMetric struct {
 	GroupByFields []AggregationGroupBy `json:"groupByFields"`
 	AggregationAlertLogic *string `json:"aggregationAlertLogic,omitempty"`
 	ProportionAlertThreshold *float32 `json:"proportionAlertThreshold,omitempty"`
-	Queries []MonitorConfigurationMetricQueriesInner `json:"queries"`
+	// Aggregations that may be combined together in the same query
+	Queries []MonitorAggregationQuery `json:"queries"`
 }
 
 type _MonitorConfigurationMetric MonitorConfigurationMetric
@@ -38,7 +39,7 @@ type _MonitorConfigurationMetric MonitorConfigurationMetric
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMonitorConfigurationMetric(type_ string, condition MonitorConfigurationMetricCondition, noDataBehavior string, timeframe float32, groupByFields []AggregationGroupBy, queries []MonitorConfigurationMetricQueriesInner) *MonitorConfigurationMetric {
+func NewMonitorConfigurationMetric(type_ string, condition MonitorConfigurationMetricCondition, noDataBehavior string, timeframe float32, groupByFields []AggregationGroupBy, queries []MonitorAggregationQuery) *MonitorConfigurationMetric {
 	this := MonitorConfigurationMetric{}
 	this.Type = type_
 	this.Condition = condition
@@ -242,9 +243,9 @@ func (o *MonitorConfigurationMetric) SetProportionAlertThreshold(v float32) {
 }
 
 // GetQueries returns the Queries field value
-func (o *MonitorConfigurationMetric) GetQueries() []MonitorConfigurationMetricQueriesInner {
+func (o *MonitorConfigurationMetric) GetQueries() []MonitorAggregationQuery {
 	if o == nil {
-		var ret []MonitorConfigurationMetricQueriesInner
+		var ret []MonitorAggregationQuery
 		return ret
 	}
 
@@ -253,7 +254,7 @@ func (o *MonitorConfigurationMetric) GetQueries() []MonitorConfigurationMetricQu
 
 // GetQueriesOk returns a tuple with the Queries field value
 // and a boolean to check if the value has been set.
-func (o *MonitorConfigurationMetric) GetQueriesOk() ([]MonitorConfigurationMetricQueriesInner, bool) {
+func (o *MonitorConfigurationMetric) GetQueriesOk() ([]MonitorAggregationQuery, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -261,7 +262,7 @@ func (o *MonitorConfigurationMetric) GetQueriesOk() ([]MonitorConfigurationMetri
 }
 
 // SetQueries sets field value
-func (o *MonitorConfigurationMetric) SetQueries(v []MonitorConfigurationMetricQueriesInner) {
+func (o *MonitorConfigurationMetric) SetQueries(v []MonitorAggregationQuery) {
 	o.Queries = v
 }
 

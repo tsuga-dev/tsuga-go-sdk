@@ -25,10 +25,9 @@ type Rule struct {
 	Id string `json:"id"`
 	// Display name of the notification rule
 	Name string `json:"name"`
-	// Team IDs that narrow down the teams that can receive notifications from this rule
-	TeamsFilter []string `json:"teamsFilter"`
+	TeamsFilter RuleTeamsFilter `json:"teamsFilter"`
 	// Priorities that narrow down the alerts that can trigger a notification
-	PrioritiesFilter []int32 `json:"prioritiesFilter"`
+	PrioritiesFilter []float32 `json:"prioritiesFilter"`
 	// Alert state transitions that can trigger a notification
 	TransitionTypesFilter []string `json:"transitionTypesFilter"`
 	// Team ID that owns and manages the rule
@@ -46,7 +45,7 @@ type _Rule Rule
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRule(id string, name string, teamsFilter []string, prioritiesFilter []int32, transitionTypesFilter []string, owner string, isActive bool, targets []RuleTargetsInner) *Rule {
+func NewRule(id string, name string, teamsFilter RuleTeamsFilter, prioritiesFilter []float32, transitionTypesFilter []string, owner string, isActive bool, targets []RuleTargetsInner) *Rule {
 	this := Rule{}
 	this.Id = id
 	this.Name = name
@@ -116,9 +115,9 @@ func (o *Rule) SetName(v string) {
 }
 
 // GetTeamsFilter returns the TeamsFilter field value
-func (o *Rule) GetTeamsFilter() []string {
+func (o *Rule) GetTeamsFilter() RuleTeamsFilter {
 	if o == nil {
-		var ret []string
+		var ret RuleTeamsFilter
 		return ret
 	}
 
@@ -127,22 +126,22 @@ func (o *Rule) GetTeamsFilter() []string {
 
 // GetTeamsFilterOk returns a tuple with the TeamsFilter field value
 // and a boolean to check if the value has been set.
-func (o *Rule) GetTeamsFilterOk() ([]string, bool) {
+func (o *Rule) GetTeamsFilterOk() (*RuleTeamsFilter, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.TeamsFilter, true
+	return &o.TeamsFilter, true
 }
 
 // SetTeamsFilter sets field value
-func (o *Rule) SetTeamsFilter(v []string) {
+func (o *Rule) SetTeamsFilter(v RuleTeamsFilter) {
 	o.TeamsFilter = v
 }
 
 // GetPrioritiesFilter returns the PrioritiesFilter field value
-func (o *Rule) GetPrioritiesFilter() []int32 {
+func (o *Rule) GetPrioritiesFilter() []float32 {
 	if o == nil {
-		var ret []int32
+		var ret []float32
 		return ret
 	}
 
@@ -151,7 +150,7 @@ func (o *Rule) GetPrioritiesFilter() []int32 {
 
 // GetPrioritiesFilterOk returns a tuple with the PrioritiesFilter field value
 // and a boolean to check if the value has been set.
-func (o *Rule) GetPrioritiesFilterOk() ([]int32, bool) {
+func (o *Rule) GetPrioritiesFilterOk() ([]float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -159,7 +158,7 @@ func (o *Rule) GetPrioritiesFilterOk() ([]int32, bool) {
 }
 
 // SetPrioritiesFilter sets field value
-func (o *Rule) SetPrioritiesFilter(v []int32) {
+func (o *Rule) SetPrioritiesFilter(v []float32) {
 	o.PrioritiesFilter = v
 }
 
