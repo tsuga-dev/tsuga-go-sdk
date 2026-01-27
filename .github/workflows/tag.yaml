@@ -1,4 +1,4 @@
-name: Create Tag and Release on Preprod
+name: Tag Release
 
 on:
   push:
@@ -12,19 +12,32 @@ jobs:
   create_tag_release:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get short commit hash
-        id: git_short_hash
-        run: echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      - name: Get latest tag
+        uses: ./.github/actions/get-latest-tag
+        id: get-latest-tag
+        with:
+          initial_version: v1.0.0
 
-      # Create a new tag based on the commit SHA
-      - name: Create Tag
-        id: create_tag
-        run: |
-          git tag v1.${{ steps.git_short_hash.outputs.hash }}
-          git push origin v1.${{ steps.git_short_hash.outputs.hash }}
+      - name: Bump semver
+        uses: ./.github/actions/bump-semver
+        id: bump-semver
+        with:
+          current_version: ${{ steps.get-latest-tag.outputs.tag }}
+          level: minor
+
+      - name: Push tag
+        uses: ./.github/actions/push-tag
+        id: push-tag
+        with:
+          tag: ${{ steps.bump-semver.outputs.new_version }}
+          message: "${{ steps.bump-semver.outputs.new_version }}: ${{ github.event.head_commit.message }}"
