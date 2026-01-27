@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -35,7 +38,21 @@ jobs:
           current_version: ${{ steps.get-latest-tag.outputs.tag }}
           level: minor
 
+      - name: Dry-run summary
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "## 🧪 Dry-run Mode (PR)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "This is a pull request, so no tags or releases will be created." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### What would happen on merge:" >> $GITHUB_STEP_SUMMARY
+          echo "- **Current tag:** \`${{ steps.get-latest-tag.outputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **New tag:** \`${{ steps.bump-semver.outputs.new_version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Tag message:** ${{ steps.bump-semver.outputs.new_version }}: ${{ github.event.head_commit.message || github.event.pull_request.title }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Action:** Create GitHub release with the new tag" >> $GITHUB_STEP_SUMMARY
+
       - name: Push tag
+        if: github.event_name == 'push'
         uses: ./.github/actions/push-tag
         id: push-tag
         with:
@@ -43,8 +60,17 @@ jobs:
           message: "${{ steps.bump-semver.outputs.new_version }}: ${{ github.event.head_commit.message }}"
 
       - name: Release
+        if: github.event_name == 'push'
         uses: softprops/action-gh-release@v2
         with:
           body: |
             ${{ steps.bump-semver.outputs.new_version }}: ${{ github.event.head_commit.message }}
           tag_name: ${{ steps.bump-semver.outputs.new_version }}
+
+      - name: Success summary
+        if: github.event_name == 'push'
+        run: |
+          echo "## ✅ Release Created" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Tag:** \`${{ steps.bump-semver.outputs.new_version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Release:** [View on GitHub](https://github.com/${{ github.repository }}/releases/tag/${{ steps.bump-semver.outputs.new_version }})" >> $GITHUB_STEP_SUMMARY
