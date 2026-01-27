@@ -40,7 +40,6 @@ jobs:
       - name: Push tag
         uses: ./.github/actions/push-tag
         id: push-tag
-        if: github.event_name == 'push' || github.event.pull_request.merged == true
         with:
           tag: ${{ steps.bump-semver.outputs.new_version }}
           message: >-
