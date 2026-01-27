@@ -68,20 +68,12 @@ jobs:
           tag="${{ steps.version.outputs.tag }}"
           echo "Checking for existing prerelease: ${tag}"
           
-          # Try to delete the release if it exists
+          # Delete the release if it exists (push-tag action will handle the tag cleanup)
           if gh release view "${tag}" > /dev/null 2>&1; then
             echo "Deleting existing release: ${tag}"
-            gh release delete "${tag}" --yes --cleanup-tag
+            gh release delete "${tag}" --yes
           else
             echo "No existing release found for ${tag}"
-          fi
-          
-          # Try to delete the tag if it still exists
-          if git ls-remote --tags origin | grep -q "refs/tags/${tag}"; then
-            echo "Deleting existing tag: ${tag}"
-            git push origin ":refs/tags/${tag}" || true
-          else
-            echo "No existing tag found for ${tag}"
           fi
 
       - name: Push tag
