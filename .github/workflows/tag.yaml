@@ -68,20 +68,21 @@ jobs:
           tag="${{ steps.version.outputs.tag }}"
           echo "Checking for existing prerelease: ${tag}"
           
-          # Delete the release if it exists (push-tag action will handle the tag cleanup)
+          # Delete the release if it exists (will also delete the tag)
           if gh release view "${tag}" > /dev/null 2>&1; then
-            echo "Deleting existing release: ${tag}"
-            gh release delete "${tag}" --yes
+            echo "Deleting existing release and tag: ${tag}"
+            gh release delete "${tag}" --yes --cleanup-tag
           else
             echo "No existing release found for ${tag}"
           fi
 
       - name: Push tag
+        if: github.event_name == 'push'
         uses: ./.github/actions/push-tag
         id: push-tag
         with:
           tag: ${{ steps.version.outputs.tag }}
-          message: "${{ steps.version.outputs.tag }}: ${{ github.event.head_commit.message || github.event.pull_request.title }}"
+          message: "${{ steps.version.outputs.tag }}: ${{ github.event.head_commit.message }}"
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
@@ -96,6 +97,8 @@ jobs:
             ${{ github.event_name == 'pull_request' && format('This is a pre-release for testing PR #{0}', github.event.pull_request.number) || '' }}
           prerelease: ${{ steps.version.outputs.is_prerelease == 'true' }}
           draft: false
+          generate_release_notes: false
+          make_latest: ${{ steps.version.outputs.is_prerelease != 'true' }}
 
       - name: Summary
         run: |
