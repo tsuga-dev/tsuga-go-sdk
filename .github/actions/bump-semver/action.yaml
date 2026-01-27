@@ -1,0 +1,125 @@
+name: Bump Semver
+description: Bump semantic version with support for major, minor, patch, and prerelease versions
+inputs:
+  current_version:
+    description: Current semantic version (e.g., v1.2.3 or 1.2.3)
+    required: true
+  level:
+    description: Bump level (major, premajor, minor, preminor, patch, prepatch, prerelease)
+    required: true
+outputs:
+  new_version:
+    description: The bumped semantic version
+    value: ${{ steps.bump.outputs.new_version }}
+runs:
+  using: "composite"
+  steps:
+    - name: Bump semantic version
+      id: bump
+      shell: bash
+      run: |
+        set -e
+        
+        current_version="${{ inputs.current_version }}"
+        level="${{ inputs.level }}"
+        
+        # Validate level
+        case "${level}" in
+          major|premajor|minor|preminor|patch|prepatch|prerelease)
+            ;;
+          *)
+            echo "::error::${level} is not supported. {major, premajor, minor, preminor, patch, prepatch, prerelease} is available."
+            exit 1
+            ;;
+        esac
+        
+        # Check if version has 'v' prefix
+        has_v_prefix=false
+        if [[ "${current_version}" =~ ^v ]]; then
+          has_v_prefix=true
+          current_version="${current_version#v}"
+        fi
+        
+        # Validate semver format (basic validation)
+        if ! [[ "${current_version}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+)?$ ]]; then
+          echo "::error::${current_version} is not a valid semver"
+          exit 1
+        fi
+        
+        # Parse version components
+        # Extract version without prerelease/build metadata
+        base_version="${current_version%%[-+]*}"
+        IFS='.' read -r major minor patch <<< "${base_version}"
+        
+        # Extract prerelease if exists
+        prerelease=""
+        if [[ "${current_version}" =~ -([^+]+) ]]; then
+          prerelease="${BASH_REMATCH[1]}"
+        fi
+        
+        # Bump version based on level
+        case "${level}" in
+          major)
+            major=$((major + 1))
+            minor=0
+            patch=0
+            prerelease=""
+            ;;
+          premajor)
+            major=$((major + 1))
+            minor=0
+            patch=0
+            prerelease="0"
+            ;;
+          minor)
+            minor=$((minor + 1))
+            patch=0
+            prerelease=""
+            ;;
+          preminor)
+            minor=$((minor + 1))
+            patch=0
+            prerelease="0"
+            ;;
+          patch)
+            patch=$((patch + 1))
+            prerelease=""
+            ;;
+          prepatch)
+            patch=$((patch + 1))
+            prerelease="0"
+            ;;
+          prerelease)
+            if [[ -n "${prerelease}" ]]; then
+              # Extract numeric part from prerelease
+              if [[ "${prerelease}" =~ ^([0-9]+)$ ]]; then
+                prerelease=$((prerelease + 1))
+              elif [[ "${prerelease}" =~ ^([a-zA-Z-]+)\.([0-9]+)$ ]]; then
+                prefix="${BASH_REMATCH[1]}"
+                number="${BASH_REMATCH[2]}"
+                prerelease="${prefix}.$((number + 1))"
+              else
+                # Default: append .1 or increment last number
+                prerelease="${prerelease}.1"
+              fi
+            else
+              # No existing prerelease, bump patch and add -0
+              patch=$((patch + 1))
+              prerelease="0"
+            fi
+            ;;
+        esac
+        
+        # Construct new version
+        new_version="${major}.${minor}.${patch}"
+        if [[ -n "${prerelease}" ]]; then
+          new_version="${new_version}-${prerelease}"
+        fi
+        
+        # Add 'v' prefix back if it was present
+        if [[ "${has_v_prefix}" == "true" ]]; then
+          new_version="v${new_version}"
+        fi
+        
+        echo "new_version=${new_version}" >> $GITHUB_OUTPUT
+        echo "::notice::Bumped version from ${{ inputs.current_version }} to ${new_version}"
