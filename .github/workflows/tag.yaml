@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches: [main, master]
 
 permissions:
   contents: write
@@ -40,10 +38,6 @@ jobs:
       - name: Push tag
         uses: ./.github/actions/push-tag
         id: push-tag
-        if: github.event_name == 'push' || github.event.pull_request.merged == true
         with:
           tag: ${{ steps.bump-semver.outputs.new_version }}
-          message: >-
-            ${{ github.event_name == 'pull_request' &&
-            format('{0}: PR #{1} {2}', steps.bump-semver.outputs.new_version, github.event.pull_request.number, github.event.pull_request.title) ||
-            format('{0}: {1}', steps.bump-semver.outputs.new_version, github.event.head_commit.message) }}
+          message: "${{ steps.bump-semver.outputs.new_version }}: ${{ github.event.head_commit.message }}"
