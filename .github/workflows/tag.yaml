@@ -38,85 +38,44 @@ jobs:
           current_version: ${{ steps.get-latest-tag.outputs.tag }}
           level: minor
 
-      - name: Generate prerelease version
+      - name: Dry-run summary
         if: github.event_name == 'pull_request'
-        id: prerelease-version
         run: |
-          base_version="${{ steps.bump-semver.outputs.new_version }}"
-          pr_number="${{ github.event.pull_request.number }}"
-          prerelease_version="${base_version}-rc.${pr_number}"
-          echo "version=${prerelease_version}" >> $GITHUB_OUTPUT
-          echo "Prerelease version: ${prerelease_version}"
-
-      - name: Set version variable
-        id: version
-        run: |
-          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            echo "tag=${{ steps.prerelease-version.outputs.version }}" >> $GITHUB_OUTPUT
-            echo "is_prerelease=true" >> $GITHUB_OUTPUT
-          else
-            echo "tag=${{ steps.bump-semver.outputs.new_version }}" >> $GITHUB_OUTPUT
-            echo "is_prerelease=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Delete existing prerelease
-        if: github.event_name == 'pull_request'
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          tag="${{ steps.version.outputs.tag }}"
-          echo "Checking for existing prerelease: ${tag}"
-          
-          # Delete the release if it exists (will also delete the tag)
-          if gh release view "${tag}" > /dev/null 2>&1; then
-            echo "Deleting existing release and tag: ${tag}"
-            gh release delete "${tag}" --yes --cleanup-tag
-          else
-            echo "No existing release found for ${tag}"
-          fi
+          echo "## 🧪 Dry-run Mode (PR)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "This is a pull request, so no tags or releases will be created." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### What would happen on merge to main:" >> $GITHUB_STEP_SUMMARY
+          echo "- **Current tag:** \`${{ steps.get-latest-tag.outputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **New tag:** \`${{ steps.bump-semver.outputs.new_version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Tag message:** ${{ steps.bump-semver.outputs.new_version }}: ${{ github.event.pull_request.title }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Action:** Create GitHub release with the new tag" >> $GITHUB_STEP_SUMMARY
 
       - name: Push tag
+        if: github.event_name == 'push'
         uses: ./.github/actions/push-tag
         id: push-tag
         with:
-          tag: ${{ steps.version.outputs.tag }}
-          message: "${{ steps.version.outputs.tag }}: ${{ github.event.head_commit.message }}"
+          tag: ${{ steps.bump-semver.outputs.new_version }}
+          message: "${{ steps.bump-semver.outputs.new_version }}: ${{ github.event.head_commit.message }}"
 
       - name: Create Release
+        if: github.event_name == 'push'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.version.outputs.tag }}
-          name: ${{ steps.version.outputs.tag }}
+          tag_name: ${{ steps.bump-semver.outputs.new_version }}
+          name: ${{ steps.bump-semver.outputs.new_version }}
           body: |
-            ${{ github.event_name == 'pull_request' && '## 🧪 Pre-release (Testing)' || '## Release' }}
+            ## Release
             
-            ${{ steps.version.outputs.tag }}: ${{ github.event.head_commit.message || github.event.pull_request.title }}
-            
-            ${{ github.event_name == 'pull_request' && format('This is a pre-release for testing PR #{0}', github.event.pull_request.number) || '' }}
-          prerelease: ${{ steps.version.outputs.is_prerelease == 'true' }}
+            ${{ steps.bump-semver.outputs.new_version }}: ${{ github.event.head_commit.message }}
+          prerelease: false
           draft: false
-          generate_release_notes: false
-          make_latest: ${{ steps.version.outputs.is_prerelease != 'true' }}
 
-      - name: Summary
+      - name: Success summary
+        if: github.event_name == 'push'
         run: |
-          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            echo "## 🧪 Pre-release Created" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "A pre-release has been created for testing:" >> $GITHUB_STEP_SUMMARY
-            echo "- **Tag:** \`${{ steps.version.outputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
-            echo "- **Type:** Pre-release (will not be shown as latest)" >> $GITHUB_STEP_SUMMARY
-            echo "- **Release:** [View on GitHub](https://github.com/${{ github.repository }}/releases/tag/${{ steps.version.outputs.tag }})" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "> **Note:** Each commit to this PR will replace this prerelease with an updated version." >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "### On merge to main:" >> $GITHUB_STEP_SUMMARY
-            echo "- **Final tag:** \`${{ steps.bump-semver.outputs.new_version }}\`" >> $GITHUB_STEP_SUMMARY
-            echo "- **Action:** Create official release" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "## ✅ Release Created" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "- **Tag:** \`${{ steps.version.outputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
-            echo "- **Release:** [View on GitHub](https://github.com/${{ github.repository }}/releases/tag/${{ steps.version.outputs.tag }})" >> $GITHUB_STEP_SUMMARY
-          fi
+          echo "## ✅ Release Created" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Tag:** \`${{ steps.bump-semver.outputs.new_version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Release:** [View on GitHub](https://github.com/${{ github.repository }}/releases/tag/${{ steps.bump-semver.outputs.new_version }})" >> $GITHUB_STEP_SUMMARY
