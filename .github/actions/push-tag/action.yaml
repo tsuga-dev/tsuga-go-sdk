@@ -55,12 +55,6 @@ runs:
           exit 0
         fi
         
-        # Delete local tag if it exists (cleanup)
-        if git tag -l "${tag}" | grep -q "^${tag}$"; then
-          echo "Deleting existing local tag ${tag}"
-          git tag -d "${tag}" || true
-        fi
-        
         # Create tag
         if [[ -n "${TAG_MESSAGE}" ]]; then
           # Create annotated tag with message using temp file to handle multiline

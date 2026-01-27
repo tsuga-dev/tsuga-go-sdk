@@ -77,7 +77,6 @@ jobs:
           fi
 
       - name: Push tag
-        if: github.event_name == 'push'
         uses: ./.github/actions/push-tag
         id: push-tag
         with:
