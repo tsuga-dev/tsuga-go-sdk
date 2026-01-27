@@ -45,13 +45,24 @@ runs:
           target="HEAD"
         fi
         
+        # Fetch tags to check if tag already exists
+        git fetch --tags origin || true
+        
+        # Check if tag already exists on remote
+        if git ls-remote --tags origin | grep -q "refs/tags/${tag}$"; then
+          echo "::notice::Tag ${tag} already exists, skipping creation"
+          echo "Tag ${tag} already exists on remote"
+          exit 0
+        fi
+        
         # Create tag
         if [[ -n "${TAG_MESSAGE}" ]]; then
-          # Create annotated tag with message using heredoc to handle multiline
+          # Create annotated tag with message using temp file to handle multiline
           echo "Creating annotated tag ${tag} with message"
-          git tag -a "${tag}" ${target} -F - <<EOF
-${TAG_MESSAGE}
-EOF
+          temp_file=$(mktemp)
+          printf "%s" "${TAG_MESSAGE}" > "${temp_file}"
+          git tag -a "${tag}" ${target} -F "${temp_file}"
+          rm -f "${temp_file}"
         else
           # Create lightweight tag
           echo "Creating lightweight tag ${tag}"
