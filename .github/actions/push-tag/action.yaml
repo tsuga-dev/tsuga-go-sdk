@@ -45,19 +45,20 @@ runs:
           target="HEAD"
         fi
         
-        # Delete local tag if it exists
+        # Fetch tags to check if tag already exists
+        git fetch --tags origin || true
+        
+        # Check if tag already exists on remote
+        if git ls-remote --tags origin | grep -q "refs/tags/${tag}$"; then
+          echo "::notice::Tag ${tag} already exists, skipping creation"
+          echo "Tag ${tag} already exists on remote"
+          exit 0
+        fi
+        
+        # Delete local tag if it exists (cleanup)
         if git tag -l "${tag}" | grep -q "^${tag}$"; then
           echo "Deleting existing local tag ${tag}"
           git tag -d "${tag}" || true
-        fi
-        
-        # Fetch tags to ensure we have the latest state
-        git fetch --tags origin || true
-        
-        # Delete remote tag if it exists
-        if git ls-remote --tags origin | grep -q "refs/tags/${tag}$"; then
-          echo "Deleting existing remote tag ${tag}"
-          git push origin ":refs/tags/${tag}" || true
         fi
         
         # Create tag
