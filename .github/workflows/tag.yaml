@@ -28,7 +28,7 @@ jobs:
         uses: ./.github/actions/get-latest-tag
         id: get-latest-tag
         with:
-          initial_version: v0.0.0
+          initial_version: v1.0.0
 
       - name: Bump semver
         uses: ./.github/actions/bump-semver
@@ -40,15 +40,10 @@ jobs:
       - name: Push tag
         uses: ./.github/actions/push-tag
         id: push-tag
+        if: github.event_name == 'push' || github.event.pull_request.merged == true
         with:
           tag: ${{ steps.bump-semver.outputs.new_version }}
           message: >-
             ${{ github.event_name == 'pull_request' &&
             format('{0}: PR #{1} {2}', steps.bump-semver.outputs.new_version, github.event.pull_request.number, github.event.pull_request.title) ||
             format('{0}: {1}', steps.bump-semver.outputs.new_version, github.event.head_commit.message) }}
-
-      - uses: peter-evans/repository-dispatch@v4
-        if: ${{ steps.bump-semver.outputs.new_version != null }}
-        with:
-          event-type: publish-event
-          client-payload: '{"new-tag": "${{ steps.bump-semver.outputs.new_version }}", "release-notes": "${{ steps.regex-match.outputs.group1 }}"}'
