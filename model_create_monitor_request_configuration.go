@@ -20,7 +20,9 @@ import (
 type CreateMonitorRequestConfiguration struct {
 	MonitorConfigurationAnomalyLog *MonitorConfigurationAnomalyLog
 	MonitorConfigurationAnomalyMetric *MonitorConfigurationAnomalyMetric
+	MonitorConfigurationCertificateExpiry *MonitorConfigurationCertificateExpiry
 	MonitorConfigurationLog *MonitorConfigurationLog
+	MonitorConfigurationLogErrorPattern *MonitorConfigurationLogErrorPattern
 	MonitorConfigurationMetric *MonitorConfigurationMetric
 }
 
@@ -38,10 +40,24 @@ func MonitorConfigurationAnomalyMetricAsCreateMonitorRequestConfiguration(v *Mon
 	}
 }
 
+// MonitorConfigurationCertificateExpiryAsCreateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationCertificateExpiry wrapped in CreateMonitorRequestConfiguration
+func MonitorConfigurationCertificateExpiryAsCreateMonitorRequestConfiguration(v *MonitorConfigurationCertificateExpiry) CreateMonitorRequestConfiguration {
+	return CreateMonitorRequestConfiguration{
+		MonitorConfigurationCertificateExpiry: v,
+	}
+}
+
 // MonitorConfigurationLogAsCreateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationLog wrapped in CreateMonitorRequestConfiguration
 func MonitorConfigurationLogAsCreateMonitorRequestConfiguration(v *MonitorConfigurationLog) CreateMonitorRequestConfiguration {
 	return CreateMonitorRequestConfiguration{
 		MonitorConfigurationLog: v,
+	}
+}
+
+// MonitorConfigurationLogErrorPatternAsCreateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationLogErrorPattern wrapped in CreateMonitorRequestConfiguration
+func MonitorConfigurationLogErrorPatternAsCreateMonitorRequestConfiguration(v *MonitorConfigurationLogErrorPattern) CreateMonitorRequestConfiguration {
+	return CreateMonitorRequestConfiguration{
+		MonitorConfigurationLogErrorPattern: v,
 	}
 }
 
@@ -91,6 +107,23 @@ func (dst *CreateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 		dst.MonitorConfigurationAnomalyMetric = nil
 	}
 
+	// try to unmarshal data into MonitorConfigurationCertificateExpiry
+	err = newStrictDecoder(data).Decode(&dst.MonitorConfigurationCertificateExpiry)
+	if err == nil {
+		jsonMonitorConfigurationCertificateExpiry, _ := json.Marshal(dst.MonitorConfigurationCertificateExpiry)
+		if string(jsonMonitorConfigurationCertificateExpiry) == "{}" { // empty struct
+			dst.MonitorConfigurationCertificateExpiry = nil
+		} else {
+			if err = validator.Validate(dst.MonitorConfigurationCertificateExpiry); err != nil {
+				dst.MonitorConfigurationCertificateExpiry = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.MonitorConfigurationCertificateExpiry = nil
+	}
+
 	// try to unmarshal data into MonitorConfigurationLog
 	err = newStrictDecoder(data).Decode(&dst.MonitorConfigurationLog)
 	if err == nil {
@@ -106,6 +139,23 @@ func (dst *CreateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 		}
 	} else {
 		dst.MonitorConfigurationLog = nil
+	}
+
+	// try to unmarshal data into MonitorConfigurationLogErrorPattern
+	err = newStrictDecoder(data).Decode(&dst.MonitorConfigurationLogErrorPattern)
+	if err == nil {
+		jsonMonitorConfigurationLogErrorPattern, _ := json.Marshal(dst.MonitorConfigurationLogErrorPattern)
+		if string(jsonMonitorConfigurationLogErrorPattern) == "{}" { // empty struct
+			dst.MonitorConfigurationLogErrorPattern = nil
+		} else {
+			if err = validator.Validate(dst.MonitorConfigurationLogErrorPattern); err != nil {
+				dst.MonitorConfigurationLogErrorPattern = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.MonitorConfigurationLogErrorPattern = nil
 	}
 
 	// try to unmarshal data into MonitorConfigurationMetric
@@ -129,7 +179,9 @@ func (dst *CreateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 		// reset to nil
 		dst.MonitorConfigurationAnomalyLog = nil
 		dst.MonitorConfigurationAnomalyMetric = nil
+		dst.MonitorConfigurationCertificateExpiry = nil
 		dst.MonitorConfigurationLog = nil
+		dst.MonitorConfigurationLogErrorPattern = nil
 		dst.MonitorConfigurationMetric = nil
 
 		return fmt.Errorf("data matches more than one schema in oneOf(CreateMonitorRequestConfiguration)")
@@ -150,8 +202,16 @@ func (src CreateMonitorRequestConfiguration) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.MonitorConfigurationAnomalyMetric)
 	}
 
+	if src.MonitorConfigurationCertificateExpiry != nil {
+		return json.Marshal(&src.MonitorConfigurationCertificateExpiry)
+	}
+
 	if src.MonitorConfigurationLog != nil {
 		return json.Marshal(&src.MonitorConfigurationLog)
+	}
+
+	if src.MonitorConfigurationLogErrorPattern != nil {
+		return json.Marshal(&src.MonitorConfigurationLogErrorPattern)
 	}
 
 	if src.MonitorConfigurationMetric != nil {
@@ -174,8 +234,16 @@ func (obj *CreateMonitorRequestConfiguration) GetActualInstance() (interface{}) 
 		return obj.MonitorConfigurationAnomalyMetric
 	}
 
+	if obj.MonitorConfigurationCertificateExpiry != nil {
+		return obj.MonitorConfigurationCertificateExpiry
+	}
+
 	if obj.MonitorConfigurationLog != nil {
 		return obj.MonitorConfigurationLog
+	}
+
+	if obj.MonitorConfigurationLogErrorPattern != nil {
+		return obj.MonitorConfigurationLogErrorPattern
 	}
 
 	if obj.MonitorConfigurationMetric != nil {
@@ -196,8 +264,16 @@ func (obj CreateMonitorRequestConfiguration) GetActualInstanceValue() (interface
 		return *obj.MonitorConfigurationAnomalyMetric
 	}
 
+	if obj.MonitorConfigurationCertificateExpiry != nil {
+		return *obj.MonitorConfigurationCertificateExpiry
+	}
+
 	if obj.MonitorConfigurationLog != nil {
 		return *obj.MonitorConfigurationLog
+	}
+
+	if obj.MonitorConfigurationLogErrorPattern != nil {
+		return *obj.MonitorConfigurationLogErrorPattern
 	}
 
 	if obj.MonitorConfigurationMetric != nil {

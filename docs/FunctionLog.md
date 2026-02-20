@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Applies a logarithm transformation to the values | 
-**Base** | **float32** | The base of the logarithm | 
+**Base** | **int32** | The base of the logarithm | 
 
 ## Methods
 
 ### NewFunctionLog
 
-`func NewFunctionLog(type_ string, base float32, ) *FunctionLog`
+`func NewFunctionLog(type_ string, base int32, ) *FunctionLog`
 
 NewFunctionLog instantiates a new FunctionLog object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetType sets Type field to given value.
 
 ### GetBase
 
-`func (o *FunctionLog) GetBase() float32`
+`func (o *FunctionLog) GetBase() int32`
 
 GetBase returns the Base field if non-nil, zero value otherwise.
 
 ### GetBaseOk
 
-`func (o *FunctionLog) GetBaseOk() (*float32, bool)`
+`func (o *FunctionLog) GetBaseOk() (*int32, bool)`
 
 GetBaseOk returns a tuple with the Base field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBase
 
-`func (o *FunctionLog) SetBase(v float32)`
+`func (o *FunctionLog) SetBase(v int32)`
 
 SetBase sets Base field to given value.
 

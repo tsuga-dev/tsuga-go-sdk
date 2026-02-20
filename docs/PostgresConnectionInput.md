@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **User** | **string** |  | 
 **Password** | **string** |  | 
 **Host** | **string** |  | 
-**Port** | **float32** |  | 
+**Port** | **int32** |  | 
 **DbName** | **string** |  | 
 **SslRequire** | **bool** |  | [default to true]
 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewPostgresConnectionInput
 
-`func NewPostgresConnectionInput(type_ string, user string, password string, host string, port float32, dbName string, sslRequire bool, ) *PostgresConnectionInput`
+`func NewPostgresConnectionInput(type_ string, user string, password string, host string, port int32, dbName string, sslRequire bool, ) *PostgresConnectionInput`
 
 NewPostgresConnectionInput instantiates a new PostgresConnectionInput object
 This constructor will assign default values to properties that have it defined,
@@ -113,20 +113,20 @@ SetHost sets Host field to given value.
 
 ### GetPort
 
-`func (o *PostgresConnectionInput) GetPort() float32`
+`func (o *PostgresConnectionInput) GetPort() int32`
 
 GetPort returns the Port field if non-nil, zero value otherwise.
 
 ### GetPortOk
 
-`func (o *PostgresConnectionInput) GetPortOk() (*float32, bool)`
+`func (o *PostgresConnectionInput) GetPortOk() (*int32, bool)`
 
 GetPortOk returns a tuple with the Port field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPort
 
-`func (o *PostgresConnectionInput) SetPort(v float32)`
+`func (o *PostgresConnectionInput) SetPort(v int32)`
 
 SetPort sets Port field to given value.
 

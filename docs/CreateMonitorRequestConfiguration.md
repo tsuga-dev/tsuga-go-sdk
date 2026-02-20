@@ -8,16 +8,19 @@ Name | Type | Description | Notes
 **Condition** | [**MonitorConfigurationAnomalyLogCondition**](MonitorConfigurationAnomalyLogCondition.md) |  | 
 **NoDataBehavior** | **string** |  | 
 **Timeframe** | **float32** | Timeframe of the monitor in minutes | 
-**GroupByFields** | [**[]AggregationGroupBy**](AggregationGroupBy.md) |  | 
-**AggregationAlertLogic** | Pointer to **string** |  | [optional] 
-**ProportionAlertThreshold** | Pointer to **float32** |  | [optional] 
+**GroupByFields** | [**[]MonitorConfigurationMetricGroupByFieldsInner**](MonitorConfigurationMetricGroupByFieldsInner.md) |  | 
+**AggregationAlertLogic** | **string** |  | 
+**ProportionAlertThreshold** | Pointer to **int32** |  | [optional] 
 **Queries** | [**[]MonitorAggregationQuery**](MonitorAggregationQuery.md) | Aggregations that may be combined together in the same query | 
+**Filter** | [**MonitorConfigurationLogErrorPatternFilter**](MonitorConfigurationLogErrorPatternFilter.md) |  | 
+**WarnBeforeInDays** | **int32** |  | 
+**CloudAccounts** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
 ### NewCreateMonitorRequestConfiguration
 
-`func NewCreateMonitorRequestConfiguration(type_ string, condition MonitorConfigurationAnomalyLogCondition, noDataBehavior string, timeframe float32, groupByFields []AggregationGroupBy, queries []MonitorAggregationQuery, ) *CreateMonitorRequestConfiguration`
+`func NewCreateMonitorRequestConfiguration(type_ string, condition MonitorConfigurationAnomalyLogCondition, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, aggregationAlertLogic string, queries []MonitorAggregationQuery, filter MonitorConfigurationLogErrorPatternFilter, warnBeforeInDays int32, ) *CreateMonitorRequestConfiguration`
 
 NewCreateMonitorRequestConfiguration instantiates a new CreateMonitorRequestConfiguration object
 This constructor will assign default values to properties that have it defined,
@@ -114,20 +117,20 @@ SetTimeframe sets Timeframe field to given value.
 
 ### GetGroupByFields
 
-`func (o *CreateMonitorRequestConfiguration) GetGroupByFields() []AggregationGroupBy`
+`func (o *CreateMonitorRequestConfiguration) GetGroupByFields() []MonitorConfigurationMetricGroupByFieldsInner`
 
 GetGroupByFields returns the GroupByFields field if non-nil, zero value otherwise.
 
 ### GetGroupByFieldsOk
 
-`func (o *CreateMonitorRequestConfiguration) GetGroupByFieldsOk() (*[]AggregationGroupBy, bool)`
+`func (o *CreateMonitorRequestConfiguration) GetGroupByFieldsOk() (*[]MonitorConfigurationMetricGroupByFieldsInner, bool)`
 
 GetGroupByFieldsOk returns a tuple with the GroupByFields field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroupByFields
 
-`func (o *CreateMonitorRequestConfiguration) SetGroupByFields(v []AggregationGroupBy)`
+`func (o *CreateMonitorRequestConfiguration) SetGroupByFields(v []MonitorConfigurationMetricGroupByFieldsInner)`
 
 SetGroupByFields sets GroupByFields field to given value.
 
@@ -151,28 +154,23 @@ and a boolean to check if the value has been set.
 
 SetAggregationAlertLogic sets AggregationAlertLogic field to given value.
 
-### HasAggregationAlertLogic
-
-`func (o *CreateMonitorRequestConfiguration) HasAggregationAlertLogic() bool`
-
-HasAggregationAlertLogic returns a boolean if a field has been set.
 
 ### GetProportionAlertThreshold
 
-`func (o *CreateMonitorRequestConfiguration) GetProportionAlertThreshold() float32`
+`func (o *CreateMonitorRequestConfiguration) GetProportionAlertThreshold() int32`
 
 GetProportionAlertThreshold returns the ProportionAlertThreshold field if non-nil, zero value otherwise.
 
 ### GetProportionAlertThresholdOk
 
-`func (o *CreateMonitorRequestConfiguration) GetProportionAlertThresholdOk() (*float32, bool)`
+`func (o *CreateMonitorRequestConfiguration) GetProportionAlertThresholdOk() (*int32, bool)`
 
 GetProportionAlertThresholdOk returns a tuple with the ProportionAlertThreshold field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProportionAlertThreshold
 
-`func (o *CreateMonitorRequestConfiguration) SetProportionAlertThreshold(v float32)`
+`func (o *CreateMonitorRequestConfiguration) SetProportionAlertThreshold(v int32)`
 
 SetProportionAlertThreshold sets ProportionAlertThreshold field to given value.
 
@@ -201,6 +199,71 @@ and a boolean to check if the value has been set.
 
 SetQueries sets Queries field to given value.
 
+
+### GetFilter
+
+`func (o *CreateMonitorRequestConfiguration) GetFilter() MonitorConfigurationLogErrorPatternFilter`
+
+GetFilter returns the Filter field if non-nil, zero value otherwise.
+
+### GetFilterOk
+
+`func (o *CreateMonitorRequestConfiguration) GetFilterOk() (*MonitorConfigurationLogErrorPatternFilter, bool)`
+
+GetFilterOk returns a tuple with the Filter field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFilter
+
+`func (o *CreateMonitorRequestConfiguration) SetFilter(v MonitorConfigurationLogErrorPatternFilter)`
+
+SetFilter sets Filter field to given value.
+
+
+### GetWarnBeforeInDays
+
+`func (o *CreateMonitorRequestConfiguration) GetWarnBeforeInDays() int32`
+
+GetWarnBeforeInDays returns the WarnBeforeInDays field if non-nil, zero value otherwise.
+
+### GetWarnBeforeInDaysOk
+
+`func (o *CreateMonitorRequestConfiguration) GetWarnBeforeInDaysOk() (*int32, bool)`
+
+GetWarnBeforeInDaysOk returns a tuple with the WarnBeforeInDays field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWarnBeforeInDays
+
+`func (o *CreateMonitorRequestConfiguration) SetWarnBeforeInDays(v int32)`
+
+SetWarnBeforeInDays sets WarnBeforeInDays field to given value.
+
+
+### GetCloudAccounts
+
+`func (o *CreateMonitorRequestConfiguration) GetCloudAccounts() []string`
+
+GetCloudAccounts returns the CloudAccounts field if non-nil, zero value otherwise.
+
+### GetCloudAccountsOk
+
+`func (o *CreateMonitorRequestConfiguration) GetCloudAccountsOk() (*[]string, bool)`
+
+GetCloudAccountsOk returns a tuple with the CloudAccounts field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCloudAccounts
+
+`func (o *CreateMonitorRequestConfiguration) SetCloudAccounts(v []string)`
+
+SetCloudAccounts sets CloudAccounts field to given value.
+
+### HasCloudAccounts
+
+`func (o *CreateMonitorRequestConfiguration) HasCloudAccounts() bool`
+
+HasCloudAccounts returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

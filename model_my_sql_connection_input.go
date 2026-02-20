@@ -25,7 +25,7 @@ type MySqlConnectionInput struct {
 	User string `json:"user"`
 	Password string `json:"password"`
 	Host string `json:"host"`
-	Port float32 `json:"port"`
+	Port int32 `json:"port"`
 	DbName string `json:"dbName"`
 	SslRequire bool `json:"sslRequire"`
 }
@@ -36,7 +36,7 @@ type _MySqlConnectionInput MySqlConnectionInput
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMySqlConnectionInput(type_ string, user string, password string, host string, port float32, dbName string, sslRequire bool) *MySqlConnectionInput {
+func NewMySqlConnectionInput(type_ string, user string, password string, host string, port int32, dbName string, sslRequire bool) *MySqlConnectionInput {
 	this := MySqlConnectionInput{}
 	this.Type = type_
 	this.User = user
@@ -155,9 +155,9 @@ func (o *MySqlConnectionInput) SetHost(v string) {
 }
 
 // GetPort returns the Port field value
-func (o *MySqlConnectionInput) GetPort() float32 {
+func (o *MySqlConnectionInput) GetPort() int32 {
 	if o == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 
@@ -166,7 +166,7 @@ func (o *MySqlConnectionInput) GetPort() float32 {
 
 // GetPortOk returns a tuple with the Port field value
 // and a boolean to check if the value has been set.
-func (o *MySqlConnectionInput) GetPortOk() (*float32, bool) {
+func (o *MySqlConnectionInput) GetPortOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -174,7 +174,7 @@ func (o *MySqlConnectionInput) GetPortOk() (*float32, bool) {
 }
 
 // SetPort sets field value
-func (o *MySqlConnectionInput) SetPort(v float32) {
+func (o *MySqlConnectionInput) SetPort(v int32) {
 	o.Port = v
 }
 

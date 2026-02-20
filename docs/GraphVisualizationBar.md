@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a bar chart | 
 **Source** | **string** | Data source being queried for this aggregation | 
-**Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query | 
+**Queries** | [**[]AggregationQuery1**](AggregationQuery1.md) | Aggregations that may be combined together in the same query | 
 **Formula** | Pointer to **string** | Formula referencing query outputs (e.g. q1+q2) to compute derived series | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
 **GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 
 ### NewGraphVisualizationBar
 
-`func NewGraphVisualizationBar(type_ string, source string, queries []AggregationQuery, ) *GraphVisualizationBar`
+`func NewGraphVisualizationBar(type_ string, source string, queries []AggregationQuery1, ) *GraphVisualizationBar`
 
 NewGraphVisualizationBar instantiates a new GraphVisualizationBar object
 This constructor will assign default values to properties that have it defined,
@@ -77,20 +77,20 @@ SetSource sets Source field to given value.
 
 ### GetQueries
 
-`func (o *GraphVisualizationBar) GetQueries() []AggregationQuery`
+`func (o *GraphVisualizationBar) GetQueries() []AggregationQuery1`
 
 GetQueries returns the Queries field if non-nil, zero value otherwise.
 
 ### GetQueriesOk
 
-`func (o *GraphVisualizationBar) GetQueriesOk() (*[]AggregationQuery, bool)`
+`func (o *GraphVisualizationBar) GetQueriesOk() (*[]AggregationQuery1, bool)`
 
 GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueries
 
-`func (o *GraphVisualizationBar) SetQueries(v []AggregationQuery)`
+`func (o *GraphVisualizationBar) SetQueries(v []AggregationQuery1)`
 
 SetQueries sets Queries field to given value.
 

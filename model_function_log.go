@@ -24,7 +24,7 @@ type FunctionLog struct {
 	// Applies a logarithm transformation to the values
 	Type string `json:"type"`
 	// The base of the logarithm
-	Base float32 `json:"base"`
+	Base int32 `json:"base"`
 }
 
 type _FunctionLog FunctionLog
@@ -33,7 +33,7 @@ type _FunctionLog FunctionLog
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFunctionLog(type_ string, base float32) *FunctionLog {
+func NewFunctionLog(type_ string, base int32) *FunctionLog {
 	this := FunctionLog{}
 	this.Type = type_
 	this.Base = base
@@ -73,9 +73,9 @@ func (o *FunctionLog) SetType(v string) {
 }
 
 // GetBase returns the Base field value
-func (o *FunctionLog) GetBase() float32 {
+func (o *FunctionLog) GetBase() int32 {
 	if o == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 
@@ -84,7 +84,7 @@ func (o *FunctionLog) GetBase() float32 {
 
 // GetBaseOk returns a tuple with the Base field value
 // and a boolean to check if the value has been set.
-func (o *FunctionLog) GetBaseOk() (*float32, bool) {
+func (o *FunctionLog) GetBaseOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -92,7 +92,7 @@ func (o *FunctionLog) GetBaseOk() (*float32, bool) {
 }
 
 // SetBase sets field value
-func (o *FunctionLog) SetBase(v float32) {
+func (o *FunctionLog) SetBase(v int32) {
 	o.Base = v
 }
 

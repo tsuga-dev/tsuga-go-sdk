@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TeamName** | **[]string** |  | 
+**TeamIds** | **[]string** |  | 
 **Env** | **string** |  | 
 **Service** | Pointer to **string** |  | [optional] 
 
@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 
 ### NewMonitorConfigurationLogErrorPatternFilter
 
-`func NewMonitorConfigurationLogErrorPatternFilter(teamName []string, env string, ) *MonitorConfigurationLogErrorPatternFilter`
+`func NewMonitorConfigurationLogErrorPatternFilter(teamIds []string, env string, ) *MonitorConfigurationLogErrorPatternFilter`
 
 NewMonitorConfigurationLogErrorPatternFilter instantiates a new MonitorConfigurationLogErrorPatternFilter object
 This constructor will assign default values to properties that have it defined,
@@ -27,24 +27,24 @@ NewMonitorConfigurationLogErrorPatternFilterWithDefaults instantiates a new Moni
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetTeamName
+### GetTeamIds
 
-`func (o *MonitorConfigurationLogErrorPatternFilter) GetTeamName() []string`
+`func (o *MonitorConfigurationLogErrorPatternFilter) GetTeamIds() []string`
 
-GetTeamName returns the TeamName field if non-nil, zero value otherwise.
+GetTeamIds returns the TeamIds field if non-nil, zero value otherwise.
 
-### GetTeamNameOk
+### GetTeamIdsOk
 
-`func (o *MonitorConfigurationLogErrorPatternFilter) GetTeamNameOk() (*[]string, bool)`
+`func (o *MonitorConfigurationLogErrorPatternFilter) GetTeamIdsOk() (*[]string, bool)`
 
-GetTeamNameOk returns a tuple with the TeamName field if it's non-nil, zero value otherwise
+GetTeamIdsOk returns a tuple with the TeamIds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetTeamName
+### SetTeamIds
 
-`func (o *MonitorConfigurationLogErrorPatternFilter) SetTeamName(v []string)`
+`func (o *MonitorConfigurationLogErrorPatternFilter) SetTeamIds(v []string)`
 
-SetTeamName sets TeamName field to given value.
+SetTeamIds sets TeamIds field to given value.
 
 
 ### GetEnv

@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Raises values to a specified power | 
-**Exponent** | **float32** | The exponent to raise values to | 
+**Exponent** | **int32** | The exponent to raise values to | 
 
 ## Methods
 
 ### NewFunctionPower
 
-`func NewFunctionPower(type_ string, exponent float32, ) *FunctionPower`
+`func NewFunctionPower(type_ string, exponent int32, ) *FunctionPower`
 
 NewFunctionPower instantiates a new FunctionPower object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetType sets Type field to given value.
 
 ### GetExponent
 
-`func (o *FunctionPower) GetExponent() float32`
+`func (o *FunctionPower) GetExponent() int32`
 
 GetExponent returns the Exponent field if non-nil, zero value otherwise.
 
 ### GetExponentOk
 
-`func (o *FunctionPower) GetExponentOk() (*float32, bool)`
+`func (o *FunctionPower) GetExponentOk() (*int32, bool)`
 
 GetExponentOk returns a tuple with the Exponent field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExponent
 
-`func (o *FunctionPower) SetExponent(v float32)`
+`func (o *FunctionPower) SetExponent(v int32)`
 
 SetExponent sets Exponent field to given value.
 

@@ -21,7 +21,7 @@ var _ MappedNullable = &MonitorConfigurationLogErrorPatternFilter{}
 
 // MonitorConfigurationLogErrorPatternFilter struct for MonitorConfigurationLogErrorPatternFilter
 type MonitorConfigurationLogErrorPatternFilter struct {
-	TeamName []string `json:"teamName"`
+	TeamIds []string `json:"teamIds"`
 	Env string `json:"env"`
 	Service *string `json:"service,omitempty"`
 }
@@ -32,9 +32,9 @@ type _MonitorConfigurationLogErrorPatternFilter MonitorConfigurationLogErrorPatt
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMonitorConfigurationLogErrorPatternFilter(teamName []string, env string) *MonitorConfigurationLogErrorPatternFilter {
+func NewMonitorConfigurationLogErrorPatternFilter(teamIds []string, env string) *MonitorConfigurationLogErrorPatternFilter {
 	this := MonitorConfigurationLogErrorPatternFilter{}
-	this.TeamName = teamName
+	this.TeamIds = teamIds
 	this.Env = env
 	return &this
 }
@@ -47,28 +47,28 @@ func NewMonitorConfigurationLogErrorPatternFilterWithDefaults() *MonitorConfigur
 	return &this
 }
 
-// GetTeamName returns the TeamName field value
-func (o *MonitorConfigurationLogErrorPatternFilter) GetTeamName() []string {
+// GetTeamIds returns the TeamIds field value
+func (o *MonitorConfigurationLogErrorPatternFilter) GetTeamIds() []string {
 	if o == nil {
 		var ret []string
 		return ret
 	}
 
-	return o.TeamName
+	return o.TeamIds
 }
 
-// GetTeamNameOk returns a tuple with the TeamName field value
+// GetTeamIdsOk returns a tuple with the TeamIds field value
 // and a boolean to check if the value has been set.
-func (o *MonitorConfigurationLogErrorPatternFilter) GetTeamNameOk() ([]string, bool) {
+func (o *MonitorConfigurationLogErrorPatternFilter) GetTeamIdsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.TeamName, true
+	return o.TeamIds, true
 }
 
-// SetTeamName sets field value
-func (o *MonitorConfigurationLogErrorPatternFilter) SetTeamName(v []string) {
-	o.TeamName = v
+// SetTeamIds sets field value
+func (o *MonitorConfigurationLogErrorPatternFilter) SetTeamIds(v []string) {
+	o.TeamIds = v
 }
 
 // GetEnv returns the Env field value
@@ -137,7 +137,7 @@ func (o MonitorConfigurationLogErrorPatternFilter) MarshalJSON() ([]byte, error)
 
 func (o MonitorConfigurationLogErrorPatternFilter) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["teamName"] = o.TeamName
+	toSerialize["teamIds"] = o.TeamIds
 	toSerialize["env"] = o.Env
 	if !IsNil(o.Service) {
 		toSerialize["service"] = o.Service
@@ -150,7 +150,7 @@ func (o *MonitorConfigurationLogErrorPatternFilter) UnmarshalJSON(data []byte) (
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"teamName",
+		"teamIds",
 		"env",
 	}
 
