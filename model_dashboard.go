@@ -30,7 +30,7 @@ type Dashboard struct {
 	// Ordered widgets that compose the dashboard
 	Graphs []Graph `json:"graphs"`
 	// Filters applied to every widget on the dashboard
-	Filters []string `json:"filters,omitempty"`
+	Filters []CreateDashboardRequestFiltersInner `json:"filters,omitempty"`
 	// List of key/value tags applied to the resource
 	Tags []Tag `json:"tags,omitempty"`
 	TimePreset *string `json:"timePreset,omitempty"`
@@ -156,9 +156,9 @@ func (o *Dashboard) SetGraphs(v []Graph) {
 }
 
 // GetFilters returns the Filters field value if set, zero value otherwise.
-func (o *Dashboard) GetFilters() []string {
+func (o *Dashboard) GetFilters() []CreateDashboardRequestFiltersInner {
 	if o == nil || IsNil(o.Filters) {
-		var ret []string
+		var ret []CreateDashboardRequestFiltersInner
 		return ret
 	}
 	return o.Filters
@@ -166,7 +166,7 @@ func (o *Dashboard) GetFilters() []string {
 
 // GetFiltersOk returns a tuple with the Filters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Dashboard) GetFiltersOk() ([]string, bool) {
+func (o *Dashboard) GetFiltersOk() ([]CreateDashboardRequestFiltersInner, bool) {
 	if o == nil || IsNil(o.Filters) {
 		return nil, false
 	}
@@ -182,8 +182,8 @@ func (o *Dashboard) HasFilters() bool {
 	return false
 }
 
-// SetFilters gets a reference to the given []string and assigns it to the Filters field.
-func (o *Dashboard) SetFilters(v []string) {
+// SetFilters gets a reference to the given []CreateDashboardRequestFiltersInner and assigns it to the Filters field.
+func (o *Dashboard) SetFilters(v []CreateDashboardRequestFiltersInner) {
 	o.Filters = v
 }
 

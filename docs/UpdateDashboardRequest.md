@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | Display name of the dashboard | [optional] 
 **Owner** | Pointer to **string** | Team ID that owns and manages the dashboard | [optional] 
 **Graphs** | Pointer to [**[]Graph**](Graph.md) | Ordered widgets that compose the dashboard | [optional] 
-**Filters** | Pointer to **[]string** | Filters applied to every widget on the dashboard | [optional] 
+**Filters** | Pointer to [**[]CreateDashboardRequestFiltersInner**](CreateDashboardRequestFiltersInner.md) | Filters applied to every widget on the dashboard | [optional] 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
 **TimePreset** | Pointer to **string** |  | [optional] 
 
@@ -107,20 +107,20 @@ HasGraphs returns a boolean if a field has been set.
 
 ### GetFilters
 
-`func (o *UpdateDashboardRequest) GetFilters() []string`
+`func (o *UpdateDashboardRequest) GetFilters() []CreateDashboardRequestFiltersInner`
 
 GetFilters returns the Filters field if non-nil, zero value otherwise.
 
 ### GetFiltersOk
 
-`func (o *UpdateDashboardRequest) GetFiltersOk() (*[]string, bool)`
+`func (o *UpdateDashboardRequest) GetFiltersOk() (*[]CreateDashboardRequestFiltersInner, bool)`
 
 GetFiltersOk returns a tuple with the Filters field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFilters
 
-`func (o *UpdateDashboardRequest) SetFilters(v []string)`
+`func (o *UpdateDashboardRequest) SetFilters(v []CreateDashboardRequestFiltersInner)`
 
 SetFilters sets Filters field to given value.
 

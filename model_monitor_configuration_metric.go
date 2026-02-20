@@ -26,9 +26,9 @@ type MonitorConfigurationMetric struct {
 	NoDataBehavior string `json:"noDataBehavior"`
 	// Timeframe of the monitor in minutes
 	Timeframe float32 `json:"timeframe"`
-	GroupByFields []AggregationGroupBy `json:"groupByFields"`
+	GroupByFields []MonitorConfigurationMetricGroupByFieldsInner `json:"groupByFields"`
 	AggregationAlertLogic *string `json:"aggregationAlertLogic,omitempty"`
-	ProportionAlertThreshold *float32 `json:"proportionAlertThreshold,omitempty"`
+	ProportionAlertThreshold *int32 `json:"proportionAlertThreshold,omitempty"`
 	// Aggregations that may be combined together in the same query
 	Queries []MonitorAggregationQuery `json:"queries"`
 }
@@ -39,7 +39,7 @@ type _MonitorConfigurationMetric MonitorConfigurationMetric
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMonitorConfigurationMetric(type_ string, condition MonitorConfigurationMetricCondition, noDataBehavior string, timeframe float32, groupByFields []AggregationGroupBy, queries []MonitorAggregationQuery) *MonitorConfigurationMetric {
+func NewMonitorConfigurationMetric(type_ string, condition MonitorConfigurationMetricCondition, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, queries []MonitorAggregationQuery) *MonitorConfigurationMetric {
 	this := MonitorConfigurationMetric{}
 	this.Type = type_
 	this.Condition = condition
@@ -155,9 +155,9 @@ func (o *MonitorConfigurationMetric) SetTimeframe(v float32) {
 }
 
 // GetGroupByFields returns the GroupByFields field value
-func (o *MonitorConfigurationMetric) GetGroupByFields() []AggregationGroupBy {
+func (o *MonitorConfigurationMetric) GetGroupByFields() []MonitorConfigurationMetricGroupByFieldsInner {
 	if o == nil {
-		var ret []AggregationGroupBy
+		var ret []MonitorConfigurationMetricGroupByFieldsInner
 		return ret
 	}
 
@@ -166,7 +166,7 @@ func (o *MonitorConfigurationMetric) GetGroupByFields() []AggregationGroupBy {
 
 // GetGroupByFieldsOk returns a tuple with the GroupByFields field value
 // and a boolean to check if the value has been set.
-func (o *MonitorConfigurationMetric) GetGroupByFieldsOk() ([]AggregationGroupBy, bool) {
+func (o *MonitorConfigurationMetric) GetGroupByFieldsOk() ([]MonitorConfigurationMetricGroupByFieldsInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -174,7 +174,7 @@ func (o *MonitorConfigurationMetric) GetGroupByFieldsOk() ([]AggregationGroupBy,
 }
 
 // SetGroupByFields sets field value
-func (o *MonitorConfigurationMetric) SetGroupByFields(v []AggregationGroupBy) {
+func (o *MonitorConfigurationMetric) SetGroupByFields(v []MonitorConfigurationMetricGroupByFieldsInner) {
 	o.GroupByFields = v
 }
 
@@ -211,9 +211,9 @@ func (o *MonitorConfigurationMetric) SetAggregationAlertLogic(v string) {
 }
 
 // GetProportionAlertThreshold returns the ProportionAlertThreshold field value if set, zero value otherwise.
-func (o *MonitorConfigurationMetric) GetProportionAlertThreshold() float32 {
+func (o *MonitorConfigurationMetric) GetProportionAlertThreshold() int32 {
 	if o == nil || IsNil(o.ProportionAlertThreshold) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.ProportionAlertThreshold
@@ -221,7 +221,7 @@ func (o *MonitorConfigurationMetric) GetProportionAlertThreshold() float32 {
 
 // GetProportionAlertThresholdOk returns a tuple with the ProportionAlertThreshold field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MonitorConfigurationMetric) GetProportionAlertThresholdOk() (*float32, bool) {
+func (o *MonitorConfigurationMetric) GetProportionAlertThresholdOk() (*int32, bool) {
 	if o == nil || IsNil(o.ProportionAlertThreshold) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *MonitorConfigurationMetric) HasProportionAlertThreshold() bool {
 	return false
 }
 
-// SetProportionAlertThreshold gets a reference to the given float32 and assigns it to the ProportionAlertThreshold field.
-func (o *MonitorConfigurationMetric) SetProportionAlertThreshold(v float32) {
+// SetProportionAlertThreshold gets a reference to the given int32 and assigns it to the ProportionAlertThreshold field.
+func (o *MonitorConfigurationMetric) SetProportionAlertThreshold(v int32) {
 	o.ProportionAlertThreshold = &v
 }
 

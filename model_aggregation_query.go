@@ -24,7 +24,7 @@ type AggregationQuery struct {
 	Aggregate Aggregate `json:"aggregate"`
 	// Post-processing functions applied to aggregation results
 	Functions []Function `json:"functions,omitempty"`
-	Fill *MonitorAggregationQueryFill `json:"fill,omitempty"`
+	// Filter to apply to the aggregation
 	Filter *string `json:"filter,omitempty"`
 }
 
@@ -104,38 +104,6 @@ func (o *AggregationQuery) SetFunctions(v []Function) {
 	o.Functions = v
 }
 
-// GetFill returns the Fill field value if set, zero value otherwise.
-func (o *AggregationQuery) GetFill() MonitorAggregationQueryFill {
-	if o == nil || IsNil(o.Fill) {
-		var ret MonitorAggregationQueryFill
-		return ret
-	}
-	return *o.Fill
-}
-
-// GetFillOk returns a tuple with the Fill field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AggregationQuery) GetFillOk() (*MonitorAggregationQueryFill, bool) {
-	if o == nil || IsNil(o.Fill) {
-		return nil, false
-	}
-	return o.Fill, true
-}
-
-// HasFill returns a boolean if a field has been set.
-func (o *AggregationQuery) HasFill() bool {
-	if o != nil && !IsNil(o.Fill) {
-		return true
-	}
-
-	return false
-}
-
-// SetFill gets a reference to the given MonitorAggregationQueryFill and assigns it to the Fill field.
-func (o *AggregationQuery) SetFill(v MonitorAggregationQueryFill) {
-	o.Fill = &v
-}
-
 // GetFilter returns the Filter field value if set, zero value otherwise.
 func (o *AggregationQuery) GetFilter() string {
 	if o == nil || IsNil(o.Filter) {
@@ -181,9 +149,6 @@ func (o AggregationQuery) ToMap() (map[string]interface{}, error) {
 	toSerialize["aggregate"] = o.Aggregate
 	if !IsNil(o.Functions) {
 		toSerialize["functions"] = o.Functions
-	}
-	if !IsNil(o.Fill) {
-		toSerialize["fill"] = o.Fill
 	}
 	if !IsNil(o.Filter) {
 		toSerialize["filter"] = o.Filter

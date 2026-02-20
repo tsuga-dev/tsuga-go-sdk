@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **User** | **string** |  | 
 **Password** | **string** |  | 
 **Host** | **string** |  | 
-**Port** | **float32** |  | 
+**Port** | **int32** |  | 
 **DbName** | **string** |  | 
 **SslRequire** | **bool** |  | [default to true]
 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewMySqlConnectionInput
 
-`func NewMySqlConnectionInput(type_ string, user string, password string, host string, port float32, dbName string, sslRequire bool, ) *MySqlConnectionInput`
+`func NewMySqlConnectionInput(type_ string, user string, password string, host string, port int32, dbName string, sslRequire bool, ) *MySqlConnectionInput`
 
 NewMySqlConnectionInput instantiates a new MySqlConnectionInput object
 This constructor will assign default values to properties that have it defined,
@@ -113,20 +113,20 @@ SetHost sets Host field to given value.
 
 ### GetPort
 
-`func (o *MySqlConnectionInput) GetPort() float32`
+`func (o *MySqlConnectionInput) GetPort() int32`
 
 GetPort returns the Port field if non-nil, zero value otherwise.
 
 ### GetPortOk
 
-`func (o *MySqlConnectionInput) GetPortOk() (*float32, bool)`
+`func (o *MySqlConnectionInput) GetPortOk() (*int32, bool)`
 
 GetPortOk returns a tuple with the Port field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPort
 
-`func (o *MySqlConnectionInput) SetPort(v float32)`
+`func (o *MySqlConnectionInput) SetPort(v int32)`
 
 SetPort sets Port field to given value.
 

@@ -119,7 +119,7 @@ func (a *TeamsAPIService) CreateTeamExecute(r ApiCreateTeamRequest) (*CreateTeam
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListIngestionApiKeys4XXResponse
+			var v AggregateScalar4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -130,7 +130,7 @@ func (a *TeamsAPIService) CreateTeamExecute(r ApiCreateTeamRequest) (*CreateTeam
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListIngestionApiKeys4XXResponse
+			var v AggregateScalar5XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -249,7 +249,7 @@ func (a *TeamsAPIService) DeleteTeamExecute(r ApiDeleteTeamRequest) (*DeleteInge
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListIngestionApiKeys4XXResponse
+			var v AggregateScalar4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -260,7 +260,7 @@ func (a *TeamsAPIService) DeleteTeamExecute(r ApiDeleteTeamRequest) (*DeleteInge
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListIngestionApiKeys4XXResponse
+			var v AggregateScalar5XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -379,7 +379,7 @@ func (a *TeamsAPIService) GetTeamExecute(r ApiGetTeamRequest) (*CreateTeam200Res
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListIngestionApiKeys4XXResponse
+			var v AggregateScalar4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -390,7 +390,7 @@ func (a *TeamsAPIService) GetTeamExecute(r ApiGetTeamRequest) (*CreateTeam200Res
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListIngestionApiKeys4XXResponse
+			var v AggregateScalar5XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -499,7 +499,7 @@ func (a *TeamsAPIService) ListTeamsExecute(r ApiListTeamsRequest) (*ListTeams200
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListIngestionApiKeys4XXResponse
+			var v AggregateScalar4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -510,7 +510,7 @@ func (a *TeamsAPIService) ListTeamsExecute(r ApiListTeamsRequest) (*ListTeams200
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListIngestionApiKeys4XXResponse
+			var v AggregateScalar5XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -640,7 +640,7 @@ func (a *TeamsAPIService) UpdateTeamExecute(r ApiUpdateTeamRequest) (*CreateTeam
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListIngestionApiKeys4XXResponse
+			var v AggregateScalar4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -651,7 +651,7 @@ func (a *TeamsAPIService) UpdateTeamExecute(r ApiUpdateTeamRequest) (*CreateTeam
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListIngestionApiKeys4XXResponse
+			var v AggregateScalar5XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

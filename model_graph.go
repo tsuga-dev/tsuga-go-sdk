@@ -25,6 +25,8 @@ type Graph struct {
 	Id string `json:"id"`
 	// Display name of the graph widget
 	Name *string `json:"name,omitempty"`
+	// Description of the graph widget
+	Description *string `json:"description,omitempty"`
 	Visualization GraphVisualization `json:"visualization"`
 	Layout *GraphLayout `json:"layout,omitempty"`
 }
@@ -106,6 +108,38 @@ func (o *Graph) SetName(v string) {
 	o.Name = &v
 }
 
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *Graph) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Graph) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *Graph) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *Graph) SetDescription(v string) {
+	o.Description = &v
+}
+
 // GetVisualization returns the Visualization field value
 func (o *Graph) GetVisualization() GraphVisualization {
 	if o == nil {
@@ -175,6 +209,9 @@ func (o Graph) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
 	}
 	toSerialize["visualization"] = o.Visualization
 	if !IsNil(o.Layout) {

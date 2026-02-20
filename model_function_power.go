@@ -24,7 +24,7 @@ type FunctionPower struct {
 	// Raises values to a specified power
 	Type string `json:"type"`
 	// The exponent to raise values to
-	Exponent float32 `json:"exponent"`
+	Exponent int32 `json:"exponent"`
 }
 
 type _FunctionPower FunctionPower
@@ -33,7 +33,7 @@ type _FunctionPower FunctionPower
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFunctionPower(type_ string, exponent float32) *FunctionPower {
+func NewFunctionPower(type_ string, exponent int32) *FunctionPower {
 	this := FunctionPower{}
 	this.Type = type_
 	this.Exponent = exponent
@@ -73,9 +73,9 @@ func (o *FunctionPower) SetType(v string) {
 }
 
 // GetExponent returns the Exponent field value
-func (o *FunctionPower) GetExponent() float32 {
+func (o *FunctionPower) GetExponent() int32 {
 	if o == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 
@@ -84,7 +84,7 @@ func (o *FunctionPower) GetExponent() float32 {
 
 // GetExponentOk returns a tuple with the Exponent field value
 // and a boolean to check if the value has been set.
-func (o *FunctionPower) GetExponentOk() (*float32, bool) {
+func (o *FunctionPower) GetExponentOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -92,7 +92,7 @@ func (o *FunctionPower) GetExponentOk() (*float32, bool) {
 }
 
 // SetExponent sets field value
-func (o *FunctionPower) SetExponent(v float32) {
+func (o *FunctionPower) SetExponent(v int32) {
 	o.Exponent = v
 }
 

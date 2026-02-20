@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a pie chart | 
 **Source** | **string** | Data source being queried for this aggregation | 
-**Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query | 
+**Queries** | [**[]AggregationQuery1**](AggregationQuery1.md) | Aggregations that may be combined together in the same query | 
 **Formula** | Pointer to **string** | Formula referencing query outputs (e.g. q1+q2) to compute derived series | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
 **GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewGraphVisualizationPie
 
-`func NewGraphVisualizationPie(type_ string, source string, queries []AggregationQuery, ) *GraphVisualizationPie`
+`func NewGraphVisualizationPie(type_ string, source string, queries []AggregationQuery1, ) *GraphVisualizationPie`
 
 NewGraphVisualizationPie instantiates a new GraphVisualizationPie object
 This constructor will assign default values to properties that have it defined,
@@ -75,20 +75,20 @@ SetSource sets Source field to given value.
 
 ### GetQueries
 
-`func (o *GraphVisualizationPie) GetQueries() []AggregationQuery`
+`func (o *GraphVisualizationPie) GetQueries() []AggregationQuery1`
 
 GetQueries returns the Queries field if non-nil, zero value otherwise.
 
 ### GetQueriesOk
 
-`func (o *GraphVisualizationPie) GetQueriesOk() (*[]AggregationQuery, bool)`
+`func (o *GraphVisualizationPie) GetQueriesOk() (*[]AggregationQuery1, bool)`
 
 GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueries
 
-`func (o *GraphVisualizationPie) SetQueries(v []AggregationQuery)`
+`func (o *GraphVisualizationPie) SetQueries(v []AggregationQuery1)`
 
 SetQueries sets Queries field to given value.
 

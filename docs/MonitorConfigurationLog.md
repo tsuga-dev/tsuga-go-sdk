@@ -8,16 +8,16 @@ Name | Type | Description | Notes
 **Condition** | [**MonitorConfigurationMetricCondition**](MonitorConfigurationMetricCondition.md) |  | 
 **NoDataBehavior** | **string** |  | 
 **Timeframe** | **float32** | Timeframe of the monitor in minutes | 
-**GroupByFields** | [**[]AggregationGroupBy**](AggregationGroupBy.md) |  | 
+**GroupByFields** | [**[]MonitorConfigurationMetricGroupByFieldsInner**](MonitorConfigurationMetricGroupByFieldsInner.md) |  | 
 **AggregationAlertLogic** | Pointer to **string** |  | [optional] 
-**ProportionAlertThreshold** | Pointer to **float32** |  | [optional] 
+**ProportionAlertThreshold** | Pointer to **int32** |  | [optional] 
 **Queries** | [**[]MonitorAggregationQuery**](MonitorAggregationQuery.md) | Aggregations that may be combined together in the same query | 
 
 ## Methods
 
 ### NewMonitorConfigurationLog
 
-`func NewMonitorConfigurationLog(type_ string, condition MonitorConfigurationMetricCondition, noDataBehavior string, timeframe float32, groupByFields []AggregationGroupBy, queries []MonitorAggregationQuery, ) *MonitorConfigurationLog`
+`func NewMonitorConfigurationLog(type_ string, condition MonitorConfigurationMetricCondition, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, queries []MonitorAggregationQuery, ) *MonitorConfigurationLog`
 
 NewMonitorConfigurationLog instantiates a new MonitorConfigurationLog object
 This constructor will assign default values to properties that have it defined,
@@ -114,20 +114,20 @@ SetTimeframe sets Timeframe field to given value.
 
 ### GetGroupByFields
 
-`func (o *MonitorConfigurationLog) GetGroupByFields() []AggregationGroupBy`
+`func (o *MonitorConfigurationLog) GetGroupByFields() []MonitorConfigurationMetricGroupByFieldsInner`
 
 GetGroupByFields returns the GroupByFields field if non-nil, zero value otherwise.
 
 ### GetGroupByFieldsOk
 
-`func (o *MonitorConfigurationLog) GetGroupByFieldsOk() (*[]AggregationGroupBy, bool)`
+`func (o *MonitorConfigurationLog) GetGroupByFieldsOk() (*[]MonitorConfigurationMetricGroupByFieldsInner, bool)`
 
 GetGroupByFieldsOk returns a tuple with the GroupByFields field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroupByFields
 
-`func (o *MonitorConfigurationLog) SetGroupByFields(v []AggregationGroupBy)`
+`func (o *MonitorConfigurationLog) SetGroupByFields(v []MonitorConfigurationMetricGroupByFieldsInner)`
 
 SetGroupByFields sets GroupByFields field to given value.
 
@@ -159,20 +159,20 @@ HasAggregationAlertLogic returns a boolean if a field has been set.
 
 ### GetProportionAlertThreshold
 
-`func (o *MonitorConfigurationLog) GetProportionAlertThreshold() float32`
+`func (o *MonitorConfigurationLog) GetProportionAlertThreshold() int32`
 
 GetProportionAlertThreshold returns the ProportionAlertThreshold field if non-nil, zero value otherwise.
 
 ### GetProportionAlertThresholdOk
 
-`func (o *MonitorConfigurationLog) GetProportionAlertThresholdOk() (*float32, bool)`
+`func (o *MonitorConfigurationLog) GetProportionAlertThresholdOk() (*int32, bool)`
 
 GetProportionAlertThresholdOk returns a tuple with the ProportionAlertThreshold field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProportionAlertThreshold
 
-`func (o *MonitorConfigurationLog) SetProportionAlertThreshold(v float32)`
+`func (o *MonitorConfigurationLog) SetProportionAlertThreshold(v int32)`
 
 SetProportionAlertThreshold sets ProportionAlertThreshold field to given value.
 

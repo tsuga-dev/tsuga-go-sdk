@@ -79,6 +79,8 @@ All URIs are relative to *https://api.tsuga.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AggregationAPI* | [**AggregateScalar**](docs/AggregationAPI.md#aggregatescalar) | **Post** /v1/aggregation/multi-query/scalar | 
+*AggregationAPI* | [**AggregateTimeseries**](docs/AggregationAPI.md#aggregatetimeseries) | **Post** /v1/aggregation/multi-query/timeseries | 
 *DashboardsAPI* | [**CreateDashboard**](docs/DashboardsAPI.md#createdashboard) | **Post** /v1/dashboards | 
 *DashboardsAPI* | [**DeleteDashboard**](docs/DashboardsAPI.md#deletedashboard) | **Delete** /v1/dashboards/{id} | 
 *DashboardsAPI* | [**GetDashboard**](docs/DashboardsAPI.md#getdashboard) | **Get** /v1/dashboards/{id} | 
@@ -88,6 +90,9 @@ Class | Method | HTTP request | Description
 *IngestionApiKeysAPI* | [**DeleteIngestionApiKey**](docs/IngestionApiKeysAPI.md#deleteingestionapikey) | **Delete** /v1/ingestion-api-keys/{id} | 
 *IngestionApiKeysAPI* | [**ListIngestionApiKeys**](docs/IngestionApiKeysAPI.md#listingestionapikeys) | **Get** /v1/ingestion-api-keys | 
 *IngestionApiKeysAPI* | [**UpdateIngestionApiKey**](docs/IngestionApiKeysAPI.md#updateingestionapikey) | **Put** /v1/ingestion-api-keys/{id} | 
+*LogsAPI* | [**SearchLogs**](docs/LogsAPI.md#searchlogs) | **Get** /v1/logs/search | 
+*MetricsAPI* | [**GetMetric**](docs/MetricsAPI.md#getmetric) | **Get** /v1/metrics/{name} | 
+*MetricsAPI* | [**ListMetrics**](docs/MetricsAPI.md#listmetrics) | **Get** /v1/metrics | 
 *MonitorsAPI* | [**CreateMonitor**](docs/MonitorsAPI.md#createmonitor) | **Post** /v1/monitors | 
 *MonitorsAPI* | [**DeleteMonitor**](docs/MonitorsAPI.md#deletemonitor) | **Delete** /v1/monitors/{id} | 
 *MonitorsAPI* | [**GetMonitor**](docs/MonitorsAPI.md#getmonitor) | **Get** /v1/monitors/{id} | 
@@ -98,6 +103,11 @@ Class | Method | HTTP request | Description
 *NotificationRulesAPI* | [**GetNotificationRule**](docs/NotificationRulesAPI.md#getnotificationrule) | **Get** /v1/notification-rules/{id} | 
 *NotificationRulesAPI* | [**ListNotificationRules**](docs/NotificationRulesAPI.md#listnotificationrules) | **Get** /v1/notification-rules | 
 *NotificationRulesAPI* | [**UpdateNotificationRule**](docs/NotificationRulesAPI.md#updatenotificationrule) | **Put** /v1/notification-rules/{id} | 
+*NotificationSilencesAPI* | [**CreateNotificationSilence**](docs/NotificationSilencesAPI.md#createnotificationsilence) | **Post** /v1/notification-silences | 
+*NotificationSilencesAPI* | [**DeleteNotificationSilence**](docs/NotificationSilencesAPI.md#deletenotificationsilence) | **Delete** /v1/notification-silences/{id} | 
+*NotificationSilencesAPI* | [**GetNotificationSilence**](docs/NotificationSilencesAPI.md#getnotificationsilence) | **Get** /v1/notification-silences/{id} | 
+*NotificationSilencesAPI* | [**ListNotificationSilences**](docs/NotificationSilencesAPI.md#listnotificationsilences) | **Get** /v1/notification-silences | 
+*NotificationSilencesAPI* | [**UpdateNotificationSilence**](docs/NotificationSilencesAPI.md#updatenotificationsilence) | **Put** /v1/notification-silences/{id} | 
 *RetentionPoliciesAPI* | [**CreateRetentionPolicy**](docs/RetentionPoliciesAPI.md#createretentionpolicy) | **Post** /v1/retention-policies | 
 *RetentionPoliciesAPI* | [**DeleteRetentionPolicy**](docs/RetentionPoliciesAPI.md#deleteretentionpolicy) | **Delete** /v1/retention-policies/{id} | 
 *RetentionPoliciesAPI* | [**GetRetentionPolicy**](docs/RetentionPoliciesAPI.md#getretentionpolicy) | **Get** /v1/retention-policies/{id} | 
@@ -108,11 +118,22 @@ Class | Method | HTTP request | Description
 *RoutesAPI* | [**GetRoute**](docs/RoutesAPI.md#getroute) | **Get** /v1/routes/{id} | 
 *RoutesAPI* | [**ListRoutes**](docs/RoutesAPI.md#listroutes) | **Get** /v1/routes | 
 *RoutesAPI* | [**UpdateRoute**](docs/RoutesAPI.md#updateroute) | **Put** /v1/routes/{id} | 
+*TagPoliciesAPI* | [**CreateTagPolicy**](docs/TagPoliciesAPI.md#createtagpolicy) | **Post** /v1/tag-policies | 
+*TagPoliciesAPI* | [**DeleteTagPolicy**](docs/TagPoliciesAPI.md#deletetagpolicy) | **Delete** /v1/tag-policies/{id} | 
+*TagPoliciesAPI* | [**GetTagPolicy**](docs/TagPoliciesAPI.md#gettagpolicy) | **Get** /v1/tag-policies/{id} | 
+*TagPoliciesAPI* | [**ListTagPolicies**](docs/TagPoliciesAPI.md#listtagpolicies) | **Get** /v1/tag-policies | 
+*TagPoliciesAPI* | [**UpdateTagPolicy**](docs/TagPoliciesAPI.md#updatetagpolicy) | **Put** /v1/tag-policies/{id} | 
+*TeamMembershipsAPI* | [**AddUserToTeam**](docs/TeamMembershipsAPI.md#addusertoteam) | **Post** /v1/team-memberships | 
+*TeamMembershipsAPI* | [**GetTeamMemberships**](docs/TeamMembershipsAPI.md#getteammemberships) | **Get** /v1/team-memberships | 
+*TeamMembershipsAPI* | [**RemoveUserFromTeam**](docs/TeamMembershipsAPI.md#removeuserfromteam) | **Delete** /v1/team-memberships | 
+*TeamMembershipsAPI* | [**UpdateTeamMembership**](docs/TeamMembershipsAPI.md#updateteammembership) | **Put** /v1/team-memberships | 
 *TeamsAPI* | [**CreateTeam**](docs/TeamsAPI.md#createteam) | **Post** /v1/teams | 
 *TeamsAPI* | [**DeleteTeam**](docs/TeamsAPI.md#deleteteam) | **Delete** /v1/teams/{id} | 
 *TeamsAPI* | [**GetTeam**](docs/TeamsAPI.md#getteam) | **Get** /v1/teams/{id} | 
 *TeamsAPI* | [**ListTeams**](docs/TeamsAPI.md#listteams) | **Get** /v1/teams | 
 *TeamsAPI* | [**UpdateTeam**](docs/TeamsAPI.md#updateteam) | **Put** /v1/teams/{id} | 
+*TracesAPI* | [**SearchSpans**](docs/TracesAPI.md#searchspans) | **Get** /v1/traces/search | 
+*UsersAPI* | [**ListUsers**](docs/UsersAPI.md#listusers) | **Get** /v1/users | 
 
 
 ## Documentation For Models
@@ -123,16 +144,25 @@ Class | Method | HTTP request | Description
  - [AggregateMax](docs/AggregateMax.md)
  - [AggregateMin](docs/AggregateMin.md)
  - [AggregatePercentile](docs/AggregatePercentile.md)
+ - [AggregateScalar200Response](docs/AggregateScalar200Response.md)
+ - [AggregateScalar4XXResponse](docs/AggregateScalar4XXResponse.md)
+ - [AggregateScalar5XXResponse](docs/AggregateScalar5XXResponse.md)
+ - [AggregateScalarRequest](docs/AggregateScalarRequest.md)
  - [AggregateSum](docs/AggregateSum.md)
+ - [AggregateTimeseries200Response](docs/AggregateTimeseries200Response.md)
+ - [AggregateTimeseriesRequest](docs/AggregateTimeseriesRequest.md)
  - [AggregateUniqueCount](docs/AggregateUniqueCount.md)
  - [AggregationGroupBy](docs/AggregationGroupBy.md)
  - [AggregationQuery](docs/AggregationQuery.md)
+ - [AggregationQuery1](docs/AggregationQuery1.md)
  - [BigQueryConnectionInput](docs/BigQueryConnectionInput.md)
  - [BigQueryConnectionInputAuth](docs/BigQueryConnectionInputAuth.md)
  - [BigQueryWifDirectAccessAuthInput](docs/BigQueryWifDirectAccessAuthInput.md)
+ - [ClientErrorResponse](docs/ClientErrorResponse.md)
  - [ConditionalFormatting](docs/ConditionalFormatting.md)
  - [CreateDashboard200Response](docs/CreateDashboard200Response.md)
  - [CreateDashboardRequest](docs/CreateDashboardRequest.md)
+ - [CreateDashboardRequestFiltersInner](docs/CreateDashboardRequestFiltersInner.md)
  - [CreateIngestionApiKey200Response](docs/CreateIngestionApiKey200Response.md)
  - [CreateIngestionApiKey200ResponseData](docs/CreateIngestionApiKey200ResponseData.md)
  - [CreateIngestionApiKeyRequest](docs/CreateIngestionApiKeyRequest.md)
@@ -149,10 +179,23 @@ Class | Method | HTTP request | Description
  - [CreateNotificationRuleRequestTeamsFilterOneOf](docs/CreateNotificationRuleRequestTeamsFilterOneOf.md)
  - [CreateNotificationRuleRequestTeamsFilterOneOf1](docs/CreateNotificationRuleRequestTeamsFilterOneOf1.md)
  - [CreateNotificationRuleRequestTeamsFilterOneOf2](docs/CreateNotificationRuleRequestTeamsFilterOneOf2.md)
+ - [CreateNotificationSilence200Response](docs/CreateNotificationSilence200Response.md)
+ - [CreateNotificationSilenceRequest](docs/CreateNotificationSilenceRequest.md)
+ - [CreateNotificationSilenceRequestSchedule](docs/CreateNotificationSilenceRequestSchedule.md)
+ - [CreateNotificationSilenceRequestScheduleOneOf](docs/CreateNotificationSilenceRequestScheduleOneOf.md)
+ - [CreateNotificationSilenceRequestScheduleOneOf1](docs/CreateNotificationSilenceRequestScheduleOneOf1.md)
+ - [CreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule](docs/CreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule.md)
+ - [CreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner](docs/CreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner.md)
  - [CreateRetentionPolicy200Response](docs/CreateRetentionPolicy200Response.md)
  - [CreateRetentionPolicyRequest](docs/CreateRetentionPolicyRequest.md)
  - [CreateRoute200Response](docs/CreateRoute200Response.md)
  - [CreateRouteRequest](docs/CreateRouteRequest.md)
+ - [CreateTagPolicy200Response](docs/CreateTagPolicy200Response.md)
+ - [CreateTagPolicyRequest](docs/CreateTagPolicyRequest.md)
+ - [CreateTagPolicyRequestConfiguration](docs/CreateTagPolicyRequestConfiguration.md)
+ - [CreateTagPolicyRequestConfigurationOneOf](docs/CreateTagPolicyRequestConfigurationOneOf.md)
+ - [CreateTagPolicyRequestConfigurationOneOf1](docs/CreateTagPolicyRequestConfigurationOneOf1.md)
+ - [CreateTagPolicyRequestTeamScope](docs/CreateTagPolicyRequestTeamScope.md)
  - [CreateTeam200Response](docs/CreateTeam200Response.md)
  - [CreateTeamRequest](docs/CreateTeamRequest.md)
  - [Dashboard](docs/Dashboard.md)
@@ -164,7 +207,6 @@ Class | Method | HTTP request | Description
  - [DataNormalizerPercent](docs/DataNormalizerPercent.md)
  - [DeleteIngestionApiKey200Response](docs/DeleteIngestionApiKey200Response.md)
  - [DeleteIngestionApiKey200ResponseData](docs/DeleteIngestionApiKey200ResponseData.md)
- - [ErrorResponse](docs/ErrorResponse.md)
  - [Function](docs/Function.md)
  - [FunctionIncrease](docs/FunctionIncrease.md)
  - [FunctionLog](docs/FunctionLog.md)
@@ -175,6 +217,8 @@ Class | Method | HTTP request | Description
  - [FunctionRate](docs/FunctionRate.md)
  - [FunctionRolling](docs/FunctionRolling.md)
  - [FunctionSqrt](docs/FunctionSqrt.md)
+ - [GetMetric200Response](docs/GetMetric200Response.md)
+ - [GetTeamMemberships200Response](docs/GetTeamMemberships200Response.md)
  - [Graph](docs/Graph.md)
  - [GraphLayout](docs/GraphLayout.md)
  - [GraphVisualization](docs/GraphVisualization.md)
@@ -189,12 +233,16 @@ Class | Method | HTTP request | Description
  - [IngestionApiKey](docs/IngestionApiKey.md)
  - [ListDashboards200Response](docs/ListDashboards200Response.md)
  - [ListIngestionApiKeys200Response](docs/ListIngestionApiKeys200Response.md)
- - [ListIngestionApiKeys4XXResponse](docs/ListIngestionApiKeys4XXResponse.md)
+ - [ListMetrics200Response](docs/ListMetrics200Response.md)
+ - [ListMetrics200ResponseDataInner](docs/ListMetrics200ResponseDataInner.md)
  - [ListMonitors200Response](docs/ListMonitors200Response.md)
  - [ListNotificationRules200Response](docs/ListNotificationRules200Response.md)
+ - [ListNotificationSilences200Response](docs/ListNotificationSilences200Response.md)
  - [ListRetentionPolicies200Response](docs/ListRetentionPolicies200Response.md)
  - [ListRoutes200Response](docs/ListRoutes200Response.md)
+ - [ListTagPolicies200Response](docs/ListTagPolicies200Response.md)
  - [ListTeams200Response](docs/ListTeams200Response.md)
+ - [ListUsers200Response](docs/ListUsers200Response.md)
  - [Monitor](docs/Monitor.md)
  - [MonitorAggregationQuery](docs/MonitorAggregationQuery.md)
  - [MonitorAggregationQueryFill](docs/MonitorAggregationQueryFill.md)
@@ -202,13 +250,16 @@ Class | Method | HTTP request | Description
  - [MonitorConfigurationAnomalyLog](docs/MonitorConfigurationAnomalyLog.md)
  - [MonitorConfigurationAnomalyLogCondition](docs/MonitorConfigurationAnomalyLogCondition.md)
  - [MonitorConfigurationAnomalyMetric](docs/MonitorConfigurationAnomalyMetric.md)
+ - [MonitorConfigurationCertificateExpiry](docs/MonitorConfigurationCertificateExpiry.md)
  - [MonitorConfigurationLog](docs/MonitorConfigurationLog.md)
  - [MonitorConfigurationLogErrorPattern](docs/MonitorConfigurationLogErrorPattern.md)
  - [MonitorConfigurationLogErrorPatternFilter](docs/MonitorConfigurationLogErrorPatternFilter.md)
  - [MonitorConfigurationMetric](docs/MonitorConfigurationMetric.md)
  - [MonitorConfigurationMetricCondition](docs/MonitorConfigurationMetricCondition.md)
+ - [MonitorConfigurationMetricGroupByFieldsInner](docs/MonitorConfigurationMetricGroupByFieldsInner.md)
  - [MySqlConnectionInput](docs/MySqlConnectionInput.md)
  - [Normalizer](docs/Normalizer.md)
+ - [NotificationSilence](docs/NotificationSilence.md)
  - [PostgresConnectionInput](docs/PostgresConnectionInput.md)
  - [Processor](docs/Processor.md)
  - [ProcessorAnyOf](docs/ProcessorAnyOf.md)
@@ -231,6 +282,7 @@ Class | Method | HTTP request | Description
  - [ProcessorParamsMapperMapAttributesAttributesInner](docs/ProcessorParamsMapperMapAttributesAttributesInner.md)
  - [ProcessorParamsMapperMapLevel](docs/ProcessorParamsMapperMapLevel.md)
  - [ProcessorParamsMapperMapTimestamp](docs/ProcessorParamsMapperMapTimestamp.md)
+ - [RemoveUserFromTeamRequest](docs/RemoveUserFromTeamRequest.md)
  - [RetentionPolicy](docs/RetentionPolicy.md)
  - [Route](docs/Route.md)
  - [Rule](docs/Rule.md)
@@ -256,12 +308,37 @@ Class | Method | HTTP request | Description
  - [RuleTargetsInnerConfig](docs/RuleTargetsInnerConfig.md)
  - [RuleTeamsFilter](docs/RuleTeamsFilter.md)
  - [RuleTeamsFilterOneOf](docs/RuleTeamsFilterOneOf.md)
+ - [ScalarAggregationResponse](docs/ScalarAggregationResponse.md)
+ - [ScalarResult](docs/ScalarResult.md)
+ - [ScalarResultGroupValue](docs/ScalarResultGroupValue.md)
+ - [SearchLogs200Response](docs/SearchLogs200Response.md)
+ - [SearchLogs200ResponseData](docs/SearchLogs200ResponseData.md)
+ - [SearchLogs200ResponseDataLogsInner](docs/SearchLogs200ResponseDataLogsInner.md)
+ - [SearchLogs200ResponseDataLogsInnerContext](docs/SearchLogs200ResponseDataLogsInnerContext.md)
+ - [SearchSpans200Response](docs/SearchSpans200Response.md)
+ - [SearchSpans200ResponseData](docs/SearchSpans200ResponseData.md)
+ - [SearchSpans200ResponseDataSpansInner](docs/SearchSpans200ResponseDataSpansInner.md)
+ - [SearchSpans200ResponseDataSpansInnerContext](docs/SearchSpans200ResponseDataSpansInnerContext.md)
+ - [SearchSpans200ResponseDataSpansInnerContextService](docs/SearchSpans200ResponseDataSpansInnerContextService.md)
+ - [SearchSpans200ResponseDataSpansInnerError](docs/SearchSpans200ResponseDataSpansInnerError.md)
+ - [SearchSpans200ResponseDataSpansInnerEventsInner](docs/SearchSpans200ResponseDataSpansInnerEventsInner.md)
+ - [SearchSpans200ResponseDataSpansInnerSpan](docs/SearchSpans200ResponseDataSpansInnerSpan.md)
+ - [Series](docs/Series.md)
+ - [SeriesPointsInner](docs/SeriesPointsInner.md)
+ - [ServerErrorResponse](docs/ServerErrorResponse.md)
  - [Tag](docs/Tag.md)
+ - [TagPolicy](docs/TagPolicy.md)
  - [Team](docs/Team.md)
+ - [TeamMembership](docs/TeamMembership.md)
  - [ThresholdMarker](docs/ThresholdMarker.md)
+ - [TimeRange](docs/TimeRange.md)
+ - [TimeseriesAggregationResponse](docs/TimeseriesAggregationResponse.md)
  - [TimestreamForInfluxDBConnectionInput](docs/TimestreamForInfluxDBConnectionInput.md)
  - [UpdateDashboardRequest](docs/UpdateDashboardRequest.md)
  - [UpdateIngestionApiKey200Response](docs/UpdateIngestionApiKey200Response.md)
+ - [UpdateTeamMembership200Response](docs/UpdateTeamMembership200Response.md)
+ - [UpdateTeamMembershipRequest](docs/UpdateTeamMembershipRequest.md)
+ - [User](docs/User.md)
  - [WidgetListColumn](docs/WidgetListColumn.md)
 
 

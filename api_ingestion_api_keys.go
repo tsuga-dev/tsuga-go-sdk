@@ -119,7 +119,7 @@ func (a *IngestionApiKeysAPIService) CreateIngestionApiKeyExecute(r ApiCreateIng
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListIngestionApiKeys4XXResponse
+			var v AggregateScalar4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -130,7 +130,7 @@ func (a *IngestionApiKeysAPIService) CreateIngestionApiKeyExecute(r ApiCreateIng
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListIngestionApiKeys4XXResponse
+			var v AggregateScalar5XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -249,7 +249,7 @@ func (a *IngestionApiKeysAPIService) DeleteIngestionApiKeyExecute(r ApiDeleteIng
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListIngestionApiKeys4XXResponse
+			var v AggregateScalar4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -260,7 +260,7 @@ func (a *IngestionApiKeysAPIService) DeleteIngestionApiKeyExecute(r ApiDeleteIng
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListIngestionApiKeys4XXResponse
+			var v AggregateScalar5XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -369,7 +369,7 @@ func (a *IngestionApiKeysAPIService) ListIngestionApiKeysExecute(r ApiListIngest
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListIngestionApiKeys4XXResponse
+			var v AggregateScalar4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -380,7 +380,7 @@ func (a *IngestionApiKeysAPIService) ListIngestionApiKeysExecute(r ApiListIngest
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListIngestionApiKeys4XXResponse
+			var v AggregateScalar5XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -510,7 +510,7 @@ func (a *IngestionApiKeysAPIService) UpdateIngestionApiKeyExecute(r ApiUpdateIng
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ListIngestionApiKeys4XXResponse
+			var v AggregateScalar4XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -521,7 +521,7 @@ func (a *IngestionApiKeysAPIService) UpdateIngestionApiKeyExecute(r ApiUpdateIng
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ListIngestionApiKeys4XXResponse
+			var v AggregateScalar5XXResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

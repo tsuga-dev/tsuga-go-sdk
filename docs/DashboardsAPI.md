@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	createDashboardRequest := *openapiclient.NewCreateDashboardRequest("Name_example", "Owner_example", []openapiclient.Graph{*openapiclient.NewGraph("Id_example", openapiclient.Graph_visualization{GraphVisualizationBar: openapiclient.NewGraphVisualizationBar("Type_example", "Source_example", []openapiclient.AggregationQuery{*openapiclient.NewAggregationQuery(openapiclient.Aggregate{AggregateAverage: openapiclient.NewAggregateAverage("Type_example", "Field_example")})})})}) // CreateDashboardRequest | 
+	createDashboardRequest := *openapiclient.NewCreateDashboardRequest("Name_example", "Owner_example", []openapiclient.Graph{*openapiclient.NewGraph("Id_example", openapiclient.Graph_visualization{GraphVisualizationBar: openapiclient.NewGraphVisualizationBar("Type_example", "Source_example", []openapiclient.AggregationQuery1{*openapiclient.NewAggregationQuery1(openapiclient.Aggregate{AggregateAverage: openapiclient.NewAggregateAverage("Type_example", "Field_example")})})})}) // CreateDashboardRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## ListDashboards
 
-> ListDashboards200Response ListDashboards(ctx).Execute()
+> ListDashboards200Response ListDashboards(ctx).Owners(owners).Execute()
 
 
 
@@ -239,10 +239,11 @@ import (
 )
 
 func main() {
+	owners := []string{"Inner_example"} // []string | Filter by owner team IDs (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DashboardsAPI.ListDashboards(context.Background()).Execute()
+	resp, r, err := apiClient.DashboardsAPI.ListDashboards(context.Background()).Owners(owners).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.ListDashboards``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -254,12 +255,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiListDashboardsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **owners** | **[]string** | Filter by owner team IDs | 
 
 ### Return type
 
@@ -301,7 +306,7 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	updateDashboardRequest := *openapiclient.NewUpdateDashboardRequest() // UpdateDashboardRequest |  (optional)
+	updateDashboardRequest := *openapiclient.NewUpdateDashboardRequest() // UpdateDashboardRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

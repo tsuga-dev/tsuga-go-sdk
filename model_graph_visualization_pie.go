@@ -26,7 +26,7 @@ type GraphVisualizationPie struct {
 	// Data source being queried for this aggregation
 	Source string `json:"source"`
 	// Aggregations that may be combined together in the same query
-	Queries []AggregationQuery `json:"queries"`
+	Queries []AggregationQuery1 `json:"queries"`
 	// Formula referencing query outputs (e.g. q1+q2) to compute derived series
 	Formula *string `json:"formula,omitempty"`
 	// Flags indicating whether each query or formula series is visible
@@ -46,7 +46,7 @@ type _GraphVisualizationPie GraphVisualizationPie
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGraphVisualizationPie(type_ string, source string, queries []AggregationQuery) *GraphVisualizationPie {
+func NewGraphVisualizationPie(type_ string, source string, queries []AggregationQuery1) *GraphVisualizationPie {
 	this := GraphVisualizationPie{}
 	this.Type = type_
 	this.Source = source
@@ -111,9 +111,9 @@ func (o *GraphVisualizationPie) SetSource(v string) {
 }
 
 // GetQueries returns the Queries field value
-func (o *GraphVisualizationPie) GetQueries() []AggregationQuery {
+func (o *GraphVisualizationPie) GetQueries() []AggregationQuery1 {
 	if o == nil {
-		var ret []AggregationQuery
+		var ret []AggregationQuery1
 		return ret
 	}
 
@@ -122,7 +122,7 @@ func (o *GraphVisualizationPie) GetQueries() []AggregationQuery {
 
 // GetQueriesOk returns a tuple with the Queries field value
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationPie) GetQueriesOk() ([]AggregationQuery, bool) {
+func (o *GraphVisualizationPie) GetQueriesOk() ([]AggregationQuery1, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -130,7 +130,7 @@ func (o *GraphVisualizationPie) GetQueriesOk() ([]AggregationQuery, bool) {
 }
 
 // SetQueries sets field value
-func (o *GraphVisualizationPie) SetQueries(v []AggregationQuery) {
+func (o *GraphVisualizationPie) SetQueries(v []AggregationQuery1) {
 	o.Queries = v
 }
 

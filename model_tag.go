@@ -22,7 +22,7 @@ var _ MappedNullable = &Tag{}
 // Tag struct for Tag
 type Tag struct {
 	Key string `json:"key"`
-	Value string `json:"value"`
+	Value string `json:"value" validate:"regexp=^\\\\S(.*\\\\S)?$"`
 }
 
 type _Tag Tag

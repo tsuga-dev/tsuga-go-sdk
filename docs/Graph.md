@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Identifier of the graph widget | 
 **Name** | Pointer to **string** | Display name of the graph widget | [optional] 
+**Description** | Pointer to **string** | Description of the graph widget | [optional] 
 **Visualization** | [**GraphVisualization**](GraphVisualization.md) |  | 
 **Layout** | Pointer to [**GraphLayout**](GraphLayout.md) |  | [optional] 
 
@@ -72,6 +73,31 @@ SetName sets Name field to given value.
 `func (o *Graph) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *Graph) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *Graph) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *Graph) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *Graph) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetVisualization
 
