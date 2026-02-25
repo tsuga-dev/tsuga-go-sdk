@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -32,12 +31,13 @@ type GraphVisualizationPie struct {
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Fields used to group the results
-	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
-	Normalizer *Normalizer `json:"normalizer,omitempty"`
+	GroupBy    []AggregationGroupBy `json:"groupBy,omitempty"`
+	Normalizer *Normalizer          `json:"normalizer,omitempty"`
 	// Number of decimal places to display in the value
 	Precision *float32 `json:"precision,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
-	LegendMode *string `json:"legendMode,omitempty"`
+	LegendMode           *string `json:"legendMode,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GraphVisualizationPie GraphVisualizationPie
@@ -327,7 +327,7 @@ func (o *GraphVisualizationPie) SetLegendMode(v string) {
 }
 
 func (o GraphVisualizationPie) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -357,6 +357,11 @@ func (o GraphVisualizationPie) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LegendMode) {
 		toSerialize["legendMode"] = o.LegendMode
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -375,10 +380,10 @@ func (o *GraphVisualizationPie) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -386,15 +391,28 @@ func (o *GraphVisualizationPie) UnmarshalJSON(data []byte) (err error) {
 
 	varGraphVisualizationPie := _GraphVisualizationPie{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGraphVisualizationPie)
+	err = json.Unmarshal(data, &varGraphVisualizationPie)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GraphVisualizationPie(varGraphVisualizationPie)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "queries")
+		delete(additionalProperties, "formula")
+		delete(additionalProperties, "visibleSeries")
+		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "normalizer")
+		delete(additionalProperties, "precision")
+		delete(additionalProperties, "legendMode")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -434,5 +452,3 @@ func (v *NullableGraphVisualizationPie) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

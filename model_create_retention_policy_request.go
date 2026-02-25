@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,11 +20,12 @@ var _ MappedNullable = &CreateRetentionPolicyRequest{}
 
 // CreateRetentionPolicyRequest struct for CreateRetentionPolicyRequest
 type CreateRetentionPolicyRequest struct {
-	Env *string `json:"env,omitempty"`
-	TeamId *string `json:"teamId,omitempty"`
-	DataSource string `json:"dataSource"`
-	DurationDays string `json:"durationDays"`
-	IsEnabled bool `json:"isEnabled"`
+	Env                  *string `json:"env,omitempty"`
+	TeamId               *string `json:"teamId,omitempty"`
+	DataSource           string  `json:"dataSource"`
+	DurationDays         string  `json:"durationDays"`
+	IsEnabled            bool    `json:"isEnabled"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateRetentionPolicyRequest CreateRetentionPolicyRequest
@@ -187,7 +187,7 @@ func (o *CreateRetentionPolicyRequest) SetIsEnabled(v bool) {
 }
 
 func (o CreateRetentionPolicyRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -205,6 +205,11 @@ func (o CreateRetentionPolicyRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["dataSource"] = o.DataSource
 	toSerialize["durationDays"] = o.DurationDays
 	toSerialize["isEnabled"] = o.IsEnabled
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -223,10 +228,10 @@ func (o *CreateRetentionPolicyRequest) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -234,15 +239,24 @@ func (o *CreateRetentionPolicyRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateRetentionPolicyRequest := _CreateRetentionPolicyRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateRetentionPolicyRequest)
+	err = json.Unmarshal(data, &varCreateRetentionPolicyRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateRetentionPolicyRequest(varCreateRetentionPolicyRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "env")
+		delete(additionalProperties, "teamId")
+		delete(additionalProperties, "dataSource")
+		delete(additionalProperties, "durationDays")
+		delete(additionalProperties, "isEnabled")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -282,5 +296,3 @@ func (v *NullableCreateRetentionPolicyRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

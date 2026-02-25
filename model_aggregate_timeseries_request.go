@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -31,7 +30,8 @@ type AggregateTimeseriesRequest struct {
 	// Formula referencing query outputs (e.g. q1+q2) to compute derived series
 	Formula *string `json:"formula,omitempty"`
 	// Time bucket size for aggregation (e.g. \"10s\", \"1m\", \"1h\")
-	AggregationWindow string `json:"aggregationWindow"`
+	AggregationWindow    string `json:"aggregationWindow"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AggregateTimeseriesRequest AggregateTimeseriesRequest
@@ -218,7 +218,7 @@ func (o *AggregateTimeseriesRequest) SetAggregationWindow(v string) {
 }
 
 func (o AggregateTimeseriesRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -237,6 +237,11 @@ func (o AggregateTimeseriesRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["formula"] = o.Formula
 	}
 	toSerialize["aggregationWindow"] = o.AggregationWindow
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -256,10 +261,10 @@ func (o *AggregateTimeseriesRequest) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -267,15 +272,25 @@ func (o *AggregateTimeseriesRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varAggregateTimeseriesRequest := _AggregateTimeseriesRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAggregateTimeseriesRequest)
+	err = json.Unmarshal(data, &varAggregateTimeseriesRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AggregateTimeseriesRequest(varAggregateTimeseriesRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "timeRange")
+		delete(additionalProperties, "queries")
+		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "dataSource")
+		delete(additionalProperties, "formula")
+		delete(additionalProperties, "aggregationWindow")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -315,5 +330,3 @@ func (v *NullableAggregateTimeseriesRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

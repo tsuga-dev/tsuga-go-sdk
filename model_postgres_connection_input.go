@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,13 +20,14 @@ var _ MappedNullable = &PostgresConnectionInput{}
 
 // PostgresConnectionInput struct for PostgresConnectionInput
 type PostgresConnectionInput struct {
-	Type string `json:"type"`
-	User string `json:"user"`
-	Password string `json:"password"`
-	Host string `json:"host"`
-	Port int32 `json:"port"`
-	DbName string `json:"dbName"`
-	SslRequire bool `json:"sslRequire"`
+	Type                 string `json:"type"`
+	User                 string `json:"user"`
+	Password             string `json:"password"`
+	Host                 string `json:"host"`
+	Port                 int32  `json:"port"`
+	DbName               string `json:"dbName"`
+	SslRequire           bool   `json:"sslRequire"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PostgresConnectionInput PostgresConnectionInput
@@ -227,7 +227,7 @@ func (o *PostgresConnectionInput) SetSslRequire(v bool) {
 }
 
 func (o PostgresConnectionInput) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -243,6 +243,11 @@ func (o PostgresConnectionInput) ToMap() (map[string]interface{}, error) {
 	toSerialize["port"] = o.Port
 	toSerialize["dbName"] = o.DbName
 	toSerialize["sslRequire"] = o.SslRequire
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -265,10 +270,10 @@ func (o *PostgresConnectionInput) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -276,15 +281,26 @@ func (o *PostgresConnectionInput) UnmarshalJSON(data []byte) (err error) {
 
 	varPostgresConnectionInput := _PostgresConnectionInput{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPostgresConnectionInput)
+	err = json.Unmarshal(data, &varPostgresConnectionInput)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PostgresConnectionInput(varPostgresConnectionInput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "user")
+		delete(additionalProperties, "password")
+		delete(additionalProperties, "host")
+		delete(additionalProperties, "port")
+		delete(additionalProperties, "dbName")
+		delete(additionalProperties, "sslRequire")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -324,5 +340,3 @@ func (v *NullablePostgresConnectionInput) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

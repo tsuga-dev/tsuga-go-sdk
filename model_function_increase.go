@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,7 +21,8 @@ var _ MappedNullable = &FunctionIncrease{}
 // FunctionIncrease struct for FunctionIncrease
 type FunctionIncrease struct {
 	// `Increase` is designed for cumulative metrics. It computes the increase of cumulative metrics automatically handling counter resets. When used with an aggregation like `sum` it combines all series without requiring an explicit group-by.
-	Type string `json:"type"`
+	Type                 string `json:"type"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _FunctionIncrease FunctionIncrease
@@ -70,7 +70,7 @@ func (o *FunctionIncrease) SetType(v string) {
 }
 
 func (o FunctionIncrease) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -80,6 +80,11 @@ func (o FunctionIncrease) MarshalJSON() ([]byte, error) {
 func (o FunctionIncrease) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -96,10 +101,10 @@ func (o *FunctionIncrease) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -107,15 +112,20 @@ func (o *FunctionIncrease) UnmarshalJSON(data []byte) (err error) {
 
 	varFunctionIncrease := _FunctionIncrease{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varFunctionIncrease)
+	err = json.Unmarshal(data, &varFunctionIncrease)
 
 	if err != nil {
 		return err
 	}
 
 	*o = FunctionIncrease(varFunctionIncrease)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -155,5 +165,3 @@ func (v *NullableFunctionIncrease) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

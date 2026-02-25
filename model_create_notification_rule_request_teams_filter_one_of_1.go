@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,7 +20,8 @@ var _ MappedNullable = &CreateNotificationRuleRequestTeamsFilterOneOf1{}
 
 // CreateNotificationRuleRequestTeamsFilterOneOf1 struct for CreateNotificationRuleRequestTeamsFilterOneOf1
 type CreateNotificationRuleRequestTeamsFilterOneOf1 struct {
-	Type string `json:"type"`
+	Type                 string `json:"type"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateNotificationRuleRequestTeamsFilterOneOf1 CreateNotificationRuleRequestTeamsFilterOneOf1
@@ -69,7 +69,7 @@ func (o *CreateNotificationRuleRequestTeamsFilterOneOf1) SetType(v string) {
 }
 
 func (o CreateNotificationRuleRequestTeamsFilterOneOf1) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -79,6 +79,11 @@ func (o CreateNotificationRuleRequestTeamsFilterOneOf1) MarshalJSON() ([]byte, e
 func (o CreateNotificationRuleRequestTeamsFilterOneOf1) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -95,10 +100,10 @@ func (o *CreateNotificationRuleRequestTeamsFilterOneOf1) UnmarshalJSON(data []by
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -106,15 +111,20 @@ func (o *CreateNotificationRuleRequestTeamsFilterOneOf1) UnmarshalJSON(data []by
 
 	varCreateNotificationRuleRequestTeamsFilterOneOf1 := _CreateNotificationRuleRequestTeamsFilterOneOf1{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateNotificationRuleRequestTeamsFilterOneOf1)
+	err = json.Unmarshal(data, &varCreateNotificationRuleRequestTeamsFilterOneOf1)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateNotificationRuleRequestTeamsFilterOneOf1(varCreateNotificationRuleRequestTeamsFilterOneOf1)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -154,5 +164,3 @@ func (v *NullableCreateNotificationRuleRequestTeamsFilterOneOf1) UnmarshalJSON(s
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

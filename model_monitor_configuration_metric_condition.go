@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,9 +20,10 @@ var _ MappedNullable = &MonitorConfigurationMetricCondition{}
 
 // MonitorConfigurationMetricCondition struct for MonitorConfigurationMetricCondition
 type MonitorConfigurationMetricCondition struct {
-	Formula string `json:"formula"`
-	Operator string `json:"operator"`
-	Threshold float32 `json:"threshold"`
+	Formula              string  `json:"formula"`
+	Operator             string  `json:"operator"`
+	Threshold            float32 `json:"threshold"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MonitorConfigurationMetricCondition MonitorConfigurationMetricCondition
@@ -121,7 +121,7 @@ func (o *MonitorConfigurationMetricCondition) SetThreshold(v float32) {
 }
 
 func (o MonitorConfigurationMetricCondition) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -133,6 +133,11 @@ func (o MonitorConfigurationMetricCondition) ToMap() (map[string]interface{}, er
 	toSerialize["formula"] = o.Formula
 	toSerialize["operator"] = o.Operator
 	toSerialize["threshold"] = o.Threshold
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -151,10 +156,10 @@ func (o *MonitorConfigurationMetricCondition) UnmarshalJSON(data []byte) (err er
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -162,15 +167,22 @@ func (o *MonitorConfigurationMetricCondition) UnmarshalJSON(data []byte) (err er
 
 	varMonitorConfigurationMetricCondition := _MonitorConfigurationMetricCondition{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMonitorConfigurationMetricCondition)
+	err = json.Unmarshal(data, &varMonitorConfigurationMetricCondition)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MonitorConfigurationMetricCondition(varMonitorConfigurationMetricCondition)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "formula")
+		delete(additionalProperties, "operator")
+		delete(additionalProperties, "threshold")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -210,5 +222,3 @@ func (v *NullableMonitorConfigurationMetricCondition) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

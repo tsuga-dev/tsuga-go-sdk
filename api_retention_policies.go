@@ -19,22 +19,97 @@ import (
 	"strings"
 )
 
+type RetentionPoliciesAPI interface {
+
+	/*
+		CreateRetentionPolicy Method for CreateRetentionPolicy
+
+		Create a new retention policy
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return RetentionPoliciesAPICreateRetentionPolicyRequest
+	*/
+	CreateRetentionPolicy(ctx context.Context) RetentionPoliciesAPICreateRetentionPolicyRequest
+
+	// CreateRetentionPolicyExecute executes the request
+	//  @return CreateRetentionPolicy200Response
+	CreateRetentionPolicyExecute(r RetentionPoliciesAPICreateRetentionPolicyRequest) (*CreateRetentionPolicy200Response, *http.Response, error)
+
+	/*
+		DeleteRetentionPolicy Method for DeleteRetentionPolicy
+
+		Delete a retention policy by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return RetentionPoliciesAPIDeleteRetentionPolicyRequest
+	*/
+	DeleteRetentionPolicy(ctx context.Context, id string) RetentionPoliciesAPIDeleteRetentionPolicyRequest
+
+	// DeleteRetentionPolicyExecute executes the request
+	//  @return DeleteIngestionApiKey200Response
+	DeleteRetentionPolicyExecute(r RetentionPoliciesAPIDeleteRetentionPolicyRequest) (*DeleteIngestionApiKey200Response, *http.Response, error)
+
+	/*
+		GetRetentionPolicy Method for GetRetentionPolicy
+
+		Retrieve a retention policy by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return RetentionPoliciesAPIGetRetentionPolicyRequest
+	*/
+	GetRetentionPolicy(ctx context.Context, id string) RetentionPoliciesAPIGetRetentionPolicyRequest
+
+	// GetRetentionPolicyExecute executes the request
+	//  @return CreateRetentionPolicy200Response
+	GetRetentionPolicyExecute(r RetentionPoliciesAPIGetRetentionPolicyRequest) (*CreateRetentionPolicy200Response, *http.Response, error)
+
+	/*
+		ListRetentionPolicies Method for ListRetentionPolicies
+
+		Retrieve all retention policies
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return RetentionPoliciesAPIListRetentionPoliciesRequest
+	*/
+	ListRetentionPolicies(ctx context.Context) RetentionPoliciesAPIListRetentionPoliciesRequest
+
+	// ListRetentionPoliciesExecute executes the request
+	//  @return ListRetentionPolicies200Response
+	ListRetentionPoliciesExecute(r RetentionPoliciesAPIListRetentionPoliciesRequest) (*ListRetentionPolicies200Response, *http.Response, error)
+
+	/*
+		UpdateRetentionPolicy Method for UpdateRetentionPolicy
+
+		Update a retention policy by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return RetentionPoliciesAPIUpdateRetentionPolicyRequest
+	*/
+	UpdateRetentionPolicy(ctx context.Context, id string) RetentionPoliciesAPIUpdateRetentionPolicyRequest
+
+	// UpdateRetentionPolicyExecute executes the request
+	//  @return CreateRetentionPolicy200Response
+	UpdateRetentionPolicyExecute(r RetentionPoliciesAPIUpdateRetentionPolicyRequest) (*CreateRetentionPolicy200Response, *http.Response, error)
+}
 
 // RetentionPoliciesAPIService RetentionPoliciesAPI service
 type RetentionPoliciesAPIService service
 
-type ApiCreateRetentionPolicyRequest struct {
-	ctx context.Context
-	ApiService *RetentionPoliciesAPIService
+type RetentionPoliciesAPICreateRetentionPolicyRequest struct {
+	ctx                          context.Context
+	ApiService                   RetentionPoliciesAPI
 	createRetentionPolicyRequest *CreateRetentionPolicyRequest
 }
 
-func (r ApiCreateRetentionPolicyRequest) CreateRetentionPolicyRequest(createRetentionPolicyRequest CreateRetentionPolicyRequest) ApiCreateRetentionPolicyRequest {
+func (r RetentionPoliciesAPICreateRetentionPolicyRequest) CreateRetentionPolicyRequest(createRetentionPolicyRequest CreateRetentionPolicyRequest) RetentionPoliciesAPICreateRetentionPolicyRequest {
 	r.createRetentionPolicyRequest = &createRetentionPolicyRequest
 	return r
 }
 
-func (r ApiCreateRetentionPolicyRequest) Execute() (*CreateRetentionPolicy200Response, *http.Response, error) {
+func (r RetentionPoliciesAPICreateRetentionPolicyRequest) Execute() (*CreateRetentionPolicy200Response, *http.Response, error) {
 	return r.ApiService.CreateRetentionPolicyExecute(r)
 }
 
@@ -43,24 +118,25 @@ CreateRetentionPolicy Method for CreateRetentionPolicy
 
 Create a new retention policy
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateRetentionPolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return RetentionPoliciesAPICreateRetentionPolicyRequest
 */
-func (a *RetentionPoliciesAPIService) CreateRetentionPolicy(ctx context.Context) ApiCreateRetentionPolicyRequest {
-	return ApiCreateRetentionPolicyRequest{
+func (a *RetentionPoliciesAPIService) CreateRetentionPolicy(ctx context.Context) RetentionPoliciesAPICreateRetentionPolicyRequest {
+	return RetentionPoliciesAPICreateRetentionPolicyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return CreateRetentionPolicy200Response
-func (a *RetentionPoliciesAPIService) CreateRetentionPolicyExecute(r ApiCreateRetentionPolicyRequest) (*CreateRetentionPolicy200Response, *http.Response, error) {
+//
+//	@return CreateRetentionPolicy200Response
+func (a *RetentionPoliciesAPIService) CreateRetentionPolicyExecute(r RetentionPoliciesAPICreateRetentionPolicyRequest) (*CreateRetentionPolicy200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateRetentionPolicy200Response
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateRetentionPolicy200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RetentionPoliciesAPIService.CreateRetentionPolicy")
@@ -125,8 +201,8 @@ func (a *RetentionPoliciesAPIService) CreateRetentionPolicyExecute(r ApiCreateRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -136,8 +212,8 @@ func (a *RetentionPoliciesAPIService) CreateRetentionPolicyExecute(r ApiCreateRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -154,13 +230,13 @@ func (a *RetentionPoliciesAPIService) CreateRetentionPolicyExecute(r ApiCreateRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteRetentionPolicyRequest struct {
-	ctx context.Context
-	ApiService *RetentionPoliciesAPIService
-	id string
+type RetentionPoliciesAPIDeleteRetentionPolicyRequest struct {
+	ctx        context.Context
+	ApiService RetentionPoliciesAPI
+	id         string
 }
 
-func (r ApiDeleteRetentionPolicyRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
+func (r RetentionPoliciesAPIDeleteRetentionPolicyRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	return r.ApiService.DeleteRetentionPolicyExecute(r)
 }
 
@@ -169,26 +245,27 @@ DeleteRetentionPolicy Method for DeleteRetentionPolicy
 
 Delete a retention policy by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiDeleteRetentionPolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return RetentionPoliciesAPIDeleteRetentionPolicyRequest
 */
-func (a *RetentionPoliciesAPIService) DeleteRetentionPolicy(ctx context.Context, id string) ApiDeleteRetentionPolicyRequest {
-	return ApiDeleteRetentionPolicyRequest{
+func (a *RetentionPoliciesAPIService) DeleteRetentionPolicy(ctx context.Context, id string) RetentionPoliciesAPIDeleteRetentionPolicyRequest {
+	return RetentionPoliciesAPIDeleteRetentionPolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return DeleteIngestionApiKey200Response
-func (a *RetentionPoliciesAPIService) DeleteRetentionPolicyExecute(r ApiDeleteRetentionPolicyRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
+//
+//	@return DeleteIngestionApiKey200Response
+func (a *RetentionPoliciesAPIService) DeleteRetentionPolicyExecute(r RetentionPoliciesAPIDeleteRetentionPolicyRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *DeleteIngestionApiKey200Response
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DeleteIngestionApiKey200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RetentionPoliciesAPIService.DeleteRetentionPolicy")
@@ -255,8 +332,8 @@ func (a *RetentionPoliciesAPIService) DeleteRetentionPolicyExecute(r ApiDeleteRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -266,8 +343,8 @@ func (a *RetentionPoliciesAPIService) DeleteRetentionPolicyExecute(r ApiDeleteRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -284,13 +361,13 @@ func (a *RetentionPoliciesAPIService) DeleteRetentionPolicyExecute(r ApiDeleteRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetRetentionPolicyRequest struct {
-	ctx context.Context
-	ApiService *RetentionPoliciesAPIService
-	id string
+type RetentionPoliciesAPIGetRetentionPolicyRequest struct {
+	ctx        context.Context
+	ApiService RetentionPoliciesAPI
+	id         string
 }
 
-func (r ApiGetRetentionPolicyRequest) Execute() (*CreateRetentionPolicy200Response, *http.Response, error) {
+func (r RetentionPoliciesAPIGetRetentionPolicyRequest) Execute() (*CreateRetentionPolicy200Response, *http.Response, error) {
 	return r.ApiService.GetRetentionPolicyExecute(r)
 }
 
@@ -299,26 +376,27 @@ GetRetentionPolicy Method for GetRetentionPolicy
 
 Retrieve a retention policy by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiGetRetentionPolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return RetentionPoliciesAPIGetRetentionPolicyRequest
 */
-func (a *RetentionPoliciesAPIService) GetRetentionPolicy(ctx context.Context, id string) ApiGetRetentionPolicyRequest {
-	return ApiGetRetentionPolicyRequest{
+func (a *RetentionPoliciesAPIService) GetRetentionPolicy(ctx context.Context, id string) RetentionPoliciesAPIGetRetentionPolicyRequest {
+	return RetentionPoliciesAPIGetRetentionPolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return CreateRetentionPolicy200Response
-func (a *RetentionPoliciesAPIService) GetRetentionPolicyExecute(r ApiGetRetentionPolicyRequest) (*CreateRetentionPolicy200Response, *http.Response, error) {
+//
+//	@return CreateRetentionPolicy200Response
+func (a *RetentionPoliciesAPIService) GetRetentionPolicyExecute(r RetentionPoliciesAPIGetRetentionPolicyRequest) (*CreateRetentionPolicy200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateRetentionPolicy200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateRetentionPolicy200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RetentionPoliciesAPIService.GetRetentionPolicy")
@@ -385,8 +463,8 @@ func (a *RetentionPoliciesAPIService) GetRetentionPolicyExecute(r ApiGetRetentio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -396,8 +474,8 @@ func (a *RetentionPoliciesAPIService) GetRetentionPolicyExecute(r ApiGetRetentio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -414,12 +492,12 @@ func (a *RetentionPoliciesAPIService) GetRetentionPolicyExecute(r ApiGetRetentio
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListRetentionPoliciesRequest struct {
-	ctx context.Context
-	ApiService *RetentionPoliciesAPIService
+type RetentionPoliciesAPIListRetentionPoliciesRequest struct {
+	ctx        context.Context
+	ApiService RetentionPoliciesAPI
 }
 
-func (r ApiListRetentionPoliciesRequest) Execute() (*ListRetentionPolicies200Response, *http.Response, error) {
+func (r RetentionPoliciesAPIListRetentionPoliciesRequest) Execute() (*ListRetentionPolicies200Response, *http.Response, error) {
 	return r.ApiService.ListRetentionPoliciesExecute(r)
 }
 
@@ -428,24 +506,25 @@ ListRetentionPolicies Method for ListRetentionPolicies
 
 Retrieve all retention policies
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListRetentionPoliciesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return RetentionPoliciesAPIListRetentionPoliciesRequest
 */
-func (a *RetentionPoliciesAPIService) ListRetentionPolicies(ctx context.Context) ApiListRetentionPoliciesRequest {
-	return ApiListRetentionPoliciesRequest{
+func (a *RetentionPoliciesAPIService) ListRetentionPolicies(ctx context.Context) RetentionPoliciesAPIListRetentionPoliciesRequest {
+	return RetentionPoliciesAPIListRetentionPoliciesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ListRetentionPolicies200Response
-func (a *RetentionPoliciesAPIService) ListRetentionPoliciesExecute(r ApiListRetentionPoliciesRequest) (*ListRetentionPolicies200Response, *http.Response, error) {
+//
+//	@return ListRetentionPolicies200Response
+func (a *RetentionPoliciesAPIService) ListRetentionPoliciesExecute(r RetentionPoliciesAPIListRetentionPoliciesRequest) (*ListRetentionPolicies200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ListRetentionPolicies200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ListRetentionPolicies200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RetentionPoliciesAPIService.ListRetentionPolicies")
@@ -505,8 +584,8 @@ func (a *RetentionPoliciesAPIService) ListRetentionPoliciesExecute(r ApiListRete
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -516,8 +595,8 @@ func (a *RetentionPoliciesAPIService) ListRetentionPoliciesExecute(r ApiListRete
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -534,19 +613,19 @@ func (a *RetentionPoliciesAPIService) ListRetentionPoliciesExecute(r ApiListRete
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateRetentionPolicyRequest struct {
-	ctx context.Context
-	ApiService *RetentionPoliciesAPIService
-	id string
+type RetentionPoliciesAPIUpdateRetentionPolicyRequest struct {
+	ctx                          context.Context
+	ApiService                   RetentionPoliciesAPI
+	id                           string
 	createRetentionPolicyRequest *CreateRetentionPolicyRequest
 }
 
-func (r ApiUpdateRetentionPolicyRequest) CreateRetentionPolicyRequest(createRetentionPolicyRequest CreateRetentionPolicyRequest) ApiUpdateRetentionPolicyRequest {
+func (r RetentionPoliciesAPIUpdateRetentionPolicyRequest) CreateRetentionPolicyRequest(createRetentionPolicyRequest CreateRetentionPolicyRequest) RetentionPoliciesAPIUpdateRetentionPolicyRequest {
 	r.createRetentionPolicyRequest = &createRetentionPolicyRequest
 	return r
 }
 
-func (r ApiUpdateRetentionPolicyRequest) Execute() (*CreateRetentionPolicy200Response, *http.Response, error) {
+func (r RetentionPoliciesAPIUpdateRetentionPolicyRequest) Execute() (*CreateRetentionPolicy200Response, *http.Response, error) {
 	return r.ApiService.UpdateRetentionPolicyExecute(r)
 }
 
@@ -555,26 +634,27 @@ UpdateRetentionPolicy Method for UpdateRetentionPolicy
 
 Update a retention policy by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiUpdateRetentionPolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return RetentionPoliciesAPIUpdateRetentionPolicyRequest
 */
-func (a *RetentionPoliciesAPIService) UpdateRetentionPolicy(ctx context.Context, id string) ApiUpdateRetentionPolicyRequest {
-	return ApiUpdateRetentionPolicyRequest{
+func (a *RetentionPoliciesAPIService) UpdateRetentionPolicy(ctx context.Context, id string) RetentionPoliciesAPIUpdateRetentionPolicyRequest {
+	return RetentionPoliciesAPIUpdateRetentionPolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return CreateRetentionPolicy200Response
-func (a *RetentionPoliciesAPIService) UpdateRetentionPolicyExecute(r ApiUpdateRetentionPolicyRequest) (*CreateRetentionPolicy200Response, *http.Response, error) {
+//
+//	@return CreateRetentionPolicy200Response
+func (a *RetentionPoliciesAPIService) UpdateRetentionPolicyExecute(r RetentionPoliciesAPIUpdateRetentionPolicyRequest) (*CreateRetentionPolicy200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateRetentionPolicy200Response
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateRetentionPolicy200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RetentionPoliciesAPIService.UpdateRetentionPolicy")
@@ -646,8 +726,8 @@ func (a *RetentionPoliciesAPIService) UpdateRetentionPolicyExecute(r ApiUpdateRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -657,8 +737,8 @@ func (a *RetentionPoliciesAPIService) UpdateRetentionPolicyExecute(r ApiUpdateRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

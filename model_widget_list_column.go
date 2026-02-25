@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,8 +21,9 @@ var _ MappedNullable = &WidgetListColumn{}
 // WidgetListColumn struct for WidgetListColumn
 type WidgetListColumn struct {
 	// Attribute displayed as a column in the log list
-	Attribute string `json:"attribute"`
-	Normalizer *Normalizer `json:"normalizer,omitempty"`
+	Attribute            string      `json:"attribute"`
+	Normalizer           *Normalizer `json:"normalizer,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _WidgetListColumn WidgetListColumn
@@ -103,7 +103,7 @@ func (o *WidgetListColumn) SetNormalizer(v Normalizer) {
 }
 
 func (o WidgetListColumn) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -116,6 +116,11 @@ func (o WidgetListColumn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Normalizer) {
 		toSerialize["normalizer"] = o.Normalizer
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -132,10 +137,10 @@ func (o *WidgetListColumn) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -143,15 +148,21 @@ func (o *WidgetListColumn) UnmarshalJSON(data []byte) (err error) {
 
 	varWidgetListColumn := _WidgetListColumn{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varWidgetListColumn)
+	err = json.Unmarshal(data, &varWidgetListColumn)
 
 	if err != nil {
 		return err
 	}
 
 	*o = WidgetListColumn(varWidgetListColumn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attribute")
+		delete(additionalProperties, "normalizer")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -191,5 +202,3 @@ func (v *NullableWidgetListColumn) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

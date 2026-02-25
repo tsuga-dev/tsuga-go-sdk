@@ -18,7 +18,7 @@ import (
 
 // CreateNotificationSilenceRequestSchedule - Schedule defining when the silence is active
 type CreateNotificationSilenceRequestSchedule struct {
-	CreateNotificationSilenceRequestScheduleOneOf *CreateNotificationSilenceRequestScheduleOneOf
+	CreateNotificationSilenceRequestScheduleOneOf  *CreateNotificationSilenceRequestScheduleOneOf
 	CreateNotificationSilenceRequestScheduleOneOf1 *CreateNotificationSilenceRequestScheduleOneOf1
 }
 
@@ -35,7 +35,6 @@ func CreateNotificationSilenceRequestScheduleOneOf1AsCreateNotificationSilenceRe
 		CreateNotificationSilenceRequestScheduleOneOf1: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *CreateNotificationSilenceRequestSchedule) UnmarshalJSON(data []byte) error {
@@ -102,7 +101,7 @@ func (src CreateNotificationSilenceRequestSchedule) MarshalJSON() ([]byte, error
 }
 
 // Get the actual instance
-func (obj *CreateNotificationSilenceRequestSchedule) GetActualInstance() (interface{}) {
+func (obj *CreateNotificationSilenceRequestSchedule) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -119,7 +118,7 @@ func (obj *CreateNotificationSilenceRequestSchedule) GetActualInstance() (interf
 }
 
 // Get the actual instance value
-func (obj CreateNotificationSilenceRequestSchedule) GetActualInstanceValue() (interface{}) {
+func (obj CreateNotificationSilenceRequestSchedule) GetActualInstanceValue() interface{} {
 	if obj.CreateNotificationSilenceRequestScheduleOneOf != nil {
 		return *obj.CreateNotificationSilenceRequestScheduleOneOf
 	}
@@ -167,5 +166,3 @@ func (v *NullableCreateNotificationSilenceRequestSchedule) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

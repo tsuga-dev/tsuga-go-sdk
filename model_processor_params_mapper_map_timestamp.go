@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,8 +21,9 @@ var _ MappedNullable = &ProcessorParamsMapperMapTimestamp{}
 // ProcessorParamsMapperMapTimestamp struct for ProcessorParamsMapperMapTimestamp
 type ProcessorParamsMapperMapTimestamp struct {
 	// Attribute whose value will determine the log timestamp
-	AttributeName string `json:"attributeName"`
-	Subtype string `json:"subtype"`
+	AttributeName        string `json:"attributeName"`
+	Subtype              string `json:"subtype"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ProcessorParamsMapperMapTimestamp ProcessorParamsMapperMapTimestamp
@@ -96,7 +96,7 @@ func (o *ProcessorParamsMapperMapTimestamp) SetSubtype(v string) {
 }
 
 func (o ProcessorParamsMapperMapTimestamp) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -107,6 +107,11 @@ func (o ProcessorParamsMapperMapTimestamp) ToMap() (map[string]interface{}, erro
 	toSerialize := map[string]interface{}{}
 	toSerialize["attributeName"] = o.AttributeName
 	toSerialize["subtype"] = o.Subtype
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -124,10 +129,10 @@ func (o *ProcessorParamsMapperMapTimestamp) UnmarshalJSON(data []byte) (err erro
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -135,15 +140,21 @@ func (o *ProcessorParamsMapperMapTimestamp) UnmarshalJSON(data []byte) (err erro
 
 	varProcessorParamsMapperMapTimestamp := _ProcessorParamsMapperMapTimestamp{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProcessorParamsMapperMapTimestamp)
+	err = json.Unmarshal(data, &varProcessorParamsMapperMapTimestamp)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ProcessorParamsMapperMapTimestamp(varProcessorParamsMapperMapTimestamp)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributeName")
+		delete(additionalProperties, "subtype")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -183,5 +194,3 @@ func (v *NullableProcessorParamsMapperMapTimestamp) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

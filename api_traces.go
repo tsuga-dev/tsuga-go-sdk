@@ -18,42 +18,58 @@ import (
 	"net/url"
 )
 
+type TracesAPI interface {
+
+	/*
+		SearchSpans Method for SearchSpans
+
+		Search spans
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return TracesAPISearchSpansRequest
+	*/
+	SearchSpans(ctx context.Context) TracesAPISearchSpansRequest
+
+	// SearchSpansExecute executes the request
+	//  @return SearchSpans200Response
+	SearchSpansExecute(r TracesAPISearchSpansRequest) (*SearchSpans200Response, *http.Response, error)
+}
 
 // TracesAPIService TracesAPI service
 type TracesAPIService service
 
-type ApiSearchSpansRequest struct {
-	ctx context.Context
-	ApiService *TracesAPIService
-	from *int32
-	to *int32
-	query *string
+type TracesAPISearchSpansRequest struct {
+	ctx        context.Context
+	ApiService TracesAPI
+	from       *int32
+	to         *int32
+	query      *string
 	maxResults *int32
 }
 
 // Start timestamp in seconds
-func (r ApiSearchSpansRequest) From(from int32) ApiSearchSpansRequest {
+func (r TracesAPISearchSpansRequest) From(from int32) TracesAPISearchSpansRequest {
 	r.from = &from
 	return r
 }
 
 // End timestamp in seconds
-func (r ApiSearchSpansRequest) To(to int32) ApiSearchSpansRequest {
+func (r TracesAPISearchSpansRequest) To(to int32) TracesAPISearchSpansRequest {
 	r.to = &to
 	return r
 }
 
-func (r ApiSearchSpansRequest) Query(query string) ApiSearchSpansRequest {
+func (r TracesAPISearchSpansRequest) Query(query string) TracesAPISearchSpansRequest {
 	r.query = &query
 	return r
 }
 
-func (r ApiSearchSpansRequest) MaxResults(maxResults int32) ApiSearchSpansRequest {
+func (r TracesAPISearchSpansRequest) MaxResults(maxResults int32) TracesAPISearchSpansRequest {
 	r.maxResults = &maxResults
 	return r
 }
 
-func (r ApiSearchSpansRequest) Execute() (*SearchSpans200Response, *http.Response, error) {
+func (r TracesAPISearchSpansRequest) Execute() (*SearchSpans200Response, *http.Response, error) {
 	return r.ApiService.SearchSpansExecute(r)
 }
 
@@ -62,24 +78,25 @@ SearchSpans Method for SearchSpans
 
 Search spans
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchSpansRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return TracesAPISearchSpansRequest
 */
-func (a *TracesAPIService) SearchSpans(ctx context.Context) ApiSearchSpansRequest {
-	return ApiSearchSpansRequest{
+func (a *TracesAPIService) SearchSpans(ctx context.Context) TracesAPISearchSpansRequest {
+	return TracesAPISearchSpansRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return SearchSpans200Response
-func (a *TracesAPIService) SearchSpansExecute(r ApiSearchSpansRequest) (*SearchSpans200Response, *http.Response, error) {
+//
+//	@return SearchSpans200Response
+func (a *TracesAPIService) SearchSpansExecute(r TracesAPISearchSpansRequest) (*SearchSpans200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SearchSpans200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SearchSpans200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TracesAPIService.SearchSpans")
@@ -153,8 +170,8 @@ func (a *TracesAPIService) SearchSpansExecute(r ApiSearchSpansRequest) (*SearchS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -164,8 +181,8 @@ func (a *TracesAPIService) SearchSpansExecute(r ApiSearchSpansRequest) (*SearchS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

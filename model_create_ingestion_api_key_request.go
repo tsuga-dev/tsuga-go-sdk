@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,11 +20,12 @@ var _ MappedNullable = &CreateIngestionApiKeyRequest{}
 
 // CreateIngestionApiKeyRequest struct for CreateIngestionApiKeyRequest
 type CreateIngestionApiKeyRequest struct {
-	Name string `json:"name"`
+	Name  string `json:"name"`
 	Owner string `json:"owner"`
 	// List of key/value tags applied to the resource
-	Tags []Tag `json:"tags,omitempty"`
-	TeamOverrideFields []string `json:"teamOverrideFields,omitempty"`
+	Tags                 []Tag    `json:"tags,omitempty"`
+	TeamOverrideFields   []string `json:"teamOverrideFields,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateIngestionApiKeyRequest CreateIngestionApiKeyRequest
@@ -162,7 +162,7 @@ func (o *CreateIngestionApiKeyRequest) SetTeamOverrideFields(v []string) {
 }
 
 func (o CreateIngestionApiKeyRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -179,6 +179,11 @@ func (o CreateIngestionApiKeyRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TeamOverrideFields) {
 		toSerialize["teamOverrideFields"] = o.TeamOverrideFields
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -196,10 +201,10 @@ func (o *CreateIngestionApiKeyRequest) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -207,15 +212,23 @@ func (o *CreateIngestionApiKeyRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateIngestionApiKeyRequest := _CreateIngestionApiKeyRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateIngestionApiKeyRequest)
+	err = json.Unmarshal(data, &varCreateIngestionApiKeyRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateIngestionApiKeyRequest(varCreateIngestionApiKeyRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "teamOverrideFields")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -255,5 +268,3 @@ func (v *NullableCreateIngestionApiKeyRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

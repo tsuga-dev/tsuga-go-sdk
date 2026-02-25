@@ -20,10 +20,10 @@ var _ MappedNullable = &SearchLogs200ResponseDataLogsInner{}
 
 // SearchLogs200ResponseDataLogsInner struct for SearchLogs200ResponseDataLogsInner
 type SearchLogs200ResponseDataLogsInner struct {
-	Context *SearchLogs200ResponseDataLogsInnerContext `json:"context,omitempty"`
-	Message *string `json:"message,omitempty"`
-	Timestamp float32 `json:"timestamp"`
-	Level string `json:"level"`
+	Context              *SearchLogs200ResponseDataLogsInnerContext `json:"context,omitempty"`
+	Message              *string                                    `json:"message,omitempty"`
+	Timestamp            float32                                    `json:"timestamp"`
+	Level                string                                     `json:"level"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -161,7 +161,7 @@ func (o *SearchLogs200ResponseDataLogsInner) SetLevel(v string) {
 }
 
 func (o SearchLogs200ResponseDataLogsInner) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -200,10 +200,10 @@ func (o *SearchLogs200ResponseDataLogsInner) UnmarshalJSON(data []byte) (err err
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -267,5 +267,3 @@ func (v *NullableSearchLogs200ResponseDataLogsInner) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

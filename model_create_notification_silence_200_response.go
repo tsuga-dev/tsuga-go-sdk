@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,8 +21,9 @@ var _ MappedNullable = &CreateNotificationSilence200Response{}
 // CreateNotificationSilence200Response struct for CreateNotificationSilence200Response
 type CreateNotificationSilence200Response struct {
 	// Identifier used to trace the lifecycle of this API request
-	RequestId string `json:"requestId"`
-	Data NotificationSilence `json:"data"`
+	RequestId            string              `json:"requestId"`
+	Data                 NotificationSilence `json:"data"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateNotificationSilence200Response CreateNotificationSilence200Response
@@ -96,7 +96,7 @@ func (o *CreateNotificationSilence200Response) SetData(v NotificationSilence) {
 }
 
 func (o CreateNotificationSilence200Response) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -107,6 +107,11 @@ func (o CreateNotificationSilence200Response) ToMap() (map[string]interface{}, e
 	toSerialize := map[string]interface{}{}
 	toSerialize["requestId"] = o.RequestId
 	toSerialize["data"] = o.Data
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -124,10 +129,10 @@ func (o *CreateNotificationSilence200Response) UnmarshalJSON(data []byte) (err e
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -135,15 +140,21 @@ func (o *CreateNotificationSilence200Response) UnmarshalJSON(data []byte) (err e
 
 	varCreateNotificationSilence200Response := _CreateNotificationSilence200Response{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateNotificationSilence200Response)
+	err = json.Unmarshal(data, &varCreateNotificationSilence200Response)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateNotificationSilence200Response(varCreateNotificationSilence200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "requestId")
+		delete(additionalProperties, "data")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -183,5 +194,3 @@ func (v *NullableCreateNotificationSilence200Response) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

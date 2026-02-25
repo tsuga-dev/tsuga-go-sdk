@@ -15,10 +15,9 @@ import (
 	"fmt"
 )
 
-
 // Processor struct for Processor
 type Processor struct {
-	ProcessorAnyOf *ProcessorAnyOf
+	ProcessorAnyOf  *ProcessorAnyOf
 	ProcessorAnyOf1 *ProcessorAnyOf1
 	ProcessorAnyOf2 *ProcessorAnyOf2
 	ProcessorAnyOf3 *ProcessorAnyOf3
@@ -28,7 +27,7 @@ type Processor struct {
 func (dst *Processor) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal JSON data into ProcessorAnyOf
-	err = json.Unmarshal(data, &dst.ProcessorAnyOf);
+	err = json.Unmarshal(data, &dst.ProcessorAnyOf)
 	if err == nil {
 		jsonProcessorAnyOf, _ := json.Marshal(dst.ProcessorAnyOf)
 		if string(jsonProcessorAnyOf) == "{}" { // empty struct
@@ -41,7 +40,7 @@ func (dst *Processor) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal JSON data into ProcessorAnyOf1
-	err = json.Unmarshal(data, &dst.ProcessorAnyOf1);
+	err = json.Unmarshal(data, &dst.ProcessorAnyOf1)
 	if err == nil {
 		jsonProcessorAnyOf1, _ := json.Marshal(dst.ProcessorAnyOf1)
 		if string(jsonProcessorAnyOf1) == "{}" { // empty struct
@@ -54,7 +53,7 @@ func (dst *Processor) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal JSON data into ProcessorAnyOf2
-	err = json.Unmarshal(data, &dst.ProcessorAnyOf2);
+	err = json.Unmarshal(data, &dst.ProcessorAnyOf2)
 	if err == nil {
 		jsonProcessorAnyOf2, _ := json.Marshal(dst.ProcessorAnyOf2)
 		if string(jsonProcessorAnyOf2) == "{}" { // empty struct
@@ -67,7 +66,7 @@ func (dst *Processor) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal JSON data into ProcessorAnyOf3
-	err = json.Unmarshal(data, &dst.ProcessorAnyOf3);
+	err = json.Unmarshal(data, &dst.ProcessorAnyOf3)
 	if err == nil {
 		jsonProcessorAnyOf3, _ := json.Marshal(dst.ProcessorAnyOf3)
 		if string(jsonProcessorAnyOf3) == "{}" { // empty struct
@@ -102,7 +101,6 @@ func (src Processor) MarshalJSON() ([]byte, error) {
 
 	return nil, nil // no data in anyOf schemas
 }
-
 
 type NullableProcessor struct {
 	value *Processor
@@ -139,5 +137,3 @@ func (v *NullableProcessor) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

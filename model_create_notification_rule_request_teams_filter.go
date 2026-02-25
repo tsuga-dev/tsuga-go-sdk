@@ -18,7 +18,7 @@ import (
 
 // CreateNotificationRuleRequestTeamsFilter - struct for CreateNotificationRuleRequestTeamsFilter
 type CreateNotificationRuleRequestTeamsFilter struct {
-	CreateNotificationRuleRequestTeamsFilterOneOf *CreateNotificationRuleRequestTeamsFilterOneOf
+	CreateNotificationRuleRequestTeamsFilterOneOf  *CreateNotificationRuleRequestTeamsFilterOneOf
 	CreateNotificationRuleRequestTeamsFilterOneOf1 *CreateNotificationRuleRequestTeamsFilterOneOf1
 	CreateNotificationRuleRequestTeamsFilterOneOf2 *CreateNotificationRuleRequestTeamsFilterOneOf2
 }
@@ -43,7 +43,6 @@ func CreateNotificationRuleRequestTeamsFilterOneOf2AsCreateNotificationRuleReque
 		CreateNotificationRuleRequestTeamsFilterOneOf2: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *CreateNotificationRuleRequestTeamsFilter) UnmarshalJSON(data []byte) error {
@@ -132,7 +131,7 @@ func (src CreateNotificationRuleRequestTeamsFilter) MarshalJSON() ([]byte, error
 }
 
 // Get the actual instance
-func (obj *CreateNotificationRuleRequestTeamsFilter) GetActualInstance() (interface{}) {
+func (obj *CreateNotificationRuleRequestTeamsFilter) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -153,7 +152,7 @@ func (obj *CreateNotificationRuleRequestTeamsFilter) GetActualInstance() (interf
 }
 
 // Get the actual instance value
-func (obj CreateNotificationRuleRequestTeamsFilter) GetActualInstanceValue() (interface{}) {
+func (obj CreateNotificationRuleRequestTeamsFilter) GetActualInstanceValue() interface{} {
 	if obj.CreateNotificationRuleRequestTeamsFilterOneOf != nil {
 		return *obj.CreateNotificationRuleRequestTeamsFilterOneOf
 	}
@@ -205,5 +204,3 @@ func (v *NullableCreateNotificationRuleRequestTeamsFilter) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

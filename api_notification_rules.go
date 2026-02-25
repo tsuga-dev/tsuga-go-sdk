@@ -19,22 +19,97 @@ import (
 	"strings"
 )
 
+type NotificationRulesAPI interface {
+
+	/*
+		CreateNotificationRule Method for CreateNotificationRule
+
+		Create a new notification rule
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return NotificationRulesAPICreateNotificationRuleRequest
+	*/
+	CreateNotificationRule(ctx context.Context) NotificationRulesAPICreateNotificationRuleRequest
+
+	// CreateNotificationRuleExecute executes the request
+	//  @return CreateNotificationRule200Response
+	CreateNotificationRuleExecute(r NotificationRulesAPICreateNotificationRuleRequest) (*CreateNotificationRule200Response, *http.Response, error)
+
+	/*
+		DeleteNotificationRule Method for DeleteNotificationRule
+
+		Delete a notification rule by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return NotificationRulesAPIDeleteNotificationRuleRequest
+	*/
+	DeleteNotificationRule(ctx context.Context, id string) NotificationRulesAPIDeleteNotificationRuleRequest
+
+	// DeleteNotificationRuleExecute executes the request
+	//  @return DeleteIngestionApiKey200Response
+	DeleteNotificationRuleExecute(r NotificationRulesAPIDeleteNotificationRuleRequest) (*DeleteIngestionApiKey200Response, *http.Response, error)
+
+	/*
+		GetNotificationRule Method for GetNotificationRule
+
+		Retrieve a notification rule by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return NotificationRulesAPIGetNotificationRuleRequest
+	*/
+	GetNotificationRule(ctx context.Context, id string) NotificationRulesAPIGetNotificationRuleRequest
+
+	// GetNotificationRuleExecute executes the request
+	//  @return CreateNotificationRule200Response
+	GetNotificationRuleExecute(r NotificationRulesAPIGetNotificationRuleRequest) (*CreateNotificationRule200Response, *http.Response, error)
+
+	/*
+		ListNotificationRules Method for ListNotificationRules
+
+		Retrieve all notification rules
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return NotificationRulesAPIListNotificationRulesRequest
+	*/
+	ListNotificationRules(ctx context.Context) NotificationRulesAPIListNotificationRulesRequest
+
+	// ListNotificationRulesExecute executes the request
+	//  @return ListNotificationRules200Response
+	ListNotificationRulesExecute(r NotificationRulesAPIListNotificationRulesRequest) (*ListNotificationRules200Response, *http.Response, error)
+
+	/*
+		UpdateNotificationRule Method for UpdateNotificationRule
+
+		Update a notification rule by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return NotificationRulesAPIUpdateNotificationRuleRequest
+	*/
+	UpdateNotificationRule(ctx context.Context, id string) NotificationRulesAPIUpdateNotificationRuleRequest
+
+	// UpdateNotificationRuleExecute executes the request
+	//  @return CreateNotificationRule200Response
+	UpdateNotificationRuleExecute(r NotificationRulesAPIUpdateNotificationRuleRequest) (*CreateNotificationRule200Response, *http.Response, error)
+}
 
 // NotificationRulesAPIService NotificationRulesAPI service
 type NotificationRulesAPIService service
 
-type ApiCreateNotificationRuleRequest struct {
-	ctx context.Context
-	ApiService *NotificationRulesAPIService
+type NotificationRulesAPICreateNotificationRuleRequest struct {
+	ctx                           context.Context
+	ApiService                    NotificationRulesAPI
 	createNotificationRuleRequest *CreateNotificationRuleRequest
 }
 
-func (r ApiCreateNotificationRuleRequest) CreateNotificationRuleRequest(createNotificationRuleRequest CreateNotificationRuleRequest) ApiCreateNotificationRuleRequest {
+func (r NotificationRulesAPICreateNotificationRuleRequest) CreateNotificationRuleRequest(createNotificationRuleRequest CreateNotificationRuleRequest) NotificationRulesAPICreateNotificationRuleRequest {
 	r.createNotificationRuleRequest = &createNotificationRuleRequest
 	return r
 }
 
-func (r ApiCreateNotificationRuleRequest) Execute() (*CreateNotificationRule200Response, *http.Response, error) {
+func (r NotificationRulesAPICreateNotificationRuleRequest) Execute() (*CreateNotificationRule200Response, *http.Response, error) {
 	return r.ApiService.CreateNotificationRuleExecute(r)
 }
 
@@ -43,24 +118,25 @@ CreateNotificationRule Method for CreateNotificationRule
 
 Create a new notification rule
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateNotificationRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return NotificationRulesAPICreateNotificationRuleRequest
 */
-func (a *NotificationRulesAPIService) CreateNotificationRule(ctx context.Context) ApiCreateNotificationRuleRequest {
-	return ApiCreateNotificationRuleRequest{
+func (a *NotificationRulesAPIService) CreateNotificationRule(ctx context.Context) NotificationRulesAPICreateNotificationRuleRequest {
+	return NotificationRulesAPICreateNotificationRuleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return CreateNotificationRule200Response
-func (a *NotificationRulesAPIService) CreateNotificationRuleExecute(r ApiCreateNotificationRuleRequest) (*CreateNotificationRule200Response, *http.Response, error) {
+//
+//	@return CreateNotificationRule200Response
+func (a *NotificationRulesAPIService) CreateNotificationRuleExecute(r NotificationRulesAPICreateNotificationRuleRequest) (*CreateNotificationRule200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateNotificationRule200Response
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateNotificationRule200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationRulesAPIService.CreateNotificationRule")
@@ -125,8 +201,8 @@ func (a *NotificationRulesAPIService) CreateNotificationRuleExecute(r ApiCreateN
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -136,8 +212,8 @@ func (a *NotificationRulesAPIService) CreateNotificationRuleExecute(r ApiCreateN
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -154,13 +230,13 @@ func (a *NotificationRulesAPIService) CreateNotificationRuleExecute(r ApiCreateN
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteNotificationRuleRequest struct {
-	ctx context.Context
-	ApiService *NotificationRulesAPIService
-	id string
+type NotificationRulesAPIDeleteNotificationRuleRequest struct {
+	ctx        context.Context
+	ApiService NotificationRulesAPI
+	id         string
 }
 
-func (r ApiDeleteNotificationRuleRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
+func (r NotificationRulesAPIDeleteNotificationRuleRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	return r.ApiService.DeleteNotificationRuleExecute(r)
 }
 
@@ -169,26 +245,27 @@ DeleteNotificationRule Method for DeleteNotificationRule
 
 Delete a notification rule by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiDeleteNotificationRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return NotificationRulesAPIDeleteNotificationRuleRequest
 */
-func (a *NotificationRulesAPIService) DeleteNotificationRule(ctx context.Context, id string) ApiDeleteNotificationRuleRequest {
-	return ApiDeleteNotificationRuleRequest{
+func (a *NotificationRulesAPIService) DeleteNotificationRule(ctx context.Context, id string) NotificationRulesAPIDeleteNotificationRuleRequest {
+	return NotificationRulesAPIDeleteNotificationRuleRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return DeleteIngestionApiKey200Response
-func (a *NotificationRulesAPIService) DeleteNotificationRuleExecute(r ApiDeleteNotificationRuleRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
+//
+//	@return DeleteIngestionApiKey200Response
+func (a *NotificationRulesAPIService) DeleteNotificationRuleExecute(r NotificationRulesAPIDeleteNotificationRuleRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *DeleteIngestionApiKey200Response
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DeleteIngestionApiKey200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationRulesAPIService.DeleteNotificationRule")
@@ -255,8 +332,8 @@ func (a *NotificationRulesAPIService) DeleteNotificationRuleExecute(r ApiDeleteN
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -266,8 +343,8 @@ func (a *NotificationRulesAPIService) DeleteNotificationRuleExecute(r ApiDeleteN
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -284,13 +361,13 @@ func (a *NotificationRulesAPIService) DeleteNotificationRuleExecute(r ApiDeleteN
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetNotificationRuleRequest struct {
-	ctx context.Context
-	ApiService *NotificationRulesAPIService
-	id string
+type NotificationRulesAPIGetNotificationRuleRequest struct {
+	ctx        context.Context
+	ApiService NotificationRulesAPI
+	id         string
 }
 
-func (r ApiGetNotificationRuleRequest) Execute() (*CreateNotificationRule200Response, *http.Response, error) {
+func (r NotificationRulesAPIGetNotificationRuleRequest) Execute() (*CreateNotificationRule200Response, *http.Response, error) {
 	return r.ApiService.GetNotificationRuleExecute(r)
 }
 
@@ -299,26 +376,27 @@ GetNotificationRule Method for GetNotificationRule
 
 Retrieve a notification rule by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiGetNotificationRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return NotificationRulesAPIGetNotificationRuleRequest
 */
-func (a *NotificationRulesAPIService) GetNotificationRule(ctx context.Context, id string) ApiGetNotificationRuleRequest {
-	return ApiGetNotificationRuleRequest{
+func (a *NotificationRulesAPIService) GetNotificationRule(ctx context.Context, id string) NotificationRulesAPIGetNotificationRuleRequest {
+	return NotificationRulesAPIGetNotificationRuleRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return CreateNotificationRule200Response
-func (a *NotificationRulesAPIService) GetNotificationRuleExecute(r ApiGetNotificationRuleRequest) (*CreateNotificationRule200Response, *http.Response, error) {
+//
+//	@return CreateNotificationRule200Response
+func (a *NotificationRulesAPIService) GetNotificationRuleExecute(r NotificationRulesAPIGetNotificationRuleRequest) (*CreateNotificationRule200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateNotificationRule200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateNotificationRule200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationRulesAPIService.GetNotificationRule")
@@ -385,8 +463,8 @@ func (a *NotificationRulesAPIService) GetNotificationRuleExecute(r ApiGetNotific
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -396,8 +474,8 @@ func (a *NotificationRulesAPIService) GetNotificationRuleExecute(r ApiGetNotific
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -414,12 +492,12 @@ func (a *NotificationRulesAPIService) GetNotificationRuleExecute(r ApiGetNotific
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListNotificationRulesRequest struct {
-	ctx context.Context
-	ApiService *NotificationRulesAPIService
+type NotificationRulesAPIListNotificationRulesRequest struct {
+	ctx        context.Context
+	ApiService NotificationRulesAPI
 }
 
-func (r ApiListNotificationRulesRequest) Execute() (*ListNotificationRules200Response, *http.Response, error) {
+func (r NotificationRulesAPIListNotificationRulesRequest) Execute() (*ListNotificationRules200Response, *http.Response, error) {
 	return r.ApiService.ListNotificationRulesExecute(r)
 }
 
@@ -428,24 +506,25 @@ ListNotificationRules Method for ListNotificationRules
 
 Retrieve all notification rules
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListNotificationRulesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return NotificationRulesAPIListNotificationRulesRequest
 */
-func (a *NotificationRulesAPIService) ListNotificationRules(ctx context.Context) ApiListNotificationRulesRequest {
-	return ApiListNotificationRulesRequest{
+func (a *NotificationRulesAPIService) ListNotificationRules(ctx context.Context) NotificationRulesAPIListNotificationRulesRequest {
+	return NotificationRulesAPIListNotificationRulesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ListNotificationRules200Response
-func (a *NotificationRulesAPIService) ListNotificationRulesExecute(r ApiListNotificationRulesRequest) (*ListNotificationRules200Response, *http.Response, error) {
+//
+//	@return ListNotificationRules200Response
+func (a *NotificationRulesAPIService) ListNotificationRulesExecute(r NotificationRulesAPIListNotificationRulesRequest) (*ListNotificationRules200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ListNotificationRules200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ListNotificationRules200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationRulesAPIService.ListNotificationRules")
@@ -505,8 +584,8 @@ func (a *NotificationRulesAPIService) ListNotificationRulesExecute(r ApiListNoti
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -516,8 +595,8 @@ func (a *NotificationRulesAPIService) ListNotificationRulesExecute(r ApiListNoti
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -534,19 +613,19 @@ func (a *NotificationRulesAPIService) ListNotificationRulesExecute(r ApiListNoti
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateNotificationRuleRequest struct {
-	ctx context.Context
-	ApiService *NotificationRulesAPIService
-	id string
+type NotificationRulesAPIUpdateNotificationRuleRequest struct {
+	ctx                           context.Context
+	ApiService                    NotificationRulesAPI
+	id                            string
 	createNotificationRuleRequest *CreateNotificationRuleRequest
 }
 
-func (r ApiUpdateNotificationRuleRequest) CreateNotificationRuleRequest(createNotificationRuleRequest CreateNotificationRuleRequest) ApiUpdateNotificationRuleRequest {
+func (r NotificationRulesAPIUpdateNotificationRuleRequest) CreateNotificationRuleRequest(createNotificationRuleRequest CreateNotificationRuleRequest) NotificationRulesAPIUpdateNotificationRuleRequest {
 	r.createNotificationRuleRequest = &createNotificationRuleRequest
 	return r
 }
 
-func (r ApiUpdateNotificationRuleRequest) Execute() (*CreateNotificationRule200Response, *http.Response, error) {
+func (r NotificationRulesAPIUpdateNotificationRuleRequest) Execute() (*CreateNotificationRule200Response, *http.Response, error) {
 	return r.ApiService.UpdateNotificationRuleExecute(r)
 }
 
@@ -555,26 +634,27 @@ UpdateNotificationRule Method for UpdateNotificationRule
 
 Update a notification rule by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiUpdateNotificationRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return NotificationRulesAPIUpdateNotificationRuleRequest
 */
-func (a *NotificationRulesAPIService) UpdateNotificationRule(ctx context.Context, id string) ApiUpdateNotificationRuleRequest {
-	return ApiUpdateNotificationRuleRequest{
+func (a *NotificationRulesAPIService) UpdateNotificationRule(ctx context.Context, id string) NotificationRulesAPIUpdateNotificationRuleRequest {
+	return NotificationRulesAPIUpdateNotificationRuleRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return CreateNotificationRule200Response
-func (a *NotificationRulesAPIService) UpdateNotificationRuleExecute(r ApiUpdateNotificationRuleRequest) (*CreateNotificationRule200Response, *http.Response, error) {
+//
+//	@return CreateNotificationRule200Response
+func (a *NotificationRulesAPIService) UpdateNotificationRuleExecute(r NotificationRulesAPIUpdateNotificationRuleRequest) (*CreateNotificationRule200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateNotificationRule200Response
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateNotificationRule200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationRulesAPIService.UpdateNotificationRule")
@@ -646,8 +726,8 @@ func (a *NotificationRulesAPIService) UpdateNotificationRuleExecute(r ApiUpdateN
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -657,8 +737,8 @@ func (a *NotificationRulesAPIService) UpdateNotificationRuleExecute(r ApiUpdateN
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

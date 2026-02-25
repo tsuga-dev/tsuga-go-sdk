@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,7 +21,8 @@ var _ MappedNullable = &TimeseriesAggregationResponse{}
 // TimeseriesAggregationResponse Timeseries aggregation response with points over time
 type TimeseriesAggregationResponse struct {
 	// Time series data per query and group
-	Series []Series `json:"series"`
+	Series               []Series `json:"series"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TimeseriesAggregationResponse TimeseriesAggregationResponse
@@ -70,7 +70,7 @@ func (o *TimeseriesAggregationResponse) SetSeries(v []Series) {
 }
 
 func (o TimeseriesAggregationResponse) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -80,6 +80,11 @@ func (o TimeseriesAggregationResponse) MarshalJSON() ([]byte, error) {
 func (o TimeseriesAggregationResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["series"] = o.Series
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -96,10 +101,10 @@ func (o *TimeseriesAggregationResponse) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -107,15 +112,20 @@ func (o *TimeseriesAggregationResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varTimeseriesAggregationResponse := _TimeseriesAggregationResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTimeseriesAggregationResponse)
+	err = json.Unmarshal(data, &varTimeseriesAggregationResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TimeseriesAggregationResponse(varTimeseriesAggregationResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "series")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -155,5 +165,3 @@ func (v *NullableTimeseriesAggregationResponse) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

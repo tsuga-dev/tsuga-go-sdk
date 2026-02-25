@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -23,7 +22,8 @@ var _ MappedNullable = &RuleTargetInputIncidentIo{}
 type RuleTargetInputIncidentIo struct {
 	Type string `json:"type"`
 	// Identifier of the incident.io integration to use
-	IntegrationId string `json:"integrationId"`
+	IntegrationId        string `json:"integrationId"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RuleTargetInputIncidentIo RuleTargetInputIncidentIo
@@ -96,7 +96,7 @@ func (o *RuleTargetInputIncidentIo) SetIntegrationId(v string) {
 }
 
 func (o RuleTargetInputIncidentIo) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -107,6 +107,11 @@ func (o RuleTargetInputIncidentIo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
 	toSerialize["integrationId"] = o.IntegrationId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -124,10 +129,10 @@ func (o *RuleTargetInputIncidentIo) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -135,15 +140,21 @@ func (o *RuleTargetInputIncidentIo) UnmarshalJSON(data []byte) (err error) {
 
 	varRuleTargetInputIncidentIo := _RuleTargetInputIncidentIo{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRuleTargetInputIncidentIo)
+	err = json.Unmarshal(data, &varRuleTargetInputIncidentIo)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RuleTargetInputIncidentIo(varRuleTargetInputIncidentIo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "integrationId")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -183,5 +194,3 @@ func (v *NullableRuleTargetInputIncidentIo) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,16 +20,17 @@ var _ MappedNullable = &CreateMonitorRequest{}
 
 // CreateMonitorRequest struct for CreateMonitorRequest
 type CreateMonitorRequest struct {
-	Name string `json:"name"`
+	Name    string  `json:"name"`
 	Message *string `json:"message,omitempty"`
 	// List of key/value tags applied to the resource
-	Tags []Tag `json:"tags,omitempty"`
+	Tags          []Tag                             `json:"tags,omitempty"`
 	Configuration CreateMonitorRequestConfiguration `json:"configuration"`
-	Priority float32 `json:"priority"`
-	Owner string `json:"owner"`
-	DashboardId *string `json:"dashboardId,omitempty"`
+	Priority      float32                           `json:"priority"`
+	Owner         string                            `json:"owner"`
+	DashboardId   *string                           `json:"dashboardId,omitempty"`
 	// This controls which data the monitor can see
-	Permissions string `json:"permissions"`
+	Permissions          string `json:"permissions"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateMonitorRequest CreateMonitorRequest
@@ -274,7 +274,7 @@ func (o *CreateMonitorRequest) SetPermissions(v string) {
 }
 
 func (o CreateMonitorRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -297,6 +297,11 @@ func (o CreateMonitorRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["dashboardId"] = o.DashboardId
 	}
 	toSerialize["permissions"] = o.Permissions
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -317,10 +322,10 @@ func (o *CreateMonitorRequest) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -328,15 +333,27 @@ func (o *CreateMonitorRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateMonitorRequest := _CreateMonitorRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateMonitorRequest)
+	err = json.Unmarshal(data, &varCreateMonitorRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateMonitorRequest(varCreateMonitorRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "configuration")
+		delete(additionalProperties, "priority")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "dashboardId")
+		delete(additionalProperties, "permissions")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -376,5 +393,3 @@ func (v *NullableCreateMonitorRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

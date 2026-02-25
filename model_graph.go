@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,9 +25,10 @@ type Graph struct {
 	// Display name of the graph widget
 	Name *string `json:"name,omitempty"`
 	// Description of the graph widget
-	Description *string `json:"description,omitempty"`
-	Visualization GraphVisualization `json:"visualization"`
-	Layout *GraphLayout `json:"layout,omitempty"`
+	Description          *string            `json:"description,omitempty"`
+	Visualization        GraphVisualization `json:"visualization"`
+	Layout               *GraphLayout       `json:"layout,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Graph Graph
@@ -197,7 +197,7 @@ func (o *Graph) SetLayout(v GraphLayout) {
 }
 
 func (o Graph) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -217,6 +217,11 @@ func (o Graph) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Layout) {
 		toSerialize["layout"] = o.Layout
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -234,10 +239,10 @@ func (o *Graph) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -245,15 +250,24 @@ func (o *Graph) UnmarshalJSON(data []byte) (err error) {
 
 	varGraph := _Graph{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGraph)
+	err = json.Unmarshal(data, &varGraph)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Graph(varGraph)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "visualization")
+		delete(additionalProperties, "layout")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -293,5 +307,3 @@ func (v *NullableGraph) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

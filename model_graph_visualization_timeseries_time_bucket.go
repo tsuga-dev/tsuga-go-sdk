@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,7 +23,8 @@ type GraphVisualizationTimeseriesTimeBucket struct {
 	// Number of units that make up each bar bucket
 	Time float32 `json:"time"`
 	// Unit used to measure the bucket width
-	Metric string `json:"metric"`
+	Metric               string `json:"metric"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GraphVisualizationTimeseriesTimeBucket GraphVisualizationTimeseriesTimeBucket
@@ -97,7 +97,7 @@ func (o *GraphVisualizationTimeseriesTimeBucket) SetMetric(v string) {
 }
 
 func (o GraphVisualizationTimeseriesTimeBucket) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -108,6 +108,11 @@ func (o GraphVisualizationTimeseriesTimeBucket) ToMap() (map[string]interface{},
 	toSerialize := map[string]interface{}{}
 	toSerialize["time"] = o.Time
 	toSerialize["metric"] = o.Metric
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -125,10 +130,10 @@ func (o *GraphVisualizationTimeseriesTimeBucket) UnmarshalJSON(data []byte) (err
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -136,15 +141,21 @@ func (o *GraphVisualizationTimeseriesTimeBucket) UnmarshalJSON(data []byte) (err
 
 	varGraphVisualizationTimeseriesTimeBucket := _GraphVisualizationTimeseriesTimeBucket{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGraphVisualizationTimeseriesTimeBucket)
+	err = json.Unmarshal(data, &varGraphVisualizationTimeseriesTimeBucket)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GraphVisualizationTimeseriesTimeBucket(varGraphVisualizationTimeseriesTimeBucket)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "time")
+		delete(additionalProperties, "metric")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -184,5 +195,3 @@ func (v *NullableGraphVisualizationTimeseriesTimeBucket) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -27,7 +26,8 @@ type RuleTargetInputGoogleChat struct {
 	// When true, the transition info (e.g., \"from ok to alert\") is hidden from the Google Chat message
 	HideTransition *bool `json:"hideTransition,omitempty"`
 	// When true, the timestamp is hidden from the Google Chat message
-	HideTime *bool `json:"hideTime,omitempty"`
+	HideTime             *bool `json:"hideTime,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RuleTargetInputGoogleChat RuleTargetInputGoogleChat
@@ -164,7 +164,7 @@ func (o *RuleTargetInputGoogleChat) SetHideTime(v bool) {
 }
 
 func (o RuleTargetInputGoogleChat) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -181,6 +181,11 @@ func (o RuleTargetInputGoogleChat) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.HideTime) {
 		toSerialize["hideTime"] = o.HideTime
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -198,10 +203,10 @@ func (o *RuleTargetInputGoogleChat) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -209,15 +214,23 @@ func (o *RuleTargetInputGoogleChat) UnmarshalJSON(data []byte) (err error) {
 
 	varRuleTargetInputGoogleChat := _RuleTargetInputGoogleChat{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRuleTargetInputGoogleChat)
+	err = json.Unmarshal(data, &varRuleTargetInputGoogleChat)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RuleTargetInputGoogleChat(varRuleTargetInputGoogleChat)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "integrationId")
+		delete(additionalProperties, "hideTransition")
+		delete(additionalProperties, "hideTime")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -257,5 +270,3 @@ func (v *NullableRuleTargetInputGoogleChat) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

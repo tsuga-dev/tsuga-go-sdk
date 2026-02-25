@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,8 +21,9 @@ var _ MappedNullable = &CreateDashboard200Response{}
 // CreateDashboard200Response struct for CreateDashboard200Response
 type CreateDashboard200Response struct {
 	// Identifier used to trace the lifecycle of this API request
-	RequestId string `json:"requestId"`
-	Data Dashboard `json:"data"`
+	RequestId            string    `json:"requestId"`
+	Data                 Dashboard `json:"data"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateDashboard200Response CreateDashboard200Response
@@ -96,7 +96,7 @@ func (o *CreateDashboard200Response) SetData(v Dashboard) {
 }
 
 func (o CreateDashboard200Response) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -107,6 +107,11 @@ func (o CreateDashboard200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["requestId"] = o.RequestId
 	toSerialize["data"] = o.Data
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -124,10 +129,10 @@ func (o *CreateDashboard200Response) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -135,15 +140,21 @@ func (o *CreateDashboard200Response) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateDashboard200Response := _CreateDashboard200Response{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateDashboard200Response)
+	err = json.Unmarshal(data, &varCreateDashboard200Response)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateDashboard200Response(varCreateDashboard200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "requestId")
+		delete(additionalProperties, "data")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -183,5 +194,3 @@ func (v *NullableCreateDashboard200Response) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

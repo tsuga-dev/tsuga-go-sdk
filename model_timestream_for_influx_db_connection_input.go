@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,11 +20,12 @@ var _ MappedNullable = &TimestreamForInfluxDBConnectionInput{}
 
 // TimestreamForInfluxDBConnectionInput struct for TimestreamForInfluxDBConnectionInput
 type TimestreamForInfluxDBConnectionInput struct {
-	Type string `json:"type"`
-	Token string `json:"token"`
-	Endpoint string `json:"endpoint"`
-	Bucket string `json:"bucket"`
-	Org string `json:"org"`
+	Type                 string `json:"type"`
+	Token                string `json:"token"`
+	Endpoint             string `json:"endpoint"`
+	Bucket               string `json:"bucket"`
+	Org                  string `json:"org"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TimestreamForInfluxDBConnectionInput TimestreamForInfluxDBConnectionInput
@@ -173,7 +173,7 @@ func (o *TimestreamForInfluxDBConnectionInput) SetOrg(v string) {
 }
 
 func (o TimestreamForInfluxDBConnectionInput) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,6 +187,11 @@ func (o TimestreamForInfluxDBConnectionInput) ToMap() (map[string]interface{}, e
 	toSerialize["endpoint"] = o.Endpoint
 	toSerialize["bucket"] = o.Bucket
 	toSerialize["org"] = o.Org
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -207,10 +212,10 @@ func (o *TimestreamForInfluxDBConnectionInput) UnmarshalJSON(data []byte) (err e
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -218,15 +223,24 @@ func (o *TimestreamForInfluxDBConnectionInput) UnmarshalJSON(data []byte) (err e
 
 	varTimestreamForInfluxDBConnectionInput := _TimestreamForInfluxDBConnectionInput{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTimestreamForInfluxDBConnectionInput)
+	err = json.Unmarshal(data, &varTimestreamForInfluxDBConnectionInput)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TimestreamForInfluxDBConnectionInput(varTimestreamForInfluxDBConnectionInput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "token")
+		delete(additionalProperties, "endpoint")
+		delete(additionalProperties, "bucket")
+		delete(additionalProperties, "org")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -266,5 +280,3 @@ func (v *NullableTimestreamForInfluxDBConnectionInput) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

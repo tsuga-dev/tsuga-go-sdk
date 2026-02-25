@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,14 +20,15 @@ var _ MappedNullable = &CreateIngestionApiKey200ResponseData{}
 
 // CreateIngestionApiKey200ResponseData struct for CreateIngestionApiKey200ResponseData
 type CreateIngestionApiKey200ResponseData struct {
-	Id string `json:"id"`
-	Name string `json:"name"`
+	Id                string `json:"id"`
+	Name              string `json:"name"`
 	KeyLastCharacters string `json:"keyLastCharacters"`
-	Owner string `json:"owner"`
+	Owner             string `json:"owner"`
 	// List of key/value tags applied to the resource
-	Tags []Tag `json:"tags,omitempty"`
-	TeamOverrideFields []string `json:"teamOverrideFields,omitempty"`
-	Key string `json:"key"`
+	Tags                 []Tag    `json:"tags,omitempty"`
+	TeamOverrideFields   []string `json:"teamOverrideFields,omitempty"`
+	Key                  string   `json:"key"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateIngestionApiKey200ResponseData CreateIngestionApiKey200ResponseData
@@ -240,7 +240,7 @@ func (o *CreateIngestionApiKey200ResponseData) SetKey(v string) {
 }
 
 func (o CreateIngestionApiKey200ResponseData) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -260,6 +260,11 @@ func (o CreateIngestionApiKey200ResponseData) ToMap() (map[string]interface{}, e
 		toSerialize["teamOverrideFields"] = o.TeamOverrideFields
 	}
 	toSerialize["key"] = o.Key
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -280,10 +285,10 @@ func (o *CreateIngestionApiKey200ResponseData) UnmarshalJSON(data []byte) (err e
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -291,15 +296,26 @@ func (o *CreateIngestionApiKey200ResponseData) UnmarshalJSON(data []byte) (err e
 
 	varCreateIngestionApiKey200ResponseData := _CreateIngestionApiKey200ResponseData{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateIngestionApiKey200ResponseData)
+	err = json.Unmarshal(data, &varCreateIngestionApiKey200ResponseData)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateIngestionApiKey200ResponseData(varCreateIngestionApiKey200ResponseData)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "keyLastCharacters")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "teamOverrideFields")
+		delete(additionalProperties, "key")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -339,5 +355,3 @@ func (v *NullableCreateIngestionApiKey200ResponseData) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

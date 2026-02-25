@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -32,10 +31,11 @@ type GraphVisualizationTopList struct {
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Fields used to group the results
-	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
-	Normalizer *Normalizer `json:"normalizer,omitempty"`
+	GroupBy    []AggregationGroupBy `json:"groupBy,omitempty"`
+	Normalizer *Normalizer          `json:"normalizer,omitempty"`
 	// Number of decimal places to display in the value
-	Precision *float32 `json:"precision,omitempty"`
+	Precision            *float32 `json:"precision,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GraphVisualizationTopList GraphVisualizationTopList
@@ -293,7 +293,7 @@ func (o *GraphVisualizationTopList) SetPrecision(v float32) {
 }
 
 func (o GraphVisualizationTopList) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -320,6 +320,11 @@ func (o GraphVisualizationTopList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Precision) {
 		toSerialize["precision"] = o.Precision
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -338,10 +343,10 @@ func (o *GraphVisualizationTopList) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -349,15 +354,27 @@ func (o *GraphVisualizationTopList) UnmarshalJSON(data []byte) (err error) {
 
 	varGraphVisualizationTopList := _GraphVisualizationTopList{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGraphVisualizationTopList)
+	err = json.Unmarshal(data, &varGraphVisualizationTopList)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GraphVisualizationTopList(varGraphVisualizationTopList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "queries")
+		delete(additionalProperties, "formula")
+		delete(additionalProperties, "visibleSeries")
+		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "normalizer")
+		delete(additionalProperties, "precision")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -397,5 +414,3 @@ func (v *NullableGraphVisualizationTopList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

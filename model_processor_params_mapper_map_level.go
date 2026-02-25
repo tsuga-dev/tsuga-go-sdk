@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,8 +21,9 @@ var _ MappedNullable = &ProcessorParamsMapperMapLevel{}
 // ProcessorParamsMapperMapLevel struct for ProcessorParamsMapperMapLevel
 type ProcessorParamsMapperMapLevel struct {
 	// Attribute whose value will determine the log level
-	AttributeName string `json:"attributeName"`
-	Subtype string `json:"subtype"`
+	AttributeName        string `json:"attributeName"`
+	Subtype              string `json:"subtype"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ProcessorParamsMapperMapLevel ProcessorParamsMapperMapLevel
@@ -96,7 +96,7 @@ func (o *ProcessorParamsMapperMapLevel) SetSubtype(v string) {
 }
 
 func (o ProcessorParamsMapperMapLevel) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -107,6 +107,11 @@ func (o ProcessorParamsMapperMapLevel) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["attributeName"] = o.AttributeName
 	toSerialize["subtype"] = o.Subtype
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -124,10 +129,10 @@ func (o *ProcessorParamsMapperMapLevel) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -135,15 +140,21 @@ func (o *ProcessorParamsMapperMapLevel) UnmarshalJSON(data []byte) (err error) {
 
 	varProcessorParamsMapperMapLevel := _ProcessorParamsMapperMapLevel{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProcessorParamsMapperMapLevel)
+	err = json.Unmarshal(data, &varProcessorParamsMapperMapLevel)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ProcessorParamsMapperMapLevel(varProcessorParamsMapperMapLevel)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributeName")
+		delete(additionalProperties, "subtype")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -183,5 +194,3 @@ func (v *NullableProcessorParamsMapperMapLevel) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

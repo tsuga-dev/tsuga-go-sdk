@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,7 +23,8 @@ type FunctionLog struct {
 	// Applies a logarithm transformation to the values
 	Type string `json:"type"`
 	// The base of the logarithm
-	Base int32 `json:"base"`
+	Base                 int32 `json:"base"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _FunctionLog FunctionLog
@@ -97,7 +97,7 @@ func (o *FunctionLog) SetBase(v int32) {
 }
 
 func (o FunctionLog) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -108,6 +108,11 @@ func (o FunctionLog) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
 	toSerialize["base"] = o.Base
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -125,10 +130,10 @@ func (o *FunctionLog) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -136,15 +141,21 @@ func (o *FunctionLog) UnmarshalJSON(data []byte) (err error) {
 
 	varFunctionLog := _FunctionLog{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varFunctionLog)
+	err = json.Unmarshal(data, &varFunctionLog)
 
 	if err != nil {
 		return err
 	}
 
 	*o = FunctionLog(varFunctionLog)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "base")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -184,5 +195,3 @@ func (v *NullableFunctionLog) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

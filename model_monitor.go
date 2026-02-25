@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -30,14 +29,15 @@ type Monitor struct {
 	// Message to be displayed if a notification is triggered
 	Message *string `json:"message,omitempty"`
 	// List of key/value tags applied to the resource
-	Tags []Tag `json:"tags,omitempty"`
+	Tags          []Tag                             `json:"tags,omitempty"`
 	Configuration CreateMonitorRequestConfiguration `json:"configuration"`
 	// Priority of the monitor
 	Priority float32 `json:"priority"`
 	// This controls which data the monitor can see
 	Permissions string `json:"permissions"`
 	// Identifier of a dashboard related to the monitor
-	DashboardId *string `json:"dashboardId,omitempty"`
+	DashboardId          *string `json:"dashboardId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Monitor Monitor
@@ -306,7 +306,7 @@ func (o *Monitor) SetDashboardId(v string) {
 }
 
 func (o Monitor) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -330,6 +330,11 @@ func (o Monitor) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DashboardId) {
 		toSerialize["dashboardId"] = o.DashboardId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -351,10 +356,10 @@ func (o *Monitor) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -362,15 +367,28 @@ func (o *Monitor) UnmarshalJSON(data []byte) (err error) {
 
 	varMonitor := _Monitor{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMonitor)
+	err = json.Unmarshal(data, &varMonitor)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Monitor(varMonitor)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "configuration")
+		delete(additionalProperties, "priority")
+		delete(additionalProperties, "permissions")
+		delete(additionalProperties, "dashboardId")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -410,5 +428,3 @@ func (v *NullableMonitor) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

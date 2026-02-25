@@ -19,17 +19,48 @@ import (
 	"strings"
 )
 
+type UsersAPI interface {
+
+	/*
+		GetUser Method for GetUser
+
+		Retrieve a user by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return UsersAPIGetUserRequest
+	*/
+	GetUser(ctx context.Context, id string) UsersAPIGetUserRequest
+
+	// GetUserExecute executes the request
+	//  @return GetUser200Response
+	GetUserExecute(r UsersAPIGetUserRequest) (*GetUser200Response, *http.Response, error)
+
+	/*
+		ListUsers Method for ListUsers
+
+		Retrieve all users
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return UsersAPIListUsersRequest
+	*/
+	ListUsers(ctx context.Context) UsersAPIListUsersRequest
+
+	// ListUsersExecute executes the request
+	//  @return ListUsers200Response
+	ListUsersExecute(r UsersAPIListUsersRequest) (*ListUsers200Response, *http.Response, error)
+}
 
 // UsersAPIService UsersAPI service
 type UsersAPIService service
 
-type ApiGetUserRequest struct {
-	ctx context.Context
-	ApiService *UsersAPIService
-	id string
+type UsersAPIGetUserRequest struct {
+	ctx        context.Context
+	ApiService UsersAPI
+	id         string
 }
 
-func (r ApiGetUserRequest) Execute() (*GetUser200Response, *http.Response, error) {
+func (r UsersAPIGetUserRequest) Execute() (*GetUser200Response, *http.Response, error) {
 	return r.ApiService.GetUserExecute(r)
 }
 
@@ -38,26 +69,27 @@ GetUser Method for GetUser
 
 Retrieve a user by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiGetUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return UsersAPIGetUserRequest
 */
-func (a *UsersAPIService) GetUser(ctx context.Context, id string) ApiGetUserRequest {
-	return ApiGetUserRequest{
+func (a *UsersAPIService) GetUser(ctx context.Context, id string) UsersAPIGetUserRequest {
+	return UsersAPIGetUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return GetUser200Response
-func (a *UsersAPIService) GetUserExecute(r ApiGetUserRequest) (*GetUser200Response, *http.Response, error) {
+//
+//	@return GetUser200Response
+func (a *UsersAPIService) GetUserExecute(r UsersAPIGetUserRequest) (*GetUser200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *GetUser200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetUser200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersAPIService.GetUser")
@@ -124,8 +156,8 @@ func (a *UsersAPIService) GetUserExecute(r ApiGetUserRequest) (*GetUser200Respon
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -135,8 +167,8 @@ func (a *UsersAPIService) GetUserExecute(r ApiGetUserRequest) (*GetUser200Respon
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -153,12 +185,12 @@ func (a *UsersAPIService) GetUserExecute(r ApiGetUserRequest) (*GetUser200Respon
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListUsersRequest struct {
-	ctx context.Context
-	ApiService *UsersAPIService
+type UsersAPIListUsersRequest struct {
+	ctx        context.Context
+	ApiService UsersAPI
 }
 
-func (r ApiListUsersRequest) Execute() (*ListUsers200Response, *http.Response, error) {
+func (r UsersAPIListUsersRequest) Execute() (*ListUsers200Response, *http.Response, error) {
 	return r.ApiService.ListUsersExecute(r)
 }
 
@@ -167,24 +199,25 @@ ListUsers Method for ListUsers
 
 Retrieve all users
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListUsersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return UsersAPIListUsersRequest
 */
-func (a *UsersAPIService) ListUsers(ctx context.Context) ApiListUsersRequest {
-	return ApiListUsersRequest{
+func (a *UsersAPIService) ListUsers(ctx context.Context) UsersAPIListUsersRequest {
+	return UsersAPIListUsersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ListUsers200Response
-func (a *UsersAPIService) ListUsersExecute(r ApiListUsersRequest) (*ListUsers200Response, *http.Response, error) {
+//
+//	@return ListUsers200Response
+func (a *UsersAPIService) ListUsersExecute(r UsersAPIListUsersRequest) (*ListUsers200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ListUsers200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ListUsers200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersAPIService.ListUsers")
@@ -244,8 +277,8 @@ func (a *UsersAPIService) ListUsersExecute(r ApiListUsersRequest) (*ListUsers200
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -255,8 +288,8 @@ func (a *UsersAPIService) ListUsersExecute(r ApiListUsersRequest) (*ListUsers200
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

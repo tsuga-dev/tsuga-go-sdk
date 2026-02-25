@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,7 +25,8 @@ type ConditionalFormatting struct {
 	// Threshold value used when evaluating the operator
 	Value float32 `json:"value"`
 	// Color applied when the condition is met
-	Color string `json:"color"`
+	Color                string `json:"color"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ConditionalFormatting ConditionalFormatting
@@ -124,7 +124,7 @@ func (o *ConditionalFormatting) SetColor(v string) {
 }
 
 func (o ConditionalFormatting) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -136,6 +136,11 @@ func (o ConditionalFormatting) ToMap() (map[string]interface{}, error) {
 	toSerialize["operator"] = o.Operator
 	toSerialize["value"] = o.Value
 	toSerialize["color"] = o.Color
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -154,10 +159,10 @@ func (o *ConditionalFormatting) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -165,15 +170,22 @@ func (o *ConditionalFormatting) UnmarshalJSON(data []byte) (err error) {
 
 	varConditionalFormatting := _ConditionalFormatting{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varConditionalFormatting)
+	err = json.Unmarshal(data, &varConditionalFormatting)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ConditionalFormatting(varConditionalFormatting)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "operator")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "color")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -213,5 +225,3 @@ func (v *NullableConditionalFormatting) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,7 +20,8 @@ var _ MappedNullable = &SearchSpans200ResponseDataSpansInnerError{}
 
 // SearchSpans200ResponseDataSpansInnerError struct for SearchSpans200ResponseDataSpansInnerError
 type SearchSpans200ResponseDataSpansInnerError struct {
-	Message string `json:"message"`
+	Message              string `json:"message"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SearchSpans200ResponseDataSpansInnerError SearchSpans200ResponseDataSpansInnerError
@@ -69,7 +69,7 @@ func (o *SearchSpans200ResponseDataSpansInnerError) SetMessage(v string) {
 }
 
 func (o SearchSpans200ResponseDataSpansInnerError) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -79,6 +79,11 @@ func (o SearchSpans200ResponseDataSpansInnerError) MarshalJSON() ([]byte, error)
 func (o SearchSpans200ResponseDataSpansInnerError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["message"] = o.Message
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -95,10 +100,10 @@ func (o *SearchSpans200ResponseDataSpansInnerError) UnmarshalJSON(data []byte) (
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -106,15 +111,20 @@ func (o *SearchSpans200ResponseDataSpansInnerError) UnmarshalJSON(data []byte) (
 
 	varSearchSpans200ResponseDataSpansInnerError := _SearchSpans200ResponseDataSpansInnerError{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSearchSpans200ResponseDataSpansInnerError)
+	err = json.Unmarshal(data, &varSearchSpans200ResponseDataSpansInnerError)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SearchSpans200ResponseDataSpansInnerError(varSearchSpans200ResponseDataSpansInnerError)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "message")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -154,5 +164,3 @@ func (v *NullableSearchSpans200ResponseDataSpansInnerError) UnmarshalJSON(src []
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

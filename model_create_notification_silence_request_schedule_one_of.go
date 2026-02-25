@@ -12,9 +12,8 @@ package tsuga
 
 import (
 	"encoding/json"
-	"time"
-	"bytes"
 	"fmt"
+	"time"
 )
 
 // checks if the CreateNotificationSilenceRequestScheduleOneOf type satisfies the MappedNullable interface at compile time
@@ -22,9 +21,10 @@ var _ MappedNullable = &CreateNotificationSilenceRequestScheduleOneOf{}
 
 // CreateNotificationSilenceRequestScheduleOneOf One-time silence schedule with specific start and end times
 type CreateNotificationSilenceRequestScheduleOneOf struct {
-	Type string `json:"type"`
-	StartTime time.Time `json:"startTime"`
-	EndTime time.Time `json:"endTime"`
+	Type                 string    `json:"type"`
+	StartTime            time.Time `json:"startTime"`
+	EndTime              time.Time `json:"endTime"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateNotificationSilenceRequestScheduleOneOf CreateNotificationSilenceRequestScheduleOneOf
@@ -122,7 +122,7 @@ func (o *CreateNotificationSilenceRequestScheduleOneOf) SetEndTime(v time.Time) 
 }
 
 func (o CreateNotificationSilenceRequestScheduleOneOf) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -134,6 +134,11 @@ func (o CreateNotificationSilenceRequestScheduleOneOf) ToMap() (map[string]inter
 	toSerialize["type"] = o.Type
 	toSerialize["startTime"] = o.StartTime
 	toSerialize["endTime"] = o.EndTime
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -152,10 +157,10 @@ func (o *CreateNotificationSilenceRequestScheduleOneOf) UnmarshalJSON(data []byt
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -163,15 +168,22 @@ func (o *CreateNotificationSilenceRequestScheduleOneOf) UnmarshalJSON(data []byt
 
 	varCreateNotificationSilenceRequestScheduleOneOf := _CreateNotificationSilenceRequestScheduleOneOf{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateNotificationSilenceRequestScheduleOneOf)
+	err = json.Unmarshal(data, &varCreateNotificationSilenceRequestScheduleOneOf)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateNotificationSilenceRequestScheduleOneOf(varCreateNotificationSilenceRequestScheduleOneOf)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "startTime")
+		delete(additionalProperties, "endTime")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -211,5 +223,3 @@ func (v *NullableCreateNotificationSilenceRequestScheduleOneOf) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

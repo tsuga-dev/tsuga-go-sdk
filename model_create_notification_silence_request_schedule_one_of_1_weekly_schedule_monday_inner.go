@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,8 +20,9 @@ var _ MappedNullable = &CreateNotificationSilenceRequestScheduleOneOf1WeeklySche
 
 // CreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner struct for CreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner
 type CreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner struct {
-	StartTime string `json:"startTime"`
-	EndTime string `json:"endTime"`
+	StartTime            string `json:"startTime"`
+	EndTime              string `json:"endTime"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner CreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner
@@ -95,7 +95,7 @@ func (o *CreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner
 }
 
 func (o CreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -106,6 +106,11 @@ func (o CreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner)
 	toSerialize := map[string]interface{}{}
 	toSerialize["startTime"] = o.StartTime
 	toSerialize["endTime"] = o.EndTime
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -123,10 +128,10 @@ func (o *CreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -134,15 +139,21 @@ func (o *CreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner
 
 	varCreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner := _CreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner)
+	err = json.Unmarshal(data, &varCreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner(varCreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "startTime")
+		delete(additionalProperties, "endTime")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -182,5 +193,3 @@ func (v *NullableCreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMon
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,12 +21,13 @@ var _ MappedNullable = &CreateTeamRequest{}
 // CreateTeamRequest struct for CreateTeamRequest
 type CreateTeamRequest struct {
 	// Name to assign to the team
-	Name string `json:"name"`
+	Name        string  `json:"name"`
 	Description *string `json:"description,omitempty"`
 	// Controls whether the resources of the team are discoverable by users
 	Visibility string `json:"visibility"`
 	// List of key/value tags applied to the resource
-	Tags []Tag `json:"tags,omitempty"`
+	Tags                 []Tag `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateTeamRequest CreateTeamRequest
@@ -164,7 +164,7 @@ func (o *CreateTeamRequest) SetTags(v []Tag) {
 }
 
 func (o CreateTeamRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -181,6 +181,11 @@ func (o CreateTeamRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -198,10 +203,10 @@ func (o *CreateTeamRequest) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -209,15 +214,23 @@ func (o *CreateTeamRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateTeamRequest := _CreateTeamRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateTeamRequest)
+	err = json.Unmarshal(data, &varCreateTeamRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateTeamRequest(varCreateTeamRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "visibility")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -257,5 +270,3 @@ func (v *NullableCreateTeamRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

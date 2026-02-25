@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,7 +23,8 @@ type ProcessorAnyOf3ParamsItemsInner struct {
 	// Query that determines whether logs enter this branch
 	Query string `json:"query"`
 	// Processors executed when the branch query matches
-	Processors []Processor `json:"processors"`
+	Processors           []Processor `json:"processors"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ProcessorAnyOf3ParamsItemsInner ProcessorAnyOf3ParamsItemsInner
@@ -97,7 +97,7 @@ func (o *ProcessorAnyOf3ParamsItemsInner) SetProcessors(v []Processor) {
 }
 
 func (o ProcessorAnyOf3ParamsItemsInner) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -108,6 +108,11 @@ func (o ProcessorAnyOf3ParamsItemsInner) ToMap() (map[string]interface{}, error)
 	toSerialize := map[string]interface{}{}
 	toSerialize["query"] = o.Query
 	toSerialize["processors"] = o.Processors
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -125,10 +130,10 @@ func (o *ProcessorAnyOf3ParamsItemsInner) UnmarshalJSON(data []byte) (err error)
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -136,15 +141,21 @@ func (o *ProcessorAnyOf3ParamsItemsInner) UnmarshalJSON(data []byte) (err error)
 
 	varProcessorAnyOf3ParamsItemsInner := _ProcessorAnyOf3ParamsItemsInner{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProcessorAnyOf3ParamsItemsInner)
+	err = json.Unmarshal(data, &varProcessorAnyOf3ParamsItemsInner)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ProcessorAnyOf3ParamsItemsInner(varProcessorAnyOf3ParamsItemsInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "query")
+		delete(additionalProperties, "processors")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -184,5 +195,3 @@ func (v *NullableProcessorAnyOf3ParamsItemsInner) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

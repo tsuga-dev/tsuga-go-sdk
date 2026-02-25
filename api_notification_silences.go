@@ -19,22 +19,97 @@ import (
 	"strings"
 )
 
+type NotificationSilencesAPI interface {
+
+	/*
+		CreateNotificationSilence Method for CreateNotificationSilence
+
+		Create a new notification silence
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return NotificationSilencesAPICreateNotificationSilenceRequest
+	*/
+	CreateNotificationSilence(ctx context.Context) NotificationSilencesAPICreateNotificationSilenceRequest
+
+	// CreateNotificationSilenceExecute executes the request
+	//  @return CreateNotificationSilence200Response
+	CreateNotificationSilenceExecute(r NotificationSilencesAPICreateNotificationSilenceRequest) (*CreateNotificationSilence200Response, *http.Response, error)
+
+	/*
+		DeleteNotificationSilence Method for DeleteNotificationSilence
+
+		Delete a notification silence by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return NotificationSilencesAPIDeleteNotificationSilenceRequest
+	*/
+	DeleteNotificationSilence(ctx context.Context, id string) NotificationSilencesAPIDeleteNotificationSilenceRequest
+
+	// DeleteNotificationSilenceExecute executes the request
+	//  @return DeleteIngestionApiKey200Response
+	DeleteNotificationSilenceExecute(r NotificationSilencesAPIDeleteNotificationSilenceRequest) (*DeleteIngestionApiKey200Response, *http.Response, error)
+
+	/*
+		GetNotificationSilence Method for GetNotificationSilence
+
+		Retrieve a notification silence by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return NotificationSilencesAPIGetNotificationSilenceRequest
+	*/
+	GetNotificationSilence(ctx context.Context, id string) NotificationSilencesAPIGetNotificationSilenceRequest
+
+	// GetNotificationSilenceExecute executes the request
+	//  @return CreateNotificationSilence200Response
+	GetNotificationSilenceExecute(r NotificationSilencesAPIGetNotificationSilenceRequest) (*CreateNotificationSilence200Response, *http.Response, error)
+
+	/*
+		ListNotificationSilences Method for ListNotificationSilences
+
+		Retrieve all notification silences
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return NotificationSilencesAPIListNotificationSilencesRequest
+	*/
+	ListNotificationSilences(ctx context.Context) NotificationSilencesAPIListNotificationSilencesRequest
+
+	// ListNotificationSilencesExecute executes the request
+	//  @return ListNotificationSilences200Response
+	ListNotificationSilencesExecute(r NotificationSilencesAPIListNotificationSilencesRequest) (*ListNotificationSilences200Response, *http.Response, error)
+
+	/*
+		UpdateNotificationSilence Method for UpdateNotificationSilence
+
+		Update a notification silence by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return NotificationSilencesAPIUpdateNotificationSilenceRequest
+	*/
+	UpdateNotificationSilence(ctx context.Context, id string) NotificationSilencesAPIUpdateNotificationSilenceRequest
+
+	// UpdateNotificationSilenceExecute executes the request
+	//  @return CreateNotificationSilence200Response
+	UpdateNotificationSilenceExecute(r NotificationSilencesAPIUpdateNotificationSilenceRequest) (*CreateNotificationSilence200Response, *http.Response, error)
+}
 
 // NotificationSilencesAPIService NotificationSilencesAPI service
 type NotificationSilencesAPIService service
 
-type ApiCreateNotificationSilenceRequest struct {
-	ctx context.Context
-	ApiService *NotificationSilencesAPIService
+type NotificationSilencesAPICreateNotificationSilenceRequest struct {
+	ctx                              context.Context
+	ApiService                       NotificationSilencesAPI
 	createNotificationSilenceRequest *CreateNotificationSilenceRequest
 }
 
-func (r ApiCreateNotificationSilenceRequest) CreateNotificationSilenceRequest(createNotificationSilenceRequest CreateNotificationSilenceRequest) ApiCreateNotificationSilenceRequest {
+func (r NotificationSilencesAPICreateNotificationSilenceRequest) CreateNotificationSilenceRequest(createNotificationSilenceRequest CreateNotificationSilenceRequest) NotificationSilencesAPICreateNotificationSilenceRequest {
 	r.createNotificationSilenceRequest = &createNotificationSilenceRequest
 	return r
 }
 
-func (r ApiCreateNotificationSilenceRequest) Execute() (*CreateNotificationSilence200Response, *http.Response, error) {
+func (r NotificationSilencesAPICreateNotificationSilenceRequest) Execute() (*CreateNotificationSilence200Response, *http.Response, error) {
 	return r.ApiService.CreateNotificationSilenceExecute(r)
 }
 
@@ -43,24 +118,25 @@ CreateNotificationSilence Method for CreateNotificationSilence
 
 Create a new notification silence
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateNotificationSilenceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return NotificationSilencesAPICreateNotificationSilenceRequest
 */
-func (a *NotificationSilencesAPIService) CreateNotificationSilence(ctx context.Context) ApiCreateNotificationSilenceRequest {
-	return ApiCreateNotificationSilenceRequest{
+func (a *NotificationSilencesAPIService) CreateNotificationSilence(ctx context.Context) NotificationSilencesAPICreateNotificationSilenceRequest {
+	return NotificationSilencesAPICreateNotificationSilenceRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return CreateNotificationSilence200Response
-func (a *NotificationSilencesAPIService) CreateNotificationSilenceExecute(r ApiCreateNotificationSilenceRequest) (*CreateNotificationSilence200Response, *http.Response, error) {
+//
+//	@return CreateNotificationSilence200Response
+func (a *NotificationSilencesAPIService) CreateNotificationSilenceExecute(r NotificationSilencesAPICreateNotificationSilenceRequest) (*CreateNotificationSilence200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateNotificationSilence200Response
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateNotificationSilence200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationSilencesAPIService.CreateNotificationSilence")
@@ -125,8 +201,8 @@ func (a *NotificationSilencesAPIService) CreateNotificationSilenceExecute(r ApiC
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -136,8 +212,8 @@ func (a *NotificationSilencesAPIService) CreateNotificationSilenceExecute(r ApiC
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -154,13 +230,13 @@ func (a *NotificationSilencesAPIService) CreateNotificationSilenceExecute(r ApiC
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteNotificationSilenceRequest struct {
-	ctx context.Context
-	ApiService *NotificationSilencesAPIService
-	id string
+type NotificationSilencesAPIDeleteNotificationSilenceRequest struct {
+	ctx        context.Context
+	ApiService NotificationSilencesAPI
+	id         string
 }
 
-func (r ApiDeleteNotificationSilenceRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
+func (r NotificationSilencesAPIDeleteNotificationSilenceRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	return r.ApiService.DeleteNotificationSilenceExecute(r)
 }
 
@@ -169,26 +245,27 @@ DeleteNotificationSilence Method for DeleteNotificationSilence
 
 Delete a notification silence by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiDeleteNotificationSilenceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return NotificationSilencesAPIDeleteNotificationSilenceRequest
 */
-func (a *NotificationSilencesAPIService) DeleteNotificationSilence(ctx context.Context, id string) ApiDeleteNotificationSilenceRequest {
-	return ApiDeleteNotificationSilenceRequest{
+func (a *NotificationSilencesAPIService) DeleteNotificationSilence(ctx context.Context, id string) NotificationSilencesAPIDeleteNotificationSilenceRequest {
+	return NotificationSilencesAPIDeleteNotificationSilenceRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return DeleteIngestionApiKey200Response
-func (a *NotificationSilencesAPIService) DeleteNotificationSilenceExecute(r ApiDeleteNotificationSilenceRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
+//
+//	@return DeleteIngestionApiKey200Response
+func (a *NotificationSilencesAPIService) DeleteNotificationSilenceExecute(r NotificationSilencesAPIDeleteNotificationSilenceRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *DeleteIngestionApiKey200Response
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DeleteIngestionApiKey200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationSilencesAPIService.DeleteNotificationSilence")
@@ -255,8 +332,8 @@ func (a *NotificationSilencesAPIService) DeleteNotificationSilenceExecute(r ApiD
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -266,8 +343,8 @@ func (a *NotificationSilencesAPIService) DeleteNotificationSilenceExecute(r ApiD
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -284,13 +361,13 @@ func (a *NotificationSilencesAPIService) DeleteNotificationSilenceExecute(r ApiD
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetNotificationSilenceRequest struct {
-	ctx context.Context
-	ApiService *NotificationSilencesAPIService
-	id string
+type NotificationSilencesAPIGetNotificationSilenceRequest struct {
+	ctx        context.Context
+	ApiService NotificationSilencesAPI
+	id         string
 }
 
-func (r ApiGetNotificationSilenceRequest) Execute() (*CreateNotificationSilence200Response, *http.Response, error) {
+func (r NotificationSilencesAPIGetNotificationSilenceRequest) Execute() (*CreateNotificationSilence200Response, *http.Response, error) {
 	return r.ApiService.GetNotificationSilenceExecute(r)
 }
 
@@ -299,26 +376,27 @@ GetNotificationSilence Method for GetNotificationSilence
 
 Retrieve a notification silence by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiGetNotificationSilenceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return NotificationSilencesAPIGetNotificationSilenceRequest
 */
-func (a *NotificationSilencesAPIService) GetNotificationSilence(ctx context.Context, id string) ApiGetNotificationSilenceRequest {
-	return ApiGetNotificationSilenceRequest{
+func (a *NotificationSilencesAPIService) GetNotificationSilence(ctx context.Context, id string) NotificationSilencesAPIGetNotificationSilenceRequest {
+	return NotificationSilencesAPIGetNotificationSilenceRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return CreateNotificationSilence200Response
-func (a *NotificationSilencesAPIService) GetNotificationSilenceExecute(r ApiGetNotificationSilenceRequest) (*CreateNotificationSilence200Response, *http.Response, error) {
+//
+//	@return CreateNotificationSilence200Response
+func (a *NotificationSilencesAPIService) GetNotificationSilenceExecute(r NotificationSilencesAPIGetNotificationSilenceRequest) (*CreateNotificationSilence200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateNotificationSilence200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateNotificationSilence200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationSilencesAPIService.GetNotificationSilence")
@@ -385,8 +463,8 @@ func (a *NotificationSilencesAPIService) GetNotificationSilenceExecute(r ApiGetN
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -396,8 +474,8 @@ func (a *NotificationSilencesAPIService) GetNotificationSilenceExecute(r ApiGetN
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -414,12 +492,12 @@ func (a *NotificationSilencesAPIService) GetNotificationSilenceExecute(r ApiGetN
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListNotificationSilencesRequest struct {
-	ctx context.Context
-	ApiService *NotificationSilencesAPIService
+type NotificationSilencesAPIListNotificationSilencesRequest struct {
+	ctx        context.Context
+	ApiService NotificationSilencesAPI
 }
 
-func (r ApiListNotificationSilencesRequest) Execute() (*ListNotificationSilences200Response, *http.Response, error) {
+func (r NotificationSilencesAPIListNotificationSilencesRequest) Execute() (*ListNotificationSilences200Response, *http.Response, error) {
 	return r.ApiService.ListNotificationSilencesExecute(r)
 }
 
@@ -428,24 +506,25 @@ ListNotificationSilences Method for ListNotificationSilences
 
 Retrieve all notification silences
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListNotificationSilencesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return NotificationSilencesAPIListNotificationSilencesRequest
 */
-func (a *NotificationSilencesAPIService) ListNotificationSilences(ctx context.Context) ApiListNotificationSilencesRequest {
-	return ApiListNotificationSilencesRequest{
+func (a *NotificationSilencesAPIService) ListNotificationSilences(ctx context.Context) NotificationSilencesAPIListNotificationSilencesRequest {
+	return NotificationSilencesAPIListNotificationSilencesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ListNotificationSilences200Response
-func (a *NotificationSilencesAPIService) ListNotificationSilencesExecute(r ApiListNotificationSilencesRequest) (*ListNotificationSilences200Response, *http.Response, error) {
+//
+//	@return ListNotificationSilences200Response
+func (a *NotificationSilencesAPIService) ListNotificationSilencesExecute(r NotificationSilencesAPIListNotificationSilencesRequest) (*ListNotificationSilences200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ListNotificationSilences200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ListNotificationSilences200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationSilencesAPIService.ListNotificationSilences")
@@ -505,8 +584,8 @@ func (a *NotificationSilencesAPIService) ListNotificationSilencesExecute(r ApiLi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -516,8 +595,8 @@ func (a *NotificationSilencesAPIService) ListNotificationSilencesExecute(r ApiLi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -534,19 +613,19 @@ func (a *NotificationSilencesAPIService) ListNotificationSilencesExecute(r ApiLi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateNotificationSilenceRequest struct {
-	ctx context.Context
-	ApiService *NotificationSilencesAPIService
-	id string
+type NotificationSilencesAPIUpdateNotificationSilenceRequest struct {
+	ctx                              context.Context
+	ApiService                       NotificationSilencesAPI
+	id                               string
 	createNotificationSilenceRequest *CreateNotificationSilenceRequest
 }
 
-func (r ApiUpdateNotificationSilenceRequest) CreateNotificationSilenceRequest(createNotificationSilenceRequest CreateNotificationSilenceRequest) ApiUpdateNotificationSilenceRequest {
+func (r NotificationSilencesAPIUpdateNotificationSilenceRequest) CreateNotificationSilenceRequest(createNotificationSilenceRequest CreateNotificationSilenceRequest) NotificationSilencesAPIUpdateNotificationSilenceRequest {
 	r.createNotificationSilenceRequest = &createNotificationSilenceRequest
 	return r
 }
 
-func (r ApiUpdateNotificationSilenceRequest) Execute() (*CreateNotificationSilence200Response, *http.Response, error) {
+func (r NotificationSilencesAPIUpdateNotificationSilenceRequest) Execute() (*CreateNotificationSilence200Response, *http.Response, error) {
 	return r.ApiService.UpdateNotificationSilenceExecute(r)
 }
 
@@ -555,26 +634,27 @@ UpdateNotificationSilence Method for UpdateNotificationSilence
 
 Update a notification silence by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiUpdateNotificationSilenceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return NotificationSilencesAPIUpdateNotificationSilenceRequest
 */
-func (a *NotificationSilencesAPIService) UpdateNotificationSilence(ctx context.Context, id string) ApiUpdateNotificationSilenceRequest {
-	return ApiUpdateNotificationSilenceRequest{
+func (a *NotificationSilencesAPIService) UpdateNotificationSilence(ctx context.Context, id string) NotificationSilencesAPIUpdateNotificationSilenceRequest {
+	return NotificationSilencesAPIUpdateNotificationSilenceRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return CreateNotificationSilence200Response
-func (a *NotificationSilencesAPIService) UpdateNotificationSilenceExecute(r ApiUpdateNotificationSilenceRequest) (*CreateNotificationSilence200Response, *http.Response, error) {
+//
+//	@return CreateNotificationSilence200Response
+func (a *NotificationSilencesAPIService) UpdateNotificationSilenceExecute(r NotificationSilencesAPIUpdateNotificationSilenceRequest) (*CreateNotificationSilence200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateNotificationSilence200Response
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateNotificationSilence200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationSilencesAPIService.UpdateNotificationSilence")
@@ -646,8 +726,8 @@ func (a *NotificationSilencesAPIService) UpdateNotificationSilenceExecute(r ApiU
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -657,8 +737,8 @@ func (a *NotificationSilencesAPIService) UpdateNotificationSilenceExecute(r ApiU
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

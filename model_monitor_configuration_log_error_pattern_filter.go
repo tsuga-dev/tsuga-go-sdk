@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,9 +20,10 @@ var _ MappedNullable = &MonitorConfigurationLogErrorPatternFilter{}
 
 // MonitorConfigurationLogErrorPatternFilter struct for MonitorConfigurationLogErrorPatternFilter
 type MonitorConfigurationLogErrorPatternFilter struct {
-	TeamIds []string `json:"teamIds"`
-	Env string `json:"env"`
-	Service *string `json:"service,omitempty"`
+	TeamIds              []string `json:"teamIds"`
+	Env                  string   `json:"env"`
+	Service              *string  `json:"service,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MonitorConfigurationLogErrorPatternFilter MonitorConfigurationLogErrorPatternFilter
@@ -128,7 +128,7 @@ func (o *MonitorConfigurationLogErrorPatternFilter) SetService(v string) {
 }
 
 func (o MonitorConfigurationLogErrorPatternFilter) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -142,6 +142,11 @@ func (o MonitorConfigurationLogErrorPatternFilter) ToMap() (map[string]interface
 	if !IsNil(o.Service) {
 		toSerialize["service"] = o.Service
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -159,10 +164,10 @@ func (o *MonitorConfigurationLogErrorPatternFilter) UnmarshalJSON(data []byte) (
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -170,15 +175,22 @@ func (o *MonitorConfigurationLogErrorPatternFilter) UnmarshalJSON(data []byte) (
 
 	varMonitorConfigurationLogErrorPatternFilter := _MonitorConfigurationLogErrorPatternFilter{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMonitorConfigurationLogErrorPatternFilter)
+	err = json.Unmarshal(data, &varMonitorConfigurationLogErrorPatternFilter)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MonitorConfigurationLogErrorPatternFilter(varMonitorConfigurationLogErrorPatternFilter)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "teamIds")
+		delete(additionalProperties, "env")
+		delete(additionalProperties, "service")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -218,5 +230,3 @@ func (v *NullableMonitorConfigurationLogErrorPatternFilter) UnmarshalJSON(src []
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

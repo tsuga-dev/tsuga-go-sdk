@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,13 +20,14 @@ var _ MappedNullable = &MySqlConnectionInput{}
 
 // MySqlConnectionInput struct for MySqlConnectionInput
 type MySqlConnectionInput struct {
-	Type string `json:"type"`
-	User string `json:"user"`
-	Password string `json:"password"`
-	Host string `json:"host"`
-	Port int32 `json:"port"`
-	DbName string `json:"dbName"`
-	SslRequire bool `json:"sslRequire"`
+	Type                 string `json:"type"`
+	User                 string `json:"user"`
+	Password             string `json:"password"`
+	Host                 string `json:"host"`
+	Port                 int32  `json:"port"`
+	DbName               string `json:"dbName"`
+	SslRequire           bool   `json:"sslRequire"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MySqlConnectionInput MySqlConnectionInput
@@ -227,7 +227,7 @@ func (o *MySqlConnectionInput) SetSslRequire(v bool) {
 }
 
 func (o MySqlConnectionInput) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -243,6 +243,11 @@ func (o MySqlConnectionInput) ToMap() (map[string]interface{}, error) {
 	toSerialize["port"] = o.Port
 	toSerialize["dbName"] = o.DbName
 	toSerialize["sslRequire"] = o.SslRequire
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -265,10 +270,10 @@ func (o *MySqlConnectionInput) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -276,15 +281,26 @@ func (o *MySqlConnectionInput) UnmarshalJSON(data []byte) (err error) {
 
 	varMySqlConnectionInput := _MySqlConnectionInput{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMySqlConnectionInput)
+	err = json.Unmarshal(data, &varMySqlConnectionInput)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MySqlConnectionInput(varMySqlConnectionInput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "user")
+		delete(additionalProperties, "password")
+		delete(additionalProperties, "host")
+		delete(additionalProperties, "port")
+		delete(additionalProperties, "dbName")
+		delete(additionalProperties, "sslRequire")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -324,5 +340,3 @@ func (v *NullableMySqlConnectionInput) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

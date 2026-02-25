@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,10 +20,11 @@ var _ MappedNullable = &MonitorConfigurationLogErrorPattern{}
 
 // MonitorConfigurationLogErrorPattern struct for MonitorConfigurationLogErrorPattern
 type MonitorConfigurationLogErrorPattern struct {
-	Type string `json:"type"`
-	AggregationAlertLogic string `json:"aggregationAlertLogic"`
-	NoDataBehavior string `json:"noDataBehavior"`
-	Filter MonitorConfigurationLogErrorPatternFilter `json:"filter"`
+	Type                  string                                    `json:"type"`
+	AggregationAlertLogic string                                    `json:"aggregationAlertLogic"`
+	NoDataBehavior        string                                    `json:"noDataBehavior"`
+	Filter                MonitorConfigurationLogErrorPatternFilter `json:"filter"`
+	AdditionalProperties  map[string]interface{}
 }
 
 type _MonitorConfigurationLogErrorPattern MonitorConfigurationLogErrorPattern
@@ -147,7 +147,7 @@ func (o *MonitorConfigurationLogErrorPattern) SetFilter(v MonitorConfigurationLo
 }
 
 func (o MonitorConfigurationLogErrorPattern) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -160,6 +160,11 @@ func (o MonitorConfigurationLogErrorPattern) ToMap() (map[string]interface{}, er
 	toSerialize["aggregationAlertLogic"] = o.AggregationAlertLogic
 	toSerialize["noDataBehavior"] = o.NoDataBehavior
 	toSerialize["filter"] = o.Filter
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -179,10 +184,10 @@ func (o *MonitorConfigurationLogErrorPattern) UnmarshalJSON(data []byte) (err er
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -190,15 +195,23 @@ func (o *MonitorConfigurationLogErrorPattern) UnmarshalJSON(data []byte) (err er
 
 	varMonitorConfigurationLogErrorPattern := _MonitorConfigurationLogErrorPattern{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMonitorConfigurationLogErrorPattern)
+	err = json.Unmarshal(data, &varMonitorConfigurationLogErrorPattern)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MonitorConfigurationLogErrorPattern(varMonitorConfigurationLogErrorPattern)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "aggregationAlertLogic")
+		delete(additionalProperties, "noDataBehavior")
+		delete(additionalProperties, "filter")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -238,5 +251,3 @@ func (v *NullableMonitorConfigurationLogErrorPattern) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

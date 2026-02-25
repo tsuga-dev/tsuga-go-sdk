@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,10 +20,11 @@ var _ MappedNullable = &TeamMembership{}
 
 // TeamMembership Membership of a user in a team
 type TeamMembership struct {
-	Id string `json:"id"`
-	UserId string `json:"userId"`
-	TeamId string `json:"teamId"`
-	RoleKey string `json:"roleKey"`
+	Id                   string `json:"id"`
+	UserId               string `json:"userId"`
+	TeamId               string `json:"teamId"`
+	RoleKey              string `json:"roleKey"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TeamMembership TeamMembership
@@ -147,7 +147,7 @@ func (o *TeamMembership) SetRoleKey(v string) {
 }
 
 func (o TeamMembership) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -160,6 +160,11 @@ func (o TeamMembership) ToMap() (map[string]interface{}, error) {
 	toSerialize["userId"] = o.UserId
 	toSerialize["teamId"] = o.TeamId
 	toSerialize["roleKey"] = o.RoleKey
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -179,10 +184,10 @@ func (o *TeamMembership) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -190,15 +195,23 @@ func (o *TeamMembership) UnmarshalJSON(data []byte) (err error) {
 
 	varTeamMembership := _TeamMembership{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTeamMembership)
+	err = json.Unmarshal(data, &varTeamMembership)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TeamMembership(varTeamMembership)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "userId")
+		delete(additionalProperties, "teamId")
+		delete(additionalProperties, "roleKey")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -238,5 +251,3 @@ func (v *NullableTeamMembership) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

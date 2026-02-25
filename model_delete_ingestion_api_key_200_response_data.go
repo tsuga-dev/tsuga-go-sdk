@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,7 +21,8 @@ var _ MappedNullable = &DeleteIngestionApiKey200ResponseData{}
 // DeleteIngestionApiKey200ResponseData struct for DeleteIngestionApiKey200ResponseData
 type DeleteIngestionApiKey200ResponseData struct {
 	// Indicates the resource was deleted successfully
-	Success bool `json:"success"`
+	Success              bool `json:"success"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _DeleteIngestionApiKey200ResponseData DeleteIngestionApiKey200ResponseData
@@ -70,7 +70,7 @@ func (o *DeleteIngestionApiKey200ResponseData) SetSuccess(v bool) {
 }
 
 func (o DeleteIngestionApiKey200ResponseData) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -80,6 +80,11 @@ func (o DeleteIngestionApiKey200ResponseData) MarshalJSON() ([]byte, error) {
 func (o DeleteIngestionApiKey200ResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["success"] = o.Success
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -96,10 +101,10 @@ func (o *DeleteIngestionApiKey200ResponseData) UnmarshalJSON(data []byte) (err e
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -107,15 +112,20 @@ func (o *DeleteIngestionApiKey200ResponseData) UnmarshalJSON(data []byte) (err e
 
 	varDeleteIngestionApiKey200ResponseData := _DeleteIngestionApiKey200ResponseData{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDeleteIngestionApiKey200ResponseData)
+	err = json.Unmarshal(data, &varDeleteIngestionApiKey200ResponseData)
 
 	if err != nil {
 		return err
 	}
 
 	*o = DeleteIngestionApiKey200ResponseData(varDeleteIngestionApiKey200ResponseData)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "success")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -155,5 +165,3 @@ func (v *NullableDeleteIngestionApiKey200ResponseData) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

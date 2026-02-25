@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,8 +21,9 @@ var _ MappedNullable = &ProcessorAnyOf1ParamsOneOf2{}
 // ProcessorAnyOf1ParamsOneOf2 struct for ProcessorAnyOf1ParamsOneOf2
 type ProcessorAnyOf1ParamsOneOf2 struct {
 	// Attribute containing the user agent string to parse
-	SourceAttribute string `json:"sourceAttribute"`
-	Subtype string `json:"subtype"`
+	SourceAttribute      string `json:"sourceAttribute"`
+	Subtype              string `json:"subtype"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ProcessorAnyOf1ParamsOneOf2 ProcessorAnyOf1ParamsOneOf2
@@ -96,7 +96,7 @@ func (o *ProcessorAnyOf1ParamsOneOf2) SetSubtype(v string) {
 }
 
 func (o ProcessorAnyOf1ParamsOneOf2) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -107,6 +107,11 @@ func (o ProcessorAnyOf1ParamsOneOf2) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["sourceAttribute"] = o.SourceAttribute
 	toSerialize["subtype"] = o.Subtype
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -124,10 +129,10 @@ func (o *ProcessorAnyOf1ParamsOneOf2) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -135,15 +140,21 @@ func (o *ProcessorAnyOf1ParamsOneOf2) UnmarshalJSON(data []byte) (err error) {
 
 	varProcessorAnyOf1ParamsOneOf2 := _ProcessorAnyOf1ParamsOneOf2{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProcessorAnyOf1ParamsOneOf2)
+	err = json.Unmarshal(data, &varProcessorAnyOf1ParamsOneOf2)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ProcessorAnyOf1ParamsOneOf2(varProcessorAnyOf1ParamsOneOf2)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "sourceAttribute")
+		delete(additionalProperties, "subtype")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -183,5 +194,3 @@ func (v *NullableProcessorAnyOf1ParamsOneOf2) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

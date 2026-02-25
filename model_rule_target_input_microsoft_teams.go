@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -23,7 +22,8 @@ var _ MappedNullable = &RuleTargetInputMicrosoftTeams{}
 type RuleTargetInputMicrosoftTeams struct {
 	Type string `json:"type"`
 	// Identifier of the Microsoft Teams integration to use
-	IntegrationId string `json:"integrationId"`
+	IntegrationId        string `json:"integrationId"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RuleTargetInputMicrosoftTeams RuleTargetInputMicrosoftTeams
@@ -96,7 +96,7 @@ func (o *RuleTargetInputMicrosoftTeams) SetIntegrationId(v string) {
 }
 
 func (o RuleTargetInputMicrosoftTeams) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -107,6 +107,11 @@ func (o RuleTargetInputMicrosoftTeams) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
 	toSerialize["integrationId"] = o.IntegrationId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -124,10 +129,10 @@ func (o *RuleTargetInputMicrosoftTeams) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -135,15 +140,21 @@ func (o *RuleTargetInputMicrosoftTeams) UnmarshalJSON(data []byte) (err error) {
 
 	varRuleTargetInputMicrosoftTeams := _RuleTargetInputMicrosoftTeams{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRuleTargetInputMicrosoftTeams)
+	err = json.Unmarshal(data, &varRuleTargetInputMicrosoftTeams)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RuleTargetInputMicrosoftTeams(varRuleTargetInputMicrosoftTeams)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "integrationId")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -183,5 +194,3 @@ func (v *NullableRuleTargetInputMicrosoftTeams) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

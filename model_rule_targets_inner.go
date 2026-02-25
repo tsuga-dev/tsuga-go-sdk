@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,10 +21,11 @@ var _ MappedNullable = &RuleTargetsInner{}
 // RuleTargetsInner struct for RuleTargetsInner
 type RuleTargetsInner struct {
 	// Identifier of the notification target
-	Id string `json:"id"`
-	RateLimit *CreateNotificationRuleRequestTargetsInnerRateLimit `json:"rateLimit,omitempty"`
-	RenotifyConfig *CreateNotificationRuleRequestTargetsInnerRenotifyConfig `json:"renotifyConfig,omitempty"`
-	Config RuleTargetsInnerConfig `json:"config"`
+	Id                   string                                                   `json:"id"`
+	RateLimit            *CreateNotificationRuleRequestTargetsInnerRateLimit      `json:"rateLimit,omitempty"`
+	RenotifyConfig       *CreateNotificationRuleRequestTargetsInnerRenotifyConfig `json:"renotifyConfig,omitempty"`
+	Config               RuleTargetsInnerConfig                                   `json:"config"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RuleTargetsInner RuleTargetsInner
@@ -162,7 +162,7 @@ func (o *RuleTargetsInner) SetConfig(v RuleTargetsInnerConfig) {
 }
 
 func (o RuleTargetsInner) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -179,6 +179,11 @@ func (o RuleTargetsInner) ToMap() (map[string]interface{}, error) {
 		toSerialize["renotifyConfig"] = o.RenotifyConfig
 	}
 	toSerialize["config"] = o.Config
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -196,10 +201,10 @@ func (o *RuleTargetsInner) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -207,15 +212,23 @@ func (o *RuleTargetsInner) UnmarshalJSON(data []byte) (err error) {
 
 	varRuleTargetsInner := _RuleTargetsInner{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRuleTargetsInner)
+	err = json.Unmarshal(data, &varRuleTargetsInner)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RuleTargetsInner(varRuleTargetsInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "rateLimit")
+		delete(additionalProperties, "renotifyConfig")
+		delete(additionalProperties, "config")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -255,5 +268,3 @@ func (v *NullableRuleTargetsInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

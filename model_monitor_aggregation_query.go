@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -23,9 +22,10 @@ var _ MappedNullable = &MonitorAggregationQuery{}
 type MonitorAggregationQuery struct {
 	Aggregate Aggregate `json:"aggregate"`
 	// Post-processing functions applied to aggregation results
-	Functions []Function `json:"functions,omitempty"`
-	Fill *MonitorAggregationQueryFill `json:"fill,omitempty"`
-	Filter string `json:"filter"`
+	Functions            []Function                   `json:"functions,omitempty"`
+	Fill                 *MonitorAggregationQueryFill `json:"fill,omitempty"`
+	Filter               string                       `json:"filter"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MonitorAggregationQuery MonitorAggregationQuery
@@ -162,7 +162,7 @@ func (o *MonitorAggregationQuery) SetFilter(v string) {
 }
 
 func (o MonitorAggregationQuery) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -179,6 +179,11 @@ func (o MonitorAggregationQuery) ToMap() (map[string]interface{}, error) {
 		toSerialize["fill"] = o.Fill
 	}
 	toSerialize["filter"] = o.Filter
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -196,10 +201,10 @@ func (o *MonitorAggregationQuery) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -207,15 +212,23 @@ func (o *MonitorAggregationQuery) UnmarshalJSON(data []byte) (err error) {
 
 	varMonitorAggregationQuery := _MonitorAggregationQuery{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMonitorAggregationQuery)
+	err = json.Unmarshal(data, &varMonitorAggregationQuery)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MonitorAggregationQuery(varMonitorAggregationQuery)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "aggregate")
+		delete(additionalProperties, "functions")
+		delete(additionalProperties, "fill")
+		delete(additionalProperties, "filter")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -255,5 +268,3 @@ func (v *NullableMonitorAggregationQuery) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

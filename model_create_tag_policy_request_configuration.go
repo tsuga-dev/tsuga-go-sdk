@@ -18,7 +18,7 @@ import (
 
 // CreateTagPolicyRequestConfiguration - struct for CreateTagPolicyRequestConfiguration
 type CreateTagPolicyRequestConfiguration struct {
-	CreateTagPolicyRequestConfigurationOneOf *CreateTagPolicyRequestConfigurationOneOf
+	CreateTagPolicyRequestConfigurationOneOf  *CreateTagPolicyRequestConfigurationOneOf
 	CreateTagPolicyRequestConfigurationOneOf1 *CreateTagPolicyRequestConfigurationOneOf1
 }
 
@@ -35,7 +35,6 @@ func CreateTagPolicyRequestConfigurationOneOf1AsCreateTagPolicyRequestConfigurat
 		CreateTagPolicyRequestConfigurationOneOf1: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *CreateTagPolicyRequestConfiguration) UnmarshalJSON(data []byte) error {
@@ -102,7 +101,7 @@ func (src CreateTagPolicyRequestConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *CreateTagPolicyRequestConfiguration) GetActualInstance() (interface{}) {
+func (obj *CreateTagPolicyRequestConfiguration) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -119,7 +118,7 @@ func (obj *CreateTagPolicyRequestConfiguration) GetActualInstance() (interface{}
 }
 
 // Get the actual instance value
-func (obj CreateTagPolicyRequestConfiguration) GetActualInstanceValue() (interface{}) {
+func (obj CreateTagPolicyRequestConfiguration) GetActualInstanceValue() interface{} {
 	if obj.CreateTagPolicyRequestConfigurationOneOf != nil {
 		return *obj.CreateTagPolicyRequestConfigurationOneOf
 	}
@@ -167,5 +166,3 @@ func (v *NullableCreateTagPolicyRequestConfiguration) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

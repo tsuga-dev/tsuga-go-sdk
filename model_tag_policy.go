@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,16 +20,17 @@ var _ MappedNullable = &TagPolicy{}
 
 // TagPolicy Policy that enforces tag requirements on Tsuga assets or telemetry data
 type TagPolicy struct {
-	Id string `json:"id"`
-	Name string `json:"name"`
-	Description *string `json:"description,omitempty"`
-	IsActive bool `json:"isActive"`
-	TagKey string `json:"tagKey"`
-	AllowedTagValues []string `json:"allowedTagValues"`
-	IsRequired bool `json:"isRequired"`
-	TeamScope *CreateTagPolicyRequestTeamScope `json:"teamScope,omitempty"`
-	Configuration CreateTagPolicyRequestConfiguration `json:"configuration"`
-	Owner *string `json:"owner,omitempty"`
+	Id                   string                              `json:"id"`
+	Name                 string                              `json:"name"`
+	Description          *string                             `json:"description,omitempty"`
+	IsActive             bool                                `json:"isActive"`
+	TagKey               string                              `json:"tagKey"`
+	AllowedTagValues     []string                            `json:"allowedTagValues"`
+	IsRequired           bool                                `json:"isRequired"`
+	TeamScope            *CreateTagPolicyRequestTeamScope    `json:"teamScope,omitempty"`
+	Configuration        CreateTagPolicyRequestConfiguration `json:"configuration"`
+	Owner                *string                             `json:"owner,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TagPolicy TagPolicy
@@ -324,7 +324,7 @@ func (o *TagPolicy) SetOwner(v string) {
 }
 
 func (o TagPolicy) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -349,6 +349,11 @@ func (o TagPolicy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Owner) {
 		toSerialize["owner"] = o.Owner
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -371,10 +376,10 @@ func (o *TagPolicy) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -382,15 +387,29 @@ func (o *TagPolicy) UnmarshalJSON(data []byte) (err error) {
 
 	varTagPolicy := _TagPolicy{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTagPolicy)
+	err = json.Unmarshal(data, &varTagPolicy)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TagPolicy(varTagPolicy)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "isActive")
+		delete(additionalProperties, "tagKey")
+		delete(additionalProperties, "allowedTagValues")
+		delete(additionalProperties, "isRequired")
+		delete(additionalProperties, "teamScope")
+		delete(additionalProperties, "configuration")
+		delete(additionalProperties, "owner")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -430,5 +449,3 @@ func (v *NullableTagPolicy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

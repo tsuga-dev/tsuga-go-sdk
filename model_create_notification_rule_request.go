@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,7 +21,7 @@ var _ MappedNullable = &CreateNotificationRuleRequest{}
 // CreateNotificationRuleRequest struct for CreateNotificationRuleRequest
 type CreateNotificationRuleRequest struct {
 	// Display name of the notification rule
-	Name string `json:"name"`
+	Name        string                                   `json:"name"`
 	TeamsFilter CreateNotificationRuleRequestTeamsFilter `json:"teamsFilter"`
 	// Priorities that narrow down the alerts that can trigger a notification
 	PrioritiesFilter []float32 `json:"prioritiesFilter"`
@@ -31,10 +30,11 @@ type CreateNotificationRuleRequest struct {
 	// Team ID that owns and manages the rule
 	Owner string `json:"owner"`
 	// List of key/value tags applied to the resource
-	Tags []Tag `json:"tags,omitempty"`
-	IsActive bool `json:"isActive"`
+	Tags     []Tag `json:"tags,omitempty"`
+	IsActive bool  `json:"isActive"`
 	// Notification targets that can receive notifications when the rule matches
-	Targets []CreateNotificationRuleRequestTargetsInner `json:"targets"`
+	Targets              []CreateNotificationRuleRequestTargetsInner `json:"targets"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateNotificationRuleRequest CreateNotificationRuleRequest
@@ -264,7 +264,7 @@ func (o *CreateNotificationRuleRequest) SetTargets(v []CreateNotificationRuleReq
 }
 
 func (o CreateNotificationRuleRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -283,6 +283,11 @@ func (o CreateNotificationRuleRequest) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["isActive"] = o.IsActive
 	toSerialize["targets"] = o.Targets
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -305,10 +310,10 @@ func (o *CreateNotificationRuleRequest) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -316,15 +321,27 @@ func (o *CreateNotificationRuleRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateNotificationRuleRequest := _CreateNotificationRuleRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateNotificationRuleRequest)
+	err = json.Unmarshal(data, &varCreateNotificationRuleRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateNotificationRuleRequest(varCreateNotificationRuleRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "teamsFilter")
+		delete(additionalProperties, "prioritiesFilter")
+		delete(additionalProperties, "transitionTypesFilter")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "isActive")
+		delete(additionalProperties, "targets")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -364,5 +381,3 @@ func (v *NullableCreateNotificationRuleRequest) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

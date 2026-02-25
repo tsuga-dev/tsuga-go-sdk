@@ -18,15 +18,15 @@ import (
 
 // RuleTargetsInnerConfig - Configuration describing how the alert was delivered
 type RuleTargetsInnerConfig struct {
-	RuleTargetConfigEmail *RuleTargetConfigEmail
-	RuleTargetConfigGoogleChat *RuleTargetConfigGoogleChat
-	RuleTargetConfigGrafanaIrm *RuleTargetConfigGrafanaIrm
-	RuleTargetConfigIncidentIo *RuleTargetConfigIncidentIo
+	RuleTargetConfigEmail          *RuleTargetConfigEmail
+	RuleTargetConfigGoogleChat     *RuleTargetConfigGoogleChat
+	RuleTargetConfigGrafanaIrm     *RuleTargetConfigGrafanaIrm
+	RuleTargetConfigIncidentIo     *RuleTargetConfigIncidentIo
 	RuleTargetConfigMicrosoftTeams *RuleTargetConfigMicrosoftTeams
-	RuleTargetConfigPagerDuty *RuleTargetConfigPagerDuty
-	RuleTargetConfigServiceNow *RuleTargetConfigServiceNow
-	RuleTargetConfigSlack *RuleTargetConfigSlack
-	RuleTargetConfigWebhook *RuleTargetConfigWebhook
+	RuleTargetConfigPagerDuty      *RuleTargetConfigPagerDuty
+	RuleTargetConfigServiceNow     *RuleTargetConfigServiceNow
+	RuleTargetConfigSlack          *RuleTargetConfigSlack
+	RuleTargetConfigWebhook        *RuleTargetConfigWebhook
 }
 
 // RuleTargetConfigEmailAsRuleTargetsInnerConfig is a convenience function that returns RuleTargetConfigEmail wrapped in RuleTargetsInnerConfig
@@ -91,7 +91,6 @@ func RuleTargetConfigWebhookAsRuleTargetsInnerConfig(v *RuleTargetConfigWebhook)
 		RuleTargetConfigWebhook: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *RuleTargetsInnerConfig) UnmarshalJSON(data []byte) error {
@@ -312,7 +311,7 @@ func (src RuleTargetsInnerConfig) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *RuleTargetsInnerConfig) GetActualInstance() (interface{}) {
+func (obj *RuleTargetsInnerConfig) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -357,7 +356,7 @@ func (obj *RuleTargetsInnerConfig) GetActualInstance() (interface{}) {
 }
 
 // Get the actual instance value
-func (obj RuleTargetsInnerConfig) GetActualInstanceValue() (interface{}) {
+func (obj RuleTargetsInnerConfig) GetActualInstanceValue() interface{} {
 	if obj.RuleTargetConfigEmail != nil {
 		return *obj.RuleTargetConfigEmail
 	}
@@ -433,5 +432,3 @@ func (v *NullableRuleTargetsInnerConfig) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

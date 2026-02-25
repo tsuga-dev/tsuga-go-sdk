@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,8 +25,9 @@ type ProcessorAnyOf1ParamsOneOf struct {
 	// Ordered Grok rules evaluated until one matches
 	Rules []string `json:"rules"`
 	// Example log lines for validation
-	Samples []string `json:"samples,omitempty"`
-	Subtype string `json:"subtype"`
+	Samples              []string `json:"samples,omitempty"`
+	Subtype              string   `json:"subtype"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ProcessorAnyOf1ParamsOneOf ProcessorAnyOf1ParamsOneOf
@@ -157,7 +157,7 @@ func (o *ProcessorAnyOf1ParamsOneOf) SetSubtype(v string) {
 }
 
 func (o ProcessorAnyOf1ParamsOneOf) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -172,6 +172,11 @@ func (o ProcessorAnyOf1ParamsOneOf) ToMap() (map[string]interface{}, error) {
 		toSerialize["samples"] = o.Samples
 	}
 	toSerialize["subtype"] = o.Subtype
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -190,10 +195,10 @@ func (o *ProcessorAnyOf1ParamsOneOf) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -201,15 +206,23 @@ func (o *ProcessorAnyOf1ParamsOneOf) UnmarshalJSON(data []byte) (err error) {
 
 	varProcessorAnyOf1ParamsOneOf := _ProcessorAnyOf1ParamsOneOf{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProcessorAnyOf1ParamsOneOf)
+	err = json.Unmarshal(data, &varProcessorAnyOf1ParamsOneOf)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ProcessorAnyOf1ParamsOneOf(varProcessorAnyOf1ParamsOneOf)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributeName")
+		delete(additionalProperties, "rules")
+		delete(additionalProperties, "samples")
+		delete(additionalProperties, "subtype")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -249,5 +262,3 @@ func (v *NullableProcessorAnyOf1ParamsOneOf) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

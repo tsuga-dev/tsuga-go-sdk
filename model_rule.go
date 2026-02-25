@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,19 +23,20 @@ type Rule struct {
 	// Identifier of the notification rule
 	Id string `json:"id"`
 	// Display name of the notification rule
-	Name string `json:"name"`
+	Name        string          `json:"name"`
 	TeamsFilter RuleTeamsFilter `json:"teamsFilter"`
 	// Priorities that narrow down the alerts that can trigger a notification
 	PrioritiesFilter []float32 `json:"prioritiesFilter"`
 	// Alert state transitions that can trigger a notification
 	TransitionTypesFilter []string `json:"transitionTypesFilter"`
 	// Team ID that owns and manages the rule
-	Owner string `json:"owner"`
-	IsActive bool `json:"isActive"`
+	Owner    string `json:"owner"`
+	IsActive bool   `json:"isActive"`
 	// List of key/value tags applied to the resource
 	Tags []Tag `json:"tags,omitempty"`
 	// Notification targets that can receive notifications when the rule matches
-	Targets []RuleTargetsInner `json:"targets"`
+	Targets              []RuleTargetsInner `json:"targets"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Rule Rule
@@ -291,7 +291,7 @@ func (o *Rule) SetTargets(v []RuleTargetsInner) {
 }
 
 func (o Rule) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -311,6 +311,11 @@ func (o Rule) ToMap() (map[string]interface{}, error) {
 		toSerialize["tags"] = o.Tags
 	}
 	toSerialize["targets"] = o.Targets
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -334,10 +339,10 @@ func (o *Rule) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -345,15 +350,28 @@ func (o *Rule) UnmarshalJSON(data []byte) (err error) {
 
 	varRule := _Rule{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRule)
+	err = json.Unmarshal(data, &varRule)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Rule(varRule)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "teamsFilter")
+		delete(additionalProperties, "prioritiesFilter")
+		delete(additionalProperties, "transitionTypesFilter")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "isActive")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "targets")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -393,5 +411,3 @@ func (v *NullableRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-
