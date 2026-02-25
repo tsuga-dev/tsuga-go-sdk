@@ -323,6 +323,64 @@ paths:
               style: simple
       tags:
       - ingestion-api-keys
+    get:
+      description: Retrieve an ingestion API key by its id
+      operationId: getIngestionApiKey
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/getIngestionApiKey_200_response"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - ingestion-api-keys
     put:
       description: Update an ingestion API key by its id
       operationId: updateIngestionApiKey
@@ -355,7 +413,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/updateIngestionApiKey_200_response"
+                $ref: "#/components/schemas/getIngestionApiKey_200_response"
           description: Successful response
           headers:
             x-request-id:
@@ -3457,6 +3515,65 @@ paths:
               style: simple
       tags:
       - users
+  /v1/users/{id}:
+    get:
+      description: Retrieve a user by its id
+      operationId: getUser
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/getUser_200_response"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - users
 components:
   schemas:
     ClientErrorResponse:
@@ -4374,6 +4491,10 @@ components:
           type: string
         condition:
           $ref: "#/components/schemas/MonitorConfigurationMetric_condition"
+        conditions:
+          items:
+            $ref: "#/components/schemas/MonitorConfigurationMetric_condition"
+          type: array
         noDataBehavior:
           enum:
           - alert
@@ -4422,6 +4543,10 @@ components:
           type: string
         condition:
           $ref: "#/components/schemas/MonitorConfigurationMetric_condition"
+        conditions:
+          items:
+            $ref: "#/components/schemas/MonitorConfigurationMetric_condition"
+          type: array
         noDataBehavior:
           enum:
           - alert
@@ -5123,6 +5248,7 @@ components:
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
+          format: math-formula
           maxLength: 250
           minLength: 0
           type: string
@@ -5185,6 +5311,7 @@ components:
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
+          format: math-formula
           maxLength: 250
           minLength: 0
           type: string
@@ -5232,6 +5359,7 @@ components:
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
+          format: math-formula
           maxLength: 250
           minLength: 0
           type: string
@@ -5287,6 +5415,7 @@ components:
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
+          format: math-formula
           maxLength: 250
           minLength: 0
           type: string
@@ -5347,6 +5476,7 @@ components:
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
+          format: math-formula
           maxLength: 250
           minLength: 0
           type: string
@@ -5697,6 +5827,7 @@ components:
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
+          format: math-formula
           maxLength: 250
           minLength: 0
           type: string
@@ -5831,6 +5962,7 @@ components:
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
+          format: math-formula
           maxLength: 250
           minLength: 0
           type: string
@@ -6087,7 +6219,7 @@ components:
       required:
       - data
       - requestId
-    updateIngestionApiKey_200_response:
+    getIngestionApiKey_200_response:
       example:
         data:
           id: 123-456-abc
@@ -8232,6 +8364,23 @@ components:
       required:
       - data
       - requestId
+    getUser_200_response:
+      example:
+        data:
+          role: admin
+          name: name
+          id: id
+          email: email
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/User"
+      required:
+      - data
+      - requestId
     Rule_teamsFilter_oneOf:
       example:
         teams:
@@ -8416,9 +8565,10 @@ components:
           minLength: 1
           type: string
         pairsSplitter:
-          description: Delimiter separating each key/value pair
+          description: Delimiter separating each key/value pair. Will default to whitespace
+            if not set.
           maxLength: 250
-          minLength: 1
+          minLength: 0
           type: string
         acceptStandaloneKey:
           type: boolean
@@ -8580,7 +8730,7 @@ components:
       properties:
         formula:
           format: math-formula
-          maxLength: 10000
+          maxLength: 250
           minLength: 0
           type: string
         operator:
@@ -8651,7 +8801,7 @@ components:
       properties:
         formula:
           format: math-formula
-          maxLength: 10000
+          maxLength: 250
           minLength: 0
           type: string
         conditionType:

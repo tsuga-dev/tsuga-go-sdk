@@ -99,8 +99,10 @@ docs/FunctionPower.md
 docs/FunctionRate.md
 docs/FunctionRolling.md
 docs/FunctionSqrt.md
+docs/GetIngestionApiKey200Response.md
 docs/GetMetric200Response.md
 docs/GetTeamMemberships200Response.md
+docs/GetUser200Response.md
 docs/Graph.md
 docs/GraphLayout.md
 docs/GraphVisualization.md
@@ -229,7 +231,6 @@ docs/TimeseriesAggregationResponse.md
 docs/TimestreamForInfluxDBConnectionInput.md
 docs/TracesAPI.md
 docs/UpdateDashboardRequest.md
-docs/UpdateIngestionApiKey200Response.md
 docs/UpdateTeamMembership200Response.md
 docs/UpdateTeamMembershipRequest.md
 docs/User.md
@@ -316,8 +317,10 @@ model_function_power.go
 model_function_rate.go
 model_function_rolling.go
 model_function_sqrt.go
+model_get_ingestion_api_key_200_response.go
 model_get_metric_200_response.go
 model_get_team_memberships_200_response.go
+model_get_user_200_response.go
 model_graph.go
 model_graph_layout.go
 model_graph_visualization.go
@@ -434,7 +437,6 @@ model_time_range.go
 model_timeseries_aggregation_response.go
 model_timestream_for_influx_db_connection_input.go
 model_update_dashboard_request.go
-model_update_ingestion_api_key_200_response.go
 model_update_team_membership_200_response.go
 model_update_team_membership_request.go
 model_user.go

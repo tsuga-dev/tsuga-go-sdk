@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateIngestionApiKey**](IngestionApiKeysAPI.md#CreateIngestionApiKey) | **Post** /v1/ingestion-api-keys | 
 [**DeleteIngestionApiKey**](IngestionApiKeysAPI.md#DeleteIngestionApiKey) | **Delete** /v1/ingestion-api-keys/{id} | 
+[**GetIngestionApiKey**](IngestionApiKeysAPI.md#GetIngestionApiKey) | **Get** /v1/ingestion-api-keys/{id} | 
 [**ListIngestionApiKeys**](IngestionApiKeysAPI.md#ListIngestionApiKeys) | **Get** /v1/ingestion-api-keys | 
 [**UpdateIngestionApiKey**](IngestionApiKeysAPI.md#UpdateIngestionApiKey) | **Put** /v1/ingestion-api-keys/{id} | 
 
@@ -147,6 +148,76 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetIngestionApiKey
+
+> GetIngestionApiKey200Response GetIngestionApiKey(ctx, id).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/tsuga-dev/tsuga-go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IngestionApiKeysAPI.GetIngestionApiKey(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IngestionApiKeysAPI.GetIngestionApiKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetIngestionApiKey`: GetIngestionApiKey200Response
+	fmt.Fprintf(os.Stdout, "Response from `IngestionApiKeysAPI.GetIngestionApiKey`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetIngestionApiKeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**GetIngestionApiKey200Response**](GetIngestionApiKey200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListIngestionApiKeys
 
 > ListIngestionApiKeys200Response ListIngestionApiKeys(ctx).Execute()
@@ -210,7 +281,7 @@ Other parameters are passed through a pointer to a apiListIngestionApiKeysReques
 
 ## UpdateIngestionApiKey
 
-> UpdateIngestionApiKey200Response UpdateIngestionApiKey(ctx, id).CreateIngestionApiKeyRequest(createIngestionApiKeyRequest).Execute()
+> GetIngestionApiKey200Response UpdateIngestionApiKey(ctx, id).CreateIngestionApiKeyRequest(createIngestionApiKeyRequest).Execute()
 
 
 
@@ -239,7 +310,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngestionApiKeysAPI.UpdateIngestionApiKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateIngestionApiKey`: UpdateIngestionApiKey200Response
+	// response from `UpdateIngestionApiKey`: GetIngestionApiKey200Response
 	fmt.Fprintf(os.Stdout, "Response from `IngestionApiKeysAPI.UpdateIngestionApiKey`: %v\n", resp)
 }
 ```
@@ -264,7 +335,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdateIngestionApiKey200Response**](UpdateIngestionApiKey200Response.md)
+[**GetIngestionApiKey200Response**](GetIngestionApiKey200Response.md)
 
 ### Authorization
 

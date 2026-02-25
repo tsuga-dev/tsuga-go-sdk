@@ -23,6 +23,7 @@ var _ MappedNullable = &MonitorConfigurationMetric{}
 type MonitorConfigurationMetric struct {
 	Type string `json:"type"`
 	Condition MonitorConfigurationMetricCondition `json:"condition"`
+	Conditions []MonitorConfigurationMetricCondition `json:"conditions,omitempty"`
 	NoDataBehavior string `json:"noDataBehavior"`
 	// Timeframe of the monitor in minutes
 	Timeframe float32 `json:"timeframe"`
@@ -104,6 +105,38 @@ func (o *MonitorConfigurationMetric) GetConditionOk() (*MonitorConfigurationMetr
 // SetCondition sets field value
 func (o *MonitorConfigurationMetric) SetCondition(v MonitorConfigurationMetricCondition) {
 	o.Condition = v
+}
+
+// GetConditions returns the Conditions field value if set, zero value otherwise.
+func (o *MonitorConfigurationMetric) GetConditions() []MonitorConfigurationMetricCondition {
+	if o == nil || IsNil(o.Conditions) {
+		var ret []MonitorConfigurationMetricCondition
+		return ret
+	}
+	return o.Conditions
+}
+
+// GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MonitorConfigurationMetric) GetConditionsOk() ([]MonitorConfigurationMetricCondition, bool) {
+	if o == nil || IsNil(o.Conditions) {
+		return nil, false
+	}
+	return o.Conditions, true
+}
+
+// HasConditions returns a boolean if a field has been set.
+func (o *MonitorConfigurationMetric) HasConditions() bool {
+	if o != nil && !IsNil(o.Conditions) {
+		return true
+	}
+
+	return false
+}
+
+// SetConditions gets a reference to the given []MonitorConfigurationMetricCondition and assigns it to the Conditions field.
+func (o *MonitorConfigurationMetric) SetConditions(v []MonitorConfigurationMetricCondition) {
+	o.Conditions = v
 }
 
 // GetNoDataBehavior returns the NoDataBehavior field value
@@ -278,6 +311,9 @@ func (o MonitorConfigurationMetric) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
 	toSerialize["condition"] = o.Condition
+	if !IsNil(o.Conditions) {
+		toSerialize["conditions"] = o.Conditions
+	}
 	toSerialize["noDataBehavior"] = o.NoDataBehavior
 	toSerialize["timeframe"] = o.Timeframe
 	toSerialize["groupByFields"] = o.GroupByFields

@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** |  | 
 **Condition** | [**MonitorConfigurationAnomalyLogCondition**](MonitorConfigurationAnomalyLogCondition.md) |  | 
+**Conditions** | Pointer to [**[]MonitorConfigurationMetricCondition**](MonitorConfigurationMetricCondition.md) |  | [optional] 
 **NoDataBehavior** | **string** |  | 
 **Timeframe** | **float32** | Timeframe of the monitor in minutes | 
 **GroupByFields** | [**[]MonitorConfigurationMetricGroupByFieldsInner**](MonitorConfigurationMetricGroupByFieldsInner.md) |  | 
@@ -74,6 +75,31 @@ and a boolean to check if the value has been set.
 
 SetCondition sets Condition field to given value.
 
+
+### GetConditions
+
+`func (o *CreateMonitorRequestConfiguration) GetConditions() []MonitorConfigurationMetricCondition`
+
+GetConditions returns the Conditions field if non-nil, zero value otherwise.
+
+### GetConditionsOk
+
+`func (o *CreateMonitorRequestConfiguration) GetConditionsOk() (*[]MonitorConfigurationMetricCondition, bool)`
+
+GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConditions
+
+`func (o *CreateMonitorRequestConfiguration) SetConditions(v []MonitorConfigurationMetricCondition)`
+
+SetConditions sets Conditions field to given value.
+
+### HasConditions
+
+`func (o *CreateMonitorRequestConfiguration) HasConditions() bool`
+
+HasConditions returns a boolean if a field has been set.
 
 ### GetNoDataBehavior
 

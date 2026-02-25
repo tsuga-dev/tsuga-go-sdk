@@ -88,6 +88,7 @@ Class | Method | HTTP request | Description
 *DashboardsAPI* | [**UpdateDashboard**](docs/DashboardsAPI.md#updatedashboard) | **Put** /v1/dashboards/{id} | 
 *IngestionApiKeysAPI* | [**CreateIngestionApiKey**](docs/IngestionApiKeysAPI.md#createingestionapikey) | **Post** /v1/ingestion-api-keys | 
 *IngestionApiKeysAPI* | [**DeleteIngestionApiKey**](docs/IngestionApiKeysAPI.md#deleteingestionapikey) | **Delete** /v1/ingestion-api-keys/{id} | 
+*IngestionApiKeysAPI* | [**GetIngestionApiKey**](docs/IngestionApiKeysAPI.md#getingestionapikey) | **Get** /v1/ingestion-api-keys/{id} | 
 *IngestionApiKeysAPI* | [**ListIngestionApiKeys**](docs/IngestionApiKeysAPI.md#listingestionapikeys) | **Get** /v1/ingestion-api-keys | 
 *IngestionApiKeysAPI* | [**UpdateIngestionApiKey**](docs/IngestionApiKeysAPI.md#updateingestionapikey) | **Put** /v1/ingestion-api-keys/{id} | 
 *LogsAPI* | [**SearchLogs**](docs/LogsAPI.md#searchlogs) | **Get** /v1/logs/search | 
@@ -133,6 +134,7 @@ Class | Method | HTTP request | Description
 *TeamsAPI* | [**ListTeams**](docs/TeamsAPI.md#listteams) | **Get** /v1/teams | 
 *TeamsAPI* | [**UpdateTeam**](docs/TeamsAPI.md#updateteam) | **Put** /v1/teams/{id} | 
 *TracesAPI* | [**SearchSpans**](docs/TracesAPI.md#searchspans) | **Get** /v1/traces/search | 
+*UsersAPI* | [**GetUser**](docs/UsersAPI.md#getuser) | **Get** /v1/users/{id} | 
 *UsersAPI* | [**ListUsers**](docs/UsersAPI.md#listusers) | **Get** /v1/users | 
 
 
@@ -217,8 +219,10 @@ Class | Method | HTTP request | Description
  - [FunctionRate](docs/FunctionRate.md)
  - [FunctionRolling](docs/FunctionRolling.md)
  - [FunctionSqrt](docs/FunctionSqrt.md)
+ - [GetIngestionApiKey200Response](docs/GetIngestionApiKey200Response.md)
  - [GetMetric200Response](docs/GetMetric200Response.md)
  - [GetTeamMemberships200Response](docs/GetTeamMemberships200Response.md)
+ - [GetUser200Response](docs/GetUser200Response.md)
  - [Graph](docs/Graph.md)
  - [GraphLayout](docs/GraphLayout.md)
  - [GraphVisualization](docs/GraphVisualization.md)
@@ -335,7 +339,6 @@ Class | Method | HTTP request | Description
  - [TimeseriesAggregationResponse](docs/TimeseriesAggregationResponse.md)
  - [TimestreamForInfluxDBConnectionInput](docs/TimestreamForInfluxDBConnectionInput.md)
  - [UpdateDashboardRequest](docs/UpdateDashboardRequest.md)
- - [UpdateIngestionApiKey200Response](docs/UpdateIngestionApiKey200Response.md)
  - [UpdateTeamMembership200Response](docs/UpdateTeamMembership200Response.md)
  - [UpdateTeamMembershipRequest](docs/UpdateTeamMembershipRequest.md)
  - [User](docs/User.md)
