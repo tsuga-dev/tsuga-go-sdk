@@ -164,7 +164,7 @@ func (a *TracesAPIService) SearchSpansExecute(r TracesAPISearchSpansRequest) (*S
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v AggregateScalar4XXResponse
+			var v ClientErrorEnvelope
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -175,7 +175,7 @@ func (a *TracesAPIService) SearchSpansExecute(r TracesAPISearchSpansRequest) (*S
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
-			var v AggregateScalar5XXResponse
+			var v ServerErrorEnvelope
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

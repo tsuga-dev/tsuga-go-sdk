@@ -72,7 +72,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -86,7 +86,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -127,7 +127,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -141,7 +141,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -176,7 +176,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -190,7 +190,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -238,7 +238,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -252,7 +252,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -297,7 +297,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -311,7 +311,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -355,7 +355,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -369,7 +369,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -427,7 +427,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -441,7 +441,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -489,7 +489,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -503,7 +503,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -571,7 +571,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -585,7 +585,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -630,7 +630,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -644,7 +644,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -688,7 +688,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -702,7 +702,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -752,7 +752,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -766,7 +766,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -839,7 +839,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -853,7 +853,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -907,7 +907,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -921,7 +921,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -985,7 +985,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -999,7 +999,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -1034,7 +1034,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -1048,7 +1048,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -1111,7 +1111,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -1125,7 +1125,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -1170,7 +1170,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -1184,7 +1184,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -1228,7 +1228,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -1242,7 +1242,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -1315,7 +1315,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -1329,7 +1329,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -1364,7 +1364,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -1378,7 +1378,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -1439,7 +1439,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -1453,7 +1453,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -1498,7 +1498,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -1512,7 +1512,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -1556,7 +1556,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -1570,7 +1570,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -1641,7 +1641,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -1655,7 +1655,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -1690,7 +1690,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -1704,7 +1704,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -1744,7 +1744,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -1758,7 +1758,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -1803,7 +1803,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -1817,7 +1817,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -1861,7 +1861,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -1875,7 +1875,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -1925,7 +1925,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -1939,7 +1939,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -1974,7 +1974,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -1988,7 +1988,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -2034,7 +2034,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -2048,7 +2048,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -2093,7 +2093,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -2107,7 +2107,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -2151,7 +2151,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -2165,7 +2165,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -2221,7 +2221,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -2235,7 +2235,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -2270,7 +2270,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -2284,7 +2284,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -2342,7 +2342,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -2356,7 +2356,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -2401,7 +2401,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -2415,7 +2415,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -2459,7 +2459,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -2473,7 +2473,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -2541,7 +2541,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -2555,7 +2555,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -2590,7 +2590,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -2604,7 +2604,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -2644,7 +2644,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -2658,7 +2658,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -2703,7 +2703,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -2717,7 +2717,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -2761,7 +2761,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -2775,7 +2775,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -2825,7 +2825,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -2839,7 +2839,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -2874,7 +2874,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -2888,7 +2888,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -2935,7 +2935,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -2949,7 +2949,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -2994,7 +2994,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -3008,7 +3008,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -3052,7 +3052,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -3066,7 +3066,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -3123,7 +3123,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -3137,7 +3137,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -3178,7 +3178,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -3192,7 +3192,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -3245,7 +3245,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -3259,7 +3259,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -3299,7 +3299,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -3313,7 +3313,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -3353,7 +3353,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -3367,7 +3367,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -3440,7 +3440,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -3454,7 +3454,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -3489,7 +3489,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -3503,7 +3503,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -3548,7 +3548,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_4XX_response"
+                $ref: "#/components/schemas/ClientErrorEnvelope"
           description: Client error
           headers:
             x-request-id:
@@ -3562,7 +3562,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_5XX_response"
+                $ref: "#/components/schemas/ServerErrorEnvelope"
           description: Server error
           headers:
             x-request-id:
@@ -3633,6 +3633,40 @@ components:
       required:
       - message
       - statusCode
+    ClientErrorEnvelope:
+      description: Standard envelope wrapping all client (4XX) error responses
+      example:
+        requestId: requestId
+        error:
+          code: ABORT_ERROR
+          message: message
+          statusCode: 6.027456183070403
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        error:
+          $ref: "#/components/schemas/ClientErrorResponse"
+      required:
+      - error
+      - requestId
+    ServerErrorEnvelope:
+      description: Standard envelope wrapping all server (5XX) error responses
+      example:
+        requestId: requestId
+        error:
+          code: INTERNAL_ERROR
+          message: message
+          statusCode: 1.4658129805029452
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        error:
+          $ref: "#/components/schemas/ServerErrorResponse"
+      required:
+      - error
+      - requestId
     IngestionApiKey:
       description: API key used to send telemetry data to Tsuga
       example:
@@ -5903,38 +5937,6 @@ components:
           $ref: "#/components/schemas/ScalarAggregationResponse"
       required:
       - data
-      - requestId
-    aggregateScalar_4XX_response:
-      example:
-        requestId: requestId
-        error:
-          code: ABORT_ERROR
-          message: message
-          statusCode: 6.027456183070403
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        error:
-          $ref: "#/components/schemas/ClientErrorResponse"
-      required:
-      - error
-      - requestId
-    aggregateScalar_5XX_response:
-      example:
-        requestId: requestId
-        error:
-          code: INTERNAL_ERROR
-          message: message
-          statusCode: 1.4658129805029452
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        error:
-          $ref: "#/components/schemas/ServerErrorResponse"
-      required:
-      - error
       - requestId
     aggregateTimeseries_request:
       properties:
