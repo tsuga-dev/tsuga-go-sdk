@@ -18,13 +18,13 @@ import (
 
 // GraphVisualization - struct for GraphVisualization
 type GraphVisualization struct {
-	GraphVisualizationBar *GraphVisualizationBar
-	GraphVisualizationList *GraphVisualizationList
-	GraphVisualizationNote *GraphVisualizationNote
-	GraphVisualizationPie *GraphVisualizationPie
+	GraphVisualizationBar        *GraphVisualizationBar
+	GraphVisualizationList       *GraphVisualizationList
+	GraphVisualizationNote       *GraphVisualizationNote
+	GraphVisualizationPie        *GraphVisualizationPie
 	GraphVisualizationQueryValue *GraphVisualizationQueryValue
 	GraphVisualizationTimeseries *GraphVisualizationTimeseries
-	GraphVisualizationTopList *GraphVisualizationTopList
+	GraphVisualizationTopList    *GraphVisualizationTopList
 }
 
 // GraphVisualizationBarAsGraphVisualization is a convenience function that returns GraphVisualizationBar wrapped in GraphVisualization
@@ -75,7 +75,6 @@ func GraphVisualizationTopListAsGraphVisualization(v *GraphVisualizationTopList)
 		GraphVisualizationTopList: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *GraphVisualization) UnmarshalJSON(data []byte) error {
@@ -252,7 +251,7 @@ func (src GraphVisualization) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *GraphVisualization) GetActualInstance() (interface{}) {
+func (obj *GraphVisualization) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -289,7 +288,7 @@ func (obj *GraphVisualization) GetActualInstance() (interface{}) {
 }
 
 // Get the actual instance value
-func (obj GraphVisualization) GetActualInstanceValue() (interface{}) {
+func (obj GraphVisualization) GetActualInstanceValue() interface{} {
 	if obj.GraphVisualizationBar != nil {
 		return *obj.GraphVisualizationBar
 	}
@@ -357,5 +356,3 @@ func (v *NullableGraphVisualization) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

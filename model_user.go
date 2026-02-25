@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,10 +20,11 @@ var _ MappedNullable = &User{}
 
 // User A user in the organization
 type User struct {
-	Email string `json:"email"`
-	Id string `json:"id"`
-	Name string `json:"name"`
-	Role string `json:"role"`
+	Email                string `json:"email"`
+	Id                   string `json:"id"`
+	Name                 string `json:"name"`
+	Role                 string `json:"role"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _User User
@@ -147,7 +147,7 @@ func (o *User) SetRole(v string) {
 }
 
 func (o User) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -160,6 +160,11 @@ func (o User) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	toSerialize["role"] = o.Role
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -179,10 +184,10 @@ func (o *User) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -190,15 +195,23 @@ func (o *User) UnmarshalJSON(data []byte) (err error) {
 
 	varUser := _User{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUser)
+	err = json.Unmarshal(data, &varUser)
 
 	if err != nil {
 		return err
 	}
 
 	*o = User(varUser)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "role")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -238,5 +251,3 @@ func (v *NullableUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

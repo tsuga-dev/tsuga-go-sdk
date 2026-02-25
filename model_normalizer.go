@@ -18,12 +18,12 @@ import (
 
 // Normalizer - struct for Normalizer
 type Normalizer struct {
-	DataNormalizerCustom *DataNormalizerCustom
-	DataNormalizerData *DataNormalizerData
-	DataNormalizerDate *DataNormalizerDate
+	DataNormalizerCustom   *DataNormalizerCustom
+	DataNormalizerData     *DataNormalizerData
+	DataNormalizerDate     *DataNormalizerDate
 	DataNormalizerDuration *DataNormalizerDuration
-	DataNormalizerLevel *DataNormalizerLevel
-	DataNormalizerPercent *DataNormalizerPercent
+	DataNormalizerLevel    *DataNormalizerLevel
+	DataNormalizerPercent  *DataNormalizerPercent
 }
 
 // DataNormalizerCustomAsNormalizer is a convenience function that returns DataNormalizerCustom wrapped in Normalizer
@@ -67,7 +67,6 @@ func DataNormalizerPercentAsNormalizer(v *DataNormalizerPercent) Normalizer {
 		DataNormalizerPercent: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *Normalizer) UnmarshalJSON(data []byte) error {
@@ -222,7 +221,7 @@ func (src Normalizer) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *Normalizer) GetActualInstance() (interface{}) {
+func (obj *Normalizer) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -255,7 +254,7 @@ func (obj *Normalizer) GetActualInstance() (interface{}) {
 }
 
 // Get the actual instance value
-func (obj Normalizer) GetActualInstanceValue() (interface{}) {
+func (obj Normalizer) GetActualInstanceValue() interface{} {
 	if obj.DataNormalizerCustom != nil {
 		return *obj.DataNormalizerCustom
 	}
@@ -319,5 +318,3 @@ func (v *NullableNormalizer) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

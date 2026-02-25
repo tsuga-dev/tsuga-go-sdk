@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,9 +20,10 @@ var _ MappedNullable = &BigQueryWifDirectAccessAuthInput{}
 
 // BigQueryWifDirectAccessAuthInput struct for BigQueryWifDirectAccessAuthInput
 type BigQueryWifDirectAccessAuthInput struct {
-	Type string `json:"type"`
-	ProjectId string `json:"projectId"`
+	Type                           string `json:"type"`
+	ProjectId                      string `json:"projectId"`
 	WorkloadIdentityCredentialFile string `json:"workloadIdentityCredentialFile"`
+	AdditionalProperties           map[string]interface{}
 }
 
 type _BigQueryWifDirectAccessAuthInput BigQueryWifDirectAccessAuthInput
@@ -121,7 +121,7 @@ func (o *BigQueryWifDirectAccessAuthInput) SetWorkloadIdentityCredentialFile(v s
 }
 
 func (o BigQueryWifDirectAccessAuthInput) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -133,6 +133,11 @@ func (o BigQueryWifDirectAccessAuthInput) ToMap() (map[string]interface{}, error
 	toSerialize["type"] = o.Type
 	toSerialize["projectId"] = o.ProjectId
 	toSerialize["workloadIdentityCredentialFile"] = o.WorkloadIdentityCredentialFile
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -151,10 +156,10 @@ func (o *BigQueryWifDirectAccessAuthInput) UnmarshalJSON(data []byte) (err error
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -162,15 +167,22 @@ func (o *BigQueryWifDirectAccessAuthInput) UnmarshalJSON(data []byte) (err error
 
 	varBigQueryWifDirectAccessAuthInput := _BigQueryWifDirectAccessAuthInput{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varBigQueryWifDirectAccessAuthInput)
+	err = json.Unmarshal(data, &varBigQueryWifDirectAccessAuthInput)
 
 	if err != nil {
 		return err
 	}
 
 	*o = BigQueryWifDirectAccessAuthInput(varBigQueryWifDirectAccessAuthInput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "projectId")
+		delete(additionalProperties, "workloadIdentityCredentialFile")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -210,5 +222,3 @@ func (v *NullableBigQueryWifDirectAccessAuthInput) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

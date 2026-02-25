@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,8 +21,9 @@ var _ MappedNullable = &CreateDashboardRequestFiltersInner{}
 // CreateDashboardRequestFiltersInner struct for CreateDashboardRequestFiltersInner
 type CreateDashboardRequestFiltersInner struct {
 	// Filter key
-	Key string `json:"key"`
-	Values []string `json:"values"`
+	Key                  string   `json:"key"`
+	Values               []string `json:"values"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateDashboardRequestFiltersInner CreateDashboardRequestFiltersInner
@@ -96,7 +96,7 @@ func (o *CreateDashboardRequestFiltersInner) SetValues(v []string) {
 }
 
 func (o CreateDashboardRequestFiltersInner) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -107,6 +107,11 @@ func (o CreateDashboardRequestFiltersInner) ToMap() (map[string]interface{}, err
 	toSerialize := map[string]interface{}{}
 	toSerialize["key"] = o.Key
 	toSerialize["values"] = o.Values
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -124,10 +129,10 @@ func (o *CreateDashboardRequestFiltersInner) UnmarshalJSON(data []byte) (err err
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -135,15 +140,21 @@ func (o *CreateDashboardRequestFiltersInner) UnmarshalJSON(data []byte) (err err
 
 	varCreateDashboardRequestFiltersInner := _CreateDashboardRequestFiltersInner{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateDashboardRequestFiltersInner)
+	err = json.Unmarshal(data, &varCreateDashboardRequestFiltersInner)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateDashboardRequestFiltersInner(varCreateDashboardRequestFiltersInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "values")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -183,5 +194,3 @@ func (v *NullableCreateDashboardRequestFiltersInner) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

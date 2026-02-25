@@ -18,7 +18,7 @@ import (
 
 // ProcessorAnyOf1Params - struct for ProcessorAnyOf1Params
 type ProcessorAnyOf1Params struct {
-	ProcessorAnyOf1ParamsOneOf *ProcessorAnyOf1ParamsOneOf
+	ProcessorAnyOf1ParamsOneOf  *ProcessorAnyOf1ParamsOneOf
 	ProcessorAnyOf1ParamsOneOf1 *ProcessorAnyOf1ParamsOneOf1
 	ProcessorAnyOf1ParamsOneOf2 *ProcessorAnyOf1ParamsOneOf2
 	ProcessorAnyOf1ParamsOneOf3 *ProcessorAnyOf1ParamsOneOf3
@@ -51,7 +51,6 @@ func ProcessorAnyOf1ParamsOneOf3AsProcessorAnyOf1Params(v *ProcessorAnyOf1Params
 		ProcessorAnyOf1ParamsOneOf3: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *ProcessorAnyOf1Params) UnmarshalJSON(data []byte) error {
@@ -162,7 +161,7 @@ func (src ProcessorAnyOf1Params) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ProcessorAnyOf1Params) GetActualInstance() (interface{}) {
+func (obj *ProcessorAnyOf1Params) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -187,7 +186,7 @@ func (obj *ProcessorAnyOf1Params) GetActualInstance() (interface{}) {
 }
 
 // Get the actual instance value
-func (obj ProcessorAnyOf1Params) GetActualInstanceValue() (interface{}) {
+func (obj ProcessorAnyOf1Params) GetActualInstanceValue() interface{} {
 	if obj.ProcessorAnyOf1ParamsOneOf != nil {
 		return *obj.ProcessorAnyOf1ParamsOneOf
 	}
@@ -243,5 +242,3 @@ func (v *NullableProcessorAnyOf1Params) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

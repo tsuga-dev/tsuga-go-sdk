@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -25,7 +24,8 @@ type AggregationQuery struct {
 	// Post-processing functions applied to aggregation results
 	Functions []Function `json:"functions,omitempty"`
 	// Filter to apply to the aggregation
-	Filter *string `json:"filter,omitempty"`
+	Filter               *string `json:"filter,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AggregationQuery AggregationQuery
@@ -137,7 +137,7 @@ func (o *AggregationQuery) SetFilter(v string) {
 }
 
 func (o AggregationQuery) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -153,6 +153,11 @@ func (o AggregationQuery) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Filter) {
 		toSerialize["filter"] = o.Filter
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -169,10 +174,10 @@ func (o *AggregationQuery) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -180,15 +185,22 @@ func (o *AggregationQuery) UnmarshalJSON(data []byte) (err error) {
 
 	varAggregationQuery := _AggregationQuery{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAggregationQuery)
+	err = json.Unmarshal(data, &varAggregationQuery)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AggregationQuery(varAggregationQuery)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "aggregate")
+		delete(additionalProperties, "functions")
+		delete(additionalProperties, "filter")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -228,5 +240,3 @@ func (v *NullableAggregationQuery) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

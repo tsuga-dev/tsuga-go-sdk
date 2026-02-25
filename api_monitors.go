@@ -19,22 +19,97 @@ import (
 	"strings"
 )
 
+type MonitorsAPI interface {
+
+	/*
+		CreateMonitor Method for CreateMonitor
+
+		Create a new monitor
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return MonitorsAPICreateMonitorRequest
+	*/
+	CreateMonitor(ctx context.Context) MonitorsAPICreateMonitorRequest
+
+	// CreateMonitorExecute executes the request
+	//  @return CreateMonitor200Response
+	CreateMonitorExecute(r MonitorsAPICreateMonitorRequest) (*CreateMonitor200Response, *http.Response, error)
+
+	/*
+		DeleteMonitor Method for DeleteMonitor
+
+		Delete a monitor by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return MonitorsAPIDeleteMonitorRequest
+	*/
+	DeleteMonitor(ctx context.Context, id string) MonitorsAPIDeleteMonitorRequest
+
+	// DeleteMonitorExecute executes the request
+	//  @return DeleteIngestionApiKey200Response
+	DeleteMonitorExecute(r MonitorsAPIDeleteMonitorRequest) (*DeleteIngestionApiKey200Response, *http.Response, error)
+
+	/*
+		GetMonitor Method for GetMonitor
+
+		Retrieve a monitor by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return MonitorsAPIGetMonitorRequest
+	*/
+	GetMonitor(ctx context.Context, id string) MonitorsAPIGetMonitorRequest
+
+	// GetMonitorExecute executes the request
+	//  @return CreateMonitor200Response
+	GetMonitorExecute(r MonitorsAPIGetMonitorRequest) (*CreateMonitor200Response, *http.Response, error)
+
+	/*
+		ListMonitors Method for ListMonitors
+
+		Retrieve all monitors
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return MonitorsAPIListMonitorsRequest
+	*/
+	ListMonitors(ctx context.Context) MonitorsAPIListMonitorsRequest
+
+	// ListMonitorsExecute executes the request
+	//  @return ListMonitors200Response
+	ListMonitorsExecute(r MonitorsAPIListMonitorsRequest) (*ListMonitors200Response, *http.Response, error)
+
+	/*
+		UpdateMonitor Method for UpdateMonitor
+
+		Update a monitor by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return MonitorsAPIUpdateMonitorRequest
+	*/
+	UpdateMonitor(ctx context.Context, id string) MonitorsAPIUpdateMonitorRequest
+
+	// UpdateMonitorExecute executes the request
+	//  @return CreateMonitor200Response
+	UpdateMonitorExecute(r MonitorsAPIUpdateMonitorRequest) (*CreateMonitor200Response, *http.Response, error)
+}
 
 // MonitorsAPIService MonitorsAPI service
 type MonitorsAPIService service
 
-type ApiCreateMonitorRequest struct {
-	ctx context.Context
-	ApiService *MonitorsAPIService
+type MonitorsAPICreateMonitorRequest struct {
+	ctx                  context.Context
+	ApiService           MonitorsAPI
 	createMonitorRequest *CreateMonitorRequest
 }
 
-func (r ApiCreateMonitorRequest) CreateMonitorRequest(createMonitorRequest CreateMonitorRequest) ApiCreateMonitorRequest {
+func (r MonitorsAPICreateMonitorRequest) CreateMonitorRequest(createMonitorRequest CreateMonitorRequest) MonitorsAPICreateMonitorRequest {
 	r.createMonitorRequest = &createMonitorRequest
 	return r
 }
 
-func (r ApiCreateMonitorRequest) Execute() (*CreateMonitor200Response, *http.Response, error) {
+func (r MonitorsAPICreateMonitorRequest) Execute() (*CreateMonitor200Response, *http.Response, error) {
 	return r.ApiService.CreateMonitorExecute(r)
 }
 
@@ -43,24 +118,25 @@ CreateMonitor Method for CreateMonitor
 
 Create a new monitor
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateMonitorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MonitorsAPICreateMonitorRequest
 */
-func (a *MonitorsAPIService) CreateMonitor(ctx context.Context) ApiCreateMonitorRequest {
-	return ApiCreateMonitorRequest{
+func (a *MonitorsAPIService) CreateMonitor(ctx context.Context) MonitorsAPICreateMonitorRequest {
+	return MonitorsAPICreateMonitorRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return CreateMonitor200Response
-func (a *MonitorsAPIService) CreateMonitorExecute(r ApiCreateMonitorRequest) (*CreateMonitor200Response, *http.Response, error) {
+//
+//	@return CreateMonitor200Response
+func (a *MonitorsAPIService) CreateMonitorExecute(r MonitorsAPICreateMonitorRequest) (*CreateMonitor200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateMonitor200Response
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateMonitor200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MonitorsAPIService.CreateMonitor")
@@ -125,8 +201,8 @@ func (a *MonitorsAPIService) CreateMonitorExecute(r ApiCreateMonitorRequest) (*C
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -136,8 +212,8 @@ func (a *MonitorsAPIService) CreateMonitorExecute(r ApiCreateMonitorRequest) (*C
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -154,13 +230,13 @@ func (a *MonitorsAPIService) CreateMonitorExecute(r ApiCreateMonitorRequest) (*C
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteMonitorRequest struct {
-	ctx context.Context
-	ApiService *MonitorsAPIService
-	id string
+type MonitorsAPIDeleteMonitorRequest struct {
+	ctx        context.Context
+	ApiService MonitorsAPI
+	id         string
 }
 
-func (r ApiDeleteMonitorRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
+func (r MonitorsAPIDeleteMonitorRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	return r.ApiService.DeleteMonitorExecute(r)
 }
 
@@ -169,26 +245,27 @@ DeleteMonitor Method for DeleteMonitor
 
 Delete a monitor by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiDeleteMonitorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return MonitorsAPIDeleteMonitorRequest
 */
-func (a *MonitorsAPIService) DeleteMonitor(ctx context.Context, id string) ApiDeleteMonitorRequest {
-	return ApiDeleteMonitorRequest{
+func (a *MonitorsAPIService) DeleteMonitor(ctx context.Context, id string) MonitorsAPIDeleteMonitorRequest {
+	return MonitorsAPIDeleteMonitorRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return DeleteIngestionApiKey200Response
-func (a *MonitorsAPIService) DeleteMonitorExecute(r ApiDeleteMonitorRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
+//
+//	@return DeleteIngestionApiKey200Response
+func (a *MonitorsAPIService) DeleteMonitorExecute(r MonitorsAPIDeleteMonitorRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *DeleteIngestionApiKey200Response
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DeleteIngestionApiKey200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MonitorsAPIService.DeleteMonitor")
@@ -255,8 +332,8 @@ func (a *MonitorsAPIService) DeleteMonitorExecute(r ApiDeleteMonitorRequest) (*D
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -266,8 +343,8 @@ func (a *MonitorsAPIService) DeleteMonitorExecute(r ApiDeleteMonitorRequest) (*D
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -284,13 +361,13 @@ func (a *MonitorsAPIService) DeleteMonitorExecute(r ApiDeleteMonitorRequest) (*D
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetMonitorRequest struct {
-	ctx context.Context
-	ApiService *MonitorsAPIService
-	id string
+type MonitorsAPIGetMonitorRequest struct {
+	ctx        context.Context
+	ApiService MonitorsAPI
+	id         string
 }
 
-func (r ApiGetMonitorRequest) Execute() (*CreateMonitor200Response, *http.Response, error) {
+func (r MonitorsAPIGetMonitorRequest) Execute() (*CreateMonitor200Response, *http.Response, error) {
 	return r.ApiService.GetMonitorExecute(r)
 }
 
@@ -299,26 +376,27 @@ GetMonitor Method for GetMonitor
 
 Retrieve a monitor by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiGetMonitorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return MonitorsAPIGetMonitorRequest
 */
-func (a *MonitorsAPIService) GetMonitor(ctx context.Context, id string) ApiGetMonitorRequest {
-	return ApiGetMonitorRequest{
+func (a *MonitorsAPIService) GetMonitor(ctx context.Context, id string) MonitorsAPIGetMonitorRequest {
+	return MonitorsAPIGetMonitorRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return CreateMonitor200Response
-func (a *MonitorsAPIService) GetMonitorExecute(r ApiGetMonitorRequest) (*CreateMonitor200Response, *http.Response, error) {
+//
+//	@return CreateMonitor200Response
+func (a *MonitorsAPIService) GetMonitorExecute(r MonitorsAPIGetMonitorRequest) (*CreateMonitor200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateMonitor200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateMonitor200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MonitorsAPIService.GetMonitor")
@@ -385,8 +463,8 @@ func (a *MonitorsAPIService) GetMonitorExecute(r ApiGetMonitorRequest) (*CreateM
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -396,8 +474,8 @@ func (a *MonitorsAPIService) GetMonitorExecute(r ApiGetMonitorRequest) (*CreateM
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -414,12 +492,12 @@ func (a *MonitorsAPIService) GetMonitorExecute(r ApiGetMonitorRequest) (*CreateM
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListMonitorsRequest struct {
-	ctx context.Context
-	ApiService *MonitorsAPIService
+type MonitorsAPIListMonitorsRequest struct {
+	ctx        context.Context
+	ApiService MonitorsAPI
 }
 
-func (r ApiListMonitorsRequest) Execute() (*ListMonitors200Response, *http.Response, error) {
+func (r MonitorsAPIListMonitorsRequest) Execute() (*ListMonitors200Response, *http.Response, error) {
 	return r.ApiService.ListMonitorsExecute(r)
 }
 
@@ -428,24 +506,25 @@ ListMonitors Method for ListMonitors
 
 Retrieve all monitors
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListMonitorsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MonitorsAPIListMonitorsRequest
 */
-func (a *MonitorsAPIService) ListMonitors(ctx context.Context) ApiListMonitorsRequest {
-	return ApiListMonitorsRequest{
+func (a *MonitorsAPIService) ListMonitors(ctx context.Context) MonitorsAPIListMonitorsRequest {
+	return MonitorsAPIListMonitorsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ListMonitors200Response
-func (a *MonitorsAPIService) ListMonitorsExecute(r ApiListMonitorsRequest) (*ListMonitors200Response, *http.Response, error) {
+//
+//	@return ListMonitors200Response
+func (a *MonitorsAPIService) ListMonitorsExecute(r MonitorsAPIListMonitorsRequest) (*ListMonitors200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ListMonitors200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ListMonitors200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MonitorsAPIService.ListMonitors")
@@ -505,8 +584,8 @@ func (a *MonitorsAPIService) ListMonitorsExecute(r ApiListMonitorsRequest) (*Lis
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -516,8 +595,8 @@ func (a *MonitorsAPIService) ListMonitorsExecute(r ApiListMonitorsRequest) (*Lis
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -534,19 +613,19 @@ func (a *MonitorsAPIService) ListMonitorsExecute(r ApiListMonitorsRequest) (*Lis
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateMonitorRequest struct {
-	ctx context.Context
-	ApiService *MonitorsAPIService
-	id string
+type MonitorsAPIUpdateMonitorRequest struct {
+	ctx                  context.Context
+	ApiService           MonitorsAPI
+	id                   string
 	createMonitorRequest *CreateMonitorRequest
 }
 
-func (r ApiUpdateMonitorRequest) CreateMonitorRequest(createMonitorRequest CreateMonitorRequest) ApiUpdateMonitorRequest {
+func (r MonitorsAPIUpdateMonitorRequest) CreateMonitorRequest(createMonitorRequest CreateMonitorRequest) MonitorsAPIUpdateMonitorRequest {
 	r.createMonitorRequest = &createMonitorRequest
 	return r
 }
 
-func (r ApiUpdateMonitorRequest) Execute() (*CreateMonitor200Response, *http.Response, error) {
+func (r MonitorsAPIUpdateMonitorRequest) Execute() (*CreateMonitor200Response, *http.Response, error) {
 	return r.ApiService.UpdateMonitorExecute(r)
 }
 
@@ -555,26 +634,27 @@ UpdateMonitor Method for UpdateMonitor
 
 Update a monitor by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiUpdateMonitorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return MonitorsAPIUpdateMonitorRequest
 */
-func (a *MonitorsAPIService) UpdateMonitor(ctx context.Context, id string) ApiUpdateMonitorRequest {
-	return ApiUpdateMonitorRequest{
+func (a *MonitorsAPIService) UpdateMonitor(ctx context.Context, id string) MonitorsAPIUpdateMonitorRequest {
+	return MonitorsAPIUpdateMonitorRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return CreateMonitor200Response
-func (a *MonitorsAPIService) UpdateMonitorExecute(r ApiUpdateMonitorRequest) (*CreateMonitor200Response, *http.Response, error) {
+//
+//	@return CreateMonitor200Response
+func (a *MonitorsAPIService) UpdateMonitorExecute(r MonitorsAPIUpdateMonitorRequest) (*CreateMonitor200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateMonitor200Response
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateMonitor200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MonitorsAPIService.UpdateMonitor")
@@ -646,8 +726,8 @@ func (a *MonitorsAPIService) UpdateMonitorExecute(r ApiUpdateMonitorRequest) (*C
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -657,8 +737,8 @@ func (a *MonitorsAPIService) UpdateMonitorExecute(r ApiUpdateMonitorRequest) (*C
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

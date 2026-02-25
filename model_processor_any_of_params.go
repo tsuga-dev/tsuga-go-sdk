@@ -19,8 +19,8 @@ import (
 // ProcessorAnyOfParams - struct for ProcessorAnyOfParams
 type ProcessorAnyOfParams struct {
 	ProcessorParamsMapperMapAttributes *ProcessorParamsMapperMapAttributes
-	ProcessorParamsMapperMapLevel *ProcessorParamsMapperMapLevel
-	ProcessorParamsMapperMapTimestamp *ProcessorParamsMapperMapTimestamp
+	ProcessorParamsMapperMapLevel      *ProcessorParamsMapperMapLevel
+	ProcessorParamsMapperMapTimestamp  *ProcessorParamsMapperMapTimestamp
 }
 
 // ProcessorParamsMapperMapAttributesAsProcessorAnyOfParams is a convenience function that returns ProcessorParamsMapperMapAttributes wrapped in ProcessorAnyOfParams
@@ -43,7 +43,6 @@ func ProcessorParamsMapperMapTimestampAsProcessorAnyOfParams(v *ProcessorParamsM
 		ProcessorParamsMapperMapTimestamp: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *ProcessorAnyOfParams) UnmarshalJSON(data []byte) error {
@@ -132,7 +131,7 @@ func (src ProcessorAnyOfParams) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ProcessorAnyOfParams) GetActualInstance() (interface{}) {
+func (obj *ProcessorAnyOfParams) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -153,7 +152,7 @@ func (obj *ProcessorAnyOfParams) GetActualInstance() (interface{}) {
 }
 
 // Get the actual instance value
-func (obj ProcessorAnyOfParams) GetActualInstanceValue() (interface{}) {
+func (obj ProcessorAnyOfParams) GetActualInstanceValue() interface{} {
 	if obj.ProcessorParamsMapperMapAttributes != nil {
 		return *obj.ProcessorParamsMapperMapAttributes
 	}
@@ -205,5 +204,3 @@ func (v *NullableProcessorAnyOfParams) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,8 +21,9 @@ var _ MappedNullable = &AggregateScalar200Response{}
 // AggregateScalar200Response struct for AggregateScalar200Response
 type AggregateScalar200Response struct {
 	// Identifier used to trace the lifecycle of this API request
-	RequestId string `json:"requestId"`
-	Data ScalarAggregationResponse `json:"data"`
+	RequestId            string                    `json:"requestId"`
+	Data                 ScalarAggregationResponse `json:"data"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AggregateScalar200Response AggregateScalar200Response
@@ -96,7 +96,7 @@ func (o *AggregateScalar200Response) SetData(v ScalarAggregationResponse) {
 }
 
 func (o AggregateScalar200Response) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -107,6 +107,11 @@ func (o AggregateScalar200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["requestId"] = o.RequestId
 	toSerialize["data"] = o.Data
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -124,10 +129,10 @@ func (o *AggregateScalar200Response) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -135,15 +140,21 @@ func (o *AggregateScalar200Response) UnmarshalJSON(data []byte) (err error) {
 
 	varAggregateScalar200Response := _AggregateScalar200Response{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAggregateScalar200Response)
+	err = json.Unmarshal(data, &varAggregateScalar200Response)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AggregateScalar200Response(varAggregateScalar200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "requestId")
+		delete(additionalProperties, "data")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -183,5 +194,3 @@ func (v *NullableAggregateScalar200Response) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

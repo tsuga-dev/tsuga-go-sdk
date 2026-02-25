@@ -19,31 +19,62 @@ import (
 	"strings"
 )
 
+type MetricsAPI interface {
+
+	/*
+		GetMetric Method for GetMetric
+
+		Retrieve a metric by name with its metadata
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param name The metric name
+		@return MetricsAPIGetMetricRequest
+	*/
+	GetMetric(ctx context.Context, name string) MetricsAPIGetMetricRequest
+
+	// GetMetricExecute executes the request
+	//  @return GetMetric200Response
+	GetMetricExecute(r MetricsAPIGetMetricRequest) (*GetMetric200Response, *http.Response, error)
+
+	/*
+		ListMetrics Method for ListMetrics
+
+		Get all metrics with their metadata
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return MetricsAPIListMetricsRequest
+	*/
+	ListMetrics(ctx context.Context) MetricsAPIListMetricsRequest
+
+	// ListMetricsExecute executes the request
+	//  @return ListMetrics200Response
+	ListMetricsExecute(r MetricsAPIListMetricsRequest) (*ListMetrics200Response, *http.Response, error)
+}
 
 // MetricsAPIService MetricsAPI service
 type MetricsAPIService service
 
-type ApiGetMetricRequest struct {
-	ctx context.Context
-	ApiService *MetricsAPIService
-	from *int32
-	to *int32
-	name string
+type MetricsAPIGetMetricRequest struct {
+	ctx        context.Context
+	ApiService MetricsAPI
+	from       *int32
+	to         *int32
+	name       string
 }
 
 // Start timestamp in seconds
-func (r ApiGetMetricRequest) From(from int32) ApiGetMetricRequest {
+func (r MetricsAPIGetMetricRequest) From(from int32) MetricsAPIGetMetricRequest {
 	r.from = &from
 	return r
 }
 
 // End timestamp in seconds
-func (r ApiGetMetricRequest) To(to int32) ApiGetMetricRequest {
+func (r MetricsAPIGetMetricRequest) To(to int32) MetricsAPIGetMetricRequest {
 	r.to = &to
 	return r
 }
 
-func (r ApiGetMetricRequest) Execute() (*GetMetric200Response, *http.Response, error) {
+func (r MetricsAPIGetMetricRequest) Execute() (*GetMetric200Response, *http.Response, error) {
 	return r.ApiService.GetMetricExecute(r)
 }
 
@@ -52,26 +83,27 @@ GetMetric Method for GetMetric
 
 Retrieve a metric by name with its metadata
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param name The metric name
- @return ApiGetMetricRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name The metric name
+	@return MetricsAPIGetMetricRequest
 */
-func (a *MetricsAPIService) GetMetric(ctx context.Context, name string) ApiGetMetricRequest {
-	return ApiGetMetricRequest{
+func (a *MetricsAPIService) GetMetric(ctx context.Context, name string) MetricsAPIGetMetricRequest {
+	return MetricsAPIGetMetricRequest{
 		ApiService: a,
-		ctx: ctx,
-		name: name,
+		ctx:        ctx,
+		name:       name,
 	}
 }
 
 // Execute executes the request
-//  @return GetMetric200Response
-func (a *MetricsAPIService) GetMetricExecute(r ApiGetMetricRequest) (*GetMetric200Response, *http.Response, error) {
+//
+//	@return GetMetric200Response
+func (a *MetricsAPIService) GetMetricExecute(r MetricsAPIGetMetricRequest) (*GetMetric200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *GetMetric200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetMetric200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MetricsAPIService.GetMetric")
@@ -146,8 +178,8 @@ func (a *MetricsAPIService) GetMetricExecute(r ApiGetMetricRequest) (*GetMetric2
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -157,8 +189,8 @@ func (a *MetricsAPIService) GetMetricExecute(r ApiGetMetricRequest) (*GetMetric2
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -175,26 +207,26 @@ func (a *MetricsAPIService) GetMetricExecute(r ApiGetMetricRequest) (*GetMetric2
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListMetricsRequest struct {
-	ctx context.Context
-	ApiService *MetricsAPIService
-	from *int32
-	to *int32
+type MetricsAPIListMetricsRequest struct {
+	ctx        context.Context
+	ApiService MetricsAPI
+	from       *int32
+	to         *int32
 }
 
 // Start timestamp in seconds
-func (r ApiListMetricsRequest) From(from int32) ApiListMetricsRequest {
+func (r MetricsAPIListMetricsRequest) From(from int32) MetricsAPIListMetricsRequest {
 	r.from = &from
 	return r
 }
 
 // End timestamp in seconds
-func (r ApiListMetricsRequest) To(to int32) ApiListMetricsRequest {
+func (r MetricsAPIListMetricsRequest) To(to int32) MetricsAPIListMetricsRequest {
 	r.to = &to
 	return r
 }
 
-func (r ApiListMetricsRequest) Execute() (*ListMetrics200Response, *http.Response, error) {
+func (r MetricsAPIListMetricsRequest) Execute() (*ListMetrics200Response, *http.Response, error) {
 	return r.ApiService.ListMetricsExecute(r)
 }
 
@@ -203,24 +235,25 @@ ListMetrics Method for ListMetrics
 
 Get all metrics with their metadata
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListMetricsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MetricsAPIListMetricsRequest
 */
-func (a *MetricsAPIService) ListMetrics(ctx context.Context) ApiListMetricsRequest {
-	return ApiListMetricsRequest{
+func (a *MetricsAPIService) ListMetrics(ctx context.Context) MetricsAPIListMetricsRequest {
+	return MetricsAPIListMetricsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ListMetrics200Response
-func (a *MetricsAPIService) ListMetricsExecute(r ApiListMetricsRequest) (*ListMetrics200Response, *http.Response, error) {
+//
+//	@return ListMetrics200Response
+func (a *MetricsAPIService) ListMetricsExecute(r MetricsAPIListMetricsRequest) (*ListMetrics200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ListMetrics200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ListMetrics200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MetricsAPIService.ListMetrics")
@@ -288,8 +321,8 @@ func (a *MetricsAPIService) ListMetricsExecute(r ApiListMetricsRequest) (*ListMe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -299,8 +332,8 @@ func (a *MetricsAPIService) ListMetricsExecute(r ApiListMetricsRequest) (*ListMe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

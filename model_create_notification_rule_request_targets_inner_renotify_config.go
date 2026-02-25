@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,6 +25,7 @@ type CreateNotificationRuleRequestTargetsInnerRenotifyConfig struct {
 	RenotificationStates []string `json:"renotificationStates"`
 	// Minimum number of minutes to wait before renotifying
 	RenotifyIntervalMinutes int32 `json:"renotifyIntervalMinutes"`
+	AdditionalProperties    map[string]interface{}
 }
 
 type _CreateNotificationRuleRequestTargetsInnerRenotifyConfig CreateNotificationRuleRequestTargetsInnerRenotifyConfig
@@ -123,7 +123,7 @@ func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) SetRenotifyInt
 }
 
 func (o CreateNotificationRuleRequestTargetsInnerRenotifyConfig) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -135,6 +135,11 @@ func (o CreateNotificationRuleRequestTargetsInnerRenotifyConfig) ToMap() (map[st
 	toSerialize["mode"] = o.Mode
 	toSerialize["renotificationStates"] = o.RenotificationStates
 	toSerialize["renotifyIntervalMinutes"] = o.RenotifyIntervalMinutes
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -153,10 +158,10 @@ func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) UnmarshalJSON(
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -164,15 +169,22 @@ func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) UnmarshalJSON(
 
 	varCreateNotificationRuleRequestTargetsInnerRenotifyConfig := _CreateNotificationRuleRequestTargetsInnerRenotifyConfig{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateNotificationRuleRequestTargetsInnerRenotifyConfig)
+	err = json.Unmarshal(data, &varCreateNotificationRuleRequestTargetsInnerRenotifyConfig)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateNotificationRuleRequestTargetsInnerRenotifyConfig(varCreateNotificationRuleRequestTargetsInnerRenotifyConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "mode")
+		delete(additionalProperties, "renotificationStates")
+		delete(additionalProperties, "renotifyIntervalMinutes")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -212,5 +224,3 @@ func (v *NullableCreateNotificationRuleRequestTargetsInnerRenotifyConfig) Unmars
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

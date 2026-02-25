@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,9 +25,10 @@ type ProcessorParamsCreatorFormatString struct {
 	// Template string used to build the target attribute value
 	FormatString string `json:"formatString"`
 	// Set to true to overwrite an existing target attribute value (defaults to true)
-	OverrideTarget *bool `json:"overrideTarget,omitempty"`
-	Subtype string `json:"subtype"`
-	ReplaceMissingByEmpty *bool `json:"replaceMissingByEmpty,omitempty"`
+	OverrideTarget        *bool  `json:"overrideTarget,omitempty"`
+	Subtype               string `json:"subtype"`
+	ReplaceMissingByEmpty *bool  `json:"replaceMissingByEmpty,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
 
 type _ProcessorParamsCreatorFormatString ProcessorParamsCreatorFormatString
@@ -190,7 +190,7 @@ func (o *ProcessorParamsCreatorFormatString) SetReplaceMissingByEmpty(v bool) {
 }
 
 func (o ProcessorParamsCreatorFormatString) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -208,6 +208,11 @@ func (o ProcessorParamsCreatorFormatString) ToMap() (map[string]interface{}, err
 	if !IsNil(o.ReplaceMissingByEmpty) {
 		toSerialize["replaceMissingByEmpty"] = o.ReplaceMissingByEmpty
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -226,10 +231,10 @@ func (o *ProcessorParamsCreatorFormatString) UnmarshalJSON(data []byte) (err err
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -237,15 +242,24 @@ func (o *ProcessorParamsCreatorFormatString) UnmarshalJSON(data []byte) (err err
 
 	varProcessorParamsCreatorFormatString := _ProcessorParamsCreatorFormatString{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProcessorParamsCreatorFormatString)
+	err = json.Unmarshal(data, &varProcessorParamsCreatorFormatString)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ProcessorParamsCreatorFormatString(varProcessorParamsCreatorFormatString)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "targetAttribute")
+		delete(additionalProperties, "formatString")
+		delete(additionalProperties, "overrideTarget")
+		delete(additionalProperties, "subtype")
+		delete(additionalProperties, "replaceMissingByEmpty")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -285,5 +299,3 @@ func (v *NullableProcessorParamsCreatorFormatString) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

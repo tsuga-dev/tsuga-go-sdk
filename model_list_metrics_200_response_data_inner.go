@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -27,12 +26,13 @@ type ListMetrics200ResponseDataInner struct {
 	// Human-readable description of the metric
 	Description *string `json:"description,omitempty"`
 	// Unit of the metric
-	Unit *string `json:"unit,omitempty"`
+	Unit        *string `json:"unit,omitempty"`
 	Temporality *string `json:"temporality,omitempty"`
 	// Supported capabilities, an empty array means all capabilities are supported
 	Capabilities []string `json:"capabilities,omitempty"`
 	// Metric attributes
-	Attributes []string `json:"attributes,omitempty"`
+	Attributes           []string `json:"attributes,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ListMetrics200ResponseDataInner ListMetrics200ResponseDataInner
@@ -265,7 +265,7 @@ func (o *ListMetrics200ResponseDataInner) SetAttributes(v []string) {
 }
 
 func (o ListMetrics200ResponseDataInner) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -291,6 +291,11 @@ func (o ListMetrics200ResponseDataInner) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.Attributes) {
 		toSerialize["attributes"] = o.Attributes
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -308,10 +313,10 @@ func (o *ListMetrics200ResponseDataInner) UnmarshalJSON(data []byte) (err error)
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -319,15 +324,26 @@ func (o *ListMetrics200ResponseDataInner) UnmarshalJSON(data []byte) (err error)
 
 	varListMetrics200ResponseDataInner := _ListMetrics200ResponseDataInner{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varListMetrics200ResponseDataInner)
+	err = json.Unmarshal(data, &varListMetrics200ResponseDataInner)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ListMetrics200ResponseDataInner(varListMetrics200ResponseDataInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "unit")
+		delete(additionalProperties, "temporality")
+		delete(additionalProperties, "capabilities")
+		delete(additionalProperties, "attributes")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -367,5 +383,3 @@ func (v *NullableListMetrics200ResponseDataInner) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

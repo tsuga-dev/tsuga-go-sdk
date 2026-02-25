@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,7 +20,8 @@ var _ MappedNullable = &MonitorAggregationQueryFillMode{}
 
 // MonitorAggregationQueryFillMode struct for MonitorAggregationQueryFillMode
 type MonitorAggregationQueryFillMode struct {
-	Type string `json:"type"`
+	Type                 string `json:"type"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MonitorAggregationQueryFillMode MonitorAggregationQueryFillMode
@@ -69,7 +69,7 @@ func (o *MonitorAggregationQueryFillMode) SetType(v string) {
 }
 
 func (o MonitorAggregationQueryFillMode) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -79,6 +79,11 @@ func (o MonitorAggregationQueryFillMode) MarshalJSON() ([]byte, error) {
 func (o MonitorAggregationQueryFillMode) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -95,10 +100,10 @@ func (o *MonitorAggregationQueryFillMode) UnmarshalJSON(data []byte) (err error)
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -106,15 +111,20 @@ func (o *MonitorAggregationQueryFillMode) UnmarshalJSON(data []byte) (err error)
 
 	varMonitorAggregationQueryFillMode := _MonitorAggregationQueryFillMode{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMonitorAggregationQueryFillMode)
+	err = json.Unmarshal(data, &varMonitorAggregationQueryFillMode)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MonitorAggregationQueryFillMode(varMonitorAggregationQueryFillMode)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -154,5 +164,3 @@ func (v *NullableMonitorAggregationQueryFillMode) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

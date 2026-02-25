@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,7 +23,8 @@ type CreateNotificationRuleRequestTargetsInnerRateLimit struct {
 	// Maximum number of messages allowed during the rate-limiting window
 	MaxMessages int32 `json:"maxMessages"`
 	// Length of the rate-limiting window in minutes
-	Minutes int32 `json:"minutes"`
+	Minutes              int32 `json:"minutes"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateNotificationRuleRequestTargetsInnerRateLimit CreateNotificationRuleRequestTargetsInnerRateLimit
@@ -97,7 +97,7 @@ func (o *CreateNotificationRuleRequestTargetsInnerRateLimit) SetMinutes(v int32)
 }
 
 func (o CreateNotificationRuleRequestTargetsInnerRateLimit) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -108,6 +108,11 @@ func (o CreateNotificationRuleRequestTargetsInnerRateLimit) ToMap() (map[string]
 	toSerialize := map[string]interface{}{}
 	toSerialize["maxMessages"] = o.MaxMessages
 	toSerialize["minutes"] = o.Minutes
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -125,10 +130,10 @@ func (o *CreateNotificationRuleRequestTargetsInnerRateLimit) UnmarshalJSON(data 
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -136,15 +141,21 @@ func (o *CreateNotificationRuleRequestTargetsInnerRateLimit) UnmarshalJSON(data 
 
 	varCreateNotificationRuleRequestTargetsInnerRateLimit := _CreateNotificationRuleRequestTargetsInnerRateLimit{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateNotificationRuleRequestTargetsInnerRateLimit)
+	err = json.Unmarshal(data, &varCreateNotificationRuleRequestTargetsInnerRateLimit)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateNotificationRuleRequestTargetsInnerRateLimit(varCreateNotificationRuleRequestTargetsInnerRateLimit)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "maxMessages")
+		delete(additionalProperties, "minutes")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -184,5 +195,3 @@ func (v *NullableCreateNotificationRuleRequestTargetsInnerRateLimit) UnmarshalJS
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

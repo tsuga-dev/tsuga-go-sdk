@@ -20,22 +20,22 @@ var _ MappedNullable = &SearchSpans200ResponseDataSpansInner{}
 
 // SearchSpans200ResponseDataSpansInner struct for SearchSpans200ResponseDataSpansInner
 type SearchSpans200ResponseDataSpansInner struct {
-	Context *SearchSpans200ResponseDataSpansInnerContext `json:"context,omitempty"`
-	ParentSpanId *string `json:"parentSpanId,omitempty"`
-	ResourceAttributes map[string]interface{} `json:"resourceAttributes"`
-	SpanAttributes map[string]interface{} `json:"spanAttributes"`
+	Context            *SearchSpans200ResponseDataSpansInnerContext `json:"context,omitempty"`
+	ParentSpanId       *string                                      `json:"parentSpanId,omitempty"`
+	ResourceAttributes map[string]interface{}                       `json:"resourceAttributes"`
+	SpanAttributes     map[string]interface{}                       `json:"spanAttributes"`
 	// In milliseconds.
 	Duration float32 `json:"duration"`
 	// In nanoseconds. Transmitted as a string to avoid losing precision, as BigInt is not JSON-compatible.
 	StartTime string `json:"startTime"`
 	// In nanoseconds. Transmitted as a string to avoid losing precision, as BigInt is not JSON-compatible.
-	EndTime string `json:"endTime"`
-	Error *SearchSpans200ResponseDataSpansInnerError `json:"error,omitempty"`
-	Events []SearchSpans200ResponseDataSpansInnerEventsInner `json:"events,omitempty"`
-	SpanId string `json:"spanId"`
-	Span SearchSpans200ResponseDataSpansInnerSpan `json:"span"`
-	StatusCode *string `json:"statusCode,omitempty"`
-	TraceId string `json:"traceId"`
+	EndTime              string                                            `json:"endTime"`
+	Error                *SearchSpans200ResponseDataSpansInnerError        `json:"error,omitempty"`
+	Events               []SearchSpans200ResponseDataSpansInnerEventsInner `json:"events,omitempty"`
+	SpanId               string                                            `json:"spanId"`
+	Span                 SearchSpans200ResponseDataSpansInnerSpan          `json:"span"`
+	StatusCode           *string                                           `json:"statusCode,omitempty"`
+	TraceId              string                                            `json:"traceId"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -419,7 +419,7 @@ func (o *SearchSpans200ResponseDataSpansInner) SetTraceId(v string) {
 }
 
 func (o SearchSpans200ResponseDataSpansInner) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -479,10 +479,10 @@ func (o *SearchSpans200ResponseDataSpansInner) UnmarshalJSON(data []byte) (err e
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -555,5 +555,3 @@ func (v *NullableSearchSpans200ResponseDataSpansInner) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

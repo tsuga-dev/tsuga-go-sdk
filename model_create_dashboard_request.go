@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -30,8 +29,9 @@ type CreateDashboardRequest struct {
 	// Filters applied to every widget on the dashboard
 	Filters []CreateDashboardRequestFiltersInner `json:"filters,omitempty"`
 	// List of key/value tags applied to the resource
-	Tags []Tag `json:"tags,omitempty"`
-	TimePreset *string `json:"timePreset,omitempty"`
+	Tags                 []Tag   `json:"tags,omitempty"`
+	TimePreset           *string `json:"timePreset,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateDashboardRequest CreateDashboardRequest
@@ -225,7 +225,7 @@ func (o *CreateDashboardRequest) SetTimePreset(v string) {
 }
 
 func (o CreateDashboardRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -246,6 +246,11 @@ func (o CreateDashboardRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TimePreset) {
 		toSerialize["timePreset"] = o.TimePreset
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -264,10 +269,10 @@ func (o *CreateDashboardRequest) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -275,15 +280,25 @@ func (o *CreateDashboardRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateDashboardRequest := _CreateDashboardRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateDashboardRequest)
+	err = json.Unmarshal(data, &varCreateDashboardRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateDashboardRequest(varCreateDashboardRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "graphs")
+		delete(additionalProperties, "filters")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "timePreset")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -323,5 +338,3 @@ func (v *NullableCreateDashboardRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

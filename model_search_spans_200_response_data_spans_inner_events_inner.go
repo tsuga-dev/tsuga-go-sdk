@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,9 +20,10 @@ var _ MappedNullable = &SearchSpans200ResponseDataSpansInnerEventsInner{}
 
 // SearchSpans200ResponseDataSpansInnerEventsInner struct for SearchSpans200ResponseDataSpansInnerEventsInner
 type SearchSpans200ResponseDataSpansInnerEventsInner struct {
-	EventAttributes map[string]interface{} `json:"event_attributes"`
-	EventName string `json:"event_name"`
-	EventTimestampNanos string `json:"event_timestamp_nanos"`
+	EventAttributes      map[string]interface{} `json:"event_attributes"`
+	EventName            string                 `json:"event_name"`
+	EventTimestampNanos  string                 `json:"event_timestamp_nanos"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SearchSpans200ResponseDataSpansInnerEventsInner SearchSpans200ResponseDataSpansInnerEventsInner
@@ -121,7 +121,7 @@ func (o *SearchSpans200ResponseDataSpansInnerEventsInner) SetEventTimestampNanos
 }
 
 func (o SearchSpans200ResponseDataSpansInnerEventsInner) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -133,6 +133,11 @@ func (o SearchSpans200ResponseDataSpansInnerEventsInner) ToMap() (map[string]int
 	toSerialize["event_attributes"] = o.EventAttributes
 	toSerialize["event_name"] = o.EventName
 	toSerialize["event_timestamp_nanos"] = o.EventTimestampNanos
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -151,10 +156,10 @@ func (o *SearchSpans200ResponseDataSpansInnerEventsInner) UnmarshalJSON(data []b
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -162,15 +167,22 @@ func (o *SearchSpans200ResponseDataSpansInnerEventsInner) UnmarshalJSON(data []b
 
 	varSearchSpans200ResponseDataSpansInnerEventsInner := _SearchSpans200ResponseDataSpansInnerEventsInner{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSearchSpans200ResponseDataSpansInnerEventsInner)
+	err = json.Unmarshal(data, &varSearchSpans200ResponseDataSpansInnerEventsInner)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SearchSpans200ResponseDataSpansInnerEventsInner(varSearchSpans200ResponseDataSpansInnerEventsInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "event_attributes")
+		delete(additionalProperties, "event_name")
+		delete(additionalProperties, "event_timestamp_nanos")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -210,5 +222,3 @@ func (v *NullableSearchSpans200ResponseDataSpansInnerEventsInner) UnmarshalJSON(
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

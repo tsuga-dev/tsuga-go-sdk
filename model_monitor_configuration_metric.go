@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,17 +20,18 @@ var _ MappedNullable = &MonitorConfigurationMetric{}
 
 // MonitorConfigurationMetric struct for MonitorConfigurationMetric
 type MonitorConfigurationMetric struct {
-	Type string `json:"type"`
-	Condition MonitorConfigurationMetricCondition `json:"condition"`
-	Conditions []MonitorConfigurationMetricCondition `json:"conditions,omitempty"`
-	NoDataBehavior string `json:"noDataBehavior"`
+	Type           string                                `json:"type"`
+	Condition      MonitorConfigurationMetricCondition   `json:"condition"`
+	Conditions     []MonitorConfigurationMetricCondition `json:"conditions,omitempty"`
+	NoDataBehavior string                                `json:"noDataBehavior"`
 	// Timeframe of the monitor in minutes
-	Timeframe float32 `json:"timeframe"`
-	GroupByFields []MonitorConfigurationMetricGroupByFieldsInner `json:"groupByFields"`
-	AggregationAlertLogic *string `json:"aggregationAlertLogic,omitempty"`
-	ProportionAlertThreshold *int32 `json:"proportionAlertThreshold,omitempty"`
+	Timeframe                float32                                        `json:"timeframe"`
+	GroupByFields            []MonitorConfigurationMetricGroupByFieldsInner `json:"groupByFields"`
+	AggregationAlertLogic    *string                                        `json:"aggregationAlertLogic,omitempty"`
+	ProportionAlertThreshold *int32                                         `json:"proportionAlertThreshold,omitempty"`
 	// Aggregations that may be combined together in the same query
-	Queries []MonitorAggregationQuery `json:"queries"`
+	Queries              []MonitorAggregationQuery `json:"queries"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MonitorConfigurationMetric MonitorConfigurationMetric
@@ -300,7 +300,7 @@ func (o *MonitorConfigurationMetric) SetQueries(v []MonitorAggregationQuery) {
 }
 
 func (o MonitorConfigurationMetric) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -324,6 +324,11 @@ func (o MonitorConfigurationMetric) ToMap() (map[string]interface{}, error) {
 		toSerialize["proportionAlertThreshold"] = o.ProportionAlertThreshold
 	}
 	toSerialize["queries"] = o.Queries
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -345,10 +350,10 @@ func (o *MonitorConfigurationMetric) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -356,15 +361,28 @@ func (o *MonitorConfigurationMetric) UnmarshalJSON(data []byte) (err error) {
 
 	varMonitorConfigurationMetric := _MonitorConfigurationMetric{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMonitorConfigurationMetric)
+	err = json.Unmarshal(data, &varMonitorConfigurationMetric)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MonitorConfigurationMetric(varMonitorConfigurationMetric)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "condition")
+		delete(additionalProperties, "conditions")
+		delete(additionalProperties, "noDataBehavior")
+		delete(additionalProperties, "timeframe")
+		delete(additionalProperties, "groupByFields")
+		delete(additionalProperties, "aggregationAlertLogic")
+		delete(additionalProperties, "proportionAlertThreshold")
+		delete(additionalProperties, "queries")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -404,5 +422,3 @@ func (v *NullableMonitorConfigurationMetric) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

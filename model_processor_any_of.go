@@ -12,9 +12,8 @@ package tsuga
 
 import (
 	"encoding/json"
-	"time"
-	"bytes"
 	"fmt"
+	"time"
 )
 
 // checks if the ProcessorAnyOf type satisfies the MappedNullable interface at compile time
@@ -23,14 +22,15 @@ var _ MappedNullable = &ProcessorAnyOf{}
 // ProcessorAnyOf struct for ProcessorAnyOf
 type ProcessorAnyOf struct {
 	// Identifier of the processor
-	Id string `json:"id"`
-	Description *string `json:"description,omitempty"`
-	Example *ProcessorAnyOfExample `json:"example,omitempty"`
+	Id          string                 `json:"id"`
+	Description *string                `json:"description,omitempty"`
+	Example     *ProcessorAnyOfExample `json:"example,omitempty"`
 	// List of key/value tags applied to the resource
-	Tags []Tag `json:"tags,omitempty"`
-	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
-	Type string `json:"type"`
-	Params ProcessorAnyOfParams `json:"params"`
+	Tags                 []Tag                `json:"tags,omitempty"`
+	UpdatedAt            *time.Time           `json:"updatedAt,omitempty"`
+	Type                 string               `json:"type"`
+	Params               ProcessorAnyOfParams `json:"params"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ProcessorAnyOf ProcessorAnyOf
@@ -256,7 +256,7 @@ func (o *ProcessorAnyOf) SetParams(v ProcessorAnyOfParams) {
 }
 
 func (o ProcessorAnyOf) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -280,6 +280,11 @@ func (o ProcessorAnyOf) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["type"] = o.Type
 	toSerialize["params"] = o.Params
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -298,10 +303,10 @@ func (o *ProcessorAnyOf) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -309,15 +314,26 @@ func (o *ProcessorAnyOf) UnmarshalJSON(data []byte) (err error) {
 
 	varProcessorAnyOf := _ProcessorAnyOf{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProcessorAnyOf)
+	err = json.Unmarshal(data, &varProcessorAnyOf)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ProcessorAnyOf(varProcessorAnyOf)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "example")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "params")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -357,5 +373,3 @@ func (v *NullableProcessorAnyOf) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

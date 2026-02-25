@@ -18,42 +18,58 @@ import (
 	"net/url"
 )
 
+type LogsAPI interface {
+
+	/*
+		SearchLogs Method for SearchLogs
+
+		Search logs
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return LogsAPISearchLogsRequest
+	*/
+	SearchLogs(ctx context.Context) LogsAPISearchLogsRequest
+
+	// SearchLogsExecute executes the request
+	//  @return SearchLogs200Response
+	SearchLogsExecute(r LogsAPISearchLogsRequest) (*SearchLogs200Response, *http.Response, error)
+}
 
 // LogsAPIService LogsAPI service
 type LogsAPIService service
 
-type ApiSearchLogsRequest struct {
-	ctx context.Context
-	ApiService *LogsAPIService
-	from *int32
-	to *int32
-	query *string
+type LogsAPISearchLogsRequest struct {
+	ctx        context.Context
+	ApiService LogsAPI
+	from       *int32
+	to         *int32
+	query      *string
 	maxResults *float32
 }
 
 // Start timestamp in seconds
-func (r ApiSearchLogsRequest) From(from int32) ApiSearchLogsRequest {
+func (r LogsAPISearchLogsRequest) From(from int32) LogsAPISearchLogsRequest {
 	r.from = &from
 	return r
 }
 
 // End timestamp in seconds
-func (r ApiSearchLogsRequest) To(to int32) ApiSearchLogsRequest {
+func (r LogsAPISearchLogsRequest) To(to int32) LogsAPISearchLogsRequest {
 	r.to = &to
 	return r
 }
 
-func (r ApiSearchLogsRequest) Query(query string) ApiSearchLogsRequest {
+func (r LogsAPISearchLogsRequest) Query(query string) LogsAPISearchLogsRequest {
 	r.query = &query
 	return r
 }
 
-func (r ApiSearchLogsRequest) MaxResults(maxResults float32) ApiSearchLogsRequest {
+func (r LogsAPISearchLogsRequest) MaxResults(maxResults float32) LogsAPISearchLogsRequest {
 	r.maxResults = &maxResults
 	return r
 }
 
-func (r ApiSearchLogsRequest) Execute() (*SearchLogs200Response, *http.Response, error) {
+func (r LogsAPISearchLogsRequest) Execute() (*SearchLogs200Response, *http.Response, error) {
 	return r.ApiService.SearchLogsExecute(r)
 }
 
@@ -62,24 +78,25 @@ SearchLogs Method for SearchLogs
 
 Search logs
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchLogsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return LogsAPISearchLogsRequest
 */
-func (a *LogsAPIService) SearchLogs(ctx context.Context) ApiSearchLogsRequest {
-	return ApiSearchLogsRequest{
+func (a *LogsAPIService) SearchLogs(ctx context.Context) LogsAPISearchLogsRequest {
+	return LogsAPISearchLogsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return SearchLogs200Response
-func (a *LogsAPIService) SearchLogsExecute(r ApiSearchLogsRequest) (*SearchLogs200Response, *http.Response, error) {
+//
+//	@return SearchLogs200Response
+func (a *LogsAPIService) SearchLogsExecute(r LogsAPISearchLogsRequest) (*SearchLogs200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SearchLogs200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SearchLogs200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogsAPIService.SearchLogs")
@@ -153,8 +170,8 @@ func (a *LogsAPIService) SearchLogsExecute(r ApiSearchLogsRequest) (*SearchLogs2
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -164,8 +181,8 @@ func (a *LogsAPIService) SearchLogsExecute(r ApiSearchLogsRequest) (*SearchLogs2
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

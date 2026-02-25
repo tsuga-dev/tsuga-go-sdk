@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -28,9 +27,10 @@ type ProcessorAnyOf1ParamsOneOf3 struct {
 	// Delimiter separating keys from values in the source string
 	KeyValueSplitter string `json:"keyValueSplitter"`
 	// Delimiter separating each key/value pair. Will default to whitespace if not set.
-	PairsSplitter string `json:"pairsSplitter"`
-	AcceptStandaloneKey bool `json:"acceptStandaloneKey"`
-	Subtype string `json:"subtype"`
+	PairsSplitter        string `json:"pairsSplitter"`
+	AcceptStandaloneKey  bool   `json:"acceptStandaloneKey"`
+	Subtype              string `json:"subtype"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ProcessorAnyOf1ParamsOneOf3 ProcessorAnyOf1ParamsOneOf3
@@ -203,7 +203,7 @@ func (o *ProcessorAnyOf1ParamsOneOf3) SetSubtype(v string) {
 }
 
 func (o ProcessorAnyOf1ParamsOneOf3) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -218,6 +218,11 @@ func (o ProcessorAnyOf1ParamsOneOf3) ToMap() (map[string]interface{}, error) {
 	toSerialize["pairsSplitter"] = o.PairsSplitter
 	toSerialize["acceptStandaloneKey"] = o.AcceptStandaloneKey
 	toSerialize["subtype"] = o.Subtype
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -239,10 +244,10 @@ func (o *ProcessorAnyOf1ParamsOneOf3) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -250,15 +255,25 @@ func (o *ProcessorAnyOf1ParamsOneOf3) UnmarshalJSON(data []byte) (err error) {
 
 	varProcessorAnyOf1ParamsOneOf3 := _ProcessorAnyOf1ParamsOneOf3{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProcessorAnyOf1ParamsOneOf3)
+	err = json.Unmarshal(data, &varProcessorAnyOf1ParamsOneOf3)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ProcessorAnyOf1ParamsOneOf3(varProcessorAnyOf1ParamsOneOf3)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "sourceAttribute")
+		delete(additionalProperties, "targetAttribute")
+		delete(additionalProperties, "keyValueSplitter")
+		delete(additionalProperties, "pairsSplitter")
+		delete(additionalProperties, "acceptStandaloneKey")
+		delete(additionalProperties, "subtype")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -298,5 +313,3 @@ func (v *NullableProcessorAnyOf1ParamsOneOf3) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

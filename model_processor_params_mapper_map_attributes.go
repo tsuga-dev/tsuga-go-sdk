@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,8 +21,9 @@ var _ MappedNullable = &ProcessorParamsMapperMapAttributes{}
 // ProcessorParamsMapperMapAttributes struct for ProcessorParamsMapperMapAttributes
 type ProcessorParamsMapperMapAttributes struct {
 	// Mappings that map individual attributes to new targets
-	Attributes []ProcessorParamsMapperMapAttributesAttributesInner `json:"attributes"`
-	Subtype string `json:"subtype"`
+	Attributes           []ProcessorParamsMapperMapAttributesAttributesInner `json:"attributes"`
+	Subtype              string                                              `json:"subtype"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ProcessorParamsMapperMapAttributes ProcessorParamsMapperMapAttributes
@@ -96,7 +96,7 @@ func (o *ProcessorParamsMapperMapAttributes) SetSubtype(v string) {
 }
 
 func (o ProcessorParamsMapperMapAttributes) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -107,6 +107,11 @@ func (o ProcessorParamsMapperMapAttributes) ToMap() (map[string]interface{}, err
 	toSerialize := map[string]interface{}{}
 	toSerialize["attributes"] = o.Attributes
 	toSerialize["subtype"] = o.Subtype
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -124,10 +129,10 @@ func (o *ProcessorParamsMapperMapAttributes) UnmarshalJSON(data []byte) (err err
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -135,15 +140,21 @@ func (o *ProcessorParamsMapperMapAttributes) UnmarshalJSON(data []byte) (err err
 
 	varProcessorParamsMapperMapAttributes := _ProcessorParamsMapperMapAttributes{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProcessorParamsMapperMapAttributes)
+	err = json.Unmarshal(data, &varProcessorParamsMapperMapAttributes)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ProcessorParamsMapperMapAttributes(varProcessorParamsMapperMapAttributes)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributes")
+		delete(additionalProperties, "subtype")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -183,5 +194,3 @@ func (v *NullableProcessorParamsMapperMapAttributes) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

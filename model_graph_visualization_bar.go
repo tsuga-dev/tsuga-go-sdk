@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -32,15 +31,16 @@ type GraphVisualizationBar struct {
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Fields used to group the results
-	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
+	GroupBy    []AggregationGroupBy                    `json:"groupBy,omitempty"`
 	TimeBucket *GraphVisualizationTimeseriesTimeBucket `json:"timeBucket,omitempty"`
 	// Number of decimal places to display in the value
-	Precision *float32 `json:"precision,omitempty"`
+	Precision  *float32    `json:"precision,omitempty"`
 	Normalizer *Normalizer `json:"normalizer,omitempty"`
 	// Threshold markers displayed on the chart
 	Thresholds []ThresholdMarker `json:"thresholds,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
-	LegendMode *string `json:"legendMode,omitempty"`
+	LegendMode           *string `json:"legendMode,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GraphVisualizationBar GraphVisualizationBar
@@ -394,7 +394,7 @@ func (o *GraphVisualizationBar) SetLegendMode(v string) {
 }
 
 func (o GraphVisualizationBar) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -430,6 +430,11 @@ func (o GraphVisualizationBar) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LegendMode) {
 		toSerialize["legendMode"] = o.LegendMode
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -448,10 +453,10 @@ func (o *GraphVisualizationBar) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -459,15 +464,30 @@ func (o *GraphVisualizationBar) UnmarshalJSON(data []byte) (err error) {
 
 	varGraphVisualizationBar := _GraphVisualizationBar{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGraphVisualizationBar)
+	err = json.Unmarshal(data, &varGraphVisualizationBar)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GraphVisualizationBar(varGraphVisualizationBar)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "queries")
+		delete(additionalProperties, "formula")
+		delete(additionalProperties, "visibleSeries")
+		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "timeBucket")
+		delete(additionalProperties, "precision")
+		delete(additionalProperties, "normalizer")
+		delete(additionalProperties, "thresholds")
+		delete(additionalProperties, "legendMode")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -507,5 +527,3 @@ func (v *NullableGraphVisualizationBar) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

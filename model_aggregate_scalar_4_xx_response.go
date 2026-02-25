@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,8 +21,9 @@ var _ MappedNullable = &AggregateScalar4XXResponse{}
 // AggregateScalar4XXResponse struct for AggregateScalar4XXResponse
 type AggregateScalar4XXResponse struct {
 	// Identifier used to trace the lifecycle of this API request
-	RequestId string `json:"requestId"`
-	Error ClientErrorResponse `json:"error"`
+	RequestId            string              `json:"requestId"`
+	Error                ClientErrorResponse `json:"error"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AggregateScalar4XXResponse AggregateScalar4XXResponse
@@ -96,7 +96,7 @@ func (o *AggregateScalar4XXResponse) SetError(v ClientErrorResponse) {
 }
 
 func (o AggregateScalar4XXResponse) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -107,6 +107,11 @@ func (o AggregateScalar4XXResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["requestId"] = o.RequestId
 	toSerialize["error"] = o.Error
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -124,10 +129,10 @@ func (o *AggregateScalar4XXResponse) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -135,15 +140,21 @@ func (o *AggregateScalar4XXResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varAggregateScalar4XXResponse := _AggregateScalar4XXResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAggregateScalar4XXResponse)
+	err = json.Unmarshal(data, &varAggregateScalar4XXResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AggregateScalar4XXResponse(varAggregateScalar4XXResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "requestId")
+		delete(additionalProperties, "error")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -183,5 +194,3 @@ func (v *NullableAggregateScalar4XXResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

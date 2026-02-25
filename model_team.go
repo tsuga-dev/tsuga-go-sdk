@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,12 +23,13 @@ type Team struct {
 	// Identifier of the team
 	Id string `json:"id"`
 	// Human readable team name displayed throughout the app
-	Name string `json:"name"`
+	Name        string  `json:"name"`
 	Description *string `json:"description,omitempty"`
 	// Controls whether the resources of the team are discoverable by users
 	Visibility string `json:"visibility"`
 	// List of key/value tags applied to the resource
-	Tags []Tag `json:"tags,omitempty"`
+	Tags                 []Tag `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Team Team
@@ -191,7 +191,7 @@ func (o *Team) SetTags(v []Tag) {
 }
 
 func (o Team) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -209,6 +209,11 @@ func (o Team) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -227,10 +232,10 @@ func (o *Team) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -238,15 +243,24 @@ func (o *Team) UnmarshalJSON(data []byte) (err error) {
 
 	varTeam := _Team{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTeam)
+	err = json.Unmarshal(data, &varTeam)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Team(varTeam)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "visibility")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -286,5 +300,3 @@ func (v *NullableTeam) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

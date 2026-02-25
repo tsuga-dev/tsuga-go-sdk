@@ -19,22 +19,97 @@ import (
 	"strings"
 )
 
+type TagPoliciesAPI interface {
+
+	/*
+		CreateTagPolicy Method for CreateTagPolicy
+
+		Create a new tag policy
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return TagPoliciesAPICreateTagPolicyRequest
+	*/
+	CreateTagPolicy(ctx context.Context) TagPoliciesAPICreateTagPolicyRequest
+
+	// CreateTagPolicyExecute executes the request
+	//  @return CreateTagPolicy200Response
+	CreateTagPolicyExecute(r TagPoliciesAPICreateTagPolicyRequest) (*CreateTagPolicy200Response, *http.Response, error)
+
+	/*
+		DeleteTagPolicy Method for DeleteTagPolicy
+
+		Delete a tag policy by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return TagPoliciesAPIDeleteTagPolicyRequest
+	*/
+	DeleteTagPolicy(ctx context.Context, id string) TagPoliciesAPIDeleteTagPolicyRequest
+
+	// DeleteTagPolicyExecute executes the request
+	//  @return DeleteIngestionApiKey200Response
+	DeleteTagPolicyExecute(r TagPoliciesAPIDeleteTagPolicyRequest) (*DeleteIngestionApiKey200Response, *http.Response, error)
+
+	/*
+		GetTagPolicy Method for GetTagPolicy
+
+		Retrieve a tag policy by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return TagPoliciesAPIGetTagPolicyRequest
+	*/
+	GetTagPolicy(ctx context.Context, id string) TagPoliciesAPIGetTagPolicyRequest
+
+	// GetTagPolicyExecute executes the request
+	//  @return CreateTagPolicy200Response
+	GetTagPolicyExecute(r TagPoliciesAPIGetTagPolicyRequest) (*CreateTagPolicy200Response, *http.Response, error)
+
+	/*
+		ListTagPolicies Method for ListTagPolicies
+
+		Retrieve all tag policies
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return TagPoliciesAPIListTagPoliciesRequest
+	*/
+	ListTagPolicies(ctx context.Context) TagPoliciesAPIListTagPoliciesRequest
+
+	// ListTagPoliciesExecute executes the request
+	//  @return ListTagPolicies200Response
+	ListTagPoliciesExecute(r TagPoliciesAPIListTagPoliciesRequest) (*ListTagPolicies200Response, *http.Response, error)
+
+	/*
+		UpdateTagPolicy Method for UpdateTagPolicy
+
+		Update a tag policy by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return TagPoliciesAPIUpdateTagPolicyRequest
+	*/
+	UpdateTagPolicy(ctx context.Context, id string) TagPoliciesAPIUpdateTagPolicyRequest
+
+	// UpdateTagPolicyExecute executes the request
+	//  @return CreateTagPolicy200Response
+	UpdateTagPolicyExecute(r TagPoliciesAPIUpdateTagPolicyRequest) (*CreateTagPolicy200Response, *http.Response, error)
+}
 
 // TagPoliciesAPIService TagPoliciesAPI service
 type TagPoliciesAPIService service
 
-type ApiCreateTagPolicyRequest struct {
-	ctx context.Context
-	ApiService *TagPoliciesAPIService
+type TagPoliciesAPICreateTagPolicyRequest struct {
+	ctx                    context.Context
+	ApiService             TagPoliciesAPI
 	createTagPolicyRequest *CreateTagPolicyRequest
 }
 
-func (r ApiCreateTagPolicyRequest) CreateTagPolicyRequest(createTagPolicyRequest CreateTagPolicyRequest) ApiCreateTagPolicyRequest {
+func (r TagPoliciesAPICreateTagPolicyRequest) CreateTagPolicyRequest(createTagPolicyRequest CreateTagPolicyRequest) TagPoliciesAPICreateTagPolicyRequest {
 	r.createTagPolicyRequest = &createTagPolicyRequest
 	return r
 }
 
-func (r ApiCreateTagPolicyRequest) Execute() (*CreateTagPolicy200Response, *http.Response, error) {
+func (r TagPoliciesAPICreateTagPolicyRequest) Execute() (*CreateTagPolicy200Response, *http.Response, error) {
 	return r.ApiService.CreateTagPolicyExecute(r)
 }
 
@@ -43,24 +118,25 @@ CreateTagPolicy Method for CreateTagPolicy
 
 Create a new tag policy
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateTagPolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return TagPoliciesAPICreateTagPolicyRequest
 */
-func (a *TagPoliciesAPIService) CreateTagPolicy(ctx context.Context) ApiCreateTagPolicyRequest {
-	return ApiCreateTagPolicyRequest{
+func (a *TagPoliciesAPIService) CreateTagPolicy(ctx context.Context) TagPoliciesAPICreateTagPolicyRequest {
+	return TagPoliciesAPICreateTagPolicyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return CreateTagPolicy200Response
-func (a *TagPoliciesAPIService) CreateTagPolicyExecute(r ApiCreateTagPolicyRequest) (*CreateTagPolicy200Response, *http.Response, error) {
+//
+//	@return CreateTagPolicy200Response
+func (a *TagPoliciesAPIService) CreateTagPolicyExecute(r TagPoliciesAPICreateTagPolicyRequest) (*CreateTagPolicy200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateTagPolicy200Response
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateTagPolicy200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TagPoliciesAPIService.CreateTagPolicy")
@@ -125,8 +201,8 @@ func (a *TagPoliciesAPIService) CreateTagPolicyExecute(r ApiCreateTagPolicyReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -136,8 +212,8 @@ func (a *TagPoliciesAPIService) CreateTagPolicyExecute(r ApiCreateTagPolicyReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -154,13 +230,13 @@ func (a *TagPoliciesAPIService) CreateTagPolicyExecute(r ApiCreateTagPolicyReque
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteTagPolicyRequest struct {
-	ctx context.Context
-	ApiService *TagPoliciesAPIService
-	id string
+type TagPoliciesAPIDeleteTagPolicyRequest struct {
+	ctx        context.Context
+	ApiService TagPoliciesAPI
+	id         string
 }
 
-func (r ApiDeleteTagPolicyRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
+func (r TagPoliciesAPIDeleteTagPolicyRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	return r.ApiService.DeleteTagPolicyExecute(r)
 }
 
@@ -169,26 +245,27 @@ DeleteTagPolicy Method for DeleteTagPolicy
 
 Delete a tag policy by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiDeleteTagPolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return TagPoliciesAPIDeleteTagPolicyRequest
 */
-func (a *TagPoliciesAPIService) DeleteTagPolicy(ctx context.Context, id string) ApiDeleteTagPolicyRequest {
-	return ApiDeleteTagPolicyRequest{
+func (a *TagPoliciesAPIService) DeleteTagPolicy(ctx context.Context, id string) TagPoliciesAPIDeleteTagPolicyRequest {
+	return TagPoliciesAPIDeleteTagPolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return DeleteIngestionApiKey200Response
-func (a *TagPoliciesAPIService) DeleteTagPolicyExecute(r ApiDeleteTagPolicyRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
+//
+//	@return DeleteIngestionApiKey200Response
+func (a *TagPoliciesAPIService) DeleteTagPolicyExecute(r TagPoliciesAPIDeleteTagPolicyRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *DeleteIngestionApiKey200Response
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DeleteIngestionApiKey200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TagPoliciesAPIService.DeleteTagPolicy")
@@ -255,8 +332,8 @@ func (a *TagPoliciesAPIService) DeleteTagPolicyExecute(r ApiDeleteTagPolicyReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -266,8 +343,8 @@ func (a *TagPoliciesAPIService) DeleteTagPolicyExecute(r ApiDeleteTagPolicyReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -284,13 +361,13 @@ func (a *TagPoliciesAPIService) DeleteTagPolicyExecute(r ApiDeleteTagPolicyReque
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetTagPolicyRequest struct {
-	ctx context.Context
-	ApiService *TagPoliciesAPIService
-	id string
+type TagPoliciesAPIGetTagPolicyRequest struct {
+	ctx        context.Context
+	ApiService TagPoliciesAPI
+	id         string
 }
 
-func (r ApiGetTagPolicyRequest) Execute() (*CreateTagPolicy200Response, *http.Response, error) {
+func (r TagPoliciesAPIGetTagPolicyRequest) Execute() (*CreateTagPolicy200Response, *http.Response, error) {
 	return r.ApiService.GetTagPolicyExecute(r)
 }
 
@@ -299,26 +376,27 @@ GetTagPolicy Method for GetTagPolicy
 
 Retrieve a tag policy by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiGetTagPolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return TagPoliciesAPIGetTagPolicyRequest
 */
-func (a *TagPoliciesAPIService) GetTagPolicy(ctx context.Context, id string) ApiGetTagPolicyRequest {
-	return ApiGetTagPolicyRequest{
+func (a *TagPoliciesAPIService) GetTagPolicy(ctx context.Context, id string) TagPoliciesAPIGetTagPolicyRequest {
+	return TagPoliciesAPIGetTagPolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return CreateTagPolicy200Response
-func (a *TagPoliciesAPIService) GetTagPolicyExecute(r ApiGetTagPolicyRequest) (*CreateTagPolicy200Response, *http.Response, error) {
+//
+//	@return CreateTagPolicy200Response
+func (a *TagPoliciesAPIService) GetTagPolicyExecute(r TagPoliciesAPIGetTagPolicyRequest) (*CreateTagPolicy200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateTagPolicy200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateTagPolicy200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TagPoliciesAPIService.GetTagPolicy")
@@ -385,8 +463,8 @@ func (a *TagPoliciesAPIService) GetTagPolicyExecute(r ApiGetTagPolicyRequest) (*
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -396,8 +474,8 @@ func (a *TagPoliciesAPIService) GetTagPolicyExecute(r ApiGetTagPolicyRequest) (*
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -414,12 +492,12 @@ func (a *TagPoliciesAPIService) GetTagPolicyExecute(r ApiGetTagPolicyRequest) (*
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListTagPoliciesRequest struct {
-	ctx context.Context
-	ApiService *TagPoliciesAPIService
+type TagPoliciesAPIListTagPoliciesRequest struct {
+	ctx        context.Context
+	ApiService TagPoliciesAPI
 }
 
-func (r ApiListTagPoliciesRequest) Execute() (*ListTagPolicies200Response, *http.Response, error) {
+func (r TagPoliciesAPIListTagPoliciesRequest) Execute() (*ListTagPolicies200Response, *http.Response, error) {
 	return r.ApiService.ListTagPoliciesExecute(r)
 }
 
@@ -428,24 +506,25 @@ ListTagPolicies Method for ListTagPolicies
 
 Retrieve all tag policies
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListTagPoliciesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return TagPoliciesAPIListTagPoliciesRequest
 */
-func (a *TagPoliciesAPIService) ListTagPolicies(ctx context.Context) ApiListTagPoliciesRequest {
-	return ApiListTagPoliciesRequest{
+func (a *TagPoliciesAPIService) ListTagPolicies(ctx context.Context) TagPoliciesAPIListTagPoliciesRequest {
+	return TagPoliciesAPIListTagPoliciesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ListTagPolicies200Response
-func (a *TagPoliciesAPIService) ListTagPoliciesExecute(r ApiListTagPoliciesRequest) (*ListTagPolicies200Response, *http.Response, error) {
+//
+//	@return ListTagPolicies200Response
+func (a *TagPoliciesAPIService) ListTagPoliciesExecute(r TagPoliciesAPIListTagPoliciesRequest) (*ListTagPolicies200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ListTagPolicies200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ListTagPolicies200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TagPoliciesAPIService.ListTagPolicies")
@@ -505,8 +584,8 @@ func (a *TagPoliciesAPIService) ListTagPoliciesExecute(r ApiListTagPoliciesReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -516,8 +595,8 @@ func (a *TagPoliciesAPIService) ListTagPoliciesExecute(r ApiListTagPoliciesReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -534,19 +613,19 @@ func (a *TagPoliciesAPIService) ListTagPoliciesExecute(r ApiListTagPoliciesReque
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateTagPolicyRequest struct {
-	ctx context.Context
-	ApiService *TagPoliciesAPIService
-	id string
+type TagPoliciesAPIUpdateTagPolicyRequest struct {
+	ctx                    context.Context
+	ApiService             TagPoliciesAPI
+	id                     string
 	createTagPolicyRequest *CreateTagPolicyRequest
 }
 
-func (r ApiUpdateTagPolicyRequest) CreateTagPolicyRequest(createTagPolicyRequest CreateTagPolicyRequest) ApiUpdateTagPolicyRequest {
+func (r TagPoliciesAPIUpdateTagPolicyRequest) CreateTagPolicyRequest(createTagPolicyRequest CreateTagPolicyRequest) TagPoliciesAPIUpdateTagPolicyRequest {
 	r.createTagPolicyRequest = &createTagPolicyRequest
 	return r
 }
 
-func (r ApiUpdateTagPolicyRequest) Execute() (*CreateTagPolicy200Response, *http.Response, error) {
+func (r TagPoliciesAPIUpdateTagPolicyRequest) Execute() (*CreateTagPolicy200Response, *http.Response, error) {
 	return r.ApiService.UpdateTagPolicyExecute(r)
 }
 
@@ -555,26 +634,27 @@ UpdateTagPolicy Method for UpdateTagPolicy
 
 Update a tag policy by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiUpdateTagPolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return TagPoliciesAPIUpdateTagPolicyRequest
 */
-func (a *TagPoliciesAPIService) UpdateTagPolicy(ctx context.Context, id string) ApiUpdateTagPolicyRequest {
-	return ApiUpdateTagPolicyRequest{
+func (a *TagPoliciesAPIService) UpdateTagPolicy(ctx context.Context, id string) TagPoliciesAPIUpdateTagPolicyRequest {
+	return TagPoliciesAPIUpdateTagPolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return CreateTagPolicy200Response
-func (a *TagPoliciesAPIService) UpdateTagPolicyExecute(r ApiUpdateTagPolicyRequest) (*CreateTagPolicy200Response, *http.Response, error) {
+//
+//	@return CreateTagPolicy200Response
+func (a *TagPoliciesAPIService) UpdateTagPolicyExecute(r TagPoliciesAPIUpdateTagPolicyRequest) (*CreateTagPolicy200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateTagPolicy200Response
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateTagPolicy200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TagPoliciesAPIService.UpdateTagPolicy")
@@ -646,8 +726,8 @@ func (a *TagPoliciesAPIService) UpdateTagPolicyExecute(r ApiUpdateTagPolicyReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -657,8 +737,8 @@ func (a *TagPoliciesAPIService) UpdateTagPolicyExecute(r ApiUpdateTagPolicyReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

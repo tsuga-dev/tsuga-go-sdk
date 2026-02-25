@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,16 +20,17 @@ var _ MappedNullable = &MonitorConfigurationAnomalyMetric{}
 
 // MonitorConfigurationAnomalyMetric struct for MonitorConfigurationAnomalyMetric
 type MonitorConfigurationAnomalyMetric struct {
-	Type string `json:"type"`
-	Condition MonitorConfigurationAnomalyLogCondition `json:"condition"`
-	NoDataBehavior string `json:"noDataBehavior"`
+	Type           string                                  `json:"type"`
+	Condition      MonitorConfigurationAnomalyLogCondition `json:"condition"`
+	NoDataBehavior string                                  `json:"noDataBehavior"`
 	// Timeframe of the monitor in minutes
-	Timeframe float32 `json:"timeframe"`
-	GroupByFields []MonitorConfigurationMetricGroupByFieldsInner `json:"groupByFields"`
-	AggregationAlertLogic *string `json:"aggregationAlertLogic,omitempty"`
-	ProportionAlertThreshold *int32 `json:"proportionAlertThreshold,omitempty"`
+	Timeframe                float32                                        `json:"timeframe"`
+	GroupByFields            []MonitorConfigurationMetricGroupByFieldsInner `json:"groupByFields"`
+	AggregationAlertLogic    *string                                        `json:"aggregationAlertLogic,omitempty"`
+	ProportionAlertThreshold *int32                                         `json:"proportionAlertThreshold,omitempty"`
 	// Aggregations that may be combined together in the same query
-	Queries []MonitorAggregationQuery `json:"queries"`
+	Queries              []MonitorAggregationQuery `json:"queries"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MonitorConfigurationAnomalyMetric MonitorConfigurationAnomalyMetric
@@ -267,7 +267,7 @@ func (o *MonitorConfigurationAnomalyMetric) SetQueries(v []MonitorAggregationQue
 }
 
 func (o MonitorConfigurationAnomalyMetric) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -288,6 +288,11 @@ func (o MonitorConfigurationAnomalyMetric) ToMap() (map[string]interface{}, erro
 		toSerialize["proportionAlertThreshold"] = o.ProportionAlertThreshold
 	}
 	toSerialize["queries"] = o.Queries
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -309,10 +314,10 @@ func (o *MonitorConfigurationAnomalyMetric) UnmarshalJSON(data []byte) (err erro
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -320,15 +325,27 @@ func (o *MonitorConfigurationAnomalyMetric) UnmarshalJSON(data []byte) (err erro
 
 	varMonitorConfigurationAnomalyMetric := _MonitorConfigurationAnomalyMetric{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMonitorConfigurationAnomalyMetric)
+	err = json.Unmarshal(data, &varMonitorConfigurationAnomalyMetric)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MonitorConfigurationAnomalyMetric(varMonitorConfigurationAnomalyMetric)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "condition")
+		delete(additionalProperties, "noDataBehavior")
+		delete(additionalProperties, "timeframe")
+		delete(additionalProperties, "groupByFields")
+		delete(additionalProperties, "aggregationAlertLogic")
+		delete(additionalProperties, "proportionAlertThreshold")
+		delete(additionalProperties, "queries")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -368,5 +385,3 @@ func (v *NullableMonitorConfigurationAnomalyMetric) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -30,7 +29,8 @@ type GraphVisualizationNote struct {
 	// Flex alignment keyword used for widget layout
 	NoteAlign *string `json:"noteAlign,omitempty"`
 	// Flex alignment keyword used for widget layout
-	NoteJustifyContent *string `json:"noteJustifyContent,omitempty"`
+	NoteJustifyContent   *string `json:"noteJustifyContent,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GraphVisualizationNote GraphVisualizationNote
@@ -206,7 +206,7 @@ func (o *GraphVisualizationNote) SetNoteJustifyContent(v string) {
 }
 
 func (o GraphVisualizationNote) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -228,6 +228,11 @@ func (o GraphVisualizationNote) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.NoteJustifyContent) {
 		toSerialize["noteJustifyContent"] = o.NoteJustifyContent
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -244,10 +249,10 @@ func (o *GraphVisualizationNote) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -255,15 +260,24 @@ func (o *GraphVisualizationNote) UnmarshalJSON(data []byte) (err error) {
 
 	varGraphVisualizationNote := _GraphVisualizationNote{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGraphVisualizationNote)
+	err = json.Unmarshal(data, &varGraphVisualizationNote)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GraphVisualizationNote(varGraphVisualizationNote)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "note")
+		delete(additionalProperties, "noteColor")
+		delete(additionalProperties, "noteAlign")
+		delete(additionalProperties, "noteJustifyContent")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -303,5 +317,3 @@ func (v *NullableGraphVisualizationNote) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

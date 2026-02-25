@@ -32,8 +32,11 @@ type CreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule struct {
 	// Time ranges for this day
 	Saturday []CreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner `json:"saturday,omitempty"`
 	// Time ranges for this day
-	Sunday []CreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner `json:"sunday,omitempty"`
+	Sunday               []CreateNotificationSilenceRequestScheduleOneOf1WeeklyScheduleMondayInner `json:"sunday,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule CreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule
 
 // NewCreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule instantiates a new CreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule object
 // This constructor will assign default values to properties that have it defined,
@@ -277,7 +280,7 @@ func (o *CreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule) SetSunday
 }
 
 func (o CreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -307,7 +310,39 @@ func (o CreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule) ToMap() (m
 	if !IsNil(o.Sunday) {
 		toSerialize["sunday"] = o.Sunday
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule) UnmarshalJSON(data []byte) (err error) {
+	varCreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule := _CreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule{}
+
+	err = json.Unmarshal(data, &varCreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule(varCreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "monday")
+		delete(additionalProperties, "tuesday")
+		delete(additionalProperties, "wednesday")
+		delete(additionalProperties, "thursday")
+		delete(additionalProperties, "friday")
+		delete(additionalProperties, "saturday")
+		delete(additionalProperties, "sunday")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule struct {
@@ -345,5 +380,3 @@ func (v *NullableCreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule) U
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

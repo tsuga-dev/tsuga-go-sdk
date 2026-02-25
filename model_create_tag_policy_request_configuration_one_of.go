@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,10 +20,11 @@ var _ MappedNullable = &CreateTagPolicyRequestConfigurationOneOf{}
 
 // CreateTagPolicyRequestConfigurationOneOf struct for CreateTagPolicyRequestConfigurationOneOf
 type CreateTagPolicyRequestConfigurationOneOf struct {
-	Type string `json:"type"`
-	AssetTypes []string `json:"assetTypes"`
-	ShouldInsertWarning bool `json:"shouldInsertWarning"`
-	DropSample *float32 `json:"dropSample,omitempty"`
+	Type                 string   `json:"type"`
+	AssetTypes           []string `json:"assetTypes"`
+	ShouldInsertWarning  bool     `json:"shouldInsertWarning"`
+	DropSample           *float32 `json:"dropSample,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateTagPolicyRequestConfigurationOneOf CreateTagPolicyRequestConfigurationOneOf
@@ -154,7 +154,7 @@ func (o *CreateTagPolicyRequestConfigurationOneOf) SetDropSample(v float32) {
 }
 
 func (o CreateTagPolicyRequestConfigurationOneOf) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -169,6 +169,11 @@ func (o CreateTagPolicyRequestConfigurationOneOf) ToMap() (map[string]interface{
 	if !IsNil(o.DropSample) {
 		toSerialize["dropSample"] = o.DropSample
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -187,10 +192,10 @@ func (o *CreateTagPolicyRequestConfigurationOneOf) UnmarshalJSON(data []byte) (e
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -198,15 +203,23 @@ func (o *CreateTagPolicyRequestConfigurationOneOf) UnmarshalJSON(data []byte) (e
 
 	varCreateTagPolicyRequestConfigurationOneOf := _CreateTagPolicyRequestConfigurationOneOf{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateTagPolicyRequestConfigurationOneOf)
+	err = json.Unmarshal(data, &varCreateTagPolicyRequestConfigurationOneOf)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateTagPolicyRequestConfigurationOneOf(varCreateTagPolicyRequestConfigurationOneOf)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "assetTypes")
+		delete(additionalProperties, "shouldInsertWarning")
+		delete(additionalProperties, "dropSample")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -246,5 +259,3 @@ func (v *NullableCreateTagPolicyRequestConfigurationOneOf) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

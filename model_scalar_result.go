@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,7 +25,8 @@ type ScalarResult struct {
 	// Group-by field values
 	Group map[string]ScalarResultGroupValue `json:"group"`
 	// Aggregated value
-	Value float32 `json:"value"`
+	Value                float32 `json:"value"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ScalarResult ScalarResult
@@ -124,7 +124,7 @@ func (o *ScalarResult) SetValue(v float32) {
 }
 
 func (o ScalarResult) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -136,6 +136,11 @@ func (o ScalarResult) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["group"] = o.Group
 	toSerialize["value"] = o.Value
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -154,10 +159,10 @@ func (o *ScalarResult) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -165,15 +170,22 @@ func (o *ScalarResult) UnmarshalJSON(data []byte) (err error) {
 
 	varScalarResult := _ScalarResult{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varScalarResult)
+	err = json.Unmarshal(data, &varScalarResult)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ScalarResult(varScalarResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "group")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -213,5 +225,3 @@ func (v *NullableScalarResult) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

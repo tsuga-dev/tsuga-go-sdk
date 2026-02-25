@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,8 +21,9 @@ var _ MappedNullable = &ListIngestionApiKeys200Response{}
 // ListIngestionApiKeys200Response struct for ListIngestionApiKeys200Response
 type ListIngestionApiKeys200Response struct {
 	// Identifier used to trace the lifecycle of this API request
-	RequestId string `json:"requestId"`
-	Data []IngestionApiKey `json:"data"`
+	RequestId            string            `json:"requestId"`
+	Data                 []IngestionApiKey `json:"data"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ListIngestionApiKeys200Response ListIngestionApiKeys200Response
@@ -96,7 +96,7 @@ func (o *ListIngestionApiKeys200Response) SetData(v []IngestionApiKey) {
 }
 
 func (o ListIngestionApiKeys200Response) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -107,6 +107,11 @@ func (o ListIngestionApiKeys200Response) ToMap() (map[string]interface{}, error)
 	toSerialize := map[string]interface{}{}
 	toSerialize["requestId"] = o.RequestId
 	toSerialize["data"] = o.Data
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -124,10 +129,10 @@ func (o *ListIngestionApiKeys200Response) UnmarshalJSON(data []byte) (err error)
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -135,15 +140,21 @@ func (o *ListIngestionApiKeys200Response) UnmarshalJSON(data []byte) (err error)
 
 	varListIngestionApiKeys200Response := _ListIngestionApiKeys200Response{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varListIngestionApiKeys200Response)
+	err = json.Unmarshal(data, &varListIngestionApiKeys200Response)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ListIngestionApiKeys200Response(varListIngestionApiKeys200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "requestId")
+		delete(additionalProperties, "data")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -183,5 +194,3 @@ func (v *NullableListIngestionApiKeys200Response) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

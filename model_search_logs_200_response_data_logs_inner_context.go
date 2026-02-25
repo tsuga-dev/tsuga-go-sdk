@@ -19,7 +19,7 @@ var _ MappedNullable = &SearchLogs200ResponseDataLogsInnerContext{}
 
 // SearchLogs200ResponseDataLogsInnerContext struct for SearchLogs200ResponseDataLogsInnerContext
 type SearchLogs200ResponseDataLogsInnerContext struct {
-	Team *string `json:"team,omitempty"`
+	Team                 *string `json:"team,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -75,7 +75,7 @@ func (o *SearchLogs200ResponseDataLogsInnerContext) SetTeam(v string) {
 }
 
 func (o SearchLogs200ResponseDataLogsInnerContext) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -151,5 +151,3 @@ func (v *NullableSearchLogs200ResponseDataLogsInnerContext) UnmarshalJSON(src []
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

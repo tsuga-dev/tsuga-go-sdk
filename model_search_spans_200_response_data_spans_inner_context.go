@@ -19,7 +19,7 @@ var _ MappedNullable = &SearchSpans200ResponseDataSpansInnerContext{}
 
 // SearchSpans200ResponseDataSpansInnerContext struct for SearchSpans200ResponseDataSpansInnerContext
 type SearchSpans200ResponseDataSpansInnerContext struct {
-	Service *SearchSpans200ResponseDataSpansInnerContextService `json:"service,omitempty"`
+	Service              *SearchSpans200ResponseDataSpansInnerContextService `json:"service,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -75,7 +75,7 @@ func (o *SearchSpans200ResponseDataSpansInnerContext) SetService(v SearchSpans20
 }
 
 func (o SearchSpans200ResponseDataSpansInnerContext) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -151,5 +151,3 @@ func (v *NullableSearchSpans200ResponseDataSpansInnerContext) UnmarshalJSON(src 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

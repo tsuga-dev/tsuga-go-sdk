@@ -18,15 +18,15 @@ import (
 
 // Function - struct for Function
 type Function struct {
-	FunctionIncrease *FunctionIncrease
-	FunctionLog *FunctionLog
-	FunctionPerHour *FunctionPerHour
+	FunctionIncrease  *FunctionIncrease
+	FunctionLog       *FunctionLog
+	FunctionPerHour   *FunctionPerHour
 	FunctionPerMinute *FunctionPerMinute
 	FunctionPerSecond *FunctionPerSecond
-	FunctionPower *FunctionPower
-	FunctionRate *FunctionRate
-	FunctionRolling *FunctionRolling
-	FunctionSqrt *FunctionSqrt
+	FunctionPower     *FunctionPower
+	FunctionRate      *FunctionRate
+	FunctionRolling   *FunctionRolling
+	FunctionSqrt      *FunctionSqrt
 }
 
 // FunctionIncreaseAsFunction is a convenience function that returns FunctionIncrease wrapped in Function
@@ -91,7 +91,6 @@ func FunctionSqrtAsFunction(v *FunctionSqrt) Function {
 		FunctionSqrt: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *Function) UnmarshalJSON(data []byte) error {
@@ -312,7 +311,7 @@ func (src Function) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *Function) GetActualInstance() (interface{}) {
+func (obj *Function) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -357,7 +356,7 @@ func (obj *Function) GetActualInstance() (interface{}) {
 }
 
 // Get the actual instance value
-func (obj Function) GetActualInstanceValue() (interface{}) {
+func (obj Function) GetActualInstanceValue() interface{} {
 	if obj.FunctionIncrease != nil {
 		return *obj.FunctionIncrease
 	}
@@ -433,5 +432,3 @@ func (v *NullableFunction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,8 +20,9 @@ var _ MappedNullable = &MonitorConfigurationAnomalyLogCondition{}
 
 // MonitorConfigurationAnomalyLogCondition struct for MonitorConfigurationAnomalyLogCondition
 type MonitorConfigurationAnomalyLogCondition struct {
-	Formula string `json:"formula"`
-	ConditionType string `json:"conditionType"`
+	Formula              string `json:"formula"`
+	ConditionType        string `json:"conditionType"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MonitorConfigurationAnomalyLogCondition MonitorConfigurationAnomalyLogCondition
@@ -95,7 +95,7 @@ func (o *MonitorConfigurationAnomalyLogCondition) SetConditionType(v string) {
 }
 
 func (o MonitorConfigurationAnomalyLogCondition) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -106,6 +106,11 @@ func (o MonitorConfigurationAnomalyLogCondition) ToMap() (map[string]interface{}
 	toSerialize := map[string]interface{}{}
 	toSerialize["formula"] = o.Formula
 	toSerialize["conditionType"] = o.ConditionType
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -123,10 +128,10 @@ func (o *MonitorConfigurationAnomalyLogCondition) UnmarshalJSON(data []byte) (er
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -134,15 +139,21 @@ func (o *MonitorConfigurationAnomalyLogCondition) UnmarshalJSON(data []byte) (er
 
 	varMonitorConfigurationAnomalyLogCondition := _MonitorConfigurationAnomalyLogCondition{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMonitorConfigurationAnomalyLogCondition)
+	err = json.Unmarshal(data, &varMonitorConfigurationAnomalyLogCondition)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MonitorConfigurationAnomalyLogCondition(varMonitorConfigurationAnomalyLogCondition)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "formula")
+		delete(additionalProperties, "conditionType")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -182,5 +193,3 @@ func (v *NullableMonitorConfigurationAnomalyLogCondition) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

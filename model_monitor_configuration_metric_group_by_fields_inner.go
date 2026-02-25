@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,8 +20,9 @@ var _ MappedNullable = &MonitorConfigurationMetricGroupByFieldsInner{}
 
 // MonitorConfigurationMetricGroupByFieldsInner struct for MonitorConfigurationMetricGroupByFieldsInner
 type MonitorConfigurationMetricGroupByFieldsInner struct {
-	Fields []string `json:"fields"`
-	Limit float32 `json:"limit"`
+	Fields               []string `json:"fields"`
+	Limit                float32  `json:"limit"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MonitorConfigurationMetricGroupByFieldsInner MonitorConfigurationMetricGroupByFieldsInner
@@ -95,7 +95,7 @@ func (o *MonitorConfigurationMetricGroupByFieldsInner) SetLimit(v float32) {
 }
 
 func (o MonitorConfigurationMetricGroupByFieldsInner) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -106,6 +106,11 @@ func (o MonitorConfigurationMetricGroupByFieldsInner) ToMap() (map[string]interf
 	toSerialize := map[string]interface{}{}
 	toSerialize["fields"] = o.Fields
 	toSerialize["limit"] = o.Limit
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -123,10 +128,10 @@ func (o *MonitorConfigurationMetricGroupByFieldsInner) UnmarshalJSON(data []byte
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -134,15 +139,21 @@ func (o *MonitorConfigurationMetricGroupByFieldsInner) UnmarshalJSON(data []byte
 
 	varMonitorConfigurationMetricGroupByFieldsInner := _MonitorConfigurationMetricGroupByFieldsInner{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMonitorConfigurationMetricGroupByFieldsInner)
+	err = json.Unmarshal(data, &varMonitorConfigurationMetricGroupByFieldsInner)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MonitorConfigurationMetricGroupByFieldsInner(varMonitorConfigurationMetricGroupByFieldsInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "fields")
+		delete(additionalProperties, "limit")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -182,5 +193,3 @@ func (v *NullableMonitorConfigurationMetricGroupByFieldsInner) UnmarshalJSON(src
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

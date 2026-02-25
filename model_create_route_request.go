@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,9 +21,9 @@ var _ MappedNullable = &CreateRouteRequest{}
 // CreateRouteRequest struct for CreateRouteRequest
 type CreateRouteRequest struct {
 	// Human readable name shown for the route
-	Name string `json:"name"`
+	Name        string  `json:"name"`
 	Description *string `json:"description,omitempty"`
-	IsEnabled bool `json:"isEnabled"`
+	IsEnabled   bool    `json:"isEnabled"`
 	// Query that selects which logs should enter the route
 	Query string `json:"query"`
 	// List of key/value tags applied to the resource
@@ -32,7 +31,8 @@ type CreateRouteRequest struct {
 	// Team ID owning and managing the route
 	Owner string `json:"owner"`
 	// Ordered processors applied to logs that match the route
-	Processors []Processor `json:"processors"`
+	Processors           []Processor `json:"processors"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateRouteRequest CreateRouteRequest
@@ -244,7 +244,7 @@ func (o *CreateRouteRequest) SetProcessors(v []Processor) {
 }
 
 func (o CreateRouteRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -264,6 +264,11 @@ func (o CreateRouteRequest) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["owner"] = o.Owner
 	toSerialize["processors"] = o.Processors
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -284,10 +289,10 @@ func (o *CreateRouteRequest) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -295,15 +300,26 @@ func (o *CreateRouteRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateRouteRequest := _CreateRouteRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateRouteRequest)
+	err = json.Unmarshal(data, &varCreateRouteRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateRouteRequest(varCreateRouteRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "isEnabled")
+		delete(additionalProperties, "query")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "processors")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -343,5 +359,3 @@ func (v *NullableCreateRouteRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

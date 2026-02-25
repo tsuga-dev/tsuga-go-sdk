@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,10 +21,11 @@ var _ MappedNullable = &CreateNotificationRuleRequestTargetsInner{}
 // CreateNotificationRuleRequestTargetsInner struct for CreateNotificationRuleRequestTargetsInner
 type CreateNotificationRuleRequestTargetsInner struct {
 	// Identifier of the notification target
-	Id string `json:"id"`
-	RateLimit *CreateNotificationRuleRequestTargetsInnerRateLimit `json:"rateLimit,omitempty"`
-	Config CreateNotificationRuleRequestTargetsInnerConfig `json:"config"`
-	RenotifyConfig *CreateNotificationRuleRequestTargetsInnerRenotifyConfig `json:"renotifyConfig,omitempty"`
+	Id                   string                                                   `json:"id"`
+	RateLimit            *CreateNotificationRuleRequestTargetsInnerRateLimit      `json:"rateLimit,omitempty"`
+	Config               CreateNotificationRuleRequestTargetsInnerConfig          `json:"config"`
+	RenotifyConfig       *CreateNotificationRuleRequestTargetsInnerRenotifyConfig `json:"renotifyConfig,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateNotificationRuleRequestTargetsInner CreateNotificationRuleRequestTargetsInner
@@ -162,7 +162,7 @@ func (o *CreateNotificationRuleRequestTargetsInner) SetRenotifyConfig(v CreateNo
 }
 
 func (o CreateNotificationRuleRequestTargetsInner) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -179,6 +179,11 @@ func (o CreateNotificationRuleRequestTargetsInner) ToMap() (map[string]interface
 	if !IsNil(o.RenotifyConfig) {
 		toSerialize["renotifyConfig"] = o.RenotifyConfig
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -196,10 +201,10 @@ func (o *CreateNotificationRuleRequestTargetsInner) UnmarshalJSON(data []byte) (
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -207,15 +212,23 @@ func (o *CreateNotificationRuleRequestTargetsInner) UnmarshalJSON(data []byte) (
 
 	varCreateNotificationRuleRequestTargetsInner := _CreateNotificationRuleRequestTargetsInner{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateNotificationRuleRequestTargetsInner)
+	err = json.Unmarshal(data, &varCreateNotificationRuleRequestTargetsInner)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateNotificationRuleRequestTargetsInner(varCreateNotificationRuleRequestTargetsInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "rateLimit")
+		delete(additionalProperties, "config")
+		delete(additionalProperties, "renotifyConfig")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -255,5 +268,3 @@ func (v *NullableCreateNotificationRuleRequestTargetsInner) UnmarshalJSON(src []
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

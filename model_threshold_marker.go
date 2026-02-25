@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,7 +23,8 @@ type ThresholdMarker struct {
 	// Y-axis value where the threshold marker is placed
 	Value float32 `json:"value"`
 	// Level applied to the threshold marker
-	Level string `json:"level"`
+	Level                string `json:"level"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ThresholdMarker ThresholdMarker
@@ -97,7 +97,7 @@ func (o *ThresholdMarker) SetLevel(v string) {
 }
 
 func (o ThresholdMarker) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -108,6 +108,11 @@ func (o ThresholdMarker) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["value"] = o.Value
 	toSerialize["level"] = o.Level
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -125,10 +130,10 @@ func (o *ThresholdMarker) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -136,15 +141,21 @@ func (o *ThresholdMarker) UnmarshalJSON(data []byte) (err error) {
 
 	varThresholdMarker := _ThresholdMarker{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varThresholdMarker)
+	err = json.Unmarshal(data, &varThresholdMarker)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ThresholdMarker(varThresholdMarker)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "level")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -184,5 +195,3 @@ func (v *NullableThresholdMarker) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

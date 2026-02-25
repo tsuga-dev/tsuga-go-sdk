@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,7 +25,8 @@ type ServerErrorResponse struct {
 	// Human readable explanation of the error
 	Message string `json:"message"`
 	// HTTP status code that was returned
-	StatusCode float32 `json:"statusCode"`
+	StatusCode           float32 `json:"statusCode"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ServerErrorResponse ServerErrorResponse
@@ -131,7 +131,7 @@ func (o *ServerErrorResponse) SetStatusCode(v float32) {
 }
 
 func (o ServerErrorResponse) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -145,6 +145,11 @@ func (o ServerErrorResponse) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["message"] = o.Message
 	toSerialize["statusCode"] = o.StatusCode
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -162,10 +167,10 @@ func (o *ServerErrorResponse) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -173,15 +178,22 @@ func (o *ServerErrorResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varServerErrorResponse := _ServerErrorResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varServerErrorResponse)
+	err = json.Unmarshal(data, &varServerErrorResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ServerErrorResponse(varServerErrorResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "statusCode")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -221,5 +233,3 @@ func (v *NullableServerErrorResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

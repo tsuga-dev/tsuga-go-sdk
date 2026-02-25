@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -25,7 +24,8 @@ type RuleTargetConfigPagerDuty struct {
 	// Identifier of the PagerDuty integration to use
 	IntegrationId string `json:"integrationId"`
 	// Human readable name of the PagerDuty integration
-	IntegrationName string `json:"integrationName"`
+	IntegrationName      string `json:"integrationName"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RuleTargetConfigPagerDuty RuleTargetConfigPagerDuty
@@ -123,7 +123,7 @@ func (o *RuleTargetConfigPagerDuty) SetIntegrationName(v string) {
 }
 
 func (o RuleTargetConfigPagerDuty) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -135,6 +135,11 @@ func (o RuleTargetConfigPagerDuty) ToMap() (map[string]interface{}, error) {
 	toSerialize["type"] = o.Type
 	toSerialize["integrationId"] = o.IntegrationId
 	toSerialize["integrationName"] = o.IntegrationName
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -153,10 +158,10 @@ func (o *RuleTargetConfigPagerDuty) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -164,15 +169,22 @@ func (o *RuleTargetConfigPagerDuty) UnmarshalJSON(data []byte) (err error) {
 
 	varRuleTargetConfigPagerDuty := _RuleTargetConfigPagerDuty{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRuleTargetConfigPagerDuty)
+	err = json.Unmarshal(data, &varRuleTargetConfigPagerDuty)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RuleTargetConfigPagerDuty(varRuleTargetConfigPagerDuty)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "integrationId")
+		delete(additionalProperties, "integrationName")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -212,5 +224,3 @@ func (v *NullableRuleTargetConfigPagerDuty) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -19,22 +19,97 @@ import (
 	"strings"
 )
 
+type TeamsAPI interface {
+
+	/*
+		CreateTeam Method for CreateTeam
+
+		Create a new team
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return TeamsAPICreateTeamRequest
+	*/
+	CreateTeam(ctx context.Context) TeamsAPICreateTeamRequest
+
+	// CreateTeamExecute executes the request
+	//  @return CreateTeam200Response
+	CreateTeamExecute(r TeamsAPICreateTeamRequest) (*CreateTeam200Response, *http.Response, error)
+
+	/*
+		DeleteTeam Method for DeleteTeam
+
+		Delete a team by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return TeamsAPIDeleteTeamRequest
+	*/
+	DeleteTeam(ctx context.Context, id string) TeamsAPIDeleteTeamRequest
+
+	// DeleteTeamExecute executes the request
+	//  @return DeleteIngestionApiKey200Response
+	DeleteTeamExecute(r TeamsAPIDeleteTeamRequest) (*DeleteIngestionApiKey200Response, *http.Response, error)
+
+	/*
+		GetTeam Method for GetTeam
+
+		Retrieve a team by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return TeamsAPIGetTeamRequest
+	*/
+	GetTeam(ctx context.Context, id string) TeamsAPIGetTeamRequest
+
+	// GetTeamExecute executes the request
+	//  @return CreateTeam200Response
+	GetTeamExecute(r TeamsAPIGetTeamRequest) (*CreateTeam200Response, *http.Response, error)
+
+	/*
+		ListTeams Method for ListTeams
+
+		Retrieve all teams
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return TeamsAPIListTeamsRequest
+	*/
+	ListTeams(ctx context.Context) TeamsAPIListTeamsRequest
+
+	// ListTeamsExecute executes the request
+	//  @return ListTeams200Response
+	ListTeamsExecute(r TeamsAPIListTeamsRequest) (*ListTeams200Response, *http.Response, error)
+
+	/*
+		UpdateTeam Method for UpdateTeam
+
+		Update a team by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return TeamsAPIUpdateTeamRequest
+	*/
+	UpdateTeam(ctx context.Context, id string) TeamsAPIUpdateTeamRequest
+
+	// UpdateTeamExecute executes the request
+	//  @return CreateTeam200Response
+	UpdateTeamExecute(r TeamsAPIUpdateTeamRequest) (*CreateTeam200Response, *http.Response, error)
+}
 
 // TeamsAPIService TeamsAPI service
 type TeamsAPIService service
 
-type ApiCreateTeamRequest struct {
-	ctx context.Context
-	ApiService *TeamsAPIService
+type TeamsAPICreateTeamRequest struct {
+	ctx               context.Context
+	ApiService        TeamsAPI
 	createTeamRequest *CreateTeamRequest
 }
 
-func (r ApiCreateTeamRequest) CreateTeamRequest(createTeamRequest CreateTeamRequest) ApiCreateTeamRequest {
+func (r TeamsAPICreateTeamRequest) CreateTeamRequest(createTeamRequest CreateTeamRequest) TeamsAPICreateTeamRequest {
 	r.createTeamRequest = &createTeamRequest
 	return r
 }
 
-func (r ApiCreateTeamRequest) Execute() (*CreateTeam200Response, *http.Response, error) {
+func (r TeamsAPICreateTeamRequest) Execute() (*CreateTeam200Response, *http.Response, error) {
 	return r.ApiService.CreateTeamExecute(r)
 }
 
@@ -43,24 +118,25 @@ CreateTeam Method for CreateTeam
 
 Create a new team
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateTeamRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return TeamsAPICreateTeamRequest
 */
-func (a *TeamsAPIService) CreateTeam(ctx context.Context) ApiCreateTeamRequest {
-	return ApiCreateTeamRequest{
+func (a *TeamsAPIService) CreateTeam(ctx context.Context) TeamsAPICreateTeamRequest {
+	return TeamsAPICreateTeamRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return CreateTeam200Response
-func (a *TeamsAPIService) CreateTeamExecute(r ApiCreateTeamRequest) (*CreateTeam200Response, *http.Response, error) {
+//
+//	@return CreateTeam200Response
+func (a *TeamsAPIService) CreateTeamExecute(r TeamsAPICreateTeamRequest) (*CreateTeam200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateTeam200Response
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateTeam200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsAPIService.CreateTeam")
@@ -125,8 +201,8 @@ func (a *TeamsAPIService) CreateTeamExecute(r ApiCreateTeamRequest) (*CreateTeam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -136,8 +212,8 @@ func (a *TeamsAPIService) CreateTeamExecute(r ApiCreateTeamRequest) (*CreateTeam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -154,13 +230,13 @@ func (a *TeamsAPIService) CreateTeamExecute(r ApiCreateTeamRequest) (*CreateTeam
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteTeamRequest struct {
-	ctx context.Context
-	ApiService *TeamsAPIService
-	id string
+type TeamsAPIDeleteTeamRequest struct {
+	ctx        context.Context
+	ApiService TeamsAPI
+	id         string
 }
 
-func (r ApiDeleteTeamRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
+func (r TeamsAPIDeleteTeamRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	return r.ApiService.DeleteTeamExecute(r)
 }
 
@@ -169,26 +245,27 @@ DeleteTeam Method for DeleteTeam
 
 Delete a team by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiDeleteTeamRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return TeamsAPIDeleteTeamRequest
 */
-func (a *TeamsAPIService) DeleteTeam(ctx context.Context, id string) ApiDeleteTeamRequest {
-	return ApiDeleteTeamRequest{
+func (a *TeamsAPIService) DeleteTeam(ctx context.Context, id string) TeamsAPIDeleteTeamRequest {
+	return TeamsAPIDeleteTeamRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return DeleteIngestionApiKey200Response
-func (a *TeamsAPIService) DeleteTeamExecute(r ApiDeleteTeamRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
+//
+//	@return DeleteIngestionApiKey200Response
+func (a *TeamsAPIService) DeleteTeamExecute(r TeamsAPIDeleteTeamRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *DeleteIngestionApiKey200Response
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DeleteIngestionApiKey200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsAPIService.DeleteTeam")
@@ -255,8 +332,8 @@ func (a *TeamsAPIService) DeleteTeamExecute(r ApiDeleteTeamRequest) (*DeleteInge
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -266,8 +343,8 @@ func (a *TeamsAPIService) DeleteTeamExecute(r ApiDeleteTeamRequest) (*DeleteInge
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -284,13 +361,13 @@ func (a *TeamsAPIService) DeleteTeamExecute(r ApiDeleteTeamRequest) (*DeleteInge
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetTeamRequest struct {
-	ctx context.Context
-	ApiService *TeamsAPIService
-	id string
+type TeamsAPIGetTeamRequest struct {
+	ctx        context.Context
+	ApiService TeamsAPI
+	id         string
 }
 
-func (r ApiGetTeamRequest) Execute() (*CreateTeam200Response, *http.Response, error) {
+func (r TeamsAPIGetTeamRequest) Execute() (*CreateTeam200Response, *http.Response, error) {
 	return r.ApiService.GetTeamExecute(r)
 }
 
@@ -299,26 +376,27 @@ GetTeam Method for GetTeam
 
 Retrieve a team by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiGetTeamRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return TeamsAPIGetTeamRequest
 */
-func (a *TeamsAPIService) GetTeam(ctx context.Context, id string) ApiGetTeamRequest {
-	return ApiGetTeamRequest{
+func (a *TeamsAPIService) GetTeam(ctx context.Context, id string) TeamsAPIGetTeamRequest {
+	return TeamsAPIGetTeamRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return CreateTeam200Response
-func (a *TeamsAPIService) GetTeamExecute(r ApiGetTeamRequest) (*CreateTeam200Response, *http.Response, error) {
+//
+//	@return CreateTeam200Response
+func (a *TeamsAPIService) GetTeamExecute(r TeamsAPIGetTeamRequest) (*CreateTeam200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateTeam200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateTeam200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsAPIService.GetTeam")
@@ -385,8 +463,8 @@ func (a *TeamsAPIService) GetTeamExecute(r ApiGetTeamRequest) (*CreateTeam200Res
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -396,8 +474,8 @@ func (a *TeamsAPIService) GetTeamExecute(r ApiGetTeamRequest) (*CreateTeam200Res
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -414,12 +492,12 @@ func (a *TeamsAPIService) GetTeamExecute(r ApiGetTeamRequest) (*CreateTeam200Res
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListTeamsRequest struct {
-	ctx context.Context
-	ApiService *TeamsAPIService
+type TeamsAPIListTeamsRequest struct {
+	ctx        context.Context
+	ApiService TeamsAPI
 }
 
-func (r ApiListTeamsRequest) Execute() (*ListTeams200Response, *http.Response, error) {
+func (r TeamsAPIListTeamsRequest) Execute() (*ListTeams200Response, *http.Response, error) {
 	return r.ApiService.ListTeamsExecute(r)
 }
 
@@ -428,24 +506,25 @@ ListTeams Method for ListTeams
 
 Retrieve all teams
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListTeamsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return TeamsAPIListTeamsRequest
 */
-func (a *TeamsAPIService) ListTeams(ctx context.Context) ApiListTeamsRequest {
-	return ApiListTeamsRequest{
+func (a *TeamsAPIService) ListTeams(ctx context.Context) TeamsAPIListTeamsRequest {
+	return TeamsAPIListTeamsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ListTeams200Response
-func (a *TeamsAPIService) ListTeamsExecute(r ApiListTeamsRequest) (*ListTeams200Response, *http.Response, error) {
+//
+//	@return ListTeams200Response
+func (a *TeamsAPIService) ListTeamsExecute(r TeamsAPIListTeamsRequest) (*ListTeams200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ListTeams200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ListTeams200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsAPIService.ListTeams")
@@ -505,8 +584,8 @@ func (a *TeamsAPIService) ListTeamsExecute(r ApiListTeamsRequest) (*ListTeams200
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -516,8 +595,8 @@ func (a *TeamsAPIService) ListTeamsExecute(r ApiListTeamsRequest) (*ListTeams200
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -534,19 +613,19 @@ func (a *TeamsAPIService) ListTeamsExecute(r ApiListTeamsRequest) (*ListTeams200
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateTeamRequest struct {
-	ctx context.Context
-	ApiService *TeamsAPIService
-	id string
+type TeamsAPIUpdateTeamRequest struct {
+	ctx               context.Context
+	ApiService        TeamsAPI
+	id                string
 	createTeamRequest *CreateTeamRequest
 }
 
-func (r ApiUpdateTeamRequest) CreateTeamRequest(createTeamRequest CreateTeamRequest) ApiUpdateTeamRequest {
+func (r TeamsAPIUpdateTeamRequest) CreateTeamRequest(createTeamRequest CreateTeamRequest) TeamsAPIUpdateTeamRequest {
 	r.createTeamRequest = &createTeamRequest
 	return r
 }
 
-func (r ApiUpdateTeamRequest) Execute() (*CreateTeam200Response, *http.Response, error) {
+func (r TeamsAPIUpdateTeamRequest) Execute() (*CreateTeam200Response, *http.Response, error) {
 	return r.ApiService.UpdateTeamExecute(r)
 }
 
@@ -555,26 +634,27 @@ UpdateTeam Method for UpdateTeam
 
 Update a team by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiUpdateTeamRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return TeamsAPIUpdateTeamRequest
 */
-func (a *TeamsAPIService) UpdateTeam(ctx context.Context, id string) ApiUpdateTeamRequest {
-	return ApiUpdateTeamRequest{
+func (a *TeamsAPIService) UpdateTeam(ctx context.Context, id string) TeamsAPIUpdateTeamRequest {
+	return TeamsAPIUpdateTeamRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return CreateTeam200Response
-func (a *TeamsAPIService) UpdateTeamExecute(r ApiUpdateTeamRequest) (*CreateTeam200Response, *http.Response, error) {
+//
+//	@return CreateTeam200Response
+func (a *TeamsAPIService) UpdateTeamExecute(r TeamsAPIUpdateTeamRequest) (*CreateTeam200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateTeam200Response
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateTeam200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsAPIService.UpdateTeam")
@@ -646,8 +726,8 @@ func (a *TeamsAPIService) UpdateTeamExecute(r ApiUpdateTeamRequest) (*CreateTeam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -657,8 +737,8 @@ func (a *TeamsAPIService) UpdateTeamExecute(r ApiUpdateTeamRequest) (*CreateTeam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

@@ -18,12 +18,12 @@ import (
 
 // Aggregate - struct for Aggregate
 type Aggregate struct {
-	AggregateAverage *AggregateAverage
-	AggregateCount *AggregateCount
-	AggregateMax *AggregateMax
-	AggregateMin *AggregateMin
-	AggregatePercentile *AggregatePercentile
-	AggregateSum *AggregateSum
+	AggregateAverage     *AggregateAverage
+	AggregateCount       *AggregateCount
+	AggregateMax         *AggregateMax
+	AggregateMin         *AggregateMin
+	AggregatePercentile  *AggregatePercentile
+	AggregateSum         *AggregateSum
 	AggregateUniqueCount *AggregateUniqueCount
 }
 
@@ -75,7 +75,6 @@ func AggregateUniqueCountAsAggregate(v *AggregateUniqueCount) Aggregate {
 		AggregateUniqueCount: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *Aggregate) UnmarshalJSON(data []byte) error {
@@ -252,7 +251,7 @@ func (src Aggregate) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *Aggregate) GetActualInstance() (interface{}) {
+func (obj *Aggregate) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -289,7 +288,7 @@ func (obj *Aggregate) GetActualInstance() (interface{}) {
 }
 
 // Get the actual instance value
-func (obj Aggregate) GetActualInstanceValue() (interface{}) {
+func (obj Aggregate) GetActualInstanceValue() interface{} {
 	if obj.AggregateAverage != nil {
 		return *obj.AggregateAverage
 	}
@@ -357,5 +356,3 @@ func (v *NullableAggregate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

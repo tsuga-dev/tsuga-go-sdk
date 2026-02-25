@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,8 +20,9 @@ var _ MappedNullable = &CreateTagPolicyRequestTeamScope{}
 
 // CreateTagPolicyRequestTeamScope struct for CreateTagPolicyRequestTeamScope
 type CreateTagPolicyRequestTeamScope struct {
-	TeamIds []string `json:"teamIds"`
-	Mode string `json:"mode"`
+	TeamIds              []string `json:"teamIds"`
+	Mode                 string   `json:"mode"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateTagPolicyRequestTeamScope CreateTagPolicyRequestTeamScope
@@ -95,7 +95,7 @@ func (o *CreateTagPolicyRequestTeamScope) SetMode(v string) {
 }
 
 func (o CreateTagPolicyRequestTeamScope) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -106,6 +106,11 @@ func (o CreateTagPolicyRequestTeamScope) ToMap() (map[string]interface{}, error)
 	toSerialize := map[string]interface{}{}
 	toSerialize["teamIds"] = o.TeamIds
 	toSerialize["mode"] = o.Mode
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -123,10 +128,10 @@ func (o *CreateTagPolicyRequestTeamScope) UnmarshalJSON(data []byte) (err error)
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -134,15 +139,21 @@ func (o *CreateTagPolicyRequestTeamScope) UnmarshalJSON(data []byte) (err error)
 
 	varCreateTagPolicyRequestTeamScope := _CreateTagPolicyRequestTeamScope{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateTagPolicyRequestTeamScope)
+	err = json.Unmarshal(data, &varCreateTagPolicyRequestTeamScope)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateTagPolicyRequestTeamScope(varCreateTagPolicyRequestTeamScope)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "teamIds")
+		delete(additionalProperties, "mode")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -182,5 +193,3 @@ func (v *NullableCreateTagPolicyRequestTeamScope) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

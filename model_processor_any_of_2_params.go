@@ -19,7 +19,7 @@ import (
 // ProcessorAnyOf2Params - struct for ProcessorAnyOf2Params
 type ProcessorAnyOf2Params struct {
 	ProcessorParamsCreatorFormatString *ProcessorParamsCreatorFormatString
-	ProcessorParamsCreatorMathFormula *ProcessorParamsCreatorMathFormula
+	ProcessorParamsCreatorMathFormula  *ProcessorParamsCreatorMathFormula
 }
 
 // ProcessorParamsCreatorFormatStringAsProcessorAnyOf2Params is a convenience function that returns ProcessorParamsCreatorFormatString wrapped in ProcessorAnyOf2Params
@@ -35,7 +35,6 @@ func ProcessorParamsCreatorMathFormulaAsProcessorAnyOf2Params(v *ProcessorParams
 		ProcessorParamsCreatorMathFormula: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *ProcessorAnyOf2Params) UnmarshalJSON(data []byte) error {
@@ -102,7 +101,7 @@ func (src ProcessorAnyOf2Params) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ProcessorAnyOf2Params) GetActualInstance() (interface{}) {
+func (obj *ProcessorAnyOf2Params) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -119,7 +118,7 @@ func (obj *ProcessorAnyOf2Params) GetActualInstance() (interface{}) {
 }
 
 // Get the actual instance value
-func (obj ProcessorAnyOf2Params) GetActualInstanceValue() (interface{}) {
+func (obj ProcessorAnyOf2Params) GetActualInstanceValue() interface{} {
 	if obj.ProcessorParamsCreatorFormatString != nil {
 		return *obj.ProcessorParamsCreatorFormatString
 	}
@@ -167,5 +166,3 @@ func (v *NullableProcessorAnyOf2Params) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

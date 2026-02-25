@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,7 +21,8 @@ var _ MappedNullable = &DataNormalizerLevel{}
 // DataNormalizerLevel struct for DataNormalizerLevel
 type DataNormalizerLevel struct {
 	// Displays values using their log level name
-	Type string `json:"type"`
+	Type                 string `json:"type"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _DataNormalizerLevel DataNormalizerLevel
@@ -70,7 +70,7 @@ func (o *DataNormalizerLevel) SetType(v string) {
 }
 
 func (o DataNormalizerLevel) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -80,6 +80,11 @@ func (o DataNormalizerLevel) MarshalJSON() ([]byte, error) {
 func (o DataNormalizerLevel) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -96,10 +101,10 @@ func (o *DataNormalizerLevel) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -107,15 +112,20 @@ func (o *DataNormalizerLevel) UnmarshalJSON(data []byte) (err error) {
 
 	varDataNormalizerLevel := _DataNormalizerLevel{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDataNormalizerLevel)
+	err = json.Unmarshal(data, &varDataNormalizerLevel)
 
 	if err != nil {
 		return err
 	}
 
 	*o = DataNormalizerLevel(varDataNormalizerLevel)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -155,5 +165,3 @@ func (v *NullableDataNormalizerLevel) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

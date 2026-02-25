@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,9 +23,9 @@ type Route struct {
 	// Identifier of the log route
 	Id string `json:"id"`
 	// Human readable name shown for the route
-	Name string `json:"name"`
+	Name        string  `json:"name"`
 	Description *string `json:"description,omitempty"`
-	IsEnabled bool `json:"isEnabled"`
+	IsEnabled   bool    `json:"isEnabled"`
 	// Query that selects which logs should enter the route
 	Query string `json:"query"`
 	// List of key/value tags applied to the resource
@@ -34,7 +33,8 @@ type Route struct {
 	// Team ID owning and managing the route
 	Owner string `json:"owner"`
 	// Ordered processors applied to logs that match the route
-	Processors []Processor `json:"processors"`
+	Processors           []Processor `json:"processors"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Route Route
@@ -271,7 +271,7 @@ func (o *Route) SetProcessors(v []Processor) {
 }
 
 func (o Route) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -292,6 +292,11 @@ func (o Route) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["owner"] = o.Owner
 	toSerialize["processors"] = o.Processors
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -313,10 +318,10 @@ func (o *Route) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -324,15 +329,27 @@ func (o *Route) UnmarshalJSON(data []byte) (err error) {
 
 	varRoute := _Route{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRoute)
+	err = json.Unmarshal(data, &varRoute)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Route(varRoute)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "isEnabled")
+		delete(additionalProperties, "query")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "processors")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -372,5 +389,3 @@ func (v *NullableRoute) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

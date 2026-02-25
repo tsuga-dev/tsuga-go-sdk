@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,9 +25,10 @@ type ProcessorParamsCreatorMathFormula struct {
 	// Mathematical formula evaluated to populate the target attribute
 	Formula string `json:"formula"`
 	// Set to true to overwrite an existing target attribute value (defaults to true)
-	OverrideTarget *bool `json:"overrideTarget,omitempty"`
-	Subtype string `json:"subtype"`
-	ReplaceMissingBy0 *bool `json:"replaceMissingBy0,omitempty"`
+	OverrideTarget       *bool  `json:"overrideTarget,omitempty"`
+	Subtype              string `json:"subtype"`
+	ReplaceMissingBy0    *bool  `json:"replaceMissingBy0,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ProcessorParamsCreatorMathFormula ProcessorParamsCreatorMathFormula
@@ -190,7 +190,7 @@ func (o *ProcessorParamsCreatorMathFormula) SetReplaceMissingBy0(v bool) {
 }
 
 func (o ProcessorParamsCreatorMathFormula) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -208,6 +208,11 @@ func (o ProcessorParamsCreatorMathFormula) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.ReplaceMissingBy0) {
 		toSerialize["replaceMissingBy0"] = o.ReplaceMissingBy0
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -226,10 +231,10 @@ func (o *ProcessorParamsCreatorMathFormula) UnmarshalJSON(data []byte) (err erro
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -237,15 +242,24 @@ func (o *ProcessorParamsCreatorMathFormula) UnmarshalJSON(data []byte) (err erro
 
 	varProcessorParamsCreatorMathFormula := _ProcessorParamsCreatorMathFormula{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProcessorParamsCreatorMathFormula)
+	err = json.Unmarshal(data, &varProcessorParamsCreatorMathFormula)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ProcessorParamsCreatorMathFormula(varProcessorParamsCreatorMathFormula)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "targetAttribute")
+		delete(additionalProperties, "formula")
+		delete(additionalProperties, "overrideTarget")
+		delete(additionalProperties, "subtype")
+		delete(additionalProperties, "replaceMissingBy0")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -285,5 +299,3 @@ func (v *NullableProcessorParamsCreatorMathFormula) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

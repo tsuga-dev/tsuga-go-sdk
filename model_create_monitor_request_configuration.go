@@ -18,12 +18,12 @@ import (
 
 // CreateMonitorRequestConfiguration - struct for CreateMonitorRequestConfiguration
 type CreateMonitorRequestConfiguration struct {
-	MonitorConfigurationAnomalyLog *MonitorConfigurationAnomalyLog
-	MonitorConfigurationAnomalyMetric *MonitorConfigurationAnomalyMetric
+	MonitorConfigurationAnomalyLog        *MonitorConfigurationAnomalyLog
+	MonitorConfigurationAnomalyMetric     *MonitorConfigurationAnomalyMetric
 	MonitorConfigurationCertificateExpiry *MonitorConfigurationCertificateExpiry
-	MonitorConfigurationLog *MonitorConfigurationLog
-	MonitorConfigurationLogErrorPattern *MonitorConfigurationLogErrorPattern
-	MonitorConfigurationMetric *MonitorConfigurationMetric
+	MonitorConfigurationLog               *MonitorConfigurationLog
+	MonitorConfigurationLogErrorPattern   *MonitorConfigurationLogErrorPattern
+	MonitorConfigurationMetric            *MonitorConfigurationMetric
 }
 
 // MonitorConfigurationAnomalyLogAsCreateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationAnomalyLog wrapped in CreateMonitorRequestConfiguration
@@ -67,7 +67,6 @@ func MonitorConfigurationMetricAsCreateMonitorRequestConfiguration(v *MonitorCon
 		MonitorConfigurationMetric: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *CreateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
@@ -222,7 +221,7 @@ func (src CreateMonitorRequestConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *CreateMonitorRequestConfiguration) GetActualInstance() (interface{}) {
+func (obj *CreateMonitorRequestConfiguration) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -255,7 +254,7 @@ func (obj *CreateMonitorRequestConfiguration) GetActualInstance() (interface{}) 
 }
 
 // Get the actual instance value
-func (obj CreateMonitorRequestConfiguration) GetActualInstanceValue() (interface{}) {
+func (obj CreateMonitorRequestConfiguration) GetActualInstanceValue() interface{} {
 	if obj.MonitorConfigurationAnomalyLog != nil {
 		return *obj.MonitorConfigurationAnomalyLog
 	}
@@ -319,5 +318,3 @@ func (v *NullableCreateMonitorRequestConfiguration) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

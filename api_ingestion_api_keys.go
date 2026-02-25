@@ -19,22 +19,97 @@ import (
 	"strings"
 )
 
+type IngestionApiKeysAPI interface {
+
+	/*
+		CreateIngestionApiKey Method for CreateIngestionApiKey
+
+		Create a new ingestion API key
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return IngestionApiKeysAPICreateIngestionApiKeyRequest
+	*/
+	CreateIngestionApiKey(ctx context.Context) IngestionApiKeysAPICreateIngestionApiKeyRequest
+
+	// CreateIngestionApiKeyExecute executes the request
+	//  @return CreateIngestionApiKey200Response
+	CreateIngestionApiKeyExecute(r IngestionApiKeysAPICreateIngestionApiKeyRequest) (*CreateIngestionApiKey200Response, *http.Response, error)
+
+	/*
+		DeleteIngestionApiKey Method for DeleteIngestionApiKey
+
+		Delete an ingestion API key by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return IngestionApiKeysAPIDeleteIngestionApiKeyRequest
+	*/
+	DeleteIngestionApiKey(ctx context.Context, id string) IngestionApiKeysAPIDeleteIngestionApiKeyRequest
+
+	// DeleteIngestionApiKeyExecute executes the request
+	//  @return DeleteIngestionApiKey200Response
+	DeleteIngestionApiKeyExecute(r IngestionApiKeysAPIDeleteIngestionApiKeyRequest) (*DeleteIngestionApiKey200Response, *http.Response, error)
+
+	/*
+		GetIngestionApiKey Method for GetIngestionApiKey
+
+		Retrieve an ingestion API key by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return IngestionApiKeysAPIGetIngestionApiKeyRequest
+	*/
+	GetIngestionApiKey(ctx context.Context, id string) IngestionApiKeysAPIGetIngestionApiKeyRequest
+
+	// GetIngestionApiKeyExecute executes the request
+	//  @return GetIngestionApiKey200Response
+	GetIngestionApiKeyExecute(r IngestionApiKeysAPIGetIngestionApiKeyRequest) (*GetIngestionApiKey200Response, *http.Response, error)
+
+	/*
+		ListIngestionApiKeys Method for ListIngestionApiKeys
+
+		Retrieve all ingestion API keys
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return IngestionApiKeysAPIListIngestionApiKeysRequest
+	*/
+	ListIngestionApiKeys(ctx context.Context) IngestionApiKeysAPIListIngestionApiKeysRequest
+
+	// ListIngestionApiKeysExecute executes the request
+	//  @return ListIngestionApiKeys200Response
+	ListIngestionApiKeysExecute(r IngestionApiKeysAPIListIngestionApiKeysRequest) (*ListIngestionApiKeys200Response, *http.Response, error)
+
+	/*
+		UpdateIngestionApiKey Method for UpdateIngestionApiKey
+
+		Update an ingestion API key by its id
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return IngestionApiKeysAPIUpdateIngestionApiKeyRequest
+	*/
+	UpdateIngestionApiKey(ctx context.Context, id string) IngestionApiKeysAPIUpdateIngestionApiKeyRequest
+
+	// UpdateIngestionApiKeyExecute executes the request
+	//  @return GetIngestionApiKey200Response
+	UpdateIngestionApiKeyExecute(r IngestionApiKeysAPIUpdateIngestionApiKeyRequest) (*GetIngestionApiKey200Response, *http.Response, error)
+}
 
 // IngestionApiKeysAPIService IngestionApiKeysAPI service
 type IngestionApiKeysAPIService service
 
-type ApiCreateIngestionApiKeyRequest struct {
-	ctx context.Context
-	ApiService *IngestionApiKeysAPIService
+type IngestionApiKeysAPICreateIngestionApiKeyRequest struct {
+	ctx                          context.Context
+	ApiService                   IngestionApiKeysAPI
 	createIngestionApiKeyRequest *CreateIngestionApiKeyRequest
 }
 
-func (r ApiCreateIngestionApiKeyRequest) CreateIngestionApiKeyRequest(createIngestionApiKeyRequest CreateIngestionApiKeyRequest) ApiCreateIngestionApiKeyRequest {
+func (r IngestionApiKeysAPICreateIngestionApiKeyRequest) CreateIngestionApiKeyRequest(createIngestionApiKeyRequest CreateIngestionApiKeyRequest) IngestionApiKeysAPICreateIngestionApiKeyRequest {
 	r.createIngestionApiKeyRequest = &createIngestionApiKeyRequest
 	return r
 }
 
-func (r ApiCreateIngestionApiKeyRequest) Execute() (*CreateIngestionApiKey200Response, *http.Response, error) {
+func (r IngestionApiKeysAPICreateIngestionApiKeyRequest) Execute() (*CreateIngestionApiKey200Response, *http.Response, error) {
 	return r.ApiService.CreateIngestionApiKeyExecute(r)
 }
 
@@ -43,24 +118,25 @@ CreateIngestionApiKey Method for CreateIngestionApiKey
 
 Create a new ingestion API key
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateIngestionApiKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IngestionApiKeysAPICreateIngestionApiKeyRequest
 */
-func (a *IngestionApiKeysAPIService) CreateIngestionApiKey(ctx context.Context) ApiCreateIngestionApiKeyRequest {
-	return ApiCreateIngestionApiKeyRequest{
+func (a *IngestionApiKeysAPIService) CreateIngestionApiKey(ctx context.Context) IngestionApiKeysAPICreateIngestionApiKeyRequest {
+	return IngestionApiKeysAPICreateIngestionApiKeyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return CreateIngestionApiKey200Response
-func (a *IngestionApiKeysAPIService) CreateIngestionApiKeyExecute(r ApiCreateIngestionApiKeyRequest) (*CreateIngestionApiKey200Response, *http.Response, error) {
+//
+//	@return CreateIngestionApiKey200Response
+func (a *IngestionApiKeysAPIService) CreateIngestionApiKeyExecute(r IngestionApiKeysAPICreateIngestionApiKeyRequest) (*CreateIngestionApiKey200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateIngestionApiKey200Response
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateIngestionApiKey200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngestionApiKeysAPIService.CreateIngestionApiKey")
@@ -125,8 +201,8 @@ func (a *IngestionApiKeysAPIService) CreateIngestionApiKeyExecute(r ApiCreateIng
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -136,8 +212,8 @@ func (a *IngestionApiKeysAPIService) CreateIngestionApiKeyExecute(r ApiCreateIng
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -154,13 +230,13 @@ func (a *IngestionApiKeysAPIService) CreateIngestionApiKeyExecute(r ApiCreateIng
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteIngestionApiKeyRequest struct {
-	ctx context.Context
-	ApiService *IngestionApiKeysAPIService
-	id string
+type IngestionApiKeysAPIDeleteIngestionApiKeyRequest struct {
+	ctx        context.Context
+	ApiService IngestionApiKeysAPI
+	id         string
 }
 
-func (r ApiDeleteIngestionApiKeyRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
+func (r IngestionApiKeysAPIDeleteIngestionApiKeyRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	return r.ApiService.DeleteIngestionApiKeyExecute(r)
 }
 
@@ -169,26 +245,27 @@ DeleteIngestionApiKey Method for DeleteIngestionApiKey
 
 Delete an ingestion API key by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiDeleteIngestionApiKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return IngestionApiKeysAPIDeleteIngestionApiKeyRequest
 */
-func (a *IngestionApiKeysAPIService) DeleteIngestionApiKey(ctx context.Context, id string) ApiDeleteIngestionApiKeyRequest {
-	return ApiDeleteIngestionApiKeyRequest{
+func (a *IngestionApiKeysAPIService) DeleteIngestionApiKey(ctx context.Context, id string) IngestionApiKeysAPIDeleteIngestionApiKeyRequest {
+	return IngestionApiKeysAPIDeleteIngestionApiKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return DeleteIngestionApiKey200Response
-func (a *IngestionApiKeysAPIService) DeleteIngestionApiKeyExecute(r ApiDeleteIngestionApiKeyRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
+//
+//	@return DeleteIngestionApiKey200Response
+func (a *IngestionApiKeysAPIService) DeleteIngestionApiKeyExecute(r IngestionApiKeysAPIDeleteIngestionApiKeyRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *DeleteIngestionApiKey200Response
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DeleteIngestionApiKey200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngestionApiKeysAPIService.DeleteIngestionApiKey")
@@ -255,8 +332,8 @@ func (a *IngestionApiKeysAPIService) DeleteIngestionApiKeyExecute(r ApiDeleteIng
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -266,8 +343,8 @@ func (a *IngestionApiKeysAPIService) DeleteIngestionApiKeyExecute(r ApiDeleteIng
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -284,13 +361,13 @@ func (a *IngestionApiKeysAPIService) DeleteIngestionApiKeyExecute(r ApiDeleteIng
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetIngestionApiKeyRequest struct {
-	ctx context.Context
-	ApiService *IngestionApiKeysAPIService
-	id string
+type IngestionApiKeysAPIGetIngestionApiKeyRequest struct {
+	ctx        context.Context
+	ApiService IngestionApiKeysAPI
+	id         string
 }
 
-func (r ApiGetIngestionApiKeyRequest) Execute() (*GetIngestionApiKey200Response, *http.Response, error) {
+func (r IngestionApiKeysAPIGetIngestionApiKeyRequest) Execute() (*GetIngestionApiKey200Response, *http.Response, error) {
 	return r.ApiService.GetIngestionApiKeyExecute(r)
 }
 
@@ -299,26 +376,27 @@ GetIngestionApiKey Method for GetIngestionApiKey
 
 Retrieve an ingestion API key by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiGetIngestionApiKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return IngestionApiKeysAPIGetIngestionApiKeyRequest
 */
-func (a *IngestionApiKeysAPIService) GetIngestionApiKey(ctx context.Context, id string) ApiGetIngestionApiKeyRequest {
-	return ApiGetIngestionApiKeyRequest{
+func (a *IngestionApiKeysAPIService) GetIngestionApiKey(ctx context.Context, id string) IngestionApiKeysAPIGetIngestionApiKeyRequest {
+	return IngestionApiKeysAPIGetIngestionApiKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return GetIngestionApiKey200Response
-func (a *IngestionApiKeysAPIService) GetIngestionApiKeyExecute(r ApiGetIngestionApiKeyRequest) (*GetIngestionApiKey200Response, *http.Response, error) {
+//
+//	@return GetIngestionApiKey200Response
+func (a *IngestionApiKeysAPIService) GetIngestionApiKeyExecute(r IngestionApiKeysAPIGetIngestionApiKeyRequest) (*GetIngestionApiKey200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *GetIngestionApiKey200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetIngestionApiKey200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngestionApiKeysAPIService.GetIngestionApiKey")
@@ -385,8 +463,8 @@ func (a *IngestionApiKeysAPIService) GetIngestionApiKeyExecute(r ApiGetIngestion
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -396,8 +474,8 @@ func (a *IngestionApiKeysAPIService) GetIngestionApiKeyExecute(r ApiGetIngestion
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -414,12 +492,12 @@ func (a *IngestionApiKeysAPIService) GetIngestionApiKeyExecute(r ApiGetIngestion
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListIngestionApiKeysRequest struct {
-	ctx context.Context
-	ApiService *IngestionApiKeysAPIService
+type IngestionApiKeysAPIListIngestionApiKeysRequest struct {
+	ctx        context.Context
+	ApiService IngestionApiKeysAPI
 }
 
-func (r ApiListIngestionApiKeysRequest) Execute() (*ListIngestionApiKeys200Response, *http.Response, error) {
+func (r IngestionApiKeysAPIListIngestionApiKeysRequest) Execute() (*ListIngestionApiKeys200Response, *http.Response, error) {
 	return r.ApiService.ListIngestionApiKeysExecute(r)
 }
 
@@ -428,24 +506,25 @@ ListIngestionApiKeys Method for ListIngestionApiKeys
 
 Retrieve all ingestion API keys
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListIngestionApiKeysRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IngestionApiKeysAPIListIngestionApiKeysRequest
 */
-func (a *IngestionApiKeysAPIService) ListIngestionApiKeys(ctx context.Context) ApiListIngestionApiKeysRequest {
-	return ApiListIngestionApiKeysRequest{
+func (a *IngestionApiKeysAPIService) ListIngestionApiKeys(ctx context.Context) IngestionApiKeysAPIListIngestionApiKeysRequest {
+	return IngestionApiKeysAPIListIngestionApiKeysRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ListIngestionApiKeys200Response
-func (a *IngestionApiKeysAPIService) ListIngestionApiKeysExecute(r ApiListIngestionApiKeysRequest) (*ListIngestionApiKeys200Response, *http.Response, error) {
+//
+//	@return ListIngestionApiKeys200Response
+func (a *IngestionApiKeysAPIService) ListIngestionApiKeysExecute(r IngestionApiKeysAPIListIngestionApiKeysRequest) (*ListIngestionApiKeys200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ListIngestionApiKeys200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ListIngestionApiKeys200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngestionApiKeysAPIService.ListIngestionApiKeys")
@@ -505,8 +584,8 @@ func (a *IngestionApiKeysAPIService) ListIngestionApiKeysExecute(r ApiListIngest
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -516,8 +595,8 @@ func (a *IngestionApiKeysAPIService) ListIngestionApiKeysExecute(r ApiListIngest
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -534,19 +613,19 @@ func (a *IngestionApiKeysAPIService) ListIngestionApiKeysExecute(r ApiListIngest
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateIngestionApiKeyRequest struct {
-	ctx context.Context
-	ApiService *IngestionApiKeysAPIService
-	id string
+type IngestionApiKeysAPIUpdateIngestionApiKeyRequest struct {
+	ctx                          context.Context
+	ApiService                   IngestionApiKeysAPI
+	id                           string
 	createIngestionApiKeyRequest *CreateIngestionApiKeyRequest
 }
 
-func (r ApiUpdateIngestionApiKeyRequest) CreateIngestionApiKeyRequest(createIngestionApiKeyRequest CreateIngestionApiKeyRequest) ApiUpdateIngestionApiKeyRequest {
+func (r IngestionApiKeysAPIUpdateIngestionApiKeyRequest) CreateIngestionApiKeyRequest(createIngestionApiKeyRequest CreateIngestionApiKeyRequest) IngestionApiKeysAPIUpdateIngestionApiKeyRequest {
 	r.createIngestionApiKeyRequest = &createIngestionApiKeyRequest
 	return r
 }
 
-func (r ApiUpdateIngestionApiKeyRequest) Execute() (*GetIngestionApiKey200Response, *http.Response, error) {
+func (r IngestionApiKeysAPIUpdateIngestionApiKeyRequest) Execute() (*GetIngestionApiKey200Response, *http.Response, error) {
 	return r.ApiService.UpdateIngestionApiKeyExecute(r)
 }
 
@@ -555,26 +634,27 @@ UpdateIngestionApiKey Method for UpdateIngestionApiKey
 
 Update an ingestion API key by its id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiUpdateIngestionApiKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return IngestionApiKeysAPIUpdateIngestionApiKeyRequest
 */
-func (a *IngestionApiKeysAPIService) UpdateIngestionApiKey(ctx context.Context, id string) ApiUpdateIngestionApiKeyRequest {
-	return ApiUpdateIngestionApiKeyRequest{
+func (a *IngestionApiKeysAPIService) UpdateIngestionApiKey(ctx context.Context, id string) IngestionApiKeysAPIUpdateIngestionApiKeyRequest {
+	return IngestionApiKeysAPIUpdateIngestionApiKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return GetIngestionApiKey200Response
-func (a *IngestionApiKeysAPIService) UpdateIngestionApiKeyExecute(r ApiUpdateIngestionApiKeyRequest) (*GetIngestionApiKey200Response, *http.Response, error) {
+//
+//	@return GetIngestionApiKey200Response
+func (a *IngestionApiKeysAPIService) UpdateIngestionApiKeyExecute(r IngestionApiKeysAPIUpdateIngestionApiKeyRequest) (*GetIngestionApiKey200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *GetIngestionApiKey200Response
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetIngestionApiKey200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngestionApiKeysAPIService.UpdateIngestionApiKey")
@@ -646,8 +726,8 @@ func (a *IngestionApiKeysAPIService) UpdateIngestionApiKeyExecute(r ApiUpdateIng
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -657,8 +737,8 @@ func (a *IngestionApiKeysAPIService) UpdateIngestionApiKeyExecute(r ApiUpdateIng
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

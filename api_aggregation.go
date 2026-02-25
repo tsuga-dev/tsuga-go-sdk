@@ -18,22 +18,52 @@ import (
 	"net/url"
 )
 
+type AggregationAPI interface {
+
+	/*
+		AggregateScalar Method for AggregateScalar
+
+		Run aggregation queries and return scalar results
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return AggregationAPIAggregateScalarRequest
+	*/
+	AggregateScalar(ctx context.Context) AggregationAPIAggregateScalarRequest
+
+	// AggregateScalarExecute executes the request
+	//  @return AggregateScalar200Response
+	AggregateScalarExecute(r AggregationAPIAggregateScalarRequest) (*AggregateScalar200Response, *http.Response, error)
+
+	/*
+		AggregateTimeseries Method for AggregateTimeseries
+
+		Run aggregation queries and return timeseries results
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return AggregationAPIAggregateTimeseriesRequest
+	*/
+	AggregateTimeseries(ctx context.Context) AggregationAPIAggregateTimeseriesRequest
+
+	// AggregateTimeseriesExecute executes the request
+	//  @return AggregateTimeseries200Response
+	AggregateTimeseriesExecute(r AggregationAPIAggregateTimeseriesRequest) (*AggregateTimeseries200Response, *http.Response, error)
+}
 
 // AggregationAPIService AggregationAPI service
 type AggregationAPIService service
 
-type ApiAggregateScalarRequest struct {
-	ctx context.Context
-	ApiService *AggregationAPIService
+type AggregationAPIAggregateScalarRequest struct {
+	ctx                    context.Context
+	ApiService             AggregationAPI
 	aggregateScalarRequest *AggregateScalarRequest
 }
 
-func (r ApiAggregateScalarRequest) AggregateScalarRequest(aggregateScalarRequest AggregateScalarRequest) ApiAggregateScalarRequest {
+func (r AggregationAPIAggregateScalarRequest) AggregateScalarRequest(aggregateScalarRequest AggregateScalarRequest) AggregationAPIAggregateScalarRequest {
 	r.aggregateScalarRequest = &aggregateScalarRequest
 	return r
 }
 
-func (r ApiAggregateScalarRequest) Execute() (*AggregateScalar200Response, *http.Response, error) {
+func (r AggregationAPIAggregateScalarRequest) Execute() (*AggregateScalar200Response, *http.Response, error) {
 	return r.ApiService.AggregateScalarExecute(r)
 }
 
@@ -42,24 +72,25 @@ AggregateScalar Method for AggregateScalar
 
 Run aggregation queries and return scalar results
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiAggregateScalarRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AggregationAPIAggregateScalarRequest
 */
-func (a *AggregationAPIService) AggregateScalar(ctx context.Context) ApiAggregateScalarRequest {
-	return ApiAggregateScalarRequest{
+func (a *AggregationAPIService) AggregateScalar(ctx context.Context) AggregationAPIAggregateScalarRequest {
+	return AggregationAPIAggregateScalarRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return AggregateScalar200Response
-func (a *AggregationAPIService) AggregateScalarExecute(r ApiAggregateScalarRequest) (*AggregateScalar200Response, *http.Response, error) {
+//
+//	@return AggregateScalar200Response
+func (a *AggregationAPIService) AggregateScalarExecute(r AggregationAPIAggregateScalarRequest) (*AggregateScalar200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *AggregateScalar200Response
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AggregateScalar200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AggregationAPIService.AggregateScalar")
@@ -124,8 +155,8 @@ func (a *AggregationAPIService) AggregateScalarExecute(r ApiAggregateScalarReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -135,8 +166,8 @@ func (a *AggregationAPIService) AggregateScalarExecute(r ApiAggregateScalarReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -153,18 +184,18 @@ func (a *AggregationAPIService) AggregateScalarExecute(r ApiAggregateScalarReque
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiAggregateTimeseriesRequest struct {
-	ctx context.Context
-	ApiService *AggregationAPIService
+type AggregationAPIAggregateTimeseriesRequest struct {
+	ctx                        context.Context
+	ApiService                 AggregationAPI
 	aggregateTimeseriesRequest *AggregateTimeseriesRequest
 }
 
-func (r ApiAggregateTimeseriesRequest) AggregateTimeseriesRequest(aggregateTimeseriesRequest AggregateTimeseriesRequest) ApiAggregateTimeseriesRequest {
+func (r AggregationAPIAggregateTimeseriesRequest) AggregateTimeseriesRequest(aggregateTimeseriesRequest AggregateTimeseriesRequest) AggregationAPIAggregateTimeseriesRequest {
 	r.aggregateTimeseriesRequest = &aggregateTimeseriesRequest
 	return r
 }
 
-func (r ApiAggregateTimeseriesRequest) Execute() (*AggregateTimeseries200Response, *http.Response, error) {
+func (r AggregationAPIAggregateTimeseriesRequest) Execute() (*AggregateTimeseries200Response, *http.Response, error) {
 	return r.ApiService.AggregateTimeseriesExecute(r)
 }
 
@@ -173,24 +204,25 @@ AggregateTimeseries Method for AggregateTimeseries
 
 Run aggregation queries and return timeseries results
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiAggregateTimeseriesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AggregationAPIAggregateTimeseriesRequest
 */
-func (a *AggregationAPIService) AggregateTimeseries(ctx context.Context) ApiAggregateTimeseriesRequest {
-	return ApiAggregateTimeseriesRequest{
+func (a *AggregationAPIService) AggregateTimeseries(ctx context.Context) AggregationAPIAggregateTimeseriesRequest {
+	return AggregationAPIAggregateTimeseriesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return AggregateTimeseries200Response
-func (a *AggregationAPIService) AggregateTimeseriesExecute(r ApiAggregateTimeseriesRequest) (*AggregateTimeseries200Response, *http.Response, error) {
+//
+//	@return AggregateTimeseries200Response
+func (a *AggregationAPIService) AggregateTimeseriesExecute(r AggregationAPIAggregateTimeseriesRequest) (*AggregateTimeseries200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *AggregateTimeseries200Response
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AggregateTimeseries200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AggregationAPIService.AggregateTimeseries")
@@ -255,8 +287,8 @@ func (a *AggregationAPIService) AggregateTimeseriesExecute(r ApiAggregateTimeser
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 500 {
@@ -266,8 +298,8 @@ func (a *AggregationAPIService) AggregateTimeseriesExecute(r ApiAggregateTimeser
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

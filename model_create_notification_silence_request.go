@@ -12,7 +12,6 @@ package tsuga
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -30,17 +29,18 @@ type CreateNotificationSilenceRequest struct {
 	// List of key/value tags applied to the resource
 	Tags []Tag `json:"tags,omitempty"`
 	// Whether the silence is currently enabled
-	IsActive bool `json:"isActive"`
+	IsActive bool                                     `json:"isActive"`
 	Schedule CreateNotificationSilenceRequestSchedule `json:"schedule"`
 	// Notification rule IDs this silence applies to
 	NotificationRuleIds []string `json:"notificationRuleIds,omitempty"`
 	// Query string to filter which alerts this silence applies to
-	QueryString *string `json:"queryString,omitempty"`
+	QueryString *string                                  `json:"queryString,omitempty"`
 	TeamsFilter CreateNotificationRuleRequestTeamsFilter `json:"teamsFilter"`
 	// Monitor priorities to filter which alerts this silence applies to
 	PrioritiesFilter []float32 `json:"prioritiesFilter"`
 	// Transition types to filter which alerts this silence applies to
 	TransitionTypesFilter []string `json:"transitionTypesFilter"`
+	AdditionalProperties  map[string]interface{}
 }
 
 type _CreateNotificationSilenceRequest CreateNotificationSilenceRequest
@@ -359,7 +359,7 @@ func (o *CreateNotificationSilenceRequest) SetTransitionTypesFilter(v []string) 
 }
 
 func (o CreateNotificationSilenceRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -385,6 +385,11 @@ func (o CreateNotificationSilenceRequest) ToMap() (map[string]interface{}, error
 	toSerialize["teamsFilter"] = o.TeamsFilter
 	toSerialize["prioritiesFilter"] = o.PrioritiesFilter
 	toSerialize["transitionTypesFilter"] = o.TransitionTypesFilter
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -408,10 +413,10 @@ func (o *CreateNotificationSilenceRequest) UnmarshalJSON(data []byte) (err error
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -419,15 +424,30 @@ func (o *CreateNotificationSilenceRequest) UnmarshalJSON(data []byte) (err error
 
 	varCreateNotificationSilenceRequest := _CreateNotificationSilenceRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateNotificationSilenceRequest)
+	err = json.Unmarshal(data, &varCreateNotificationSilenceRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateNotificationSilenceRequest(varCreateNotificationSilenceRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "reason")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "isActive")
+		delete(additionalProperties, "schedule")
+		delete(additionalProperties, "notificationRuleIds")
+		delete(additionalProperties, "queryString")
+		delete(additionalProperties, "teamsFilter")
+		delete(additionalProperties, "prioritiesFilter")
+		delete(additionalProperties, "transitionTypesFilter")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
@@ -467,5 +487,3 @@ func (v *NullableCreateNotificationSilenceRequest) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-
