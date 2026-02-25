@@ -25,8 +25,6 @@ docs/AggregateMax.md
 docs/AggregateMin.md
 docs/AggregatePercentile.md
 docs/AggregateScalar200Response.md
-docs/AggregateScalar4XXResponse.md
-docs/AggregateScalar5XXResponse.md
 docs/AggregateScalarRequest.md
 docs/AggregateSum.md
 docs/AggregateTimeseries200Response.md
@@ -39,6 +37,7 @@ docs/AggregationQuery1.md
 docs/BigQueryConnectionInput.md
 docs/BigQueryConnectionInputAuth.md
 docs/BigQueryWifDirectAccessAuthInput.md
+docs/ClientErrorEnvelope.md
 docs/ClientErrorResponse.md
 docs/ConditionalFormatting.md
 docs/CreateDashboard200Response.md
@@ -217,6 +216,7 @@ docs/SearchSpans200ResponseDataSpansInnerEventsInner.md
 docs/SearchSpans200ResponseDataSpansInnerSpan.md
 docs/Series.md
 docs/SeriesPointsInner.md
+docs/ServerErrorEnvelope.md
 docs/ServerErrorResponse.md
 docs/Tag.md
 docs/TagPoliciesAPI.md
@@ -245,8 +245,6 @@ model_aggregate_max.go
 model_aggregate_min.go
 model_aggregate_percentile.go
 model_aggregate_scalar_200_response.go
-model_aggregate_scalar_4_xx_response.go
-model_aggregate_scalar_5_xx_response.go
 model_aggregate_scalar_request.go
 model_aggregate_sum.go
 model_aggregate_timeseries_200_response.go
@@ -258,6 +256,7 @@ model_aggregation_query_1.go
 model_big_query_connection_input.go
 model_big_query_connection_input_auth.go
 model_big_query_wif_direct_access_auth_input.go
+model_client_error_envelope.go
 model_client_error_response.go
 model_conditional_formatting.go
 model_create_dashboard_200_response.go
@@ -427,6 +426,7 @@ model_search_spans_200_response_data_spans_inner_events_inner.go
 model_search_spans_200_response_data_spans_inner_span.go
 model_series.go
 model_series_points_inner.go
+model_server_error_envelope.go
 model_server_error_response.go
 model_tag.go
 model_tag_policy.go

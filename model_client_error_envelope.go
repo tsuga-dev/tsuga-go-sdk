@@ -15,40 +15,40 @@ import (
 	"fmt"
 )
 
-// checks if the AggregateScalar5XXResponse type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &AggregateScalar5XXResponse{}
+// checks if the ClientErrorEnvelope type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ClientErrorEnvelope{}
 
-// AggregateScalar5XXResponse struct for AggregateScalar5XXResponse
-type AggregateScalar5XXResponse struct {
+// ClientErrorEnvelope Standard envelope wrapping all client (4XX) error responses
+type ClientErrorEnvelope struct {
 	// Identifier used to trace the lifecycle of this API request
 	RequestId            string              `json:"requestId"`
-	Error                ServerErrorResponse `json:"error"`
+	Error                ClientErrorResponse `json:"error"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _AggregateScalar5XXResponse AggregateScalar5XXResponse
+type _ClientErrorEnvelope ClientErrorEnvelope
 
-// NewAggregateScalar5XXResponse instantiates a new AggregateScalar5XXResponse object
+// NewClientErrorEnvelope instantiates a new ClientErrorEnvelope object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAggregateScalar5XXResponse(requestId string, error_ ServerErrorResponse) *AggregateScalar5XXResponse {
-	this := AggregateScalar5XXResponse{}
+func NewClientErrorEnvelope(requestId string, error_ ClientErrorResponse) *ClientErrorEnvelope {
+	this := ClientErrorEnvelope{}
 	this.RequestId = requestId
 	this.Error = error_
 	return &this
 }
 
-// NewAggregateScalar5XXResponseWithDefaults instantiates a new AggregateScalar5XXResponse object
+// NewClientErrorEnvelopeWithDefaults instantiates a new ClientErrorEnvelope object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewAggregateScalar5XXResponseWithDefaults() *AggregateScalar5XXResponse {
-	this := AggregateScalar5XXResponse{}
+func NewClientErrorEnvelopeWithDefaults() *ClientErrorEnvelope {
+	this := ClientErrorEnvelope{}
 	return &this
 }
 
 // GetRequestId returns the RequestId field value
-func (o *AggregateScalar5XXResponse) GetRequestId() string {
+func (o *ClientErrorEnvelope) GetRequestId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -59,7 +59,7 @@ func (o *AggregateScalar5XXResponse) GetRequestId() string {
 
 // GetRequestIdOk returns a tuple with the RequestId field value
 // and a boolean to check if the value has been set.
-func (o *AggregateScalar5XXResponse) GetRequestIdOk() (*string, bool) {
+func (o *ClientErrorEnvelope) GetRequestIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -67,14 +67,14 @@ func (o *AggregateScalar5XXResponse) GetRequestIdOk() (*string, bool) {
 }
 
 // SetRequestId sets field value
-func (o *AggregateScalar5XXResponse) SetRequestId(v string) {
+func (o *ClientErrorEnvelope) SetRequestId(v string) {
 	o.RequestId = v
 }
 
 // GetError returns the Error field value
-func (o *AggregateScalar5XXResponse) GetError() ServerErrorResponse {
+func (o *ClientErrorEnvelope) GetError() ClientErrorResponse {
 	if o == nil {
-		var ret ServerErrorResponse
+		var ret ClientErrorResponse
 		return ret
 	}
 
@@ -83,7 +83,7 @@ func (o *AggregateScalar5XXResponse) GetError() ServerErrorResponse {
 
 // GetErrorOk returns a tuple with the Error field value
 // and a boolean to check if the value has been set.
-func (o *AggregateScalar5XXResponse) GetErrorOk() (*ServerErrorResponse, bool) {
+func (o *ClientErrorEnvelope) GetErrorOk() (*ClientErrorResponse, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -91,11 +91,11 @@ func (o *AggregateScalar5XXResponse) GetErrorOk() (*ServerErrorResponse, bool) {
 }
 
 // SetError sets field value
-func (o *AggregateScalar5XXResponse) SetError(v ServerErrorResponse) {
+func (o *ClientErrorEnvelope) SetError(v ClientErrorResponse) {
 	o.Error = v
 }
 
-func (o AggregateScalar5XXResponse) MarshalJSON() ([]byte, error) {
+func (o ClientErrorEnvelope) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -103,7 +103,7 @@ func (o AggregateScalar5XXResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o AggregateScalar5XXResponse) ToMap() (map[string]interface{}, error) {
+func (o ClientErrorEnvelope) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["requestId"] = o.RequestId
 	toSerialize["error"] = o.Error
@@ -115,7 +115,7 @@ func (o AggregateScalar5XXResponse) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *AggregateScalar5XXResponse) UnmarshalJSON(data []byte) (err error) {
+func (o *ClientErrorEnvelope) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -138,15 +138,15 @@ func (o *AggregateScalar5XXResponse) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varAggregateScalar5XXResponse := _AggregateScalar5XXResponse{}
+	varClientErrorEnvelope := _ClientErrorEnvelope{}
 
-	err = json.Unmarshal(data, &varAggregateScalar5XXResponse)
+	err = json.Unmarshal(data, &varClientErrorEnvelope)
 
 	if err != nil {
 		return err
 	}
 
-	*o = AggregateScalar5XXResponse(varAggregateScalar5XXResponse)
+	*o = ClientErrorEnvelope(varClientErrorEnvelope)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -159,38 +159,38 @@ func (o *AggregateScalar5XXResponse) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableAggregateScalar5XXResponse struct {
-	value *AggregateScalar5XXResponse
+type NullableClientErrorEnvelope struct {
+	value *ClientErrorEnvelope
 	isSet bool
 }
 
-func (v NullableAggregateScalar5XXResponse) Get() *AggregateScalar5XXResponse {
+func (v NullableClientErrorEnvelope) Get() *ClientErrorEnvelope {
 	return v.value
 }
 
-func (v *NullableAggregateScalar5XXResponse) Set(val *AggregateScalar5XXResponse) {
+func (v *NullableClientErrorEnvelope) Set(val *ClientErrorEnvelope) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableAggregateScalar5XXResponse) IsSet() bool {
+func (v NullableClientErrorEnvelope) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableAggregateScalar5XXResponse) Unset() {
+func (v *NullableClientErrorEnvelope) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableAggregateScalar5XXResponse(val *AggregateScalar5XXResponse) *NullableAggregateScalar5XXResponse {
-	return &NullableAggregateScalar5XXResponse{value: val, isSet: true}
+func NewNullableClientErrorEnvelope(val *ClientErrorEnvelope) *NullableClientErrorEnvelope {
+	return &NullableClientErrorEnvelope{value: val, isSet: true}
 }
 
-func (v NullableAggregateScalar5XXResponse) MarshalJSON() ([]byte, error) {
+func (v NullableClientErrorEnvelope) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableAggregateScalar5XXResponse) UnmarshalJSON(src []byte) error {
+func (v *NullableClientErrorEnvelope) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
