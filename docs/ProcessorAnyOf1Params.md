@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **SourceAttribute** | **string** | Attribute containing the key/value string segment to parse | 
 **TargetAttribute** | **string** | Attribute prefix where extracted key/value pairs will be written | 
 **KeyValueSplitter** | **string** | Delimiter separating keys from values in the source string | 
-**PairsSplitter** | **string** | Delimiter separating each key/value pair | 
+**PairsSplitter** | **string** | Delimiter separating each key/value pair. Will default to whitespace if not set. | 
 **AcceptStandaloneKey** | **bool** |  | 
 
 ## Methods

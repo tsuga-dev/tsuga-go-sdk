@@ -27,7 +27,7 @@ type ProcessorAnyOf1ParamsOneOf3 struct {
 	TargetAttribute string `json:"targetAttribute"`
 	// Delimiter separating keys from values in the source string
 	KeyValueSplitter string `json:"keyValueSplitter"`
-	// Delimiter separating each key/value pair
+	// Delimiter separating each key/value pair. Will default to whitespace if not set.
 	PairsSplitter string `json:"pairsSplitter"`
 	AcceptStandaloneKey bool `json:"acceptStandaloneKey"`
 	Subtype string `json:"subtype"`
