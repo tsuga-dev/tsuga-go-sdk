@@ -32,8 +32,8 @@ type RetentionPoliciesAPI interface {
 	CreateRetentionPolicy(ctx context.Context) RetentionPoliciesAPICreateRetentionPolicyRequest
 
 	// CreateRetentionPolicyExecute executes the request
-	//  @return CreateRetentionPolicy200Response
-	CreateRetentionPolicyExecute(r RetentionPoliciesAPICreateRetentionPolicyRequest) (*CreateRetentionPolicy200Response, *http.Response, error)
+	//  @return CreateRetentionPolicyResponse
+	CreateRetentionPolicyExecute(r RetentionPoliciesAPICreateRetentionPolicyRequest) (*CreateRetentionPolicyResponse, *http.Response, error)
 
 	/*
 		DeleteRetentionPolicy Method for DeleteRetentionPolicy
@@ -47,8 +47,8 @@ type RetentionPoliciesAPI interface {
 	DeleteRetentionPolicy(ctx context.Context, id string) RetentionPoliciesAPIDeleteRetentionPolicyRequest
 
 	// DeleteRetentionPolicyExecute executes the request
-	//  @return DeleteIngestionApiKey200Response
-	DeleteRetentionPolicyExecute(r RetentionPoliciesAPIDeleteRetentionPolicyRequest) (*DeleteIngestionApiKey200Response, *http.Response, error)
+	//  @return DeleteRetentionPolicyResponse
+	DeleteRetentionPolicyExecute(r RetentionPoliciesAPIDeleteRetentionPolicyRequest) (*DeleteRetentionPolicyResponse, *http.Response, error)
 
 	/*
 		GetRetentionPolicy Method for GetRetentionPolicy
@@ -62,8 +62,8 @@ type RetentionPoliciesAPI interface {
 	GetRetentionPolicy(ctx context.Context, id string) RetentionPoliciesAPIGetRetentionPolicyRequest
 
 	// GetRetentionPolicyExecute executes the request
-	//  @return CreateRetentionPolicy200Response
-	GetRetentionPolicyExecute(r RetentionPoliciesAPIGetRetentionPolicyRequest) (*CreateRetentionPolicy200Response, *http.Response, error)
+	//  @return GetRetentionPolicyResponse
+	GetRetentionPolicyExecute(r RetentionPoliciesAPIGetRetentionPolicyRequest) (*GetRetentionPolicyResponse, *http.Response, error)
 
 	/*
 		ListRetentionPolicies Method for ListRetentionPolicies
@@ -76,8 +76,8 @@ type RetentionPoliciesAPI interface {
 	ListRetentionPolicies(ctx context.Context) RetentionPoliciesAPIListRetentionPoliciesRequest
 
 	// ListRetentionPoliciesExecute executes the request
-	//  @return ListRetentionPolicies200Response
-	ListRetentionPoliciesExecute(r RetentionPoliciesAPIListRetentionPoliciesRequest) (*ListRetentionPolicies200Response, *http.Response, error)
+	//  @return ListRetentionPoliciesResponse
+	ListRetentionPoliciesExecute(r RetentionPoliciesAPIListRetentionPoliciesRequest) (*ListRetentionPoliciesResponse, *http.Response, error)
 
 	/*
 		UpdateRetentionPolicy Method for UpdateRetentionPolicy
@@ -91,8 +91,8 @@ type RetentionPoliciesAPI interface {
 	UpdateRetentionPolicy(ctx context.Context, id string) RetentionPoliciesAPIUpdateRetentionPolicyRequest
 
 	// UpdateRetentionPolicyExecute executes the request
-	//  @return CreateRetentionPolicy200Response
-	UpdateRetentionPolicyExecute(r RetentionPoliciesAPIUpdateRetentionPolicyRequest) (*CreateRetentionPolicy200Response, *http.Response, error)
+	//  @return UpdateRetentionPolicyResponse
+	UpdateRetentionPolicyExecute(r RetentionPoliciesAPIUpdateRetentionPolicyRequest) (*UpdateRetentionPolicyResponse, *http.Response, error)
 }
 
 // RetentionPoliciesAPIService RetentionPoliciesAPI service
@@ -109,7 +109,7 @@ func (r RetentionPoliciesAPICreateRetentionPolicyRequest) CreateRetentionPolicyR
 	return r
 }
 
-func (r RetentionPoliciesAPICreateRetentionPolicyRequest) Execute() (*CreateRetentionPolicy200Response, *http.Response, error) {
+func (r RetentionPoliciesAPICreateRetentionPolicyRequest) Execute() (*CreateRetentionPolicyResponse, *http.Response, error) {
 	return r.ApiService.CreateRetentionPolicyExecute(r)
 }
 
@@ -130,13 +130,13 @@ func (a *RetentionPoliciesAPIService) CreateRetentionPolicy(ctx context.Context)
 
 // Execute executes the request
 //
-//	@return CreateRetentionPolicy200Response
-func (a *RetentionPoliciesAPIService) CreateRetentionPolicyExecute(r RetentionPoliciesAPICreateRetentionPolicyRequest) (*CreateRetentionPolicy200Response, *http.Response, error) {
+//	@return CreateRetentionPolicyResponse
+func (a *RetentionPoliciesAPIService) CreateRetentionPolicyExecute(r RetentionPoliciesAPICreateRetentionPolicyRequest) (*CreateRetentionPolicyResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateRetentionPolicy200Response
+		localVarReturnValue *CreateRetentionPolicyResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RetentionPoliciesAPIService.CreateRetentionPolicy")
@@ -236,7 +236,7 @@ type RetentionPoliciesAPIDeleteRetentionPolicyRequest struct {
 	id         string
 }
 
-func (r RetentionPoliciesAPIDeleteRetentionPolicyRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
+func (r RetentionPoliciesAPIDeleteRetentionPolicyRequest) Execute() (*DeleteRetentionPolicyResponse, *http.Response, error) {
 	return r.ApiService.DeleteRetentionPolicyExecute(r)
 }
 
@@ -259,13 +259,13 @@ func (a *RetentionPoliciesAPIService) DeleteRetentionPolicy(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return DeleteIngestionApiKey200Response
-func (a *RetentionPoliciesAPIService) DeleteRetentionPolicyExecute(r RetentionPoliciesAPIDeleteRetentionPolicyRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
+//	@return DeleteRetentionPolicyResponse
+func (a *RetentionPoliciesAPIService) DeleteRetentionPolicyExecute(r RetentionPoliciesAPIDeleteRetentionPolicyRequest) (*DeleteRetentionPolicyResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeleteIngestionApiKey200Response
+		localVarReturnValue *DeleteRetentionPolicyResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RetentionPoliciesAPIService.DeleteRetentionPolicy")
@@ -367,7 +367,7 @@ type RetentionPoliciesAPIGetRetentionPolicyRequest struct {
 	id         string
 }
 
-func (r RetentionPoliciesAPIGetRetentionPolicyRequest) Execute() (*CreateRetentionPolicy200Response, *http.Response, error) {
+func (r RetentionPoliciesAPIGetRetentionPolicyRequest) Execute() (*GetRetentionPolicyResponse, *http.Response, error) {
 	return r.ApiService.GetRetentionPolicyExecute(r)
 }
 
@@ -390,13 +390,13 @@ func (a *RetentionPoliciesAPIService) GetRetentionPolicy(ctx context.Context, id
 
 // Execute executes the request
 //
-//	@return CreateRetentionPolicy200Response
-func (a *RetentionPoliciesAPIService) GetRetentionPolicyExecute(r RetentionPoliciesAPIGetRetentionPolicyRequest) (*CreateRetentionPolicy200Response, *http.Response, error) {
+//	@return GetRetentionPolicyResponse
+func (a *RetentionPoliciesAPIService) GetRetentionPolicyExecute(r RetentionPoliciesAPIGetRetentionPolicyRequest) (*GetRetentionPolicyResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateRetentionPolicy200Response
+		localVarReturnValue *GetRetentionPolicyResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RetentionPoliciesAPIService.GetRetentionPolicy")
@@ -497,7 +497,7 @@ type RetentionPoliciesAPIListRetentionPoliciesRequest struct {
 	ApiService RetentionPoliciesAPI
 }
 
-func (r RetentionPoliciesAPIListRetentionPoliciesRequest) Execute() (*ListRetentionPolicies200Response, *http.Response, error) {
+func (r RetentionPoliciesAPIListRetentionPoliciesRequest) Execute() (*ListRetentionPoliciesResponse, *http.Response, error) {
 	return r.ApiService.ListRetentionPoliciesExecute(r)
 }
 
@@ -518,13 +518,13 @@ func (a *RetentionPoliciesAPIService) ListRetentionPolicies(ctx context.Context)
 
 // Execute executes the request
 //
-//	@return ListRetentionPolicies200Response
-func (a *RetentionPoliciesAPIService) ListRetentionPoliciesExecute(r RetentionPoliciesAPIListRetentionPoliciesRequest) (*ListRetentionPolicies200Response, *http.Response, error) {
+//	@return ListRetentionPoliciesResponse
+func (a *RetentionPoliciesAPIService) ListRetentionPoliciesExecute(r RetentionPoliciesAPIListRetentionPoliciesRequest) (*ListRetentionPoliciesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ListRetentionPolicies200Response
+		localVarReturnValue *ListRetentionPoliciesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RetentionPoliciesAPIService.ListRetentionPolicies")
@@ -625,7 +625,7 @@ func (r RetentionPoliciesAPIUpdateRetentionPolicyRequest) CreateRetentionPolicyR
 	return r
 }
 
-func (r RetentionPoliciesAPIUpdateRetentionPolicyRequest) Execute() (*CreateRetentionPolicy200Response, *http.Response, error) {
+func (r RetentionPoliciesAPIUpdateRetentionPolicyRequest) Execute() (*UpdateRetentionPolicyResponse, *http.Response, error) {
 	return r.ApiService.UpdateRetentionPolicyExecute(r)
 }
 
@@ -648,13 +648,13 @@ func (a *RetentionPoliciesAPIService) UpdateRetentionPolicy(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return CreateRetentionPolicy200Response
-func (a *RetentionPoliciesAPIService) UpdateRetentionPolicyExecute(r RetentionPoliciesAPIUpdateRetentionPolicyRequest) (*CreateRetentionPolicy200Response, *http.Response, error) {
+//	@return UpdateRetentionPolicyResponse
+func (a *RetentionPoliciesAPIService) UpdateRetentionPolicyExecute(r RetentionPoliciesAPIUpdateRetentionPolicyRequest) (*UpdateRetentionPolicyResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateRetentionPolicy200Response
+		localVarReturnValue *UpdateRetentionPolicyResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RetentionPoliciesAPIService.UpdateRetentionPolicy")

@@ -17,21 +17,21 @@ import (
 
 // CreateNotificationSilenceRequestSchedule - Schedule defining when the silence is active
 type CreateNotificationSilenceRequestSchedule struct {
-	CreateNotificationSilenceRequestScheduleOneOf  *CreateNotificationSilenceRequestScheduleOneOf
-	CreateNotificationSilenceRequestScheduleOneOf1 *CreateNotificationSilenceRequestScheduleOneOf1
+	SilenceScheduleOneTime   *SilenceScheduleOneTime
+	SilenceScheduleRecurring *SilenceScheduleRecurring
 }
 
-// CreateNotificationSilenceRequestScheduleOneOfAsCreateNotificationSilenceRequestSchedule is a convenience function that returns CreateNotificationSilenceRequestScheduleOneOf wrapped in CreateNotificationSilenceRequestSchedule
-func CreateNotificationSilenceRequestScheduleOneOfAsCreateNotificationSilenceRequestSchedule(v *CreateNotificationSilenceRequestScheduleOneOf) CreateNotificationSilenceRequestSchedule {
+// SilenceScheduleOneTimeAsCreateNotificationSilenceRequestSchedule is a convenience function that returns SilenceScheduleOneTime wrapped in CreateNotificationSilenceRequestSchedule
+func SilenceScheduleOneTimeAsCreateNotificationSilenceRequestSchedule(v *SilenceScheduleOneTime) CreateNotificationSilenceRequestSchedule {
 	return CreateNotificationSilenceRequestSchedule{
-		CreateNotificationSilenceRequestScheduleOneOf: v,
+		SilenceScheduleOneTime: v,
 	}
 }
 
-// CreateNotificationSilenceRequestScheduleOneOf1AsCreateNotificationSilenceRequestSchedule is a convenience function that returns CreateNotificationSilenceRequestScheduleOneOf1 wrapped in CreateNotificationSilenceRequestSchedule
-func CreateNotificationSilenceRequestScheduleOneOf1AsCreateNotificationSilenceRequestSchedule(v *CreateNotificationSilenceRequestScheduleOneOf1) CreateNotificationSilenceRequestSchedule {
+// SilenceScheduleRecurringAsCreateNotificationSilenceRequestSchedule is a convenience function that returns SilenceScheduleRecurring wrapped in CreateNotificationSilenceRequestSchedule
+func SilenceScheduleRecurringAsCreateNotificationSilenceRequestSchedule(v *SilenceScheduleRecurring) CreateNotificationSilenceRequestSchedule {
 	return CreateNotificationSilenceRequestSchedule{
-		CreateNotificationSilenceRequestScheduleOneOf1: v,
+		SilenceScheduleRecurring: v,
 	}
 }
 
@@ -45,27 +45,27 @@ func (dst *CreateNotificationSilenceRequestSchedule) UnmarshalJSON(data []byte) 
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'createNotificationSilence_request_schedule_oneOf'
-	if jsonDict["type"] == "createNotificationSilence_request_schedule_oneOf" {
-		// try to unmarshal JSON data into CreateNotificationSilenceRequestScheduleOneOf
-		err = json.Unmarshal(data, &dst.CreateNotificationSilenceRequestScheduleOneOf)
+	// check if the discriminator value is 'one-time'
+	if jsonDict["type"] == "one-time" {
+		// try to unmarshal JSON data into SilenceScheduleOneTime
+		err = json.Unmarshal(data, &dst.SilenceScheduleOneTime)
 		if err == nil {
-			return nil // data stored in dst.CreateNotificationSilenceRequestScheduleOneOf, return on the first match
+			return nil // data stored in dst.SilenceScheduleOneTime, return on the first match
 		} else {
-			dst.CreateNotificationSilenceRequestScheduleOneOf = nil
-			return fmt.Errorf("failed to unmarshal CreateNotificationSilenceRequestSchedule as CreateNotificationSilenceRequestScheduleOneOf: %s", err.Error())
+			dst.SilenceScheduleOneTime = nil
+			return fmt.Errorf("failed to unmarshal CreateNotificationSilenceRequestSchedule as SilenceScheduleOneTime: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'createNotificationSilence_request_schedule_oneOf_1'
-	if jsonDict["type"] == "createNotificationSilence_request_schedule_oneOf_1" {
-		// try to unmarshal JSON data into CreateNotificationSilenceRequestScheduleOneOf1
-		err = json.Unmarshal(data, &dst.CreateNotificationSilenceRequestScheduleOneOf1)
+	// check if the discriminator value is 'recurring'
+	if jsonDict["type"] == "recurring" {
+		// try to unmarshal JSON data into SilenceScheduleRecurring
+		err = json.Unmarshal(data, &dst.SilenceScheduleRecurring)
 		if err == nil {
-			return nil // data stored in dst.CreateNotificationSilenceRequestScheduleOneOf1, return on the first match
+			return nil // data stored in dst.SilenceScheduleRecurring, return on the first match
 		} else {
-			dst.CreateNotificationSilenceRequestScheduleOneOf1 = nil
-			return fmt.Errorf("failed to unmarshal CreateNotificationSilenceRequestSchedule as CreateNotificationSilenceRequestScheduleOneOf1: %s", err.Error())
+			dst.SilenceScheduleRecurring = nil
+			return fmt.Errorf("failed to unmarshal CreateNotificationSilenceRequestSchedule as SilenceScheduleRecurring: %s", err.Error())
 		}
 	}
 
@@ -74,12 +74,12 @@ func (dst *CreateNotificationSilenceRequestSchedule) UnmarshalJSON(data []byte) 
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src CreateNotificationSilenceRequestSchedule) MarshalJSON() ([]byte, error) {
-	if src.CreateNotificationSilenceRequestScheduleOneOf != nil {
-		return json.Marshal(&src.CreateNotificationSilenceRequestScheduleOneOf)
+	if src.SilenceScheduleOneTime != nil {
+		return json.Marshal(&src.SilenceScheduleOneTime)
 	}
 
-	if src.CreateNotificationSilenceRequestScheduleOneOf1 != nil {
-		return json.Marshal(&src.CreateNotificationSilenceRequestScheduleOneOf1)
+	if src.SilenceScheduleRecurring != nil {
+		return json.Marshal(&src.SilenceScheduleRecurring)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -90,12 +90,12 @@ func (obj *CreateNotificationSilenceRequestSchedule) GetActualInstance() interfa
 	if obj == nil {
 		return nil
 	}
-	if obj.CreateNotificationSilenceRequestScheduleOneOf != nil {
-		return obj.CreateNotificationSilenceRequestScheduleOneOf
+	if obj.SilenceScheduleOneTime != nil {
+		return obj.SilenceScheduleOneTime
 	}
 
-	if obj.CreateNotificationSilenceRequestScheduleOneOf1 != nil {
-		return obj.CreateNotificationSilenceRequestScheduleOneOf1
+	if obj.SilenceScheduleRecurring != nil {
+		return obj.SilenceScheduleRecurring
 	}
 
 	// all schemas are nil
@@ -104,12 +104,12 @@ func (obj *CreateNotificationSilenceRequestSchedule) GetActualInstance() interfa
 
 // Get the actual instance value
 func (obj CreateNotificationSilenceRequestSchedule) GetActualInstanceValue() interface{} {
-	if obj.CreateNotificationSilenceRequestScheduleOneOf != nil {
-		return *obj.CreateNotificationSilenceRequestScheduleOneOf
+	if obj.SilenceScheduleOneTime != nil {
+		return *obj.SilenceScheduleOneTime
 	}
 
-	if obj.CreateNotificationSilenceRequestScheduleOneOf1 != nil {
-		return *obj.CreateNotificationSilenceRequestScheduleOneOf1
+	if obj.SilenceScheduleRecurring != nil {
+		return *obj.SilenceScheduleRecurring
 	}
 
 	// all schemas are nil

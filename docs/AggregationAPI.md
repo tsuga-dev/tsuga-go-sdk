@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## AggregateScalar
 
-> AggregateScalar200Response AggregateScalar(ctx).AggregateScalarRequest(aggregateScalarRequest).Execute()
+> AggregateScalarResponse AggregateScalar(ctx).AggregateScalarRequest(aggregateScalarRequest).Execute()
 
 
 
@@ -39,7 +39,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AggregationAPI.AggregateScalar``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `AggregateScalar`: AggregateScalar200Response
+	// response from `AggregateScalar`: AggregateScalarResponse
 	fmt.Fprintf(os.Stdout, "Response from `AggregationAPI.AggregateScalar`: %v\n", resp)
 }
 ```
@@ -59,7 +59,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AggregateScalar200Response**](AggregateScalar200Response.md)
+[**AggregateScalarResponse**](AggregateScalarResponse.md)
 
 ### Authorization
 
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 
 ## AggregateTimeseries
 
-> AggregateTimeseries200Response AggregateTimeseries(ctx).AggregateTimeseriesRequest(aggregateTimeseriesRequest).Execute()
+> AggregateTimeseriesResponse AggregateTimeseries(ctx).AggregateTimeseriesRequest(aggregateTimeseriesRequest).Execute()
 
 
 
@@ -105,7 +105,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AggregationAPI.AggregateTimeseries``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `AggregateTimeseries`: AggregateTimeseries200Response
+	// response from `AggregateTimeseries`: AggregateTimeseriesResponse
 	fmt.Fprintf(os.Stdout, "Response from `AggregationAPI.AggregateTimeseries`: %v\n", resp)
 }
 ```
@@ -125,7 +125,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AggregateTimeseries200Response**](AggregateTimeseries200Response.md)
+[**AggregateTimeseriesResponse**](AggregateTimeseriesResponse.md)
 
 ### Authorization
 

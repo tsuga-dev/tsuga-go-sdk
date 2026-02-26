@@ -32,8 +32,8 @@ type IngestionApiKeysAPI interface {
 	CreateIngestionApiKey(ctx context.Context) IngestionApiKeysAPICreateIngestionApiKeyRequest
 
 	// CreateIngestionApiKeyExecute executes the request
-	//  @return CreateIngestionApiKey200Response
-	CreateIngestionApiKeyExecute(r IngestionApiKeysAPICreateIngestionApiKeyRequest) (*CreateIngestionApiKey200Response, *http.Response, error)
+	//  @return CreateIngestionApiKeyResponse
+	CreateIngestionApiKeyExecute(r IngestionApiKeysAPICreateIngestionApiKeyRequest) (*CreateIngestionApiKeyResponse, *http.Response, error)
 
 	/*
 		DeleteIngestionApiKey Method for DeleteIngestionApiKey
@@ -47,8 +47,8 @@ type IngestionApiKeysAPI interface {
 	DeleteIngestionApiKey(ctx context.Context, id string) IngestionApiKeysAPIDeleteIngestionApiKeyRequest
 
 	// DeleteIngestionApiKeyExecute executes the request
-	//  @return DeleteIngestionApiKey200Response
-	DeleteIngestionApiKeyExecute(r IngestionApiKeysAPIDeleteIngestionApiKeyRequest) (*DeleteIngestionApiKey200Response, *http.Response, error)
+	//  @return DeleteIngestionApiKeyResponse
+	DeleteIngestionApiKeyExecute(r IngestionApiKeysAPIDeleteIngestionApiKeyRequest) (*DeleteIngestionApiKeyResponse, *http.Response, error)
 
 	/*
 		GetIngestionApiKey Method for GetIngestionApiKey
@@ -62,8 +62,8 @@ type IngestionApiKeysAPI interface {
 	GetIngestionApiKey(ctx context.Context, id string) IngestionApiKeysAPIGetIngestionApiKeyRequest
 
 	// GetIngestionApiKeyExecute executes the request
-	//  @return GetIngestionApiKey200Response
-	GetIngestionApiKeyExecute(r IngestionApiKeysAPIGetIngestionApiKeyRequest) (*GetIngestionApiKey200Response, *http.Response, error)
+	//  @return GetIngestionApiKeyResponse
+	GetIngestionApiKeyExecute(r IngestionApiKeysAPIGetIngestionApiKeyRequest) (*GetIngestionApiKeyResponse, *http.Response, error)
 
 	/*
 		ListIngestionApiKeys Method for ListIngestionApiKeys
@@ -76,8 +76,8 @@ type IngestionApiKeysAPI interface {
 	ListIngestionApiKeys(ctx context.Context) IngestionApiKeysAPIListIngestionApiKeysRequest
 
 	// ListIngestionApiKeysExecute executes the request
-	//  @return ListIngestionApiKeys200Response
-	ListIngestionApiKeysExecute(r IngestionApiKeysAPIListIngestionApiKeysRequest) (*ListIngestionApiKeys200Response, *http.Response, error)
+	//  @return ListIngestionApiKeysResponse
+	ListIngestionApiKeysExecute(r IngestionApiKeysAPIListIngestionApiKeysRequest) (*ListIngestionApiKeysResponse, *http.Response, error)
 
 	/*
 		UpdateIngestionApiKey Method for UpdateIngestionApiKey
@@ -91,8 +91,8 @@ type IngestionApiKeysAPI interface {
 	UpdateIngestionApiKey(ctx context.Context, id string) IngestionApiKeysAPIUpdateIngestionApiKeyRequest
 
 	// UpdateIngestionApiKeyExecute executes the request
-	//  @return GetIngestionApiKey200Response
-	UpdateIngestionApiKeyExecute(r IngestionApiKeysAPIUpdateIngestionApiKeyRequest) (*GetIngestionApiKey200Response, *http.Response, error)
+	//  @return UpdateIngestionApiKeyResponse
+	UpdateIngestionApiKeyExecute(r IngestionApiKeysAPIUpdateIngestionApiKeyRequest) (*UpdateIngestionApiKeyResponse, *http.Response, error)
 }
 
 // IngestionApiKeysAPIService IngestionApiKeysAPI service
@@ -109,7 +109,7 @@ func (r IngestionApiKeysAPICreateIngestionApiKeyRequest) CreateIngestionApiKeyRe
 	return r
 }
 
-func (r IngestionApiKeysAPICreateIngestionApiKeyRequest) Execute() (*CreateIngestionApiKey200Response, *http.Response, error) {
+func (r IngestionApiKeysAPICreateIngestionApiKeyRequest) Execute() (*CreateIngestionApiKeyResponse, *http.Response, error) {
 	return r.ApiService.CreateIngestionApiKeyExecute(r)
 }
 
@@ -130,13 +130,13 @@ func (a *IngestionApiKeysAPIService) CreateIngestionApiKey(ctx context.Context) 
 
 // Execute executes the request
 //
-//	@return CreateIngestionApiKey200Response
-func (a *IngestionApiKeysAPIService) CreateIngestionApiKeyExecute(r IngestionApiKeysAPICreateIngestionApiKeyRequest) (*CreateIngestionApiKey200Response, *http.Response, error) {
+//	@return CreateIngestionApiKeyResponse
+func (a *IngestionApiKeysAPIService) CreateIngestionApiKeyExecute(r IngestionApiKeysAPICreateIngestionApiKeyRequest) (*CreateIngestionApiKeyResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateIngestionApiKey200Response
+		localVarReturnValue *CreateIngestionApiKeyResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngestionApiKeysAPIService.CreateIngestionApiKey")
@@ -236,7 +236,7 @@ type IngestionApiKeysAPIDeleteIngestionApiKeyRequest struct {
 	id         string
 }
 
-func (r IngestionApiKeysAPIDeleteIngestionApiKeyRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
+func (r IngestionApiKeysAPIDeleteIngestionApiKeyRequest) Execute() (*DeleteIngestionApiKeyResponse, *http.Response, error) {
 	return r.ApiService.DeleteIngestionApiKeyExecute(r)
 }
 
@@ -259,13 +259,13 @@ func (a *IngestionApiKeysAPIService) DeleteIngestionApiKey(ctx context.Context, 
 
 // Execute executes the request
 //
-//	@return DeleteIngestionApiKey200Response
-func (a *IngestionApiKeysAPIService) DeleteIngestionApiKeyExecute(r IngestionApiKeysAPIDeleteIngestionApiKeyRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
+//	@return DeleteIngestionApiKeyResponse
+func (a *IngestionApiKeysAPIService) DeleteIngestionApiKeyExecute(r IngestionApiKeysAPIDeleteIngestionApiKeyRequest) (*DeleteIngestionApiKeyResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeleteIngestionApiKey200Response
+		localVarReturnValue *DeleteIngestionApiKeyResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngestionApiKeysAPIService.DeleteIngestionApiKey")
@@ -367,7 +367,7 @@ type IngestionApiKeysAPIGetIngestionApiKeyRequest struct {
 	id         string
 }
 
-func (r IngestionApiKeysAPIGetIngestionApiKeyRequest) Execute() (*GetIngestionApiKey200Response, *http.Response, error) {
+func (r IngestionApiKeysAPIGetIngestionApiKeyRequest) Execute() (*GetIngestionApiKeyResponse, *http.Response, error) {
 	return r.ApiService.GetIngestionApiKeyExecute(r)
 }
 
@@ -390,13 +390,13 @@ func (a *IngestionApiKeysAPIService) GetIngestionApiKey(ctx context.Context, id 
 
 // Execute executes the request
 //
-//	@return GetIngestionApiKey200Response
-func (a *IngestionApiKeysAPIService) GetIngestionApiKeyExecute(r IngestionApiKeysAPIGetIngestionApiKeyRequest) (*GetIngestionApiKey200Response, *http.Response, error) {
+//	@return GetIngestionApiKeyResponse
+func (a *IngestionApiKeysAPIService) GetIngestionApiKeyExecute(r IngestionApiKeysAPIGetIngestionApiKeyRequest) (*GetIngestionApiKeyResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GetIngestionApiKey200Response
+		localVarReturnValue *GetIngestionApiKeyResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngestionApiKeysAPIService.GetIngestionApiKey")
@@ -497,7 +497,7 @@ type IngestionApiKeysAPIListIngestionApiKeysRequest struct {
 	ApiService IngestionApiKeysAPI
 }
 
-func (r IngestionApiKeysAPIListIngestionApiKeysRequest) Execute() (*ListIngestionApiKeys200Response, *http.Response, error) {
+func (r IngestionApiKeysAPIListIngestionApiKeysRequest) Execute() (*ListIngestionApiKeysResponse, *http.Response, error) {
 	return r.ApiService.ListIngestionApiKeysExecute(r)
 }
 
@@ -518,13 +518,13 @@ func (a *IngestionApiKeysAPIService) ListIngestionApiKeys(ctx context.Context) I
 
 // Execute executes the request
 //
-//	@return ListIngestionApiKeys200Response
-func (a *IngestionApiKeysAPIService) ListIngestionApiKeysExecute(r IngestionApiKeysAPIListIngestionApiKeysRequest) (*ListIngestionApiKeys200Response, *http.Response, error) {
+//	@return ListIngestionApiKeysResponse
+func (a *IngestionApiKeysAPIService) ListIngestionApiKeysExecute(r IngestionApiKeysAPIListIngestionApiKeysRequest) (*ListIngestionApiKeysResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ListIngestionApiKeys200Response
+		localVarReturnValue *ListIngestionApiKeysResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngestionApiKeysAPIService.ListIngestionApiKeys")
@@ -625,7 +625,7 @@ func (r IngestionApiKeysAPIUpdateIngestionApiKeyRequest) CreateIngestionApiKeyRe
 	return r
 }
 
-func (r IngestionApiKeysAPIUpdateIngestionApiKeyRequest) Execute() (*GetIngestionApiKey200Response, *http.Response, error) {
+func (r IngestionApiKeysAPIUpdateIngestionApiKeyRequest) Execute() (*UpdateIngestionApiKeyResponse, *http.Response, error) {
 	return r.ApiService.UpdateIngestionApiKeyExecute(r)
 }
 
@@ -648,13 +648,13 @@ func (a *IngestionApiKeysAPIService) UpdateIngestionApiKey(ctx context.Context, 
 
 // Execute executes the request
 //
-//	@return GetIngestionApiKey200Response
-func (a *IngestionApiKeysAPIService) UpdateIngestionApiKeyExecute(r IngestionApiKeysAPIUpdateIngestionApiKeyRequest) (*GetIngestionApiKey200Response, *http.Response, error) {
+//	@return UpdateIngestionApiKeyResponse
+func (a *IngestionApiKeysAPIService) UpdateIngestionApiKeyExecute(r IngestionApiKeysAPIUpdateIngestionApiKeyRequest) (*UpdateIngestionApiKeyResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GetIngestionApiKey200Response
+		localVarReturnValue *UpdateIngestionApiKeyResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngestionApiKeysAPIService.UpdateIngestionApiKey")

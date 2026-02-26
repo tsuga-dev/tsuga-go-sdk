@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## GetMetric
 
-> GetMetric200Response GetMetric(ctx, name).From(from).To(to).Execute()
+> GetMetricResponse GetMetric(ctx, name).From(from).To(to).Execute()
 
 
 
@@ -41,7 +41,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MetricsAPI.GetMetric``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMetric`: GetMetric200Response
+	// response from `GetMetric`: GetMetricResponse
 	fmt.Fprintf(os.Stdout, "Response from `MetricsAPI.GetMetric`: %v\n", resp)
 }
 ```
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetMetric200Response**](GetMetric200Response.md)
+[**GetMetricResponse**](GetMetricResponse.md)
 
 ### Authorization
 
@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 
 ## ListMetrics
 
-> ListMetrics200Response ListMetrics(ctx).From(from).To(to).Execute()
+> ListMetricsResponse ListMetrics(ctx).From(from).To(to).Execute()
 
 
 
@@ -114,7 +114,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MetricsAPI.ListMetrics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListMetrics`: ListMetrics200Response
+	// response from `ListMetrics`: ListMetricsResponse
 	fmt.Fprintf(os.Stdout, "Response from `MetricsAPI.ListMetrics`: %v\n", resp)
 }
 ```
@@ -135,7 +135,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListMetrics200Response**](ListMetrics200Response.md)
+[**ListMetricsResponse**](ListMetricsResponse.md)
 
 ### Authorization
 

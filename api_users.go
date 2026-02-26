@@ -33,8 +33,8 @@ type UsersAPI interface {
 	GetUser(ctx context.Context, id string) UsersAPIGetUserRequest
 
 	// GetUserExecute executes the request
-	//  @return GetUser200Response
-	GetUserExecute(r UsersAPIGetUserRequest) (*GetUser200Response, *http.Response, error)
+	//  @return GetUserResponse
+	GetUserExecute(r UsersAPIGetUserRequest) (*GetUserResponse, *http.Response, error)
 
 	/*
 		ListUsers Method for ListUsers
@@ -47,8 +47,8 @@ type UsersAPI interface {
 	ListUsers(ctx context.Context) UsersAPIListUsersRequest
 
 	// ListUsersExecute executes the request
-	//  @return ListUsers200Response
-	ListUsersExecute(r UsersAPIListUsersRequest) (*ListUsers200Response, *http.Response, error)
+	//  @return ListUsersResponse
+	ListUsersExecute(r UsersAPIListUsersRequest) (*ListUsersResponse, *http.Response, error)
 }
 
 // UsersAPIService UsersAPI service
@@ -60,7 +60,7 @@ type UsersAPIGetUserRequest struct {
 	id         string
 }
 
-func (r UsersAPIGetUserRequest) Execute() (*GetUser200Response, *http.Response, error) {
+func (r UsersAPIGetUserRequest) Execute() (*GetUserResponse, *http.Response, error) {
 	return r.ApiService.GetUserExecute(r)
 }
 
@@ -83,13 +83,13 @@ func (a *UsersAPIService) GetUser(ctx context.Context, id string) UsersAPIGetUse
 
 // Execute executes the request
 //
-//	@return GetUser200Response
-func (a *UsersAPIService) GetUserExecute(r UsersAPIGetUserRequest) (*GetUser200Response, *http.Response, error) {
+//	@return GetUserResponse
+func (a *UsersAPIService) GetUserExecute(r UsersAPIGetUserRequest) (*GetUserResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GetUser200Response
+		localVarReturnValue *GetUserResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersAPIService.GetUser")
@@ -190,7 +190,7 @@ type UsersAPIListUsersRequest struct {
 	ApiService UsersAPI
 }
 
-func (r UsersAPIListUsersRequest) Execute() (*ListUsers200Response, *http.Response, error) {
+func (r UsersAPIListUsersRequest) Execute() (*ListUsersResponse, *http.Response, error) {
 	return r.ApiService.ListUsersExecute(r)
 }
 
@@ -211,13 +211,13 @@ func (a *UsersAPIService) ListUsers(ctx context.Context) UsersAPIListUsersReques
 
 // Execute executes the request
 //
-//	@return ListUsers200Response
-func (a *UsersAPIService) ListUsersExecute(r UsersAPIListUsersRequest) (*ListUsers200Response, *http.Response, error) {
+//	@return ListUsersResponse
+func (a *UsersAPIService) ListUsersExecute(r UsersAPIListUsersRequest) (*ListUsersResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ListUsers200Response
+		localVarReturnValue *ListUsersResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersAPIService.ListUsers")

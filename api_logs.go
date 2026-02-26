@@ -31,8 +31,8 @@ type LogsAPI interface {
 	SearchLogs(ctx context.Context) LogsAPISearchLogsRequest
 
 	// SearchLogsExecute executes the request
-	//  @return SearchLogs200Response
-	SearchLogsExecute(r LogsAPISearchLogsRequest) (*SearchLogs200Response, *http.Response, error)
+	//  @return SearchLogsResponse
+	SearchLogsExecute(r LogsAPISearchLogsRequest) (*SearchLogsResponse, *http.Response, error)
 }
 
 // LogsAPIService LogsAPI service
@@ -69,7 +69,7 @@ func (r LogsAPISearchLogsRequest) MaxResults(maxResults float32) LogsAPISearchLo
 	return r
 }
 
-func (r LogsAPISearchLogsRequest) Execute() (*SearchLogs200Response, *http.Response, error) {
+func (r LogsAPISearchLogsRequest) Execute() (*SearchLogsResponse, *http.Response, error) {
 	return r.ApiService.SearchLogsExecute(r)
 }
 
@@ -90,13 +90,13 @@ func (a *LogsAPIService) SearchLogs(ctx context.Context) LogsAPISearchLogsReques
 
 // Execute executes the request
 //
-//	@return SearchLogs200Response
-func (a *LogsAPIService) SearchLogsExecute(r LogsAPISearchLogsRequest) (*SearchLogs200Response, *http.Response, error) {
+//	@return SearchLogsResponse
+func (a *LogsAPIService) SearchLogsExecute(r LogsAPISearchLogsRequest) (*SearchLogsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SearchLogs200Response
+		localVarReturnValue *SearchLogsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogsAPIService.SearchLogs")

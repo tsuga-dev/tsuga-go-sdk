@@ -31,8 +31,8 @@ type AggregationAPI interface {
 	AggregateScalar(ctx context.Context) AggregationAPIAggregateScalarRequest
 
 	// AggregateScalarExecute executes the request
-	//  @return AggregateScalar200Response
-	AggregateScalarExecute(r AggregationAPIAggregateScalarRequest) (*AggregateScalar200Response, *http.Response, error)
+	//  @return AggregateScalarResponse
+	AggregateScalarExecute(r AggregationAPIAggregateScalarRequest) (*AggregateScalarResponse, *http.Response, error)
 
 	/*
 		AggregateTimeseries Method for AggregateTimeseries
@@ -45,8 +45,8 @@ type AggregationAPI interface {
 	AggregateTimeseries(ctx context.Context) AggregationAPIAggregateTimeseriesRequest
 
 	// AggregateTimeseriesExecute executes the request
-	//  @return AggregateTimeseries200Response
-	AggregateTimeseriesExecute(r AggregationAPIAggregateTimeseriesRequest) (*AggregateTimeseries200Response, *http.Response, error)
+	//  @return AggregateTimeseriesResponse
+	AggregateTimeseriesExecute(r AggregationAPIAggregateTimeseriesRequest) (*AggregateTimeseriesResponse, *http.Response, error)
 }
 
 // AggregationAPIService AggregationAPI service
@@ -63,7 +63,7 @@ func (r AggregationAPIAggregateScalarRequest) AggregateScalarRequest(aggregateSc
 	return r
 }
 
-func (r AggregationAPIAggregateScalarRequest) Execute() (*AggregateScalar200Response, *http.Response, error) {
+func (r AggregationAPIAggregateScalarRequest) Execute() (*AggregateScalarResponse, *http.Response, error) {
 	return r.ApiService.AggregateScalarExecute(r)
 }
 
@@ -84,13 +84,13 @@ func (a *AggregationAPIService) AggregateScalar(ctx context.Context) Aggregation
 
 // Execute executes the request
 //
-//	@return AggregateScalar200Response
-func (a *AggregationAPIService) AggregateScalarExecute(r AggregationAPIAggregateScalarRequest) (*AggregateScalar200Response, *http.Response, error) {
+//	@return AggregateScalarResponse
+func (a *AggregationAPIService) AggregateScalarExecute(r AggregationAPIAggregateScalarRequest) (*AggregateScalarResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AggregateScalar200Response
+		localVarReturnValue *AggregateScalarResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AggregationAPIService.AggregateScalar")
@@ -195,7 +195,7 @@ func (r AggregationAPIAggregateTimeseriesRequest) AggregateTimeseriesRequest(agg
 	return r
 }
 
-func (r AggregationAPIAggregateTimeseriesRequest) Execute() (*AggregateTimeseries200Response, *http.Response, error) {
+func (r AggregationAPIAggregateTimeseriesRequest) Execute() (*AggregateTimeseriesResponse, *http.Response, error) {
 	return r.ApiService.AggregateTimeseriesExecute(r)
 }
 
@@ -216,13 +216,13 @@ func (a *AggregationAPIService) AggregateTimeseries(ctx context.Context) Aggrega
 
 // Execute executes the request
 //
-//	@return AggregateTimeseries200Response
-func (a *AggregationAPIService) AggregateTimeseriesExecute(r AggregationAPIAggregateTimeseriesRequest) (*AggregateTimeseries200Response, *http.Response, error) {
+//	@return AggregateTimeseriesResponse
+func (a *AggregationAPIService) AggregateTimeseriesExecute(r AggregationAPIAggregateTimeseriesRequest) (*AggregateTimeseriesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AggregateTimeseries200Response
+		localVarReturnValue *AggregateTimeseriesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AggregationAPIService.AggregateTimeseries")

@@ -31,8 +31,8 @@ type InvitationsAPI interface {
 	InviteUsers(ctx context.Context) InvitationsAPIInviteUsersRequest
 
 	// InviteUsersExecute executes the request
-	//  @return InviteUsers200Response
-	InviteUsersExecute(r InvitationsAPIInviteUsersRequest) (*InviteUsers200Response, *http.Response, error)
+	//  @return InviteUsersResponse
+	InviteUsersExecute(r InvitationsAPIInviteUsersRequest) (*InviteUsersResponse, *http.Response, error)
 
 	/*
 		ListInvitations Method for ListInvitations
@@ -45,8 +45,8 @@ type InvitationsAPI interface {
 	ListInvitations(ctx context.Context) InvitationsAPIListInvitationsRequest
 
 	// ListInvitationsExecute executes the request
-	//  @return ListInvitations200Response
-	ListInvitationsExecute(r InvitationsAPIListInvitationsRequest) (*ListInvitations200Response, *http.Response, error)
+	//  @return ListInvitationsResponse
+	ListInvitationsExecute(r InvitationsAPIListInvitationsRequest) (*ListInvitationsResponse, *http.Response, error)
 }
 
 // InvitationsAPIService InvitationsAPI service
@@ -63,7 +63,7 @@ func (r InvitationsAPIInviteUsersRequest) InviteUsersRequestInner(inviteUsersReq
 	return r
 }
 
-func (r InvitationsAPIInviteUsersRequest) Execute() (*InviteUsers200Response, *http.Response, error) {
+func (r InvitationsAPIInviteUsersRequest) Execute() (*InviteUsersResponse, *http.Response, error) {
 	return r.ApiService.InviteUsersExecute(r)
 }
 
@@ -84,13 +84,13 @@ func (a *InvitationsAPIService) InviteUsers(ctx context.Context) InvitationsAPII
 
 // Execute executes the request
 //
-//	@return InviteUsers200Response
-func (a *InvitationsAPIService) InviteUsersExecute(r InvitationsAPIInviteUsersRequest) (*InviteUsers200Response, *http.Response, error) {
+//	@return InviteUsersResponse
+func (a *InvitationsAPIService) InviteUsersExecute(r InvitationsAPIInviteUsersRequest) (*InviteUsersResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InviteUsers200Response
+		localVarReturnValue *InviteUsersResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvitationsAPIService.InviteUsers")
@@ -192,7 +192,7 @@ type InvitationsAPIListInvitationsRequest struct {
 	ApiService InvitationsAPI
 }
 
-func (r InvitationsAPIListInvitationsRequest) Execute() (*ListInvitations200Response, *http.Response, error) {
+func (r InvitationsAPIListInvitationsRequest) Execute() (*ListInvitationsResponse, *http.Response, error) {
 	return r.ApiService.ListInvitationsExecute(r)
 }
 
@@ -213,13 +213,13 @@ func (a *InvitationsAPIService) ListInvitations(ctx context.Context) Invitations
 
 // Execute executes the request
 //
-//	@return ListInvitations200Response
-func (a *InvitationsAPIService) ListInvitationsExecute(r InvitationsAPIListInvitationsRequest) (*ListInvitations200Response, *http.Response, error) {
+//	@return ListInvitationsResponse
+func (a *InvitationsAPIService) ListInvitationsExecute(r InvitationsAPIListInvitationsRequest) (*ListInvitationsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ListInvitations200Response
+		localVarReturnValue *ListInvitationsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvitationsAPIService.ListInvitations")

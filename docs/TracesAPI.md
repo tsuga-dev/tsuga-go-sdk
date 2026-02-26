@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## SearchSpans
 
-> SearchSpans200Response SearchSpans(ctx).From(from).To(to).Query(query).MaxResults(maxResults).Execute()
+> SearchSpansResponse SearchSpans(ctx).From(from).To(to).Query(query).MaxResults(maxResults).Execute()
 
 
 
@@ -41,7 +41,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TracesAPI.SearchSpans``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SearchSpans`: SearchSpans200Response
+	// response from `SearchSpans`: SearchSpansResponse
 	fmt.Fprintf(os.Stdout, "Response from `TracesAPI.SearchSpans`: %v\n", resp)
 }
 ```
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SearchSpans200Response**](SearchSpans200Response.md)
+[**SearchSpansResponse**](SearchSpansResponse.md)
 
 ### Authorization
 

@@ -33,8 +33,8 @@ type ServicesAPI interface {
 	GetService(ctx context.Context, serviceId string) ServicesAPIGetServiceRequest
 
 	// GetServiceExecute executes the request
-	//  @return GetService200Response
-	GetServiceExecute(r ServicesAPIGetServiceRequest) (*GetService200Response, *http.Response, error)
+	//  @return GetServiceResponse
+	GetServiceExecute(r ServicesAPIGetServiceRequest) (*GetServiceResponse, *http.Response, error)
 
 	/*
 		ListServices Method for ListServices
@@ -47,8 +47,8 @@ type ServicesAPI interface {
 	ListServices(ctx context.Context) ServicesAPIListServicesRequest
 
 	// ListServicesExecute executes the request
-	//  @return ListServices200Response
-	ListServicesExecute(r ServicesAPIListServicesRequest) (*ListServices200Response, *http.Response, error)
+	//  @return ListServicesResponse
+	ListServicesExecute(r ServicesAPIListServicesRequest) (*ListServicesResponse, *http.Response, error)
 }
 
 // ServicesAPIService ServicesAPI service
@@ -60,7 +60,7 @@ type ServicesAPIGetServiceRequest struct {
 	serviceId  string
 }
 
-func (r ServicesAPIGetServiceRequest) Execute() (*GetService200Response, *http.Response, error) {
+func (r ServicesAPIGetServiceRequest) Execute() (*GetServiceResponse, *http.Response, error) {
 	return r.ApiService.GetServiceExecute(r)
 }
 
@@ -83,13 +83,13 @@ func (a *ServicesAPIService) GetService(ctx context.Context, serviceId string) S
 
 // Execute executes the request
 //
-//	@return GetService200Response
-func (a *ServicesAPIService) GetServiceExecute(r ServicesAPIGetServiceRequest) (*GetService200Response, *http.Response, error) {
+//	@return GetServiceResponse
+func (a *ServicesAPIService) GetServiceExecute(r ServicesAPIGetServiceRequest) (*GetServiceResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GetService200Response
+		localVarReturnValue *GetServiceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServicesAPIService.GetService")
@@ -190,7 +190,7 @@ type ServicesAPIListServicesRequest struct {
 	ApiService ServicesAPI
 }
 
-func (r ServicesAPIListServicesRequest) Execute() (*ListServices200Response, *http.Response, error) {
+func (r ServicesAPIListServicesRequest) Execute() (*ListServicesResponse, *http.Response, error) {
 	return r.ApiService.ListServicesExecute(r)
 }
 
@@ -211,13 +211,13 @@ func (a *ServicesAPIService) ListServices(ctx context.Context) ServicesAPIListSe
 
 // Execute executes the request
 //
-//	@return ListServices200Response
-func (a *ServicesAPIService) ListServicesExecute(r ServicesAPIListServicesRequest) (*ListServices200Response, *http.Response, error) {
+//	@return ListServicesResponse
+func (a *ServicesAPIService) ListServicesExecute(r ServicesAPIListServicesRequest) (*ListServicesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ListServices200Response
+		localVarReturnValue *ListServicesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServicesAPIService.ListServices")

@@ -32,8 +32,8 @@ type NotificationSilencesAPI interface {
 	CreateNotificationSilence(ctx context.Context) NotificationSilencesAPICreateNotificationSilenceRequest
 
 	// CreateNotificationSilenceExecute executes the request
-	//  @return CreateNotificationSilence200Response
-	CreateNotificationSilenceExecute(r NotificationSilencesAPICreateNotificationSilenceRequest) (*CreateNotificationSilence200Response, *http.Response, error)
+	//  @return CreateNotificationSilenceResponse
+	CreateNotificationSilenceExecute(r NotificationSilencesAPICreateNotificationSilenceRequest) (*CreateNotificationSilenceResponse, *http.Response, error)
 
 	/*
 		DeleteNotificationSilence Method for DeleteNotificationSilence
@@ -47,8 +47,8 @@ type NotificationSilencesAPI interface {
 	DeleteNotificationSilence(ctx context.Context, id string) NotificationSilencesAPIDeleteNotificationSilenceRequest
 
 	// DeleteNotificationSilenceExecute executes the request
-	//  @return DeleteIngestionApiKey200Response
-	DeleteNotificationSilenceExecute(r NotificationSilencesAPIDeleteNotificationSilenceRequest) (*DeleteIngestionApiKey200Response, *http.Response, error)
+	//  @return DeleteNotificationSilenceResponse
+	DeleteNotificationSilenceExecute(r NotificationSilencesAPIDeleteNotificationSilenceRequest) (*DeleteNotificationSilenceResponse, *http.Response, error)
 
 	/*
 		GetNotificationSilence Method for GetNotificationSilence
@@ -62,8 +62,8 @@ type NotificationSilencesAPI interface {
 	GetNotificationSilence(ctx context.Context, id string) NotificationSilencesAPIGetNotificationSilenceRequest
 
 	// GetNotificationSilenceExecute executes the request
-	//  @return CreateNotificationSilence200Response
-	GetNotificationSilenceExecute(r NotificationSilencesAPIGetNotificationSilenceRequest) (*CreateNotificationSilence200Response, *http.Response, error)
+	//  @return GetNotificationSilenceResponse
+	GetNotificationSilenceExecute(r NotificationSilencesAPIGetNotificationSilenceRequest) (*GetNotificationSilenceResponse, *http.Response, error)
 
 	/*
 		ListNotificationSilences Method for ListNotificationSilences
@@ -76,8 +76,8 @@ type NotificationSilencesAPI interface {
 	ListNotificationSilences(ctx context.Context) NotificationSilencesAPIListNotificationSilencesRequest
 
 	// ListNotificationSilencesExecute executes the request
-	//  @return ListNotificationSilences200Response
-	ListNotificationSilencesExecute(r NotificationSilencesAPIListNotificationSilencesRequest) (*ListNotificationSilences200Response, *http.Response, error)
+	//  @return ListNotificationSilencesResponse
+	ListNotificationSilencesExecute(r NotificationSilencesAPIListNotificationSilencesRequest) (*ListNotificationSilencesResponse, *http.Response, error)
 
 	/*
 		UpdateNotificationSilence Method for UpdateNotificationSilence
@@ -91,8 +91,8 @@ type NotificationSilencesAPI interface {
 	UpdateNotificationSilence(ctx context.Context, id string) NotificationSilencesAPIUpdateNotificationSilenceRequest
 
 	// UpdateNotificationSilenceExecute executes the request
-	//  @return CreateNotificationSilence200Response
-	UpdateNotificationSilenceExecute(r NotificationSilencesAPIUpdateNotificationSilenceRequest) (*CreateNotificationSilence200Response, *http.Response, error)
+	//  @return UpdateNotificationSilenceResponse
+	UpdateNotificationSilenceExecute(r NotificationSilencesAPIUpdateNotificationSilenceRequest) (*UpdateNotificationSilenceResponse, *http.Response, error)
 }
 
 // NotificationSilencesAPIService NotificationSilencesAPI service
@@ -109,7 +109,7 @@ func (r NotificationSilencesAPICreateNotificationSilenceRequest) CreateNotificat
 	return r
 }
 
-func (r NotificationSilencesAPICreateNotificationSilenceRequest) Execute() (*CreateNotificationSilence200Response, *http.Response, error) {
+func (r NotificationSilencesAPICreateNotificationSilenceRequest) Execute() (*CreateNotificationSilenceResponse, *http.Response, error) {
 	return r.ApiService.CreateNotificationSilenceExecute(r)
 }
 
@@ -130,13 +130,13 @@ func (a *NotificationSilencesAPIService) CreateNotificationSilence(ctx context.C
 
 // Execute executes the request
 //
-//	@return CreateNotificationSilence200Response
-func (a *NotificationSilencesAPIService) CreateNotificationSilenceExecute(r NotificationSilencesAPICreateNotificationSilenceRequest) (*CreateNotificationSilence200Response, *http.Response, error) {
+//	@return CreateNotificationSilenceResponse
+func (a *NotificationSilencesAPIService) CreateNotificationSilenceExecute(r NotificationSilencesAPICreateNotificationSilenceRequest) (*CreateNotificationSilenceResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateNotificationSilence200Response
+		localVarReturnValue *CreateNotificationSilenceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationSilencesAPIService.CreateNotificationSilence")
@@ -236,7 +236,7 @@ type NotificationSilencesAPIDeleteNotificationSilenceRequest struct {
 	id         string
 }
 
-func (r NotificationSilencesAPIDeleteNotificationSilenceRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
+func (r NotificationSilencesAPIDeleteNotificationSilenceRequest) Execute() (*DeleteNotificationSilenceResponse, *http.Response, error) {
 	return r.ApiService.DeleteNotificationSilenceExecute(r)
 }
 
@@ -259,13 +259,13 @@ func (a *NotificationSilencesAPIService) DeleteNotificationSilence(ctx context.C
 
 // Execute executes the request
 //
-//	@return DeleteIngestionApiKey200Response
-func (a *NotificationSilencesAPIService) DeleteNotificationSilenceExecute(r NotificationSilencesAPIDeleteNotificationSilenceRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
+//	@return DeleteNotificationSilenceResponse
+func (a *NotificationSilencesAPIService) DeleteNotificationSilenceExecute(r NotificationSilencesAPIDeleteNotificationSilenceRequest) (*DeleteNotificationSilenceResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeleteIngestionApiKey200Response
+		localVarReturnValue *DeleteNotificationSilenceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationSilencesAPIService.DeleteNotificationSilence")
@@ -367,7 +367,7 @@ type NotificationSilencesAPIGetNotificationSilenceRequest struct {
 	id         string
 }
 
-func (r NotificationSilencesAPIGetNotificationSilenceRequest) Execute() (*CreateNotificationSilence200Response, *http.Response, error) {
+func (r NotificationSilencesAPIGetNotificationSilenceRequest) Execute() (*GetNotificationSilenceResponse, *http.Response, error) {
 	return r.ApiService.GetNotificationSilenceExecute(r)
 }
 
@@ -390,13 +390,13 @@ func (a *NotificationSilencesAPIService) GetNotificationSilence(ctx context.Cont
 
 // Execute executes the request
 //
-//	@return CreateNotificationSilence200Response
-func (a *NotificationSilencesAPIService) GetNotificationSilenceExecute(r NotificationSilencesAPIGetNotificationSilenceRequest) (*CreateNotificationSilence200Response, *http.Response, error) {
+//	@return GetNotificationSilenceResponse
+func (a *NotificationSilencesAPIService) GetNotificationSilenceExecute(r NotificationSilencesAPIGetNotificationSilenceRequest) (*GetNotificationSilenceResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateNotificationSilence200Response
+		localVarReturnValue *GetNotificationSilenceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationSilencesAPIService.GetNotificationSilence")
@@ -497,7 +497,7 @@ type NotificationSilencesAPIListNotificationSilencesRequest struct {
 	ApiService NotificationSilencesAPI
 }
 
-func (r NotificationSilencesAPIListNotificationSilencesRequest) Execute() (*ListNotificationSilences200Response, *http.Response, error) {
+func (r NotificationSilencesAPIListNotificationSilencesRequest) Execute() (*ListNotificationSilencesResponse, *http.Response, error) {
 	return r.ApiService.ListNotificationSilencesExecute(r)
 }
 
@@ -518,13 +518,13 @@ func (a *NotificationSilencesAPIService) ListNotificationSilences(ctx context.Co
 
 // Execute executes the request
 //
-//	@return ListNotificationSilences200Response
-func (a *NotificationSilencesAPIService) ListNotificationSilencesExecute(r NotificationSilencesAPIListNotificationSilencesRequest) (*ListNotificationSilences200Response, *http.Response, error) {
+//	@return ListNotificationSilencesResponse
+func (a *NotificationSilencesAPIService) ListNotificationSilencesExecute(r NotificationSilencesAPIListNotificationSilencesRequest) (*ListNotificationSilencesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ListNotificationSilences200Response
+		localVarReturnValue *ListNotificationSilencesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationSilencesAPIService.ListNotificationSilences")
@@ -625,7 +625,7 @@ func (r NotificationSilencesAPIUpdateNotificationSilenceRequest) CreateNotificat
 	return r
 }
 
-func (r NotificationSilencesAPIUpdateNotificationSilenceRequest) Execute() (*CreateNotificationSilence200Response, *http.Response, error) {
+func (r NotificationSilencesAPIUpdateNotificationSilenceRequest) Execute() (*UpdateNotificationSilenceResponse, *http.Response, error) {
 	return r.ApiService.UpdateNotificationSilenceExecute(r)
 }
 
@@ -648,13 +648,13 @@ func (a *NotificationSilencesAPIService) UpdateNotificationSilence(ctx context.C
 
 // Execute executes the request
 //
-//	@return CreateNotificationSilence200Response
-func (a *NotificationSilencesAPIService) UpdateNotificationSilenceExecute(r NotificationSilencesAPIUpdateNotificationSilenceRequest) (*CreateNotificationSilence200Response, *http.Response, error) {
+//	@return UpdateNotificationSilenceResponse
+func (a *NotificationSilencesAPIService) UpdateNotificationSilenceExecute(r NotificationSilencesAPIUpdateNotificationSilenceRequest) (*UpdateNotificationSilenceResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateNotificationSilence200Response
+		localVarReturnValue *UpdateNotificationSilenceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationSilencesAPIService.UpdateNotificationSilence")

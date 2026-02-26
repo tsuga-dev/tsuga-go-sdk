@@ -32,8 +32,8 @@ type TeamsAPI interface {
 	CreateTeam(ctx context.Context) TeamsAPICreateTeamRequest
 
 	// CreateTeamExecute executes the request
-	//  @return CreateTeam200Response
-	CreateTeamExecute(r TeamsAPICreateTeamRequest) (*CreateTeam200Response, *http.Response, error)
+	//  @return CreateTeamResponse
+	CreateTeamExecute(r TeamsAPICreateTeamRequest) (*CreateTeamResponse, *http.Response, error)
 
 	/*
 		DeleteTeam Method for DeleteTeam
@@ -47,8 +47,8 @@ type TeamsAPI interface {
 	DeleteTeam(ctx context.Context, id string) TeamsAPIDeleteTeamRequest
 
 	// DeleteTeamExecute executes the request
-	//  @return DeleteIngestionApiKey200Response
-	DeleteTeamExecute(r TeamsAPIDeleteTeamRequest) (*DeleteIngestionApiKey200Response, *http.Response, error)
+	//  @return DeleteTeamResponse
+	DeleteTeamExecute(r TeamsAPIDeleteTeamRequest) (*DeleteTeamResponse, *http.Response, error)
 
 	/*
 		GetTeam Method for GetTeam
@@ -62,8 +62,8 @@ type TeamsAPI interface {
 	GetTeam(ctx context.Context, id string) TeamsAPIGetTeamRequest
 
 	// GetTeamExecute executes the request
-	//  @return CreateTeam200Response
-	GetTeamExecute(r TeamsAPIGetTeamRequest) (*CreateTeam200Response, *http.Response, error)
+	//  @return GetTeamResponse
+	GetTeamExecute(r TeamsAPIGetTeamRequest) (*GetTeamResponse, *http.Response, error)
 
 	/*
 		ListTeams Method for ListTeams
@@ -76,8 +76,8 @@ type TeamsAPI interface {
 	ListTeams(ctx context.Context) TeamsAPIListTeamsRequest
 
 	// ListTeamsExecute executes the request
-	//  @return ListTeams200Response
-	ListTeamsExecute(r TeamsAPIListTeamsRequest) (*ListTeams200Response, *http.Response, error)
+	//  @return ListTeamsResponse
+	ListTeamsExecute(r TeamsAPIListTeamsRequest) (*ListTeamsResponse, *http.Response, error)
 
 	/*
 		UpdateTeam Method for UpdateTeam
@@ -91,8 +91,8 @@ type TeamsAPI interface {
 	UpdateTeam(ctx context.Context, id string) TeamsAPIUpdateTeamRequest
 
 	// UpdateTeamExecute executes the request
-	//  @return CreateTeam200Response
-	UpdateTeamExecute(r TeamsAPIUpdateTeamRequest) (*CreateTeam200Response, *http.Response, error)
+	//  @return UpdateTeamResponse
+	UpdateTeamExecute(r TeamsAPIUpdateTeamRequest) (*UpdateTeamResponse, *http.Response, error)
 }
 
 // TeamsAPIService TeamsAPI service
@@ -109,7 +109,7 @@ func (r TeamsAPICreateTeamRequest) CreateTeamRequest(createTeamRequest CreateTea
 	return r
 }
 
-func (r TeamsAPICreateTeamRequest) Execute() (*CreateTeam200Response, *http.Response, error) {
+func (r TeamsAPICreateTeamRequest) Execute() (*CreateTeamResponse, *http.Response, error) {
 	return r.ApiService.CreateTeamExecute(r)
 }
 
@@ -130,13 +130,13 @@ func (a *TeamsAPIService) CreateTeam(ctx context.Context) TeamsAPICreateTeamRequ
 
 // Execute executes the request
 //
-//	@return CreateTeam200Response
-func (a *TeamsAPIService) CreateTeamExecute(r TeamsAPICreateTeamRequest) (*CreateTeam200Response, *http.Response, error) {
+//	@return CreateTeamResponse
+func (a *TeamsAPIService) CreateTeamExecute(r TeamsAPICreateTeamRequest) (*CreateTeamResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateTeam200Response
+		localVarReturnValue *CreateTeamResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsAPIService.CreateTeam")
@@ -236,7 +236,7 @@ type TeamsAPIDeleteTeamRequest struct {
 	id         string
 }
 
-func (r TeamsAPIDeleteTeamRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
+func (r TeamsAPIDeleteTeamRequest) Execute() (*DeleteTeamResponse, *http.Response, error) {
 	return r.ApiService.DeleteTeamExecute(r)
 }
 
@@ -259,13 +259,13 @@ func (a *TeamsAPIService) DeleteTeam(ctx context.Context, id string) TeamsAPIDel
 
 // Execute executes the request
 //
-//	@return DeleteIngestionApiKey200Response
-func (a *TeamsAPIService) DeleteTeamExecute(r TeamsAPIDeleteTeamRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
+//	@return DeleteTeamResponse
+func (a *TeamsAPIService) DeleteTeamExecute(r TeamsAPIDeleteTeamRequest) (*DeleteTeamResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeleteIngestionApiKey200Response
+		localVarReturnValue *DeleteTeamResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsAPIService.DeleteTeam")
@@ -367,7 +367,7 @@ type TeamsAPIGetTeamRequest struct {
 	id         string
 }
 
-func (r TeamsAPIGetTeamRequest) Execute() (*CreateTeam200Response, *http.Response, error) {
+func (r TeamsAPIGetTeamRequest) Execute() (*GetTeamResponse, *http.Response, error) {
 	return r.ApiService.GetTeamExecute(r)
 }
 
@@ -390,13 +390,13 @@ func (a *TeamsAPIService) GetTeam(ctx context.Context, id string) TeamsAPIGetTea
 
 // Execute executes the request
 //
-//	@return CreateTeam200Response
-func (a *TeamsAPIService) GetTeamExecute(r TeamsAPIGetTeamRequest) (*CreateTeam200Response, *http.Response, error) {
+//	@return GetTeamResponse
+func (a *TeamsAPIService) GetTeamExecute(r TeamsAPIGetTeamRequest) (*GetTeamResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateTeam200Response
+		localVarReturnValue *GetTeamResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsAPIService.GetTeam")
@@ -497,7 +497,7 @@ type TeamsAPIListTeamsRequest struct {
 	ApiService TeamsAPI
 }
 
-func (r TeamsAPIListTeamsRequest) Execute() (*ListTeams200Response, *http.Response, error) {
+func (r TeamsAPIListTeamsRequest) Execute() (*ListTeamsResponse, *http.Response, error) {
 	return r.ApiService.ListTeamsExecute(r)
 }
 
@@ -518,13 +518,13 @@ func (a *TeamsAPIService) ListTeams(ctx context.Context) TeamsAPIListTeamsReques
 
 // Execute executes the request
 //
-//	@return ListTeams200Response
-func (a *TeamsAPIService) ListTeamsExecute(r TeamsAPIListTeamsRequest) (*ListTeams200Response, *http.Response, error) {
+//	@return ListTeamsResponse
+func (a *TeamsAPIService) ListTeamsExecute(r TeamsAPIListTeamsRequest) (*ListTeamsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ListTeams200Response
+		localVarReturnValue *ListTeamsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsAPIService.ListTeams")
@@ -625,7 +625,7 @@ func (r TeamsAPIUpdateTeamRequest) CreateTeamRequest(createTeamRequest CreateTea
 	return r
 }
 
-func (r TeamsAPIUpdateTeamRequest) Execute() (*CreateTeam200Response, *http.Response, error) {
+func (r TeamsAPIUpdateTeamRequest) Execute() (*UpdateTeamResponse, *http.Response, error) {
 	return r.ApiService.UpdateTeamExecute(r)
 }
 
@@ -648,13 +648,13 @@ func (a *TeamsAPIService) UpdateTeam(ctx context.Context, id string) TeamsAPIUpd
 
 // Execute executes the request
 //
-//	@return CreateTeam200Response
-func (a *TeamsAPIService) UpdateTeamExecute(r TeamsAPIUpdateTeamRequest) (*CreateTeam200Response, *http.Response, error) {
+//	@return UpdateTeamResponse
+func (a *TeamsAPIService) UpdateTeamExecute(r TeamsAPIUpdateTeamRequest) (*UpdateTeamResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateTeam200Response
+		localVarReturnValue *UpdateTeamResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsAPIService.UpdateTeam")

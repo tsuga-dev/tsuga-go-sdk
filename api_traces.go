@@ -31,8 +31,8 @@ type TracesAPI interface {
 	SearchSpans(ctx context.Context) TracesAPISearchSpansRequest
 
 	// SearchSpansExecute executes the request
-	//  @return SearchSpans200Response
-	SearchSpansExecute(r TracesAPISearchSpansRequest) (*SearchSpans200Response, *http.Response, error)
+	//  @return SearchSpansResponse
+	SearchSpansExecute(r TracesAPISearchSpansRequest) (*SearchSpansResponse, *http.Response, error)
 }
 
 // TracesAPIService TracesAPI service
@@ -69,7 +69,7 @@ func (r TracesAPISearchSpansRequest) MaxResults(maxResults int32) TracesAPISearc
 	return r
 }
 
-func (r TracesAPISearchSpansRequest) Execute() (*SearchSpans200Response, *http.Response, error) {
+func (r TracesAPISearchSpansRequest) Execute() (*SearchSpansResponse, *http.Response, error) {
 	return r.ApiService.SearchSpansExecute(r)
 }
 
@@ -90,13 +90,13 @@ func (a *TracesAPIService) SearchSpans(ctx context.Context) TracesAPISearchSpans
 
 // Execute executes the request
 //
-//	@return SearchSpans200Response
-func (a *TracesAPIService) SearchSpansExecute(r TracesAPISearchSpansRequest) (*SearchSpans200Response, *http.Response, error) {
+//	@return SearchSpansResponse
+func (a *TracesAPIService) SearchSpansExecute(r TracesAPISearchSpansRequest) (*SearchSpansResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SearchSpans200Response
+		localVarReturnValue *SearchSpansResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TracesAPIService.SearchSpans")

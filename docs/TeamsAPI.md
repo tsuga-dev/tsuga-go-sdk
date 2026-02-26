@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateTeam
 
-> CreateTeam200Response CreateTeam(ctx).CreateTeamRequest(createTeamRequest).Execute()
+> CreateTeamResponse CreateTeam(ctx).CreateTeamRequest(createTeamRequest).Execute()
 
 
 
@@ -42,7 +42,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamsAPI.CreateTeam``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateTeam`: CreateTeam200Response
+	// response from `CreateTeam`: CreateTeamResponse
 	fmt.Fprintf(os.Stdout, "Response from `TeamsAPI.CreateTeam`: %v\n", resp)
 }
 ```
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateTeam200Response**](CreateTeam200Response.md)
+[**CreateTeamResponse**](CreateTeamResponse.md)
 
 ### Authorization
 
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## DeleteTeam
 
-> DeleteIngestionApiKey200Response DeleteTeam(ctx, id).Execute()
+> DeleteTeamResponse DeleteTeam(ctx, id).Execute()
 
 
 
@@ -108,7 +108,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamsAPI.DeleteTeam``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteTeam`: DeleteIngestionApiKey200Response
+	// response from `DeleteTeam`: DeleteTeamResponse
 	fmt.Fprintf(os.Stdout, "Response from `TeamsAPI.DeleteTeam`: %v\n", resp)
 }
 ```
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteIngestionApiKey200Response**](DeleteIngestionApiKey200Response.md)
+[**DeleteTeamResponse**](DeleteTeamResponse.md)
 
 ### Authorization
 
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 ## GetTeam
 
-> CreateTeam200Response GetTeam(ctx, id).Execute()
+> GetTeamResponse GetTeam(ctx, id).Execute()
 
 
 
@@ -178,7 +178,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamsAPI.GetTeam``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTeam`: CreateTeam200Response
+	// response from `GetTeam`: GetTeamResponse
 	fmt.Fprintf(os.Stdout, "Response from `TeamsAPI.GetTeam`: %v\n", resp)
 }
 ```
@@ -202,7 +202,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateTeam200Response**](CreateTeam200Response.md)
+[**GetTeamResponse**](GetTeamResponse.md)
 
 ### Authorization
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## ListTeams
 
-> ListTeams200Response ListTeams(ctx).Execute()
+> ListTeamsResponse ListTeams(ctx).Execute()
 
 
 
@@ -247,7 +247,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamsAPI.ListTeams``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListTeams`: ListTeams200Response
+	// response from `ListTeams`: ListTeamsResponse
 	fmt.Fprintf(os.Stdout, "Response from `TeamsAPI.ListTeams`: %v\n", resp)
 }
 ```
@@ -263,7 +263,7 @@ Other parameters are passed through a pointer to a apiListTeamsRequest struct vi
 
 ### Return type
 
-[**ListTeams200Response**](ListTeams200Response.md)
+[**ListTeamsResponse**](ListTeamsResponse.md)
 
 ### Authorization
 
@@ -281,7 +281,7 @@ Other parameters are passed through a pointer to a apiListTeamsRequest struct vi
 
 ## UpdateTeam
 
-> CreateTeam200Response UpdateTeam(ctx, id).CreateTeamRequest(createTeamRequest).Execute()
+> UpdateTeamResponse UpdateTeam(ctx, id).CreateTeamRequest(createTeamRequest).Execute()
 
 
 
@@ -310,7 +310,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamsAPI.UpdateTeam``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateTeam`: CreateTeam200Response
+	// response from `UpdateTeam`: UpdateTeamResponse
 	fmt.Fprintf(os.Stdout, "Response from `TeamsAPI.UpdateTeam`: %v\n", resp)
 }
 ```
@@ -335,7 +335,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateTeam200Response**](CreateTeam200Response.md)
+[**UpdateTeamResponse**](UpdateTeamResponse.md)
 
 ### Authorization
 

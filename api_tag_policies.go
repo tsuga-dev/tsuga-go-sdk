@@ -32,8 +32,8 @@ type TagPoliciesAPI interface {
 	CreateTagPolicy(ctx context.Context) TagPoliciesAPICreateTagPolicyRequest
 
 	// CreateTagPolicyExecute executes the request
-	//  @return CreateTagPolicy200Response
-	CreateTagPolicyExecute(r TagPoliciesAPICreateTagPolicyRequest) (*CreateTagPolicy200Response, *http.Response, error)
+	//  @return CreateTagPolicyResponse
+	CreateTagPolicyExecute(r TagPoliciesAPICreateTagPolicyRequest) (*CreateTagPolicyResponse, *http.Response, error)
 
 	/*
 		DeleteTagPolicy Method for DeleteTagPolicy
@@ -47,8 +47,8 @@ type TagPoliciesAPI interface {
 	DeleteTagPolicy(ctx context.Context, id string) TagPoliciesAPIDeleteTagPolicyRequest
 
 	// DeleteTagPolicyExecute executes the request
-	//  @return DeleteIngestionApiKey200Response
-	DeleteTagPolicyExecute(r TagPoliciesAPIDeleteTagPolicyRequest) (*DeleteIngestionApiKey200Response, *http.Response, error)
+	//  @return DeleteTagPolicyResponse
+	DeleteTagPolicyExecute(r TagPoliciesAPIDeleteTagPolicyRequest) (*DeleteTagPolicyResponse, *http.Response, error)
 
 	/*
 		GetTagPolicy Method for GetTagPolicy
@@ -62,8 +62,8 @@ type TagPoliciesAPI interface {
 	GetTagPolicy(ctx context.Context, id string) TagPoliciesAPIGetTagPolicyRequest
 
 	// GetTagPolicyExecute executes the request
-	//  @return CreateTagPolicy200Response
-	GetTagPolicyExecute(r TagPoliciesAPIGetTagPolicyRequest) (*CreateTagPolicy200Response, *http.Response, error)
+	//  @return GetTagPolicyResponse
+	GetTagPolicyExecute(r TagPoliciesAPIGetTagPolicyRequest) (*GetTagPolicyResponse, *http.Response, error)
 
 	/*
 		ListTagPolicies Method for ListTagPolicies
@@ -76,8 +76,8 @@ type TagPoliciesAPI interface {
 	ListTagPolicies(ctx context.Context) TagPoliciesAPIListTagPoliciesRequest
 
 	// ListTagPoliciesExecute executes the request
-	//  @return ListTagPolicies200Response
-	ListTagPoliciesExecute(r TagPoliciesAPIListTagPoliciesRequest) (*ListTagPolicies200Response, *http.Response, error)
+	//  @return ListTagPoliciesResponse
+	ListTagPoliciesExecute(r TagPoliciesAPIListTagPoliciesRequest) (*ListTagPoliciesResponse, *http.Response, error)
 
 	/*
 		UpdateTagPolicy Method for UpdateTagPolicy
@@ -91,8 +91,8 @@ type TagPoliciesAPI interface {
 	UpdateTagPolicy(ctx context.Context, id string) TagPoliciesAPIUpdateTagPolicyRequest
 
 	// UpdateTagPolicyExecute executes the request
-	//  @return CreateTagPolicy200Response
-	UpdateTagPolicyExecute(r TagPoliciesAPIUpdateTagPolicyRequest) (*CreateTagPolicy200Response, *http.Response, error)
+	//  @return UpdateTagPolicyResponse
+	UpdateTagPolicyExecute(r TagPoliciesAPIUpdateTagPolicyRequest) (*UpdateTagPolicyResponse, *http.Response, error)
 }
 
 // TagPoliciesAPIService TagPoliciesAPI service
@@ -109,7 +109,7 @@ func (r TagPoliciesAPICreateTagPolicyRequest) CreateTagPolicyRequest(createTagPo
 	return r
 }
 
-func (r TagPoliciesAPICreateTagPolicyRequest) Execute() (*CreateTagPolicy200Response, *http.Response, error) {
+func (r TagPoliciesAPICreateTagPolicyRequest) Execute() (*CreateTagPolicyResponse, *http.Response, error) {
 	return r.ApiService.CreateTagPolicyExecute(r)
 }
 
@@ -130,13 +130,13 @@ func (a *TagPoliciesAPIService) CreateTagPolicy(ctx context.Context) TagPolicies
 
 // Execute executes the request
 //
-//	@return CreateTagPolicy200Response
-func (a *TagPoliciesAPIService) CreateTagPolicyExecute(r TagPoliciesAPICreateTagPolicyRequest) (*CreateTagPolicy200Response, *http.Response, error) {
+//	@return CreateTagPolicyResponse
+func (a *TagPoliciesAPIService) CreateTagPolicyExecute(r TagPoliciesAPICreateTagPolicyRequest) (*CreateTagPolicyResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateTagPolicy200Response
+		localVarReturnValue *CreateTagPolicyResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TagPoliciesAPIService.CreateTagPolicy")
@@ -236,7 +236,7 @@ type TagPoliciesAPIDeleteTagPolicyRequest struct {
 	id         string
 }
 
-func (r TagPoliciesAPIDeleteTagPolicyRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
+func (r TagPoliciesAPIDeleteTagPolicyRequest) Execute() (*DeleteTagPolicyResponse, *http.Response, error) {
 	return r.ApiService.DeleteTagPolicyExecute(r)
 }
 
@@ -259,13 +259,13 @@ func (a *TagPoliciesAPIService) DeleteTagPolicy(ctx context.Context, id string) 
 
 // Execute executes the request
 //
-//	@return DeleteIngestionApiKey200Response
-func (a *TagPoliciesAPIService) DeleteTagPolicyExecute(r TagPoliciesAPIDeleteTagPolicyRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
+//	@return DeleteTagPolicyResponse
+func (a *TagPoliciesAPIService) DeleteTagPolicyExecute(r TagPoliciesAPIDeleteTagPolicyRequest) (*DeleteTagPolicyResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeleteIngestionApiKey200Response
+		localVarReturnValue *DeleteTagPolicyResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TagPoliciesAPIService.DeleteTagPolicy")
@@ -367,7 +367,7 @@ type TagPoliciesAPIGetTagPolicyRequest struct {
 	id         string
 }
 
-func (r TagPoliciesAPIGetTagPolicyRequest) Execute() (*CreateTagPolicy200Response, *http.Response, error) {
+func (r TagPoliciesAPIGetTagPolicyRequest) Execute() (*GetTagPolicyResponse, *http.Response, error) {
 	return r.ApiService.GetTagPolicyExecute(r)
 }
 
@@ -390,13 +390,13 @@ func (a *TagPoliciesAPIService) GetTagPolicy(ctx context.Context, id string) Tag
 
 // Execute executes the request
 //
-//	@return CreateTagPolicy200Response
-func (a *TagPoliciesAPIService) GetTagPolicyExecute(r TagPoliciesAPIGetTagPolicyRequest) (*CreateTagPolicy200Response, *http.Response, error) {
+//	@return GetTagPolicyResponse
+func (a *TagPoliciesAPIService) GetTagPolicyExecute(r TagPoliciesAPIGetTagPolicyRequest) (*GetTagPolicyResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateTagPolicy200Response
+		localVarReturnValue *GetTagPolicyResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TagPoliciesAPIService.GetTagPolicy")
@@ -497,7 +497,7 @@ type TagPoliciesAPIListTagPoliciesRequest struct {
 	ApiService TagPoliciesAPI
 }
 
-func (r TagPoliciesAPIListTagPoliciesRequest) Execute() (*ListTagPolicies200Response, *http.Response, error) {
+func (r TagPoliciesAPIListTagPoliciesRequest) Execute() (*ListTagPoliciesResponse, *http.Response, error) {
 	return r.ApiService.ListTagPoliciesExecute(r)
 }
 
@@ -518,13 +518,13 @@ func (a *TagPoliciesAPIService) ListTagPolicies(ctx context.Context) TagPolicies
 
 // Execute executes the request
 //
-//	@return ListTagPolicies200Response
-func (a *TagPoliciesAPIService) ListTagPoliciesExecute(r TagPoliciesAPIListTagPoliciesRequest) (*ListTagPolicies200Response, *http.Response, error) {
+//	@return ListTagPoliciesResponse
+func (a *TagPoliciesAPIService) ListTagPoliciesExecute(r TagPoliciesAPIListTagPoliciesRequest) (*ListTagPoliciesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ListTagPolicies200Response
+		localVarReturnValue *ListTagPoliciesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TagPoliciesAPIService.ListTagPolicies")
@@ -625,7 +625,7 @@ func (r TagPoliciesAPIUpdateTagPolicyRequest) CreateTagPolicyRequest(createTagPo
 	return r
 }
 
-func (r TagPoliciesAPIUpdateTagPolicyRequest) Execute() (*CreateTagPolicy200Response, *http.Response, error) {
+func (r TagPoliciesAPIUpdateTagPolicyRequest) Execute() (*UpdateTagPolicyResponse, *http.Response, error) {
 	return r.ApiService.UpdateTagPolicyExecute(r)
 }
 
@@ -648,13 +648,13 @@ func (a *TagPoliciesAPIService) UpdateTagPolicy(ctx context.Context, id string) 
 
 // Execute executes the request
 //
-//	@return CreateTagPolicy200Response
-func (a *TagPoliciesAPIService) UpdateTagPolicyExecute(r TagPoliciesAPIUpdateTagPolicyRequest) (*CreateTagPolicy200Response, *http.Response, error) {
+//	@return UpdateTagPolicyResponse
+func (a *TagPoliciesAPIService) UpdateTagPolicyExecute(r TagPoliciesAPIUpdateTagPolicyRequest) (*UpdateTagPolicyResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateTagPolicy200Response
+		localVarReturnValue *UpdateTagPolicyResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TagPoliciesAPIService.UpdateTagPolicy")

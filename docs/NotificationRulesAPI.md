@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateNotificationRule
 
-> CreateNotificationRule200Response CreateNotificationRule(ctx).CreateNotificationRuleRequest(createNotificationRuleRequest).Execute()
+> CreateNotificationRuleResponse CreateNotificationRule(ctx).CreateNotificationRuleRequest(createNotificationRuleRequest).Execute()
 
 
 
@@ -42,7 +42,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NotificationRulesAPI.CreateNotificationRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateNotificationRule`: CreateNotificationRule200Response
+	// response from `CreateNotificationRule`: CreateNotificationRuleResponse
 	fmt.Fprintf(os.Stdout, "Response from `NotificationRulesAPI.CreateNotificationRule`: %v\n", resp)
 }
 ```
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateNotificationRule200Response**](CreateNotificationRule200Response.md)
+[**CreateNotificationRuleResponse**](CreateNotificationRuleResponse.md)
 
 ### Authorization
 
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## DeleteNotificationRule
 
-> DeleteIngestionApiKey200Response DeleteNotificationRule(ctx, id).Execute()
+> DeleteNotificationRuleResponse DeleteNotificationRule(ctx, id).Execute()
 
 
 
@@ -108,7 +108,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NotificationRulesAPI.DeleteNotificationRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteNotificationRule`: DeleteIngestionApiKey200Response
+	// response from `DeleteNotificationRule`: DeleteNotificationRuleResponse
 	fmt.Fprintf(os.Stdout, "Response from `NotificationRulesAPI.DeleteNotificationRule`: %v\n", resp)
 }
 ```
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteIngestionApiKey200Response**](DeleteIngestionApiKey200Response.md)
+[**DeleteNotificationRuleResponse**](DeleteNotificationRuleResponse.md)
 
 ### Authorization
 
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 ## GetNotificationRule
 
-> CreateNotificationRule200Response GetNotificationRule(ctx, id).Execute()
+> GetNotificationRuleResponse GetNotificationRule(ctx, id).Execute()
 
 
 
@@ -178,7 +178,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NotificationRulesAPI.GetNotificationRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetNotificationRule`: CreateNotificationRule200Response
+	// response from `GetNotificationRule`: GetNotificationRuleResponse
 	fmt.Fprintf(os.Stdout, "Response from `NotificationRulesAPI.GetNotificationRule`: %v\n", resp)
 }
 ```
@@ -202,7 +202,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateNotificationRule200Response**](CreateNotificationRule200Response.md)
+[**GetNotificationRuleResponse**](GetNotificationRuleResponse.md)
 
 ### Authorization
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## ListNotificationRules
 
-> ListNotificationRules200Response ListNotificationRules(ctx).Execute()
+> ListNotificationRulesResponse ListNotificationRules(ctx).Execute()
 
 
 
@@ -247,7 +247,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NotificationRulesAPI.ListNotificationRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListNotificationRules`: ListNotificationRules200Response
+	// response from `ListNotificationRules`: ListNotificationRulesResponse
 	fmt.Fprintf(os.Stdout, "Response from `NotificationRulesAPI.ListNotificationRules`: %v\n", resp)
 }
 ```
@@ -263,7 +263,7 @@ Other parameters are passed through a pointer to a apiListNotificationRulesReque
 
 ### Return type
 
-[**ListNotificationRules200Response**](ListNotificationRules200Response.md)
+[**ListNotificationRulesResponse**](ListNotificationRulesResponse.md)
 
 ### Authorization
 
@@ -281,7 +281,7 @@ Other parameters are passed through a pointer to a apiListNotificationRulesReque
 
 ## UpdateNotificationRule
 
-> CreateNotificationRule200Response UpdateNotificationRule(ctx, id).CreateNotificationRuleRequest(createNotificationRuleRequest).Execute()
+> UpdateNotificationRuleResponse UpdateNotificationRule(ctx, id).CreateNotificationRuleRequest(createNotificationRuleRequest).Execute()
 
 
 
@@ -310,7 +310,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NotificationRulesAPI.UpdateNotificationRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateNotificationRule`: CreateNotificationRule200Response
+	// response from `UpdateNotificationRule`: UpdateNotificationRuleResponse
 	fmt.Fprintf(os.Stdout, "Response from `NotificationRulesAPI.UpdateNotificationRule`: %v\n", resp)
 }
 ```
@@ -335,7 +335,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateNotificationRule200Response**](CreateNotificationRule200Response.md)
+[**UpdateNotificationRuleResponse**](UpdateNotificationRuleResponse.md)
 
 ### Authorization
 

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateMonitor
 
-> CreateMonitor200Response CreateMonitor(ctx).CreateMonitorRequest(createMonitorRequest).Execute()
+> CreateMonitorResponse CreateMonitor(ctx).CreateMonitorRequest(createMonitorRequest).Execute()
 
 
 
@@ -42,7 +42,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MonitorsAPI.CreateMonitor``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateMonitor`: CreateMonitor200Response
+	// response from `CreateMonitor`: CreateMonitorResponse
 	fmt.Fprintf(os.Stdout, "Response from `MonitorsAPI.CreateMonitor`: %v\n", resp)
 }
 ```
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateMonitor200Response**](CreateMonitor200Response.md)
+[**CreateMonitorResponse**](CreateMonitorResponse.md)
 
 ### Authorization
 
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## DeleteMonitor
 
-> DeleteIngestionApiKey200Response DeleteMonitor(ctx, id).Execute()
+> DeleteMonitorResponse DeleteMonitor(ctx, id).Execute()
 
 
 
@@ -108,7 +108,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MonitorsAPI.DeleteMonitor``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteMonitor`: DeleteIngestionApiKey200Response
+	// response from `DeleteMonitor`: DeleteMonitorResponse
 	fmt.Fprintf(os.Stdout, "Response from `MonitorsAPI.DeleteMonitor`: %v\n", resp)
 }
 ```
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteIngestionApiKey200Response**](DeleteIngestionApiKey200Response.md)
+[**DeleteMonitorResponse**](DeleteMonitorResponse.md)
 
 ### Authorization
 
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 ## GetMonitor
 
-> CreateMonitor200Response GetMonitor(ctx, id).Execute()
+> GetMonitorResponse GetMonitor(ctx, id).Execute()
 
 
 
@@ -178,7 +178,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MonitorsAPI.GetMonitor``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMonitor`: CreateMonitor200Response
+	// response from `GetMonitor`: GetMonitorResponse
 	fmt.Fprintf(os.Stdout, "Response from `MonitorsAPI.GetMonitor`: %v\n", resp)
 }
 ```
@@ -202,7 +202,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateMonitor200Response**](CreateMonitor200Response.md)
+[**GetMonitorResponse**](GetMonitorResponse.md)
 
 ### Authorization
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## ListMonitors
 
-> ListMonitors200Response ListMonitors(ctx).Execute()
+> ListMonitorsResponse ListMonitors(ctx).Execute()
 
 
 
@@ -247,7 +247,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MonitorsAPI.ListMonitors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListMonitors`: ListMonitors200Response
+	// response from `ListMonitors`: ListMonitorsResponse
 	fmt.Fprintf(os.Stdout, "Response from `MonitorsAPI.ListMonitors`: %v\n", resp)
 }
 ```
@@ -263,7 +263,7 @@ Other parameters are passed through a pointer to a apiListMonitorsRequest struct
 
 ### Return type
 
-[**ListMonitors200Response**](ListMonitors200Response.md)
+[**ListMonitorsResponse**](ListMonitorsResponse.md)
 
 ### Authorization
 
@@ -281,7 +281,7 @@ Other parameters are passed through a pointer to a apiListMonitorsRequest struct
 
 ## UpdateMonitor
 
-> CreateMonitor200Response UpdateMonitor(ctx, id).CreateMonitorRequest(createMonitorRequest).Execute()
+> UpdateMonitorResponse UpdateMonitor(ctx, id).CreateMonitorRequest(createMonitorRequest).Execute()
 
 
 
@@ -310,7 +310,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MonitorsAPI.UpdateMonitor``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateMonitor`: CreateMonitor200Response
+	// response from `UpdateMonitor`: UpdateMonitorResponse
 	fmt.Fprintf(os.Stdout, "Response from `MonitorsAPI.UpdateMonitor`: %v\n", resp)
 }
 ```
@@ -335,7 +335,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateMonitor200Response**](CreateMonitor200Response.md)
+[**UpdateMonitorResponse**](UpdateMonitorResponse.md)
 
 ### Authorization
 

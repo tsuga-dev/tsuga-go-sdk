@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## AddUserToTeam
 
-> UpdateTeamMembership200Response AddUserToTeam(ctx).UpdateTeamMembershipRequest(updateTeamMembershipRequest).Execute()
+> AddUserToTeamResponse AddUserToTeam(ctx).UpdateTeamMembershipRequest(updateTeamMembershipRequest).Execute()
 
 
 
@@ -41,7 +41,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamMembershipsAPI.AddUserToTeam``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `AddUserToTeam`: UpdateTeamMembership200Response
+	// response from `AddUserToTeam`: AddUserToTeamResponse
 	fmt.Fprintf(os.Stdout, "Response from `TeamMembershipsAPI.AddUserToTeam`: %v\n", resp)
 }
 ```
@@ -61,7 +61,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdateTeamMembership200Response**](UpdateTeamMembership200Response.md)
+[**AddUserToTeamResponse**](AddUserToTeamResponse.md)
 
 ### Authorization
 
@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 
 ## GetTeamMemberships
 
-> GetTeamMemberships200Response GetTeamMemberships(ctx).UserId(userId).TeamId(teamId).Execute()
+> GetTeamMembershipsResponse GetTeamMemberships(ctx).UserId(userId).TeamId(teamId).Execute()
 
 
 
@@ -108,7 +108,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamMembershipsAPI.GetTeamMemberships``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTeamMemberships`: GetTeamMemberships200Response
+	// response from `GetTeamMemberships`: GetTeamMembershipsResponse
 	fmt.Fprintf(os.Stdout, "Response from `TeamMembershipsAPI.GetTeamMemberships`: %v\n", resp)
 }
 ```
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetTeamMemberships200Response**](GetTeamMemberships200Response.md)
+[**GetTeamMembershipsResponse**](GetTeamMembershipsResponse.md)
 
 ### Authorization
 
@@ -147,7 +147,7 @@ Name | Type | Description  | Notes
 
 ## RemoveUserFromTeam
 
-> DeleteIngestionApiKey200Response RemoveUserFromTeam(ctx).RemoveUserFromTeamRequest(removeUserFromTeamRequest).Execute()
+> RemoveUserFromTeamResponse RemoveUserFromTeam(ctx).RemoveUserFromTeamRequest(removeUserFromTeamRequest).Execute()
 
 
 
@@ -175,7 +175,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamMembershipsAPI.RemoveUserFromTeam``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RemoveUserFromTeam`: DeleteIngestionApiKey200Response
+	// response from `RemoveUserFromTeam`: RemoveUserFromTeamResponse
 	fmt.Fprintf(os.Stdout, "Response from `TeamMembershipsAPI.RemoveUserFromTeam`: %v\n", resp)
 }
 ```
@@ -195,7 +195,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteIngestionApiKey200Response**](DeleteIngestionApiKey200Response.md)
+[**RemoveUserFromTeamResponse**](RemoveUserFromTeamResponse.md)
 
 ### Authorization
 
@@ -213,7 +213,7 @@ Name | Type | Description  | Notes
 
 ## UpdateTeamMembership
 
-> UpdateTeamMembership200Response UpdateTeamMembership(ctx).UpdateTeamMembershipRequest(updateTeamMembershipRequest).Execute()
+> UpdateTeamMembershipResponse UpdateTeamMembership(ctx).UpdateTeamMembershipRequest(updateTeamMembershipRequest).Execute()
 
 
 
@@ -241,7 +241,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamMembershipsAPI.UpdateTeamMembership``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateTeamMembership`: UpdateTeamMembership200Response
+	// response from `UpdateTeamMembership`: UpdateTeamMembershipResponse
 	fmt.Fprintf(os.Stdout, "Response from `TeamMembershipsAPI.UpdateTeamMembership`: %v\n", resp)
 }
 ```
@@ -261,7 +261,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdateTeamMembership200Response**](UpdateTeamMembership200Response.md)
+[**UpdateTeamMembershipResponse**](UpdateTeamMembershipResponse.md)
 
 ### Authorization
 

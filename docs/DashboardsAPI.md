@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateDashboard
 
-> CreateDashboard200Response CreateDashboard(ctx).CreateDashboardRequest(createDashboardRequest).Execute()
+> CreateDashboardResponse CreateDashboard(ctx).CreateDashboardRequest(createDashboardRequest).Execute()
 
 
 
@@ -42,7 +42,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.CreateDashboard``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateDashboard`: CreateDashboard200Response
+	// response from `CreateDashboard`: CreateDashboardResponse
 	fmt.Fprintf(os.Stdout, "Response from `DashboardsAPI.CreateDashboard`: %v\n", resp)
 }
 ```
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateDashboard200Response**](CreateDashboard200Response.md)
+[**CreateDashboardResponse**](CreateDashboardResponse.md)
 
 ### Authorization
 
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## DeleteDashboard
 
-> DeleteIngestionApiKey200Response DeleteDashboard(ctx, id).Execute()
+> DeleteDashboardResponse DeleteDashboard(ctx, id).Execute()
 
 
 
@@ -108,7 +108,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.DeleteDashboard``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteDashboard`: DeleteIngestionApiKey200Response
+	// response from `DeleteDashboard`: DeleteDashboardResponse
 	fmt.Fprintf(os.Stdout, "Response from `DashboardsAPI.DeleteDashboard`: %v\n", resp)
 }
 ```
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteIngestionApiKey200Response**](DeleteIngestionApiKey200Response.md)
+[**DeleteDashboardResponse**](DeleteDashboardResponse.md)
 
 ### Authorization
 
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 ## GetDashboard
 
-> CreateDashboard200Response GetDashboard(ctx, id).Execute()
+> GetDashboardResponse GetDashboard(ctx, id).Execute()
 
 
 
@@ -178,7 +178,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.GetDashboard``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDashboard`: CreateDashboard200Response
+	// response from `GetDashboard`: GetDashboardResponse
 	fmt.Fprintf(os.Stdout, "Response from `DashboardsAPI.GetDashboard`: %v\n", resp)
 }
 ```
@@ -202,7 +202,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateDashboard200Response**](CreateDashboard200Response.md)
+[**GetDashboardResponse**](GetDashboardResponse.md)
 
 ### Authorization
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## ListDashboards
 
-> ListDashboards200Response ListDashboards(ctx).Owners(owners).Execute()
+> ListDashboardsResponse ListDashboards(ctx).Owners(owners).Execute()
 
 
 
@@ -248,7 +248,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.ListDashboards``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListDashboards`: ListDashboards200Response
+	// response from `ListDashboards`: ListDashboardsResponse
 	fmt.Fprintf(os.Stdout, "Response from `DashboardsAPI.ListDashboards`: %v\n", resp)
 }
 ```
@@ -268,7 +268,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListDashboards200Response**](ListDashboards200Response.md)
+[**ListDashboardsResponse**](ListDashboardsResponse.md)
 
 ### Authorization
 
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 ## UpdateDashboard
 
-> CreateDashboard200Response UpdateDashboard(ctx, id).UpdateDashboardRequest(updateDashboardRequest).Execute()
+> UpdateDashboardResponse UpdateDashboard(ctx, id).UpdateDashboardRequest(updateDashboardRequest).Execute()
 
 
 
@@ -315,7 +315,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.UpdateDashboard``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateDashboard`: CreateDashboard200Response
+	// response from `UpdateDashboard`: UpdateDashboardResponse
 	fmt.Fprintf(os.Stdout, "Response from `DashboardsAPI.UpdateDashboard`: %v\n", resp)
 }
 ```
@@ -340,7 +340,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateDashboard200Response**](CreateDashboard200Response.md)
+[**UpdateDashboardResponse**](UpdateDashboardResponse.md)
 
 ### Authorization
 

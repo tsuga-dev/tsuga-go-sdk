@@ -31,8 +31,8 @@ type TeamMembershipsAPI interface {
 	AddUserToTeam(ctx context.Context) TeamMembershipsAPIAddUserToTeamRequest
 
 	// AddUserToTeamExecute executes the request
-	//  @return UpdateTeamMembership200Response
-	AddUserToTeamExecute(r TeamMembershipsAPIAddUserToTeamRequest) (*UpdateTeamMembership200Response, *http.Response, error)
+	//  @return AddUserToTeamResponse
+	AddUserToTeamExecute(r TeamMembershipsAPIAddUserToTeamRequest) (*AddUserToTeamResponse, *http.Response, error)
 
 	/*
 		GetTeamMemberships Method for GetTeamMemberships
@@ -45,8 +45,8 @@ type TeamMembershipsAPI interface {
 	GetTeamMemberships(ctx context.Context) TeamMembershipsAPIGetTeamMembershipsRequest
 
 	// GetTeamMembershipsExecute executes the request
-	//  @return GetTeamMemberships200Response
-	GetTeamMembershipsExecute(r TeamMembershipsAPIGetTeamMembershipsRequest) (*GetTeamMemberships200Response, *http.Response, error)
+	//  @return GetTeamMembershipsResponse
+	GetTeamMembershipsExecute(r TeamMembershipsAPIGetTeamMembershipsRequest) (*GetTeamMembershipsResponse, *http.Response, error)
 
 	/*
 		RemoveUserFromTeam Method for RemoveUserFromTeam
@@ -59,8 +59,8 @@ type TeamMembershipsAPI interface {
 	RemoveUserFromTeam(ctx context.Context) TeamMembershipsAPIRemoveUserFromTeamRequest
 
 	// RemoveUserFromTeamExecute executes the request
-	//  @return DeleteIngestionApiKey200Response
-	RemoveUserFromTeamExecute(r TeamMembershipsAPIRemoveUserFromTeamRequest) (*DeleteIngestionApiKey200Response, *http.Response, error)
+	//  @return RemoveUserFromTeamResponse
+	RemoveUserFromTeamExecute(r TeamMembershipsAPIRemoveUserFromTeamRequest) (*RemoveUserFromTeamResponse, *http.Response, error)
 
 	/*
 		UpdateTeamMembership Method for UpdateTeamMembership
@@ -73,8 +73,8 @@ type TeamMembershipsAPI interface {
 	UpdateTeamMembership(ctx context.Context) TeamMembershipsAPIUpdateTeamMembershipRequest
 
 	// UpdateTeamMembershipExecute executes the request
-	//  @return UpdateTeamMembership200Response
-	UpdateTeamMembershipExecute(r TeamMembershipsAPIUpdateTeamMembershipRequest) (*UpdateTeamMembership200Response, *http.Response, error)
+	//  @return UpdateTeamMembershipResponse
+	UpdateTeamMembershipExecute(r TeamMembershipsAPIUpdateTeamMembershipRequest) (*UpdateTeamMembershipResponse, *http.Response, error)
 }
 
 // TeamMembershipsAPIService TeamMembershipsAPI service
@@ -91,7 +91,7 @@ func (r TeamMembershipsAPIAddUserToTeamRequest) UpdateTeamMembershipRequest(upda
 	return r
 }
 
-func (r TeamMembershipsAPIAddUserToTeamRequest) Execute() (*UpdateTeamMembership200Response, *http.Response, error) {
+func (r TeamMembershipsAPIAddUserToTeamRequest) Execute() (*AddUserToTeamResponse, *http.Response, error) {
 	return r.ApiService.AddUserToTeamExecute(r)
 }
 
@@ -112,13 +112,13 @@ func (a *TeamMembershipsAPIService) AddUserToTeam(ctx context.Context) TeamMembe
 
 // Execute executes the request
 //
-//	@return UpdateTeamMembership200Response
-func (a *TeamMembershipsAPIService) AddUserToTeamExecute(r TeamMembershipsAPIAddUserToTeamRequest) (*UpdateTeamMembership200Response, *http.Response, error) {
+//	@return AddUserToTeamResponse
+func (a *TeamMembershipsAPIService) AddUserToTeamExecute(r TeamMembershipsAPIAddUserToTeamRequest) (*AddUserToTeamResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *UpdateTeamMembership200Response
+		localVarReturnValue *AddUserToTeamResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamMembershipsAPIService.AddUserToTeam")
@@ -229,7 +229,7 @@ func (r TeamMembershipsAPIGetTeamMembershipsRequest) TeamId(teamId string) TeamM
 	return r
 }
 
-func (r TeamMembershipsAPIGetTeamMembershipsRequest) Execute() (*GetTeamMemberships200Response, *http.Response, error) {
+func (r TeamMembershipsAPIGetTeamMembershipsRequest) Execute() (*GetTeamMembershipsResponse, *http.Response, error) {
 	return r.ApiService.GetTeamMembershipsExecute(r)
 }
 
@@ -250,13 +250,13 @@ func (a *TeamMembershipsAPIService) GetTeamMemberships(ctx context.Context) Team
 
 // Execute executes the request
 //
-//	@return GetTeamMemberships200Response
-func (a *TeamMembershipsAPIService) GetTeamMembershipsExecute(r TeamMembershipsAPIGetTeamMembershipsRequest) (*GetTeamMemberships200Response, *http.Response, error) {
+//	@return GetTeamMembershipsResponse
+func (a *TeamMembershipsAPIService) GetTeamMembershipsExecute(r TeamMembershipsAPIGetTeamMembershipsRequest) (*GetTeamMembershipsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GetTeamMemberships200Response
+		localVarReturnValue *GetTeamMembershipsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamMembershipsAPIService.GetTeamMemberships")
@@ -362,7 +362,7 @@ func (r TeamMembershipsAPIRemoveUserFromTeamRequest) RemoveUserFromTeamRequest(r
 	return r
 }
 
-func (r TeamMembershipsAPIRemoveUserFromTeamRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
+func (r TeamMembershipsAPIRemoveUserFromTeamRequest) Execute() (*RemoveUserFromTeamResponse, *http.Response, error) {
 	return r.ApiService.RemoveUserFromTeamExecute(r)
 }
 
@@ -383,13 +383,13 @@ func (a *TeamMembershipsAPIService) RemoveUserFromTeam(ctx context.Context) Team
 
 // Execute executes the request
 //
-//	@return DeleteIngestionApiKey200Response
-func (a *TeamMembershipsAPIService) RemoveUserFromTeamExecute(r TeamMembershipsAPIRemoveUserFromTeamRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
+//	@return RemoveUserFromTeamResponse
+func (a *TeamMembershipsAPIService) RemoveUserFromTeamExecute(r TeamMembershipsAPIRemoveUserFromTeamRequest) (*RemoveUserFromTeamResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeleteIngestionApiKey200Response
+		localVarReturnValue *RemoveUserFromTeamResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamMembershipsAPIService.RemoveUserFromTeam")
@@ -494,7 +494,7 @@ func (r TeamMembershipsAPIUpdateTeamMembershipRequest) UpdateTeamMembershipReque
 	return r
 }
 
-func (r TeamMembershipsAPIUpdateTeamMembershipRequest) Execute() (*UpdateTeamMembership200Response, *http.Response, error) {
+func (r TeamMembershipsAPIUpdateTeamMembershipRequest) Execute() (*UpdateTeamMembershipResponse, *http.Response, error) {
 	return r.ApiService.UpdateTeamMembershipExecute(r)
 }
 
@@ -515,13 +515,13 @@ func (a *TeamMembershipsAPIService) UpdateTeamMembership(ctx context.Context) Te
 
 // Execute executes the request
 //
-//	@return UpdateTeamMembership200Response
-func (a *TeamMembershipsAPIService) UpdateTeamMembershipExecute(r TeamMembershipsAPIUpdateTeamMembershipRequest) (*UpdateTeamMembership200Response, *http.Response, error) {
+//	@return UpdateTeamMembershipResponse
+func (a *TeamMembershipsAPIService) UpdateTeamMembershipExecute(r TeamMembershipsAPIUpdateTeamMembershipRequest) (*UpdateTeamMembershipResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *UpdateTeamMembership200Response
+		localVarReturnValue *UpdateTeamMembershipResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamMembershipsAPIService.UpdateTeamMembership")

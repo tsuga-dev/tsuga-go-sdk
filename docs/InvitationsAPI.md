@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## InviteUsers
 
-> InviteUsers200Response InviteUsers(ctx).InviteUsersRequestInner(inviteUsersRequestInner).Execute()
+> InviteUsersResponse InviteUsers(ctx).InviteUsersRequestInner(inviteUsersRequestInner).Execute()
 
 
 
@@ -39,7 +39,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `InvitationsAPI.InviteUsers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `InviteUsers`: InviteUsers200Response
+	// response from `InviteUsers`: InviteUsersResponse
 	fmt.Fprintf(os.Stdout, "Response from `InvitationsAPI.InviteUsers`: %v\n", resp)
 }
 ```
@@ -59,7 +59,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InviteUsers200Response**](InviteUsers200Response.md)
+[**InviteUsersResponse**](InviteUsersResponse.md)
 
 ### Authorization
 
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 
 ## ListInvitations
 
-> ListInvitations200Response ListInvitations(ctx).Execute()
+> ListInvitationsResponse ListInvitations(ctx).Execute()
 
 
 
@@ -104,7 +104,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `InvitationsAPI.ListInvitations``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListInvitations`: ListInvitations200Response
+	// response from `ListInvitations`: ListInvitationsResponse
 	fmt.Fprintf(os.Stdout, "Response from `InvitationsAPI.ListInvitations`: %v\n", resp)
 }
 ```
@@ -120,7 +120,7 @@ Other parameters are passed through a pointer to a apiListInvitationsRequest str
 
 ### Return type
 
-[**ListInvitations200Response**](ListInvitations200Response.md)
+[**ListInvitationsResponse**](ListInvitationsResponse.md)
 
 ### Authorization
 

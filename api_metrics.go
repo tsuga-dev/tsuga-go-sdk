@@ -33,8 +33,8 @@ type MetricsAPI interface {
 	GetMetric(ctx context.Context, name string) MetricsAPIGetMetricRequest
 
 	// GetMetricExecute executes the request
-	//  @return GetMetric200Response
-	GetMetricExecute(r MetricsAPIGetMetricRequest) (*GetMetric200Response, *http.Response, error)
+	//  @return GetMetricResponse
+	GetMetricExecute(r MetricsAPIGetMetricRequest) (*GetMetricResponse, *http.Response, error)
 
 	/*
 		ListMetrics Method for ListMetrics
@@ -47,8 +47,8 @@ type MetricsAPI interface {
 	ListMetrics(ctx context.Context) MetricsAPIListMetricsRequest
 
 	// ListMetricsExecute executes the request
-	//  @return ListMetrics200Response
-	ListMetricsExecute(r MetricsAPIListMetricsRequest) (*ListMetrics200Response, *http.Response, error)
+	//  @return ListMetricsResponse
+	ListMetricsExecute(r MetricsAPIListMetricsRequest) (*ListMetricsResponse, *http.Response, error)
 }
 
 // MetricsAPIService MetricsAPI service
@@ -74,7 +74,7 @@ func (r MetricsAPIGetMetricRequest) To(to int64) MetricsAPIGetMetricRequest {
 	return r
 }
 
-func (r MetricsAPIGetMetricRequest) Execute() (*GetMetric200Response, *http.Response, error) {
+func (r MetricsAPIGetMetricRequest) Execute() (*GetMetricResponse, *http.Response, error) {
 	return r.ApiService.GetMetricExecute(r)
 }
 
@@ -97,13 +97,13 @@ func (a *MetricsAPIService) GetMetric(ctx context.Context, name string) MetricsA
 
 // Execute executes the request
 //
-//	@return GetMetric200Response
-func (a *MetricsAPIService) GetMetricExecute(r MetricsAPIGetMetricRequest) (*GetMetric200Response, *http.Response, error) {
+//	@return GetMetricResponse
+func (a *MetricsAPIService) GetMetricExecute(r MetricsAPIGetMetricRequest) (*GetMetricResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GetMetric200Response
+		localVarReturnValue *GetMetricResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MetricsAPIService.GetMetric")
@@ -238,7 +238,7 @@ func (r MetricsAPIListMetricsRequest) To(to int64) MetricsAPIListMetricsRequest 
 	return r
 }
 
-func (r MetricsAPIListMetricsRequest) Execute() (*ListMetrics200Response, *http.Response, error) {
+func (r MetricsAPIListMetricsRequest) Execute() (*ListMetricsResponse, *http.Response, error) {
 	return r.ApiService.ListMetricsExecute(r)
 }
 
@@ -259,13 +259,13 @@ func (a *MetricsAPIService) ListMetrics(ctx context.Context) MetricsAPIListMetri
 
 // Execute executes the request
 //
-//	@return ListMetrics200Response
-func (a *MetricsAPIService) ListMetricsExecute(r MetricsAPIListMetricsRequest) (*ListMetrics200Response, *http.Response, error) {
+//	@return ListMetricsResponse
+func (a *MetricsAPIService) ListMetricsExecute(r MetricsAPIListMetricsRequest) (*ListMetricsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ListMetrics200Response
+		localVarReturnValue *ListMetricsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MetricsAPIService.ListMetrics")

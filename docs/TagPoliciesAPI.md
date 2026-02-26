@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateTagPolicy
 
-> CreateTagPolicy200Response CreateTagPolicy(ctx).CreateTagPolicyRequest(createTagPolicyRequest).Execute()
+> CreateTagPolicyResponse CreateTagPolicy(ctx).CreateTagPolicyRequest(createTagPolicyRequest).Execute()
 
 
 
@@ -42,7 +42,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TagPoliciesAPI.CreateTagPolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateTagPolicy`: CreateTagPolicy200Response
+	// response from `CreateTagPolicy`: CreateTagPolicyResponse
 	fmt.Fprintf(os.Stdout, "Response from `TagPoliciesAPI.CreateTagPolicy`: %v\n", resp)
 }
 ```
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateTagPolicy200Response**](CreateTagPolicy200Response.md)
+[**CreateTagPolicyResponse**](CreateTagPolicyResponse.md)
 
 ### Authorization
 
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## DeleteTagPolicy
 
-> DeleteIngestionApiKey200Response DeleteTagPolicy(ctx, id).Execute()
+> DeleteTagPolicyResponse DeleteTagPolicy(ctx, id).Execute()
 
 
 
@@ -108,7 +108,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TagPoliciesAPI.DeleteTagPolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteTagPolicy`: DeleteIngestionApiKey200Response
+	// response from `DeleteTagPolicy`: DeleteTagPolicyResponse
 	fmt.Fprintf(os.Stdout, "Response from `TagPoliciesAPI.DeleteTagPolicy`: %v\n", resp)
 }
 ```
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteIngestionApiKey200Response**](DeleteIngestionApiKey200Response.md)
+[**DeleteTagPolicyResponse**](DeleteTagPolicyResponse.md)
 
 ### Authorization
 
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 ## GetTagPolicy
 
-> CreateTagPolicy200Response GetTagPolicy(ctx, id).Execute()
+> GetTagPolicyResponse GetTagPolicy(ctx, id).Execute()
 
 
 
@@ -178,7 +178,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TagPoliciesAPI.GetTagPolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTagPolicy`: CreateTagPolicy200Response
+	// response from `GetTagPolicy`: GetTagPolicyResponse
 	fmt.Fprintf(os.Stdout, "Response from `TagPoliciesAPI.GetTagPolicy`: %v\n", resp)
 }
 ```
@@ -202,7 +202,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateTagPolicy200Response**](CreateTagPolicy200Response.md)
+[**GetTagPolicyResponse**](GetTagPolicyResponse.md)
 
 ### Authorization
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## ListTagPolicies
 
-> ListTagPolicies200Response ListTagPolicies(ctx).Execute()
+> ListTagPoliciesResponse ListTagPolicies(ctx).Execute()
 
 
 
@@ -247,7 +247,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TagPoliciesAPI.ListTagPolicies``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListTagPolicies`: ListTagPolicies200Response
+	// response from `ListTagPolicies`: ListTagPoliciesResponse
 	fmt.Fprintf(os.Stdout, "Response from `TagPoliciesAPI.ListTagPolicies`: %v\n", resp)
 }
 ```
@@ -263,7 +263,7 @@ Other parameters are passed through a pointer to a apiListTagPoliciesRequest str
 
 ### Return type
 
-[**ListTagPolicies200Response**](ListTagPolicies200Response.md)
+[**ListTagPoliciesResponse**](ListTagPoliciesResponse.md)
 
 ### Authorization
 
@@ -281,7 +281,7 @@ Other parameters are passed through a pointer to a apiListTagPoliciesRequest str
 
 ## UpdateTagPolicy
 
-> CreateTagPolicy200Response UpdateTagPolicy(ctx, id).CreateTagPolicyRequest(createTagPolicyRequest).Execute()
+> UpdateTagPolicyResponse UpdateTagPolicy(ctx, id).CreateTagPolicyRequest(createTagPolicyRequest).Execute()
 
 
 
@@ -310,7 +310,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TagPoliciesAPI.UpdateTagPolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateTagPolicy`: CreateTagPolicy200Response
+	// response from `UpdateTagPolicy`: UpdateTagPolicyResponse
 	fmt.Fprintf(os.Stdout, "Response from `TagPoliciesAPI.UpdateTagPolicy`: %v\n", resp)
 }
 ```
@@ -335,7 +335,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateTagPolicy200Response**](CreateTagPolicy200Response.md)
+[**UpdateTagPolicyResponse**](UpdateTagPolicyResponse.md)
 
 ### Authorization
 

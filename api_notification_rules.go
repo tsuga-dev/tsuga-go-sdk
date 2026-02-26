@@ -32,8 +32,8 @@ type NotificationRulesAPI interface {
 	CreateNotificationRule(ctx context.Context) NotificationRulesAPICreateNotificationRuleRequest
 
 	// CreateNotificationRuleExecute executes the request
-	//  @return CreateNotificationRule200Response
-	CreateNotificationRuleExecute(r NotificationRulesAPICreateNotificationRuleRequest) (*CreateNotificationRule200Response, *http.Response, error)
+	//  @return CreateNotificationRuleResponse
+	CreateNotificationRuleExecute(r NotificationRulesAPICreateNotificationRuleRequest) (*CreateNotificationRuleResponse, *http.Response, error)
 
 	/*
 		DeleteNotificationRule Method for DeleteNotificationRule
@@ -47,8 +47,8 @@ type NotificationRulesAPI interface {
 	DeleteNotificationRule(ctx context.Context, id string) NotificationRulesAPIDeleteNotificationRuleRequest
 
 	// DeleteNotificationRuleExecute executes the request
-	//  @return DeleteIngestionApiKey200Response
-	DeleteNotificationRuleExecute(r NotificationRulesAPIDeleteNotificationRuleRequest) (*DeleteIngestionApiKey200Response, *http.Response, error)
+	//  @return DeleteNotificationRuleResponse
+	DeleteNotificationRuleExecute(r NotificationRulesAPIDeleteNotificationRuleRequest) (*DeleteNotificationRuleResponse, *http.Response, error)
 
 	/*
 		GetNotificationRule Method for GetNotificationRule
@@ -62,8 +62,8 @@ type NotificationRulesAPI interface {
 	GetNotificationRule(ctx context.Context, id string) NotificationRulesAPIGetNotificationRuleRequest
 
 	// GetNotificationRuleExecute executes the request
-	//  @return CreateNotificationRule200Response
-	GetNotificationRuleExecute(r NotificationRulesAPIGetNotificationRuleRequest) (*CreateNotificationRule200Response, *http.Response, error)
+	//  @return GetNotificationRuleResponse
+	GetNotificationRuleExecute(r NotificationRulesAPIGetNotificationRuleRequest) (*GetNotificationRuleResponse, *http.Response, error)
 
 	/*
 		ListNotificationRules Method for ListNotificationRules
@@ -76,8 +76,8 @@ type NotificationRulesAPI interface {
 	ListNotificationRules(ctx context.Context) NotificationRulesAPIListNotificationRulesRequest
 
 	// ListNotificationRulesExecute executes the request
-	//  @return ListNotificationRules200Response
-	ListNotificationRulesExecute(r NotificationRulesAPIListNotificationRulesRequest) (*ListNotificationRules200Response, *http.Response, error)
+	//  @return ListNotificationRulesResponse
+	ListNotificationRulesExecute(r NotificationRulesAPIListNotificationRulesRequest) (*ListNotificationRulesResponse, *http.Response, error)
 
 	/*
 		UpdateNotificationRule Method for UpdateNotificationRule
@@ -91,8 +91,8 @@ type NotificationRulesAPI interface {
 	UpdateNotificationRule(ctx context.Context, id string) NotificationRulesAPIUpdateNotificationRuleRequest
 
 	// UpdateNotificationRuleExecute executes the request
-	//  @return CreateNotificationRule200Response
-	UpdateNotificationRuleExecute(r NotificationRulesAPIUpdateNotificationRuleRequest) (*CreateNotificationRule200Response, *http.Response, error)
+	//  @return UpdateNotificationRuleResponse
+	UpdateNotificationRuleExecute(r NotificationRulesAPIUpdateNotificationRuleRequest) (*UpdateNotificationRuleResponse, *http.Response, error)
 }
 
 // NotificationRulesAPIService NotificationRulesAPI service
@@ -109,7 +109,7 @@ func (r NotificationRulesAPICreateNotificationRuleRequest) CreateNotificationRul
 	return r
 }
 
-func (r NotificationRulesAPICreateNotificationRuleRequest) Execute() (*CreateNotificationRule200Response, *http.Response, error) {
+func (r NotificationRulesAPICreateNotificationRuleRequest) Execute() (*CreateNotificationRuleResponse, *http.Response, error) {
 	return r.ApiService.CreateNotificationRuleExecute(r)
 }
 
@@ -130,13 +130,13 @@ func (a *NotificationRulesAPIService) CreateNotificationRule(ctx context.Context
 
 // Execute executes the request
 //
-//	@return CreateNotificationRule200Response
-func (a *NotificationRulesAPIService) CreateNotificationRuleExecute(r NotificationRulesAPICreateNotificationRuleRequest) (*CreateNotificationRule200Response, *http.Response, error) {
+//	@return CreateNotificationRuleResponse
+func (a *NotificationRulesAPIService) CreateNotificationRuleExecute(r NotificationRulesAPICreateNotificationRuleRequest) (*CreateNotificationRuleResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateNotificationRule200Response
+		localVarReturnValue *CreateNotificationRuleResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationRulesAPIService.CreateNotificationRule")
@@ -236,7 +236,7 @@ type NotificationRulesAPIDeleteNotificationRuleRequest struct {
 	id         string
 }
 
-func (r NotificationRulesAPIDeleteNotificationRuleRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
+func (r NotificationRulesAPIDeleteNotificationRuleRequest) Execute() (*DeleteNotificationRuleResponse, *http.Response, error) {
 	return r.ApiService.DeleteNotificationRuleExecute(r)
 }
 
@@ -259,13 +259,13 @@ func (a *NotificationRulesAPIService) DeleteNotificationRule(ctx context.Context
 
 // Execute executes the request
 //
-//	@return DeleteIngestionApiKey200Response
-func (a *NotificationRulesAPIService) DeleteNotificationRuleExecute(r NotificationRulesAPIDeleteNotificationRuleRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
+//	@return DeleteNotificationRuleResponse
+func (a *NotificationRulesAPIService) DeleteNotificationRuleExecute(r NotificationRulesAPIDeleteNotificationRuleRequest) (*DeleteNotificationRuleResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeleteIngestionApiKey200Response
+		localVarReturnValue *DeleteNotificationRuleResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationRulesAPIService.DeleteNotificationRule")
@@ -367,7 +367,7 @@ type NotificationRulesAPIGetNotificationRuleRequest struct {
 	id         string
 }
 
-func (r NotificationRulesAPIGetNotificationRuleRequest) Execute() (*CreateNotificationRule200Response, *http.Response, error) {
+func (r NotificationRulesAPIGetNotificationRuleRequest) Execute() (*GetNotificationRuleResponse, *http.Response, error) {
 	return r.ApiService.GetNotificationRuleExecute(r)
 }
 
@@ -390,13 +390,13 @@ func (a *NotificationRulesAPIService) GetNotificationRule(ctx context.Context, i
 
 // Execute executes the request
 //
-//	@return CreateNotificationRule200Response
-func (a *NotificationRulesAPIService) GetNotificationRuleExecute(r NotificationRulesAPIGetNotificationRuleRequest) (*CreateNotificationRule200Response, *http.Response, error) {
+//	@return GetNotificationRuleResponse
+func (a *NotificationRulesAPIService) GetNotificationRuleExecute(r NotificationRulesAPIGetNotificationRuleRequest) (*GetNotificationRuleResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateNotificationRule200Response
+		localVarReturnValue *GetNotificationRuleResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationRulesAPIService.GetNotificationRule")
@@ -497,7 +497,7 @@ type NotificationRulesAPIListNotificationRulesRequest struct {
 	ApiService NotificationRulesAPI
 }
 
-func (r NotificationRulesAPIListNotificationRulesRequest) Execute() (*ListNotificationRules200Response, *http.Response, error) {
+func (r NotificationRulesAPIListNotificationRulesRequest) Execute() (*ListNotificationRulesResponse, *http.Response, error) {
 	return r.ApiService.ListNotificationRulesExecute(r)
 }
 
@@ -518,13 +518,13 @@ func (a *NotificationRulesAPIService) ListNotificationRules(ctx context.Context)
 
 // Execute executes the request
 //
-//	@return ListNotificationRules200Response
-func (a *NotificationRulesAPIService) ListNotificationRulesExecute(r NotificationRulesAPIListNotificationRulesRequest) (*ListNotificationRules200Response, *http.Response, error) {
+//	@return ListNotificationRulesResponse
+func (a *NotificationRulesAPIService) ListNotificationRulesExecute(r NotificationRulesAPIListNotificationRulesRequest) (*ListNotificationRulesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ListNotificationRules200Response
+		localVarReturnValue *ListNotificationRulesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationRulesAPIService.ListNotificationRules")
@@ -625,7 +625,7 @@ func (r NotificationRulesAPIUpdateNotificationRuleRequest) CreateNotificationRul
 	return r
 }
 
-func (r NotificationRulesAPIUpdateNotificationRuleRequest) Execute() (*CreateNotificationRule200Response, *http.Response, error) {
+func (r NotificationRulesAPIUpdateNotificationRuleRequest) Execute() (*UpdateNotificationRuleResponse, *http.Response, error) {
 	return r.ApiService.UpdateNotificationRuleExecute(r)
 }
 
@@ -648,13 +648,13 @@ func (a *NotificationRulesAPIService) UpdateNotificationRule(ctx context.Context
 
 // Execute executes the request
 //
-//	@return CreateNotificationRule200Response
-func (a *NotificationRulesAPIService) UpdateNotificationRuleExecute(r NotificationRulesAPIUpdateNotificationRuleRequest) (*CreateNotificationRule200Response, *http.Response, error) {
+//	@return UpdateNotificationRuleResponse
+func (a *NotificationRulesAPIService) UpdateNotificationRuleExecute(r NotificationRulesAPIUpdateNotificationRuleRequest) (*UpdateNotificationRuleResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateNotificationRule200Response
+		localVarReturnValue *UpdateNotificationRuleResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationRulesAPIService.UpdateNotificationRule")
