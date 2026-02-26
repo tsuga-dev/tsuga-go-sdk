@@ -13,7 +13,6 @@ package tsuga
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/validator.v2"
 )
 
 // Aggregate - struct for Aggregate
@@ -79,142 +78,98 @@ func AggregateUniqueCountAsAggregate(v *AggregateUniqueCount) Aggregate {
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *Aggregate) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into AggregateAverage
-	err = newStrictDecoder(data).Decode(&dst.AggregateAverage)
-	if err == nil {
-		jsonAggregateAverage, _ := json.Marshal(dst.AggregateAverage)
-		if string(jsonAggregateAverage) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// check if the discriminator value is 'average'
+	if jsonDict["type"] == "average" {
+		// try to unmarshal JSON data into AggregateAverage
+		err = json.Unmarshal(data, &dst.AggregateAverage)
+		if err == nil {
+			return nil // data stored in dst.AggregateAverage, return on the first match
+		} else {
 			dst.AggregateAverage = nil
-		} else {
-			if err = validator.Validate(dst.AggregateAverage); err != nil {
-				dst.AggregateAverage = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Aggregate as AggregateAverage: %s", err.Error())
 		}
-	} else {
-		dst.AggregateAverage = nil
 	}
 
-	// try to unmarshal data into AggregateCount
-	err = newStrictDecoder(data).Decode(&dst.AggregateCount)
-	if err == nil {
-		jsonAggregateCount, _ := json.Marshal(dst.AggregateCount)
-		if string(jsonAggregateCount) == "{}" { // empty struct
+	// check if the discriminator value is 'count'
+	if jsonDict["type"] == "count" {
+		// try to unmarshal JSON data into AggregateCount
+		err = json.Unmarshal(data, &dst.AggregateCount)
+		if err == nil {
+			return nil // data stored in dst.AggregateCount, return on the first match
+		} else {
 			dst.AggregateCount = nil
-		} else {
-			if err = validator.Validate(dst.AggregateCount); err != nil {
-				dst.AggregateCount = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Aggregate as AggregateCount: %s", err.Error())
 		}
-	} else {
-		dst.AggregateCount = nil
 	}
 
-	// try to unmarshal data into AggregateMax
-	err = newStrictDecoder(data).Decode(&dst.AggregateMax)
-	if err == nil {
-		jsonAggregateMax, _ := json.Marshal(dst.AggregateMax)
-		if string(jsonAggregateMax) == "{}" { // empty struct
+	// check if the discriminator value is 'max'
+	if jsonDict["type"] == "max" {
+		// try to unmarshal JSON data into AggregateMax
+		err = json.Unmarshal(data, &dst.AggregateMax)
+		if err == nil {
+			return nil // data stored in dst.AggregateMax, return on the first match
+		} else {
 			dst.AggregateMax = nil
-		} else {
-			if err = validator.Validate(dst.AggregateMax); err != nil {
-				dst.AggregateMax = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Aggregate as AggregateMax: %s", err.Error())
 		}
-	} else {
-		dst.AggregateMax = nil
 	}
 
-	// try to unmarshal data into AggregateMin
-	err = newStrictDecoder(data).Decode(&dst.AggregateMin)
-	if err == nil {
-		jsonAggregateMin, _ := json.Marshal(dst.AggregateMin)
-		if string(jsonAggregateMin) == "{}" { // empty struct
+	// check if the discriminator value is 'min'
+	if jsonDict["type"] == "min" {
+		// try to unmarshal JSON data into AggregateMin
+		err = json.Unmarshal(data, &dst.AggregateMin)
+		if err == nil {
+			return nil // data stored in dst.AggregateMin, return on the first match
+		} else {
 			dst.AggregateMin = nil
-		} else {
-			if err = validator.Validate(dst.AggregateMin); err != nil {
-				dst.AggregateMin = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Aggregate as AggregateMin: %s", err.Error())
 		}
-	} else {
-		dst.AggregateMin = nil
 	}
 
-	// try to unmarshal data into AggregatePercentile
-	err = newStrictDecoder(data).Decode(&dst.AggregatePercentile)
-	if err == nil {
-		jsonAggregatePercentile, _ := json.Marshal(dst.AggregatePercentile)
-		if string(jsonAggregatePercentile) == "{}" { // empty struct
+	// check if the discriminator value is 'percentile'
+	if jsonDict["type"] == "percentile" {
+		// try to unmarshal JSON data into AggregatePercentile
+		err = json.Unmarshal(data, &dst.AggregatePercentile)
+		if err == nil {
+			return nil // data stored in dst.AggregatePercentile, return on the first match
+		} else {
 			dst.AggregatePercentile = nil
-		} else {
-			if err = validator.Validate(dst.AggregatePercentile); err != nil {
-				dst.AggregatePercentile = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Aggregate as AggregatePercentile: %s", err.Error())
 		}
-	} else {
-		dst.AggregatePercentile = nil
 	}
 
-	// try to unmarshal data into AggregateSum
-	err = newStrictDecoder(data).Decode(&dst.AggregateSum)
-	if err == nil {
-		jsonAggregateSum, _ := json.Marshal(dst.AggregateSum)
-		if string(jsonAggregateSum) == "{}" { // empty struct
+	// check if the discriminator value is 'sum'
+	if jsonDict["type"] == "sum" {
+		// try to unmarshal JSON data into AggregateSum
+		err = json.Unmarshal(data, &dst.AggregateSum)
+		if err == nil {
+			return nil // data stored in dst.AggregateSum, return on the first match
+		} else {
 			dst.AggregateSum = nil
-		} else {
-			if err = validator.Validate(dst.AggregateSum); err != nil {
-				dst.AggregateSum = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Aggregate as AggregateSum: %s", err.Error())
 		}
-	} else {
-		dst.AggregateSum = nil
 	}
 
-	// try to unmarshal data into AggregateUniqueCount
-	err = newStrictDecoder(data).Decode(&dst.AggregateUniqueCount)
-	if err == nil {
-		jsonAggregateUniqueCount, _ := json.Marshal(dst.AggregateUniqueCount)
-		if string(jsonAggregateUniqueCount) == "{}" { // empty struct
+	// check if the discriminator value is 'unique-count'
+	if jsonDict["type"] == "unique-count" {
+		// try to unmarshal JSON data into AggregateUniqueCount
+		err = json.Unmarshal(data, &dst.AggregateUniqueCount)
+		if err == nil {
+			return nil // data stored in dst.AggregateUniqueCount, return on the first match
+		} else {
 			dst.AggregateUniqueCount = nil
-		} else {
-			if err = validator.Validate(dst.AggregateUniqueCount); err != nil {
-				dst.AggregateUniqueCount = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Aggregate as AggregateUniqueCount: %s", err.Error())
 		}
-	} else {
-		dst.AggregateUniqueCount = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.AggregateAverage = nil
-		dst.AggregateCount = nil
-		dst.AggregateMax = nil
-		dst.AggregateMin = nil
-		dst.AggregatePercentile = nil
-		dst.AggregateSum = nil
-		dst.AggregateUniqueCount = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(Aggregate)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(Aggregate)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

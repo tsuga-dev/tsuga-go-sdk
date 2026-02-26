@@ -19,131 +19,97 @@ import (
 	"strings"
 )
 
-type MetricsAPI interface {
+type ServicesAPI interface {
 
 	/*
-		GetMetric Method for GetMetric
+		GetService Method for GetService
 
-		Retrieve a metric by name with its metadata
+		Retrieve a service by its id
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param name The metric name
-		@return MetricsAPIGetMetricRequest
+		@param serviceId
+		@return ServicesAPIGetServiceRequest
 	*/
-	GetMetric(ctx context.Context, name string) MetricsAPIGetMetricRequest
+	GetService(ctx context.Context, serviceId string) ServicesAPIGetServiceRequest
 
-	// GetMetricExecute executes the request
-	//  @return GetMetric200Response
-	GetMetricExecute(r MetricsAPIGetMetricRequest) (*GetMetric200Response, *http.Response, error)
+	// GetServiceExecute executes the request
+	//  @return GetService200Response
+	GetServiceExecute(r ServicesAPIGetServiceRequest) (*GetService200Response, *http.Response, error)
 
 	/*
-		ListMetrics Method for ListMetrics
+		ListServices Method for ListServices
 
-		Get all metrics with their metadata
+		Retrieve all services
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return MetricsAPIListMetricsRequest
+		@return ServicesAPIListServicesRequest
 	*/
-	ListMetrics(ctx context.Context) MetricsAPIListMetricsRequest
+	ListServices(ctx context.Context) ServicesAPIListServicesRequest
 
-	// ListMetricsExecute executes the request
-	//  @return ListMetrics200Response
-	ListMetricsExecute(r MetricsAPIListMetricsRequest) (*ListMetrics200Response, *http.Response, error)
+	// ListServicesExecute executes the request
+	//  @return ListServices200Response
+	ListServicesExecute(r ServicesAPIListServicesRequest) (*ListServices200Response, *http.Response, error)
 }
 
-// MetricsAPIService MetricsAPI service
-type MetricsAPIService service
+// ServicesAPIService ServicesAPI service
+type ServicesAPIService service
 
-type MetricsAPIGetMetricRequest struct {
+type ServicesAPIGetServiceRequest struct {
 	ctx        context.Context
-	ApiService MetricsAPI
-	from       *int64
-	to         *int64
-	name       string
+	ApiService ServicesAPI
+	serviceId  string
 }
 
-// Start timestamp in seconds
-func (r MetricsAPIGetMetricRequest) From(from int64) MetricsAPIGetMetricRequest {
-	r.from = &from
-	return r
-}
-
-// End timestamp in seconds
-func (r MetricsAPIGetMetricRequest) To(to int64) MetricsAPIGetMetricRequest {
-	r.to = &to
-	return r
-}
-
-func (r MetricsAPIGetMetricRequest) Execute() (*GetMetric200Response, *http.Response, error) {
-	return r.ApiService.GetMetricExecute(r)
+func (r ServicesAPIGetServiceRequest) Execute() (*GetService200Response, *http.Response, error) {
+	return r.ApiService.GetServiceExecute(r)
 }
 
 /*
-GetMetric Method for GetMetric
+GetService Method for GetService
 
-Retrieve a metric by name with its metadata
+Retrieve a service by its id
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name The metric name
-	@return MetricsAPIGetMetricRequest
+	@param serviceId
+	@return ServicesAPIGetServiceRequest
 */
-func (a *MetricsAPIService) GetMetric(ctx context.Context, name string) MetricsAPIGetMetricRequest {
-	return MetricsAPIGetMetricRequest{
+func (a *ServicesAPIService) GetService(ctx context.Context, serviceId string) ServicesAPIGetServiceRequest {
+	return ServicesAPIGetServiceRequest{
 		ApiService: a,
 		ctx:        ctx,
-		name:       name,
+		serviceId:  serviceId,
 	}
 }
 
 // Execute executes the request
 //
-//	@return GetMetric200Response
-func (a *MetricsAPIService) GetMetricExecute(r MetricsAPIGetMetricRequest) (*GetMetric200Response, *http.Response, error) {
+//	@return GetService200Response
+func (a *ServicesAPIService) GetServiceExecute(r ServicesAPIGetServiceRequest) (*GetService200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GetMetric200Response
+		localVarReturnValue *GetService200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MetricsAPIService.GetMetric")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServicesAPIService.GetService")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/metrics/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+	localVarPath := localBasePath + "/v1/services/{serviceId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"serviceId"+"}", url.PathEscape(parameterValueToString(r.serviceId, "serviceId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.from == nil {
-		return localVarReturnValue, nil, reportError("from is required and must be specified")
+	if strlen(r.serviceId) < 1 {
+		return localVarReturnValue, nil, reportError("serviceId must have at least 1 elements")
 	}
-	if *r.from < 1456444800 {
-		return localVarReturnValue, nil, reportError("from must be greater than 1456444800")
-	}
-	if *r.from > 4927737600 {
-		return localVarReturnValue, nil, reportError("from must be less than 4927737600")
-	}
-	if r.to == nil {
-		return localVarReturnValue, nil, reportError("to is required and must be specified")
-	}
-	if *r.to < 1456444800 {
-		return localVarReturnValue, nil, reportError("to must be greater than 1456444800")
-	}
-	if *r.to > 4927737600 {
-		return localVarReturnValue, nil, reportError("to must be less than 4927737600")
-	}
-	if strlen(r.name) < 1 {
-		return localVarReturnValue, nil, reportError("name must have at least 1 elements")
-	}
-	if strlen(r.name) > 250 {
-		return localVarReturnValue, nil, reportError("name must have less than 250 elements")
+	if strlen(r.serviceId) > 250 {
+		return localVarReturnValue, nil, reportError("serviceId must have less than 250 elements")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -219,39 +185,25 @@ func (a *MetricsAPIService) GetMetricExecute(r MetricsAPIGetMetricRequest) (*Get
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MetricsAPIListMetricsRequest struct {
+type ServicesAPIListServicesRequest struct {
 	ctx        context.Context
-	ApiService MetricsAPI
-	from       *int64
-	to         *int64
+	ApiService ServicesAPI
 }
 
-// Start timestamp in seconds
-func (r MetricsAPIListMetricsRequest) From(from int64) MetricsAPIListMetricsRequest {
-	r.from = &from
-	return r
-}
-
-// End timestamp in seconds
-func (r MetricsAPIListMetricsRequest) To(to int64) MetricsAPIListMetricsRequest {
-	r.to = &to
-	return r
-}
-
-func (r MetricsAPIListMetricsRequest) Execute() (*ListMetrics200Response, *http.Response, error) {
-	return r.ApiService.ListMetricsExecute(r)
+func (r ServicesAPIListServicesRequest) Execute() (*ListServices200Response, *http.Response, error) {
+	return r.ApiService.ListServicesExecute(r)
 }
 
 /*
-ListMetrics Method for ListMetrics
+ListServices Method for ListServices
 
-Get all metrics with their metadata
+Retrieve all services
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MetricsAPIListMetricsRequest
+	@return ServicesAPIListServicesRequest
 */
-func (a *MetricsAPIService) ListMetrics(ctx context.Context) MetricsAPIListMetricsRequest {
-	return MetricsAPIListMetricsRequest{
+func (a *ServicesAPIService) ListServices(ctx context.Context) ServicesAPIListServicesRequest {
+	return ServicesAPIListServicesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -259,46 +211,26 @@ func (a *MetricsAPIService) ListMetrics(ctx context.Context) MetricsAPIListMetri
 
 // Execute executes the request
 //
-//	@return ListMetrics200Response
-func (a *MetricsAPIService) ListMetricsExecute(r MetricsAPIListMetricsRequest) (*ListMetrics200Response, *http.Response, error) {
+//	@return ListServices200Response
+func (a *ServicesAPIService) ListServicesExecute(r ServicesAPIListServicesRequest) (*ListServices200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ListMetrics200Response
+		localVarReturnValue *ListServices200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MetricsAPIService.ListMetrics")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServicesAPIService.ListServices")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/metrics"
+	localVarPath := localBasePath + "/v1/services"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.from == nil {
-		return localVarReturnValue, nil, reportError("from is required and must be specified")
-	}
-	if *r.from < 1456444800 {
-		return localVarReturnValue, nil, reportError("from must be greater than 1456444800")
-	}
-	if *r.from > 4927737600 {
-		return localVarReturnValue, nil, reportError("from must be less than 4927737600")
-	}
-	if r.to == nil {
-		return localVarReturnValue, nil, reportError("to is required and must be specified")
-	}
-	if *r.to < 1456444800 {
-		return localVarReturnValue, nil, reportError("to must be greater than 1456444800")
-	}
-	if *r.to > 4927737600 {
-		return localVarReturnValue, nil, reportError("to must be less than 4927737600")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

@@ -13,7 +13,6 @@ package tsuga
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/validator.v2"
 )
 
 // Function - struct for Function
@@ -95,178 +94,122 @@ func FunctionSqrtAsFunction(v *FunctionSqrt) Function {
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *Function) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into FunctionIncrease
-	err = newStrictDecoder(data).Decode(&dst.FunctionIncrease)
-	if err == nil {
-		jsonFunctionIncrease, _ := json.Marshal(dst.FunctionIncrease)
-		if string(jsonFunctionIncrease) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// check if the discriminator value is 'increase'
+	if jsonDict["type"] == "increase" {
+		// try to unmarshal JSON data into FunctionIncrease
+		err = json.Unmarshal(data, &dst.FunctionIncrease)
+		if err == nil {
+			return nil // data stored in dst.FunctionIncrease, return on the first match
+		} else {
 			dst.FunctionIncrease = nil
-		} else {
-			if err = validator.Validate(dst.FunctionIncrease); err != nil {
-				dst.FunctionIncrease = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Function as FunctionIncrease: %s", err.Error())
 		}
-	} else {
-		dst.FunctionIncrease = nil
 	}
 
-	// try to unmarshal data into FunctionLog
-	err = newStrictDecoder(data).Decode(&dst.FunctionLog)
-	if err == nil {
-		jsonFunctionLog, _ := json.Marshal(dst.FunctionLog)
-		if string(jsonFunctionLog) == "{}" { // empty struct
+	// check if the discriminator value is 'log'
+	if jsonDict["type"] == "log" {
+		// try to unmarshal JSON data into FunctionLog
+		err = json.Unmarshal(data, &dst.FunctionLog)
+		if err == nil {
+			return nil // data stored in dst.FunctionLog, return on the first match
+		} else {
 			dst.FunctionLog = nil
-		} else {
-			if err = validator.Validate(dst.FunctionLog); err != nil {
-				dst.FunctionLog = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Function as FunctionLog: %s", err.Error())
 		}
-	} else {
-		dst.FunctionLog = nil
 	}
 
-	// try to unmarshal data into FunctionPerHour
-	err = newStrictDecoder(data).Decode(&dst.FunctionPerHour)
-	if err == nil {
-		jsonFunctionPerHour, _ := json.Marshal(dst.FunctionPerHour)
-		if string(jsonFunctionPerHour) == "{}" { // empty struct
+	// check if the discriminator value is 'per-hour'
+	if jsonDict["type"] == "per-hour" {
+		// try to unmarshal JSON data into FunctionPerHour
+		err = json.Unmarshal(data, &dst.FunctionPerHour)
+		if err == nil {
+			return nil // data stored in dst.FunctionPerHour, return on the first match
+		} else {
 			dst.FunctionPerHour = nil
-		} else {
-			if err = validator.Validate(dst.FunctionPerHour); err != nil {
-				dst.FunctionPerHour = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Function as FunctionPerHour: %s", err.Error())
 		}
-	} else {
-		dst.FunctionPerHour = nil
 	}
 
-	// try to unmarshal data into FunctionPerMinute
-	err = newStrictDecoder(data).Decode(&dst.FunctionPerMinute)
-	if err == nil {
-		jsonFunctionPerMinute, _ := json.Marshal(dst.FunctionPerMinute)
-		if string(jsonFunctionPerMinute) == "{}" { // empty struct
+	// check if the discriminator value is 'per-minute'
+	if jsonDict["type"] == "per-minute" {
+		// try to unmarshal JSON data into FunctionPerMinute
+		err = json.Unmarshal(data, &dst.FunctionPerMinute)
+		if err == nil {
+			return nil // data stored in dst.FunctionPerMinute, return on the first match
+		} else {
 			dst.FunctionPerMinute = nil
-		} else {
-			if err = validator.Validate(dst.FunctionPerMinute); err != nil {
-				dst.FunctionPerMinute = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Function as FunctionPerMinute: %s", err.Error())
 		}
-	} else {
-		dst.FunctionPerMinute = nil
 	}
 
-	// try to unmarshal data into FunctionPerSecond
-	err = newStrictDecoder(data).Decode(&dst.FunctionPerSecond)
-	if err == nil {
-		jsonFunctionPerSecond, _ := json.Marshal(dst.FunctionPerSecond)
-		if string(jsonFunctionPerSecond) == "{}" { // empty struct
+	// check if the discriminator value is 'per-second'
+	if jsonDict["type"] == "per-second" {
+		// try to unmarshal JSON data into FunctionPerSecond
+		err = json.Unmarshal(data, &dst.FunctionPerSecond)
+		if err == nil {
+			return nil // data stored in dst.FunctionPerSecond, return on the first match
+		} else {
 			dst.FunctionPerSecond = nil
-		} else {
-			if err = validator.Validate(dst.FunctionPerSecond); err != nil {
-				dst.FunctionPerSecond = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Function as FunctionPerSecond: %s", err.Error())
 		}
-	} else {
-		dst.FunctionPerSecond = nil
 	}
 
-	// try to unmarshal data into FunctionPower
-	err = newStrictDecoder(data).Decode(&dst.FunctionPower)
-	if err == nil {
-		jsonFunctionPower, _ := json.Marshal(dst.FunctionPower)
-		if string(jsonFunctionPower) == "{}" { // empty struct
+	// check if the discriminator value is 'power'
+	if jsonDict["type"] == "power" {
+		// try to unmarshal JSON data into FunctionPower
+		err = json.Unmarshal(data, &dst.FunctionPower)
+		if err == nil {
+			return nil // data stored in dst.FunctionPower, return on the first match
+		} else {
 			dst.FunctionPower = nil
-		} else {
-			if err = validator.Validate(dst.FunctionPower); err != nil {
-				dst.FunctionPower = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Function as FunctionPower: %s", err.Error())
 		}
-	} else {
-		dst.FunctionPower = nil
 	}
 
-	// try to unmarshal data into FunctionRate
-	err = newStrictDecoder(data).Decode(&dst.FunctionRate)
-	if err == nil {
-		jsonFunctionRate, _ := json.Marshal(dst.FunctionRate)
-		if string(jsonFunctionRate) == "{}" { // empty struct
+	// check if the discriminator value is 'rate'
+	if jsonDict["type"] == "rate" {
+		// try to unmarshal JSON data into FunctionRate
+		err = json.Unmarshal(data, &dst.FunctionRate)
+		if err == nil {
+			return nil // data stored in dst.FunctionRate, return on the first match
+		} else {
 			dst.FunctionRate = nil
-		} else {
-			if err = validator.Validate(dst.FunctionRate); err != nil {
-				dst.FunctionRate = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Function as FunctionRate: %s", err.Error())
 		}
-	} else {
-		dst.FunctionRate = nil
 	}
 
-	// try to unmarshal data into FunctionRolling
-	err = newStrictDecoder(data).Decode(&dst.FunctionRolling)
-	if err == nil {
-		jsonFunctionRolling, _ := json.Marshal(dst.FunctionRolling)
-		if string(jsonFunctionRolling) == "{}" { // empty struct
+	// check if the discriminator value is 'rolling'
+	if jsonDict["type"] == "rolling" {
+		// try to unmarshal JSON data into FunctionRolling
+		err = json.Unmarshal(data, &dst.FunctionRolling)
+		if err == nil {
+			return nil // data stored in dst.FunctionRolling, return on the first match
+		} else {
 			dst.FunctionRolling = nil
-		} else {
-			if err = validator.Validate(dst.FunctionRolling); err != nil {
-				dst.FunctionRolling = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Function as FunctionRolling: %s", err.Error())
 		}
-	} else {
-		dst.FunctionRolling = nil
 	}
 
-	// try to unmarshal data into FunctionSqrt
-	err = newStrictDecoder(data).Decode(&dst.FunctionSqrt)
-	if err == nil {
-		jsonFunctionSqrt, _ := json.Marshal(dst.FunctionSqrt)
-		if string(jsonFunctionSqrt) == "{}" { // empty struct
+	// check if the discriminator value is 'sqrt'
+	if jsonDict["type"] == "sqrt" {
+		// try to unmarshal JSON data into FunctionSqrt
+		err = json.Unmarshal(data, &dst.FunctionSqrt)
+		if err == nil {
+			return nil // data stored in dst.FunctionSqrt, return on the first match
+		} else {
 			dst.FunctionSqrt = nil
-		} else {
-			if err = validator.Validate(dst.FunctionSqrt); err != nil {
-				dst.FunctionSqrt = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Function as FunctionSqrt: %s", err.Error())
 		}
-	} else {
-		dst.FunctionSqrt = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.FunctionIncrease = nil
-		dst.FunctionLog = nil
-		dst.FunctionPerHour = nil
-		dst.FunctionPerMinute = nil
-		dst.FunctionPerSecond = nil
-		dst.FunctionPower = nil
-		dst.FunctionRate = nil
-		dst.FunctionRolling = nil
-		dst.FunctionSqrt = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(Function)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(Function)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

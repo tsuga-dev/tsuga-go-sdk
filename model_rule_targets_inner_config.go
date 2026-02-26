@@ -13,7 +13,6 @@ package tsuga
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/validator.v2"
 )
 
 // RuleTargetsInnerConfig - Configuration describing how the alert was delivered
@@ -95,178 +94,122 @@ func RuleTargetConfigWebhookAsRuleTargetsInnerConfig(v *RuleTargetConfigWebhook)
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *RuleTargetsInnerConfig) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into RuleTargetConfigEmail
-	err = newStrictDecoder(data).Decode(&dst.RuleTargetConfigEmail)
-	if err == nil {
-		jsonRuleTargetConfigEmail, _ := json.Marshal(dst.RuleTargetConfigEmail)
-		if string(jsonRuleTargetConfigEmail) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// check if the discriminator value is 'email'
+	if jsonDict["type"] == "email" {
+		// try to unmarshal JSON data into RuleTargetConfigEmail
+		err = json.Unmarshal(data, &dst.RuleTargetConfigEmail)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetConfigEmail, return on the first match
+		} else {
 			dst.RuleTargetConfigEmail = nil
-		} else {
-			if err = validator.Validate(dst.RuleTargetConfigEmail); err != nil {
-				dst.RuleTargetConfigEmail = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal RuleTargetsInnerConfig as RuleTargetConfigEmail: %s", err.Error())
 		}
-	} else {
-		dst.RuleTargetConfigEmail = nil
 	}
 
-	// try to unmarshal data into RuleTargetConfigGoogleChat
-	err = newStrictDecoder(data).Decode(&dst.RuleTargetConfigGoogleChat)
-	if err == nil {
-		jsonRuleTargetConfigGoogleChat, _ := json.Marshal(dst.RuleTargetConfigGoogleChat)
-		if string(jsonRuleTargetConfigGoogleChat) == "{}" { // empty struct
+	// check if the discriminator value is 'google-chat'
+	if jsonDict["type"] == "google-chat" {
+		// try to unmarshal JSON data into RuleTargetConfigGoogleChat
+		err = json.Unmarshal(data, &dst.RuleTargetConfigGoogleChat)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetConfigGoogleChat, return on the first match
+		} else {
 			dst.RuleTargetConfigGoogleChat = nil
-		} else {
-			if err = validator.Validate(dst.RuleTargetConfigGoogleChat); err != nil {
-				dst.RuleTargetConfigGoogleChat = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal RuleTargetsInnerConfig as RuleTargetConfigGoogleChat: %s", err.Error())
 		}
-	} else {
-		dst.RuleTargetConfigGoogleChat = nil
 	}
 
-	// try to unmarshal data into RuleTargetConfigGrafanaIrm
-	err = newStrictDecoder(data).Decode(&dst.RuleTargetConfigGrafanaIrm)
-	if err == nil {
-		jsonRuleTargetConfigGrafanaIrm, _ := json.Marshal(dst.RuleTargetConfigGrafanaIrm)
-		if string(jsonRuleTargetConfigGrafanaIrm) == "{}" { // empty struct
+	// check if the discriminator value is 'grafana-irm'
+	if jsonDict["type"] == "grafana-irm" {
+		// try to unmarshal JSON data into RuleTargetConfigGrafanaIrm
+		err = json.Unmarshal(data, &dst.RuleTargetConfigGrafanaIrm)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetConfigGrafanaIrm, return on the first match
+		} else {
 			dst.RuleTargetConfigGrafanaIrm = nil
-		} else {
-			if err = validator.Validate(dst.RuleTargetConfigGrafanaIrm); err != nil {
-				dst.RuleTargetConfigGrafanaIrm = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal RuleTargetsInnerConfig as RuleTargetConfigGrafanaIrm: %s", err.Error())
 		}
-	} else {
-		dst.RuleTargetConfigGrafanaIrm = nil
 	}
 
-	// try to unmarshal data into RuleTargetConfigIncidentIo
-	err = newStrictDecoder(data).Decode(&dst.RuleTargetConfigIncidentIo)
-	if err == nil {
-		jsonRuleTargetConfigIncidentIo, _ := json.Marshal(dst.RuleTargetConfigIncidentIo)
-		if string(jsonRuleTargetConfigIncidentIo) == "{}" { // empty struct
+	// check if the discriminator value is 'incident-io'
+	if jsonDict["type"] == "incident-io" {
+		// try to unmarshal JSON data into RuleTargetConfigIncidentIo
+		err = json.Unmarshal(data, &dst.RuleTargetConfigIncidentIo)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetConfigIncidentIo, return on the first match
+		} else {
 			dst.RuleTargetConfigIncidentIo = nil
-		} else {
-			if err = validator.Validate(dst.RuleTargetConfigIncidentIo); err != nil {
-				dst.RuleTargetConfigIncidentIo = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal RuleTargetsInnerConfig as RuleTargetConfigIncidentIo: %s", err.Error())
 		}
-	} else {
-		dst.RuleTargetConfigIncidentIo = nil
 	}
 
-	// try to unmarshal data into RuleTargetConfigMicrosoftTeams
-	err = newStrictDecoder(data).Decode(&dst.RuleTargetConfigMicrosoftTeams)
-	if err == nil {
-		jsonRuleTargetConfigMicrosoftTeams, _ := json.Marshal(dst.RuleTargetConfigMicrosoftTeams)
-		if string(jsonRuleTargetConfigMicrosoftTeams) == "{}" { // empty struct
+	// check if the discriminator value is 'microsoft-teams'
+	if jsonDict["type"] == "microsoft-teams" {
+		// try to unmarshal JSON data into RuleTargetConfigMicrosoftTeams
+		err = json.Unmarshal(data, &dst.RuleTargetConfigMicrosoftTeams)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetConfigMicrosoftTeams, return on the first match
+		} else {
 			dst.RuleTargetConfigMicrosoftTeams = nil
-		} else {
-			if err = validator.Validate(dst.RuleTargetConfigMicrosoftTeams); err != nil {
-				dst.RuleTargetConfigMicrosoftTeams = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal RuleTargetsInnerConfig as RuleTargetConfigMicrosoftTeams: %s", err.Error())
 		}
-	} else {
-		dst.RuleTargetConfigMicrosoftTeams = nil
 	}
 
-	// try to unmarshal data into RuleTargetConfigPagerDuty
-	err = newStrictDecoder(data).Decode(&dst.RuleTargetConfigPagerDuty)
-	if err == nil {
-		jsonRuleTargetConfigPagerDuty, _ := json.Marshal(dst.RuleTargetConfigPagerDuty)
-		if string(jsonRuleTargetConfigPagerDuty) == "{}" { // empty struct
+	// check if the discriminator value is 'pagerduty'
+	if jsonDict["type"] == "pagerduty" {
+		// try to unmarshal JSON data into RuleTargetConfigPagerDuty
+		err = json.Unmarshal(data, &dst.RuleTargetConfigPagerDuty)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetConfigPagerDuty, return on the first match
+		} else {
 			dst.RuleTargetConfigPagerDuty = nil
-		} else {
-			if err = validator.Validate(dst.RuleTargetConfigPagerDuty); err != nil {
-				dst.RuleTargetConfigPagerDuty = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal RuleTargetsInnerConfig as RuleTargetConfigPagerDuty: %s", err.Error())
 		}
-	} else {
-		dst.RuleTargetConfigPagerDuty = nil
 	}
 
-	// try to unmarshal data into RuleTargetConfigServiceNow
-	err = newStrictDecoder(data).Decode(&dst.RuleTargetConfigServiceNow)
-	if err == nil {
-		jsonRuleTargetConfigServiceNow, _ := json.Marshal(dst.RuleTargetConfigServiceNow)
-		if string(jsonRuleTargetConfigServiceNow) == "{}" { // empty struct
+	// check if the discriminator value is 'servicenow'
+	if jsonDict["type"] == "servicenow" {
+		// try to unmarshal JSON data into RuleTargetConfigServiceNow
+		err = json.Unmarshal(data, &dst.RuleTargetConfigServiceNow)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetConfigServiceNow, return on the first match
+		} else {
 			dst.RuleTargetConfigServiceNow = nil
-		} else {
-			if err = validator.Validate(dst.RuleTargetConfigServiceNow); err != nil {
-				dst.RuleTargetConfigServiceNow = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal RuleTargetsInnerConfig as RuleTargetConfigServiceNow: %s", err.Error())
 		}
-	} else {
-		dst.RuleTargetConfigServiceNow = nil
 	}
 
-	// try to unmarshal data into RuleTargetConfigSlack
-	err = newStrictDecoder(data).Decode(&dst.RuleTargetConfigSlack)
-	if err == nil {
-		jsonRuleTargetConfigSlack, _ := json.Marshal(dst.RuleTargetConfigSlack)
-		if string(jsonRuleTargetConfigSlack) == "{}" { // empty struct
+	// check if the discriminator value is 'slack'
+	if jsonDict["type"] == "slack" {
+		// try to unmarshal JSON data into RuleTargetConfigSlack
+		err = json.Unmarshal(data, &dst.RuleTargetConfigSlack)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetConfigSlack, return on the first match
+		} else {
 			dst.RuleTargetConfigSlack = nil
-		} else {
-			if err = validator.Validate(dst.RuleTargetConfigSlack); err != nil {
-				dst.RuleTargetConfigSlack = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal RuleTargetsInnerConfig as RuleTargetConfigSlack: %s", err.Error())
 		}
-	} else {
-		dst.RuleTargetConfigSlack = nil
 	}
 
-	// try to unmarshal data into RuleTargetConfigWebhook
-	err = newStrictDecoder(data).Decode(&dst.RuleTargetConfigWebhook)
-	if err == nil {
-		jsonRuleTargetConfigWebhook, _ := json.Marshal(dst.RuleTargetConfigWebhook)
-		if string(jsonRuleTargetConfigWebhook) == "{}" { // empty struct
+	// check if the discriminator value is 'webhook'
+	if jsonDict["type"] == "webhook" {
+		// try to unmarshal JSON data into RuleTargetConfigWebhook
+		err = json.Unmarshal(data, &dst.RuleTargetConfigWebhook)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetConfigWebhook, return on the first match
+		} else {
 			dst.RuleTargetConfigWebhook = nil
-		} else {
-			if err = validator.Validate(dst.RuleTargetConfigWebhook); err != nil {
-				dst.RuleTargetConfigWebhook = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal RuleTargetsInnerConfig as RuleTargetConfigWebhook: %s", err.Error())
 		}
-	} else {
-		dst.RuleTargetConfigWebhook = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.RuleTargetConfigEmail = nil
-		dst.RuleTargetConfigGoogleChat = nil
-		dst.RuleTargetConfigGrafanaIrm = nil
-		dst.RuleTargetConfigIncidentIo = nil
-		dst.RuleTargetConfigMicrosoftTeams = nil
-		dst.RuleTargetConfigPagerDuty = nil
-		dst.RuleTargetConfigServiceNow = nil
-		dst.RuleTargetConfigSlack = nil
-		dst.RuleTargetConfigWebhook = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(RuleTargetsInnerConfig)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(RuleTargetsInnerConfig)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

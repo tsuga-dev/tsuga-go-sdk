@@ -13,7 +13,6 @@ package tsuga
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/validator.v2"
 )
 
 // CreateNotificationRuleRequestTargetsInnerConfig - Configuration describing how the alert should be delivered
@@ -95,178 +94,122 @@ func RuleTargetInputWebhookAsCreateNotificationRuleRequestTargetsInnerConfig(v *
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *CreateNotificationRuleRequestTargetsInnerConfig) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into RuleTargetInputEmail
-	err = newStrictDecoder(data).Decode(&dst.RuleTargetInputEmail)
-	if err == nil {
-		jsonRuleTargetInputEmail, _ := json.Marshal(dst.RuleTargetInputEmail)
-		if string(jsonRuleTargetInputEmail) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// check if the discriminator value is 'email'
+	if jsonDict["type"] == "email" {
+		// try to unmarshal JSON data into RuleTargetInputEmail
+		err = json.Unmarshal(data, &dst.RuleTargetInputEmail)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetInputEmail, return on the first match
+		} else {
 			dst.RuleTargetInputEmail = nil
-		} else {
-			if err = validator.Validate(dst.RuleTargetInputEmail); err != nil {
-				dst.RuleTargetInputEmail = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTargetsInnerConfig as RuleTargetInputEmail: %s", err.Error())
 		}
-	} else {
-		dst.RuleTargetInputEmail = nil
 	}
 
-	// try to unmarshal data into RuleTargetInputGoogleChat
-	err = newStrictDecoder(data).Decode(&dst.RuleTargetInputGoogleChat)
-	if err == nil {
-		jsonRuleTargetInputGoogleChat, _ := json.Marshal(dst.RuleTargetInputGoogleChat)
-		if string(jsonRuleTargetInputGoogleChat) == "{}" { // empty struct
+	// check if the discriminator value is 'google-chat'
+	if jsonDict["type"] == "google-chat" {
+		// try to unmarshal JSON data into RuleTargetInputGoogleChat
+		err = json.Unmarshal(data, &dst.RuleTargetInputGoogleChat)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetInputGoogleChat, return on the first match
+		} else {
 			dst.RuleTargetInputGoogleChat = nil
-		} else {
-			if err = validator.Validate(dst.RuleTargetInputGoogleChat); err != nil {
-				dst.RuleTargetInputGoogleChat = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTargetsInnerConfig as RuleTargetInputGoogleChat: %s", err.Error())
 		}
-	} else {
-		dst.RuleTargetInputGoogleChat = nil
 	}
 
-	// try to unmarshal data into RuleTargetInputGrafanaIrm
-	err = newStrictDecoder(data).Decode(&dst.RuleTargetInputGrafanaIrm)
-	if err == nil {
-		jsonRuleTargetInputGrafanaIrm, _ := json.Marshal(dst.RuleTargetInputGrafanaIrm)
-		if string(jsonRuleTargetInputGrafanaIrm) == "{}" { // empty struct
+	// check if the discriminator value is 'grafana-irm'
+	if jsonDict["type"] == "grafana-irm" {
+		// try to unmarshal JSON data into RuleTargetInputGrafanaIrm
+		err = json.Unmarshal(data, &dst.RuleTargetInputGrafanaIrm)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetInputGrafanaIrm, return on the first match
+		} else {
 			dst.RuleTargetInputGrafanaIrm = nil
-		} else {
-			if err = validator.Validate(dst.RuleTargetInputGrafanaIrm); err != nil {
-				dst.RuleTargetInputGrafanaIrm = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTargetsInnerConfig as RuleTargetInputGrafanaIrm: %s", err.Error())
 		}
-	} else {
-		dst.RuleTargetInputGrafanaIrm = nil
 	}
 
-	// try to unmarshal data into RuleTargetInputIncidentIo
-	err = newStrictDecoder(data).Decode(&dst.RuleTargetInputIncidentIo)
-	if err == nil {
-		jsonRuleTargetInputIncidentIo, _ := json.Marshal(dst.RuleTargetInputIncidentIo)
-		if string(jsonRuleTargetInputIncidentIo) == "{}" { // empty struct
+	// check if the discriminator value is 'incident-io'
+	if jsonDict["type"] == "incident-io" {
+		// try to unmarshal JSON data into RuleTargetInputIncidentIo
+		err = json.Unmarshal(data, &dst.RuleTargetInputIncidentIo)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetInputIncidentIo, return on the first match
+		} else {
 			dst.RuleTargetInputIncidentIo = nil
-		} else {
-			if err = validator.Validate(dst.RuleTargetInputIncidentIo); err != nil {
-				dst.RuleTargetInputIncidentIo = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTargetsInnerConfig as RuleTargetInputIncidentIo: %s", err.Error())
 		}
-	} else {
-		dst.RuleTargetInputIncidentIo = nil
 	}
 
-	// try to unmarshal data into RuleTargetInputMicrosoftTeams
-	err = newStrictDecoder(data).Decode(&dst.RuleTargetInputMicrosoftTeams)
-	if err == nil {
-		jsonRuleTargetInputMicrosoftTeams, _ := json.Marshal(dst.RuleTargetInputMicrosoftTeams)
-		if string(jsonRuleTargetInputMicrosoftTeams) == "{}" { // empty struct
+	// check if the discriminator value is 'microsoft-teams'
+	if jsonDict["type"] == "microsoft-teams" {
+		// try to unmarshal JSON data into RuleTargetInputMicrosoftTeams
+		err = json.Unmarshal(data, &dst.RuleTargetInputMicrosoftTeams)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetInputMicrosoftTeams, return on the first match
+		} else {
 			dst.RuleTargetInputMicrosoftTeams = nil
-		} else {
-			if err = validator.Validate(dst.RuleTargetInputMicrosoftTeams); err != nil {
-				dst.RuleTargetInputMicrosoftTeams = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTargetsInnerConfig as RuleTargetInputMicrosoftTeams: %s", err.Error())
 		}
-	} else {
-		dst.RuleTargetInputMicrosoftTeams = nil
 	}
 
-	// try to unmarshal data into RuleTargetInputPagerDuty
-	err = newStrictDecoder(data).Decode(&dst.RuleTargetInputPagerDuty)
-	if err == nil {
-		jsonRuleTargetInputPagerDuty, _ := json.Marshal(dst.RuleTargetInputPagerDuty)
-		if string(jsonRuleTargetInputPagerDuty) == "{}" { // empty struct
+	// check if the discriminator value is 'pagerduty'
+	if jsonDict["type"] == "pagerduty" {
+		// try to unmarshal JSON data into RuleTargetInputPagerDuty
+		err = json.Unmarshal(data, &dst.RuleTargetInputPagerDuty)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetInputPagerDuty, return on the first match
+		} else {
 			dst.RuleTargetInputPagerDuty = nil
-		} else {
-			if err = validator.Validate(dst.RuleTargetInputPagerDuty); err != nil {
-				dst.RuleTargetInputPagerDuty = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTargetsInnerConfig as RuleTargetInputPagerDuty: %s", err.Error())
 		}
-	} else {
-		dst.RuleTargetInputPagerDuty = nil
 	}
 
-	// try to unmarshal data into RuleTargetInputServiceNow
-	err = newStrictDecoder(data).Decode(&dst.RuleTargetInputServiceNow)
-	if err == nil {
-		jsonRuleTargetInputServiceNow, _ := json.Marshal(dst.RuleTargetInputServiceNow)
-		if string(jsonRuleTargetInputServiceNow) == "{}" { // empty struct
+	// check if the discriminator value is 'servicenow'
+	if jsonDict["type"] == "servicenow" {
+		// try to unmarshal JSON data into RuleTargetInputServiceNow
+		err = json.Unmarshal(data, &dst.RuleTargetInputServiceNow)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetInputServiceNow, return on the first match
+		} else {
 			dst.RuleTargetInputServiceNow = nil
-		} else {
-			if err = validator.Validate(dst.RuleTargetInputServiceNow); err != nil {
-				dst.RuleTargetInputServiceNow = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTargetsInnerConfig as RuleTargetInputServiceNow: %s", err.Error())
 		}
-	} else {
-		dst.RuleTargetInputServiceNow = nil
 	}
 
-	// try to unmarshal data into RuleTargetInputSlack
-	err = newStrictDecoder(data).Decode(&dst.RuleTargetInputSlack)
-	if err == nil {
-		jsonRuleTargetInputSlack, _ := json.Marshal(dst.RuleTargetInputSlack)
-		if string(jsonRuleTargetInputSlack) == "{}" { // empty struct
+	// check if the discriminator value is 'slack'
+	if jsonDict["type"] == "slack" {
+		// try to unmarshal JSON data into RuleTargetInputSlack
+		err = json.Unmarshal(data, &dst.RuleTargetInputSlack)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetInputSlack, return on the first match
+		} else {
 			dst.RuleTargetInputSlack = nil
-		} else {
-			if err = validator.Validate(dst.RuleTargetInputSlack); err != nil {
-				dst.RuleTargetInputSlack = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTargetsInnerConfig as RuleTargetInputSlack: %s", err.Error())
 		}
-	} else {
-		dst.RuleTargetInputSlack = nil
 	}
 
-	// try to unmarshal data into RuleTargetInputWebhook
-	err = newStrictDecoder(data).Decode(&dst.RuleTargetInputWebhook)
-	if err == nil {
-		jsonRuleTargetInputWebhook, _ := json.Marshal(dst.RuleTargetInputWebhook)
-		if string(jsonRuleTargetInputWebhook) == "{}" { // empty struct
+	// check if the discriminator value is 'webhook'
+	if jsonDict["type"] == "webhook" {
+		// try to unmarshal JSON data into RuleTargetInputWebhook
+		err = json.Unmarshal(data, &dst.RuleTargetInputWebhook)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetInputWebhook, return on the first match
+		} else {
 			dst.RuleTargetInputWebhook = nil
-		} else {
-			if err = validator.Validate(dst.RuleTargetInputWebhook); err != nil {
-				dst.RuleTargetInputWebhook = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTargetsInnerConfig as RuleTargetInputWebhook: %s", err.Error())
 		}
-	} else {
-		dst.RuleTargetInputWebhook = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.RuleTargetInputEmail = nil
-		dst.RuleTargetInputGoogleChat = nil
-		dst.RuleTargetInputGrafanaIrm = nil
-		dst.RuleTargetInputIncidentIo = nil
-		dst.RuleTargetInputMicrosoftTeams = nil
-		dst.RuleTargetInputPagerDuty = nil
-		dst.RuleTargetInputServiceNow = nil
-		dst.RuleTargetInputSlack = nil
-		dst.RuleTargetInputWebhook = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(CreateNotificationRuleRequestTargetsInnerConfig)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(CreateNotificationRuleRequestTargetsInnerConfig)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

@@ -13,7 +13,6 @@ package tsuga
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/validator.v2"
 )
 
 // CreateNotificationRuleRequestTeamsFilter - struct for CreateNotificationRuleRequestTeamsFilter
@@ -47,70 +46,50 @@ func CreateNotificationRuleRequestTeamsFilterOneOf2AsCreateNotificationRuleReque
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *CreateNotificationRuleRequestTeamsFilter) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into CreateNotificationRuleRequestTeamsFilterOneOf
-	err = newStrictDecoder(data).Decode(&dst.CreateNotificationRuleRequestTeamsFilterOneOf)
-	if err == nil {
-		jsonCreateNotificationRuleRequestTeamsFilterOneOf, _ := json.Marshal(dst.CreateNotificationRuleRequestTeamsFilterOneOf)
-		if string(jsonCreateNotificationRuleRequestTeamsFilterOneOf) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// check if the discriminator value is 'createNotificationRule_request_teamsFilter_oneOf'
+	if jsonDict["type"] == "createNotificationRule_request_teamsFilter_oneOf" {
+		// try to unmarshal JSON data into CreateNotificationRuleRequestTeamsFilterOneOf
+		err = json.Unmarshal(data, &dst.CreateNotificationRuleRequestTeamsFilterOneOf)
+		if err == nil {
+			return nil // data stored in dst.CreateNotificationRuleRequestTeamsFilterOneOf, return on the first match
+		} else {
 			dst.CreateNotificationRuleRequestTeamsFilterOneOf = nil
-		} else {
-			if err = validator.Validate(dst.CreateNotificationRuleRequestTeamsFilterOneOf); err != nil {
-				dst.CreateNotificationRuleRequestTeamsFilterOneOf = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTeamsFilter as CreateNotificationRuleRequestTeamsFilterOneOf: %s", err.Error())
 		}
-	} else {
-		dst.CreateNotificationRuleRequestTeamsFilterOneOf = nil
 	}
 
-	// try to unmarshal data into CreateNotificationRuleRequestTeamsFilterOneOf1
-	err = newStrictDecoder(data).Decode(&dst.CreateNotificationRuleRequestTeamsFilterOneOf1)
-	if err == nil {
-		jsonCreateNotificationRuleRequestTeamsFilterOneOf1, _ := json.Marshal(dst.CreateNotificationRuleRequestTeamsFilterOneOf1)
-		if string(jsonCreateNotificationRuleRequestTeamsFilterOneOf1) == "{}" { // empty struct
+	// check if the discriminator value is 'createNotificationRule_request_teamsFilter_oneOf_1'
+	if jsonDict["type"] == "createNotificationRule_request_teamsFilter_oneOf_1" {
+		// try to unmarshal JSON data into CreateNotificationRuleRequestTeamsFilterOneOf1
+		err = json.Unmarshal(data, &dst.CreateNotificationRuleRequestTeamsFilterOneOf1)
+		if err == nil {
+			return nil // data stored in dst.CreateNotificationRuleRequestTeamsFilterOneOf1, return on the first match
+		} else {
 			dst.CreateNotificationRuleRequestTeamsFilterOneOf1 = nil
-		} else {
-			if err = validator.Validate(dst.CreateNotificationRuleRequestTeamsFilterOneOf1); err != nil {
-				dst.CreateNotificationRuleRequestTeamsFilterOneOf1 = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTeamsFilter as CreateNotificationRuleRequestTeamsFilterOneOf1: %s", err.Error())
 		}
-	} else {
-		dst.CreateNotificationRuleRequestTeamsFilterOneOf1 = nil
 	}
 
-	// try to unmarshal data into CreateNotificationRuleRequestTeamsFilterOneOf2
-	err = newStrictDecoder(data).Decode(&dst.CreateNotificationRuleRequestTeamsFilterOneOf2)
-	if err == nil {
-		jsonCreateNotificationRuleRequestTeamsFilterOneOf2, _ := json.Marshal(dst.CreateNotificationRuleRequestTeamsFilterOneOf2)
-		if string(jsonCreateNotificationRuleRequestTeamsFilterOneOf2) == "{}" { // empty struct
+	// check if the discriminator value is 'createNotificationRule_request_teamsFilter_oneOf_2'
+	if jsonDict["type"] == "createNotificationRule_request_teamsFilter_oneOf_2" {
+		// try to unmarshal JSON data into CreateNotificationRuleRequestTeamsFilterOneOf2
+		err = json.Unmarshal(data, &dst.CreateNotificationRuleRequestTeamsFilterOneOf2)
+		if err == nil {
+			return nil // data stored in dst.CreateNotificationRuleRequestTeamsFilterOneOf2, return on the first match
+		} else {
 			dst.CreateNotificationRuleRequestTeamsFilterOneOf2 = nil
-		} else {
-			if err = validator.Validate(dst.CreateNotificationRuleRequestTeamsFilterOneOf2); err != nil {
-				dst.CreateNotificationRuleRequestTeamsFilterOneOf2 = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTeamsFilter as CreateNotificationRuleRequestTeamsFilterOneOf2: %s", err.Error())
 		}
-	} else {
-		dst.CreateNotificationRuleRequestTeamsFilterOneOf2 = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.CreateNotificationRuleRequestTeamsFilterOneOf = nil
-		dst.CreateNotificationRuleRequestTeamsFilterOneOf1 = nil
-		dst.CreateNotificationRuleRequestTeamsFilterOneOf2 = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(CreateNotificationRuleRequestTeamsFilter)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(CreateNotificationRuleRequestTeamsFilter)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

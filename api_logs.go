@@ -41,20 +41,20 @@ type LogsAPIService service
 type LogsAPISearchLogsRequest struct {
 	ctx        context.Context
 	ApiService LogsAPI
-	from       *int32
-	to         *int32
+	from       *int64
+	to         *int64
 	query      *string
 	maxResults *float32
 }
 
 // Start timestamp in seconds
-func (r LogsAPISearchLogsRequest) From(from int32) LogsAPISearchLogsRequest {
+func (r LogsAPISearchLogsRequest) From(from int64) LogsAPISearchLogsRequest {
 	r.from = &from
 	return r
 }
 
 // End timestamp in seconds
-func (r LogsAPISearchLogsRequest) To(to int32) LogsAPISearchLogsRequest {
+func (r LogsAPISearchLogsRequest) To(to int64) LogsAPISearchLogsRequest {
 	r.to = &to
 	return r
 }
@@ -112,8 +112,20 @@ func (a *LogsAPIService) SearchLogsExecute(r LogsAPISearchLogsRequest) (*SearchL
 	if r.from == nil {
 		return localVarReturnValue, nil, reportError("from is required and must be specified")
 	}
+	if *r.from < 1456444800 {
+		return localVarReturnValue, nil, reportError("from must be greater than 1456444800")
+	}
+	if *r.from > 4927737600 {
+		return localVarReturnValue, nil, reportError("from must be less than 4927737600")
+	}
 	if r.to == nil {
 		return localVarReturnValue, nil, reportError("to is required and must be specified")
+	}
+	if *r.to < 1456444800 {
+		return localVarReturnValue, nil, reportError("to must be greater than 1456444800")
+	}
+	if *r.to > 4927737600 {
+		return localVarReturnValue, nil, reportError("to must be less than 4927737600")
 	}
 
 	if r.query != nil {

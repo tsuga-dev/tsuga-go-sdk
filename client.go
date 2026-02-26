@@ -54,6 +54,8 @@ type APIClient struct {
 
 	IngestionApiKeysAPI IngestionApiKeysAPI
 
+	InvitationsAPI InvitationsAPI
+
 	LogsAPI LogsAPI
 
 	MetricsAPI MetricsAPI
@@ -67,6 +69,8 @@ type APIClient struct {
 	RetentionPoliciesAPI RetentionPoliciesAPI
 
 	RoutesAPI RoutesAPI
+
+	ServicesAPI ServicesAPI
 
 	TagPoliciesAPI TagPoliciesAPI
 
@@ -98,6 +102,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AggregationAPI = (*AggregationAPIService)(&c.common)
 	c.DashboardsAPI = (*DashboardsAPIService)(&c.common)
 	c.IngestionApiKeysAPI = (*IngestionApiKeysAPIService)(&c.common)
+	c.InvitationsAPI = (*InvitationsAPIService)(&c.common)
 	c.LogsAPI = (*LogsAPIService)(&c.common)
 	c.MetricsAPI = (*MetricsAPIService)(&c.common)
 	c.MonitorsAPI = (*MonitorsAPIService)(&c.common)
@@ -105,6 +110,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.NotificationSilencesAPI = (*NotificationSilencesAPIService)(&c.common)
 	c.RetentionPoliciesAPI = (*RetentionPoliciesAPIService)(&c.common)
 	c.RoutesAPI = (*RoutesAPIService)(&c.common)
+	c.ServicesAPI = (*ServicesAPIService)(&c.common)
 	c.TagPoliciesAPI = (*TagPoliciesAPIService)(&c.common)
 	c.TeamMembershipsAPI = (*TeamMembershipsAPIService)(&c.common)
 	c.TeamsAPI = (*TeamsAPIService)(&c.common)
@@ -533,10 +539,7 @@ func addFile(w *multipart.Writer, fieldName, path string) error {
 	if err != nil {
 		return err
 	}
-	err = file.Close()
-	if err != nil {
-		return err
-	}
+	defer file.Close()
 
 	part, err := w.CreateFormFile(fieldName, filepath.Base(path))
 	if err != nil {

@@ -21,9 +21,9 @@ var _ MappedNullable = &TimeRange{}
 // TimeRange Time range to query
 type TimeRange struct {
 	// Start timestamp in seconds
-	From int32 `json:"from"`
+	From int64 `json:"from"`
 	// End timestamp in seconds
-	To                   int32 `json:"to"`
+	To                   int64 `json:"to"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,7 +33,7 @@ type _TimeRange TimeRange
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTimeRange(from int32, to int32) *TimeRange {
+func NewTimeRange(from int64, to int64) *TimeRange {
 	this := TimeRange{}
 	this.From = from
 	this.To = to
@@ -49,9 +49,9 @@ func NewTimeRangeWithDefaults() *TimeRange {
 }
 
 // GetFrom returns the From field value
-func (o *TimeRange) GetFrom() int32 {
+func (o *TimeRange) GetFrom() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -60,7 +60,7 @@ func (o *TimeRange) GetFrom() int32 {
 
 // GetFromOk returns a tuple with the From field value
 // and a boolean to check if the value has been set.
-func (o *TimeRange) GetFromOk() (*int32, bool) {
+func (o *TimeRange) GetFromOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -68,14 +68,14 @@ func (o *TimeRange) GetFromOk() (*int32, bool) {
 }
 
 // SetFrom sets field value
-func (o *TimeRange) SetFrom(v int32) {
+func (o *TimeRange) SetFrom(v int64) {
 	o.From = v
 }
 
 // GetTo returns the To field value
-func (o *TimeRange) GetTo() int32 {
+func (o *TimeRange) GetTo() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -84,7 +84,7 @@ func (o *TimeRange) GetTo() int32 {
 
 // GetToOk returns a tuple with the To field value
 // and a boolean to check if the value has been set.
-func (o *TimeRange) GetToOk() (*int32, bool) {
+func (o *TimeRange) GetToOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -92,7 +92,7 @@ func (o *TimeRange) GetToOk() (*int32, bool) {
 }
 
 // SetTo sets field value
-func (o *TimeRange) SetTo(v int32) {
+func (o *TimeRange) SetTo(v int64) {
 	o.To = v
 }
 
