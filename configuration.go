@@ -88,9 +88,12 @@ type Configuration struct {
 // NewConfiguration returns a new Configuration object
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
-		DefaultHeader: make(map[string]string),
-		UserAgent:     "tsuga-go-sdk/0.0.1",
-		Debug:         false,
+		DefaultHeader: map[string]string{
+			"x-tsuga-source":         "go-sdk",
+			"x-tsuga-source-version": "0.0.1",
+		},
+		UserAgent: "tsuga-go-sdk/0.0.1",
+		Debug:     false,
 		Servers: ServerConfigurations{
 			{
 				URL:         "https://api.tsuga.com",

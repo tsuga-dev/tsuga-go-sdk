@@ -3693,6 +3693,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
         teamOverrideFields:
           items:
@@ -3760,6 +3761,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
         timePreset:
           enum:
@@ -3836,6 +3838,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
         configuration:
           $ref: "#/components/schemas/createMonitor_request_configuration"
@@ -3928,6 +3931,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
         targets:
           description: Notification targets that can receive notifications when the
@@ -4000,6 +4004,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
         isActive:
           description: Whether the silence is currently enabled
@@ -4131,6 +4136,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
         owner:
           description: Team ID owning and managing the route
@@ -4244,6 +4250,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
       required:
       - id
@@ -6144,6 +6151,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
         teamOverrideFields:
           items:
@@ -6172,6 +6180,7 @@ components:
             items:
               $ref: "#/components/schemas/Tag"
             maxItems: 50
+            title: Tags
             type: array
           teamOverrideFields:
             items:
@@ -6442,6 +6451,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
         timePreset:
           enum:
@@ -6542,6 +6552,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
         timePreset:
           enum:
@@ -6847,6 +6858,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
         configuration:
           $ref: "#/components/schemas/createMonitor_request_configuration"
@@ -7126,6 +7138,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
         isActive:
           type: boolean
@@ -7382,6 +7395,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
         isActive:
           description: Whether the silence is currently enabled
@@ -7640,6 +7654,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
         owner:
           description: Team ID owning and managing the route
@@ -7970,6 +7985,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
       required:
       - name
@@ -8474,6 +8490,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
         updatedAt:
           format: date-time
@@ -8613,6 +8630,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
         updatedAt:
           format: date-time
@@ -8653,6 +8671,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
         updatedAt:
           format: date-time
@@ -8714,6 +8733,7 @@ components:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
+          title: Tags
           type: array
         updatedAt:
           format: date-time
