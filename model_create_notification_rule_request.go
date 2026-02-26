@@ -27,6 +27,8 @@ type CreateNotificationRuleRequest struct {
 	PrioritiesFilter []float32 `json:"prioritiesFilter"`
 	// Alert state transitions that can trigger a notification
 	TransitionTypesFilter []string `json:"transitionTypesFilter"`
+	// Cluster IDs that can trigger a notification
+	ClusterIdsFilter []string `json:"clusterIdsFilter,omitempty"`
 	// Team ID that owns and manages the rule
 	Owner string `json:"owner"`
 	// List of key/value tags applied to the resource
@@ -159,6 +161,38 @@ func (o *CreateNotificationRuleRequest) SetTransitionTypesFilter(v []string) {
 	o.TransitionTypesFilter = v
 }
 
+// GetClusterIdsFilter returns the ClusterIdsFilter field value if set, zero value otherwise.
+func (o *CreateNotificationRuleRequest) GetClusterIdsFilter() []string {
+	if o == nil || IsNil(o.ClusterIdsFilter) {
+		var ret []string
+		return ret
+	}
+	return o.ClusterIdsFilter
+}
+
+// GetClusterIdsFilterOk returns a tuple with the ClusterIdsFilter field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateNotificationRuleRequest) GetClusterIdsFilterOk() ([]string, bool) {
+	if o == nil || IsNil(o.ClusterIdsFilter) {
+		return nil, false
+	}
+	return o.ClusterIdsFilter, true
+}
+
+// HasClusterIdsFilter returns a boolean if a field has been set.
+func (o *CreateNotificationRuleRequest) HasClusterIdsFilter() bool {
+	if o != nil && !IsNil(o.ClusterIdsFilter) {
+		return true
+	}
+
+	return false
+}
+
+// SetClusterIdsFilter gets a reference to the given []string and assigns it to the ClusterIdsFilter field.
+func (o *CreateNotificationRuleRequest) SetClusterIdsFilter(v []string) {
+	o.ClusterIdsFilter = v
+}
+
 // GetOwner returns the Owner field value
 func (o *CreateNotificationRuleRequest) GetOwner() string {
 	if o == nil {
@@ -277,6 +311,9 @@ func (o CreateNotificationRuleRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["teamsFilter"] = o.TeamsFilter
 	toSerialize["prioritiesFilter"] = o.PrioritiesFilter
 	toSerialize["transitionTypesFilter"] = o.TransitionTypesFilter
+	if !IsNil(o.ClusterIdsFilter) {
+		toSerialize["clusterIdsFilter"] = o.ClusterIdsFilter
+	}
 	toSerialize["owner"] = o.Owner
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
@@ -336,6 +373,7 @@ func (o *CreateNotificationRuleRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "teamsFilter")
 		delete(additionalProperties, "prioritiesFilter")
 		delete(additionalProperties, "transitionTypesFilter")
+		delete(additionalProperties, "clusterIdsFilter")
 		delete(additionalProperties, "owner")
 		delete(additionalProperties, "tags")
 		delete(additionalProperties, "isActive")

@@ -910,7 +910,7 @@ paths:
         schema:
           maximum: 1000
           minimum: 1
-          type: number
+          type: integer
         style: form
       - description: Start timestamp in seconds
         example: 1704067200
@@ -1534,6 +1534,7 @@ paths:
               transitionTypesFilter:
               - triggered
               - resolved
+              clusterIdsFilter: []
               owner: abc-123-def
               isActive: true
               tags:
@@ -1736,6 +1737,7 @@ paths:
               transitionTypesFilter:
               - triggered
               - resolved
+              clusterIdsFilter: []
               owner: abc-123-def
               isActive: true
               tags:
@@ -4964,6 +4966,7 @@ components:
         transitionTypesFilter:
         - triggered
         - resolved
+        clusterIdsFilter: []
         owner: abc-123-def
         isActive: true
         tags:
@@ -5004,6 +5007,11 @@ components:
             - no-data
             type: string
           type: array
+        clusterIdsFilter:
+          description: Cluster IDs that can trigger a notification
+          items:
+            type: string
+          type: array
         owner:
           description: Team ID that owns and manages the rule
           type: string
@@ -5023,6 +5031,7 @@ components:
             $ref: "#/components/schemas/Rule_targets_inner"
           type: array
       required:
+      - clusterIdsFilter
       - id
       - isActive
       - name
@@ -5044,6 +5053,7 @@ components:
           transitionTypesFilter:
           - triggered
           - resolved
+          clusterIdsFilter: []
           owner: abc-123-def
           isActive: true
           tags:
@@ -5065,6 +5075,7 @@ components:
           transitionTypesFilter:
           - triggered
           - resolved
+          clusterIdsFilter: []
           owner: abc-123-def
           isActive: true
           tags:
@@ -5101,6 +5112,7 @@ components:
           transitionTypesFilter:
           - triggered
           - resolved
+          clusterIdsFilter: []
           owner: abc-123-def
           isActive: true
           tags:
@@ -5135,6 +5147,7 @@ components:
           transitionTypesFilter:
           - triggered
           - resolved
+          clusterIdsFilter: []
           owner: abc-123-def
           isActive: true
           tags:
@@ -5169,6 +5182,7 @@ components:
           transitionTypesFilter:
           - triggered
           - resolved
+          clusterIdsFilter: []
           owner: abc-123-def
           isActive: true
           tags:
@@ -8129,137 +8143,6 @@ components:
       required:
       - type
       title: Note
-    BigQueryConnectionInput:
-      properties:
-        type:
-          enum:
-          - big-query
-          type: string
-        auth:
-          $ref: "#/components/schemas/BigQueryConnectionInput_auth"
-      required:
-      - auth
-      - type
-    BigQueryWifDirectAccessAuthInput:
-      properties:
-        type:
-          enum:
-          - workload-identity-direct-access
-          type: string
-        projectId:
-          maxLength: 250
-          minLength: 0
-          type: string
-        workloadIdentityCredentialFile:
-          maxLength: 50000
-          minLength: 0
-          type: string
-      required:
-      - projectId
-      - type
-      - workloadIdentityCredentialFile
-    PostgresConnectionInput:
-      properties:
-        type:
-          enum:
-          - postgres
-          type: string
-        user:
-          maxLength: 250
-          minLength: 0
-          type: string
-        password:
-          maxLength: 250
-          minLength: 0
-          type: string
-        host:
-          maxLength: 250
-          minLength: 0
-          type: string
-        port:
-          maximum: 65535
-          minimum: 1
-          type: integer
-        dbName:
-          maxLength: 250
-          minLength: 0
-          type: string
-        sslRequire:
-          default: true
-          type: boolean
-      required:
-      - dbName
-      - host
-      - password
-      - port
-      - sslRequire
-      - type
-      - user
-    MySqlConnectionInput:
-      properties:
-        type:
-          enum:
-          - my-sql
-          type: string
-        user:
-          maxLength: 250
-          minLength: 0
-          type: string
-        password:
-          maxLength: 250
-          minLength: 0
-          type: string
-        host:
-          maxLength: 250
-          minLength: 0
-          type: string
-        port:
-          maximum: 65535
-          minimum: 1
-          type: integer
-        dbName:
-          maxLength: 250
-          minLength: 0
-          type: string
-        sslRequire:
-          default: true
-          type: boolean
-      required:
-      - dbName
-      - host
-      - password
-      - port
-      - sslRequire
-      - type
-      - user
-    TimestreamForInfluxDBConnectionInput:
-      properties:
-        type:
-          enum:
-          - timestream-for-influxdb
-          type: string
-        token:
-          maxLength: 250
-          minLength: 0
-          type: string
-        endpoint:
-          maxLength: 250
-          minLength: 0
-          type: string
-        bucket:
-          maxLength: 250
-          minLength: 0
-          type: string
-        org:
-          maxLength: 250
-          minLength: 0
-          type: string
-      required:
-      - bucket
-      - endpoint
-      - org
-      - token
-      - type
     SilenceScheduleOneTime:
       description: One-time silence schedule with specific start and end times
       example:
@@ -8966,6 +8849,13 @@ components:
             - no-data
             type: string
           maxItems: 3
+          type: array
+        clusterIdsFilter:
+          description: Cluster IDs that can trigger a notification
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
           type: array
         owner:
           description: Team ID that owns and manages the rule
@@ -9840,12 +9730,6 @@ components:
       required:
       - config
       - id
-    Processor_anyOf_example:
-      properties:
-        manual:
-          type: boolean
-      required:
-      - manual
     Processor_anyOf_params:
       discriminator:
         mapping:
@@ -9870,8 +9754,6 @@ components:
           maxLength: 50000
           minLength: 0
           type: string
-        example:
-          $ref: "#/components/schemas/Processor_anyOf_example"
         tags:
           description: List of key/value tags applied to the resource
           items:
@@ -10010,8 +9892,6 @@ components:
           maxLength: 50000
           minLength: 0
           type: string
-        example:
-          $ref: "#/components/schemas/Processor_anyOf_example"
         tags:
           description: List of key/value tags applied to the resource
           items:
@@ -10054,8 +9934,6 @@ components:
           maxLength: 50000
           minLength: 0
           type: string
-        example:
-          $ref: "#/components/schemas/Processor_anyOf_example"
         tags:
           description: List of key/value tags applied to the resource
           items:
@@ -10116,8 +9994,6 @@ components:
           maxLength: 50000
           minLength: 0
           type: string
-        example:
-          $ref: "#/components/schemas/Processor_anyOf_example"
         tags:
           description: List of key/value tags applied to the resource
           items:
@@ -10599,24 +10475,6 @@ components:
       required:
       - attribute
       title: WidgetListColumn
-    BigQueryConnectionInput_auth:
-      properties:
-        type:
-          enum:
-          - workload-identity-direct-access
-          type: string
-        projectId:
-          maxLength: 250
-          minLength: 0
-          type: string
-        workloadIdentityCredentialFile:
-          maxLength: 50000
-          minLength: 0
-          type: string
-      required:
-      - projectId
-      - type
-      - workloadIdentityCredentialFile
     SilenceTimeRange:
       properties:
         startTime:

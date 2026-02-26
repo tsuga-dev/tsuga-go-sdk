@@ -1,3 +1,4 @@
+README.md
 test/**
 .travis.yml
 git_push.sh
