@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## GetUser
 
-> GetUser200Response GetUser(ctx, id).Execute()
+> GetUserResponse GetUser(ctx, id).Execute()
 
 
 
@@ -39,7 +39,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.GetUser``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetUser`: GetUser200Response
+	// response from `GetUser`: GetUserResponse
 	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.GetUser`: %v\n", resp)
 }
 ```
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetUser200Response**](GetUser200Response.md)
+[**GetUserResponse**](GetUserResponse.md)
 
 ### Authorization
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## ListUsers
 
-> ListUsers200Response ListUsers(ctx).Execute()
+> ListUsersResponse ListUsers(ctx).Execute()
 
 
 
@@ -108,7 +108,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.ListUsers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListUsers`: ListUsers200Response
+	// response from `ListUsers`: ListUsersResponse
 	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.ListUsers`: %v\n", resp)
 }
 ```
@@ -124,7 +124,7 @@ Other parameters are passed through a pointer to a apiListUsersRequest struct vi
 
 ### Return type
 
-[**ListUsers200Response**](ListUsers200Response.md)
+[**ListUsersResponse**](ListUsersResponse.md)
 
 ### Authorization
 

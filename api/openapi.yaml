@@ -62,7 +62,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateScalar_200_response"
+                $ref: "#/components/schemas/AggregateScalarResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -117,7 +117,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/aggregateTimeseries_200_response"
+                $ref: "#/components/schemas/AggregateTimeseriesResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -166,7 +166,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listIngestionApiKeys_200_response"
+                $ref: "#/components/schemas/ListIngestionApiKeysResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -228,7 +228,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createIngestionApiKey_200_response"
+                $ref: "#/components/schemas/CreateIngestionApiKeyResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -287,7 +287,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/deleteIngestionApiKey_200_response"
+                $ref: "#/components/schemas/DeleteIngestionApiKeyResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -345,7 +345,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/getIngestionApiKey_200_response"
+                $ref: "#/components/schemas/GetIngestionApiKeyResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -417,7 +417,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/getIngestionApiKey_200_response"
+                $ref: "#/components/schemas/UpdateIngestionApiKeyResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -479,7 +479,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listDashboards_200_response"
+                $ref: "#/components/schemas/ListDashboardsResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -561,7 +561,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createDashboard_200_response"
+                $ref: "#/components/schemas/CreateDashboardResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -620,7 +620,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/deleteIngestionApiKey_200_response"
+                $ref: "#/components/schemas/DeleteDashboardResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -678,7 +678,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createDashboard_200_response"
+                $ref: "#/components/schemas/GetDashboardResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -742,7 +742,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createDashboard_200_response"
+                $ref: "#/components/schemas/UpdateDashboardResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -791,7 +791,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listInvitations_200_response"
+                $ref: "#/components/schemas/ListInvitationsResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -848,7 +848,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/inviteUsers_200_response"
+                $ref: "#/components/schemas/InviteUsersResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -941,7 +941,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/searchLogs_200_response"
+                $ref: "#/components/schemas/SearchLogsResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -1015,7 +1015,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listMetrics_200_response"
+                $ref: "#/components/schemas/ListMetricsResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -1099,7 +1099,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/getMetric_200_response"
+                $ref: "#/components/schemas/GetMetricResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -1148,7 +1148,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listMonitors_200_response"
+                $ref: "#/components/schemas/ListMonitorsResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -1225,7 +1225,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createMonitor_200_response"
+                $ref: "#/components/schemas/CreateMonitorResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -1284,7 +1284,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/deleteIngestionApiKey_200_response"
+                $ref: "#/components/schemas/DeleteMonitorResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -1342,7 +1342,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createMonitor_200_response"
+                $ref: "#/components/schemas/GetMonitorResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -1429,7 +1429,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createMonitor_200_response"
+                $ref: "#/components/schemas/UpdateMonitorResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -1478,7 +1478,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listNotificationRules_200_response"
+                $ref: "#/components/schemas/ListNotificationRulesResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -1553,7 +1553,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createNotificationRule_200_response"
+                $ref: "#/components/schemas/CreateNotificationRuleResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -1612,7 +1612,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/deleteIngestionApiKey_200_response"
+                $ref: "#/components/schemas/DeleteNotificationRuleResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -1670,7 +1670,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createNotificationRule_200_response"
+                $ref: "#/components/schemas/GetNotificationRuleResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -1755,7 +1755,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createNotificationRule_200_response"
+                $ref: "#/components/schemas/UpdateNotificationRuleResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -1804,7 +1804,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listNotificationSilences_200_response"
+                $ref: "#/components/schemas/ListNotificationSilencesResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -1858,7 +1858,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createNotificationSilence_200_response"
+                $ref: "#/components/schemas/CreateNotificationSilenceResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -1917,7 +1917,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/deleteIngestionApiKey_200_response"
+                $ref: "#/components/schemas/DeleteNotificationSilenceResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -1975,7 +1975,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createNotificationSilence_200_response"
+                $ref: "#/components/schemas/GetNotificationSilenceResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -2039,7 +2039,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createNotificationSilence_200_response"
+                $ref: "#/components/schemas/UpdateNotificationSilenceResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -2088,7 +2088,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listRetentionPolicies_200_response"
+                $ref: "#/components/schemas/ListRetentionPoliciesResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -2148,7 +2148,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createRetentionPolicy_200_response"
+                $ref: "#/components/schemas/CreateRetentionPolicyResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -2207,7 +2207,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/deleteIngestionApiKey_200_response"
+                $ref: "#/components/schemas/DeleteRetentionPolicyResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -2265,7 +2265,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createRetentionPolicy_200_response"
+                $ref: "#/components/schemas/GetRetentionPolicyResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -2335,7 +2335,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createRetentionPolicy_200_response"
+                $ref: "#/components/schemas/UpdateRetentionPolicyResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -2384,7 +2384,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listRoutes_200_response"
+                $ref: "#/components/schemas/ListRoutesResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -2456,7 +2456,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createRoute_200_response"
+                $ref: "#/components/schemas/CreateRouteResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -2515,7 +2515,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/deleteIngestionApiKey_200_response"
+                $ref: "#/components/schemas/DeleteRouteResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -2573,7 +2573,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createRoute_200_response"
+                $ref: "#/components/schemas/GetRouteResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -2655,7 +2655,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createRoute_200_response"
+                $ref: "#/components/schemas/UpdateRouteResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -2704,7 +2704,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listServices_200_response"
+                $ref: "#/components/schemas/ListServicesResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -2763,7 +2763,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/getService_200_response"
+                $ref: "#/components/schemas/GetServiceResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -2812,7 +2812,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listTagPolicies_200_response"
+                $ref: "#/components/schemas/ListTagPoliciesResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -2866,7 +2866,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createTagPolicy_200_response"
+                $ref: "#/components/schemas/CreateTagPolicyResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -2925,7 +2925,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/deleteIngestionApiKey_200_response"
+                $ref: "#/components/schemas/DeleteTagPolicyResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -2983,7 +2983,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createTagPolicy_200_response"
+                $ref: "#/components/schemas/GetTagPolicyResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -3047,7 +3047,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createTagPolicy_200_response"
+                $ref: "#/components/schemas/UpdateTagPolicyResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -3096,7 +3096,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listTeams_200_response"
+                $ref: "#/components/schemas/ListTeamsResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -3157,7 +3157,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createTeam_200_response"
+                $ref: "#/components/schemas/CreateTeamResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -3216,7 +3216,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/deleteIngestionApiKey_200_response"
+                $ref: "#/components/schemas/DeleteTeamResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -3274,7 +3274,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createTeam_200_response"
+                $ref: "#/components/schemas/GetTeamResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -3345,7 +3345,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/createTeam_200_response"
+                $ref: "#/components/schemas/UpdateTeamResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -3400,7 +3400,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/deleteIngestionApiKey_200_response"
+                $ref: "#/components/schemas/RemoveUserFromTeamResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -3467,7 +3467,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/getTeamMemberships_200_response"
+                $ref: "#/components/schemas/GetTeamMembershipsResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -3521,7 +3521,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/updateTeamMembership_200_response"
+                $ref: "#/components/schemas/AddUserToTeamResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -3575,7 +3575,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/updateTeamMembership_200_response"
+                $ref: "#/components/schemas/UpdateTeamMembershipResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -3668,7 +3668,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/searchSpans_200_response"
+                $ref: "#/components/schemas/SearchSpansResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -3717,7 +3717,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listUsers_200_response"
+                $ref: "#/components/schemas/ListUsersResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -3776,7 +3776,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/getUser_200_response"
+                $ref: "#/components/schemas/GetUserResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -3823,7 +3823,7 @@ components:
       example:
         code: ABORT_ERROR
         message: message
-        statusCode: 6.027456183070403
+        statusCode: 0.8008281904610115
       properties:
         code:
           description: Machine readable error code describing what went wrong
@@ -3858,7 +3858,7 @@ components:
       example:
         code: INTERNAL_ERROR
         message: message
-        statusCode: 1.4658129805029452
+        statusCode: 6.027456183070403
       properties:
         code:
           description: Machine readable error code describing what went wrong
@@ -3882,7 +3882,7 @@ components:
         error:
           code: ABORT_ERROR
           message: message
-          statusCode: 6.027456183070403
+          statusCode: 0.8008281904610115
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -3899,7 +3899,7 @@ components:
         error:
           code: INTERNAL_ERROR
           message: message
-          statusCode: 1.4658129805029452
+          statusCode: 6.027456183070403
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -3908,6 +3908,107 @@ components:
           $ref: "#/components/schemas/ServerErrorResponse"
       required:
       - error
+      - requestId
+    ScalarAggregationResponse:
+      description: Scalar aggregation response with single values
+      example:
+        results:
+        - id: q1
+          group:
+            host: server-1
+          value: 123.45
+      properties:
+        results:
+          description: Aggregated results per query and group
+          items:
+            $ref: "#/components/schemas/ScalarResult"
+          type: array
+      required:
+      - results
+      title: ScalarAggregationResponse
+    AggregateScalarResponse:
+      example:
+        data:
+          results:
+          - id: q1
+            group:
+              host: server-1
+            value: 123.45
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/ScalarAggregationResponse"
+      required:
+      - data
+      - requestId
+    TimeseriesAggregationResponse:
+      description: Timeseries aggregation response with points over time
+      example:
+        series:
+        - id: q1
+          group:
+            host: server-1
+          points:
+          - timestamp: 1609459200000
+            value: 123.45
+          - timestamp: 1609459260000
+            value: 456.78
+      properties:
+        series:
+          description: Time series data per query and group
+          items:
+            $ref: "#/components/schemas/Series"
+          type: array
+      required:
+      - series
+      title: TimeseriesAggregationResponse
+    AggregateTimeseriesResponse:
+      example:
+        data:
+          series:
+          - id: q1
+            group:
+              host: server-1
+            points:
+            - timestamp: 1609459200000
+              value: 123.45
+            - timestamp: 1609459260000
+              value: 456.78
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/TimeseriesAggregationResponse"
+      required:
+      - data
+      - requestId
+    CreateIngestionApiKeyResponse:
+      example:
+        data:
+          id: 123-456-abc
+          name: Production Logs Ingestion
+          keyLastCharacters: x7Qm
+          owner: abc-123-def
+          tags:
+          - key: env
+            value: production
+          teamOverrideFields:
+          - service
+          key: tsuga_in:v1:abc123xyx7Qm
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/IngestionApiKeyCreated"
+      required:
+      - data
       - requestId
     IngestionApiKey:
       description: API key used to send telemetry data to Tsuga
@@ -3946,6 +4047,108 @@ components:
       - keyLastCharacters
       - name
       - owner
+    UpdateIngestionApiKeyResponse:
+      example:
+        data:
+          id: 123-456-abc
+          name: Production Logs Ingestion
+          keyLastCharacters: x7Qm
+          owner: abc-123-def
+          tags:
+          - key: env
+            value: production
+          teamOverrideFields:
+          - service
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/IngestionApiKey"
+      required:
+      - data
+      - requestId
+    ListIngestionApiKeysResponse:
+      example:
+        data:
+        - id: 123-456-abc
+          name: Production Logs Ingestion
+          keyLastCharacters: x7Qm
+          owner: abc-123-def
+          tags:
+          - key: env
+            value: production
+          teamOverrideFields:
+          - service
+        - id: 123-456-abc
+          name: Production Logs Ingestion
+          keyLastCharacters: x7Qm
+          owner: abc-123-def
+          tags:
+          - key: env
+            value: production
+          teamOverrideFields:
+          - service
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/IngestionApiKey"
+          type: array
+      required:
+      - data
+      - requestId
+    GetIngestionApiKeyResponse:
+      example:
+        data:
+          id: 123-456-abc
+          name: Production Logs Ingestion
+          keyLastCharacters: x7Qm
+          owner: abc-123-def
+          tags:
+          - key: env
+            value: production
+          teamOverrideFields:
+          - service
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/IngestionApiKey"
+      required:
+      - data
+      - requestId
+    DeleteResponse:
+      example:
+        success: true
+      properties:
+        success:
+          description: Indicates the resource was deleted successfully
+          enum:
+          - true
+          type: boolean
+      required:
+      - success
+    DeleteIngestionApiKeyResponse:
+      example:
+        data:
+          success: true
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/DeleteResponse"
+      required:
+      - data
+      - requestId
     Dashboard:
       description: Visualization of telemetry data with customizable graphs and filters
       example:
@@ -4036,6 +4239,229 @@ components:
       - id
       - name
       - owner
+    ListDashboardsResponse:
+      example:
+        data:
+        - id: 123-456-abc
+          name: API Performance Overview
+          owner: abc-123-def
+          graphs:
+          - id: 789-abc-def
+            name: Request Latency P99
+            visualization:
+              type: timeseries
+              source: metrics
+              queries:
+              - aggregate:
+                  type: percentile
+                  field: duration
+                  percentile: 99
+                filter: service:api-gateway
+            layout:
+              x: 0
+              "y": 0
+              w: 6
+              h: 4
+          filters:
+          - key: env
+            values:
+            - production
+          tags:
+          - key: team
+            value: platform
+          timePreset: past-1-hour
+        - id: 123-456-abc
+          name: API Performance Overview
+          owner: abc-123-def
+          graphs:
+          - id: 789-abc-def
+            name: Request Latency P99
+            visualization:
+              type: timeseries
+              source: metrics
+              queries:
+              - aggregate:
+                  type: percentile
+                  field: duration
+                  percentile: 99
+                filter: service:api-gateway
+            layout:
+              x: 0
+              "y": 0
+              w: 6
+              h: 4
+          filters:
+          - key: env
+            values:
+            - production
+          tags:
+          - key: team
+            value: platform
+          timePreset: past-1-hour
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/Dashboard"
+          type: array
+      required:
+      - data
+      - requestId
+    GetDashboardResponse:
+      example:
+        data:
+          id: 123-456-abc
+          name: API Performance Overview
+          owner: abc-123-def
+          graphs:
+          - id: 789-abc-def
+            name: Request Latency P99
+            visualization:
+              type: timeseries
+              source: metrics
+              queries:
+              - aggregate:
+                  type: percentile
+                  field: duration
+                  percentile: 99
+                filter: service:api-gateway
+            layout:
+              x: 0
+              "y": 0
+              w: 6
+              h: 4
+          filters:
+          - key: env
+            values:
+            - production
+          tags:
+          - key: team
+            value: platform
+          timePreset: past-1-hour
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Dashboard"
+      required:
+      - data
+      - requestId
+    CreateDashboardResponse:
+      example:
+        data:
+          id: 123-456-abc
+          name: API Performance Overview
+          owner: abc-123-def
+          graphs:
+          - id: 789-abc-def
+            name: Request Latency P99
+            visualization:
+              type: timeseries
+              source: metrics
+              queries:
+              - aggregate:
+                  type: percentile
+                  field: duration
+                  percentile: 99
+                filter: service:api-gateway
+            layout:
+              x: 0
+              "y": 0
+              w: 6
+              h: 4
+          filters:
+          - key: env
+            values:
+            - production
+          tags:
+          - key: team
+            value: platform
+          timePreset: past-1-hour
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Dashboard"
+      required:
+      - data
+      - requestId
+    UpdateDashboardResponse:
+      example:
+        data:
+          id: 123-456-abc
+          name: API Performance Overview
+          owner: abc-123-def
+          graphs:
+          - id: 789-abc-def
+            name: Request Latency P99
+            visualization:
+              type: timeseries
+              source: metrics
+              queries:
+              - aggregate:
+                  type: percentile
+                  field: duration
+                  percentile: 99
+                filter: service:api-gateway
+            layout:
+              x: 0
+              "y": 0
+              w: 6
+              h: 4
+          filters:
+          - key: env
+            values:
+            - production
+          tags:
+          - key: team
+            value: platform
+          timePreset: past-1-hour
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Dashboard"
+      required:
+      - data
+      - requestId
+    DeleteDashboardResponse:
+      example:
+        data:
+          success: true
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/DeleteResponse"
+      required:
+      - data
+      - requestId
+    InviteUsersResponse:
+      example:
+        data:
+          success: true
+          message: message
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/InviteUsersResponse_data"
+      required:
+      - data
+      - requestId
     UserInvitation:
       description: An invitation to join the organization
       example:
@@ -4083,6 +4509,191 @@ components:
       - id
       - status
       - updatedAt
+    ListInvitationsResponse:
+      example:
+        data:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          teamId: teamId
+          teamRole: admin
+          id: id
+          email: email
+          expiresAt: 2000-01-23T04:56:07.000+00:00
+          status: pending
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          teamId: teamId
+          teamRole: admin
+          id: id
+          email: email
+          expiresAt: 2000-01-23T04:56:07.000+00:00
+          status: pending
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/UserInvitation"
+          type: array
+      required:
+      - data
+      - requestId
+    SearchLogsResponse:
+      example:
+        data:
+          logs:
+          - context:
+              team: platform
+            message: Request completed successfully
+            timestamp: 1704067200000
+            level: INFO
+          - context:
+              team: platform
+            message: Request completed successfully
+            timestamp: 1704067200000
+            level: INFO
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/SearchLogsResponse_data"
+      required:
+      - data
+      - requestId
+    LogEvent:
+      additionalProperties: {}
+      example:
+        context:
+          team: platform
+        message: Request completed successfully
+        timestamp: 1704067200000
+        level: INFO
+      properties:
+        context:
+          $ref: "#/components/schemas/SearchLogsResponse_data_logs_inner_context"
+        message:
+          type: string
+        timestamp:
+          type: number
+        level:
+          enum:
+          - CRITICAL
+          - ERROR
+          - WARN
+          - NOTICE
+          - INFO
+          - DEBUG
+          - TRACE
+          type: string
+      required:
+      - level
+      - timestamp
+    LogContext:
+      additionalProperties: true
+      properties:
+        team:
+          type: string
+    GetLogPatternsResponse:
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/GetLogPatternsResponse_data"
+      required:
+      - data
+      - requestId
+    TokenOutput:
+      anyOf:
+      - $ref: "#/components/schemas/TokenOutput_anyOf"
+      - $ref: "#/components/schemas/TokenOutput_anyOf_1"
+      - $ref: "#/components/schemas/TokenOutput_anyOf_2"
+      - $ref: "#/components/schemas/TokenOutput_anyOf_3"
+      - $ref: "#/components/schemas/TokenOutput_anyOf_4"
+      - $ref: "#/components/schemas/TokenOutput_anyOf_5"
+      - $ref: "#/components/schemas/TokenOutput_anyOf_6"
+      - $ref: "#/components/schemas/TokenOutput_anyOf_7"
+    GetMetricAssetsUsageResponse:
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/GetMetricAssetsUsageResponse_data"
+      required:
+      - data
+      - requestId
+    ListMetricsResponse:
+      example:
+        data:
+        - name: http.server.request.duration
+          type: histogram
+          description: Duration of HTTP server requests
+          unit: ms
+          temporality: delta
+          capabilities:
+          - max
+          - min
+          - sum
+          attributes:
+          - context.team
+          - context.environment
+          - context.region
+        - name: http.server.request.duration
+          type: histogram
+          description: Duration of HTTP server requests
+          unit: ms
+          temporality: delta
+          capabilities:
+          - max
+          - min
+          - sum
+          attributes:
+          - context.team
+          - context.environment
+          - context.region
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/ListMetricsResponse_data_inner"
+          type: array
+      required:
+      - data
+      - requestId
+    GetMetricResponse:
+      example:
+        data:
+          name: http.server.request.duration
+          type: histogram
+          description: Duration of HTTP server requests
+          unit: ms
+          temporality: delta
+          capabilities:
+          - max
+          - min
+          - sum
+          attributes:
+          - context.team
+          - context.environment
+          - context.region
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/ListMetricsResponse_data_inner"
+      required:
+      - data
+      - requestId
     Monitor:
       description: Monitor allowing to send alerts based on telemetry data
       example:
@@ -4157,6 +4768,189 @@ components:
       - owner
       - permissions
       - priority
+    ListMonitorsResponse:
+      example:
+        data:
+        - id: 123-456-abc
+          name: High Error Rate Alert
+          message: Error rate exceeded threshold. Check the API gateway logs.
+          tags:
+          - key: severity
+            value: critical
+          configuration:
+            type: log
+            timeframe: 5
+            groupByFields: []
+            queries:
+            - aggregate:
+                type: count
+              filter: level:ERROR service:api-gateway
+            condition:
+              formula: q1
+              operator: greater_than
+              threshold: 100
+            noDataBehavior: resolve
+          priority: 1
+          owner: abc-123-def
+          dashboardId: 789-abc-def
+          permissions: all
+        - id: 123-456-abc
+          name: High Error Rate Alert
+          message: Error rate exceeded threshold. Check the API gateway logs.
+          tags:
+          - key: severity
+            value: critical
+          configuration:
+            type: log
+            timeframe: 5
+            groupByFields: []
+            queries:
+            - aggregate:
+                type: count
+              filter: level:ERROR service:api-gateway
+            condition:
+              formula: q1
+              operator: greater_than
+              threshold: 100
+            noDataBehavior: resolve
+          priority: 1
+          owner: abc-123-def
+          dashboardId: 789-abc-def
+          permissions: all
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/Monitor"
+          type: array
+      required:
+      - data
+      - requestId
+    GetMonitorResponse:
+      example:
+        data:
+          id: 123-456-abc
+          name: High Error Rate Alert
+          message: Error rate exceeded threshold. Check the API gateway logs.
+          tags:
+          - key: severity
+            value: critical
+          configuration:
+            type: log
+            timeframe: 5
+            groupByFields: []
+            queries:
+            - aggregate:
+                type: count
+              filter: level:ERROR service:api-gateway
+            condition:
+              formula: q1
+              operator: greater_than
+              threshold: 100
+            noDataBehavior: resolve
+          priority: 1
+          owner: abc-123-def
+          dashboardId: 789-abc-def
+          permissions: all
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Monitor"
+      required:
+      - data
+      - requestId
+    CreateMonitorResponse:
+      example:
+        data:
+          id: 123-456-abc
+          name: High Error Rate Alert
+          message: Error rate exceeded threshold. Check the API gateway logs.
+          tags:
+          - key: severity
+            value: critical
+          configuration:
+            type: log
+            timeframe: 5
+            groupByFields: []
+            queries:
+            - aggregate:
+                type: count
+              filter: level:ERROR service:api-gateway
+            condition:
+              formula: q1
+              operator: greater_than
+              threshold: 100
+            noDataBehavior: resolve
+          priority: 1
+          owner: abc-123-def
+          dashboardId: 789-abc-def
+          permissions: all
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Monitor"
+      required:
+      - data
+      - requestId
+    UpdateMonitorResponse:
+      example:
+        data:
+          id: 123-456-abc
+          name: High Error Rate Alert
+          message: Error rate exceeded threshold. Check the API gateway logs.
+          tags:
+          - key: severity
+            value: critical
+          configuration:
+            type: log
+            timeframe: 5
+            groupByFields: []
+            queries:
+            - aggregate:
+                type: count
+              filter: level:ERROR service:api-gateway
+            condition:
+              formula: q1
+              operator: greater_than
+              threshold: 100
+            noDataBehavior: resolve
+          priority: 1
+          owner: abc-123-def
+          dashboardId: 789-abc-def
+          permissions: all
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Monitor"
+      required:
+      - data
+      - requestId
+    DeleteMonitorResponse:
+      example:
+        data:
+          success: true
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/DeleteResponse"
+      required:
+      - data
+      - requestId
     Rule:
       description: Rules to trigger notifications to targets based on alert events
       example:
@@ -4237,6 +5031,179 @@ components:
       - targets
       - teamsFilter
       - transitionTypesFilter
+    ListNotificationRulesResponse:
+      example:
+        data:
+        - id: 123-456-abc
+          name: Critical Alerts
+          teamsFilter:
+            type: all-teams
+          prioritiesFilter:
+          - 1
+          - 2
+          transitionTypesFilter:
+          - triggered
+          - resolved
+          owner: abc-123-def
+          isActive: true
+          tags:
+          - key: channel
+            value: alerts
+          targets:
+          - id: 789-abc-def
+            config:
+              type: email
+              addresses:
+              - oncall@example.com
+        - id: 123-456-abc
+          name: Critical Alerts
+          teamsFilter:
+            type: all-teams
+          prioritiesFilter:
+          - 1
+          - 2
+          transitionTypesFilter:
+          - triggered
+          - resolved
+          owner: abc-123-def
+          isActive: true
+          tags:
+          - key: channel
+            value: alerts
+          targets:
+          - id: 789-abc-def
+            config:
+              type: email
+              addresses:
+              - oncall@example.com
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/Rule"
+          type: array
+      required:
+      - data
+      - requestId
+    GetNotificationRuleResponse:
+      example:
+        data:
+          id: 123-456-abc
+          name: Critical Alerts
+          teamsFilter:
+            type: all-teams
+          prioritiesFilter:
+          - 1
+          - 2
+          transitionTypesFilter:
+          - triggered
+          - resolved
+          owner: abc-123-def
+          isActive: true
+          tags:
+          - key: channel
+            value: alerts
+          targets:
+          - id: 789-abc-def
+            config:
+              type: email
+              addresses:
+              - oncall@example.com
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Rule"
+      required:
+      - data
+      - requestId
+    CreateNotificationRuleResponse:
+      example:
+        data:
+          id: 123-456-abc
+          name: Critical Alerts
+          teamsFilter:
+            type: all-teams
+          prioritiesFilter:
+          - 1
+          - 2
+          transitionTypesFilter:
+          - triggered
+          - resolved
+          owner: abc-123-def
+          isActive: true
+          tags:
+          - key: channel
+            value: alerts
+          targets:
+          - id: 789-abc-def
+            config:
+              type: email
+              addresses:
+              - oncall@example.com
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Rule"
+      required:
+      - data
+      - requestId
+    UpdateNotificationRuleResponse:
+      example:
+        data:
+          id: 123-456-abc
+          name: Critical Alerts
+          teamsFilter:
+            type: all-teams
+          prioritiesFilter:
+          - 1
+          - 2
+          transitionTypesFilter:
+          - triggered
+          - resolved
+          owner: abc-123-def
+          isActive: true
+          tags:
+          - key: channel
+            value: alerts
+          targets:
+          - id: 789-abc-def
+            config:
+              type: email
+              addresses:
+              - oncall@example.com
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Rule"
+      required:
+      - data
+      - requestId
+    DeleteNotificationRuleResponse:
+      example:
+        data:
+          success: true
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/DeleteResponse"
+      required:
+      - data
+      - requestId
     NotificationSilence:
       description: Silences to suppress notifications based on schedules and filters
       example:
@@ -4342,6 +5309,249 @@ components:
       - schedule
       - teamsFilter
       - transitionTypesFilter
+    ListNotificationSilencesResponse:
+      example:
+        data:
+        - owner: owner
+          reason: reason
+          schedule:
+            startTime: 2000-01-23T04:56:07.000+00:00
+            endTime: 2000-01-23T04:56:07.000+00:00
+            type: one-time
+          transitionTypesFilter:
+          - triggered
+          - triggered
+          notificationRuleIds:
+          - notificationRuleIds
+          - notificationRuleIds
+          name: name
+          prioritiesFilter:
+          - 0.8008281904610115
+          - 0.8008281904610115
+          id: id
+          isActive: true
+          queryString: queryString
+          teamsFilter:
+            teams:
+            - teams
+            - teams
+            type: specific-teams
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        - owner: owner
+          reason: reason
+          schedule:
+            startTime: 2000-01-23T04:56:07.000+00:00
+            endTime: 2000-01-23T04:56:07.000+00:00
+            type: one-time
+          transitionTypesFilter:
+          - triggered
+          - triggered
+          notificationRuleIds:
+          - notificationRuleIds
+          - notificationRuleIds
+          name: name
+          prioritiesFilter:
+          - 0.8008281904610115
+          - 0.8008281904610115
+          id: id
+          isActive: true
+          queryString: queryString
+          teamsFilter:
+            teams:
+            - teams
+            - teams
+            type: specific-teams
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/NotificationSilence"
+          type: array
+      required:
+      - data
+      - requestId
+    GetNotificationSilenceResponse:
+      example:
+        data:
+          owner: owner
+          reason: reason
+          schedule:
+            startTime: 2000-01-23T04:56:07.000+00:00
+            endTime: 2000-01-23T04:56:07.000+00:00
+            type: one-time
+          transitionTypesFilter:
+          - triggered
+          - triggered
+          notificationRuleIds:
+          - notificationRuleIds
+          - notificationRuleIds
+          name: name
+          prioritiesFilter:
+          - 0.8008281904610115
+          - 0.8008281904610115
+          id: id
+          isActive: true
+          queryString: queryString
+          teamsFilter:
+            teams:
+            - teams
+            - teams
+            type: specific-teams
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/NotificationSilence"
+      required:
+      - data
+      - requestId
+    CreateNotificationSilenceResponse:
+      example:
+        data:
+          owner: owner
+          reason: reason
+          schedule:
+            startTime: 2000-01-23T04:56:07.000+00:00
+            endTime: 2000-01-23T04:56:07.000+00:00
+            type: one-time
+          transitionTypesFilter:
+          - triggered
+          - triggered
+          notificationRuleIds:
+          - notificationRuleIds
+          - notificationRuleIds
+          name: name
+          prioritiesFilter:
+          - 0.8008281904610115
+          - 0.8008281904610115
+          id: id
+          isActive: true
+          queryString: queryString
+          teamsFilter:
+            teams:
+            - teams
+            - teams
+            type: specific-teams
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/NotificationSilence"
+      required:
+      - data
+      - requestId
+    UpdateNotificationSilenceResponse:
+      example:
+        data:
+          owner: owner
+          reason: reason
+          schedule:
+            startTime: 2000-01-23T04:56:07.000+00:00
+            endTime: 2000-01-23T04:56:07.000+00:00
+            type: one-time
+          transitionTypesFilter:
+          - triggered
+          - triggered
+          notificationRuleIds:
+          - notificationRuleIds
+          - notificationRuleIds
+          name: name
+          prioritiesFilter:
+          - 0.8008281904610115
+          - 0.8008281904610115
+          id: id
+          isActive: true
+          queryString: queryString
+          teamsFilter:
+            teams:
+            - teams
+            - teams
+            type: specific-teams
+          tags:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+          - value: value
+            key: key
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/NotificationSilence"
+      required:
+      - data
+      - requestId
+    DeleteNotificationSilenceResponse:
+      example:
+        data:
+          success: true
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/DeleteResponse"
+      required:
+      - data
+      - requestId
     RetentionPolicy:
       description: Data retention rule for a data source within an environment
       example:
@@ -4384,6 +5594,104 @@ components:
       - durationDays
       - id
       - isEnabled
+    ListRetentionPoliciesResponse:
+      example:
+        data:
+        - id: 123-456-abc
+          env: production
+          teamId: abc-123-def
+          dataSource: logs
+          durationDays: 30-days
+          isEnabled: true
+        - id: 123-456-abc
+          env: production
+          teamId: abc-123-def
+          dataSource: logs
+          durationDays: 30-days
+          isEnabled: true
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/RetentionPolicy"
+          type: array
+      required:
+      - data
+      - requestId
+    GetRetentionPolicyResponse:
+      example:
+        data:
+          id: 123-456-abc
+          env: production
+          teamId: abc-123-def
+          dataSource: logs
+          durationDays: 30-days
+          isEnabled: true
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/RetentionPolicy"
+      required:
+      - data
+      - requestId
+    CreateRetentionPolicyResponse:
+      example:
+        data:
+          id: 123-456-abc
+          env: production
+          teamId: abc-123-def
+          dataSource: logs
+          durationDays: 30-days
+          isEnabled: true
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/RetentionPolicy"
+      required:
+      - data
+      - requestId
+    UpdateRetentionPolicyResponse:
+      example:
+        data:
+          id: 123-456-abc
+          env: production
+          teamId: abc-123-def
+          dataSource: logs
+          durationDays: 30-days
+          isEnabled: true
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/RetentionPolicy"
+      required:
+      - data
+      - requestId
+    DeleteRetentionPolicyResponse:
+      example:
+        data:
+          success: true
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/DeleteResponse"
+      required:
+      - data
+      - requestId
     Route:
       description: Log route allowing to standardize logs and enrich them with additional
         data
@@ -4448,6 +5756,164 @@ components:
       - $ref: "#/components/schemas/Processor_anyOf_1"
       - $ref: "#/components/schemas/Processor_anyOf_2"
       - $ref: "#/components/schemas/Processor_anyOf_3"
+    ListRoutesResponse:
+      example:
+        data:
+        - id: 123-456-abc
+          name: Enrich API Gateway Logs
+          description: Adds service metadata and normalizes log format
+          isEnabled: true
+          query: service:api-gateway
+          tags:
+          - key: category
+            value: enrichment
+          owner: abc-123-def
+          processors:
+          - id: 789-abc-def
+            type: parse-attribute
+            tags: []
+            params:
+              subtype: grok
+              attributeName: message
+              rules:
+              - "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{GREEDYDATA:msg}"
+        - id: 123-456-abc
+          name: Enrich API Gateway Logs
+          description: Adds service metadata and normalizes log format
+          isEnabled: true
+          query: service:api-gateway
+          tags:
+          - key: category
+            value: enrichment
+          owner: abc-123-def
+          processors:
+          - id: 789-abc-def
+            type: parse-attribute
+            tags: []
+            params:
+              subtype: grok
+              attributeName: message
+              rules:
+              - "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{GREEDYDATA:msg}"
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/Route"
+          type: array
+      required:
+      - data
+      - requestId
+    GetRouteResponse:
+      example:
+        data:
+          id: 123-456-abc
+          name: Enrich API Gateway Logs
+          description: Adds service metadata and normalizes log format
+          isEnabled: true
+          query: service:api-gateway
+          tags:
+          - key: category
+            value: enrichment
+          owner: abc-123-def
+          processors:
+          - id: 789-abc-def
+            type: parse-attribute
+            tags: []
+            params:
+              subtype: grok
+              attributeName: message
+              rules:
+              - "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{GREEDYDATA:msg}"
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Route"
+      required:
+      - data
+      - requestId
+    CreateRouteResponse:
+      example:
+        data:
+          id: 123-456-abc
+          name: Enrich API Gateway Logs
+          description: Adds service metadata and normalizes log format
+          isEnabled: true
+          query: service:api-gateway
+          tags:
+          - key: category
+            value: enrichment
+          owner: abc-123-def
+          processors:
+          - id: 789-abc-def
+            type: parse-attribute
+            tags: []
+            params:
+              subtype: grok
+              attributeName: message
+              rules:
+              - "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{GREEDYDATA:msg}"
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Route"
+      required:
+      - data
+      - requestId
+    UpdateRouteResponse:
+      example:
+        data:
+          id: 123-456-abc
+          name: Enrich API Gateway Logs
+          description: Adds service metadata and normalizes log format
+          isEnabled: true
+          query: service:api-gateway
+          tags:
+          - key: category
+            value: enrichment
+          owner: abc-123-def
+          processors:
+          - id: 789-abc-def
+            type: parse-attribute
+            tags: []
+            params:
+              subtype: grok
+              attributeName: message
+              rules:
+              - "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{GREEDYDATA:msg}"
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Route"
+      required:
+      - data
+      - requestId
+    DeleteRouteResponse:
+      example:
+        data:
+          success: true
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/DeleteResponse"
+      required:
+      - data
+      - requestId
     Service:
       description: "Observed telemetry service with metadata, activity stats and version\
         \ signals"
@@ -4529,6 +5995,109 @@ components:
       - teams
       - tracesCount24h
       - versions
+    ListServicesResponse:
+      example:
+        data:
+        - id: 123-456-abc
+          serviceName: api-gateway
+          serviceNamespace: platform
+          env: production
+          teams:
+          - team: platform
+            lastSeenAt: 2024-01-15T12:34:56.000Z
+          versions:
+          - version: 1.2.3
+            firstSeenAt: 2024-01-01T08:00:00.000Z
+            lastSeenAt: 2024-01-15T12:34:56.000Z
+            faulty: false
+          languages:
+          - language: go
+            lastSeenAt: 2024-01-15T12:34:56.000Z
+          lastSeenAt: 2024-01-15T12:34:56.000Z
+          firstSeenAt: 2024-01-01T08:00:00.000Z
+          sources:
+          - logs
+          - metrics
+          - traces
+          logsCount24h: 12000
+          errorLogsCount24h: 42
+          tracesCount24h: 8500
+          errorTracesCount24h: 17
+        - id: 123-456-abc
+          serviceName: api-gateway
+          serviceNamespace: platform
+          env: production
+          teams:
+          - team: platform
+            lastSeenAt: 2024-01-15T12:34:56.000Z
+          versions:
+          - version: 1.2.3
+            firstSeenAt: 2024-01-01T08:00:00.000Z
+            lastSeenAt: 2024-01-15T12:34:56.000Z
+            faulty: false
+          languages:
+          - language: go
+            lastSeenAt: 2024-01-15T12:34:56.000Z
+          lastSeenAt: 2024-01-15T12:34:56.000Z
+          firstSeenAt: 2024-01-01T08:00:00.000Z
+          sources:
+          - logs
+          - metrics
+          - traces
+          logsCount24h: 12000
+          errorLogsCount24h: 42
+          tracesCount24h: 8500
+          errorTracesCount24h: 17
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/Service"
+          type: array
+      required:
+      - data
+      - requestId
+    GetServiceResponse:
+      example:
+        data:
+          id: 123-456-abc
+          serviceName: api-gateway
+          serviceNamespace: platform
+          env: production
+          teams:
+          - team: platform
+            lastSeenAt: 2024-01-15T12:34:56.000Z
+          versions:
+          - version: 1.2.3
+            firstSeenAt: 2024-01-01T08:00:00.000Z
+            lastSeenAt: 2024-01-15T12:34:56.000Z
+            faulty: false
+          languages:
+          - language: go
+            lastSeenAt: 2024-01-15T12:34:56.000Z
+          lastSeenAt: 2024-01-15T12:34:56.000Z
+          firstSeenAt: 2024-01-01T08:00:00.000Z
+          sources:
+          - logs
+          - metrics
+          - traces
+          logsCount24h: 12000
+          errorLogsCount24h: 42
+          tracesCount24h: 8500
+          errorTracesCount24h: 17
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Service"
+      required:
+      - data
+      - requestId
     TagPolicy:
       description: Policy that enforces tag requirements on Tsuga assets or telemetry
         data
@@ -4589,6 +6158,199 @@ components:
       - isRequired
       - name
       - tagKey
+    ListTagPoliciesResponse:
+      example:
+        data:
+        - owner: owner
+          isRequired: true
+          teamScope:
+            mode: include
+            teamIds:
+            - teamIds
+            - teamIds
+            - teamIds
+            - teamIds
+            - teamIds
+          configuration:
+            assetTypes:
+            - logs
+            - logs
+            shouldInsertWarning: true
+            dropSample: 8.008281904610115
+            type: telemetry
+          name: name
+          description: description
+          id: id
+          isActive: true
+          tagKey: tagKey
+          allowedTagValues:
+          - allowedTagValues
+          - allowedTagValues
+        - owner: owner
+          isRequired: true
+          teamScope:
+            mode: include
+            teamIds:
+            - teamIds
+            - teamIds
+            - teamIds
+            - teamIds
+            - teamIds
+          configuration:
+            assetTypes:
+            - logs
+            - logs
+            shouldInsertWarning: true
+            dropSample: 8.008281904610115
+            type: telemetry
+          name: name
+          description: description
+          id: id
+          isActive: true
+          tagKey: tagKey
+          allowedTagValues:
+          - allowedTagValues
+          - allowedTagValues
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/TagPolicy"
+          type: array
+      required:
+      - data
+      - requestId
+    GetTagPolicyResponse:
+      example:
+        data:
+          owner: owner
+          isRequired: true
+          teamScope:
+            mode: include
+            teamIds:
+            - teamIds
+            - teamIds
+            - teamIds
+            - teamIds
+            - teamIds
+          configuration:
+            assetTypes:
+            - logs
+            - logs
+            shouldInsertWarning: true
+            dropSample: 8.008281904610115
+            type: telemetry
+          name: name
+          description: description
+          id: id
+          isActive: true
+          tagKey: tagKey
+          allowedTagValues:
+          - allowedTagValues
+          - allowedTagValues
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/TagPolicy"
+      required:
+      - data
+      - requestId
+    CreateTagPolicyResponse:
+      example:
+        data:
+          owner: owner
+          isRequired: true
+          teamScope:
+            mode: include
+            teamIds:
+            - teamIds
+            - teamIds
+            - teamIds
+            - teamIds
+            - teamIds
+          configuration:
+            assetTypes:
+            - logs
+            - logs
+            shouldInsertWarning: true
+            dropSample: 8.008281904610115
+            type: telemetry
+          name: name
+          description: description
+          id: id
+          isActive: true
+          tagKey: tagKey
+          allowedTagValues:
+          - allowedTagValues
+          - allowedTagValues
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/TagPolicy"
+      required:
+      - data
+      - requestId
+    UpdateTagPolicyResponse:
+      example:
+        data:
+          owner: owner
+          isRequired: true
+          teamScope:
+            mode: include
+            teamIds:
+            - teamIds
+            - teamIds
+            - teamIds
+            - teamIds
+            - teamIds
+          configuration:
+            assetTypes:
+            - logs
+            - logs
+            shouldInsertWarning: true
+            dropSample: 8.008281904610115
+            type: telemetry
+          name: name
+          description: description
+          id: id
+          isActive: true
+          tagKey: tagKey
+          allowedTagValues:
+          - allowedTagValues
+          - allowedTagValues
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/TagPolicy"
+      required:
+      - data
+      - requestId
+    DeleteTagPolicyResponse:
+      example:
+        data:
+          success: true
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/DeleteResponse"
+      required:
+      - data
+      - requestId
     Team:
       description: Collection of users used to manage ownership and access to resources
       example:
@@ -4626,6 +6388,109 @@ components:
       - id
       - name
       - visibility
+    ListTeamsResponse:
+      example:
+        data:
+        - id: abc-123-def
+          name: Platform Engineering
+          description: Responsible for internal developer tooling and infrastructure
+          visibility: public
+          tags:
+          - key: department
+            value: engineering
+        - id: abc-123-def
+          name: Platform Engineering
+          description: Responsible for internal developer tooling and infrastructure
+          visibility: public
+          tags:
+          - key: department
+            value: engineering
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/Team"
+          type: array
+      required:
+      - data
+      - requestId
+    GetTeamResponse:
+      example:
+        data:
+          id: abc-123-def
+          name: Platform Engineering
+          description: Responsible for internal developer tooling and infrastructure
+          visibility: public
+          tags:
+          - key: department
+            value: engineering
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Team"
+      required:
+      - data
+      - requestId
+    CreateTeamResponse:
+      example:
+        data:
+          id: abc-123-def
+          name: Platform Engineering
+          description: Responsible for internal developer tooling and infrastructure
+          visibility: public
+          tags:
+          - key: department
+            value: engineering
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Team"
+      required:
+      - data
+      - requestId
+    UpdateTeamResponse:
+      example:
+        data:
+          id: abc-123-def
+          name: Platform Engineering
+          description: Responsible for internal developer tooling and infrastructure
+          visibility: public
+          tags:
+          - key: department
+            value: engineering
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Team"
+      required:
+      - data
+      - requestId
+    DeleteTeamResponse:
+      example:
+        data:
+          success: true
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/DeleteResponse"
+      required:
+      - data
+      - requestId
     TeamMembership:
       description: Membership of a user in a team
       example:
@@ -4651,6 +6516,231 @@ components:
       - roleKey
       - teamId
       - userId
+    GetTeamMembershipsResponse:
+      example:
+        data:
+        - teamId: teamId
+          roleKey: admin
+          id: id
+          userId: userId
+        - teamId: teamId
+          roleKey: admin
+          id: id
+          userId: userId
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/TeamMembership"
+          type: array
+      required:
+      - data
+      - requestId
+    AddUserToTeamResponse:
+      example:
+        data:
+          teamId: teamId
+          roleKey: admin
+          id: id
+          userId: userId
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/TeamMembership"
+      required:
+      - data
+      - requestId
+    UpdateTeamMembershipResponse:
+      example:
+        data:
+          teamId: teamId
+          roleKey: admin
+          id: id
+          userId: userId
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/TeamMembership"
+      required:
+      - data
+      - requestId
+    RemoveUserFromTeamResponse:
+      example:
+        data:
+          success: true
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/DeleteResponse"
+      required:
+      - data
+      - requestId
+    SearchSpansResponse:
+      example:
+        data:
+          spans:
+          - context:
+              service:
+                name: my-service
+                version: 1.0.0
+            parentSpanId: 187a47da1b2560f8
+            resourceAttributes: {}
+            spanAttributes:
+              busyNs: 374640
+              code:
+                file:
+                  path: src/queue/sqs.rs
+                line:
+                  number: 162
+                module:
+                  name: queue::sqs
+              idleNs: 23621445
+              maxMessages: "1"
+              target: queue::sqs
+              thread:
+                id: 2
+                name: tokio-runtime-worker
+            duration: 23
+            startTime: "1770923469995353600"
+            endTime: "1770923470019349500"
+            spanId: 3df8cc3449378f66
+            span:
+              kind: internal
+              name: receive_messages
+            statusCode: ok
+            traceId: 78c99c5bb1e4a30297fa134b9dbec64f
+          - context:
+              service:
+                name: my-service
+                version: 1.0.0
+            parentSpanId: 187a47da1b2560f8
+            resourceAttributes: {}
+            spanAttributes:
+              busyNs: 374640
+              code:
+                file:
+                  path: src/queue/sqs.rs
+                line:
+                  number: 162
+                module:
+                  name: queue::sqs
+              idleNs: 23621445
+              maxMessages: "1"
+              target: queue::sqs
+              thread:
+                id: 2
+                name: tokio-runtime-worker
+            duration: 23
+            startTime: "1770923469995353600"
+            endTime: "1770923470019349500"
+            spanId: 3df8cc3449378f66
+            span:
+              kind: internal
+              name: receive_messages
+            statusCode: ok
+            traceId: 78c99c5bb1e4a30297fa134b9dbec64f
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/SearchSpansResponse_data"
+      required:
+      - data
+      - requestId
+    SpanEvent:
+      additionalProperties: true
+      example:
+        context:
+          service:
+            name: my-service
+            version: 1.0.0
+        parentSpanId: 187a47da1b2560f8
+        resourceAttributes: {}
+        spanAttributes:
+          busyNs: 374640
+          code:
+            file:
+              path: src/queue/sqs.rs
+            line:
+              number: 162
+            module:
+              name: queue::sqs
+          idleNs: 23621445
+          maxMessages: "1"
+          target: queue::sqs
+          thread:
+            id: 2
+            name: tokio-runtime-worker
+        duration: 23
+        startTime: "1770923469995353600"
+        endTime: "1770923470019349500"
+        spanId: 3df8cc3449378f66
+        span:
+          kind: internal
+          name: receive_messages
+        statusCode: ok
+        traceId: 78c99c5bb1e4a30297fa134b9dbec64f
+      properties:
+        context:
+          $ref: "#/components/schemas/SearchSpansResponse_data_spans_inner_context"
+        parentSpanId:
+          type: string
+        resourceAttributes:
+          additionalProperties: true
+          properties: {}
+          type: object
+        spanAttributes:
+          additionalProperties: true
+          properties: {}
+          type: object
+        duration:
+          description: In milliseconds.
+          type: number
+        startTime:
+          description: "In nanoseconds. Transmitted as a string to avoid losing precision,\
+            \ as BigInt is not JSON-compatible."
+          type: string
+        endTime:
+          description: "In nanoseconds. Transmitted as a string to avoid losing precision,\
+            \ as BigInt is not JSON-compatible."
+          type: string
+        error:
+          $ref: "#/components/schemas/SearchSpansResponse_data_spans_inner_error"
+        events:
+          items:
+            $ref: "#/components/schemas/SearchSpansResponse_data_spans_inner_events_inner"
+          type: array
+        spanId:
+          type: string
+        span:
+          $ref: "#/components/schemas/SearchSpansResponse_data_spans_inner_span"
+        statusCode:
+          type: string
+        traceId:
+          type: string
+      required:
+      - duration
+      - endTime
+      - resourceAttributes
+      - span
+      - spanAttributes
+      - spanId
+      - startTime
+      - traceId
     User:
       description: A user in the organization
       example:
@@ -4677,6 +6767,46 @@ components:
       - id
       - name
       - role
+    ListUsersResponse:
+      example:
+        data:
+        - role: admin
+          name: name
+          id: id
+          email: email
+        - role: admin
+          name: name
+          id: id
+          email: email
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/User"
+          type: array
+      required:
+      - data
+      - requestId
+    GetUserResponse:
+      example:
+        data:
+          role: admin
+          name: name
+          id: id
+          email: email
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/User"
+      required:
+      - data
+      - requestId
     AggregateCount:
       properties:
         type:
@@ -6130,6 +8260,39 @@ components:
       - org
       - token
       - type
+    SilenceScheduleOneTime:
+      description: One-time silence schedule with specific start and end times
+      example:
+        startTime: 2000-01-23T04:56:07.000+00:00
+        endTime: 2000-01-23T04:56:07.000+00:00
+        type: one-time
+      properties:
+        type:
+          enum:
+          - one-time
+          type: string
+        startTime:
+          format: date-time
+          type: string
+        endTime:
+          format: date-time
+          type: string
+      required:
+      - endTime
+      - startTime
+      - type
+    SilenceScheduleRecurring:
+      description: Recurring weekly silence schedule
+      properties:
+        type:
+          enum:
+          - recurring
+          type: string
+        weeklySchedule:
+          $ref: "#/components/schemas/SilenceScheduleRecurring_weeklySchedule"
+      required:
+      - type
+      - weeklySchedule
     TimeRange:
       description: Time range to query
       example:
@@ -6270,75 +8433,6 @@ components:
       - dataSource
       - queries
       - timeRange
-    ScalarResult_group_value:
-      anyOf:
-      - type: string
-      - type: number
-    ScalarResult:
-      example:
-        id: id
-        value: 0.8008281904610115
-        group:
-          key: ScalarResult_group_value
-      properties:
-        id:
-          description: "Query identifier (q1, q2, ...) or \"formula\" for formula"
-          type: string
-        group:
-          additionalProperties:
-            $ref: "#/components/schemas/ScalarResult_group_value"
-          description: Group-by field values
-        value:
-          description: Aggregated value
-          type: number
-      required:
-      - group
-      - id
-      - value
-      title: ScalarResult
-    ScalarAggregationResponse:
-      description: Scalar aggregation response with single values
-      example:
-        results:
-        - id: id
-          value: 0.8008281904610115
-          group:
-            key: ScalarResult_group_value
-        - id: id
-          value: 0.8008281904610115
-          group:
-            key: ScalarResult_group_value
-      properties:
-        results:
-          description: Aggregated results per query and group
-          items:
-            $ref: "#/components/schemas/ScalarResult"
-          type: array
-      required:
-      - results
-      title: ScalarAggregationResponse
-    aggregateScalar_200_response:
-      example:
-        data:
-          results:
-          - id: id
-            value: 0.8008281904610115
-            group:
-              key: ScalarResult_group_value
-          - id: id
-            value: 0.8008281904610115
-            group:
-              key: ScalarResult_group_value
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/ScalarAggregationResponse"
-      required:
-      - data
-      - requestId
     aggregateTimeseries_request:
       properties:
         timeRange:
@@ -6380,140 +8474,6 @@ components:
       - dataSource
       - queries
       - timeRange
-    Series_points_inner:
-      example:
-        value: 6.027456183070403
-        timestamp: 0
-      properties:
-        timestamp:
-          description: Timestamp in milliseconds
-          type: integer
-        value:
-          description: Value
-          type: number
-      required:
-      - timestamp
-      - value
-    Series:
-      example:
-        id: id
-        group:
-          key: ScalarResult_group_value
-        points:
-        - value: 6.027456183070403
-          timestamp: 0
-        - value: 6.027456183070403
-          timestamp: 0
-      properties:
-        id:
-          description: "Query identifier (q1, q2, ...) or \"formula\" for formula"
-          type: string
-        group:
-          additionalProperties:
-            $ref: "#/components/schemas/ScalarResult_group_value"
-          description: Group-by field values
-        points:
-          description: Array of data points
-          items:
-            $ref: "#/components/schemas/Series_points_inner"
-          type: array
-      required:
-      - group
-      - id
-      - points
-      title: Series
-    TimeseriesAggregationResponse:
-      description: Timeseries aggregation response with points over time
-      example:
-        series:
-        - id: id
-          group:
-            key: ScalarResult_group_value
-          points:
-          - value: 6.027456183070403
-            timestamp: 0
-          - value: 6.027456183070403
-            timestamp: 0
-        - id: id
-          group:
-            key: ScalarResult_group_value
-          points:
-          - value: 6.027456183070403
-            timestamp: 0
-          - value: 6.027456183070403
-            timestamp: 0
-      properties:
-        series:
-          description: Time series data per query and group
-          items:
-            $ref: "#/components/schemas/Series"
-          type: array
-      required:
-      - series
-      title: TimeseriesAggregationResponse
-    aggregateTimeseries_200_response:
-      example:
-        data:
-          series:
-          - id: id
-            group:
-              key: ScalarResult_group_value
-            points:
-            - value: 6.027456183070403
-              timestamp: 0
-            - value: 6.027456183070403
-              timestamp: 0
-          - id: id
-            group:
-              key: ScalarResult_group_value
-            points:
-            - value: 6.027456183070403
-              timestamp: 0
-            - value: 6.027456183070403
-              timestamp: 0
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/TimeseriesAggregationResponse"
-      required:
-      - data
-      - requestId
-    listIngestionApiKeys_200_response:
-      example:
-        data:
-        - id: 123-456-abc
-          name: Production Logs Ingestion
-          keyLastCharacters: x7Qm
-          owner: abc-123-def
-          tags:
-          - key: env
-            value: production
-          teamOverrideFields:
-          - service
-        - id: 123-456-abc
-          name: Production Logs Ingestion
-          keyLastCharacters: x7Qm
-          owner: abc-123-def
-          tags:
-          - key: env
-            value: production
-          teamOverrideFields:
-          - service
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          items:
-            $ref: "#/components/schemas/IngestionApiKey"
-          type: array
-      required:
-      - data
-      - requestId
     Tag:
       example:
         value: value
@@ -6558,190 +8518,6 @@ components:
       required:
       - name
       - owner
-    createIngestionApiKey_200_response_data:
-      allOf:
-      - properties:
-          id:
-            type: string
-          name:
-            type: string
-          keyLastCharacters:
-            type: string
-          owner:
-            type: string
-          tags:
-            description: List of key/value tags applied to the resource
-            items:
-              $ref: "#/components/schemas/Tag"
-            maxItems: 50
-            title: Tags
-            type: array
-          teamOverrideFields:
-            items:
-              type: string
-            type: array
-        required:
-        - id
-        - keyLastCharacters
-        - name
-        - owner
-      - properties:
-          key:
-            type: string
-        required:
-        - key
-      example:
-        id: 123-456-abc
-        name: Production Logs Ingestion
-        keyLastCharacters: x7Qm
-        owner: abc-123-def
-        tags:
-        - key: env
-          value: production
-        teamOverrideFields:
-        - service
-        key: tsuga_in:v1:abc123xyx7Qm
-    createIngestionApiKey_200_response:
-      example:
-        data:
-          id: 123-456-abc
-          name: Production Logs Ingestion
-          keyLastCharacters: x7Qm
-          owner: abc-123-def
-          tags:
-          - key: env
-            value: production
-          teamOverrideFields:
-          - service
-          key: tsuga_in:v1:abc123xyx7Qm
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/createIngestionApiKey_200_response_data"
-      required:
-      - data
-      - requestId
-    getIngestionApiKey_200_response:
-      example:
-        data:
-          id: 123-456-abc
-          name: Production Logs Ingestion
-          keyLastCharacters: x7Qm
-          owner: abc-123-def
-          tags:
-          - key: env
-            value: production
-          teamOverrideFields:
-          - service
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/IngestionApiKey"
-      required:
-      - data
-      - requestId
-    deleteIngestionApiKey_200_response_data:
-      example:
-        success: true
-      properties:
-        success:
-          description: Indicates the resource was deleted successfully
-          enum:
-          - true
-          type: boolean
-      required:
-      - success
-    deleteIngestionApiKey_200_response:
-      example:
-        data:
-          success: true
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/deleteIngestionApiKey_200_response_data"
-      required:
-      - data
-      - requestId
-    listDashboards_200_response:
-      example:
-        data:
-        - id: 123-456-abc
-          name: API Performance Overview
-          owner: abc-123-def
-          graphs:
-          - id: 789-abc-def
-            name: Request Latency P99
-            visualization:
-              type: timeseries
-              source: metrics
-              queries:
-              - aggregate:
-                  type: percentile
-                  field: duration
-                  percentile: 99
-                filter: service:api-gateway
-            layout:
-              x: 0
-              "y": 0
-              w: 6
-              h: 4
-          filters:
-          - key: env
-            values:
-            - production
-          tags:
-          - key: team
-            value: platform
-          timePreset: past-1-hour
-        - id: 123-456-abc
-          name: API Performance Overview
-          owner: abc-123-def
-          graphs:
-          - id: 789-abc-def
-            name: Request Latency P99
-            visualization:
-              type: timeseries
-              source: metrics
-              queries:
-              - aggregate:
-                  type: percentile
-                  field: duration
-                  percentile: 99
-                filter: service:api-gateway
-            layout:
-              x: 0
-              "y": 0
-              w: 6
-              h: 4
-          filters:
-          - key: env
-            values:
-            - production
-          tags:
-          - key: team
-            value: platform
-          timePreset: past-1-hour
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          items:
-            $ref: "#/components/schemas/Dashboard"
-          type: array
-      required:
-      - data
-      - requestId
     Graph_visualization:
       discriminator:
         mapping:
@@ -6885,47 +8661,6 @@ components:
       - graphs
       - name
       - owner
-    createDashboard_200_response:
-      example:
-        data:
-          id: 123-456-abc
-          name: API Performance Overview
-          owner: abc-123-def
-          graphs:
-          - id: 789-abc-def
-            name: Request Latency P99
-            visualization:
-              type: timeseries
-              source: metrics
-              queries:
-              - aggregate:
-                  type: percentile
-                  field: duration
-                  percentile: 99
-                filter: service:api-gateway
-            layout:
-              x: 0
-              "y": 0
-              w: 6
-              h: 4
-          filters:
-          - key: env
-            values:
-            - production
-          tags:
-          - key: team
-            value: platform
-          timePreset: past-1-hour
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/Dashboard"
-      required:
-      - data
-      - requestId
     updateDashboard_request:
       properties:
         name:
@@ -6982,37 +8717,6 @@ components:
           - previous-3-months
           - previous-year
           type: string
-    listInvitations_200_response:
-      example:
-        data:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          teamId: teamId
-          teamRole: admin
-          id: id
-          email: email
-          expiresAt: 2000-01-23T04:56:07.000+00:00
-          status: pending
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          teamId: teamId
-          teamRole: admin
-          id: id
-          email: email
-          expiresAt: 2000-01-23T04:56:07.000+00:00
-          status: pending
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          items:
-            $ref: "#/components/schemas/UserInvitation"
-          type: array
-      required:
-      - data
-      - requestId
     inviteUsers_request_inner:
       properties:
         email:
@@ -7042,284 +8746,6 @@ components:
       - teamId
       - teamRole
       - userRole
-    inviteUsers_200_response_data:
-      example:
-        success: true
-        message: message
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-      required:
-      - message
-      - success
-    inviteUsers_200_response:
-      example:
-        data:
-          success: true
-          message: message
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/inviteUsers_200_response_data"
-      required:
-      - data
-      - requestId
-    searchLogs_200_response_data_logs_inner_context:
-      additionalProperties: {}
-      example:
-        team: team
-      properties:
-        team:
-          type: string
-    searchLogs_200_response_data_logs_inner:
-      additionalProperties: {}
-      example:
-        level: CRITICAL
-        context:
-          team: team
-        message: message
-        timestamp: 0.8008281904610115
-      properties:
-        context:
-          $ref: "#/components/schemas/searchLogs_200_response_data_logs_inner_context"
-        message:
-          type: string
-        timestamp:
-          type: number
-        level:
-          enum:
-          - CRITICAL
-          - ERROR
-          - WARN
-          - NOTICE
-          - INFO
-          - DEBUG
-          - TRACE
-          type: string
-      required:
-      - level
-      - timestamp
-    searchLogs_200_response_data:
-      example:
-        logs:
-        - level: CRITICAL
-          context:
-            team: team
-          message: message
-          timestamp: 0.8008281904610115
-        - level: CRITICAL
-          context:
-            team: team
-          message: message
-          timestamp: 0.8008281904610115
-      properties:
-        logs:
-          items:
-            $ref: "#/components/schemas/searchLogs_200_response_data_logs_inner"
-          type: array
-      required:
-      - logs
-    searchLogs_200_response:
-      example:
-        data:
-          logs:
-          - level: CRITICAL
-            context:
-              team: team
-            message: message
-            timestamp: 0.8008281904610115
-          - level: CRITICAL
-            context:
-              team: team
-            message: message
-            timestamp: 0.8008281904610115
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/searchLogs_200_response_data"
-      required:
-      - data
-      - requestId
-    listMetrics_200_response_data_inner:
-      example:
-        unit: unit
-        capabilities:
-        - capabilities
-        - capabilities
-        name: name
-        description: description
-        attributes:
-        - attributes
-        - attributes
-        temporality: delta
-        type: counter
-      properties:
-        name:
-          description: Name of the metric
-          type: string
-        type:
-          enum:
-          - counter
-          - gauge
-          - histogram
-          - summary
-          type: string
-        description:
-          description: Human-readable description of the metric
-          type: string
-        unit:
-          description: Unit of the metric
-          type: string
-        temporality:
-          enum:
-          - delta
-          - cumulative
-          - none
-          type: string
-        capabilities:
-          description: "Supported capabilities, an empty array means all capabilities\
-            \ are supported"
-          items:
-            type: string
-          type: array
-        attributes:
-          description: Metric attributes
-          items:
-            type: string
-          type: array
-      required:
-      - name
-      - type
-    listMetrics_200_response:
-      example:
-        data:
-        - unit: unit
-          capabilities:
-          - capabilities
-          - capabilities
-          name: name
-          description: description
-          attributes:
-          - attributes
-          - attributes
-          temporality: delta
-          type: counter
-        - unit: unit
-          capabilities:
-          - capabilities
-          - capabilities
-          name: name
-          description: description
-          attributes:
-          - attributes
-          - attributes
-          temporality: delta
-          type: counter
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          items:
-            $ref: "#/components/schemas/listMetrics_200_response_data_inner"
-          type: array
-      required:
-      - data
-      - requestId
-    getMetric_200_response:
-      example:
-        data:
-          unit: unit
-          capabilities:
-          - capabilities
-          - capabilities
-          name: name
-          description: description
-          attributes:
-          - attributes
-          - attributes
-          temporality: delta
-          type: counter
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/listMetrics_200_response_data_inner"
-      required:
-      - data
-      - requestId
-    listMonitors_200_response:
-      example:
-        data:
-        - id: 123-456-abc
-          name: High Error Rate Alert
-          message: Error rate exceeded threshold. Check the API gateway logs.
-          tags:
-          - key: severity
-            value: critical
-          configuration:
-            type: log
-            timeframe: 5
-            groupByFields: []
-            queries:
-            - aggregate:
-                type: count
-              filter: level:ERROR service:api-gateway
-            condition:
-              formula: q1
-              operator: greater_than
-              threshold: 100
-            noDataBehavior: resolve
-          priority: 1
-          owner: abc-123-def
-          dashboardId: 789-abc-def
-          permissions: all
-        - id: 123-456-abc
-          name: High Error Rate Alert
-          message: Error rate exceeded threshold. Check the API gateway logs.
-          tags:
-          - key: severity
-            value: critical
-          configuration:
-            type: log
-            timeframe: 5
-            groupByFields: []
-            queries:
-            - aggregate:
-                type: count
-              filter: level:ERROR service:api-gateway
-            condition:
-              formula: q1
-              operator: greater_than
-              threshold: 100
-            noDataBehavior: resolve
-          priority: 1
-          owner: abc-123-def
-          dashboardId: 789-abc-def
-          permissions: all
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          items:
-            $ref: "#/components/schemas/Monitor"
-          type: array
-      required:
-      - data
-      - requestId
     createMonitor_request_configuration:
       discriminator:
         mapping:
@@ -7387,99 +8813,6 @@ components:
       - owner
       - permissions
       - priority
-    createMonitor_200_response:
-      example:
-        data:
-          id: 123-456-abc
-          name: High Error Rate Alert
-          message: Error rate exceeded threshold. Check the API gateway logs.
-          tags:
-          - key: severity
-            value: critical
-          configuration:
-            type: log
-            timeframe: 5
-            groupByFields: []
-            queries:
-            - aggregate:
-                type: count
-              filter: level:ERROR service:api-gateway
-            condition:
-              formula: q1
-              operator: greater_than
-              threshold: 100
-            noDataBehavior: resolve
-          priority: 1
-          owner: abc-123-def
-          dashboardId: 789-abc-def
-          permissions: all
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/Monitor"
-      required:
-      - data
-      - requestId
-    listNotificationRules_200_response:
-      example:
-        data:
-        - id: 123-456-abc
-          name: Critical Alerts
-          teamsFilter:
-            type: all-teams
-          prioritiesFilter:
-          - 1
-          - 2
-          transitionTypesFilter:
-          - triggered
-          - resolved
-          owner: abc-123-def
-          isActive: true
-          tags:
-          - key: channel
-            value: alerts
-          targets:
-          - id: 789-abc-def
-            config:
-              type: email
-              addresses:
-              - oncall@example.com
-        - id: 123-456-abc
-          name: Critical Alerts
-          teamsFilter:
-            type: all-teams
-          prioritiesFilter:
-          - 1
-          - 2
-          transitionTypesFilter:
-          - triggered
-          - resolved
-          owner: abc-123-def
-          isActive: true
-          tags:
-          - key: channel
-            value: alerts
-          targets:
-          - id: 789-abc-def
-            config:
-              type: email
-              addresses:
-              - oncall@example.com
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          items:
-            $ref: "#/components/schemas/Rule"
-          type: array
-      required:
-      - data
-      - requestId
     createNotificationRule_request_teamsFilter_oneOf:
       properties:
         type:
@@ -7663,220 +8996,16 @@ components:
       - targets
       - teamsFilter
       - transitionTypesFilter
-    createNotificationRule_200_response:
-      example:
-        data:
-          id: 123-456-abc
-          name: Critical Alerts
-          teamsFilter:
-            type: all-teams
-          prioritiesFilter:
-          - 1
-          - 2
-          transitionTypesFilter:
-          - triggered
-          - resolved
-          owner: abc-123-def
-          isActive: true
-          tags:
-          - key: channel
-            value: alerts
-          targets:
-          - id: 789-abc-def
-            config:
-              type: email
-              addresses:
-              - oncall@example.com
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/Rule"
-      required:
-      - data
-      - requestId
-    listNotificationSilences_200_response:
-      example:
-        data:
-        - owner: owner
-          reason: reason
-          schedule:
-            startTime: 2000-01-23T04:56:07.000+00:00
-            endTime: 2000-01-23T04:56:07.000+00:00
-            type: one-time
-          transitionTypesFilter:
-          - triggered
-          - triggered
-          notificationRuleIds:
-          - notificationRuleIds
-          - notificationRuleIds
-          name: name
-          prioritiesFilter:
-          - 0.8008281904610115
-          - 0.8008281904610115
-          id: id
-          isActive: true
-          queryString: queryString
-          teamsFilter:
-            teams:
-            - teams
-            - teams
-            type: specific-teams
-          tags:
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-        - owner: owner
-          reason: reason
-          schedule:
-            startTime: 2000-01-23T04:56:07.000+00:00
-            endTime: 2000-01-23T04:56:07.000+00:00
-            type: one-time
-          transitionTypesFilter:
-          - triggered
-          - triggered
-          notificationRuleIds:
-          - notificationRuleIds
-          - notificationRuleIds
-          name: name
-          prioritiesFilter:
-          - 0.8008281904610115
-          - 0.8008281904610115
-          id: id
-          isActive: true
-          queryString: queryString
-          teamsFilter:
-            teams:
-            - teams
-            - teams
-            type: specific-teams
-          tags:
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          items:
-            $ref: "#/components/schemas/NotificationSilence"
-          type: array
-      required:
-      - data
-      - requestId
-    createNotificationSilence_request_schedule_oneOf:
-      description: One-time silence schedule with specific start and end times
-      example:
-        startTime: 2000-01-23T04:56:07.000+00:00
-        endTime: 2000-01-23T04:56:07.000+00:00
-        type: one-time
-      properties:
-        type:
-          enum:
-          - one-time
-          type: string
-        startTime:
-          format: date-time
-          type: string
-        endTime:
-          format: date-time
-          type: string
-      required:
-      - endTime
-      - startTime
-      - type
-    createNotificationSilence_request_schedule_oneOf_1_weeklySchedule_monday_inner:
-      properties:
-        startTime:
-          format: time
-          type: string
-        endTime:
-          format: time
-          type: string
-      required:
-      - endTime
-      - startTime
-    createNotificationSilence_request_schedule_oneOf_1_weeklySchedule:
-      properties:
-        monday:
-          description: Time ranges for this day
-          items:
-            $ref: "#/components/schemas/createNotificationSilence_request_schedule_oneOf_1_weeklySchedule_monday_inner"
-          minItems: 1
-          type: array
-        tuesday:
-          description: Time ranges for this day
-          items:
-            $ref: "#/components/schemas/createNotificationSilence_request_schedule_oneOf_1_weeklySchedule_monday_inner"
-          minItems: 1
-          type: array
-        wednesday:
-          description: Time ranges for this day
-          items:
-            $ref: "#/components/schemas/createNotificationSilence_request_schedule_oneOf_1_weeklySchedule_monday_inner"
-          minItems: 1
-          type: array
-        thursday:
-          description: Time ranges for this day
-          items:
-            $ref: "#/components/schemas/createNotificationSilence_request_schedule_oneOf_1_weeklySchedule_monday_inner"
-          minItems: 1
-          type: array
-        friday:
-          description: Time ranges for this day
-          items:
-            $ref: "#/components/schemas/createNotificationSilence_request_schedule_oneOf_1_weeklySchedule_monday_inner"
-          minItems: 1
-          type: array
-        saturday:
-          description: Time ranges for this day
-          items:
-            $ref: "#/components/schemas/createNotificationSilence_request_schedule_oneOf_1_weeklySchedule_monday_inner"
-          minItems: 1
-          type: array
-        sunday:
-          description: Time ranges for this day
-          items:
-            $ref: "#/components/schemas/createNotificationSilence_request_schedule_oneOf_1_weeklySchedule_monday_inner"
-          minItems: 1
-          type: array
-    createNotificationSilence_request_schedule_oneOf_1:
-      description: Recurring weekly silence schedule
-      properties:
-        type:
-          enum:
-          - recurring
-          type: string
-        weeklySchedule:
-          $ref: "#/components/schemas/createNotificationSilence_request_schedule_oneOf_1_weeklySchedule"
-      required:
-      - type
-      - weeklySchedule
     createNotificationSilence_request_schedule:
       description: Schedule defining when the silence is active
       discriminator:
+        mapping:
+          one-time: "#/components/schemas/SilenceScheduleOneTime"
+          recurring: "#/components/schemas/SilenceScheduleRecurring"
         propertyName: type
       oneOf:
-      - $ref: "#/components/schemas/createNotificationSilence_request_schedule_oneOf"
-      - $ref: "#/components/schemas/createNotificationSilence_request_schedule_oneOf_1"
+      - $ref: "#/components/schemas/SilenceScheduleOneTime"
+      - $ref: "#/components/schemas/SilenceScheduleRecurring"
       required:
       - type
     createNotificationSilence_request:
@@ -7956,81 +9085,6 @@ components:
       - schedule
       - teamsFilter
       - transitionTypesFilter
-    createNotificationSilence_200_response:
-      example:
-        data:
-          owner: owner
-          reason: reason
-          schedule:
-            startTime: 2000-01-23T04:56:07.000+00:00
-            endTime: 2000-01-23T04:56:07.000+00:00
-            type: one-time
-          transitionTypesFilter:
-          - triggered
-          - triggered
-          notificationRuleIds:
-          - notificationRuleIds
-          - notificationRuleIds
-          name: name
-          prioritiesFilter:
-          - 0.8008281904610115
-          - 0.8008281904610115
-          id: id
-          isActive: true
-          queryString: queryString
-          teamsFilter:
-            teams:
-            - teams
-            - teams
-            type: specific-teams
-          tags:
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/NotificationSilence"
-      required:
-      - data
-      - requestId
-    listRetentionPolicies_200_response:
-      example:
-        data:
-        - id: 123-456-abc
-          env: production
-          teamId: abc-123-def
-          dataSource: logs
-          durationDays: 30-days
-          isEnabled: true
-        - id: 123-456-abc
-          env: production
-          teamId: abc-123-def
-          dataSource: logs
-          durationDays: 30-days
-          isEnabled: true
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          items:
-            $ref: "#/components/schemas/RetentionPolicy"
-          type: array
-      required:
-      - data
-      - requestId
     createRetentionPolicy_request:
       properties:
         env:
@@ -8066,76 +9120,6 @@ components:
       - dataSource
       - durationDays
       - isEnabled
-    createRetentionPolicy_200_response:
-      example:
-        data:
-          id: 123-456-abc
-          env: production
-          teamId: abc-123-def
-          dataSource: logs
-          durationDays: 30-days
-          isEnabled: true
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/RetentionPolicy"
-      required:
-      - data
-      - requestId
-    listRoutes_200_response:
-      example:
-        data:
-        - id: 123-456-abc
-          name: Enrich API Gateway Logs
-          description: Adds service metadata and normalizes log format
-          isEnabled: true
-          query: service:api-gateway
-          tags:
-          - key: category
-            value: enrichment
-          owner: abc-123-def
-          processors:
-          - id: 789-abc-def
-            type: parse-attribute
-            tags: []
-            params:
-              subtype: grok
-              attributeName: message
-              rules:
-              - "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{GREEDYDATA:msg}"
-        - id: 123-456-abc
-          name: Enrich API Gateway Logs
-          description: Adds service metadata and normalizes log format
-          isEnabled: true
-          query: service:api-gateway
-          tags:
-          - key: category
-            value: enrichment
-          owner: abc-123-def
-          processors:
-          - id: 789-abc-def
-            type: parse-attribute
-            tags: []
-            params:
-              subtype: grok
-              attributeName: message
-              rules:
-              - "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{GREEDYDATA:msg}"
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          items:
-            $ref: "#/components/schemas/Route"
-          type: array
-      required:
-      - data
-      - requestId
     createRoute_request:
       properties:
         name:
@@ -8179,205 +9163,6 @@ components:
       - owner
       - processors
       - query
-    createRoute_200_response:
-      example:
-        data:
-          id: 123-456-abc
-          name: Enrich API Gateway Logs
-          description: Adds service metadata and normalizes log format
-          isEnabled: true
-          query: service:api-gateway
-          tags:
-          - key: category
-            value: enrichment
-          owner: abc-123-def
-          processors:
-          - id: 789-abc-def
-            type: parse-attribute
-            tags: []
-            params:
-              subtype: grok
-              attributeName: message
-              rules:
-              - "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{GREEDYDATA:msg}"
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/Route"
-      required:
-      - data
-      - requestId
-    listServices_200_response:
-      example:
-        data:
-        - id: 123-456-abc
-          serviceName: api-gateway
-          serviceNamespace: platform
-          env: production
-          teams:
-          - team: platform
-            lastSeenAt: 2024-01-15T12:34:56.000Z
-          versions:
-          - version: 1.2.3
-            firstSeenAt: 2024-01-01T08:00:00.000Z
-            lastSeenAt: 2024-01-15T12:34:56.000Z
-            faulty: false
-          languages:
-          - language: go
-            lastSeenAt: 2024-01-15T12:34:56.000Z
-          lastSeenAt: 2024-01-15T12:34:56.000Z
-          firstSeenAt: 2024-01-01T08:00:00.000Z
-          sources:
-          - logs
-          - metrics
-          - traces
-          logsCount24h: 12000
-          errorLogsCount24h: 42
-          tracesCount24h: 8500
-          errorTracesCount24h: 17
-        - id: 123-456-abc
-          serviceName: api-gateway
-          serviceNamespace: platform
-          env: production
-          teams:
-          - team: platform
-            lastSeenAt: 2024-01-15T12:34:56.000Z
-          versions:
-          - version: 1.2.3
-            firstSeenAt: 2024-01-01T08:00:00.000Z
-            lastSeenAt: 2024-01-15T12:34:56.000Z
-            faulty: false
-          languages:
-          - language: go
-            lastSeenAt: 2024-01-15T12:34:56.000Z
-          lastSeenAt: 2024-01-15T12:34:56.000Z
-          firstSeenAt: 2024-01-01T08:00:00.000Z
-          sources:
-          - logs
-          - metrics
-          - traces
-          logsCount24h: 12000
-          errorLogsCount24h: 42
-          tracesCount24h: 8500
-          errorTracesCount24h: 17
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          items:
-            $ref: "#/components/schemas/Service"
-          type: array
-      required:
-      - data
-      - requestId
-    getService_200_response:
-      example:
-        data:
-          id: 123-456-abc
-          serviceName: api-gateway
-          serviceNamespace: platform
-          env: production
-          teams:
-          - team: platform
-            lastSeenAt: 2024-01-15T12:34:56.000Z
-          versions:
-          - version: 1.2.3
-            firstSeenAt: 2024-01-01T08:00:00.000Z
-            lastSeenAt: 2024-01-15T12:34:56.000Z
-            faulty: false
-          languages:
-          - language: go
-            lastSeenAt: 2024-01-15T12:34:56.000Z
-          lastSeenAt: 2024-01-15T12:34:56.000Z
-          firstSeenAt: 2024-01-01T08:00:00.000Z
-          sources:
-          - logs
-          - metrics
-          - traces
-          logsCount24h: 12000
-          errorLogsCount24h: 42
-          tracesCount24h: 8500
-          errorTracesCount24h: 17
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/Service"
-      required:
-      - data
-      - requestId
-    listTagPolicies_200_response:
-      example:
-        data:
-        - owner: owner
-          isRequired: true
-          teamScope:
-            mode: include
-            teamIds:
-            - teamIds
-            - teamIds
-            - teamIds
-            - teamIds
-            - teamIds
-          configuration:
-            assetTypes:
-            - logs
-            - logs
-            shouldInsertWarning: true
-            dropSample: 8.008281904610115
-            type: telemetry
-          name: name
-          description: description
-          id: id
-          isActive: true
-          tagKey: tagKey
-          allowedTagValues:
-          - allowedTagValues
-          - allowedTagValues
-        - owner: owner
-          isRequired: true
-          teamScope:
-            mode: include
-            teamIds:
-            - teamIds
-            - teamIds
-            - teamIds
-            - teamIds
-            - teamIds
-          configuration:
-            assetTypes:
-            - logs
-            - logs
-            shouldInsertWarning: true
-            dropSample: 8.008281904610115
-            type: telemetry
-          name: name
-          description: description
-          id: id
-          isActive: true
-          tagKey: tagKey
-          allowedTagValues:
-          - allowedTagValues
-          - allowedTagValues
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          items:
-            $ref: "#/components/schemas/TagPolicy"
-          type: array
-      required:
-      - data
-      - requestId
     createTagPolicy_request_teamScope:
       example:
         mode: include
@@ -8505,73 +9290,6 @@ components:
       - name
       - owner
       - tagKey
-    createTagPolicy_200_response:
-      example:
-        data:
-          owner: owner
-          isRequired: true
-          teamScope:
-            mode: include
-            teamIds:
-            - teamIds
-            - teamIds
-            - teamIds
-            - teamIds
-            - teamIds
-          configuration:
-            assetTypes:
-            - logs
-            - logs
-            shouldInsertWarning: true
-            dropSample: 8.008281904610115
-            type: telemetry
-          name: name
-          description: description
-          id: id
-          isActive: true
-          tagKey: tagKey
-          allowedTagValues:
-          - allowedTagValues
-          - allowedTagValues
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/TagPolicy"
-      required:
-      - data
-      - requestId
-    listTeams_200_response:
-      example:
-        data:
-        - id: abc-123-def
-          name: Platform Engineering
-          description: Responsible for internal developer tooling and infrastructure
-          visibility: public
-          tags:
-          - key: department
-            value: engineering
-        - id: abc-123-def
-          name: Platform Engineering
-          description: Responsible for internal developer tooling and infrastructure
-          visibility: public
-          tags:
-          - key: department
-            value: engineering
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          items:
-            $ref: "#/components/schemas/Team"
-          type: array
-      required:
-      - data
-      - requestId
     createTeam_request:
       properties:
         name:
@@ -8599,49 +9317,6 @@ components:
       required:
       - name
       - visibility
-    createTeam_200_response:
-      example:
-        data:
-          id: abc-123-def
-          name: Platform Engineering
-          description: Responsible for internal developer tooling and infrastructure
-          visibility: public
-          tags:
-          - key: department
-            value: engineering
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/Team"
-      required:
-      - data
-      - requestId
-    getTeamMemberships_200_response:
-      example:
-        data:
-        - teamId: teamId
-          roleKey: admin
-          id: id
-          userId: userId
-        - teamId: teamId
-          roleKey: admin
-          id: id
-          userId: userId
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          items:
-            $ref: "#/components/schemas/TeamMembership"
-          type: array
-      required:
-      - data
-      - requestId
     updateTeamMembership_request:
       properties:
         userId:
@@ -8662,23 +9337,6 @@ components:
       - roleKey
       - teamId
       - userId
-    updateTeamMembership_200_response:
-      example:
-        data:
-          teamId: teamId
-          roleKey: admin
-          id: id
-          userId: userId
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/TeamMembership"
-      required:
-      - data
-      - requestId
     removeUserFromTeam_request:
       properties:
         userId:
@@ -8692,322 +9350,428 @@ components:
       required:
       - teamId
       - userId
-    searchSpans_200_response_data_spans_inner_context_service:
-      additionalProperties: {}
-      example:
-        name: name
-        version: version
+    ScalarResult_group_value:
+      anyOf:
+      - type: string
+      - type: number
+    ScalarResult:
       properties:
-        name:
+        id:
+          description: "Query identifier (q1, q2, ...) or \"formula\" for formula"
           type: string
-        version:
-          type: string
-    searchSpans_200_response_data_spans_inner_context:
-      additionalProperties: {}
-      example:
-        service:
-          name: name
-          version: version
+        group:
+          additionalProperties:
+            $ref: "#/components/schemas/ScalarResult_group_value"
+          description: Group-by field values
+        value:
+          description: Aggregated value
+          type: number
+      required:
+      - group
+      - id
+      - value
+      title: ScalarResult
+    Series_points_inner:
       properties:
-        service:
-          $ref: "#/components/schemas/searchSpans_200_response_data_spans_inner_context_service"
-    searchSpans_200_response_data_spans_inner_error:
+        timestamp:
+          description: Timestamp in milliseconds
+          type: integer
+        value:
+          description: Value
+          type: number
+      required:
+      - timestamp
+      - value
+    Series:
+      properties:
+        id:
+          description: "Query identifier (q1, q2, ...) or \"formula\" for formula"
+          type: string
+        group:
+          additionalProperties:
+            $ref: "#/components/schemas/ScalarResult_group_value"
+          description: Group-by field values
+        points:
+          description: Array of data points
+          items:
+            $ref: "#/components/schemas/Series_points_inner"
+          type: array
+      required:
+      - group
+      - id
+      - points
+      title: Series
+    IngestionApiKeyCreated:
+      allOf:
+      - properties:
+          id:
+            type: string
+          name:
+            type: string
+          keyLastCharacters:
+            type: string
+          owner:
+            type: string
+          tags:
+            description: List of key/value tags applied to the resource
+            items:
+              $ref: "#/components/schemas/Tag"
+            maxItems: 50
+            title: Tags
+            type: array
+          teamOverrideFields:
+            items:
+              type: string
+            type: array
+        required:
+        - id
+        - keyLastCharacters
+        - name
+        - owner
+      - properties:
+          key:
+            description: "The full API key value, returned only at creation time"
+            type: string
+        required:
+        - key
       example:
+        id: 123-456-abc
+        name: Production Logs Ingestion
+        keyLastCharacters: x7Qm
+        owner: abc-123-def
+        tags:
+        - key: env
+          value: production
+        teamOverrideFields:
+        - service
+        key: tsuga_in:v1:abc123xyx7Qm
+      title: IngestionApiKeyCreated
+    InviteUsersResponse_data:
+      example:
+        success: true
         message: message
       properties:
+        success:
+          type: boolean
         message:
           type: string
       required:
       - message
-    searchSpans_200_response_data_spans_inner_events_inner:
-      example:
-        event_name: event_name
-        event_timestamp_nanos: event_timestamp_nanos
-        event_attributes:
-          key: ""
+      - success
+    SearchLogsResponse_data_logs_inner_context:
+      additionalProperties: true
       properties:
-        event_attributes:
-          additionalProperties: true
-          properties: {}
-          type: object
-        event_name:
+        team:
           type: string
-        event_timestamp_nanos:
+    SearchLogsResponse_data_logs_inner:
+      additionalProperties: true
+      example:
+        context:
+          team: platform
+        message: Request completed successfully
+        timestamp: 1704067200000
+        level: INFO
+      properties:
+        context:
+          $ref: "#/components/schemas/SearchLogsResponse_data_logs_inner_context"
+        message:
+          type: string
+        timestamp:
+          type: number
+        level:
+          enum:
+          - CRITICAL
+          - ERROR
+          - WARN
+          - NOTICE
+          - INFO
+          - DEBUG
+          - TRACE
           type: string
       required:
-      - event_attributes
-      - event_name
-      - event_timestamp_nanos
-    searchSpans_200_response_data_spans_inner_span:
+      - level
+      - timestamp
+    SearchLogsResponse_data:
       example:
-        kind: kind
-        name: name
+        logs:
+        - context:
+            team: platform
+          message: Request completed successfully
+          timestamp: 1704067200000
+          level: INFO
+        - context:
+            team: platform
+          message: Request completed successfully
+          timestamp: 1704067200000
+          level: INFO
       properties:
-        kind:
+        logs:
+          items:
+            $ref: "#/components/schemas/SearchLogsResponse_data_logs_inner"
+          type: array
+      required:
+      - logs
+    GetLogPatternsResponse_data_patterns_inner_groups_inner:
+      description: Fixed groups present in all logs matching the pattern
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      required:
+      - key
+      - value
+    GetLogPatternsResponse_data_patterns_inner:
+      properties:
+        pattern:
+          items:
+            $ref: "#/components/schemas/TokenOutput"
+          type: array
+        size:
+          description: Number of logs that matched the pattern
+          type: integer
+        groups:
+          items:
+            $ref: "#/components/schemas/GetLogPatternsResponse_data_patterns_inner_groups_inner"
+          type: array
+      required:
+      - groups
+      - pattern
+      - size
+    GetLogPatternsResponse_data:
+      example:
+        patterns:
+        - pattern:
+          - type: text
+            value: Resolved
+          - type: text
+            value: ' '
+          - type: text
+            value: segment
+          - type: text
+            value: ' '
+          - type: text
+            value: SegmentId(
+          - type: range
+            min: 0
+            max: 1
+          - type: text
+            value: )
+          - type: text
+            value: ' '
+          - type: text
+            value: from
+          - type: text
+            value: ' '
+          - type: text
+            value: cache
+          size: 37004
+          groups:
+          - key: level
+            value: DEBUG
+          - key: context.team
+            value: infra
+        sampleSize: 100
+      properties:
+        patterns:
+          items:
+            $ref: "#/components/schemas/GetLogPatternsResponse_data_patterns_inner"
+          type: array
+        sampleSize:
+          type: number
+      required:
+      - patterns
+      - sampleSize
+    TokenOutput_anyOf:
+      properties:
+        type:
+          enum:
+          - top
+          type: string
+        values:
+          items:
+            type: string
+          type: array
+      required:
+      - type
+      - values
+    TokenOutput_anyOf_1:
+      properties:
+        type:
+          enum:
+          - ip
+          type: string
+        value:
+          type: string
+      required:
+      - type
+      - value
+    TokenOutput_anyOf_2:
+      properties:
+        type:
+          enum:
+          - range
+          type: string
+        min:
+          type: number
+        max:
+          type: number
+      required:
+      - max
+      - min
+      - type
+    TokenOutput_anyOf_3:
+      properties:
+        type:
+          enum:
+          - variable
+          type: string
+        value:
+          type: string
+      required:
+      - type
+      - value
+    TokenOutput_anyOf_4:
+      properties:
+        type:
+          enum:
+          - text
+          type: string
+        value:
+          type: string
+      required:
+      - type
+      - value
+    TokenOutput_anyOf_5:
+      properties:
+        type:
+          enum:
+          - date
+          type: string
+        value:
+          type: string
+      required:
+      - type
+      - value
+    TokenOutput_anyOf_6:
+      properties:
+        type:
+          enum:
+          - url
+          type: string
+        value:
+          type: string
+      required:
+      - type
+      - value
+    TokenOutput_anyOf_7:
+      properties:
+        type:
+          enum:
+          - structure
+          type: string
+        key:
+          items:
+            type: string
+          type: array
+        value:
+          items:
+            $ref: "#/components/schemas/TokenOutput"
+          type: array
+      required:
+      - key
+      - type
+      - value
+    GetMetricAssetsUsageResponse_data_assets_inner:
+      description: An asset that uses a metric
+      properties:
+        type:
+          enum:
+          - dashboard
+          - monitor
+          type: string
+        id:
           type: string
         name:
           type: string
+        owner:
+          type: string
       required:
-      - kind
+      - id
       - name
-    searchSpans_200_response_data_spans_inner:
-      additionalProperties: {}
+      - owner
+      - type
+    GetMetricAssetsUsageResponse_data:
       example:
-        traceId: traceId
-        spanAttributes:
-          key: ""
-        error:
-          message: message
-        parentSpanId: parentSpanId
-        resourceAttributes:
-          key: ""
-        duration: 0.8008281904610115
-        spanId: spanId
-        context:
-          service:
-            name: name
-            version: version
-        startTime: startTime
-        endTime: endTime
-        events:
-        - event_name: event_name
-          event_timestamp_nanos: event_timestamp_nanos
-          event_attributes:
-            key: ""
-        - event_name: event_name
-          event_timestamp_nanos: event_timestamp_nanos
-          event_attributes:
-            key: ""
-        span:
-          kind: kind
-          name: name
-        statusCode: statusCode
+        assets:
+        - type: dashboard
+          id: dash-123-abc
+          name: API Performance Overview
+          owner: user-456-def
+        - type: monitor
+          id: mon-789-ghi
+          name: High Latency Alert
+          owner: user-456-def
       properties:
-        context:
-          $ref: "#/components/schemas/searchSpans_200_response_data_spans_inner_context"
-        parentSpanId:
-          type: string
-        resourceAttributes:
-          additionalProperties: {}
-          properties: {}
-        spanAttributes:
-          additionalProperties: true
-          properties: {}
-          type: object
-        duration:
-          description: In milliseconds.
-          type: number
-        startTime:
-          description: "In nanoseconds. Transmitted as a string to avoid losing precision,\
-            \ as BigInt is not JSON-compatible."
-          type: string
-        endTime:
-          description: "In nanoseconds. Transmitted as a string to avoid losing precision,\
-            \ as BigInt is not JSON-compatible."
-          type: string
-        error:
-          $ref: "#/components/schemas/searchSpans_200_response_data_spans_inner_error"
-        events:
+        assets:
+          description: List of assets (dashboards and monitors) using this metric
           items:
-            $ref: "#/components/schemas/searchSpans_200_response_data_spans_inner_events_inner"
-          type: array
-        spanId:
-          type: string
-        span:
-          $ref: "#/components/schemas/searchSpans_200_response_data_spans_inner_span"
-        statusCode:
-          type: string
-        traceId:
-          type: string
-      required:
-      - duration
-      - endTime
-      - resourceAttributes
-      - span
-      - spanAttributes
-      - spanId
-      - startTime
-      - traceId
-    searchSpans_200_response_data:
-      example:
-        spans:
-        - traceId: traceId
-          spanAttributes:
-            key: ""
-          error:
-            message: message
-          parentSpanId: parentSpanId
-          resourceAttributes:
-            key: ""
-          duration: 0.8008281904610115
-          spanId: spanId
-          context:
-            service:
-              name: name
-              version: version
-          startTime: startTime
-          endTime: endTime
-          events:
-          - event_name: event_name
-            event_timestamp_nanos: event_timestamp_nanos
-            event_attributes:
-              key: ""
-          - event_name: event_name
-            event_timestamp_nanos: event_timestamp_nanos
-            event_attributes:
-              key: ""
-          span:
-            kind: kind
-            name: name
-          statusCode: statusCode
-        - traceId: traceId
-          spanAttributes:
-            key: ""
-          error:
-            message: message
-          parentSpanId: parentSpanId
-          resourceAttributes:
-            key: ""
-          duration: 0.8008281904610115
-          spanId: spanId
-          context:
-            service:
-              name: name
-              version: version
-          startTime: startTime
-          endTime: endTime
-          events:
-          - event_name: event_name
-            event_timestamp_nanos: event_timestamp_nanos
-            event_attributes:
-              key: ""
-          - event_name: event_name
-            event_timestamp_nanos: event_timestamp_nanos
-            event_attributes:
-              key: ""
-          span:
-            kind: kind
-            name: name
-          statusCode: statusCode
-      properties:
-        spans:
-          items:
-            $ref: "#/components/schemas/searchSpans_200_response_data_spans_inner"
+            $ref: "#/components/schemas/GetMetricAssetsUsageResponse_data_assets_inner"
           type: array
       required:
-      - spans
-    searchSpans_200_response:
+      - assets
+    ListMetricsResponse_data_inner:
       example:
-        data:
-          spans:
-          - traceId: traceId
-            spanAttributes:
-              key: ""
-            error:
-              message: message
-            parentSpanId: parentSpanId
-            resourceAttributes:
-              key: ""
-            duration: 0.8008281904610115
-            spanId: spanId
-            context:
-              service:
-                name: name
-                version: version
-            startTime: startTime
-            endTime: endTime
-            events:
-            - event_name: event_name
-              event_timestamp_nanos: event_timestamp_nanos
-              event_attributes:
-                key: ""
-            - event_name: event_name
-              event_timestamp_nanos: event_timestamp_nanos
-              event_attributes:
-                key: ""
-            span:
-              kind: kind
-              name: name
-            statusCode: statusCode
-          - traceId: traceId
-            spanAttributes:
-              key: ""
-            error:
-              message: message
-            parentSpanId: parentSpanId
-            resourceAttributes:
-              key: ""
-            duration: 0.8008281904610115
-            spanId: spanId
-            context:
-              service:
-                name: name
-                version: version
-            startTime: startTime
-            endTime: endTime
-            events:
-            - event_name: event_name
-              event_timestamp_nanos: event_timestamp_nanos
-              event_attributes:
-                key: ""
-            - event_name: event_name
-              event_timestamp_nanos: event_timestamp_nanos
-              event_attributes:
-                key: ""
-            span:
-              kind: kind
-              name: name
-            statusCode: statusCode
-        requestId: requestId
+        name: http.server.request.duration
+        type: histogram
+        description: Duration of HTTP server requests
+        unit: ms
+        temporality: delta
+        capabilities:
+        - max
+        - min
+        - sum
+        attributes:
+        - context.team
+        - context.environment
+        - context.region
       properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
+        name:
+          description: Name of the metric
           type: string
-        data:
-          $ref: "#/components/schemas/searchSpans_200_response_data"
-      required:
-      - data
-      - requestId
-    listUsers_200_response:
-      example:
-        data:
-        - role: admin
-          name: name
-          id: id
-          email: email
-        - role: admin
-          name: name
-          id: id
-          email: email
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
+        type:
+          enum:
+          - counter
+          - gauge
+          - histogram
+          - summary
           type: string
-        data:
+        description:
+          description: Human-readable description of the metric
+          type: string
+        unit:
+          description: Unit of the metric
+          type: string
+        temporality:
+          enum:
+          - delta
+          - cumulative
+          - none
+          type: string
+        capabilities:
+          description: "Supported capabilities, an empty array means all capabilities\
+            \ are supported"
           items:
-            $ref: "#/components/schemas/User"
+            type: string
+          type: array
+        attributes:
+          description: Metric attributes
+          items:
+            type: string
           type: array
       required:
-      - data
-      - requestId
-    getUser_200_response:
-      example:
-        data:
-          role: admin
-          name: name
-          id: id
-          email: email
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/User"
-      required:
-      - data
-      - requestId
+      - name
+      - type
     Rule_teamsFilter_oneOf:
       example:
         teams:
@@ -9410,6 +10174,197 @@ components:
       required:
       - language
       - lastSeenAt
+    SearchSpansResponse_data_spans_inner_context_service:
+      additionalProperties: true
+      properties:
+        name:
+          type: string
+        version:
+          type: string
+    SearchSpansResponse_data_spans_inner_context:
+      additionalProperties: true
+      properties:
+        service:
+          $ref: "#/components/schemas/SearchSpansResponse_data_spans_inner_context_service"
+    SearchSpansResponse_data_spans_inner_error:
+      properties:
+        message:
+          type: string
+      required:
+      - message
+    SearchSpansResponse_data_spans_inner_events_inner:
+      properties:
+        event_attributes:
+          additionalProperties: true
+          properties: {}
+          type: object
+        event_name:
+          type: string
+        event_timestamp_nanos:
+          type: string
+      required:
+      - event_attributes
+      - event_name
+      - event_timestamp_nanos
+    SearchSpansResponse_data_spans_inner_span:
+      properties:
+        kind:
+          type: string
+        name:
+          type: string
+      required:
+      - kind
+      - name
+    SearchSpansResponse_data_spans_inner:
+      additionalProperties: true
+      example:
+        context:
+          service:
+            name: my-service
+            version: 1.0.0
+        parentSpanId: 187a47da1b2560f8
+        resourceAttributes: {}
+        spanAttributes:
+          busyNs: 374640
+          code:
+            file:
+              path: src/queue/sqs.rs
+            line:
+              number: 162
+            module:
+              name: queue::sqs
+          idleNs: 23621445
+          maxMessages: "1"
+          target: queue::sqs
+          thread:
+            id: 2
+            name: tokio-runtime-worker
+        duration: 23
+        startTime: "1770923469995353600"
+        endTime: "1770923470019349500"
+        spanId: 3df8cc3449378f66
+        span:
+          kind: internal
+          name: receive_messages
+        statusCode: ok
+        traceId: 78c99c5bb1e4a30297fa134b9dbec64f
+      properties:
+        context:
+          $ref: "#/components/schemas/SearchSpansResponse_data_spans_inner_context"
+        parentSpanId:
+          type: string
+        resourceAttributes:
+          additionalProperties: true
+          properties: {}
+          type: object
+        spanAttributes:
+          additionalProperties: true
+          properties: {}
+          type: object
+        duration:
+          description: In milliseconds.
+          type: number
+        startTime:
+          description: "In nanoseconds. Transmitted as a string to avoid losing precision,\
+            \ as BigInt is not JSON-compatible."
+          type: string
+        endTime:
+          description: "In nanoseconds. Transmitted as a string to avoid losing precision,\
+            \ as BigInt is not JSON-compatible."
+          type: string
+        error:
+          $ref: "#/components/schemas/SearchSpansResponse_data_spans_inner_error"
+        events:
+          items:
+            $ref: "#/components/schemas/SearchSpansResponse_data_spans_inner_events_inner"
+          type: array
+        spanId:
+          type: string
+        span:
+          $ref: "#/components/schemas/SearchSpansResponse_data_spans_inner_span"
+        statusCode:
+          type: string
+        traceId:
+          type: string
+      required:
+      - duration
+      - endTime
+      - resourceAttributes
+      - span
+      - spanAttributes
+      - spanId
+      - startTime
+      - traceId
+    SearchSpansResponse_data:
+      example:
+        spans:
+        - context:
+            service:
+              name: my-service
+              version: 1.0.0
+          parentSpanId: 187a47da1b2560f8
+          resourceAttributes: {}
+          spanAttributes:
+            busyNs: 374640
+            code:
+              file:
+                path: src/queue/sqs.rs
+              line:
+                number: 162
+              module:
+                name: queue::sqs
+            idleNs: 23621445
+            maxMessages: "1"
+            target: queue::sqs
+            thread:
+              id: 2
+              name: tokio-runtime-worker
+          duration: 23
+          startTime: "1770923469995353600"
+          endTime: "1770923470019349500"
+          spanId: 3df8cc3449378f66
+          span:
+            kind: internal
+            name: receive_messages
+          statusCode: ok
+          traceId: 78c99c5bb1e4a30297fa134b9dbec64f
+        - context:
+            service:
+              name: my-service
+              version: 1.0.0
+          parentSpanId: 187a47da1b2560f8
+          resourceAttributes: {}
+          spanAttributes:
+            busyNs: 374640
+            code:
+              file:
+                path: src/queue/sqs.rs
+              line:
+                number: 162
+              module:
+                name: queue::sqs
+            idleNs: 23621445
+            maxMessages: "1"
+            target: queue::sqs
+            thread:
+              id: 2
+              name: tokio-runtime-worker
+          duration: 23
+          startTime: "1770923469995353600"
+          endTime: "1770923470019349500"
+          spanId: 3df8cc3449378f66
+          span:
+            kind: internal
+            name: receive_messages
+          statusCode: ok
+          traceId: 78c99c5bb1e4a30297fa134b9dbec64f
+      properties:
+        spans:
+          items:
+            $ref: "#/components/schemas/SearchSpansResponse_data_spans_inner"
+          type: array
+      required:
+      - spans
     MonitorConfigurationMetric_condition:
       properties:
         formula:
@@ -9662,6 +10617,62 @@ components:
       - projectId
       - type
       - workloadIdentityCredentialFile
+    SilenceTimeRange:
+      properties:
+        startTime:
+          format: time
+          type: string
+        endTime:
+          format: time
+          type: string
+      required:
+      - endTime
+      - startTime
+      title: SilenceTimeRange
+    SilenceScheduleRecurring_weeklySchedule:
+      properties:
+        monday:
+          description: Time ranges for this day
+          items:
+            $ref: "#/components/schemas/SilenceTimeRange"
+          minItems: 1
+          type: array
+        tuesday:
+          description: Time ranges for this day
+          items:
+            $ref: "#/components/schemas/SilenceTimeRange"
+          minItems: 1
+          type: array
+        wednesday:
+          description: Time ranges for this day
+          items:
+            $ref: "#/components/schemas/SilenceTimeRange"
+          minItems: 1
+          type: array
+        thursday:
+          description: Time ranges for this day
+          items:
+            $ref: "#/components/schemas/SilenceTimeRange"
+          minItems: 1
+          type: array
+        friday:
+          description: Time ranges for this day
+          items:
+            $ref: "#/components/schemas/SilenceTimeRange"
+          minItems: 1
+          type: array
+        saturday:
+          description: Time ranges for this day
+          items:
+            $ref: "#/components/schemas/SilenceTimeRange"
+          minItems: 1
+          type: array
+        sunday:
+          description: Time ranges for this day
+          items:
+            $ref: "#/components/schemas/SilenceTimeRange"
+          minItems: 1
+          type: array
   securitySchemes:
     bearerAuth:
       scheme: bearer

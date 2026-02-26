@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateIngestionApiKey
 
-> CreateIngestionApiKey200Response CreateIngestionApiKey(ctx).CreateIngestionApiKeyRequest(createIngestionApiKeyRequest).Execute()
+> CreateIngestionApiKeyResponse CreateIngestionApiKey(ctx).CreateIngestionApiKeyRequest(createIngestionApiKeyRequest).Execute()
 
 
 
@@ -42,7 +42,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngestionApiKeysAPI.CreateIngestionApiKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateIngestionApiKey`: CreateIngestionApiKey200Response
+	// response from `CreateIngestionApiKey`: CreateIngestionApiKeyResponse
 	fmt.Fprintf(os.Stdout, "Response from `IngestionApiKeysAPI.CreateIngestionApiKey`: %v\n", resp)
 }
 ```
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateIngestionApiKey200Response**](CreateIngestionApiKey200Response.md)
+[**CreateIngestionApiKeyResponse**](CreateIngestionApiKeyResponse.md)
 
 ### Authorization
 
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## DeleteIngestionApiKey
 
-> DeleteIngestionApiKey200Response DeleteIngestionApiKey(ctx, id).Execute()
+> DeleteIngestionApiKeyResponse DeleteIngestionApiKey(ctx, id).Execute()
 
 
 
@@ -108,7 +108,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngestionApiKeysAPI.DeleteIngestionApiKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteIngestionApiKey`: DeleteIngestionApiKey200Response
+	// response from `DeleteIngestionApiKey`: DeleteIngestionApiKeyResponse
 	fmt.Fprintf(os.Stdout, "Response from `IngestionApiKeysAPI.DeleteIngestionApiKey`: %v\n", resp)
 }
 ```
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteIngestionApiKey200Response**](DeleteIngestionApiKey200Response.md)
+[**DeleteIngestionApiKeyResponse**](DeleteIngestionApiKeyResponse.md)
 
 ### Authorization
 
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 ## GetIngestionApiKey
 
-> GetIngestionApiKey200Response GetIngestionApiKey(ctx, id).Execute()
+> GetIngestionApiKeyResponse GetIngestionApiKey(ctx, id).Execute()
 
 
 
@@ -178,7 +178,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngestionApiKeysAPI.GetIngestionApiKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIngestionApiKey`: GetIngestionApiKey200Response
+	// response from `GetIngestionApiKey`: GetIngestionApiKeyResponse
 	fmt.Fprintf(os.Stdout, "Response from `IngestionApiKeysAPI.GetIngestionApiKey`: %v\n", resp)
 }
 ```
@@ -202,7 +202,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetIngestionApiKey200Response**](GetIngestionApiKey200Response.md)
+[**GetIngestionApiKeyResponse**](GetIngestionApiKeyResponse.md)
 
 ### Authorization
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## ListIngestionApiKeys
 
-> ListIngestionApiKeys200Response ListIngestionApiKeys(ctx).Execute()
+> ListIngestionApiKeysResponse ListIngestionApiKeys(ctx).Execute()
 
 
 
@@ -247,7 +247,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngestionApiKeysAPI.ListIngestionApiKeys``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListIngestionApiKeys`: ListIngestionApiKeys200Response
+	// response from `ListIngestionApiKeys`: ListIngestionApiKeysResponse
 	fmt.Fprintf(os.Stdout, "Response from `IngestionApiKeysAPI.ListIngestionApiKeys`: %v\n", resp)
 }
 ```
@@ -263,7 +263,7 @@ Other parameters are passed through a pointer to a apiListIngestionApiKeysReques
 
 ### Return type
 
-[**ListIngestionApiKeys200Response**](ListIngestionApiKeys200Response.md)
+[**ListIngestionApiKeysResponse**](ListIngestionApiKeysResponse.md)
 
 ### Authorization
 
@@ -281,7 +281,7 @@ Other parameters are passed through a pointer to a apiListIngestionApiKeysReques
 
 ## UpdateIngestionApiKey
 
-> GetIngestionApiKey200Response UpdateIngestionApiKey(ctx, id).CreateIngestionApiKeyRequest(createIngestionApiKeyRequest).Execute()
+> UpdateIngestionApiKeyResponse UpdateIngestionApiKey(ctx, id).CreateIngestionApiKeyRequest(createIngestionApiKeyRequest).Execute()
 
 
 
@@ -310,7 +310,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngestionApiKeysAPI.UpdateIngestionApiKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateIngestionApiKey`: GetIngestionApiKey200Response
+	// response from `UpdateIngestionApiKey`: UpdateIngestionApiKeyResponse
 	fmt.Fprintf(os.Stdout, "Response from `IngestionApiKeysAPI.UpdateIngestionApiKey`: %v\n", resp)
 }
 ```
@@ -335,7 +335,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetIngestionApiKey200Response**](GetIngestionApiKey200Response.md)
+[**UpdateIngestionApiKeyResponse**](UpdateIngestionApiKeyResponse.md)
 
 ### Authorization
 

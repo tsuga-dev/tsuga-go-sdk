@@ -33,8 +33,8 @@ type DashboardsAPI interface {
 	CreateDashboard(ctx context.Context) DashboardsAPICreateDashboardRequest
 
 	// CreateDashboardExecute executes the request
-	//  @return CreateDashboard200Response
-	CreateDashboardExecute(r DashboardsAPICreateDashboardRequest) (*CreateDashboard200Response, *http.Response, error)
+	//  @return CreateDashboardResponse
+	CreateDashboardExecute(r DashboardsAPICreateDashboardRequest) (*CreateDashboardResponse, *http.Response, error)
 
 	/*
 		DeleteDashboard Method for DeleteDashboard
@@ -48,8 +48,8 @@ type DashboardsAPI interface {
 	DeleteDashboard(ctx context.Context, id string) DashboardsAPIDeleteDashboardRequest
 
 	// DeleteDashboardExecute executes the request
-	//  @return DeleteIngestionApiKey200Response
-	DeleteDashboardExecute(r DashboardsAPIDeleteDashboardRequest) (*DeleteIngestionApiKey200Response, *http.Response, error)
+	//  @return DeleteDashboardResponse
+	DeleteDashboardExecute(r DashboardsAPIDeleteDashboardRequest) (*DeleteDashboardResponse, *http.Response, error)
 
 	/*
 		GetDashboard Method for GetDashboard
@@ -63,8 +63,8 @@ type DashboardsAPI interface {
 	GetDashboard(ctx context.Context, id string) DashboardsAPIGetDashboardRequest
 
 	// GetDashboardExecute executes the request
-	//  @return CreateDashboard200Response
-	GetDashboardExecute(r DashboardsAPIGetDashboardRequest) (*CreateDashboard200Response, *http.Response, error)
+	//  @return GetDashboardResponse
+	GetDashboardExecute(r DashboardsAPIGetDashboardRequest) (*GetDashboardResponse, *http.Response, error)
 
 	/*
 		ListDashboards Method for ListDashboards
@@ -77,8 +77,8 @@ type DashboardsAPI interface {
 	ListDashboards(ctx context.Context) DashboardsAPIListDashboardsRequest
 
 	// ListDashboardsExecute executes the request
-	//  @return ListDashboards200Response
-	ListDashboardsExecute(r DashboardsAPIListDashboardsRequest) (*ListDashboards200Response, *http.Response, error)
+	//  @return ListDashboardsResponse
+	ListDashboardsExecute(r DashboardsAPIListDashboardsRequest) (*ListDashboardsResponse, *http.Response, error)
 
 	/*
 		UpdateDashboard Method for UpdateDashboard
@@ -92,8 +92,8 @@ type DashboardsAPI interface {
 	UpdateDashboard(ctx context.Context, id string) DashboardsAPIUpdateDashboardRequest
 
 	// UpdateDashboardExecute executes the request
-	//  @return CreateDashboard200Response
-	UpdateDashboardExecute(r DashboardsAPIUpdateDashboardRequest) (*CreateDashboard200Response, *http.Response, error)
+	//  @return UpdateDashboardResponse
+	UpdateDashboardExecute(r DashboardsAPIUpdateDashboardRequest) (*UpdateDashboardResponse, *http.Response, error)
 }
 
 // DashboardsAPIService DashboardsAPI service
@@ -110,7 +110,7 @@ func (r DashboardsAPICreateDashboardRequest) CreateDashboardRequest(createDashbo
 	return r
 }
 
-func (r DashboardsAPICreateDashboardRequest) Execute() (*CreateDashboard200Response, *http.Response, error) {
+func (r DashboardsAPICreateDashboardRequest) Execute() (*CreateDashboardResponse, *http.Response, error) {
 	return r.ApiService.CreateDashboardExecute(r)
 }
 
@@ -131,13 +131,13 @@ func (a *DashboardsAPIService) CreateDashboard(ctx context.Context) DashboardsAP
 
 // Execute executes the request
 //
-//	@return CreateDashboard200Response
-func (a *DashboardsAPIService) CreateDashboardExecute(r DashboardsAPICreateDashboardRequest) (*CreateDashboard200Response, *http.Response, error) {
+//	@return CreateDashboardResponse
+func (a *DashboardsAPIService) CreateDashboardExecute(r DashboardsAPICreateDashboardRequest) (*CreateDashboardResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateDashboard200Response
+		localVarReturnValue *CreateDashboardResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DashboardsAPIService.CreateDashboard")
@@ -237,7 +237,7 @@ type DashboardsAPIDeleteDashboardRequest struct {
 	id         string
 }
 
-func (r DashboardsAPIDeleteDashboardRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
+func (r DashboardsAPIDeleteDashboardRequest) Execute() (*DeleteDashboardResponse, *http.Response, error) {
 	return r.ApiService.DeleteDashboardExecute(r)
 }
 
@@ -260,13 +260,13 @@ func (a *DashboardsAPIService) DeleteDashboard(ctx context.Context, id string) D
 
 // Execute executes the request
 //
-//	@return DeleteIngestionApiKey200Response
-func (a *DashboardsAPIService) DeleteDashboardExecute(r DashboardsAPIDeleteDashboardRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
+//	@return DeleteDashboardResponse
+func (a *DashboardsAPIService) DeleteDashboardExecute(r DashboardsAPIDeleteDashboardRequest) (*DeleteDashboardResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeleteIngestionApiKey200Response
+		localVarReturnValue *DeleteDashboardResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DashboardsAPIService.DeleteDashboard")
@@ -368,7 +368,7 @@ type DashboardsAPIGetDashboardRequest struct {
 	id         string
 }
 
-func (r DashboardsAPIGetDashboardRequest) Execute() (*CreateDashboard200Response, *http.Response, error) {
+func (r DashboardsAPIGetDashboardRequest) Execute() (*GetDashboardResponse, *http.Response, error) {
 	return r.ApiService.GetDashboardExecute(r)
 }
 
@@ -391,13 +391,13 @@ func (a *DashboardsAPIService) GetDashboard(ctx context.Context, id string) Dash
 
 // Execute executes the request
 //
-//	@return CreateDashboard200Response
-func (a *DashboardsAPIService) GetDashboardExecute(r DashboardsAPIGetDashboardRequest) (*CreateDashboard200Response, *http.Response, error) {
+//	@return GetDashboardResponse
+func (a *DashboardsAPIService) GetDashboardExecute(r DashboardsAPIGetDashboardRequest) (*GetDashboardResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateDashboard200Response
+		localVarReturnValue *GetDashboardResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DashboardsAPIService.GetDashboard")
@@ -505,7 +505,7 @@ func (r DashboardsAPIListDashboardsRequest) Owners(owners []string) DashboardsAP
 	return r
 }
 
-func (r DashboardsAPIListDashboardsRequest) Execute() (*ListDashboards200Response, *http.Response, error) {
+func (r DashboardsAPIListDashboardsRequest) Execute() (*ListDashboardsResponse, *http.Response, error) {
 	return r.ApiService.ListDashboardsExecute(r)
 }
 
@@ -526,13 +526,13 @@ func (a *DashboardsAPIService) ListDashboards(ctx context.Context) DashboardsAPI
 
 // Execute executes the request
 //
-//	@return ListDashboards200Response
-func (a *DashboardsAPIService) ListDashboardsExecute(r DashboardsAPIListDashboardsRequest) (*ListDashboards200Response, *http.Response, error) {
+//	@return ListDashboardsResponse
+func (a *DashboardsAPIService) ListDashboardsExecute(r DashboardsAPIListDashboardsRequest) (*ListDashboardsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ListDashboards200Response
+		localVarReturnValue *ListDashboardsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DashboardsAPIService.ListDashboards")
@@ -644,7 +644,7 @@ func (r DashboardsAPIUpdateDashboardRequest) UpdateDashboardRequest(updateDashbo
 	return r
 }
 
-func (r DashboardsAPIUpdateDashboardRequest) Execute() (*CreateDashboard200Response, *http.Response, error) {
+func (r DashboardsAPIUpdateDashboardRequest) Execute() (*UpdateDashboardResponse, *http.Response, error) {
 	return r.ApiService.UpdateDashboardExecute(r)
 }
 
@@ -667,13 +667,13 @@ func (a *DashboardsAPIService) UpdateDashboard(ctx context.Context, id string) D
 
 // Execute executes the request
 //
-//	@return CreateDashboard200Response
-func (a *DashboardsAPIService) UpdateDashboardExecute(r DashboardsAPIUpdateDashboardRequest) (*CreateDashboard200Response, *http.Response, error) {
+//	@return UpdateDashboardResponse
+func (a *DashboardsAPIService) UpdateDashboardExecute(r DashboardsAPIUpdateDashboardRequest) (*UpdateDashboardResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateDashboard200Response
+		localVarReturnValue *UpdateDashboardResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DashboardsAPIService.UpdateDashboard")

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateRoute
 
-> CreateRoute200Response CreateRoute(ctx).CreateRouteRequest(createRouteRequest).Execute()
+> CreateRouteResponse CreateRoute(ctx).CreateRouteRequest(createRouteRequest).Execute()
 
 
 
@@ -42,7 +42,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoutesAPI.CreateRoute``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateRoute`: CreateRoute200Response
+	// response from `CreateRoute`: CreateRouteResponse
 	fmt.Fprintf(os.Stdout, "Response from `RoutesAPI.CreateRoute`: %v\n", resp)
 }
 ```
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateRoute200Response**](CreateRoute200Response.md)
+[**CreateRouteResponse**](CreateRouteResponse.md)
 
 ### Authorization
 
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## DeleteRoute
 
-> DeleteIngestionApiKey200Response DeleteRoute(ctx, id).Execute()
+> DeleteRouteResponse DeleteRoute(ctx, id).Execute()
 
 
 
@@ -108,7 +108,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoutesAPI.DeleteRoute``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteRoute`: DeleteIngestionApiKey200Response
+	// response from `DeleteRoute`: DeleteRouteResponse
 	fmt.Fprintf(os.Stdout, "Response from `RoutesAPI.DeleteRoute`: %v\n", resp)
 }
 ```
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteIngestionApiKey200Response**](DeleteIngestionApiKey200Response.md)
+[**DeleteRouteResponse**](DeleteRouteResponse.md)
 
 ### Authorization
 
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 ## GetRoute
 
-> CreateRoute200Response GetRoute(ctx, id).Execute()
+> GetRouteResponse GetRoute(ctx, id).Execute()
 
 
 
@@ -178,7 +178,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoutesAPI.GetRoute``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetRoute`: CreateRoute200Response
+	// response from `GetRoute`: GetRouteResponse
 	fmt.Fprintf(os.Stdout, "Response from `RoutesAPI.GetRoute`: %v\n", resp)
 }
 ```
@@ -202,7 +202,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateRoute200Response**](CreateRoute200Response.md)
+[**GetRouteResponse**](GetRouteResponse.md)
 
 ### Authorization
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## ListRoutes
 
-> ListRoutes200Response ListRoutes(ctx).Execute()
+> ListRoutesResponse ListRoutes(ctx).Execute()
 
 
 
@@ -247,7 +247,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoutesAPI.ListRoutes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListRoutes`: ListRoutes200Response
+	// response from `ListRoutes`: ListRoutesResponse
 	fmt.Fprintf(os.Stdout, "Response from `RoutesAPI.ListRoutes`: %v\n", resp)
 }
 ```
@@ -263,7 +263,7 @@ Other parameters are passed through a pointer to a apiListRoutesRequest struct v
 
 ### Return type
 
-[**ListRoutes200Response**](ListRoutes200Response.md)
+[**ListRoutesResponse**](ListRoutesResponse.md)
 
 ### Authorization
 
@@ -281,7 +281,7 @@ Other parameters are passed through a pointer to a apiListRoutesRequest struct v
 
 ## UpdateRoute
 
-> CreateRoute200Response UpdateRoute(ctx, id).CreateRouteRequest(createRouteRequest).Execute()
+> UpdateRouteResponse UpdateRoute(ctx, id).CreateRouteRequest(createRouteRequest).Execute()
 
 
 
@@ -310,7 +310,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoutesAPI.UpdateRoute``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateRoute`: CreateRoute200Response
+	// response from `UpdateRoute`: UpdateRouteResponse
 	fmt.Fprintf(os.Stdout, "Response from `RoutesAPI.UpdateRoute`: %v\n", resp)
 }
 ```
@@ -335,7 +335,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateRoute200Response**](CreateRoute200Response.md)
+[**UpdateRouteResponse**](UpdateRouteResponse.md)
 
 ### Authorization
 

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## GetService
 
-> GetService200Response GetService(ctx, serviceId).Execute()
+> GetServiceResponse GetService(ctx, serviceId).Execute()
 
 
 
@@ -39,7 +39,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ServicesAPI.GetService``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetService`: GetService200Response
+	// response from `GetService`: GetServiceResponse
 	fmt.Fprintf(os.Stdout, "Response from `ServicesAPI.GetService`: %v\n", resp)
 }
 ```
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetService200Response**](GetService200Response.md)
+[**GetServiceResponse**](GetServiceResponse.md)
 
 ### Authorization
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## ListServices
 
-> ListServices200Response ListServices(ctx).Execute()
+> ListServicesResponse ListServices(ctx).Execute()
 
 
 
@@ -108,7 +108,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ServicesAPI.ListServices``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListServices`: ListServices200Response
+	// response from `ListServices`: ListServicesResponse
 	fmt.Fprintf(os.Stdout, "Response from `ServicesAPI.ListServices`: %v\n", resp)
 }
 ```
@@ -124,7 +124,7 @@ Other parameters are passed through a pointer to a apiListServicesRequest struct
 
 ### Return type
 
-[**ListServices200Response**](ListServices200Response.md)
+[**ListServicesResponse**](ListServicesResponse.md)
 
 ### Authorization
 

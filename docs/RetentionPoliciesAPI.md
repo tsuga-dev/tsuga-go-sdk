@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateRetentionPolicy
 
-> CreateRetentionPolicy200Response CreateRetentionPolicy(ctx).CreateRetentionPolicyRequest(createRetentionPolicyRequest).Execute()
+> CreateRetentionPolicyResponse CreateRetentionPolicy(ctx).CreateRetentionPolicyRequest(createRetentionPolicyRequest).Execute()
 
 
 
@@ -42,7 +42,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RetentionPoliciesAPI.CreateRetentionPolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateRetentionPolicy`: CreateRetentionPolicy200Response
+	// response from `CreateRetentionPolicy`: CreateRetentionPolicyResponse
 	fmt.Fprintf(os.Stdout, "Response from `RetentionPoliciesAPI.CreateRetentionPolicy`: %v\n", resp)
 }
 ```
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateRetentionPolicy200Response**](CreateRetentionPolicy200Response.md)
+[**CreateRetentionPolicyResponse**](CreateRetentionPolicyResponse.md)
 
 ### Authorization
 
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## DeleteRetentionPolicy
 
-> DeleteIngestionApiKey200Response DeleteRetentionPolicy(ctx, id).Execute()
+> DeleteRetentionPolicyResponse DeleteRetentionPolicy(ctx, id).Execute()
 
 
 
@@ -108,7 +108,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RetentionPoliciesAPI.DeleteRetentionPolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteRetentionPolicy`: DeleteIngestionApiKey200Response
+	// response from `DeleteRetentionPolicy`: DeleteRetentionPolicyResponse
 	fmt.Fprintf(os.Stdout, "Response from `RetentionPoliciesAPI.DeleteRetentionPolicy`: %v\n", resp)
 }
 ```
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteIngestionApiKey200Response**](DeleteIngestionApiKey200Response.md)
+[**DeleteRetentionPolicyResponse**](DeleteRetentionPolicyResponse.md)
 
 ### Authorization
 
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 ## GetRetentionPolicy
 
-> CreateRetentionPolicy200Response GetRetentionPolicy(ctx, id).Execute()
+> GetRetentionPolicyResponse GetRetentionPolicy(ctx, id).Execute()
 
 
 
@@ -178,7 +178,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RetentionPoliciesAPI.GetRetentionPolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetRetentionPolicy`: CreateRetentionPolicy200Response
+	// response from `GetRetentionPolicy`: GetRetentionPolicyResponse
 	fmt.Fprintf(os.Stdout, "Response from `RetentionPoliciesAPI.GetRetentionPolicy`: %v\n", resp)
 }
 ```
@@ -202,7 +202,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateRetentionPolicy200Response**](CreateRetentionPolicy200Response.md)
+[**GetRetentionPolicyResponse**](GetRetentionPolicyResponse.md)
 
 ### Authorization
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## ListRetentionPolicies
 
-> ListRetentionPolicies200Response ListRetentionPolicies(ctx).Execute()
+> ListRetentionPoliciesResponse ListRetentionPolicies(ctx).Execute()
 
 
 
@@ -247,7 +247,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RetentionPoliciesAPI.ListRetentionPolicies``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListRetentionPolicies`: ListRetentionPolicies200Response
+	// response from `ListRetentionPolicies`: ListRetentionPoliciesResponse
 	fmt.Fprintf(os.Stdout, "Response from `RetentionPoliciesAPI.ListRetentionPolicies`: %v\n", resp)
 }
 ```
@@ -263,7 +263,7 @@ Other parameters are passed through a pointer to a apiListRetentionPoliciesReque
 
 ### Return type
 
-[**ListRetentionPolicies200Response**](ListRetentionPolicies200Response.md)
+[**ListRetentionPoliciesResponse**](ListRetentionPoliciesResponse.md)
 
 ### Authorization
 
@@ -281,7 +281,7 @@ Other parameters are passed through a pointer to a apiListRetentionPoliciesReque
 
 ## UpdateRetentionPolicy
 
-> CreateRetentionPolicy200Response UpdateRetentionPolicy(ctx, id).CreateRetentionPolicyRequest(createRetentionPolicyRequest).Execute()
+> UpdateRetentionPolicyResponse UpdateRetentionPolicy(ctx, id).CreateRetentionPolicyRequest(createRetentionPolicyRequest).Execute()
 
 
 
@@ -310,7 +310,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RetentionPoliciesAPI.UpdateRetentionPolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateRetentionPolicy`: CreateRetentionPolicy200Response
+	// response from `UpdateRetentionPolicy`: UpdateRetentionPolicyResponse
 	fmt.Fprintf(os.Stdout, "Response from `RetentionPoliciesAPI.UpdateRetentionPolicy`: %v\n", resp)
 }
 ```
@@ -335,7 +335,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateRetentionPolicy200Response**](CreateRetentionPolicy200Response.md)
+[**UpdateRetentionPolicyResponse**](UpdateRetentionPolicyResponse.md)
 
 ### Authorization
 

@@ -32,8 +32,8 @@ type RoutesAPI interface {
 	CreateRoute(ctx context.Context) RoutesAPICreateRouteRequest
 
 	// CreateRouteExecute executes the request
-	//  @return CreateRoute200Response
-	CreateRouteExecute(r RoutesAPICreateRouteRequest) (*CreateRoute200Response, *http.Response, error)
+	//  @return CreateRouteResponse
+	CreateRouteExecute(r RoutesAPICreateRouteRequest) (*CreateRouteResponse, *http.Response, error)
 
 	/*
 		DeleteRoute Method for DeleteRoute
@@ -47,8 +47,8 @@ type RoutesAPI interface {
 	DeleteRoute(ctx context.Context, id string) RoutesAPIDeleteRouteRequest
 
 	// DeleteRouteExecute executes the request
-	//  @return DeleteIngestionApiKey200Response
-	DeleteRouteExecute(r RoutesAPIDeleteRouteRequest) (*DeleteIngestionApiKey200Response, *http.Response, error)
+	//  @return DeleteRouteResponse
+	DeleteRouteExecute(r RoutesAPIDeleteRouteRequest) (*DeleteRouteResponse, *http.Response, error)
 
 	/*
 		GetRoute Method for GetRoute
@@ -62,8 +62,8 @@ type RoutesAPI interface {
 	GetRoute(ctx context.Context, id string) RoutesAPIGetRouteRequest
 
 	// GetRouteExecute executes the request
-	//  @return CreateRoute200Response
-	GetRouteExecute(r RoutesAPIGetRouteRequest) (*CreateRoute200Response, *http.Response, error)
+	//  @return GetRouteResponse
+	GetRouteExecute(r RoutesAPIGetRouteRequest) (*GetRouteResponse, *http.Response, error)
 
 	/*
 		ListRoutes Method for ListRoutes
@@ -76,8 +76,8 @@ type RoutesAPI interface {
 	ListRoutes(ctx context.Context) RoutesAPIListRoutesRequest
 
 	// ListRoutesExecute executes the request
-	//  @return ListRoutes200Response
-	ListRoutesExecute(r RoutesAPIListRoutesRequest) (*ListRoutes200Response, *http.Response, error)
+	//  @return ListRoutesResponse
+	ListRoutesExecute(r RoutesAPIListRoutesRequest) (*ListRoutesResponse, *http.Response, error)
 
 	/*
 		UpdateRoute Method for UpdateRoute
@@ -91,8 +91,8 @@ type RoutesAPI interface {
 	UpdateRoute(ctx context.Context, id string) RoutesAPIUpdateRouteRequest
 
 	// UpdateRouteExecute executes the request
-	//  @return CreateRoute200Response
-	UpdateRouteExecute(r RoutesAPIUpdateRouteRequest) (*CreateRoute200Response, *http.Response, error)
+	//  @return UpdateRouteResponse
+	UpdateRouteExecute(r RoutesAPIUpdateRouteRequest) (*UpdateRouteResponse, *http.Response, error)
 }
 
 // RoutesAPIService RoutesAPI service
@@ -109,7 +109,7 @@ func (r RoutesAPICreateRouteRequest) CreateRouteRequest(createRouteRequest Creat
 	return r
 }
 
-func (r RoutesAPICreateRouteRequest) Execute() (*CreateRoute200Response, *http.Response, error) {
+func (r RoutesAPICreateRouteRequest) Execute() (*CreateRouteResponse, *http.Response, error) {
 	return r.ApiService.CreateRouteExecute(r)
 }
 
@@ -130,13 +130,13 @@ func (a *RoutesAPIService) CreateRoute(ctx context.Context) RoutesAPICreateRoute
 
 // Execute executes the request
 //
-//	@return CreateRoute200Response
-func (a *RoutesAPIService) CreateRouteExecute(r RoutesAPICreateRouteRequest) (*CreateRoute200Response, *http.Response, error) {
+//	@return CreateRouteResponse
+func (a *RoutesAPIService) CreateRouteExecute(r RoutesAPICreateRouteRequest) (*CreateRouteResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateRoute200Response
+		localVarReturnValue *CreateRouteResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoutesAPIService.CreateRoute")
@@ -236,7 +236,7 @@ type RoutesAPIDeleteRouteRequest struct {
 	id         string
 }
 
-func (r RoutesAPIDeleteRouteRequest) Execute() (*DeleteIngestionApiKey200Response, *http.Response, error) {
+func (r RoutesAPIDeleteRouteRequest) Execute() (*DeleteRouteResponse, *http.Response, error) {
 	return r.ApiService.DeleteRouteExecute(r)
 }
 
@@ -259,13 +259,13 @@ func (a *RoutesAPIService) DeleteRoute(ctx context.Context, id string) RoutesAPI
 
 // Execute executes the request
 //
-//	@return DeleteIngestionApiKey200Response
-func (a *RoutesAPIService) DeleteRouteExecute(r RoutesAPIDeleteRouteRequest) (*DeleteIngestionApiKey200Response, *http.Response, error) {
+//	@return DeleteRouteResponse
+func (a *RoutesAPIService) DeleteRouteExecute(r RoutesAPIDeleteRouteRequest) (*DeleteRouteResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeleteIngestionApiKey200Response
+		localVarReturnValue *DeleteRouteResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoutesAPIService.DeleteRoute")
@@ -367,7 +367,7 @@ type RoutesAPIGetRouteRequest struct {
 	id         string
 }
 
-func (r RoutesAPIGetRouteRequest) Execute() (*CreateRoute200Response, *http.Response, error) {
+func (r RoutesAPIGetRouteRequest) Execute() (*GetRouteResponse, *http.Response, error) {
 	return r.ApiService.GetRouteExecute(r)
 }
 
@@ -390,13 +390,13 @@ func (a *RoutesAPIService) GetRoute(ctx context.Context, id string) RoutesAPIGet
 
 // Execute executes the request
 //
-//	@return CreateRoute200Response
-func (a *RoutesAPIService) GetRouteExecute(r RoutesAPIGetRouteRequest) (*CreateRoute200Response, *http.Response, error) {
+//	@return GetRouteResponse
+func (a *RoutesAPIService) GetRouteExecute(r RoutesAPIGetRouteRequest) (*GetRouteResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateRoute200Response
+		localVarReturnValue *GetRouteResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoutesAPIService.GetRoute")
@@ -497,7 +497,7 @@ type RoutesAPIListRoutesRequest struct {
 	ApiService RoutesAPI
 }
 
-func (r RoutesAPIListRoutesRequest) Execute() (*ListRoutes200Response, *http.Response, error) {
+func (r RoutesAPIListRoutesRequest) Execute() (*ListRoutesResponse, *http.Response, error) {
 	return r.ApiService.ListRoutesExecute(r)
 }
 
@@ -518,13 +518,13 @@ func (a *RoutesAPIService) ListRoutes(ctx context.Context) RoutesAPIListRoutesRe
 
 // Execute executes the request
 //
-//	@return ListRoutes200Response
-func (a *RoutesAPIService) ListRoutesExecute(r RoutesAPIListRoutesRequest) (*ListRoutes200Response, *http.Response, error) {
+//	@return ListRoutesResponse
+func (a *RoutesAPIService) ListRoutesExecute(r RoutesAPIListRoutesRequest) (*ListRoutesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ListRoutes200Response
+		localVarReturnValue *ListRoutesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoutesAPIService.ListRoutes")
@@ -625,7 +625,7 @@ func (r RoutesAPIUpdateRouteRequest) CreateRouteRequest(createRouteRequest Creat
 	return r
 }
 
-func (r RoutesAPIUpdateRouteRequest) Execute() (*CreateRoute200Response, *http.Response, error) {
+func (r RoutesAPIUpdateRouteRequest) Execute() (*UpdateRouteResponse, *http.Response, error) {
 	return r.ApiService.UpdateRouteExecute(r)
 }
 
@@ -648,13 +648,13 @@ func (a *RoutesAPIService) UpdateRoute(ctx context.Context, id string) RoutesAPI
 
 // Execute executes the request
 //
-//	@return CreateRoute200Response
-func (a *RoutesAPIService) UpdateRouteExecute(r RoutesAPIUpdateRouteRequest) (*CreateRoute200Response, *http.Response, error) {
+//	@return UpdateRouteResponse
+func (a *RoutesAPIService) UpdateRouteExecute(r RoutesAPIUpdateRouteRequest) (*UpdateRouteResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateRoute200Response
+		localVarReturnValue *UpdateRouteResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoutesAPIService.UpdateRoute")

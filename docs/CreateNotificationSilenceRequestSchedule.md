@@ -7,13 +7,13 @@ Name | Type | Description | Notes
 **Type** | **string** |  | 
 **StartTime** | **time.Time** |  | 
 **EndTime** | **time.Time** |  | 
-**WeeklySchedule** | [**CreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule**](CreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule.md) |  | 
+**WeeklySchedule** | [**SilenceScheduleRecurringWeeklySchedule**](SilenceScheduleRecurringWeeklySchedule.md) |  | 
 
 ## Methods
 
 ### NewCreateNotificationSilenceRequestSchedule
 
-`func NewCreateNotificationSilenceRequestSchedule(type_ string, startTime time.Time, endTime time.Time, weeklySchedule CreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule, ) *CreateNotificationSilenceRequestSchedule`
+`func NewCreateNotificationSilenceRequestSchedule(type_ string, startTime time.Time, endTime time.Time, weeklySchedule SilenceScheduleRecurringWeeklySchedule, ) *CreateNotificationSilenceRequestSchedule`
 
 NewCreateNotificationSilenceRequestSchedule instantiates a new CreateNotificationSilenceRequestSchedule object
 This constructor will assign default values to properties that have it defined,
@@ -90,20 +90,20 @@ SetEndTime sets EndTime field to given value.
 
 ### GetWeeklySchedule
 
-`func (o *CreateNotificationSilenceRequestSchedule) GetWeeklySchedule() CreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule`
+`func (o *CreateNotificationSilenceRequestSchedule) GetWeeklySchedule() SilenceScheduleRecurringWeeklySchedule`
 
 GetWeeklySchedule returns the WeeklySchedule field if non-nil, zero value otherwise.
 
 ### GetWeeklyScheduleOk
 
-`func (o *CreateNotificationSilenceRequestSchedule) GetWeeklyScheduleOk() (*CreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule, bool)`
+`func (o *CreateNotificationSilenceRequestSchedule) GetWeeklyScheduleOk() (*SilenceScheduleRecurringWeeklySchedule, bool)`
 
 GetWeeklyScheduleOk returns a tuple with the WeeklySchedule field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWeeklySchedule
 
-`func (o *CreateNotificationSilenceRequestSchedule) SetWeeklySchedule(v CreateNotificationSilenceRequestScheduleOneOf1WeeklySchedule)`
+`func (o *CreateNotificationSilenceRequestSchedule) SetWeeklySchedule(v SilenceScheduleRecurringWeeklySchedule)`
 
 SetWeeklySchedule sets WeeklySchedule field to given value.
 

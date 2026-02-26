@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## SearchLogs
 
-> SearchLogs200Response SearchLogs(ctx).From(from).To(to).Query(query).MaxResults(maxResults).Execute()
+> SearchLogsResponse SearchLogs(ctx).From(from).To(to).Query(query).MaxResults(maxResults).Execute()
 
 
 
@@ -41,7 +41,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LogsAPI.SearchLogs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SearchLogs`: SearchLogs200Response
+	// response from `SearchLogs`: SearchLogsResponse
 	fmt.Fprintf(os.Stdout, "Response from `LogsAPI.SearchLogs`: %v\n", resp)
 }
 ```
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SearchLogs200Response**](SearchLogs200Response.md)
+[**SearchLogsResponse**](SearchLogsResponse.md)
 
 ### Authorization
 

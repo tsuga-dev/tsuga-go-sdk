@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateNotificationSilence
 
-> CreateNotificationSilence200Response CreateNotificationSilence(ctx).CreateNotificationSilenceRequest(createNotificationSilenceRequest).Execute()
+> CreateNotificationSilenceResponse CreateNotificationSilence(ctx).CreateNotificationSilenceRequest(createNotificationSilenceRequest).Execute()
 
 
 
@@ -34,7 +34,7 @@ import (
 )
 
 func main() {
-	createNotificationSilenceRequest := *openapiclient.NewCreateNotificationSilenceRequest("Name_example", "Reason_example", "Owner_example", false, openapiclient.createNotificationSilence_request_schedule{CreateNotificationSilenceRequestScheduleOneOf: openapiclient.NewCreateNotificationSilenceRequestScheduleOneOf("Type_example", time.Now(), time.Now())}, openapiclient.createNotificationRule_request_teamsFilter{CreateNotificationRuleRequestTeamsFilterOneOf: openapiclient.NewCreateNotificationRuleRequestTeamsFilterOneOf("Type_example", []string{"Teams_example"})}, []float32{float32(123)}, []string{"TransitionTypesFilter_example"}) // CreateNotificationSilenceRequest | 
+	createNotificationSilenceRequest := *openapiclient.NewCreateNotificationSilenceRequest("Name_example", "Reason_example", "Owner_example", false, openapiclient.createNotificationSilence_request_schedule{SilenceScheduleOneTime: openapiclient.NewSilenceScheduleOneTime("Type_example", time.Now(), time.Now())}, openapiclient.createNotificationRule_request_teamsFilter{CreateNotificationRuleRequestTeamsFilterOneOf: openapiclient.NewCreateNotificationRuleRequestTeamsFilterOneOf("Type_example", []string{"Teams_example"})}, []float32{float32(123)}, []string{"TransitionTypesFilter_example"}) // CreateNotificationSilenceRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -43,7 +43,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NotificationSilencesAPI.CreateNotificationSilence``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateNotificationSilence`: CreateNotificationSilence200Response
+	// response from `CreateNotificationSilence`: CreateNotificationSilenceResponse
 	fmt.Fprintf(os.Stdout, "Response from `NotificationSilencesAPI.CreateNotificationSilence`: %v\n", resp)
 }
 ```
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateNotificationSilence200Response**](CreateNotificationSilence200Response.md)
+[**CreateNotificationSilenceResponse**](CreateNotificationSilenceResponse.md)
 
 ### Authorization
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## DeleteNotificationSilence
 
-> DeleteIngestionApiKey200Response DeleteNotificationSilence(ctx, id).Execute()
+> DeleteNotificationSilenceResponse DeleteNotificationSilence(ctx, id).Execute()
 
 
 
@@ -109,7 +109,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NotificationSilencesAPI.DeleteNotificationSilence``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteNotificationSilence`: DeleteIngestionApiKey200Response
+	// response from `DeleteNotificationSilence`: DeleteNotificationSilenceResponse
 	fmt.Fprintf(os.Stdout, "Response from `NotificationSilencesAPI.DeleteNotificationSilence`: %v\n", resp)
 }
 ```
@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteIngestionApiKey200Response**](DeleteIngestionApiKey200Response.md)
+[**DeleteNotificationSilenceResponse**](DeleteNotificationSilenceResponse.md)
 
 ### Authorization
 
@@ -151,7 +151,7 @@ Name | Type | Description  | Notes
 
 ## GetNotificationSilence
 
-> CreateNotificationSilence200Response GetNotificationSilence(ctx, id).Execute()
+> GetNotificationSilenceResponse GetNotificationSilence(ctx, id).Execute()
 
 
 
@@ -179,7 +179,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NotificationSilencesAPI.GetNotificationSilence``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetNotificationSilence`: CreateNotificationSilence200Response
+	// response from `GetNotificationSilence`: GetNotificationSilenceResponse
 	fmt.Fprintf(os.Stdout, "Response from `NotificationSilencesAPI.GetNotificationSilence`: %v\n", resp)
 }
 ```
@@ -203,7 +203,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateNotificationSilence200Response**](CreateNotificationSilence200Response.md)
+[**GetNotificationSilenceResponse**](GetNotificationSilenceResponse.md)
 
 ### Authorization
 
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 
 ## ListNotificationSilences
 
-> ListNotificationSilences200Response ListNotificationSilences(ctx).Execute()
+> ListNotificationSilencesResponse ListNotificationSilences(ctx).Execute()
 
 
 
@@ -248,7 +248,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NotificationSilencesAPI.ListNotificationSilences``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListNotificationSilences`: ListNotificationSilences200Response
+	// response from `ListNotificationSilences`: ListNotificationSilencesResponse
 	fmt.Fprintf(os.Stdout, "Response from `NotificationSilencesAPI.ListNotificationSilences`: %v\n", resp)
 }
 ```
@@ -264,7 +264,7 @@ Other parameters are passed through a pointer to a apiListNotificationSilencesRe
 
 ### Return type
 
-[**ListNotificationSilences200Response**](ListNotificationSilences200Response.md)
+[**ListNotificationSilencesResponse**](ListNotificationSilencesResponse.md)
 
 ### Authorization
 
@@ -282,7 +282,7 @@ Other parameters are passed through a pointer to a apiListNotificationSilencesRe
 
 ## UpdateNotificationSilence
 
-> CreateNotificationSilence200Response UpdateNotificationSilence(ctx, id).CreateNotificationSilenceRequest(createNotificationSilenceRequest).Execute()
+> UpdateNotificationSilenceResponse UpdateNotificationSilence(ctx, id).CreateNotificationSilenceRequest(createNotificationSilenceRequest).Execute()
 
 
 
@@ -303,7 +303,7 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	createNotificationSilenceRequest := *openapiclient.NewCreateNotificationSilenceRequest("Name_example", "Reason_example", "Owner_example", false, openapiclient.createNotificationSilence_request_schedule{CreateNotificationSilenceRequestScheduleOneOf: openapiclient.NewCreateNotificationSilenceRequestScheduleOneOf("Type_example", time.Now(), time.Now())}, openapiclient.createNotificationRule_request_teamsFilter{CreateNotificationRuleRequestTeamsFilterOneOf: openapiclient.NewCreateNotificationRuleRequestTeamsFilterOneOf("Type_example", []string{"Teams_example"})}, []float32{float32(123)}, []string{"TransitionTypesFilter_example"}) // CreateNotificationSilenceRequest | 
+	createNotificationSilenceRequest := *openapiclient.NewCreateNotificationSilenceRequest("Name_example", "Reason_example", "Owner_example", false, openapiclient.createNotificationSilence_request_schedule{SilenceScheduleOneTime: openapiclient.NewSilenceScheduleOneTime("Type_example", time.Now(), time.Now())}, openapiclient.createNotificationRule_request_teamsFilter{CreateNotificationRuleRequestTeamsFilterOneOf: openapiclient.NewCreateNotificationRuleRequestTeamsFilterOneOf("Type_example", []string{"Teams_example"})}, []float32{float32(123)}, []string{"TransitionTypesFilter_example"}) // CreateNotificationSilenceRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -312,7 +312,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NotificationSilencesAPI.UpdateNotificationSilence``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateNotificationSilence`: CreateNotificationSilence200Response
+	// response from `UpdateNotificationSilence`: UpdateNotificationSilenceResponse
 	fmt.Fprintf(os.Stdout, "Response from `NotificationSilencesAPI.UpdateNotificationSilence`: %v\n", resp)
 }
 ```
@@ -337,7 +337,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateNotificationSilence200Response**](CreateNotificationSilence200Response.md)
+[**UpdateNotificationSilenceResponse**](UpdateNotificationSilenceResponse.md)
 
 ### Authorization
 
