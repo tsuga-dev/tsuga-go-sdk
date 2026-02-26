@@ -22,9 +22,8 @@ var _ MappedNullable = &ProcessorAnyOf2{}
 // ProcessorAnyOf2 struct for ProcessorAnyOf2
 type ProcessorAnyOf2 struct {
 	// Identifier of the processor
-	Id          string                 `json:"id"`
-	Description *string                `json:"description,omitempty"`
-	Example     *ProcessorAnyOfExample `json:"example,omitempty"`
+	Id          string  `json:"id"`
+	Description *string `json:"description,omitempty"`
 	// List of key/value tags applied to the resource
 	Tags                 []Tag                 `json:"tags,omitempty"`
 	UpdatedAt            *time.Time            `json:"updatedAt,omitempty"`
@@ -109,38 +108,6 @@ func (o *ProcessorAnyOf2) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *ProcessorAnyOf2) SetDescription(v string) {
 	o.Description = &v
-}
-
-// GetExample returns the Example field value if set, zero value otherwise.
-func (o *ProcessorAnyOf2) GetExample() ProcessorAnyOfExample {
-	if o == nil || IsNil(o.Example) {
-		var ret ProcessorAnyOfExample
-		return ret
-	}
-	return *o.Example
-}
-
-// GetExampleOk returns a tuple with the Example field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProcessorAnyOf2) GetExampleOk() (*ProcessorAnyOfExample, bool) {
-	if o == nil || IsNil(o.Example) {
-		return nil, false
-	}
-	return o.Example, true
-}
-
-// HasExample returns a boolean if a field has been set.
-func (o *ProcessorAnyOf2) HasExample() bool {
-	if o != nil && !IsNil(o.Example) {
-		return true
-	}
-
-	return false
-}
-
-// SetExample gets a reference to the given ProcessorAnyOfExample and assigns it to the Example field.
-func (o *ProcessorAnyOf2) SetExample(v ProcessorAnyOfExample) {
-	o.Example = &v
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
@@ -269,9 +236,6 @@ func (o ProcessorAnyOf2) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !IsNil(o.Example) {
-		toSerialize["example"] = o.Example
-	}
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
@@ -327,7 +291,6 @@ func (o *ProcessorAnyOf2) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "description")
-		delete(additionalProperties, "example")
 		delete(additionalProperties, "tags")
 		delete(additionalProperties, "updatedAt")
 		delete(additionalProperties, "type")

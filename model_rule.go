@@ -29,6 +29,8 @@ type Rule struct {
 	PrioritiesFilter []float32 `json:"prioritiesFilter"`
 	// Alert state transitions that can trigger a notification
 	TransitionTypesFilter []string `json:"transitionTypesFilter"`
+	// Cluster IDs that can trigger a notification
+	ClusterIdsFilter []string `json:"clusterIdsFilter"`
 	// Team ID that owns and manages the rule
 	Owner    string `json:"owner"`
 	IsActive bool   `json:"isActive"`
@@ -45,13 +47,14 @@ type _Rule Rule
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRule(id string, name string, teamsFilter RuleTeamsFilter, prioritiesFilter []float32, transitionTypesFilter []string, owner string, isActive bool, targets []RuleTargetsInner) *Rule {
+func NewRule(id string, name string, teamsFilter RuleTeamsFilter, prioritiesFilter []float32, transitionTypesFilter []string, clusterIdsFilter []string, owner string, isActive bool, targets []RuleTargetsInner) *Rule {
 	this := Rule{}
 	this.Id = id
 	this.Name = name
 	this.TeamsFilter = teamsFilter
 	this.PrioritiesFilter = prioritiesFilter
 	this.TransitionTypesFilter = transitionTypesFilter
+	this.ClusterIdsFilter = clusterIdsFilter
 	this.Owner = owner
 	this.IsActive = isActive
 	this.Targets = targets
@@ -186,6 +189,30 @@ func (o *Rule) SetTransitionTypesFilter(v []string) {
 	o.TransitionTypesFilter = v
 }
 
+// GetClusterIdsFilter returns the ClusterIdsFilter field value
+func (o *Rule) GetClusterIdsFilter() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+
+	return o.ClusterIdsFilter
+}
+
+// GetClusterIdsFilterOk returns a tuple with the ClusterIdsFilter field value
+// and a boolean to check if the value has been set.
+func (o *Rule) GetClusterIdsFilterOk() ([]string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ClusterIdsFilter, true
+}
+
+// SetClusterIdsFilter sets field value
+func (o *Rule) SetClusterIdsFilter(v []string) {
+	o.ClusterIdsFilter = v
+}
+
 // GetOwner returns the Owner field value
 func (o *Rule) GetOwner() string {
 	if o == nil {
@@ -305,6 +332,7 @@ func (o Rule) ToMap() (map[string]interface{}, error) {
 	toSerialize["teamsFilter"] = o.TeamsFilter
 	toSerialize["prioritiesFilter"] = o.PrioritiesFilter
 	toSerialize["transitionTypesFilter"] = o.TransitionTypesFilter
+	toSerialize["clusterIdsFilter"] = o.ClusterIdsFilter
 	toSerialize["owner"] = o.Owner
 	toSerialize["isActive"] = o.IsActive
 	if !IsNil(o.Tags) {
@@ -329,6 +357,7 @@ func (o *Rule) UnmarshalJSON(data []byte) (err error) {
 		"teamsFilter",
 		"prioritiesFilter",
 		"transitionTypesFilter",
+		"clusterIdsFilter",
 		"owner",
 		"isActive",
 		"targets",
@@ -366,6 +395,7 @@ func (o *Rule) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "teamsFilter")
 		delete(additionalProperties, "prioritiesFilter")
 		delete(additionalProperties, "transitionTypesFilter")
+		delete(additionalProperties, "clusterIdsFilter")
 		delete(additionalProperties, "owner")
 		delete(additionalProperties, "isActive")
 		delete(additionalProperties, "tags")

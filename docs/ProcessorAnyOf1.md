@@ -6,7 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Identifier of the processor | 
 **Description** | Pointer to **string** |  | [optional] 
-**Example** | Pointer to [**ProcessorAnyOfExample**](ProcessorAnyOfExample.md) |  | [optional] 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **Type** | **string** |  | 
@@ -75,31 +74,6 @@ SetDescription sets Description field to given value.
 `func (o *ProcessorAnyOf1) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
-
-### GetExample
-
-`func (o *ProcessorAnyOf1) GetExample() ProcessorAnyOfExample`
-
-GetExample returns the Example field if non-nil, zero value otherwise.
-
-### GetExampleOk
-
-`func (o *ProcessorAnyOf1) GetExampleOk() (*ProcessorAnyOfExample, bool)`
-
-GetExampleOk returns a tuple with the Example field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetExample
-
-`func (o *ProcessorAnyOf1) SetExample(v ProcessorAnyOfExample)`
-
-SetExample sets Example field to given value.
-
-### HasExample
-
-`func (o *ProcessorAnyOf1) HasExample() bool`
-
-HasExample returns a boolean if a field has been set.
 
 ### GetTags
 

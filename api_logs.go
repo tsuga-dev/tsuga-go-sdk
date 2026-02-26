@@ -44,7 +44,7 @@ type LogsAPISearchLogsRequest struct {
 	from       *int64
 	to         *int64
 	query      *string
-	maxResults *float32
+	maxResults *int32
 }
 
 // Start timestamp in seconds
@@ -64,7 +64,7 @@ func (r LogsAPISearchLogsRequest) Query(query string) LogsAPISearchLogsRequest {
 	return r
 }
 
-func (r LogsAPISearchLogsRequest) MaxResults(maxResults float32) LogsAPISearchLogsRequest {
+func (r LogsAPISearchLogsRequest) MaxResults(maxResults int32) LogsAPISearchLogsRequest {
 	r.maxResults = &maxResults
 	return r
 }

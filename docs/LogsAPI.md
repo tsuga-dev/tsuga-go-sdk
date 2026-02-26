@@ -32,7 +32,7 @@ func main() {
 	from := int64(1704067200) // int64 | Start timestamp in seconds
 	to := int64(1704067200) // int64 | End timestamp in seconds
 	query := "query_example" // string |  (optional)
-	maxResults := float32(8.14) // float32 |  (optional)
+	maxResults := int32(56) // int32 |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
  **from** | **int64** | Start timestamp in seconds | 
  **to** | **int64** | End timestamp in seconds | 
  **query** | **string** |  | 
- **maxResults** | **float32** |  | 
+ **maxResults** | **int32** |  | 
 
 ### Return type
 

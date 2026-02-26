@@ -15,6 +15,7 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"time"
 )
 
 // contextKeys are used to identify the type of value in the context.
@@ -101,6 +102,9 @@ func NewConfiguration() *Configuration {
 			},
 		},
 		OperationServers: map[string]ServerConfigurations{},
+		HTTPClient: &http.Client{
+			Timeout: 30 * time.Second,
+		},
 	}
 	return cfg
 }

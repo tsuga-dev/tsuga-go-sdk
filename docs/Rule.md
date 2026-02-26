@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **TeamsFilter** | [**RuleTeamsFilter**](RuleTeamsFilter.md) |  | 
 **PrioritiesFilter** | **[]float32** | Priorities that narrow down the alerts that can trigger a notification | 
 **TransitionTypesFilter** | **[]string** | Alert state transitions that can trigger a notification | 
+**ClusterIdsFilter** | **[]string** | Cluster IDs that can trigger a notification | 
 **Owner** | **string** | Team ID that owns and manages the rule | 
 **IsActive** | **bool** |  | 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
@@ -18,7 +19,7 @@ Name | Type | Description | Notes
 
 ### NewRule
 
-`func NewRule(id string, name string, teamsFilter RuleTeamsFilter, prioritiesFilter []float32, transitionTypesFilter []string, owner string, isActive bool, targets []RuleTargetsInner, ) *Rule`
+`func NewRule(id string, name string, teamsFilter RuleTeamsFilter, prioritiesFilter []float32, transitionTypesFilter []string, clusterIdsFilter []string, owner string, isActive bool, targets []RuleTargetsInner, ) *Rule`
 
 NewRule instantiates a new Rule object
 This constructor will assign default values to properties that have it defined,
@@ -131,6 +132,26 @@ and a boolean to check if the value has been set.
 `func (o *Rule) SetTransitionTypesFilter(v []string)`
 
 SetTransitionTypesFilter sets TransitionTypesFilter field to given value.
+
+
+### GetClusterIdsFilter
+
+`func (o *Rule) GetClusterIdsFilter() []string`
+
+GetClusterIdsFilter returns the ClusterIdsFilter field if non-nil, zero value otherwise.
+
+### GetClusterIdsFilterOk
+
+`func (o *Rule) GetClusterIdsFilterOk() (*[]string, bool)`
+
+GetClusterIdsFilterOk returns a tuple with the ClusterIdsFilter field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClusterIdsFilter
+
+`func (o *Rule) SetClusterIdsFilter(v []string)`
+
+SetClusterIdsFilter sets ClusterIdsFilter field to given value.
 
 
 ### GetOwner

@@ -1,5 +1,4 @@
 .gitignore
-README.md
 api/openapi.yaml
 api_aggregation.go
 api_dashboards.go
@@ -37,9 +36,6 @@ docs/AggregationAPI.md
 docs/AggregationGroupBy.md
 docs/AggregationQuery.md
 docs/AggregationQuery1.md
-docs/BigQueryConnectionInput.md
-docs/BigQueryConnectionInputAuth.md
-docs/BigQueryWifDirectAccessAuthInput.md
 docs/ClientErrorEnvelope.md
 docs/ClientErrorResponse.md
 docs/ConditionalFormatting.md
@@ -175,12 +171,10 @@ docs/MonitorConfigurationMetric.md
 docs/MonitorConfigurationMetricCondition.md
 docs/MonitorConfigurationMetricGroupByFieldsInner.md
 docs/MonitorsAPI.md
-docs/MySqlConnectionInput.md
 docs/Normalizer.md
 docs/NotificationRulesAPI.md
 docs/NotificationSilence.md
 docs/NotificationSilencesAPI.md
-docs/PostgresConnectionInput.md
 docs/Processor.md
 docs/ProcessorAnyOf.md
 docs/ProcessorAnyOf1.md
@@ -194,7 +188,6 @@ docs/ProcessorAnyOf2Params.md
 docs/ProcessorAnyOf3.md
 docs/ProcessorAnyOf3Params.md
 docs/ProcessorAnyOf3ParamsItemsInner.md
-docs/ProcessorAnyOfExample.md
 docs/ProcessorAnyOfParams.md
 docs/ProcessorParamsCreatorFormatString.md
 docs/ProcessorParamsCreatorMathFormula.md
@@ -270,7 +263,6 @@ docs/TeamsAPI.md
 docs/ThresholdMarker.md
 docs/TimeRange.md
 docs/TimeseriesAggregationResponse.md
-docs/TimestreamForInfluxDBConnectionInput.md
 docs/TokenOutput.md
 docs/TokenOutputAnyOf.md
 docs/TokenOutputAnyOf1.md
@@ -315,9 +307,6 @@ model_aggregate_unique_count.go
 model_aggregation_group_by.go
 model_aggregation_query.go
 model_aggregation_query_1.go
-model_big_query_connection_input.go
-model_big_query_connection_input_auth.go
-model_big_query_wif_direct_access_auth_input.go
 model_client_error_envelope.go
 model_client_error_response.go
 model_conditional_formatting.go
@@ -447,10 +436,8 @@ model_monitor_configuration_log_error_pattern_filter.go
 model_monitor_configuration_metric.go
 model_monitor_configuration_metric_condition.go
 model_monitor_configuration_metric_group_by_fields_inner.go
-model_my_sql_connection_input.go
 model_normalizer.go
 model_notification_silence.go
-model_postgres_connection_input.go
 model_processor.go
 model_processor_any_of.go
 model_processor_any_of_1.go
@@ -464,7 +451,6 @@ model_processor_any_of_2_params.go
 model_processor_any_of_3.go
 model_processor_any_of_3_params.go
 model_processor_any_of_3_params_items_inner.go
-model_processor_any_of_example.go
 model_processor_any_of_params.go
 model_processor_params_creator_format_string.go
 model_processor_params_creator_math_formula.go
@@ -534,7 +520,6 @@ model_team_membership.go
 model_threshold_marker.go
 model_time_range.go
 model_timeseries_aggregation_response.go
-model_timestream_for_influx_db_connection_input.go
 model_token_output.go
 model_token_output_any_of.go
 model_token_output_any_of_1.go

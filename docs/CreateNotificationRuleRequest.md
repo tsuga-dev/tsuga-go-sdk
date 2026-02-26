@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **TeamsFilter** | [**CreateNotificationRuleRequestTeamsFilter**](CreateNotificationRuleRequestTeamsFilter.md) |  | 
 **PrioritiesFilter** | **[]float32** | Priorities that narrow down the alerts that can trigger a notification | 
 **TransitionTypesFilter** | **[]string** | Alert state transitions that can trigger a notification | 
+**ClusterIdsFilter** | Pointer to **[]string** | Cluster IDs that can trigger a notification | [optional] 
 **Owner** | **string** | Team ID that owns and manages the rule | 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
 **IsActive** | **bool** |  | 
@@ -111,6 +112,31 @@ and a boolean to check if the value has been set.
 
 SetTransitionTypesFilter sets TransitionTypesFilter field to given value.
 
+
+### GetClusterIdsFilter
+
+`func (o *CreateNotificationRuleRequest) GetClusterIdsFilter() []string`
+
+GetClusterIdsFilter returns the ClusterIdsFilter field if non-nil, zero value otherwise.
+
+### GetClusterIdsFilterOk
+
+`func (o *CreateNotificationRuleRequest) GetClusterIdsFilterOk() (*[]string, bool)`
+
+GetClusterIdsFilterOk returns a tuple with the ClusterIdsFilter field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClusterIdsFilter
+
+`func (o *CreateNotificationRuleRequest) SetClusterIdsFilter(v []string)`
+
+SetClusterIdsFilter sets ClusterIdsFilter field to given value.
+
+### HasClusterIdsFilter
+
+`func (o *CreateNotificationRuleRequest) HasClusterIdsFilter() bool`
+
+HasClusterIdsFilter returns a boolean if a field has been set.
 
 ### GetOwner
 
