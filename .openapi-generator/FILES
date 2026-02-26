@@ -4,6 +4,7 @@ api/openapi.yaml
 api_aggregation.go
 api_dashboards.go
 api_ingestion_api_keys.go
+api_invitations.go
 api_logs.go
 api_metrics.go
 api_monitors.go
@@ -11,6 +12,7 @@ api_notification_rules.go
 api_notification_silences.go
 api_retention_policies.go
 api_routes.go
+api_services.go
 api_tag_policies.go
 api_team_memberships.go
 api_teams.go
@@ -100,6 +102,7 @@ docs/FunctionRolling.md
 docs/FunctionSqrt.md
 docs/GetIngestionApiKey200Response.md
 docs/GetMetric200Response.md
+docs/GetService200Response.md
 docs/GetTeamMemberships200Response.md
 docs/GetUser200Response.md
 docs/Graph.md
@@ -115,8 +118,13 @@ docs/GraphVisualizationTimeseriesTimeBucket.md
 docs/GraphVisualizationTopList.md
 docs/IngestionApiKey.md
 docs/IngestionApiKeysAPI.md
+docs/InvitationsAPI.md
+docs/InviteUsers200Response.md
+docs/InviteUsers200ResponseData.md
+docs/InviteUsersRequestInner.md
 docs/ListDashboards200Response.md
 docs/ListIngestionApiKeys200Response.md
+docs/ListInvitations200Response.md
 docs/ListMetrics200Response.md
 docs/ListMetrics200ResponseDataInner.md
 docs/ListMonitors200Response.md
@@ -124,6 +132,7 @@ docs/ListNotificationRules200Response.md
 docs/ListNotificationSilences200Response.md
 docs/ListRetentionPolicies200Response.md
 docs/ListRoutes200Response.md
+docs/ListServices200Response.md
 docs/ListTagPolicies200Response.md
 docs/ListTeams200Response.md
 docs/ListUsers200Response.md
@@ -218,6 +227,11 @@ docs/Series.md
 docs/SeriesPointsInner.md
 docs/ServerErrorEnvelope.md
 docs/ServerErrorResponse.md
+docs/Service.md
+docs/ServiceLanguagesInner.md
+docs/ServiceTeamsInner.md
+docs/ServiceVersionsInner.md
+docs/ServicesAPI.md
 docs/Tag.md
 docs/TagPoliciesAPI.md
 docs/TagPolicy.md
@@ -234,6 +248,7 @@ docs/UpdateDashboardRequest.md
 docs/UpdateTeamMembership200Response.md
 docs/UpdateTeamMembershipRequest.md
 docs/User.md
+docs/UserInvitation.md
 docs/UsersAPI.md
 docs/WidgetListColumn.md
 go.mod
@@ -318,6 +333,7 @@ model_function_rolling.go
 model_function_sqrt.go
 model_get_ingestion_api_key_200_response.go
 model_get_metric_200_response.go
+model_get_service_200_response.go
 model_get_team_memberships_200_response.go
 model_get_user_200_response.go
 model_graph.go
@@ -332,8 +348,12 @@ model_graph_visualization_timeseries.go
 model_graph_visualization_timeseries_time_bucket.go
 model_graph_visualization_top_list.go
 model_ingestion_api_key.go
+model_invite_users_200_response.go
+model_invite_users_200_response_data.go
+model_invite_users_request_inner.go
 model_list_dashboards_200_response.go
 model_list_ingestion_api_keys_200_response.go
+model_list_invitations_200_response.go
 model_list_metrics_200_response.go
 model_list_metrics_200_response_data_inner.go
 model_list_monitors_200_response.go
@@ -341,6 +361,7 @@ model_list_notification_rules_200_response.go
 model_list_notification_silences_200_response.go
 model_list_retention_policies_200_response.go
 model_list_routes_200_response.go
+model_list_services_200_response.go
 model_list_tag_policies_200_response.go
 model_list_teams_200_response.go
 model_list_users_200_response.go
@@ -428,6 +449,10 @@ model_series.go
 model_series_points_inner.go
 model_server_error_envelope.go
 model_server_error_response.go
+model_service.go
+model_service_languages_inner.go
+model_service_teams_inner.go
+model_service_versions_inner.go
 model_tag.go
 model_tag_policy.go
 model_team.go
@@ -440,6 +465,7 @@ model_update_dashboard_request.go
 model_update_team_membership_200_response.go
 model_update_team_membership_request.go
 model_user.go
+model_user_invitation.go
 model_widget_list_column.go
 response.go
 utils.go

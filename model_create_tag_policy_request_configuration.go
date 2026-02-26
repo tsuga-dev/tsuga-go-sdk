@@ -13,7 +13,6 @@ package tsuga
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/validator.v2"
 )
 
 // CreateTagPolicyRequestConfiguration - struct for CreateTagPolicyRequestConfiguration
@@ -39,52 +38,38 @@ func CreateTagPolicyRequestConfigurationOneOf1AsCreateTagPolicyRequestConfigurat
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *CreateTagPolicyRequestConfiguration) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into CreateTagPolicyRequestConfigurationOneOf
-	err = newStrictDecoder(data).Decode(&dst.CreateTagPolicyRequestConfigurationOneOf)
-	if err == nil {
-		jsonCreateTagPolicyRequestConfigurationOneOf, _ := json.Marshal(dst.CreateTagPolicyRequestConfigurationOneOf)
-		if string(jsonCreateTagPolicyRequestConfigurationOneOf) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// check if the discriminator value is 'createTagPolicy_request_configuration_oneOf'
+	if jsonDict["type"] == "createTagPolicy_request_configuration_oneOf" {
+		// try to unmarshal JSON data into CreateTagPolicyRequestConfigurationOneOf
+		err = json.Unmarshal(data, &dst.CreateTagPolicyRequestConfigurationOneOf)
+		if err == nil {
+			return nil // data stored in dst.CreateTagPolicyRequestConfigurationOneOf, return on the first match
+		} else {
 			dst.CreateTagPolicyRequestConfigurationOneOf = nil
-		} else {
-			if err = validator.Validate(dst.CreateTagPolicyRequestConfigurationOneOf); err != nil {
-				dst.CreateTagPolicyRequestConfigurationOneOf = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateTagPolicyRequestConfiguration as CreateTagPolicyRequestConfigurationOneOf: %s", err.Error())
 		}
-	} else {
-		dst.CreateTagPolicyRequestConfigurationOneOf = nil
 	}
 
-	// try to unmarshal data into CreateTagPolicyRequestConfigurationOneOf1
-	err = newStrictDecoder(data).Decode(&dst.CreateTagPolicyRequestConfigurationOneOf1)
-	if err == nil {
-		jsonCreateTagPolicyRequestConfigurationOneOf1, _ := json.Marshal(dst.CreateTagPolicyRequestConfigurationOneOf1)
-		if string(jsonCreateTagPolicyRequestConfigurationOneOf1) == "{}" { // empty struct
+	// check if the discriminator value is 'createTagPolicy_request_configuration_oneOf_1'
+	if jsonDict["type"] == "createTagPolicy_request_configuration_oneOf_1" {
+		// try to unmarshal JSON data into CreateTagPolicyRequestConfigurationOneOf1
+		err = json.Unmarshal(data, &dst.CreateTagPolicyRequestConfigurationOneOf1)
+		if err == nil {
+			return nil // data stored in dst.CreateTagPolicyRequestConfigurationOneOf1, return on the first match
+		} else {
 			dst.CreateTagPolicyRequestConfigurationOneOf1 = nil
-		} else {
-			if err = validator.Validate(dst.CreateTagPolicyRequestConfigurationOneOf1); err != nil {
-				dst.CreateTagPolicyRequestConfigurationOneOf1 = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateTagPolicyRequestConfiguration as CreateTagPolicyRequestConfigurationOneOf1: %s", err.Error())
 		}
-	} else {
-		dst.CreateTagPolicyRequestConfigurationOneOf1 = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.CreateTagPolicyRequestConfigurationOneOf = nil
-		dst.CreateTagPolicyRequestConfigurationOneOf1 = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(CreateTagPolicyRequestConfiguration)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(CreateTagPolicyRequestConfiguration)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

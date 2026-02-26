@@ -30,7 +30,7 @@ import (
 )
 
 func main() {
-	aggregateScalarRequest := *openapiclient.NewAggregateScalarRequest(*openapiclient.NewTimeRange(int32(1704067200), int32(1704067200)), []openapiclient.AggregationQuery{*openapiclient.NewAggregationQuery(openapiclient.Aggregate{AggregateAverage: openapiclient.NewAggregateAverage("Type_example", "Field_example")})}, "DataSource_example") // AggregateScalarRequest | 
+	aggregateScalarRequest := *openapiclient.NewAggregateScalarRequest(*openapiclient.NewTimeRange(int64(1704067200), int64(1704067200)), []openapiclient.AggregationQuery{*openapiclient.NewAggregationQuery(openapiclient.Aggregate{AggregateAverage: openapiclient.NewAggregateAverage("Type_example", "Field_example")})}, "DataSource_example") // AggregateScalarRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -96,7 +96,7 @@ import (
 )
 
 func main() {
-	aggregateTimeseriesRequest := *openapiclient.NewAggregateTimeseriesRequest(*openapiclient.NewTimeRange(int32(1704067200), int32(1704067200)), []openapiclient.AggregationQuery{*openapiclient.NewAggregationQuery(openapiclient.Aggregate{AggregateAverage: openapiclient.NewAggregateAverage("Type_example", "Field_example")})}, "DataSource_example", "AggregationWindow_example") // AggregateTimeseriesRequest | 
+	aggregateTimeseriesRequest := *openapiclient.NewAggregateTimeseriesRequest(*openapiclient.NewTimeRange(int64(1704067200), int64(1704067200)), []openapiclient.AggregationQuery{*openapiclient.NewAggregationQuery(openapiclient.Aggregate{AggregateAverage: openapiclient.NewAggregateAverage("Type_example", "Field_example")})}, "DataSource_example", "AggregationWindow_example") // AggregateTimeseriesRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

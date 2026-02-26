@@ -30,8 +30,8 @@ import (
 )
 
 func main() {
-	from := int32(1704067200) // int32 | Start timestamp in seconds
-	to := int32(1704067200) // int32 | End timestamp in seconds
+	from := int64(1704067200) // int64 | Start timestamp in seconds
+	to := int64(1704067200) // int64 | End timestamp in seconds
 	name := "name_example" // string | The metric name
 
 	configuration := openapiclient.NewConfiguration()
@@ -61,8 +61,8 @@ Other parameters are passed through a pointer to a apiGetMetricRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **from** | **int32** | Start timestamp in seconds | 
- **to** | **int32** | End timestamp in seconds | 
+ **from** | **int64** | Start timestamp in seconds | 
+ **to** | **int64** | End timestamp in seconds | 
 
 
 ### Return type
@@ -104,8 +104,8 @@ import (
 )
 
 func main() {
-	from := int32(1704067200) // int32 | Start timestamp in seconds
-	to := int32(1704067200) // int32 | End timestamp in seconds
+	from := int64(1704067200) // int64 | Start timestamp in seconds
+	to := int64(1704067200) // int64 | End timestamp in seconds
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -130,8 +130,8 @@ Other parameters are passed through a pointer to a apiListMetricsRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **from** | **int32** | Start timestamp in seconds | 
- **to** | **int32** | End timestamp in seconds | 
+ **from** | **int64** | Start timestamp in seconds | 
+ **to** | **int64** | End timestamp in seconds | 
 
 ### Return type
 

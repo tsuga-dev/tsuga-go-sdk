@@ -13,7 +13,6 @@ package tsuga
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/validator.v2"
 )
 
 // ProcessorAnyOf1Params - struct for ProcessorAnyOf1Params
@@ -55,88 +54,62 @@ func ProcessorAnyOf1ParamsOneOf3AsProcessorAnyOf1Params(v *ProcessorAnyOf1Params
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *ProcessorAnyOf1Params) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into ProcessorAnyOf1ParamsOneOf
-	err = newStrictDecoder(data).Decode(&dst.ProcessorAnyOf1ParamsOneOf)
-	if err == nil {
-		jsonProcessorAnyOf1ParamsOneOf, _ := json.Marshal(dst.ProcessorAnyOf1ParamsOneOf)
-		if string(jsonProcessorAnyOf1ParamsOneOf) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// check if the discriminator value is 'Processor_anyOf_1_params_oneOf'
+	if jsonDict["subtype"] == "Processor_anyOf_1_params_oneOf" {
+		// try to unmarshal JSON data into ProcessorAnyOf1ParamsOneOf
+		err = json.Unmarshal(data, &dst.ProcessorAnyOf1ParamsOneOf)
+		if err == nil {
+			return nil // data stored in dst.ProcessorAnyOf1ParamsOneOf, return on the first match
+		} else {
 			dst.ProcessorAnyOf1ParamsOneOf = nil
-		} else {
-			if err = validator.Validate(dst.ProcessorAnyOf1ParamsOneOf); err != nil {
-				dst.ProcessorAnyOf1ParamsOneOf = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal ProcessorAnyOf1Params as ProcessorAnyOf1ParamsOneOf: %s", err.Error())
 		}
-	} else {
-		dst.ProcessorAnyOf1ParamsOneOf = nil
 	}
 
-	// try to unmarshal data into ProcessorAnyOf1ParamsOneOf1
-	err = newStrictDecoder(data).Decode(&dst.ProcessorAnyOf1ParamsOneOf1)
-	if err == nil {
-		jsonProcessorAnyOf1ParamsOneOf1, _ := json.Marshal(dst.ProcessorAnyOf1ParamsOneOf1)
-		if string(jsonProcessorAnyOf1ParamsOneOf1) == "{}" { // empty struct
+	// check if the discriminator value is 'Processor_anyOf_1_params_oneOf_1'
+	if jsonDict["subtype"] == "Processor_anyOf_1_params_oneOf_1" {
+		// try to unmarshal JSON data into ProcessorAnyOf1ParamsOneOf1
+		err = json.Unmarshal(data, &dst.ProcessorAnyOf1ParamsOneOf1)
+		if err == nil {
+			return nil // data stored in dst.ProcessorAnyOf1ParamsOneOf1, return on the first match
+		} else {
 			dst.ProcessorAnyOf1ParamsOneOf1 = nil
-		} else {
-			if err = validator.Validate(dst.ProcessorAnyOf1ParamsOneOf1); err != nil {
-				dst.ProcessorAnyOf1ParamsOneOf1 = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal ProcessorAnyOf1Params as ProcessorAnyOf1ParamsOneOf1: %s", err.Error())
 		}
-	} else {
-		dst.ProcessorAnyOf1ParamsOneOf1 = nil
 	}
 
-	// try to unmarshal data into ProcessorAnyOf1ParamsOneOf2
-	err = newStrictDecoder(data).Decode(&dst.ProcessorAnyOf1ParamsOneOf2)
-	if err == nil {
-		jsonProcessorAnyOf1ParamsOneOf2, _ := json.Marshal(dst.ProcessorAnyOf1ParamsOneOf2)
-		if string(jsonProcessorAnyOf1ParamsOneOf2) == "{}" { // empty struct
+	// check if the discriminator value is 'Processor_anyOf_1_params_oneOf_2'
+	if jsonDict["subtype"] == "Processor_anyOf_1_params_oneOf_2" {
+		// try to unmarshal JSON data into ProcessorAnyOf1ParamsOneOf2
+		err = json.Unmarshal(data, &dst.ProcessorAnyOf1ParamsOneOf2)
+		if err == nil {
+			return nil // data stored in dst.ProcessorAnyOf1ParamsOneOf2, return on the first match
+		} else {
 			dst.ProcessorAnyOf1ParamsOneOf2 = nil
-		} else {
-			if err = validator.Validate(dst.ProcessorAnyOf1ParamsOneOf2); err != nil {
-				dst.ProcessorAnyOf1ParamsOneOf2 = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal ProcessorAnyOf1Params as ProcessorAnyOf1ParamsOneOf2: %s", err.Error())
 		}
-	} else {
-		dst.ProcessorAnyOf1ParamsOneOf2 = nil
 	}
 
-	// try to unmarshal data into ProcessorAnyOf1ParamsOneOf3
-	err = newStrictDecoder(data).Decode(&dst.ProcessorAnyOf1ParamsOneOf3)
-	if err == nil {
-		jsonProcessorAnyOf1ParamsOneOf3, _ := json.Marshal(dst.ProcessorAnyOf1ParamsOneOf3)
-		if string(jsonProcessorAnyOf1ParamsOneOf3) == "{}" { // empty struct
+	// check if the discriminator value is 'Processor_anyOf_1_params_oneOf_3'
+	if jsonDict["subtype"] == "Processor_anyOf_1_params_oneOf_3" {
+		// try to unmarshal JSON data into ProcessorAnyOf1ParamsOneOf3
+		err = json.Unmarshal(data, &dst.ProcessorAnyOf1ParamsOneOf3)
+		if err == nil {
+			return nil // data stored in dst.ProcessorAnyOf1ParamsOneOf3, return on the first match
+		} else {
 			dst.ProcessorAnyOf1ParamsOneOf3 = nil
-		} else {
-			if err = validator.Validate(dst.ProcessorAnyOf1ParamsOneOf3); err != nil {
-				dst.ProcessorAnyOf1ParamsOneOf3 = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal ProcessorAnyOf1Params as ProcessorAnyOf1ParamsOneOf3: %s", err.Error())
 		}
-	} else {
-		dst.ProcessorAnyOf1ParamsOneOf3 = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.ProcessorAnyOf1ParamsOneOf = nil
-		dst.ProcessorAnyOf1ParamsOneOf1 = nil
-		dst.ProcessorAnyOf1ParamsOneOf2 = nil
-		dst.ProcessorAnyOf1ParamsOneOf3 = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(ProcessorAnyOf1Params)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(ProcessorAnyOf1Params)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

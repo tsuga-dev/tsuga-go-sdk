@@ -13,7 +13,6 @@ package tsuga
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/validator.v2"
 )
 
 // ProcessorAnyOf2Params - struct for ProcessorAnyOf2Params
@@ -39,52 +38,38 @@ func ProcessorParamsCreatorMathFormulaAsProcessorAnyOf2Params(v *ProcessorParams
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *ProcessorAnyOf2Params) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into ProcessorParamsCreatorFormatString
-	err = newStrictDecoder(data).Decode(&dst.ProcessorParamsCreatorFormatString)
-	if err == nil {
-		jsonProcessorParamsCreatorFormatString, _ := json.Marshal(dst.ProcessorParamsCreatorFormatString)
-		if string(jsonProcessorParamsCreatorFormatString) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// check if the discriminator value is 'format-string'
+	if jsonDict["subtype"] == "format-string" {
+		// try to unmarshal JSON data into ProcessorParamsCreatorFormatString
+		err = json.Unmarshal(data, &dst.ProcessorParamsCreatorFormatString)
+		if err == nil {
+			return nil // data stored in dst.ProcessorParamsCreatorFormatString, return on the first match
+		} else {
 			dst.ProcessorParamsCreatorFormatString = nil
-		} else {
-			if err = validator.Validate(dst.ProcessorParamsCreatorFormatString); err != nil {
-				dst.ProcessorParamsCreatorFormatString = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal ProcessorAnyOf2Params as ProcessorParamsCreatorFormatString: %s", err.Error())
 		}
-	} else {
-		dst.ProcessorParamsCreatorFormatString = nil
 	}
 
-	// try to unmarshal data into ProcessorParamsCreatorMathFormula
-	err = newStrictDecoder(data).Decode(&dst.ProcessorParamsCreatorMathFormula)
-	if err == nil {
-		jsonProcessorParamsCreatorMathFormula, _ := json.Marshal(dst.ProcessorParamsCreatorMathFormula)
-		if string(jsonProcessorParamsCreatorMathFormula) == "{}" { // empty struct
+	// check if the discriminator value is 'math-formula'
+	if jsonDict["subtype"] == "math-formula" {
+		// try to unmarshal JSON data into ProcessorParamsCreatorMathFormula
+		err = json.Unmarshal(data, &dst.ProcessorParamsCreatorMathFormula)
+		if err == nil {
+			return nil // data stored in dst.ProcessorParamsCreatorMathFormula, return on the first match
+		} else {
 			dst.ProcessorParamsCreatorMathFormula = nil
-		} else {
-			if err = validator.Validate(dst.ProcessorParamsCreatorMathFormula); err != nil {
-				dst.ProcessorParamsCreatorMathFormula = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal ProcessorAnyOf2Params as ProcessorParamsCreatorMathFormula: %s", err.Error())
 		}
-	} else {
-		dst.ProcessorParamsCreatorMathFormula = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.ProcessorParamsCreatorFormatString = nil
-		dst.ProcessorParamsCreatorMathFormula = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(ProcessorAnyOf2Params)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(ProcessorAnyOf2Params)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

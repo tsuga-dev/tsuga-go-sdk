@@ -13,7 +13,6 @@ package tsuga
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/validator.v2"
 )
 
 // GraphVisualization - struct for GraphVisualization
@@ -79,142 +78,98 @@ func GraphVisualizationTopListAsGraphVisualization(v *GraphVisualizationTopList)
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *GraphVisualization) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into GraphVisualizationBar
-	err = newStrictDecoder(data).Decode(&dst.GraphVisualizationBar)
-	if err == nil {
-		jsonGraphVisualizationBar, _ := json.Marshal(dst.GraphVisualizationBar)
-		if string(jsonGraphVisualizationBar) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// check if the discriminator value is 'bar'
+	if jsonDict["type"] == "bar" {
+		// try to unmarshal JSON data into GraphVisualizationBar
+		err = json.Unmarshal(data, &dst.GraphVisualizationBar)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationBar, return on the first match
+		} else {
 			dst.GraphVisualizationBar = nil
-		} else {
-			if err = validator.Validate(dst.GraphVisualizationBar); err != nil {
-				dst.GraphVisualizationBar = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationBar: %s", err.Error())
 		}
-	} else {
-		dst.GraphVisualizationBar = nil
 	}
 
-	// try to unmarshal data into GraphVisualizationList
-	err = newStrictDecoder(data).Decode(&dst.GraphVisualizationList)
-	if err == nil {
-		jsonGraphVisualizationList, _ := json.Marshal(dst.GraphVisualizationList)
-		if string(jsonGraphVisualizationList) == "{}" { // empty struct
+	// check if the discriminator value is 'list'
+	if jsonDict["type"] == "list" {
+		// try to unmarshal JSON data into GraphVisualizationList
+		err = json.Unmarshal(data, &dst.GraphVisualizationList)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationList, return on the first match
+		} else {
 			dst.GraphVisualizationList = nil
-		} else {
-			if err = validator.Validate(dst.GraphVisualizationList); err != nil {
-				dst.GraphVisualizationList = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationList: %s", err.Error())
 		}
-	} else {
-		dst.GraphVisualizationList = nil
 	}
 
-	// try to unmarshal data into GraphVisualizationNote
-	err = newStrictDecoder(data).Decode(&dst.GraphVisualizationNote)
-	if err == nil {
-		jsonGraphVisualizationNote, _ := json.Marshal(dst.GraphVisualizationNote)
-		if string(jsonGraphVisualizationNote) == "{}" { // empty struct
+	// check if the discriminator value is 'note'
+	if jsonDict["type"] == "note" {
+		// try to unmarshal JSON data into GraphVisualizationNote
+		err = json.Unmarshal(data, &dst.GraphVisualizationNote)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationNote, return on the first match
+		} else {
 			dst.GraphVisualizationNote = nil
-		} else {
-			if err = validator.Validate(dst.GraphVisualizationNote); err != nil {
-				dst.GraphVisualizationNote = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationNote: %s", err.Error())
 		}
-	} else {
-		dst.GraphVisualizationNote = nil
 	}
 
-	// try to unmarshal data into GraphVisualizationPie
-	err = newStrictDecoder(data).Decode(&dst.GraphVisualizationPie)
-	if err == nil {
-		jsonGraphVisualizationPie, _ := json.Marshal(dst.GraphVisualizationPie)
-		if string(jsonGraphVisualizationPie) == "{}" { // empty struct
+	// check if the discriminator value is 'pie'
+	if jsonDict["type"] == "pie" {
+		// try to unmarshal JSON data into GraphVisualizationPie
+		err = json.Unmarshal(data, &dst.GraphVisualizationPie)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationPie, return on the first match
+		} else {
 			dst.GraphVisualizationPie = nil
-		} else {
-			if err = validator.Validate(dst.GraphVisualizationPie); err != nil {
-				dst.GraphVisualizationPie = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationPie: %s", err.Error())
 		}
-	} else {
-		dst.GraphVisualizationPie = nil
 	}
 
-	// try to unmarshal data into GraphVisualizationQueryValue
-	err = newStrictDecoder(data).Decode(&dst.GraphVisualizationQueryValue)
-	if err == nil {
-		jsonGraphVisualizationQueryValue, _ := json.Marshal(dst.GraphVisualizationQueryValue)
-		if string(jsonGraphVisualizationQueryValue) == "{}" { // empty struct
+	// check if the discriminator value is 'query-value'
+	if jsonDict["type"] == "query-value" {
+		// try to unmarshal JSON data into GraphVisualizationQueryValue
+		err = json.Unmarshal(data, &dst.GraphVisualizationQueryValue)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationQueryValue, return on the first match
+		} else {
 			dst.GraphVisualizationQueryValue = nil
-		} else {
-			if err = validator.Validate(dst.GraphVisualizationQueryValue); err != nil {
-				dst.GraphVisualizationQueryValue = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationQueryValue: %s", err.Error())
 		}
-	} else {
-		dst.GraphVisualizationQueryValue = nil
 	}
 
-	// try to unmarshal data into GraphVisualizationTimeseries
-	err = newStrictDecoder(data).Decode(&dst.GraphVisualizationTimeseries)
-	if err == nil {
-		jsonGraphVisualizationTimeseries, _ := json.Marshal(dst.GraphVisualizationTimeseries)
-		if string(jsonGraphVisualizationTimeseries) == "{}" { // empty struct
+	// check if the discriminator value is 'timeseries'
+	if jsonDict["type"] == "timeseries" {
+		// try to unmarshal JSON data into GraphVisualizationTimeseries
+		err = json.Unmarshal(data, &dst.GraphVisualizationTimeseries)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationTimeseries, return on the first match
+		} else {
 			dst.GraphVisualizationTimeseries = nil
-		} else {
-			if err = validator.Validate(dst.GraphVisualizationTimeseries); err != nil {
-				dst.GraphVisualizationTimeseries = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationTimeseries: %s", err.Error())
 		}
-	} else {
-		dst.GraphVisualizationTimeseries = nil
 	}
 
-	// try to unmarshal data into GraphVisualizationTopList
-	err = newStrictDecoder(data).Decode(&dst.GraphVisualizationTopList)
-	if err == nil {
-		jsonGraphVisualizationTopList, _ := json.Marshal(dst.GraphVisualizationTopList)
-		if string(jsonGraphVisualizationTopList) == "{}" { // empty struct
+	// check if the discriminator value is 'top-list'
+	if jsonDict["type"] == "top-list" {
+		// try to unmarshal JSON data into GraphVisualizationTopList
+		err = json.Unmarshal(data, &dst.GraphVisualizationTopList)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationTopList, return on the first match
+		} else {
 			dst.GraphVisualizationTopList = nil
-		} else {
-			if err = validator.Validate(dst.GraphVisualizationTopList); err != nil {
-				dst.GraphVisualizationTopList = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationTopList: %s", err.Error())
 		}
-	} else {
-		dst.GraphVisualizationTopList = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.GraphVisualizationBar = nil
-		dst.GraphVisualizationList = nil
-		dst.GraphVisualizationNote = nil
-		dst.GraphVisualizationPie = nil
-		dst.GraphVisualizationQueryValue = nil
-		dst.GraphVisualizationTimeseries = nil
-		dst.GraphVisualizationTopList = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(GraphVisualization)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(GraphVisualization)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

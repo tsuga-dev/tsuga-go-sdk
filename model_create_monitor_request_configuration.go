@@ -13,7 +13,6 @@ package tsuga
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/validator.v2"
 )
 
 // CreateMonitorRequestConfiguration - struct for CreateMonitorRequestConfiguration
@@ -71,124 +70,86 @@ func MonitorConfigurationMetricAsCreateMonitorRequestConfiguration(v *MonitorCon
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *CreateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into MonitorConfigurationAnomalyLog
-	err = newStrictDecoder(data).Decode(&dst.MonitorConfigurationAnomalyLog)
-	if err == nil {
-		jsonMonitorConfigurationAnomalyLog, _ := json.Marshal(dst.MonitorConfigurationAnomalyLog)
-		if string(jsonMonitorConfigurationAnomalyLog) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// check if the discriminator value is 'anomaly-log'
+	if jsonDict["type"] == "anomaly-log" {
+		// try to unmarshal JSON data into MonitorConfigurationAnomalyLog
+		err = json.Unmarshal(data, &dst.MonitorConfigurationAnomalyLog)
+		if err == nil {
+			return nil // data stored in dst.MonitorConfigurationAnomalyLog, return on the first match
+		} else {
 			dst.MonitorConfigurationAnomalyLog = nil
-		} else {
-			if err = validator.Validate(dst.MonitorConfigurationAnomalyLog); err != nil {
-				dst.MonitorConfigurationAnomalyLog = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateMonitorRequestConfiguration as MonitorConfigurationAnomalyLog: %s", err.Error())
 		}
-	} else {
-		dst.MonitorConfigurationAnomalyLog = nil
 	}
 
-	// try to unmarshal data into MonitorConfigurationAnomalyMetric
-	err = newStrictDecoder(data).Decode(&dst.MonitorConfigurationAnomalyMetric)
-	if err == nil {
-		jsonMonitorConfigurationAnomalyMetric, _ := json.Marshal(dst.MonitorConfigurationAnomalyMetric)
-		if string(jsonMonitorConfigurationAnomalyMetric) == "{}" { // empty struct
+	// check if the discriminator value is 'anomaly-metric'
+	if jsonDict["type"] == "anomaly-metric" {
+		// try to unmarshal JSON data into MonitorConfigurationAnomalyMetric
+		err = json.Unmarshal(data, &dst.MonitorConfigurationAnomalyMetric)
+		if err == nil {
+			return nil // data stored in dst.MonitorConfigurationAnomalyMetric, return on the first match
+		} else {
 			dst.MonitorConfigurationAnomalyMetric = nil
-		} else {
-			if err = validator.Validate(dst.MonitorConfigurationAnomalyMetric); err != nil {
-				dst.MonitorConfigurationAnomalyMetric = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateMonitorRequestConfiguration as MonitorConfigurationAnomalyMetric: %s", err.Error())
 		}
-	} else {
-		dst.MonitorConfigurationAnomalyMetric = nil
 	}
 
-	// try to unmarshal data into MonitorConfigurationCertificateExpiry
-	err = newStrictDecoder(data).Decode(&dst.MonitorConfigurationCertificateExpiry)
-	if err == nil {
-		jsonMonitorConfigurationCertificateExpiry, _ := json.Marshal(dst.MonitorConfigurationCertificateExpiry)
-		if string(jsonMonitorConfigurationCertificateExpiry) == "{}" { // empty struct
+	// check if the discriminator value is 'certificate-expiry'
+	if jsonDict["type"] == "certificate-expiry" {
+		// try to unmarshal JSON data into MonitorConfigurationCertificateExpiry
+		err = json.Unmarshal(data, &dst.MonitorConfigurationCertificateExpiry)
+		if err == nil {
+			return nil // data stored in dst.MonitorConfigurationCertificateExpiry, return on the first match
+		} else {
 			dst.MonitorConfigurationCertificateExpiry = nil
-		} else {
-			if err = validator.Validate(dst.MonitorConfigurationCertificateExpiry); err != nil {
-				dst.MonitorConfigurationCertificateExpiry = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateMonitorRequestConfiguration as MonitorConfigurationCertificateExpiry: %s", err.Error())
 		}
-	} else {
-		dst.MonitorConfigurationCertificateExpiry = nil
 	}
 
-	// try to unmarshal data into MonitorConfigurationLog
-	err = newStrictDecoder(data).Decode(&dst.MonitorConfigurationLog)
-	if err == nil {
-		jsonMonitorConfigurationLog, _ := json.Marshal(dst.MonitorConfigurationLog)
-		if string(jsonMonitorConfigurationLog) == "{}" { // empty struct
+	// check if the discriminator value is 'log'
+	if jsonDict["type"] == "log" {
+		// try to unmarshal JSON data into MonitorConfigurationLog
+		err = json.Unmarshal(data, &dst.MonitorConfigurationLog)
+		if err == nil {
+			return nil // data stored in dst.MonitorConfigurationLog, return on the first match
+		} else {
 			dst.MonitorConfigurationLog = nil
-		} else {
-			if err = validator.Validate(dst.MonitorConfigurationLog); err != nil {
-				dst.MonitorConfigurationLog = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateMonitorRequestConfiguration as MonitorConfigurationLog: %s", err.Error())
 		}
-	} else {
-		dst.MonitorConfigurationLog = nil
 	}
 
-	// try to unmarshal data into MonitorConfigurationLogErrorPattern
-	err = newStrictDecoder(data).Decode(&dst.MonitorConfigurationLogErrorPattern)
-	if err == nil {
-		jsonMonitorConfigurationLogErrorPattern, _ := json.Marshal(dst.MonitorConfigurationLogErrorPattern)
-		if string(jsonMonitorConfigurationLogErrorPattern) == "{}" { // empty struct
+	// check if the discriminator value is 'log-error-pattern'
+	if jsonDict["type"] == "log-error-pattern" {
+		// try to unmarshal JSON data into MonitorConfigurationLogErrorPattern
+		err = json.Unmarshal(data, &dst.MonitorConfigurationLogErrorPattern)
+		if err == nil {
+			return nil // data stored in dst.MonitorConfigurationLogErrorPattern, return on the first match
+		} else {
 			dst.MonitorConfigurationLogErrorPattern = nil
-		} else {
-			if err = validator.Validate(dst.MonitorConfigurationLogErrorPattern); err != nil {
-				dst.MonitorConfigurationLogErrorPattern = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateMonitorRequestConfiguration as MonitorConfigurationLogErrorPattern: %s", err.Error())
 		}
-	} else {
-		dst.MonitorConfigurationLogErrorPattern = nil
 	}
 
-	// try to unmarshal data into MonitorConfigurationMetric
-	err = newStrictDecoder(data).Decode(&dst.MonitorConfigurationMetric)
-	if err == nil {
-		jsonMonitorConfigurationMetric, _ := json.Marshal(dst.MonitorConfigurationMetric)
-		if string(jsonMonitorConfigurationMetric) == "{}" { // empty struct
+	// check if the discriminator value is 'metric'
+	if jsonDict["type"] == "metric" {
+		// try to unmarshal JSON data into MonitorConfigurationMetric
+		err = json.Unmarshal(data, &dst.MonitorConfigurationMetric)
+		if err == nil {
+			return nil // data stored in dst.MonitorConfigurationMetric, return on the first match
+		} else {
 			dst.MonitorConfigurationMetric = nil
-		} else {
-			if err = validator.Validate(dst.MonitorConfigurationMetric); err != nil {
-				dst.MonitorConfigurationMetric = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateMonitorRequestConfiguration as MonitorConfigurationMetric: %s", err.Error())
 		}
-	} else {
-		dst.MonitorConfigurationMetric = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.MonitorConfigurationAnomalyLog = nil
-		dst.MonitorConfigurationAnomalyMetric = nil
-		dst.MonitorConfigurationCertificateExpiry = nil
-		dst.MonitorConfigurationLog = nil
-		dst.MonitorConfigurationLogErrorPattern = nil
-		dst.MonitorConfigurationMetric = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(CreateMonitorRequestConfiguration)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(CreateMonitorRequestConfiguration)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

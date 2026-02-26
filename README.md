@@ -91,6 +91,8 @@ Class | Method | HTTP request | Description
 *IngestionApiKeysAPI* | [**GetIngestionApiKey**](docs/IngestionApiKeysAPI.md#getingestionapikey) | **Get** /v1/ingestion-api-keys/{id} | 
 *IngestionApiKeysAPI* | [**ListIngestionApiKeys**](docs/IngestionApiKeysAPI.md#listingestionapikeys) | **Get** /v1/ingestion-api-keys | 
 *IngestionApiKeysAPI* | [**UpdateIngestionApiKey**](docs/IngestionApiKeysAPI.md#updateingestionapikey) | **Put** /v1/ingestion-api-keys/{id} | 
+*InvitationsAPI* | [**InviteUsers**](docs/InvitationsAPI.md#inviteusers) | **Post** /v1/invitations | 
+*InvitationsAPI* | [**ListInvitations**](docs/InvitationsAPI.md#listinvitations) | **Get** /v1/invitations | 
 *LogsAPI* | [**SearchLogs**](docs/LogsAPI.md#searchlogs) | **Get** /v1/logs/search | 
 *MetricsAPI* | [**GetMetric**](docs/MetricsAPI.md#getmetric) | **Get** /v1/metrics/{name} | 
 *MetricsAPI* | [**ListMetrics**](docs/MetricsAPI.md#listmetrics) | **Get** /v1/metrics | 
@@ -119,6 +121,8 @@ Class | Method | HTTP request | Description
 *RoutesAPI* | [**GetRoute**](docs/RoutesAPI.md#getroute) | **Get** /v1/routes/{id} | 
 *RoutesAPI* | [**ListRoutes**](docs/RoutesAPI.md#listroutes) | **Get** /v1/routes | 
 *RoutesAPI* | [**UpdateRoute**](docs/RoutesAPI.md#updateroute) | **Put** /v1/routes/{id} | 
+*ServicesAPI* | [**GetService**](docs/ServicesAPI.md#getservice) | **Get** /v1/services/{serviceId} | 
+*ServicesAPI* | [**ListServices**](docs/ServicesAPI.md#listservices) | **Get** /v1/services | 
 *TagPoliciesAPI* | [**CreateTagPolicy**](docs/TagPoliciesAPI.md#createtagpolicy) | **Post** /v1/tag-policies | 
 *TagPoliciesAPI* | [**DeleteTagPolicy**](docs/TagPoliciesAPI.md#deletetagpolicy) | **Delete** /v1/tag-policies/{id} | 
 *TagPoliciesAPI* | [**GetTagPolicy**](docs/TagPoliciesAPI.md#gettagpolicy) | **Get** /v1/tag-policies/{id} | 
@@ -220,6 +224,7 @@ Class | Method | HTTP request | Description
  - [FunctionSqrt](docs/FunctionSqrt.md)
  - [GetIngestionApiKey200Response](docs/GetIngestionApiKey200Response.md)
  - [GetMetric200Response](docs/GetMetric200Response.md)
+ - [GetService200Response](docs/GetService200Response.md)
  - [GetTeamMemberships200Response](docs/GetTeamMemberships200Response.md)
  - [GetUser200Response](docs/GetUser200Response.md)
  - [Graph](docs/Graph.md)
@@ -234,8 +239,12 @@ Class | Method | HTTP request | Description
  - [GraphVisualizationTimeseriesTimeBucket](docs/GraphVisualizationTimeseriesTimeBucket.md)
  - [GraphVisualizationTopList](docs/GraphVisualizationTopList.md)
  - [IngestionApiKey](docs/IngestionApiKey.md)
+ - [InviteUsers200Response](docs/InviteUsers200Response.md)
+ - [InviteUsers200ResponseData](docs/InviteUsers200ResponseData.md)
+ - [InviteUsersRequestInner](docs/InviteUsersRequestInner.md)
  - [ListDashboards200Response](docs/ListDashboards200Response.md)
  - [ListIngestionApiKeys200Response](docs/ListIngestionApiKeys200Response.md)
+ - [ListInvitations200Response](docs/ListInvitations200Response.md)
  - [ListMetrics200Response](docs/ListMetrics200Response.md)
  - [ListMetrics200ResponseDataInner](docs/ListMetrics200ResponseDataInner.md)
  - [ListMonitors200Response](docs/ListMonitors200Response.md)
@@ -243,6 +252,7 @@ Class | Method | HTTP request | Description
  - [ListNotificationSilences200Response](docs/ListNotificationSilences200Response.md)
  - [ListRetentionPolicies200Response](docs/ListRetentionPolicies200Response.md)
  - [ListRoutes200Response](docs/ListRoutes200Response.md)
+ - [ListServices200Response](docs/ListServices200Response.md)
  - [ListTagPolicies200Response](docs/ListTagPolicies200Response.md)
  - [ListTeams200Response](docs/ListTeams200Response.md)
  - [ListUsers200Response](docs/ListUsers200Response.md)
@@ -330,6 +340,10 @@ Class | Method | HTTP request | Description
  - [SeriesPointsInner](docs/SeriesPointsInner.md)
  - [ServerErrorEnvelope](docs/ServerErrorEnvelope.md)
  - [ServerErrorResponse](docs/ServerErrorResponse.md)
+ - [Service](docs/Service.md)
+ - [ServiceLanguagesInner](docs/ServiceLanguagesInner.md)
+ - [ServiceTeamsInner](docs/ServiceTeamsInner.md)
+ - [ServiceVersionsInner](docs/ServiceVersionsInner.md)
  - [Tag](docs/Tag.md)
  - [TagPolicy](docs/TagPolicy.md)
  - [Team](docs/Team.md)
@@ -342,6 +356,7 @@ Class | Method | HTTP request | Description
  - [UpdateTeamMembership200Response](docs/UpdateTeamMembership200Response.md)
  - [UpdateTeamMembershipRequest](docs/UpdateTeamMembershipRequest.md)
  - [User](docs/User.md)
+ - [UserInvitation](docs/UserInvitation.md)
  - [WidgetListColumn](docs/WidgetListColumn.md)
 
 

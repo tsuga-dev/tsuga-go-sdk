@@ -13,7 +13,6 @@ package tsuga
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/validator.v2"
 )
 
 // Normalizer - struct for Normalizer
@@ -71,124 +70,86 @@ func DataNormalizerPercentAsNormalizer(v *DataNormalizerPercent) Normalizer {
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *Normalizer) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into DataNormalizerCustom
-	err = newStrictDecoder(data).Decode(&dst.DataNormalizerCustom)
-	if err == nil {
-		jsonDataNormalizerCustom, _ := json.Marshal(dst.DataNormalizerCustom)
-		if string(jsonDataNormalizerCustom) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// check if the discriminator value is 'custom'
+	if jsonDict["type"] == "custom" {
+		// try to unmarshal JSON data into DataNormalizerCustom
+		err = json.Unmarshal(data, &dst.DataNormalizerCustom)
+		if err == nil {
+			return nil // data stored in dst.DataNormalizerCustom, return on the first match
+		} else {
 			dst.DataNormalizerCustom = nil
-		} else {
-			if err = validator.Validate(dst.DataNormalizerCustom); err != nil {
-				dst.DataNormalizerCustom = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Normalizer as DataNormalizerCustom: %s", err.Error())
 		}
-	} else {
-		dst.DataNormalizerCustom = nil
 	}
 
-	// try to unmarshal data into DataNormalizerData
-	err = newStrictDecoder(data).Decode(&dst.DataNormalizerData)
-	if err == nil {
-		jsonDataNormalizerData, _ := json.Marshal(dst.DataNormalizerData)
-		if string(jsonDataNormalizerData) == "{}" { // empty struct
+	// check if the discriminator value is 'data'
+	if jsonDict["type"] == "data" {
+		// try to unmarshal JSON data into DataNormalizerData
+		err = json.Unmarshal(data, &dst.DataNormalizerData)
+		if err == nil {
+			return nil // data stored in dst.DataNormalizerData, return on the first match
+		} else {
 			dst.DataNormalizerData = nil
-		} else {
-			if err = validator.Validate(dst.DataNormalizerData); err != nil {
-				dst.DataNormalizerData = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Normalizer as DataNormalizerData: %s", err.Error())
 		}
-	} else {
-		dst.DataNormalizerData = nil
 	}
 
-	// try to unmarshal data into DataNormalizerDate
-	err = newStrictDecoder(data).Decode(&dst.DataNormalizerDate)
-	if err == nil {
-		jsonDataNormalizerDate, _ := json.Marshal(dst.DataNormalizerDate)
-		if string(jsonDataNormalizerDate) == "{}" { // empty struct
+	// check if the discriminator value is 'date'
+	if jsonDict["type"] == "date" {
+		// try to unmarshal JSON data into DataNormalizerDate
+		err = json.Unmarshal(data, &dst.DataNormalizerDate)
+		if err == nil {
+			return nil // data stored in dst.DataNormalizerDate, return on the first match
+		} else {
 			dst.DataNormalizerDate = nil
-		} else {
-			if err = validator.Validate(dst.DataNormalizerDate); err != nil {
-				dst.DataNormalizerDate = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Normalizer as DataNormalizerDate: %s", err.Error())
 		}
-	} else {
-		dst.DataNormalizerDate = nil
 	}
 
-	// try to unmarshal data into DataNormalizerDuration
-	err = newStrictDecoder(data).Decode(&dst.DataNormalizerDuration)
-	if err == nil {
-		jsonDataNormalizerDuration, _ := json.Marshal(dst.DataNormalizerDuration)
-		if string(jsonDataNormalizerDuration) == "{}" { // empty struct
+	// check if the discriminator value is 'duration'
+	if jsonDict["type"] == "duration" {
+		// try to unmarshal JSON data into DataNormalizerDuration
+		err = json.Unmarshal(data, &dst.DataNormalizerDuration)
+		if err == nil {
+			return nil // data stored in dst.DataNormalizerDuration, return on the first match
+		} else {
 			dst.DataNormalizerDuration = nil
-		} else {
-			if err = validator.Validate(dst.DataNormalizerDuration); err != nil {
-				dst.DataNormalizerDuration = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Normalizer as DataNormalizerDuration: %s", err.Error())
 		}
-	} else {
-		dst.DataNormalizerDuration = nil
 	}
 
-	// try to unmarshal data into DataNormalizerLevel
-	err = newStrictDecoder(data).Decode(&dst.DataNormalizerLevel)
-	if err == nil {
-		jsonDataNormalizerLevel, _ := json.Marshal(dst.DataNormalizerLevel)
-		if string(jsonDataNormalizerLevel) == "{}" { // empty struct
+	// check if the discriminator value is 'level'
+	if jsonDict["type"] == "level" {
+		// try to unmarshal JSON data into DataNormalizerLevel
+		err = json.Unmarshal(data, &dst.DataNormalizerLevel)
+		if err == nil {
+			return nil // data stored in dst.DataNormalizerLevel, return on the first match
+		} else {
 			dst.DataNormalizerLevel = nil
-		} else {
-			if err = validator.Validate(dst.DataNormalizerLevel); err != nil {
-				dst.DataNormalizerLevel = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Normalizer as DataNormalizerLevel: %s", err.Error())
 		}
-	} else {
-		dst.DataNormalizerLevel = nil
 	}
 
-	// try to unmarshal data into DataNormalizerPercent
-	err = newStrictDecoder(data).Decode(&dst.DataNormalizerPercent)
-	if err == nil {
-		jsonDataNormalizerPercent, _ := json.Marshal(dst.DataNormalizerPercent)
-		if string(jsonDataNormalizerPercent) == "{}" { // empty struct
+	// check if the discriminator value is 'percent'
+	if jsonDict["type"] == "percent" {
+		// try to unmarshal JSON data into DataNormalizerPercent
+		err = json.Unmarshal(data, &dst.DataNormalizerPercent)
+		if err == nil {
+			return nil // data stored in dst.DataNormalizerPercent, return on the first match
+		} else {
 			dst.DataNormalizerPercent = nil
-		} else {
-			if err = validator.Validate(dst.DataNormalizerPercent); err != nil {
-				dst.DataNormalizerPercent = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal Normalizer as DataNormalizerPercent: %s", err.Error())
 		}
-	} else {
-		dst.DataNormalizerPercent = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.DataNormalizerCustom = nil
-		dst.DataNormalizerData = nil
-		dst.DataNormalizerDate = nil
-		dst.DataNormalizerDuration = nil
-		dst.DataNormalizerLevel = nil
-		dst.DataNormalizerPercent = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(Normalizer)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(Normalizer)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

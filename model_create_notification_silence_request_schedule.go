@@ -13,7 +13,6 @@ package tsuga
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/validator.v2"
 )
 
 // CreateNotificationSilenceRequestSchedule - Schedule defining when the silence is active
@@ -39,52 +38,38 @@ func CreateNotificationSilenceRequestScheduleOneOf1AsCreateNotificationSilenceRe
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *CreateNotificationSilenceRequestSchedule) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into CreateNotificationSilenceRequestScheduleOneOf
-	err = newStrictDecoder(data).Decode(&dst.CreateNotificationSilenceRequestScheduleOneOf)
-	if err == nil {
-		jsonCreateNotificationSilenceRequestScheduleOneOf, _ := json.Marshal(dst.CreateNotificationSilenceRequestScheduleOneOf)
-		if string(jsonCreateNotificationSilenceRequestScheduleOneOf) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// check if the discriminator value is 'createNotificationSilence_request_schedule_oneOf'
+	if jsonDict["type"] == "createNotificationSilence_request_schedule_oneOf" {
+		// try to unmarshal JSON data into CreateNotificationSilenceRequestScheduleOneOf
+		err = json.Unmarshal(data, &dst.CreateNotificationSilenceRequestScheduleOneOf)
+		if err == nil {
+			return nil // data stored in dst.CreateNotificationSilenceRequestScheduleOneOf, return on the first match
+		} else {
 			dst.CreateNotificationSilenceRequestScheduleOneOf = nil
-		} else {
-			if err = validator.Validate(dst.CreateNotificationSilenceRequestScheduleOneOf); err != nil {
-				dst.CreateNotificationSilenceRequestScheduleOneOf = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateNotificationSilenceRequestSchedule as CreateNotificationSilenceRequestScheduleOneOf: %s", err.Error())
 		}
-	} else {
-		dst.CreateNotificationSilenceRequestScheduleOneOf = nil
 	}
 
-	// try to unmarshal data into CreateNotificationSilenceRequestScheduleOneOf1
-	err = newStrictDecoder(data).Decode(&dst.CreateNotificationSilenceRequestScheduleOneOf1)
-	if err == nil {
-		jsonCreateNotificationSilenceRequestScheduleOneOf1, _ := json.Marshal(dst.CreateNotificationSilenceRequestScheduleOneOf1)
-		if string(jsonCreateNotificationSilenceRequestScheduleOneOf1) == "{}" { // empty struct
+	// check if the discriminator value is 'createNotificationSilence_request_schedule_oneOf_1'
+	if jsonDict["type"] == "createNotificationSilence_request_schedule_oneOf_1" {
+		// try to unmarshal JSON data into CreateNotificationSilenceRequestScheduleOneOf1
+		err = json.Unmarshal(data, &dst.CreateNotificationSilenceRequestScheduleOneOf1)
+		if err == nil {
+			return nil // data stored in dst.CreateNotificationSilenceRequestScheduleOneOf1, return on the first match
+		} else {
 			dst.CreateNotificationSilenceRequestScheduleOneOf1 = nil
-		} else {
-			if err = validator.Validate(dst.CreateNotificationSilenceRequestScheduleOneOf1); err != nil {
-				dst.CreateNotificationSilenceRequestScheduleOneOf1 = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal CreateNotificationSilenceRequestSchedule as CreateNotificationSilenceRequestScheduleOneOf1: %s", err.Error())
 		}
-	} else {
-		dst.CreateNotificationSilenceRequestScheduleOneOf1 = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.CreateNotificationSilenceRequestScheduleOneOf = nil
-		dst.CreateNotificationSilenceRequestScheduleOneOf1 = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(CreateNotificationSilenceRequestSchedule)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(CreateNotificationSilenceRequestSchedule)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

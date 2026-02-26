@@ -29,8 +29,8 @@ import (
 )
 
 func main() {
-	from := int32(1704067200) // int32 | Start timestamp in seconds
-	to := int32(1704067200) // int32 | End timestamp in seconds
+	from := int64(1704067200) // int64 | Start timestamp in seconds
+	to := int64(1704067200) // int64 | End timestamp in seconds
 	query := "query_example" // string |  (optional)
 	maxResults := float32(8.14) // float32 |  (optional)
 
@@ -57,8 +57,8 @@ Other parameters are passed through a pointer to a apiSearchLogsRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **from** | **int32** | Start timestamp in seconds | 
- **to** | **int32** | End timestamp in seconds | 
+ **from** | **int64** | Start timestamp in seconds | 
+ **to** | **int64** | End timestamp in seconds | 
  **query** | **string** |  | 
  **maxResults** | **float32** |  | 
 

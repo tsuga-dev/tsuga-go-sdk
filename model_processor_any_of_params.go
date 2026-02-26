@@ -13,7 +13,6 @@ package tsuga
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/validator.v2"
 )
 
 // ProcessorAnyOfParams - struct for ProcessorAnyOfParams
@@ -47,70 +46,50 @@ func ProcessorParamsMapperMapTimestampAsProcessorAnyOfParams(v *ProcessorParamsM
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *ProcessorAnyOfParams) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into ProcessorParamsMapperMapAttributes
-	err = newStrictDecoder(data).Decode(&dst.ProcessorParamsMapperMapAttributes)
-	if err == nil {
-		jsonProcessorParamsMapperMapAttributes, _ := json.Marshal(dst.ProcessorParamsMapperMapAttributes)
-		if string(jsonProcessorParamsMapperMapAttributes) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// check if the discriminator value is 'map-attributes'
+	if jsonDict["subtype"] == "map-attributes" {
+		// try to unmarshal JSON data into ProcessorParamsMapperMapAttributes
+		err = json.Unmarshal(data, &dst.ProcessorParamsMapperMapAttributes)
+		if err == nil {
+			return nil // data stored in dst.ProcessorParamsMapperMapAttributes, return on the first match
+		} else {
 			dst.ProcessorParamsMapperMapAttributes = nil
-		} else {
-			if err = validator.Validate(dst.ProcessorParamsMapperMapAttributes); err != nil {
-				dst.ProcessorParamsMapperMapAttributes = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal ProcessorAnyOfParams as ProcessorParamsMapperMapAttributes: %s", err.Error())
 		}
-	} else {
-		dst.ProcessorParamsMapperMapAttributes = nil
 	}
 
-	// try to unmarshal data into ProcessorParamsMapperMapLevel
-	err = newStrictDecoder(data).Decode(&dst.ProcessorParamsMapperMapLevel)
-	if err == nil {
-		jsonProcessorParamsMapperMapLevel, _ := json.Marshal(dst.ProcessorParamsMapperMapLevel)
-		if string(jsonProcessorParamsMapperMapLevel) == "{}" { // empty struct
+	// check if the discriminator value is 'map-level'
+	if jsonDict["subtype"] == "map-level" {
+		// try to unmarshal JSON data into ProcessorParamsMapperMapLevel
+		err = json.Unmarshal(data, &dst.ProcessorParamsMapperMapLevel)
+		if err == nil {
+			return nil // data stored in dst.ProcessorParamsMapperMapLevel, return on the first match
+		} else {
 			dst.ProcessorParamsMapperMapLevel = nil
-		} else {
-			if err = validator.Validate(dst.ProcessorParamsMapperMapLevel); err != nil {
-				dst.ProcessorParamsMapperMapLevel = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal ProcessorAnyOfParams as ProcessorParamsMapperMapLevel: %s", err.Error())
 		}
-	} else {
-		dst.ProcessorParamsMapperMapLevel = nil
 	}
 
-	// try to unmarshal data into ProcessorParamsMapperMapTimestamp
-	err = newStrictDecoder(data).Decode(&dst.ProcessorParamsMapperMapTimestamp)
-	if err == nil {
-		jsonProcessorParamsMapperMapTimestamp, _ := json.Marshal(dst.ProcessorParamsMapperMapTimestamp)
-		if string(jsonProcessorParamsMapperMapTimestamp) == "{}" { // empty struct
+	// check if the discriminator value is 'map-timestamp'
+	if jsonDict["subtype"] == "map-timestamp" {
+		// try to unmarshal JSON data into ProcessorParamsMapperMapTimestamp
+		err = json.Unmarshal(data, &dst.ProcessorParamsMapperMapTimestamp)
+		if err == nil {
+			return nil // data stored in dst.ProcessorParamsMapperMapTimestamp, return on the first match
+		} else {
 			dst.ProcessorParamsMapperMapTimestamp = nil
-		} else {
-			if err = validator.Validate(dst.ProcessorParamsMapperMapTimestamp); err != nil {
-				dst.ProcessorParamsMapperMapTimestamp = nil
-			} else {
-				match++
-			}
+			return fmt.Errorf("failed to unmarshal ProcessorAnyOfParams as ProcessorParamsMapperMapTimestamp: %s", err.Error())
 		}
-	} else {
-		dst.ProcessorParamsMapperMapTimestamp = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.ProcessorParamsMapperMapAttributes = nil
-		dst.ProcessorParamsMapperMapLevel = nil
-		dst.ProcessorParamsMapperMapTimestamp = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(ProcessorAnyOfParams)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(ProcessorAnyOfParams)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
