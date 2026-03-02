@@ -91,9 +91,9 @@ func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader: map[string]string{
 			"x-tsuga-source":         "go-sdk",
-			"x-tsuga-source-version": "0.0.1",
+			"x-tsuga-source-version": "1.0.0",
 		},
-		UserAgent: "tsuga-go-sdk/0.0.1",
+		UserAgent: "tsuga-go-sdk/1.0.0",
 		Debug:     false,
 		Servers: ServerConfigurations{
 			{
