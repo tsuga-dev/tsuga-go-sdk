@@ -3989,6 +3989,7 @@ components:
       required:
       - results
       title: ScalarAggregationResponse
+      x-internal: true
     AggregateScalarResponse:
       properties:
         requestId:
@@ -3999,6 +4000,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     TimeseriesAggregationResponse:
       description: Timeseries aggregation response with points over time
       example:
@@ -4020,6 +4022,7 @@ components:
       required:
       - series
       title: TimeseriesAggregationResponse
+      x-internal: true
     AggregateTimeseriesResponse:
       properties:
         requestId:
@@ -4030,6 +4033,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     CreateIngestionApiKeyResponse:
       properties:
         requestId:
@@ -4040,6 +4044,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     IngestionApiKey:
       description: API key used to send telemetry data to Tsuga
       example:
@@ -4077,6 +4082,7 @@ components:
       - keyLastCharacters
       - name
       - owner
+      x-internal: true
     UpdateIngestionApiKeyResponse:
       properties:
         requestId:
@@ -4087,6 +4093,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     ListIngestionApiKeysResponse:
       properties:
         requestId:
@@ -4099,6 +4106,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     GetIngestionApiKeyResponse:
       properties:
         requestId:
@@ -4109,6 +4117,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     DeleteResponse:
       example:
         success: true
@@ -4121,10 +4130,6 @@ components:
       required:
       - success
     DeleteIngestionApiKeyResponse:
-      example:
-        data:
-          success: true
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -4134,6 +4139,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     Dashboard:
       description: Visualization of telemetry data with customizable graphs and filters
       example:
@@ -4442,6 +4448,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     UserInvitation:
       description: An invitation to join the organization
       properties:
@@ -4480,6 +4487,7 @@ components:
       - id
       - status
       - updatedAt
+      x-internal: true
     ListInvitationsResponse:
       properties:
         requestId:
@@ -4492,6 +4500,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     SearchLogsResponse:
       properties:
         requestId:
@@ -4502,6 +4511,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     LogEvent:
       additionalProperties: {}
       example:
@@ -4530,11 +4540,13 @@ components:
       required:
       - level
       - timestamp
+      x-internal: true
     LogContext:
-      additionalProperties: true
+      additionalProperties: {}
       properties:
         team:
           type: string
+      x-internal: true
     GetLogPatternsResponse:
       properties:
         requestId:
@@ -4545,6 +4557,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     TokenOutput:
       anyOf:
       - $ref: "#/components/schemas/TokenOutput_anyOf"
@@ -4565,6 +4578,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     ListMetricsResponse:
       properties:
         requestId:
@@ -4577,6 +4591,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     GetMetricResponse:
       properties:
         requestId:
@@ -4587,6 +4602,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     Monitor:
       description: Monitor allowing to send alerts based on telemetry data
       example:
@@ -5178,6 +5194,7 @@ components:
       - schedule
       - teamsFilter
       - transitionTypesFilter
+      x-internal: true
     ListNotificationSilencesResponse:
       properties:
         requestId:
@@ -5190,6 +5207,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     GetNotificationSilenceResponse:
       properties:
         requestId:
@@ -5200,6 +5218,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     CreateNotificationSilenceResponse:
       properties:
         requestId:
@@ -5210,6 +5229,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     UpdateNotificationSilenceResponse:
       properties:
         requestId:
@@ -5220,11 +5240,8 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     DeleteNotificationSilenceResponse:
-      example:
-        data:
-          success: true
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -5234,6 +5251,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     RetentionPolicy:
       description: Data retention rule for a data source within an environment
       example:
@@ -5276,6 +5294,7 @@ components:
       - durationDays
       - id
       - isEnabled
+      x-internal: true
     ListRetentionPoliciesResponse:
       properties:
         requestId:
@@ -5288,6 +5307,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     GetRetentionPolicyResponse:
       properties:
         requestId:
@@ -5298,6 +5318,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     CreateRetentionPolicyResponse:
       properties:
         requestId:
@@ -5308,6 +5329,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     UpdateRetentionPolicyResponse:
       properties:
         requestId:
@@ -5318,11 +5340,8 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     DeleteRetentionPolicyResponse:
-      example:
-        data:
-          success: true
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -5332,6 +5351,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     Route:
       description: Log route allowing to standardize logs and enrich them with additional
         data
@@ -5390,6 +5410,7 @@ components:
       - owner
       - processors
       - query
+      x-internal: true
     Processor:
       anyOf:
       - $ref: "#/components/schemas/Processor_anyOf"
@@ -5408,6 +5429,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     GetRouteResponse:
       properties:
         requestId:
@@ -5418,6 +5440,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     CreateRouteResponse:
       properties:
         requestId:
@@ -5428,6 +5451,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     UpdateRouteResponse:
       properties:
         requestId:
@@ -5438,11 +5462,8 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     DeleteRouteResponse:
-      example:
-        data:
-          success: true
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -5452,6 +5473,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     Service:
       description: "Observed telemetry service with metadata, activity stats and version\
         \ signals"
@@ -5533,6 +5555,7 @@ components:
       - teams
       - tracesCount24h
       - versions
+      x-internal: true
     ListServicesResponse:
       properties:
         requestId:
@@ -5545,6 +5568,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     GetServiceResponse:
       properties:
         requestId:
@@ -5555,6 +5579,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     TagPolicy:
       description: Policy that enforces tag requirements on Tsuga assets or telemetry
         data
@@ -5968,6 +5993,7 @@ components:
       - roleKey
       - teamId
       - userId
+      x-internal: true
     GetTeamMembershipsResponse:
       properties:
         requestId:
@@ -5980,6 +6006,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     AddUserToTeamResponse:
       properties:
         requestId:
@@ -5990,6 +6017,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     UpdateTeamMembershipResponse:
       properties:
         requestId:
@@ -6000,11 +6028,8 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     RemoveUserFromTeamResponse:
-      example:
-        data:
-          success: true
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -6014,6 +6039,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     SearchSpansResponse:
       properties:
         requestId:
@@ -6024,8 +6050,9 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     SpanEvent:
-      additionalProperties: true
+      additionalProperties: {}
       example:
         context:
           service:
@@ -6104,6 +6131,7 @@ components:
       - spanId
       - startTime
       - traceId
+      x-internal: true
     User:
       description: A user in the organization
       properties:
@@ -6125,6 +6153,7 @@ components:
       - id
       - name
       - role
+      x-internal: true
     ListUsersResponse:
       properties:
         requestId:
@@ -6137,6 +6166,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     GetUserResponse:
       properties:
         requestId:
@@ -6147,6 +6177,7 @@ components:
       required:
       - data
       - requestId
+      x-internal: true
     AggregateCount:
       properties:
         type:
