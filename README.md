@@ -33,99 +33,52 @@ teams, _, err := client.TeamsAPI.ListTeams(auth).Execute()
 
 All URIs are relative to *https://api.tsuga.com*
 
-| Class                     | Method                                                                                     | HTTP request                                    | Description |
-| ------------------------- | ------------------------------------------------------------------------------------------ | ----------------------------------------------- | ----------- |
-| _AggregationAPI_          | [**AggregateScalar**](docs/AggregationAPI.md#aggregatescalar)                              | **Post** /v1/aggregation/multi-query/scalar     |
-| _AggregationAPI_          | [**AggregateTimeseries**](docs/AggregationAPI.md#aggregatetimeseries)                      | **Post** /v1/aggregation/multi-query/timeseries |
-| _DashboardsAPI_           | [**CreateDashboard**](docs/DashboardsAPI.md#createdashboard)                               | **Post** /v1/dashboards                         |
-| _DashboardsAPI_           | [**DeleteDashboard**](docs/DashboardsAPI.md#deletedashboard)                               | **Delete** /v1/dashboards/{id}                  |
-| _DashboardsAPI_           | [**GetDashboard**](docs/DashboardsAPI.md#getdashboard)                                     | **Get** /v1/dashboards/{id}                     |
-| _DashboardsAPI_           | [**ListDashboards**](docs/DashboardsAPI.md#listdashboards)                                 | **Get** /v1/dashboards                          |
-| _DashboardsAPI_           | [**UpdateDashboard**](docs/DashboardsAPI.md#updatedashboard)                               | **Put** /v1/dashboards/{id}                     |
-| _IngestionApiKeysAPI_     | [**CreateIngestionApiKey**](docs/IngestionApiKeysAPI.md#createingestionapikey)             | **Post** /v1/ingestion-api-keys                 |
-| _IngestionApiKeysAPI_     | [**DeleteIngestionApiKey**](docs/IngestionApiKeysAPI.md#deleteingestionapikey)             | **Delete** /v1/ingestion-api-keys/{id}          |
-| _IngestionApiKeysAPI_     | [**GetIngestionApiKey**](docs/IngestionApiKeysAPI.md#getingestionapikey)                   | **Get** /v1/ingestion-api-keys/{id}             |
-| _IngestionApiKeysAPI_     | [**ListIngestionApiKeys**](docs/IngestionApiKeysAPI.md#listingestionapikeys)               | **Get** /v1/ingestion-api-keys                  |
-| _IngestionApiKeysAPI_     | [**UpdateIngestionApiKey**](docs/IngestionApiKeysAPI.md#updateingestionapikey)             | **Put** /v1/ingestion-api-keys/{id}             |
-| _InvitationsAPI_          | [**InviteUsers**](docs/InvitationsAPI.md#inviteusers)                                      | **Post** /v1/invitations                        |
-| _InvitationsAPI_          | [**ListInvitations**](docs/InvitationsAPI.md#listinvitations)                              | **Get** /v1/invitations                         |
-| _LogsAPI_                 | [**SearchLogs**](docs/LogsAPI.md#searchlogs)                                               | **Get** /v1/logs/search                         |
-| _MetricsAPI_              | [**GetMetric**](docs/MetricsAPI.md#getmetric)                                              | **Get** /v1/metrics/{name}                      |
-| _MetricsAPI_              | [**ListMetrics**](docs/MetricsAPI.md#listmetrics)                                          | **Get** /v1/metrics                             |
-| _MonitorsAPI_             | [**CreateMonitor**](docs/MonitorsAPI.md#createmonitor)                                     | **Post** /v1/monitors                           |
-| _MonitorsAPI_             | [**DeleteMonitor**](docs/MonitorsAPI.md#deletemonitor)                                     | **Delete** /v1/monitors/{id}                    |
-| _MonitorsAPI_             | [**GetMonitor**](docs/MonitorsAPI.md#getmonitor)                                           | **Get** /v1/monitors/{id}                       |
-| _MonitorsAPI_             | [**ListMonitors**](docs/MonitorsAPI.md#listmonitors)                                       | **Get** /v1/monitors                            |
-| _MonitorsAPI_             | [**UpdateMonitor**](docs/MonitorsAPI.md#updatemonitor)                                     | **Put** /v1/monitors/{id}                       |
-| _NotificationRulesAPI_    | [**CreateNotificationRule**](docs/NotificationRulesAPI.md#createnotificationrule)          | **Post** /v1/notification-rules                 |
-| _NotificationRulesAPI_    | [**DeleteNotificationRule**](docs/NotificationRulesAPI.md#deletenotificationrule)          | **Delete** /v1/notification-rules/{id}          |
-| _NotificationRulesAPI_    | [**GetNotificationRule**](docs/NotificationRulesAPI.md#getnotificationrule)                | **Get** /v1/notification-rules/{id}             |
-| _NotificationRulesAPI_    | [**ListNotificationRules**](docs/NotificationRulesAPI.md#listnotificationrules)            | **Get** /v1/notification-rules                  |
-| _NotificationRulesAPI_    | [**UpdateNotificationRule**](docs/NotificationRulesAPI.md#updatenotificationrule)          | **Put** /v1/notification-rules/{id}             |
-| _NotificationSilencesAPI_ | [**CreateNotificationSilence**](docs/NotificationSilencesAPI.md#createnotificationsilence) | **Post** /v1/notification-silences              |
-| _NotificationSilencesAPI_ | [**DeleteNotificationSilence**](docs/NotificationSilencesAPI.md#deletenotificationsilence) | **Delete** /v1/notification-silences/{id}       |
-| _NotificationSilencesAPI_ | [**GetNotificationSilence**](docs/NotificationSilencesAPI.md#getnotificationsilence)       | **Get** /v1/notification-silences/{id}          |
-| _NotificationSilencesAPI_ | [**ListNotificationSilences**](docs/NotificationSilencesAPI.md#listnotificationsilences)   | **Get** /v1/notification-silences               |
-| _NotificationSilencesAPI_ | [**UpdateNotificationSilence**](docs/NotificationSilencesAPI.md#updatenotificationsilence) | **Put** /v1/notification-silences/{id}          |
-| _RetentionPoliciesAPI_    | [**CreateRetentionPolicy**](docs/RetentionPoliciesAPI.md#createretentionpolicy)            | **Post** /v1/retention-policies                 |
-| _RetentionPoliciesAPI_    | [**DeleteRetentionPolicy**](docs/RetentionPoliciesAPI.md#deleteretentionpolicy)            | **Delete** /v1/retention-policies/{id}          |
-| _RetentionPoliciesAPI_    | [**GetRetentionPolicy**](docs/RetentionPoliciesAPI.md#getretentionpolicy)                  | **Get** /v1/retention-policies/{id}             |
-| _RetentionPoliciesAPI_    | [**ListRetentionPolicies**](docs/RetentionPoliciesAPI.md#listretentionpolicies)            | **Get** /v1/retention-policies                  |
-| _RetentionPoliciesAPI_    | [**UpdateRetentionPolicy**](docs/RetentionPoliciesAPI.md#updateretentionpolicy)            | **Put** /v1/retention-policies/{id}             |
-| _RoutesAPI_               | [**CreateRoute**](docs/RoutesAPI.md#createroute)                                           | **Post** /v1/routes                             |
-| _RoutesAPI_               | [**DeleteRoute**](docs/RoutesAPI.md#deleteroute)                                           | **Delete** /v1/routes/{id}                      |
-| _RoutesAPI_               | [**GetRoute**](docs/RoutesAPI.md#getroute)                                                 | **Get** /v1/routes/{id}                         |
-| _RoutesAPI_               | [**ListRoutes**](docs/RoutesAPI.md#listroutes)                                             | **Get** /v1/routes                              |
-| _RoutesAPI_               | [**UpdateRoute**](docs/RoutesAPI.md#updateroute)                                           | **Put** /v1/routes/{id}                         |
-| _ServicesAPI_             | [**GetService**](docs/ServicesAPI.md#getservice)                                           | **Get** /v1/services/{serviceId}                |
-| _ServicesAPI_             | [**ListServices**](docs/ServicesAPI.md#listservices)                                       | **Get** /v1/services                            |
-| _TagPoliciesAPI_          | [**CreateTagPolicy**](docs/TagPoliciesAPI.md#createtagpolicy)                              | **Post** /v1/tag-policies                       |
-| _TagPoliciesAPI_          | [**DeleteTagPolicy**](docs/TagPoliciesAPI.md#deletetagpolicy)                              | **Delete** /v1/tag-policies/{id}                |
-| _TagPoliciesAPI_          | [**GetTagPolicy**](docs/TagPoliciesAPI.md#gettagpolicy)                                    | **Get** /v1/tag-policies/{id}                   |
-| _TagPoliciesAPI_          | [**ListTagPolicies**](docs/TagPoliciesAPI.md#listtagpolicies)                              | **Get** /v1/tag-policies                        |
-| _TagPoliciesAPI_          | [**UpdateTagPolicy**](docs/TagPoliciesAPI.md#updatetagpolicy)                              | **Put** /v1/tag-policies/{id}                   |
-| _TeamMembershipsAPI_      | [**AddUserToTeam**](docs/TeamMembershipsAPI.md#addusertoteam)                              | **Post** /v1/team-memberships                   |
-| _TeamMembershipsAPI_      | [**GetTeamMemberships**](docs/TeamMembershipsAPI.md#getteammemberships)                    | **Get** /v1/team-memberships                    |
-| _TeamMembershipsAPI_      | [**RemoveUserFromTeam**](docs/TeamMembershipsAPI.md#removeuserfromteam)                    | **Delete** /v1/team-memberships                 |
-| _TeamMembershipsAPI_      | [**UpdateTeamMembership**](docs/TeamMembershipsAPI.md#updateteammembership)                | **Put** /v1/team-memberships                    |
-| _TeamsAPI_                | [**CreateTeam**](docs/TeamsAPI.md#createteam)                                              | **Post** /v1/teams                              |
-| _TeamsAPI_                | [**DeleteTeam**](docs/TeamsAPI.md#deleteteam)                                              | **Delete** /v1/teams/{id}                       |
-| _TeamsAPI_                | [**GetTeam**](docs/TeamsAPI.md#getteam)                                                    | **Get** /v1/teams/{id}                          |
-| _TeamsAPI_                | [**ListTeams**](docs/TeamsAPI.md#listteams)                                                | **Get** /v1/teams                               |
-| _TeamsAPI_                | [**UpdateTeam**](docs/TeamsAPI.md#updateteam)                                              | **Put** /v1/teams/{id}                          |
-| _TracesAPI_               | [**SearchSpans**](docs/TracesAPI.md#searchspans)                                           | **Get** /v1/traces/search                       |
-| _UsersAPI_                | [**GetUser**](docs/UsersAPI.md#getuser)                                                    | **Get** /v1/users/{id}                          |
-| _UsersAPI_                | [**ListUsers**](docs/UsersAPI.md#listusers)                                                | **Get** /v1/users                               |
+| Class                  | Method                                                                            | HTTP request                           | Description |
+| ---------------------- | --------------------------------------------------------------------------------- | -------------------------------------- | ----------- |
+| _DashboardsAPI_        | [**CreateDashboard**](docs/DashboardsAPI.md#createdashboard)                      | **Post** /v1/dashboards                |
+| _DashboardsAPI_        | [**DeleteDashboard**](docs/DashboardsAPI.md#deletedashboard)                      | **Delete** /v1/dashboards/{id}         |
+| _DashboardsAPI_        | [**GetDashboard**](docs/DashboardsAPI.md#getdashboard)                            | **Get** /v1/dashboards/{id}            |
+| _DashboardsAPI_        | [**ListDashboards**](docs/DashboardsAPI.md#listdashboards)                        | **Get** /v1/dashboards                 |
+| _DashboardsAPI_        | [**UpdateDashboard**](docs/DashboardsAPI.md#updatedashboard)                      | **Put** /v1/dashboards/{id}            |
+| _MonitorsAPI_          | [**CreateMonitor**](docs/MonitorsAPI.md#createmonitor)                            | **Post** /v1/monitors                  |
+| _MonitorsAPI_          | [**DeleteMonitor**](docs/MonitorsAPI.md#deletemonitor)                            | **Delete** /v1/monitors/{id}           |
+| _MonitorsAPI_          | [**GetMonitor**](docs/MonitorsAPI.md#getmonitor)                                  | **Get** /v1/monitors/{id}              |
+| _MonitorsAPI_          | [**ListMonitors**](docs/MonitorsAPI.md#listmonitors)                              | **Get** /v1/monitors                   |
+| _MonitorsAPI_          | [**UpdateMonitor**](docs/MonitorsAPI.md#updatemonitor)                            | **Put** /v1/monitors/{id}              |
+| _NotificationRulesAPI_ | [**CreateNotificationRule**](docs/NotificationRulesAPI.md#createnotificationrule) | **Post** /v1/notification-rules        |
+| _NotificationRulesAPI_ | [**DeleteNotificationRule**](docs/NotificationRulesAPI.md#deletenotificationrule) | **Delete** /v1/notification-rules/{id} |
+| _NotificationRulesAPI_ | [**GetNotificationRule**](docs/NotificationRulesAPI.md#getnotificationrule)       | **Get** /v1/notification-rules/{id}    |
+| _NotificationRulesAPI_ | [**ListNotificationRules**](docs/NotificationRulesAPI.md#listnotificationrules)   | **Get** /v1/notification-rules         |
+| _NotificationRulesAPI_ | [**UpdateNotificationRule**](docs/NotificationRulesAPI.md#updatenotificationrule) | **Put** /v1/notification-rules/{id}    |
+| _TagPoliciesAPI_       | [**CreateTagPolicy**](docs/TagPoliciesAPI.md#createtagpolicy)                     | **Post** /v1/tag-policies              |
+| _TagPoliciesAPI_       | [**DeleteTagPolicy**](docs/TagPoliciesAPI.md#deletetagpolicy)                     | **Delete** /v1/tag-policies/{id}       |
+| _TagPoliciesAPI_       | [**GetTagPolicy**](docs/TagPoliciesAPI.md#gettagpolicy)                           | **Get** /v1/tag-policies/{id}          |
+| _TagPoliciesAPI_       | [**ListTagPolicies**](docs/TagPoliciesAPI.md#listtagpolicies)                     | **Get** /v1/tag-policies               |
+| _TagPoliciesAPI_       | [**UpdateTagPolicy**](docs/TagPoliciesAPI.md#updatetagpolicy)                     | **Put** /v1/tag-policies/{id}          |
+| _TeamsAPI_             | [**CreateTeam**](docs/TeamsAPI.md#createteam)                                     | **Post** /v1/teams                     |
+| _TeamsAPI_             | [**DeleteTeam**](docs/TeamsAPI.md#deleteteam)                                     | **Delete** /v1/teams/{id}              |
+| _TeamsAPI_             | [**GetTeam**](docs/TeamsAPI.md#getteam)                                           | **Get** /v1/teams/{id}                 |
+| _TeamsAPI_             | [**ListTeams**](docs/TeamsAPI.md#listteams)                                       | **Get** /v1/teams                      |
+| _TeamsAPI_             | [**UpdateTeam**](docs/TeamsAPI.md#updateteam)                                     | **Put** /v1/teams/{id}                 |
 
 ## Documentation For Models
 
-- [AddUserToTeamResponse](docs/AddUserToTeamResponse.md)
 - [Aggregate](docs/Aggregate.md)
 - [AggregateAverage](docs/AggregateAverage.md)
 - [AggregateCount](docs/AggregateCount.md)
 - [AggregateMax](docs/AggregateMax.md)
 - [AggregateMin](docs/AggregateMin.md)
 - [AggregatePercentile](docs/AggregatePercentile.md)
-- [AggregateScalarRequest](docs/AggregateScalarRequest.md)
-- [AggregateScalarResponse](docs/AggregateScalarResponse.md)
 - [AggregateSum](docs/AggregateSum.md)
-- [AggregateTimeseriesRequest](docs/AggregateTimeseriesRequest.md)
-- [AggregateTimeseriesResponse](docs/AggregateTimeseriesResponse.md)
 - [AggregateUniqueCount](docs/AggregateUniqueCount.md)
 - [AggregationGroupBy](docs/AggregationGroupBy.md)
 - [AggregationQuery](docs/AggregationQuery.md)
-- [AggregationQuery1](docs/AggregationQuery1.md)
-- [BigQueryConnectionInput](docs/BigQueryConnectionInput.md)
-- [BigQueryConnectionInputAuth](docs/BigQueryConnectionInputAuth.md)
-- [BigQueryWifDirectAccessAuthInput](docs/BigQueryWifDirectAccessAuthInput.md)
 - [ClientErrorEnvelope](docs/ClientErrorEnvelope.md)
 - [ClientErrorResponse](docs/ClientErrorResponse.md)
 - [ConditionalFormatting](docs/ConditionalFormatting.md)
 - [CreateDashboardRequest](docs/CreateDashboardRequest.md)
 - [CreateDashboardRequestFiltersInner](docs/CreateDashboardRequestFiltersInner.md)
 - [CreateDashboardResponse](docs/CreateDashboardResponse.md)
-- [CreateIngestionApiKeyRequest](docs/CreateIngestionApiKeyRequest.md)
-- [CreateIngestionApiKeyResponse](docs/CreateIngestionApiKeyResponse.md)
 - [CreateMonitorRequest](docs/CreateMonitorRequest.md)
 - [CreateMonitorRequestConfiguration](docs/CreateMonitorRequestConfiguration.md)
 - [CreateMonitorResponse](docs/CreateMonitorResponse.md)
@@ -139,13 +92,6 @@ All URIs are relative to *https://api.tsuga.com*
 - [CreateNotificationRuleRequestTeamsFilterOneOf1](docs/CreateNotificationRuleRequestTeamsFilterOneOf1.md)
 - [CreateNotificationRuleRequestTeamsFilterOneOf2](docs/CreateNotificationRuleRequestTeamsFilterOneOf2.md)
 - [CreateNotificationRuleResponse](docs/CreateNotificationRuleResponse.md)
-- [CreateNotificationSilenceRequest](docs/CreateNotificationSilenceRequest.md)
-- [CreateNotificationSilenceRequestSchedule](docs/CreateNotificationSilenceRequestSchedule.md)
-- [CreateNotificationSilenceResponse](docs/CreateNotificationSilenceResponse.md)
-- [CreateRetentionPolicyRequest](docs/CreateRetentionPolicyRequest.md)
-- [CreateRetentionPolicyResponse](docs/CreateRetentionPolicyResponse.md)
-- [CreateRouteRequest](docs/CreateRouteRequest.md)
-- [CreateRouteResponse](docs/CreateRouteResponse.md)
 - [CreateTagPolicyRequest](docs/CreateTagPolicyRequest.md)
 - [CreateTagPolicyRequestConfiguration](docs/CreateTagPolicyRequestConfiguration.md)
 - [CreateTagPolicyRequestConfigurationOneOf](docs/CreateTagPolicyRequestConfigurationOneOf.md)
@@ -162,13 +108,9 @@ All URIs are relative to *https://api.tsuga.com*
 - [DataNormalizerLevel](docs/DataNormalizerLevel.md)
 - [DataNormalizerPercent](docs/DataNormalizerPercent.md)
 - [DeleteDashboardResponse](docs/DeleteDashboardResponse.md)
-- [DeleteIngestionApiKeyResponse](docs/DeleteIngestionApiKeyResponse.md)
 - [DeleteMonitorResponse](docs/DeleteMonitorResponse.md)
 - [DeleteNotificationRuleResponse](docs/DeleteNotificationRuleResponse.md)
-- [DeleteNotificationSilenceResponse](docs/DeleteNotificationSilenceResponse.md)
 - [DeleteResponse](docs/DeleteResponse.md)
-- [DeleteRetentionPolicyResponse](docs/DeleteRetentionPolicyResponse.md)
-- [DeleteRouteResponse](docs/DeleteRouteResponse.md)
 - [DeleteTagPolicyResponse](docs/DeleteTagPolicyResponse.md)
 - [DeleteTeamResponse](docs/DeleteTeamResponse.md)
 - [Function](docs/Function.md)
@@ -182,25 +124,10 @@ All URIs are relative to *https://api.tsuga.com*
 - [FunctionRolling](docs/FunctionRolling.md)
 - [FunctionSqrt](docs/FunctionSqrt.md)
 - [GetDashboardResponse](docs/GetDashboardResponse.md)
-- [GetIngestionApiKeyResponse](docs/GetIngestionApiKeyResponse.md)
-- [GetLogPatternsResponse](docs/GetLogPatternsResponse.md)
-- [GetLogPatternsResponseData](docs/GetLogPatternsResponseData.md)
-- [GetLogPatternsResponseDataPatternsInner](docs/GetLogPatternsResponseDataPatternsInner.md)
-- [GetLogPatternsResponseDataPatternsInnerGroupsInner](docs/GetLogPatternsResponseDataPatternsInnerGroupsInner.md)
-- [GetMetricAssetsUsageResponse](docs/GetMetricAssetsUsageResponse.md)
-- [GetMetricAssetsUsageResponseData](docs/GetMetricAssetsUsageResponseData.md)
-- [GetMetricAssetsUsageResponseDataAssetsInner](docs/GetMetricAssetsUsageResponseDataAssetsInner.md)
-- [GetMetricResponse](docs/GetMetricResponse.md)
 - [GetMonitorResponse](docs/GetMonitorResponse.md)
 - [GetNotificationRuleResponse](docs/GetNotificationRuleResponse.md)
-- [GetNotificationSilenceResponse](docs/GetNotificationSilenceResponse.md)
-- [GetRetentionPolicyResponse](docs/GetRetentionPolicyResponse.md)
-- [GetRouteResponse](docs/GetRouteResponse.md)
-- [GetServiceResponse](docs/GetServiceResponse.md)
 - [GetTagPolicyResponse](docs/GetTagPolicyResponse.md)
-- [GetTeamMembershipsResponse](docs/GetTeamMembershipsResponse.md)
 - [GetTeamResponse](docs/GetTeamResponse.md)
-- [GetUserResponse](docs/GetUserResponse.md)
 - [Graph](docs/Graph.md)
 - [GraphLayout](docs/GraphLayout.md)
 - [GraphVisualization](docs/GraphVisualization.md)
@@ -212,27 +139,11 @@ All URIs are relative to *https://api.tsuga.com*
 - [GraphVisualizationTimeseries](docs/GraphVisualizationTimeseries.md)
 - [GraphVisualizationTimeseriesTimeBucket](docs/GraphVisualizationTimeseriesTimeBucket.md)
 - [GraphVisualizationTopList](docs/GraphVisualizationTopList.md)
-- [IngestionApiKey](docs/IngestionApiKey.md)
-- [IngestionApiKeyCreated](docs/IngestionApiKeyCreated.md)
-- [InviteUsersRequestInner](docs/InviteUsersRequestInner.md)
-- [InviteUsersResponse](docs/InviteUsersResponse.md)
-- [InviteUsersResponseData](docs/InviteUsersResponseData.md)
 - [ListDashboardsResponse](docs/ListDashboardsResponse.md)
-- [ListIngestionApiKeysResponse](docs/ListIngestionApiKeysResponse.md)
-- [ListInvitationsResponse](docs/ListInvitationsResponse.md)
-- [ListMetricsResponse](docs/ListMetricsResponse.md)
-- [ListMetricsResponseDataInner](docs/ListMetricsResponseDataInner.md)
 - [ListMonitorsResponse](docs/ListMonitorsResponse.md)
 - [ListNotificationRulesResponse](docs/ListNotificationRulesResponse.md)
-- [ListNotificationSilencesResponse](docs/ListNotificationSilencesResponse.md)
-- [ListRetentionPoliciesResponse](docs/ListRetentionPoliciesResponse.md)
-- [ListRoutesResponse](docs/ListRoutesResponse.md)
-- [ListServicesResponse](docs/ListServicesResponse.md)
 - [ListTagPoliciesResponse](docs/ListTagPoliciesResponse.md)
 - [ListTeamsResponse](docs/ListTeamsResponse.md)
-- [ListUsersResponse](docs/ListUsersResponse.md)
-- [LogContext](docs/LogContext.md)
-- [LogEvent](docs/LogEvent.md)
 - [Monitor](docs/Monitor.md)
 - [MonitorAggregationQuery](docs/MonitorAggregationQuery.md)
 - [MonitorAggregationQueryFill](docs/MonitorAggregationQueryFill.md)
@@ -247,35 +158,7 @@ All URIs are relative to *https://api.tsuga.com*
 - [MonitorConfigurationMetric](docs/MonitorConfigurationMetric.md)
 - [MonitorConfigurationMetricCondition](docs/MonitorConfigurationMetricCondition.md)
 - [MonitorConfigurationMetricGroupByFieldsInner](docs/MonitorConfigurationMetricGroupByFieldsInner.md)
-- [MySqlConnectionInput](docs/MySqlConnectionInput.md)
 - [Normalizer](docs/Normalizer.md)
-- [NotificationSilence](docs/NotificationSilence.md)
-- [PostgresConnectionInput](docs/PostgresConnectionInput.md)
-- [Processor](docs/Processor.md)
-- [ProcessorAnyOf](docs/ProcessorAnyOf.md)
-- [ProcessorAnyOf1](docs/ProcessorAnyOf1.md)
-- [ProcessorAnyOf1Params](docs/ProcessorAnyOf1Params.md)
-- [ProcessorAnyOf1ParamsOneOf](docs/ProcessorAnyOf1ParamsOneOf.md)
-- [ProcessorAnyOf1ParamsOneOf1](docs/ProcessorAnyOf1ParamsOneOf1.md)
-- [ProcessorAnyOf1ParamsOneOf2](docs/ProcessorAnyOf1ParamsOneOf2.md)
-- [ProcessorAnyOf1ParamsOneOf3](docs/ProcessorAnyOf1ParamsOneOf3.md)
-- [ProcessorAnyOf2](docs/ProcessorAnyOf2.md)
-- [ProcessorAnyOf2Params](docs/ProcessorAnyOf2Params.md)
-- [ProcessorAnyOf3](docs/ProcessorAnyOf3.md)
-- [ProcessorAnyOf3Params](docs/ProcessorAnyOf3Params.md)
-- [ProcessorAnyOf3ParamsItemsInner](docs/ProcessorAnyOf3ParamsItemsInner.md)
-- [ProcessorAnyOfExample](docs/ProcessorAnyOfExample.md)
-- [ProcessorAnyOfParams](docs/ProcessorAnyOfParams.md)
-- [ProcessorParamsCreatorFormatString](docs/ProcessorParamsCreatorFormatString.md)
-- [ProcessorParamsCreatorMathFormula](docs/ProcessorParamsCreatorMathFormula.md)
-- [ProcessorParamsMapperMapAttributes](docs/ProcessorParamsMapperMapAttributes.md)
-- [ProcessorParamsMapperMapAttributesAttributesInner](docs/ProcessorParamsMapperMapAttributesAttributesInner.md)
-- [ProcessorParamsMapperMapLevel](docs/ProcessorParamsMapperMapLevel.md)
-- [ProcessorParamsMapperMapTimestamp](docs/ProcessorParamsMapperMapTimestamp.md)
-- [RemoveUserFromTeamRequest](docs/RemoveUserFromTeamRequest.md)
-- [RemoveUserFromTeamResponse](docs/RemoveUserFromTeamResponse.md)
-- [RetentionPolicy](docs/RetentionPolicy.md)
-- [Route](docs/Route.md)
 - [Rule](docs/Rule.md)
 - [RuleTargetConfigEmail](docs/RuleTargetConfigEmail.md)
 - [RuleTargetConfigGoogleChat](docs/RuleTargetConfigGoogleChat.md)
@@ -299,65 +182,18 @@ All URIs are relative to *https://api.tsuga.com*
 - [RuleTargetsInnerConfig](docs/RuleTargetsInnerConfig.md)
 - [RuleTeamsFilter](docs/RuleTeamsFilter.md)
 - [RuleTeamsFilterOneOf](docs/RuleTeamsFilterOneOf.md)
-- [ScalarAggregationResponse](docs/ScalarAggregationResponse.md)
-- [ScalarResult](docs/ScalarResult.md)
-- [ScalarResultGroupValue](docs/ScalarResultGroupValue.md)
-- [SearchLogsResponse](docs/SearchLogsResponse.md)
-- [SearchLogsResponseData](docs/SearchLogsResponseData.md)
-- [SearchLogsResponseDataLogsInner](docs/SearchLogsResponseDataLogsInner.md)
-- [SearchLogsResponseDataLogsInnerContext](docs/SearchLogsResponseDataLogsInnerContext.md)
-- [SearchSpansResponse](docs/SearchSpansResponse.md)
-- [SearchSpansResponseData](docs/SearchSpansResponseData.md)
-- [SearchSpansResponseDataSpansInner](docs/SearchSpansResponseDataSpansInner.md)
-- [SearchSpansResponseDataSpansInnerContext](docs/SearchSpansResponseDataSpansInnerContext.md)
-- [SearchSpansResponseDataSpansInnerContextService](docs/SearchSpansResponseDataSpansInnerContextService.md)
-- [SearchSpansResponseDataSpansInnerError](docs/SearchSpansResponseDataSpansInnerError.md)
-- [SearchSpansResponseDataSpansInnerEventsInner](docs/SearchSpansResponseDataSpansInnerEventsInner.md)
-- [SearchSpansResponseDataSpansInnerSpan](docs/SearchSpansResponseDataSpansInnerSpan.md)
-- [Series](docs/Series.md)
-- [SeriesPointsInner](docs/SeriesPointsInner.md)
 - [ServerErrorEnvelope](docs/ServerErrorEnvelope.md)
 - [ServerErrorResponse](docs/ServerErrorResponse.md)
-- [Service](docs/Service.md)
-- [ServiceLanguagesInner](docs/ServiceLanguagesInner.md)
-- [ServiceTeamsInner](docs/ServiceTeamsInner.md)
-- [ServiceVersionsInner](docs/ServiceVersionsInner.md)
-- [SilenceScheduleOneTime](docs/SilenceScheduleOneTime.md)
-- [SilenceScheduleRecurring](docs/SilenceScheduleRecurring.md)
-- [SilenceScheduleRecurringWeeklySchedule](docs/SilenceScheduleRecurringWeeklySchedule.md)
-- [SilenceTimeRange](docs/SilenceTimeRange.md)
-- [SpanEvent](docs/SpanEvent.md)
 - [Tag](docs/Tag.md)
 - [TagPolicy](docs/TagPolicy.md)
 - [Team](docs/Team.md)
-- [TeamMembership](docs/TeamMembership.md)
 - [ThresholdMarker](docs/ThresholdMarker.md)
-- [TimeRange](docs/TimeRange.md)
-- [TimeseriesAggregationResponse](docs/TimeseriesAggregationResponse.md)
-- [TimestreamForInfluxDBConnectionInput](docs/TimestreamForInfluxDBConnectionInput.md)
-- [TokenOutput](docs/TokenOutput.md)
-- [TokenOutputAnyOf](docs/TokenOutputAnyOf.md)
-- [TokenOutputAnyOf1](docs/TokenOutputAnyOf1.md)
-- [TokenOutputAnyOf2](docs/TokenOutputAnyOf2.md)
-- [TokenOutputAnyOf3](docs/TokenOutputAnyOf3.md)
-- [TokenOutputAnyOf4](docs/TokenOutputAnyOf4.md)
-- [TokenOutputAnyOf5](docs/TokenOutputAnyOf5.md)
-- [TokenOutputAnyOf6](docs/TokenOutputAnyOf6.md)
-- [TokenOutputAnyOf7](docs/TokenOutputAnyOf7.md)
 - [UpdateDashboardRequest](docs/UpdateDashboardRequest.md)
 - [UpdateDashboardResponse](docs/UpdateDashboardResponse.md)
-- [UpdateIngestionApiKeyResponse](docs/UpdateIngestionApiKeyResponse.md)
 - [UpdateMonitorResponse](docs/UpdateMonitorResponse.md)
 - [UpdateNotificationRuleResponse](docs/UpdateNotificationRuleResponse.md)
-- [UpdateNotificationSilenceResponse](docs/UpdateNotificationSilenceResponse.md)
-- [UpdateRetentionPolicyResponse](docs/UpdateRetentionPolicyResponse.md)
-- [UpdateRouteResponse](docs/UpdateRouteResponse.md)
 - [UpdateTagPolicyResponse](docs/UpdateTagPolicyResponse.md)
-- [UpdateTeamMembershipRequest](docs/UpdateTeamMembershipRequest.md)
-- [UpdateTeamMembershipResponse](docs/UpdateTeamMembershipResponse.md)
 - [UpdateTeamResponse](docs/UpdateTeamResponse.md)
-- [User](docs/User.md)
-- [UserInvitation](docs/UserInvitation.md)
 - [WidgetListColumn](docs/WidgetListColumn.md)
 
 ## Documentation for Utility Methods

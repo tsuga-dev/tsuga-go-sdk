@@ -1,11 +1,9 @@
-name: Tag and Release
+name: Release
 
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: The version to tag.
-        required: true
+  push:
+    tags:
+      - v*
 
 permissions:
   contents: write
@@ -21,19 +19,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.0.0
 
-      - name: Push tag
-        run: |
-          git tag -a "${{ inputs.version }}" -m "Release ${{ inputs.version }}"
-          git push origin "${{ inputs.version }}"
-
       - name: Create Release
         uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.0.5
         with:
-          tag_name: ${{ inputs.version }}
-          name: ${{ inputs.version }}
-          body: |
-            # Release
-
-            Release ${{ inputs.version }}
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
           prerelease: false
           draft: false
