@@ -25,7 +25,7 @@ type GraphVisualizationTopList struct {
 	// Data source being queried for this aggregation
 	Source string `json:"source"`
 	// Aggregations that may be combined together in the same query
-	Queries []AggregationQuery1 `json:"queries"`
+	Queries []AggregationQuery `json:"queries"`
 	// Formula referencing query outputs (e.g. q1+q2) to compute derived series
 	Formula *string `json:"formula,omitempty"`
 	// Flags indicating whether each query or formula series is visible
@@ -44,7 +44,7 @@ type _GraphVisualizationTopList GraphVisualizationTopList
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGraphVisualizationTopList(type_ string, source string, queries []AggregationQuery1) *GraphVisualizationTopList {
+func NewGraphVisualizationTopList(type_ string, source string, queries []AggregationQuery) *GraphVisualizationTopList {
 	this := GraphVisualizationTopList{}
 	this.Type = type_
 	this.Source = source
@@ -109,9 +109,9 @@ func (o *GraphVisualizationTopList) SetSource(v string) {
 }
 
 // GetQueries returns the Queries field value
-func (o *GraphVisualizationTopList) GetQueries() []AggregationQuery1 {
+func (o *GraphVisualizationTopList) GetQueries() []AggregationQuery {
 	if o == nil {
-		var ret []AggregationQuery1
+		var ret []AggregationQuery
 		return ret
 	}
 
@@ -120,7 +120,7 @@ func (o *GraphVisualizationTopList) GetQueries() []AggregationQuery1 {
 
 // GetQueriesOk returns a tuple with the Queries field value
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationTopList) GetQueriesOk() ([]AggregationQuery1, bool) {
+func (o *GraphVisualizationTopList) GetQueriesOk() ([]AggregationQuery, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -128,7 +128,7 @@ func (o *GraphVisualizationTopList) GetQueriesOk() ([]AggregationQuery1, bool) {
 }
 
 // SetQueries sets field value
-func (o *GraphVisualizationTopList) SetQueries(v []AggregationQuery1) {
+func (o *GraphVisualizationTopList) SetQueries(v []AggregationQuery) {
 	o.Queries = v
 }
 
