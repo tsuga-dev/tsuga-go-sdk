@@ -48,39 +48,15 @@ type APIClient struct {
 
 	// API Services
 
-	AggregationAPI AggregationAPI
-
 	DashboardsAPI DashboardsAPI
-
-	IngestionApiKeysAPI IngestionApiKeysAPI
-
-	InvitationsAPI InvitationsAPI
-
-	LogsAPI LogsAPI
-
-	MetricsAPI MetricsAPI
 
 	MonitorsAPI MonitorsAPI
 
 	NotificationRulesAPI NotificationRulesAPI
 
-	NotificationSilencesAPI NotificationSilencesAPI
-
-	RetentionPoliciesAPI RetentionPoliciesAPI
-
-	RoutesAPI RoutesAPI
-
-	ServicesAPI ServicesAPI
-
 	TagPoliciesAPI TagPoliciesAPI
 
-	TeamMembershipsAPI TeamMembershipsAPI
-
 	TeamsAPI TeamsAPI
-
-	TracesAPI TracesAPI
-
-	UsersAPI UsersAPI
 }
 
 type service struct {
@@ -99,23 +75,11 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.AggregationAPI = (*AggregationAPIService)(&c.common)
 	c.DashboardsAPI = (*DashboardsAPIService)(&c.common)
-	c.IngestionApiKeysAPI = (*IngestionApiKeysAPIService)(&c.common)
-	c.InvitationsAPI = (*InvitationsAPIService)(&c.common)
-	c.LogsAPI = (*LogsAPIService)(&c.common)
-	c.MetricsAPI = (*MetricsAPIService)(&c.common)
 	c.MonitorsAPI = (*MonitorsAPIService)(&c.common)
 	c.NotificationRulesAPI = (*NotificationRulesAPIService)(&c.common)
-	c.NotificationSilencesAPI = (*NotificationSilencesAPIService)(&c.common)
-	c.RetentionPoliciesAPI = (*RetentionPoliciesAPIService)(&c.common)
-	c.RoutesAPI = (*RoutesAPIService)(&c.common)
-	c.ServicesAPI = (*ServicesAPIService)(&c.common)
 	c.TagPoliciesAPI = (*TagPoliciesAPIService)(&c.common)
-	c.TeamMembershipsAPI = (*TeamMembershipsAPIService)(&c.common)
 	c.TeamsAPI = (*TeamsAPIService)(&c.common)
-	c.TracesAPI = (*TracesAPIService)(&c.common)
-	c.UsersAPI = (*UsersAPIService)(&c.common)
 
 	return c
 }
