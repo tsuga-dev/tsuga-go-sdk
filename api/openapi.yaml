@@ -102,6 +102,7 @@ paths:
               style: simple
       tags:
       - aggregation
+      x-internal: true
   /v1/aggregation/multi-query/timeseries:
     post:
       description: Run aggregation queries and return timeseries results
@@ -157,6 +158,7 @@ paths:
               style: simple
       tags:
       - aggregation
+      x-internal: true
   /v1/ingestion-api-keys:
     get:
       description: Retrieve all ingestion API keys
@@ -206,6 +208,7 @@ paths:
               style: simple
       tags:
       - ingestion-api-keys
+      x-internal: true
     post:
       description: Create a new ingestion API key
       operationId: createIngestionApiKey
@@ -268,6 +271,7 @@ paths:
               style: simple
       tags:
       - ingestion-api-keys
+      x-internal: true
   /v1/ingestion-api-keys/{id}:
     delete:
       description: Delete an ingestion API key by its id
@@ -327,6 +331,7 @@ paths:
               style: simple
       tags:
       - ingestion-api-keys
+      x-internal: true
     get:
       description: Retrieve an ingestion API key by its id
       operationId: getIngestionApiKey
@@ -385,6 +390,7 @@ paths:
               style: simple
       tags:
       - ingestion-api-keys
+      x-internal: true
     put:
       description: Update an ingestion API key by its id
       operationId: updateIngestionApiKey
@@ -457,6 +463,7 @@ paths:
               style: simple
       tags:
       - ingestion-api-keys
+      x-internal: true
   /v1/dashboards:
     get:
       description: Retrieve all dashboards
@@ -519,6 +526,7 @@ paths:
               style: simple
       tags:
       - dashboards
+      x-internal: false
     post:
       description: Create a new dashboard
       operationId: createDashboard
@@ -601,6 +609,7 @@ paths:
               style: simple
       tags:
       - dashboards
+      x-internal: false
   /v1/dashboards/{id}:
     delete:
       description: Delete a dashboard by its id
@@ -660,6 +669,7 @@ paths:
               style: simple
       tags:
       - dashboards
+      x-internal: false
     get:
       description: Retrieve a dashboard by its id
       operationId: getDashboard
@@ -718,6 +728,7 @@ paths:
               style: simple
       tags:
       - dashboards
+      x-internal: false
     put:
       description: Update a dashboard by its id
       operationId: updateDashboard
@@ -782,6 +793,7 @@ paths:
               style: simple
       tags:
       - dashboards
+      x-internal: false
   /v1/invitations:
     get:
       description: Retrieve all user invitations
@@ -831,6 +843,7 @@ paths:
               style: simple
       tags:
       - invitations
+      x-internal: true
     post:
       description: Invite users to the organization
       operationId: inviteUsers
@@ -888,6 +901,7 @@ paths:
               style: simple
       tags:
       - invitations
+      x-internal: true
   /v1/logs/search:
     get:
       description: Search logs
@@ -981,6 +995,7 @@ paths:
               style: simple
       tags:
       - logs
+      x-internal: true
   /v1/metrics:
     get:
       description: Get all metrics with their metadata
@@ -1055,6 +1070,7 @@ paths:
               style: simple
       tags:
       - metrics
+      x-internal: true
   /v1/metrics/{name}:
     get:
       description: Retrieve a metric by name with its metadata
@@ -1139,6 +1155,7 @@ paths:
               style: simple
       tags:
       - metrics
+      x-internal: true
   /v1/monitors:
     get:
       description: Retrieve all monitors
@@ -1188,6 +1205,7 @@ paths:
               style: simple
       tags:
       - monitors
+      x-internal: false
     post:
       description: Create a new monitor
       operationId: createMonitor
@@ -1265,6 +1283,7 @@ paths:
               style: simple
       tags:
       - monitors
+      x-internal: false
   /v1/monitors/{id}:
     delete:
       description: Delete a monitor by its id
@@ -1324,6 +1343,7 @@ paths:
               style: simple
       tags:
       - monitors
+      x-internal: false
     get:
       description: Retrieve a monitor by its id
       operationId: getMonitor
@@ -1382,6 +1402,7 @@ paths:
               style: simple
       tags:
       - monitors
+      x-internal: false
     put:
       description: Update a monitor by its id
       operationId: updateMonitor
@@ -1469,6 +1490,7 @@ paths:
               style: simple
       tags:
       - monitors
+      x-internal: false
   /v1/notification-rules:
     get:
       description: Retrieve all notification rules
@@ -1518,6 +1540,7 @@ paths:
               style: simple
       tags:
       - notification-rules
+      x-internal: false
     post:
       description: Create a new notification rule
       operationId: createNotificationRule
@@ -1594,6 +1617,7 @@ paths:
               style: simple
       tags:
       - notification-rules
+      x-internal: false
   /v1/notification-rules/{id}:
     delete:
       description: Delete a notification rule by its id
@@ -1653,6 +1677,7 @@ paths:
               style: simple
       tags:
       - notification-rules
+      x-internal: false
     get:
       description: Retrieve a notification rule by its id
       operationId: getNotificationRule
@@ -1711,6 +1736,7 @@ paths:
               style: simple
       tags:
       - notification-rules
+      x-internal: false
     put:
       description: Update a notification rule by its id
       operationId: updateNotificationRule
@@ -1797,6 +1823,7 @@ paths:
               style: simple
       tags:
       - notification-rules
+      x-internal: false
   /v1/notification-silences:
     get:
       description: Retrieve all notification silences
@@ -1846,6 +1873,7 @@ paths:
               style: simple
       tags:
       - notification-silences
+      x-internal: true
     post:
       description: Create a new notification silence
       operationId: createNotificationSilence
@@ -1900,6 +1928,7 @@ paths:
               style: simple
       tags:
       - notification-silences
+      x-internal: true
   /v1/notification-silences/{id}:
     delete:
       description: Delete a notification silence by its id
@@ -1959,6 +1988,7 @@ paths:
               style: simple
       tags:
       - notification-silences
+      x-internal: true
     get:
       description: Retrieve a notification silence by its id
       operationId: getNotificationSilence
@@ -2017,6 +2047,7 @@ paths:
               style: simple
       tags:
       - notification-silences
+      x-internal: true
     put:
       description: Update a notification silence by its id
       operationId: updateNotificationSilence
@@ -2081,6 +2112,7 @@ paths:
               style: simple
       tags:
       - notification-silences
+      x-internal: true
   /v1/retention-policies:
     get:
       description: Retrieve all retention policies
@@ -2130,6 +2162,7 @@ paths:
               style: simple
       tags:
       - retention-policies
+      x-internal: true
     post:
       description: Create a new retention policy
       operationId: createRetentionPolicy
@@ -2190,6 +2223,7 @@ paths:
               style: simple
       tags:
       - retention-policies
+      x-internal: true
   /v1/retention-policies/{id}:
     delete:
       description: Delete a retention policy by its id
@@ -2249,6 +2283,7 @@ paths:
               style: simple
       tags:
       - retention-policies
+      x-internal: true
     get:
       description: Retrieve a retention policy by its id
       operationId: getRetentionPolicy
@@ -2307,6 +2342,7 @@ paths:
               style: simple
       tags:
       - retention-policies
+      x-internal: true
     put:
       description: Update a retention policy by its id
       operationId: updateRetentionPolicy
@@ -2377,6 +2413,7 @@ paths:
               style: simple
       tags:
       - retention-policies
+      x-internal: true
   /v1/routes:
     get:
       description: Retrieve all routes
@@ -2426,6 +2463,7 @@ paths:
               style: simple
       tags:
       - routes
+      x-internal: true
     post:
       description: Create a new route
       operationId: createRoute
@@ -2498,6 +2536,7 @@ paths:
               style: simple
       tags:
       - routes
+      x-internal: true
   /v1/routes/{id}:
     delete:
       description: Delete a route by its id
@@ -2557,6 +2596,7 @@ paths:
               style: simple
       tags:
       - routes
+      x-internal: true
     get:
       description: Retrieve a route by its id
       operationId: getRoute
@@ -2615,6 +2655,7 @@ paths:
               style: simple
       tags:
       - routes
+      x-internal: true
     put:
       description: Update a route by its id
       operationId: updateRoute
@@ -2697,6 +2738,7 @@ paths:
               style: simple
       tags:
       - routes
+      x-internal: true
   /v1/services:
     get:
       description: Retrieve all services
@@ -2746,6 +2788,7 @@ paths:
               style: simple
       tags:
       - services
+      x-internal: true
   /v1/services/{serviceId}:
     get:
       description: Retrieve a service by its id
@@ -2805,6 +2848,7 @@ paths:
               style: simple
       tags:
       - services
+      x-internal: true
   /v1/tag-policies:
     get:
       description: Retrieve all tag policies
@@ -2854,6 +2898,7 @@ paths:
               style: simple
       tags:
       - tag-policies
+      x-internal: false
     post:
       description: Create a new tag policy
       operationId: createTagPolicy
@@ -2908,6 +2953,7 @@ paths:
               style: simple
       tags:
       - tag-policies
+      x-internal: false
   /v1/tag-policies/{id}:
     delete:
       description: Delete a tag policy by its id
@@ -2967,6 +3013,7 @@ paths:
               style: simple
       tags:
       - tag-policies
+      x-internal: false
     get:
       description: Retrieve a tag policy by its id
       operationId: getTagPolicy
@@ -3025,6 +3072,7 @@ paths:
               style: simple
       tags:
       - tag-policies
+      x-internal: false
     put:
       description: Update a tag policy by its id
       operationId: updateTagPolicy
@@ -3089,6 +3137,7 @@ paths:
               style: simple
       tags:
       - tag-policies
+      x-internal: false
   /v1/teams:
     get:
       description: Retrieve all teams
@@ -3138,6 +3187,7 @@ paths:
               style: simple
       tags:
       - teams
+      x-internal: false
     post:
       description: Create a new team
       operationId: createTeam
@@ -3199,6 +3249,7 @@ paths:
               style: simple
       tags:
       - teams
+      x-internal: false
   /v1/teams/{id}:
     delete:
       description: Delete a team by its id
@@ -3258,6 +3309,7 @@ paths:
               style: simple
       tags:
       - teams
+      x-internal: false
     get:
       description: Retrieve a team by its id
       operationId: getTeam
@@ -3316,6 +3368,7 @@ paths:
               style: simple
       tags:
       - teams
+      x-internal: false
     put:
       description: Update a team by its id
       operationId: updateTeam
@@ -3387,6 +3440,7 @@ paths:
               style: simple
       tags:
       - teams
+      x-internal: false
   /v1/team-memberships:
     delete:
       description: Remove a user from a team
@@ -3442,6 +3496,7 @@ paths:
               style: simple
       tags:
       - team-memberships
+      x-internal: true
     get:
       description: Get all team memberships
       operationId: getTeamMemberships
@@ -3509,6 +3564,7 @@ paths:
               style: simple
       tags:
       - team-memberships
+      x-internal: true
     post:
       description: Add a user to a team
       operationId: addUserToTeam
@@ -3563,6 +3619,7 @@ paths:
               style: simple
       tags:
       - team-memberships
+      x-internal: true
     put:
       description: Update a user role in a team
       operationId: updateTeamMembership
@@ -3617,6 +3674,7 @@ paths:
               style: simple
       tags:
       - team-memberships
+      x-internal: true
   /v1/traces/search:
     get:
       description: Search spans
@@ -3710,6 +3768,7 @@ paths:
               style: simple
       tags:
       - traces
+      x-internal: true
   /v1/users:
     get:
       description: Retrieve all users
@@ -3759,6 +3818,7 @@ paths:
               style: simple
       tags:
       - users
+      x-internal: true
   /v1/users/{id}:
     get:
       description: Retrieve a user by its id
@@ -3818,6 +3878,7 @@ paths:
               style: simple
       tags:
       - users
+      x-internal: true
 components:
   schemas:
     ClientErrorResponse:
@@ -3929,14 +3990,6 @@ components:
       - results
       title: ScalarAggregationResponse
     AggregateScalarResponse:
-      example:
-        data:
-          results:
-          - id: q1
-            group:
-              host: server-1
-            value: 123.45
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -3968,18 +4021,6 @@ components:
       - series
       title: TimeseriesAggregationResponse
     AggregateTimeseriesResponse:
-      example:
-        data:
-          series:
-          - id: q1
-            group:
-              host: server-1
-            points:
-            - timestamp: 1609459200000
-              value: 123.45
-            - timestamp: 1609459260000
-              value: 456.78
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -3990,19 +4031,6 @@ components:
       - data
       - requestId
     CreateIngestionApiKeyResponse:
-      example:
-        data:
-          id: 123-456-abc
-          name: Production Logs Ingestion
-          keyLastCharacters: x7Qm
-          owner: abc-123-def
-          tags:
-          - key: env
-            value: production
-          teamOverrideFields:
-          - service
-          key: tsuga_in:v1:abc123xyx7Qm
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -4050,18 +4078,6 @@ components:
       - name
       - owner
     UpdateIngestionApiKeyResponse:
-      example:
-        data:
-          id: 123-456-abc
-          name: Production Logs Ingestion
-          keyLastCharacters: x7Qm
-          owner: abc-123-def
-          tags:
-          - key: env
-            value: production
-          teamOverrideFields:
-          - service
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -4072,27 +4088,6 @@ components:
       - data
       - requestId
     ListIngestionApiKeysResponse:
-      example:
-        data:
-        - id: 123-456-abc
-          name: Production Logs Ingestion
-          keyLastCharacters: x7Qm
-          owner: abc-123-def
-          tags:
-          - key: env
-            value: production
-          teamOverrideFields:
-          - service
-        - id: 123-456-abc
-          name: Production Logs Ingestion
-          keyLastCharacters: x7Qm
-          owner: abc-123-def
-          tags:
-          - key: env
-            value: production
-          teamOverrideFields:
-          - service
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -4105,18 +4100,6 @@ components:
       - data
       - requestId
     GetIngestionApiKeyResponse:
-      example:
-        data:
-          id: 123-456-abc
-          name: Production Logs Ingestion
-          keyLastCharacters: x7Qm
-          owner: abc-123-def
-          tags:
-          - key: env
-            value: production
-          teamOverrideFields:
-          - service
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -4450,11 +4433,6 @@ components:
       - data
       - requestId
     InviteUsersResponse:
-      example:
-        data:
-          success: true
-          message: message
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -4466,15 +4444,6 @@ components:
       - requestId
     UserInvitation:
       description: An invitation to join the organization
-      example:
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        teamId: teamId
-        teamRole: admin
-        id: id
-        email: email
-        expiresAt: 2000-01-23T04:56:07.000+00:00
-        status: pending
-        updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         id:
           type: string
@@ -4512,25 +4481,6 @@ components:
       - status
       - updatedAt
     ListInvitationsResponse:
-      example:
-        data:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          teamId: teamId
-          teamRole: admin
-          id: id
-          email: email
-          expiresAt: 2000-01-23T04:56:07.000+00:00
-          status: pending
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          teamId: teamId
-          teamRole: admin
-          id: id
-          email: email
-          expiresAt: 2000-01-23T04:56:07.000+00:00
-          status: pending
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -4543,20 +4493,6 @@ components:
       - data
       - requestId
     SearchLogsResponse:
-      example:
-        data:
-          logs:
-          - context:
-              team: platform
-            message: Request completed successfully
-            timestamp: 1704067200000
-            level: INFO
-          - context:
-              team: platform
-            message: Request completed successfully
-            timestamp: 1704067200000
-            level: INFO
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -4630,35 +4566,6 @@ components:
       - data
       - requestId
     ListMetricsResponse:
-      example:
-        data:
-        - name: http.server.request.duration
-          type: histogram
-          description: Duration of HTTP server requests
-          unit: ms
-          temporality: delta
-          capabilities:
-          - max
-          - min
-          - sum
-          attributes:
-          - context.team
-          - context.environment
-          - context.region
-        - name: http.server.request.duration
-          type: histogram
-          description: Duration of HTTP server requests
-          unit: ms
-          temporality: delta
-          capabilities:
-          - max
-          - min
-          - sum
-          attributes:
-          - context.team
-          - context.environment
-          - context.region
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -4671,22 +4578,6 @@ components:
       - data
       - requestId
     GetMetricResponse:
-      example:
-        data:
-          name: http.server.request.duration
-          type: histogram
-          description: Duration of HTTP server requests
-          unit: ms
-          temporality: delta
-          capabilities:
-          - max
-          - min
-          - sum
-          attributes:
-          - context.team
-          - context.environment
-          - context.region
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -5220,42 +5111,6 @@ components:
       - requestId
     NotificationSilence:
       description: Silences to suppress notifications based on schedules and filters
-      example:
-        owner: owner
-        reason: reason
-        schedule:
-          startTime: 2000-01-23T04:56:07.000+00:00
-          endTime: 2000-01-23T04:56:07.000+00:00
-          type: one-time
-        transitionTypesFilter:
-        - triggered
-        - triggered
-        notificationRuleIds:
-        - notificationRuleIds
-        - notificationRuleIds
-        name: name
-        prioritiesFilter:
-        - 0.8008281904610115
-        - 0.8008281904610115
-        id: id
-        isActive: true
-        queryString: queryString
-        teamsFilter:
-          teams:
-          - teams
-          - teams
-          type: specific-teams
-        tags:
-        - value: value
-          key: key
-        - value: value
-          key: key
-        - value: value
-          key: key
-        - value: value
-          key: key
-        - value: value
-          key: key
       properties:
         id:
           description: Unique identifier of the silence
@@ -5324,79 +5179,6 @@ components:
       - teamsFilter
       - transitionTypesFilter
     ListNotificationSilencesResponse:
-      example:
-        data:
-        - owner: owner
-          reason: reason
-          schedule:
-            startTime: 2000-01-23T04:56:07.000+00:00
-            endTime: 2000-01-23T04:56:07.000+00:00
-            type: one-time
-          transitionTypesFilter:
-          - triggered
-          - triggered
-          notificationRuleIds:
-          - notificationRuleIds
-          - notificationRuleIds
-          name: name
-          prioritiesFilter:
-          - 0.8008281904610115
-          - 0.8008281904610115
-          id: id
-          isActive: true
-          queryString: queryString
-          teamsFilter:
-            teams:
-            - teams
-            - teams
-            type: specific-teams
-          tags:
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-        - owner: owner
-          reason: reason
-          schedule:
-            startTime: 2000-01-23T04:56:07.000+00:00
-            endTime: 2000-01-23T04:56:07.000+00:00
-            type: one-time
-          transitionTypesFilter:
-          - triggered
-          - triggered
-          notificationRuleIds:
-          - notificationRuleIds
-          - notificationRuleIds
-          name: name
-          prioritiesFilter:
-          - 0.8008281904610115
-          - 0.8008281904610115
-          id: id
-          isActive: true
-          queryString: queryString
-          teamsFilter:
-            teams:
-            - teams
-            - teams
-            type: specific-teams
-          tags:
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -5409,44 +5191,6 @@ components:
       - data
       - requestId
     GetNotificationSilenceResponse:
-      example:
-        data:
-          owner: owner
-          reason: reason
-          schedule:
-            startTime: 2000-01-23T04:56:07.000+00:00
-            endTime: 2000-01-23T04:56:07.000+00:00
-            type: one-time
-          transitionTypesFilter:
-          - triggered
-          - triggered
-          notificationRuleIds:
-          - notificationRuleIds
-          - notificationRuleIds
-          name: name
-          prioritiesFilter:
-          - 0.8008281904610115
-          - 0.8008281904610115
-          id: id
-          isActive: true
-          queryString: queryString
-          teamsFilter:
-            teams:
-            - teams
-            - teams
-            type: specific-teams
-          tags:
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -5457,44 +5201,6 @@ components:
       - data
       - requestId
     CreateNotificationSilenceResponse:
-      example:
-        data:
-          owner: owner
-          reason: reason
-          schedule:
-            startTime: 2000-01-23T04:56:07.000+00:00
-            endTime: 2000-01-23T04:56:07.000+00:00
-            type: one-time
-          transitionTypesFilter:
-          - triggered
-          - triggered
-          notificationRuleIds:
-          - notificationRuleIds
-          - notificationRuleIds
-          name: name
-          prioritiesFilter:
-          - 0.8008281904610115
-          - 0.8008281904610115
-          id: id
-          isActive: true
-          queryString: queryString
-          teamsFilter:
-            teams:
-            - teams
-            - teams
-            type: specific-teams
-          tags:
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -5505,44 +5211,6 @@ components:
       - data
       - requestId
     UpdateNotificationSilenceResponse:
-      example:
-        data:
-          owner: owner
-          reason: reason
-          schedule:
-            startTime: 2000-01-23T04:56:07.000+00:00
-            endTime: 2000-01-23T04:56:07.000+00:00
-            type: one-time
-          transitionTypesFilter:
-          - triggered
-          - triggered
-          notificationRuleIds:
-          - notificationRuleIds
-          - notificationRuleIds
-          name: name
-          prioritiesFilter:
-          - 0.8008281904610115
-          - 0.8008281904610115
-          id: id
-          isActive: true
-          queryString: queryString
-          teamsFilter:
-            teams:
-            - teams
-            - teams
-            type: specific-teams
-          tags:
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-          - value: value
-            key: key
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -5609,21 +5277,6 @@ components:
       - id
       - isEnabled
     ListRetentionPoliciesResponse:
-      example:
-        data:
-        - id: 123-456-abc
-          env: production
-          teamId: abc-123-def
-          dataSource: logs
-          durationDays: 30-days
-          isEnabled: true
-        - id: 123-456-abc
-          env: production
-          teamId: abc-123-def
-          dataSource: logs
-          durationDays: 30-days
-          isEnabled: true
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -5636,15 +5289,6 @@ components:
       - data
       - requestId
     GetRetentionPolicyResponse:
-      example:
-        data:
-          id: 123-456-abc
-          env: production
-          teamId: abc-123-def
-          dataSource: logs
-          durationDays: 30-days
-          isEnabled: true
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -5655,15 +5299,6 @@ components:
       - data
       - requestId
     CreateRetentionPolicyResponse:
-      example:
-        data:
-          id: 123-456-abc
-          env: production
-          teamId: abc-123-def
-          dataSource: logs
-          durationDays: 30-days
-          isEnabled: true
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -5674,15 +5309,6 @@ components:
       - data
       - requestId
     UpdateRetentionPolicyResponse:
-      example:
-        data:
-          id: 123-456-abc
-          env: production
-          teamId: abc-123-def
-          dataSource: logs
-          durationDays: 30-days
-          isEnabled: true
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -5771,45 +5397,6 @@ components:
       - $ref: "#/components/schemas/Processor_anyOf_2"
       - $ref: "#/components/schemas/Processor_anyOf_3"
     ListRoutesResponse:
-      example:
-        data:
-        - id: 123-456-abc
-          name: Enrich API Gateway Logs
-          description: Adds service metadata and normalizes log format
-          isEnabled: true
-          query: service:api-gateway
-          tags:
-          - key: category
-            value: enrichment
-          owner: abc-123-def
-          processors:
-          - id: 789-abc-def
-            type: parse-attribute
-            tags: []
-            params:
-              subtype: grok
-              attributeName: message
-              rules:
-              - "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{GREEDYDATA:msg}"
-        - id: 123-456-abc
-          name: Enrich API Gateway Logs
-          description: Adds service metadata and normalizes log format
-          isEnabled: true
-          query: service:api-gateway
-          tags:
-          - key: category
-            value: enrichment
-          owner: abc-123-def
-          processors:
-          - id: 789-abc-def
-            type: parse-attribute
-            tags: []
-            params:
-              subtype: grok
-              attributeName: message
-              rules:
-              - "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{GREEDYDATA:msg}"
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -5822,27 +5409,6 @@ components:
       - data
       - requestId
     GetRouteResponse:
-      example:
-        data:
-          id: 123-456-abc
-          name: Enrich API Gateway Logs
-          description: Adds service metadata and normalizes log format
-          isEnabled: true
-          query: service:api-gateway
-          tags:
-          - key: category
-            value: enrichment
-          owner: abc-123-def
-          processors:
-          - id: 789-abc-def
-            type: parse-attribute
-            tags: []
-            params:
-              subtype: grok
-              attributeName: message
-              rules:
-              - "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{GREEDYDATA:msg}"
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -5853,27 +5419,6 @@ components:
       - data
       - requestId
     CreateRouteResponse:
-      example:
-        data:
-          id: 123-456-abc
-          name: Enrich API Gateway Logs
-          description: Adds service metadata and normalizes log format
-          isEnabled: true
-          query: service:api-gateway
-          tags:
-          - key: category
-            value: enrichment
-          owner: abc-123-def
-          processors:
-          - id: 789-abc-def
-            type: parse-attribute
-            tags: []
-            params:
-              subtype: grok
-              attributeName: message
-              rules:
-              - "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{GREEDYDATA:msg}"
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -5884,27 +5429,6 @@ components:
       - data
       - requestId
     UpdateRouteResponse:
-      example:
-        data:
-          id: 123-456-abc
-          name: Enrich API Gateway Logs
-          description: Adds service metadata and normalizes log format
-          isEnabled: true
-          query: service:api-gateway
-          tags:
-          - key: category
-            value: enrichment
-          owner: abc-123-def
-          processors:
-          - id: 789-abc-def
-            type: parse-attribute
-            tags: []
-            params:
-              subtype: grok
-              attributeName: message
-              rules:
-              - "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{GREEDYDATA:msg}"
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -6010,59 +5534,6 @@ components:
       - tracesCount24h
       - versions
     ListServicesResponse:
-      example:
-        data:
-        - id: 123-456-abc
-          serviceName: api-gateway
-          serviceNamespace: platform
-          env: production
-          teams:
-          - team: platform
-            lastSeenAt: 2024-01-15T12:34:56.000Z
-          versions:
-          - version: 1.2.3
-            firstSeenAt: 2024-01-01T08:00:00.000Z
-            lastSeenAt: 2024-01-15T12:34:56.000Z
-            faulty: false
-          languages:
-          - language: go
-            lastSeenAt: 2024-01-15T12:34:56.000Z
-          lastSeenAt: 2024-01-15T12:34:56.000Z
-          firstSeenAt: 2024-01-01T08:00:00.000Z
-          sources:
-          - logs
-          - metrics
-          - traces
-          logsCount24h: 12000
-          errorLogsCount24h: 42
-          tracesCount24h: 8500
-          errorTracesCount24h: 17
-        - id: 123-456-abc
-          serviceName: api-gateway
-          serviceNamespace: platform
-          env: production
-          teams:
-          - team: platform
-            lastSeenAt: 2024-01-15T12:34:56.000Z
-          versions:
-          - version: 1.2.3
-            firstSeenAt: 2024-01-01T08:00:00.000Z
-            lastSeenAt: 2024-01-15T12:34:56.000Z
-            faulty: false
-          languages:
-          - language: go
-            lastSeenAt: 2024-01-15T12:34:56.000Z
-          lastSeenAt: 2024-01-15T12:34:56.000Z
-          firstSeenAt: 2024-01-01T08:00:00.000Z
-          sources:
-          - logs
-          - metrics
-          - traces
-          logsCount24h: 12000
-          errorLogsCount24h: 42
-          tracesCount24h: 8500
-          errorTracesCount24h: 17
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -6075,34 +5546,6 @@ components:
       - data
       - requestId
     GetServiceResponse:
-      example:
-        data:
-          id: 123-456-abc
-          serviceName: api-gateway
-          serviceNamespace: platform
-          env: production
-          teams:
-          - team: platform
-            lastSeenAt: 2024-01-15T12:34:56.000Z
-          versions:
-          - version: 1.2.3
-            firstSeenAt: 2024-01-01T08:00:00.000Z
-            lastSeenAt: 2024-01-15T12:34:56.000Z
-            faulty: false
-          languages:
-          - language: go
-            lastSeenAt: 2024-01-15T12:34:56.000Z
-          lastSeenAt: 2024-01-15T12:34:56.000Z
-          firstSeenAt: 2024-01-01T08:00:00.000Z
-          sources:
-          - logs
-          - metrics
-          - traces
-          logsCount24h: 12000
-          errorLogsCount24h: 42
-          tracesCount24h: 8500
-          errorTracesCount24h: 17
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -6507,11 +5950,6 @@ components:
       - requestId
     TeamMembership:
       description: Membership of a user in a team
-      example:
-        teamId: teamId
-        roleKey: admin
-        id: id
-        userId: userId
       properties:
         id:
           type: string
@@ -6531,17 +5969,6 @@ components:
       - teamId
       - userId
     GetTeamMembershipsResponse:
-      example:
-        data:
-        - teamId: teamId
-          roleKey: admin
-          id: id
-          userId: userId
-        - teamId: teamId
-          roleKey: admin
-          id: id
-          userId: userId
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -6554,13 +5981,6 @@ components:
       - data
       - requestId
     AddUserToTeamResponse:
-      example:
-        data:
-          teamId: teamId
-          roleKey: admin
-          id: id
-          userId: userId
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -6571,13 +5991,6 @@ components:
       - data
       - requestId
     UpdateTeamMembershipResponse:
-      example:
-        data:
-          teamId: teamId
-          roleKey: admin
-          id: id
-          userId: userId
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -6602,70 +6015,6 @@ components:
       - data
       - requestId
     SearchSpansResponse:
-      example:
-        data:
-          spans:
-          - context:
-              service:
-                name: my-service
-                version: 1.0.0
-            parentSpanId: 187a47da1b2560f8
-            resourceAttributes: {}
-            spanAttributes:
-              busyNs: 374640
-              code:
-                file:
-                  path: src/queue/sqs.rs
-                line:
-                  number: 162
-                module:
-                  name: queue::sqs
-              idleNs: 23621445
-              maxMessages: "1"
-              target: queue::sqs
-              thread:
-                id: 2
-                name: tokio-runtime-worker
-            duration: 23
-            startTime: "1770923469995353600"
-            endTime: "1770923470019349500"
-            spanId: 3df8cc3449378f66
-            span:
-              kind: internal
-              name: receive_messages
-            statusCode: ok
-            traceId: 78c99c5bb1e4a30297fa134b9dbec64f
-          - context:
-              service:
-                name: my-service
-                version: 1.0.0
-            parentSpanId: 187a47da1b2560f8
-            resourceAttributes: {}
-            spanAttributes:
-              busyNs: 374640
-              code:
-                file:
-                  path: src/queue/sqs.rs
-                line:
-                  number: 162
-                module:
-                  name: queue::sqs
-              idleNs: 23621445
-              maxMessages: "1"
-              target: queue::sqs
-              thread:
-                id: 2
-                name: tokio-runtime-worker
-            duration: 23
-            startTime: "1770923469995353600"
-            endTime: "1770923470019349500"
-            spanId: 3df8cc3449378f66
-            span:
-              kind: internal
-              name: receive_messages
-            statusCode: ok
-            traceId: 78c99c5bb1e4a30297fa134b9dbec64f
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -6757,11 +6106,6 @@ components:
       - traceId
     User:
       description: A user in the organization
-      example:
-        role: admin
-        name: name
-        id: id
-        email: email
       properties:
         email:
           type: string
@@ -6782,17 +6126,6 @@ components:
       - name
       - role
     ListUsersResponse:
-      example:
-        data:
-        - role: admin
-          name: name
-          id: id
-          email: email
-        - role: admin
-          name: name
-          id: id
-          email: email
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -6805,13 +6138,6 @@ components:
       - data
       - requestId
     GetUserResponse:
-      example:
-        data:
-          role: admin
-          name: name
-          id: id
-          email: email
-        requestId: requestId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -8145,10 +7471,6 @@ components:
       title: Note
     SilenceScheduleOneTime:
       description: One-time silence schedule with specific start and end times
-      example:
-        startTime: 2000-01-23T04:56:07.000+00:00
-        endTime: 2000-01-23T04:56:07.000+00:00
-        type: one-time
       properties:
         type:
           enum:
@@ -8358,9 +7680,6 @@ components:
       - queries
       - timeRange
     Tag:
-      example:
-        value: value
-        key: key
       properties:
         key:
           maxLength: 128
@@ -9337,9 +8656,6 @@ components:
         key: tsuga_in:v1:abc123xyx7Qm
       title: IngestionApiKeyCreated
     InviteUsersResponse_data:
-      example:
-        success: true
-        message: message
       properties:
         success:
           type: boolean
@@ -9382,18 +8698,6 @@ components:
       - level
       - timestamp
     SearchLogsResponse_data:
-      example:
-        logs:
-        - context:
-            team: platform
-          message: Request completed successfully
-          timestamp: 1704067200000
-          level: INFO
-        - context:
-            team: platform
-          message: Request completed successfully
-          timestamp: 1704067200000
-          level: INFO
       properties:
         logs:
           items:
@@ -9663,11 +8967,6 @@ components:
       - name
       - type
     Rule_teamsFilter_oneOf:
-      example:
-        teams:
-        - teams
-        - teams
-        type: specific-teams
       properties:
         type:
           enum:
@@ -10172,68 +9471,6 @@ components:
       - startTime
       - traceId
     SearchSpansResponse_data:
-      example:
-        spans:
-        - context:
-            service:
-              name: my-service
-              version: 1.0.0
-          parentSpanId: 187a47da1b2560f8
-          resourceAttributes: {}
-          spanAttributes:
-            busyNs: 374640
-            code:
-              file:
-                path: src/queue/sqs.rs
-              line:
-                number: 162
-              module:
-                name: queue::sqs
-            idleNs: 23621445
-            maxMessages: "1"
-            target: queue::sqs
-            thread:
-              id: 2
-              name: tokio-runtime-worker
-          duration: 23
-          startTime: "1770923469995353600"
-          endTime: "1770923470019349500"
-          spanId: 3df8cc3449378f66
-          span:
-            kind: internal
-            name: receive_messages
-          statusCode: ok
-          traceId: 78c99c5bb1e4a30297fa134b9dbec64f
-        - context:
-            service:
-              name: my-service
-              version: 1.0.0
-          parentSpanId: 187a47da1b2560f8
-          resourceAttributes: {}
-          spanAttributes:
-            busyNs: 374640
-            code:
-              file:
-                path: src/queue/sqs.rs
-              line:
-                number: 162
-              module:
-                name: queue::sqs
-            idleNs: 23621445
-            maxMessages: "1"
-            target: queue::sqs
-            thread:
-              id: 2
-              name: tokio-runtime-worker
-          duration: 23
-          startTime: "1770923469995353600"
-          endTime: "1770923470019349500"
-          spanId: 3df8cc3449378f66
-          span:
-            kind: internal
-            name: receive_messages
-          statusCode: ok
-          traceId: 78c99c5bb1e4a30297fa134b9dbec64f
       properties:
         spans:
           items:

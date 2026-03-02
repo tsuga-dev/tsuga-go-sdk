@@ -1,22 +1,10 @@
 .gitignore
 api/openapi.yaml
-api_aggregation.go
 api_dashboards.go
-api_ingestion_api_keys.go
-api_invitations.go
-api_logs.go
-api_metrics.go
 api_monitors.go
 api_notification_rules.go
-api_notification_silences.go
-api_retention_policies.go
-api_routes.go
-api_services.go
 api_tag_policies.go
-api_team_memberships.go
 api_teams.go
-api_traces.go
-api_users.go
 client.go
 configuration.go
 docs/AddUserToTeamResponse.md
@@ -32,7 +20,6 @@ docs/AggregateSum.md
 docs/AggregateTimeseriesRequest.md
 docs/AggregateTimeseriesResponse.md
 docs/AggregateUniqueCount.md
-docs/AggregationAPI.md
 docs/AggregationGroupBy.md
 docs/AggregationQuery.md
 docs/AggregationQuery1.md
@@ -133,8 +120,6 @@ docs/GraphVisualizationTimeseriesTimeBucket.md
 docs/GraphVisualizationTopList.md
 docs/IngestionApiKey.md
 docs/IngestionApiKeyCreated.md
-docs/IngestionApiKeysAPI.md
-docs/InvitationsAPI.md
 docs/InviteUsersRequestInner.md
 docs/InviteUsersResponse.md
 docs/InviteUsersResponseData.md
@@ -154,8 +139,6 @@ docs/ListTeamsResponse.md
 docs/ListUsersResponse.md
 docs/LogContext.md
 docs/LogEvent.md
-docs/LogsAPI.md
-docs/MetricsAPI.md
 docs/Monitor.md
 docs/MonitorAggregationQuery.md
 docs/MonitorAggregationQueryFill.md
@@ -174,7 +157,6 @@ docs/MonitorsAPI.md
 docs/Normalizer.md
 docs/NotificationRulesAPI.md
 docs/NotificationSilence.md
-docs/NotificationSilencesAPI.md
 docs/Processor.md
 docs/ProcessorAnyOf.md
 docs/ProcessorAnyOf1.md
@@ -197,10 +179,8 @@ docs/ProcessorParamsMapperMapLevel.md
 docs/ProcessorParamsMapperMapTimestamp.md
 docs/RemoveUserFromTeamRequest.md
 docs/RemoveUserFromTeamResponse.md
-docs/RetentionPoliciesAPI.md
 docs/RetentionPolicy.md
 docs/Route.md
-docs/RoutesAPI.md
 docs/Rule.md
 docs/RuleTargetConfigEmail.md
 docs/RuleTargetConfigGoogleChat.md
@@ -247,7 +227,6 @@ docs/Service.md
 docs/ServiceLanguagesInner.md
 docs/ServiceTeamsInner.md
 docs/ServiceVersionsInner.md
-docs/ServicesAPI.md
 docs/SilenceScheduleOneTime.md
 docs/SilenceScheduleRecurring.md
 docs/SilenceScheduleRecurringWeeklySchedule.md
@@ -258,7 +237,6 @@ docs/TagPoliciesAPI.md
 docs/TagPolicy.md
 docs/Team.md
 docs/TeamMembership.md
-docs/TeamMembershipsAPI.md
 docs/TeamsAPI.md
 docs/ThresholdMarker.md
 docs/TimeRange.md
@@ -272,7 +250,6 @@ docs/TokenOutputAnyOf4.md
 docs/TokenOutputAnyOf5.md
 docs/TokenOutputAnyOf6.md
 docs/TokenOutputAnyOf7.md
-docs/TracesAPI.md
 docs/UpdateDashboardRequest.md
 docs/UpdateDashboardResponse.md
 docs/UpdateIngestionApiKeyResponse.md
@@ -287,7 +264,6 @@ docs/UpdateTeamMembershipResponse.md
 docs/UpdateTeamResponse.md
 docs/User.md
 docs/UserInvitation.md
-docs/UsersAPI.md
 docs/WidgetListColumn.md
 go.mod
 go.sum
