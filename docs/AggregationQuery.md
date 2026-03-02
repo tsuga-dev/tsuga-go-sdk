@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Aggregate** | [**Aggregate**](Aggregate.md) |  | 
 **Functions** | Pointer to [**[]Function**](Function.md) | Post-processing functions applied to aggregation results | [optional] 
+**Fill** | Pointer to [**MonitorAggregationQueryFill**](MonitorAggregationQueryFill.md) |  | [optional] 
 **Filter** | Pointer to **string** | Filter to apply to the aggregation | [optional] 
 
 ## Methods
@@ -71,6 +72,31 @@ SetFunctions sets Functions field to given value.
 `func (o *AggregationQuery) HasFunctions() bool`
 
 HasFunctions returns a boolean if a field has been set.
+
+### GetFill
+
+`func (o *AggregationQuery) GetFill() MonitorAggregationQueryFill`
+
+GetFill returns the Fill field if non-nil, zero value otherwise.
+
+### GetFillOk
+
+`func (o *AggregationQuery) GetFillOk() (*MonitorAggregationQueryFill, bool)`
+
+GetFillOk returns a tuple with the Fill field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFill
+
+`func (o *AggregationQuery) SetFill(v MonitorAggregationQueryFill)`
+
+SetFill sets Fill field to given value.
+
+### HasFill
+
+`func (o *AggregationQuery) HasFill() bool`
+
+HasFill returns a boolean if a field has been set.
 
 ### GetFilter
 

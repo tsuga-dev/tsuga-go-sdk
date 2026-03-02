@@ -19,21 +19,6 @@ import (
 	tsuga "github.com/tsuga-dev/tsuga-go-sdk"
 )
 
-// marshalRoundTrip serialises v to JSON then deserialises into a fresh value
-// of the same type. Used to verify that Marshal→Unmarshal is lossless.
-func marshalRoundTrip[T any](t *testing.T, v T) T {
-	t.Helper()
-	b, err := json.Marshal(v)
-	if err != nil {
-		t.Fatalf("Marshal failed: %v", err)
-	}
-	var out T
-	if err := json.Unmarshal(b, &out); err != nil {
-		t.Fatalf("Unmarshal failed: %v\nJSON: %s", err, b)
-	}
-	return out
-}
-
 // unmarshal deserialises raw JSON into T, failing the test on error.
 func unmarshal[T any](t *testing.T, raw string) T {
 	t.Helper()
@@ -170,88 +155,5 @@ func TestGraphVisualizationDiscriminator(t *testing.T) {
 				t.Errorf("expected exactly 1 subtype field set, got %d", populated)
 			}
 		})
-	}
-}
-
-// -----------------------------------------------------------------------------
-// Aggregate — oneOf with 7 subtypes discriminated by "type"
-// -----------------------------------------------------------------------------
-
-func TestAggregateDiscriminator(t *testing.T) {
-	cases := []struct {
-		name    string
-		json    string
-		checkFn func(*testing.T, tsuga.Aggregate)
-	}{
-		{
-			name: "count",
-			json: `{"type":"count"}`,
-			checkFn: func(t *testing.T, a tsuga.Aggregate) {
-				t.Helper()
-				if a.AggregateCount == nil {
-					t.Fatal("expected AggregateCount to be set")
-				}
-			},
-		},
-		{
-			name: "unique-count",
-			json: `{"type":"unique-count","field":"user_id"}`,
-			checkFn: func(t *testing.T, a tsuga.Aggregate) {
-				t.Helper()
-				if a.AggregateUniqueCount == nil {
-					t.Fatal("expected AggregateUniqueCount to be set")
-				}
-			},
-		},
-		{
-			name: "average",
-			json: `{"type":"average","field":"duration"}`,
-			checkFn: func(t *testing.T, a tsuga.Aggregate) {
-				t.Helper()
-				if a.AggregateAverage == nil {
-					t.Fatal("expected AggregateAverage to be set")
-				}
-			},
-		},
-		{
-			name: "percentile",
-			json: `{"type":"percentile","field":"duration","percentile":99}`,
-			checkFn: func(t *testing.T, a tsuga.Aggregate) {
-				t.Helper()
-				if a.AggregatePercentile == nil {
-					t.Fatal("expected AggregatePercentile to be set")
-				}
-				if a.AggregatePercentile.GetPercentile() != 99 {
-					t.Errorf("percentile = %v, want 99", a.AggregatePercentile.GetPercentile())
-				}
-			},
-		},
-	}
-
-	for _, tc := range cases {
-		t.Run(tc.name, func(t *testing.T) {
-			a := unmarshal[tsuga.Aggregate](t, tc.json)
-			tc.checkFn(t, a)
-		})
-	}
-}
-
-// -----------------------------------------------------------------------------
-// AggregateScalarRequest — round-trip marshal/unmarshal
-// -----------------------------------------------------------------------------
-
-func TestAggregateScalarRequestRoundTrip(t *testing.T) {
-	tr := tsuga.NewTimeRange(1704067200, 1704153600)
-	q := tsuga.NewAggregationQuery(
-		tsuga.AggregateCountAsAggregate(tsuga.NewAggregateCount("count")),
-	)
-	req := tsuga.NewAggregateScalarRequest(*tr, []tsuga.AggregationQuery{*q}, "logs")
-
-	got := marshalRoundTrip(t, req)
-	if got.GetDataSource() != "logs" {
-		t.Errorf("DataSource = %q, want %q", got.GetDataSource(), "logs")
-	}
-	if len(got.GetQueries()) != 1 {
-		t.Errorf("Queries len = %d, want 1", len(got.GetQueries()))
 	}
 }

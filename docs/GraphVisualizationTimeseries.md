@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a time series chart | 
 **Source** | **string** | Data source being queried for this aggregation | 
-**Queries** | [**[]AggregationQuery1**](AggregationQuery1.md) | Aggregations that may be combined together in the same query | 
+**Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query | 
 **Formula** | Pointer to **string** | Formula referencing query outputs (e.g. q1+q2) to compute derived series | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
 **GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 
 ### NewGraphVisualizationTimeseries
 
-`func NewGraphVisualizationTimeseries(type_ string, source string, queries []AggregationQuery1, ) *GraphVisualizationTimeseries`
+`func NewGraphVisualizationTimeseries(type_ string, source string, queries []AggregationQuery, ) *GraphVisualizationTimeseries`
 
 NewGraphVisualizationTimeseries instantiates a new GraphVisualizationTimeseries object
 This constructor will assign default values to properties that have it defined,
@@ -77,20 +77,20 @@ SetSource sets Source field to given value.
 
 ### GetQueries
 
-`func (o *GraphVisualizationTimeseries) GetQueries() []AggregationQuery1`
+`func (o *GraphVisualizationTimeseries) GetQueries() []AggregationQuery`
 
 GetQueries returns the Queries field if non-nil, zero value otherwise.
 
 ### GetQueriesOk
 
-`func (o *GraphVisualizationTimeseries) GetQueriesOk() (*[]AggregationQuery1, bool)`
+`func (o *GraphVisualizationTimeseries) GetQueriesOk() (*[]AggregationQuery, bool)`
 
 GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueries
 
-`func (o *GraphVisualizationTimeseries) SetQueries(v []AggregationQuery1)`
+`func (o *GraphVisualizationTimeseries) SetQueries(v []AggregationQuery)`
 
 SetQueries sets Queries field to given value.
 
