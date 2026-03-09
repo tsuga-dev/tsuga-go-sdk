@@ -26,3 +26,13 @@ jobs:
           name: ${{ github.ref_name }}
           prerelease: false
           draft: false
+      - name: Send Slack notification
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # pin@v2
+        env:
+          SLACK_USERNAME: GitHub CI Bot
+          SLACK_COLOR: good
+          MSG_MINIMAL: actions url
+          SLACK_TITLE: "🚀 Go SDK Released"
+          SLACK_MESSAGE: "A new release has been published: ${{ github.ref_name }}"
+          SLACK_FOOTER: "https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}"
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
