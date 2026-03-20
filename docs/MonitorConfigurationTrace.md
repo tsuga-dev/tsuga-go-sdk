@@ -1,4 +1,4 @@
-# MonitorConfigurationMetric
+# MonitorConfigurationTrace
 
 ## Properties
 
@@ -16,214 +16,214 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewMonitorConfigurationMetric
+### NewMonitorConfigurationTrace
 
-`func NewMonitorConfigurationMetric(type_ string, condition MonitorConfigurationMetricCondition, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, queries []MonitorAggregationQuery, ) *MonitorConfigurationMetric`
+`func NewMonitorConfigurationTrace(type_ string, condition MonitorConfigurationMetricCondition, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, queries []MonitorAggregationQuery, ) *MonitorConfigurationTrace`
 
-NewMonitorConfigurationMetric instantiates a new MonitorConfigurationMetric object
+NewMonitorConfigurationTrace instantiates a new MonitorConfigurationTrace object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewMonitorConfigurationMetricWithDefaults
+### NewMonitorConfigurationTraceWithDefaults
 
-`func NewMonitorConfigurationMetricWithDefaults() *MonitorConfigurationMetric`
+`func NewMonitorConfigurationTraceWithDefaults() *MonitorConfigurationTrace`
 
-NewMonitorConfigurationMetricWithDefaults instantiates a new MonitorConfigurationMetric object
+NewMonitorConfigurationTraceWithDefaults instantiates a new MonitorConfigurationTrace object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetType
 
-`func (o *MonitorConfigurationMetric) GetType() string`
+`func (o *MonitorConfigurationTrace) GetType() string`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *MonitorConfigurationMetric) GetTypeOk() (*string, bool)`
+`func (o *MonitorConfigurationTrace) GetTypeOk() (*string, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *MonitorConfigurationMetric) SetType(v string)`
+`func (o *MonitorConfigurationTrace) SetType(v string)`
 
 SetType sets Type field to given value.
 
 
 ### GetCondition
 
-`func (o *MonitorConfigurationMetric) GetCondition() MonitorConfigurationMetricCondition`
+`func (o *MonitorConfigurationTrace) GetCondition() MonitorConfigurationMetricCondition`
 
 GetCondition returns the Condition field if non-nil, zero value otherwise.
 
 ### GetConditionOk
 
-`func (o *MonitorConfigurationMetric) GetConditionOk() (*MonitorConfigurationMetricCondition, bool)`
+`func (o *MonitorConfigurationTrace) GetConditionOk() (*MonitorConfigurationMetricCondition, bool)`
 
 GetConditionOk returns a tuple with the Condition field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCondition
 
-`func (o *MonitorConfigurationMetric) SetCondition(v MonitorConfigurationMetricCondition)`
+`func (o *MonitorConfigurationTrace) SetCondition(v MonitorConfigurationMetricCondition)`
 
 SetCondition sets Condition field to given value.
 
 
 ### GetConditions
 
-`func (o *MonitorConfigurationMetric) GetConditions() []MonitorConfigurationMetricCondition`
+`func (o *MonitorConfigurationTrace) GetConditions() []MonitorConfigurationMetricCondition`
 
 GetConditions returns the Conditions field if non-nil, zero value otherwise.
 
 ### GetConditionsOk
 
-`func (o *MonitorConfigurationMetric) GetConditionsOk() (*[]MonitorConfigurationMetricCondition, bool)`
+`func (o *MonitorConfigurationTrace) GetConditionsOk() (*[]MonitorConfigurationMetricCondition, bool)`
 
 GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConditions
 
-`func (o *MonitorConfigurationMetric) SetConditions(v []MonitorConfigurationMetricCondition)`
+`func (o *MonitorConfigurationTrace) SetConditions(v []MonitorConfigurationMetricCondition)`
 
 SetConditions sets Conditions field to given value.
 
 ### HasConditions
 
-`func (o *MonitorConfigurationMetric) HasConditions() bool`
+`func (o *MonitorConfigurationTrace) HasConditions() bool`
 
 HasConditions returns a boolean if a field has been set.
 
 ### GetNoDataBehavior
 
-`func (o *MonitorConfigurationMetric) GetNoDataBehavior() string`
+`func (o *MonitorConfigurationTrace) GetNoDataBehavior() string`
 
 GetNoDataBehavior returns the NoDataBehavior field if non-nil, zero value otherwise.
 
 ### GetNoDataBehaviorOk
 
-`func (o *MonitorConfigurationMetric) GetNoDataBehaviorOk() (*string, bool)`
+`func (o *MonitorConfigurationTrace) GetNoDataBehaviorOk() (*string, bool)`
 
 GetNoDataBehaviorOk returns a tuple with the NoDataBehavior field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNoDataBehavior
 
-`func (o *MonitorConfigurationMetric) SetNoDataBehavior(v string)`
+`func (o *MonitorConfigurationTrace) SetNoDataBehavior(v string)`
 
 SetNoDataBehavior sets NoDataBehavior field to given value.
 
 
 ### GetTimeframe
 
-`func (o *MonitorConfigurationMetric) GetTimeframe() float32`
+`func (o *MonitorConfigurationTrace) GetTimeframe() float32`
 
 GetTimeframe returns the Timeframe field if non-nil, zero value otherwise.
 
 ### GetTimeframeOk
 
-`func (o *MonitorConfigurationMetric) GetTimeframeOk() (*float32, bool)`
+`func (o *MonitorConfigurationTrace) GetTimeframeOk() (*float32, bool)`
 
 GetTimeframeOk returns a tuple with the Timeframe field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeframe
 
-`func (o *MonitorConfigurationMetric) SetTimeframe(v float32)`
+`func (o *MonitorConfigurationTrace) SetTimeframe(v float32)`
 
 SetTimeframe sets Timeframe field to given value.
 
 
 ### GetGroupByFields
 
-`func (o *MonitorConfigurationMetric) GetGroupByFields() []MonitorConfigurationMetricGroupByFieldsInner`
+`func (o *MonitorConfigurationTrace) GetGroupByFields() []MonitorConfigurationMetricGroupByFieldsInner`
 
 GetGroupByFields returns the GroupByFields field if non-nil, zero value otherwise.
 
 ### GetGroupByFieldsOk
 
-`func (o *MonitorConfigurationMetric) GetGroupByFieldsOk() (*[]MonitorConfigurationMetricGroupByFieldsInner, bool)`
+`func (o *MonitorConfigurationTrace) GetGroupByFieldsOk() (*[]MonitorConfigurationMetricGroupByFieldsInner, bool)`
 
 GetGroupByFieldsOk returns a tuple with the GroupByFields field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroupByFields
 
-`func (o *MonitorConfigurationMetric) SetGroupByFields(v []MonitorConfigurationMetricGroupByFieldsInner)`
+`func (o *MonitorConfigurationTrace) SetGroupByFields(v []MonitorConfigurationMetricGroupByFieldsInner)`
 
 SetGroupByFields sets GroupByFields field to given value.
 
 
 ### GetAggregationAlertLogic
 
-`func (o *MonitorConfigurationMetric) GetAggregationAlertLogic() string`
+`func (o *MonitorConfigurationTrace) GetAggregationAlertLogic() string`
 
 GetAggregationAlertLogic returns the AggregationAlertLogic field if non-nil, zero value otherwise.
 
 ### GetAggregationAlertLogicOk
 
-`func (o *MonitorConfigurationMetric) GetAggregationAlertLogicOk() (*string, bool)`
+`func (o *MonitorConfigurationTrace) GetAggregationAlertLogicOk() (*string, bool)`
 
 GetAggregationAlertLogicOk returns a tuple with the AggregationAlertLogic field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAggregationAlertLogic
 
-`func (o *MonitorConfigurationMetric) SetAggregationAlertLogic(v string)`
+`func (o *MonitorConfigurationTrace) SetAggregationAlertLogic(v string)`
 
 SetAggregationAlertLogic sets AggregationAlertLogic field to given value.
 
 ### HasAggregationAlertLogic
 
-`func (o *MonitorConfigurationMetric) HasAggregationAlertLogic() bool`
+`func (o *MonitorConfigurationTrace) HasAggregationAlertLogic() bool`
 
 HasAggregationAlertLogic returns a boolean if a field has been set.
 
 ### GetProportionAlertThreshold
 
-`func (o *MonitorConfigurationMetric) GetProportionAlertThreshold() int32`
+`func (o *MonitorConfigurationTrace) GetProportionAlertThreshold() int32`
 
 GetProportionAlertThreshold returns the ProportionAlertThreshold field if non-nil, zero value otherwise.
 
 ### GetProportionAlertThresholdOk
 
-`func (o *MonitorConfigurationMetric) GetProportionAlertThresholdOk() (*int32, bool)`
+`func (o *MonitorConfigurationTrace) GetProportionAlertThresholdOk() (*int32, bool)`
 
 GetProportionAlertThresholdOk returns a tuple with the ProportionAlertThreshold field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProportionAlertThreshold
 
-`func (o *MonitorConfigurationMetric) SetProportionAlertThreshold(v int32)`
+`func (o *MonitorConfigurationTrace) SetProportionAlertThreshold(v int32)`
 
 SetProportionAlertThreshold sets ProportionAlertThreshold field to given value.
 
 ### HasProportionAlertThreshold
 
-`func (o *MonitorConfigurationMetric) HasProportionAlertThreshold() bool`
+`func (o *MonitorConfigurationTrace) HasProportionAlertThreshold() bool`
 
 HasProportionAlertThreshold returns a boolean if a field has been set.
 
 ### GetQueries
 
-`func (o *MonitorConfigurationMetric) GetQueries() []MonitorAggregationQuery`
+`func (o *MonitorConfigurationTrace) GetQueries() []MonitorAggregationQuery`
 
 GetQueries returns the Queries field if non-nil, zero value otherwise.
 
 ### GetQueriesOk
 
-`func (o *MonitorConfigurationMetric) GetQueriesOk() (*[]MonitorAggregationQuery, bool)`
+`func (o *MonitorConfigurationTrace) GetQueriesOk() (*[]MonitorAggregationQuery, bool)`
 
 GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueries
 
-`func (o *MonitorConfigurationMetric) SetQueries(v []MonitorAggregationQuery)`
+`func (o *MonitorConfigurationTrace) SetQueries(v []MonitorAggregationQuery)`
 
 SetQueries sets Queries field to given value.
 

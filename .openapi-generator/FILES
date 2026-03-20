@@ -103,6 +103,7 @@ docs/MonitorConfigurationLogErrorPatternFilter.md
 docs/MonitorConfigurationMetric.md
 docs/MonitorConfigurationMetricCondition.md
 docs/MonitorConfigurationMetricGroupByFieldsInner.md
+docs/MonitorConfigurationTrace.md
 docs/MonitorsAPI.md
 docs/Normalizer.md
 docs/NotificationRulesAPI.md
@@ -241,6 +242,7 @@ model_monitor_configuration_log_error_pattern_filter.go
 model_monitor_configuration_metric.go
 model_monitor_configuration_metric_condition.go
 model_monitor_configuration_metric_group_by_fields_inner.go
+model_monitor_configuration_trace.go
 model_normalizer.go
 model_rule.go
 model_rule_target_config_email.go

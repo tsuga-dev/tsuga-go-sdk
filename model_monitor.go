@@ -33,7 +33,7 @@ type Monitor struct {
 	Configuration CreateMonitorRequestConfiguration `json:"configuration"`
 	// Priority of the monitor
 	Priority float32 `json:"priority"`
-	// This controls which data the monitor can see
+	// This controls which data the resource can see
 	Permissions string `json:"permissions"`
 	// Identifier of a dashboard related to the monitor
 	DashboardId          *string `json:"dashboardId,omitempty"`

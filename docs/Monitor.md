@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
 **Configuration** | [**CreateMonitorRequestConfiguration**](CreateMonitorRequestConfiguration.md) |  | 
 **Priority** | **float32** | Priority of the monitor | 
-**Permissions** | **string** | This controls which data the monitor can see | 
+**Permissions** | **string** | This controls which data the resource can see | 
 **DashboardId** | Pointer to **string** | Identifier of a dashboard related to the monitor | [optional] 
 
 ## Methods

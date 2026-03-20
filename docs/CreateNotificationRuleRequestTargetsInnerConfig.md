@@ -7,8 +7,6 @@ Name | Type | Description | Notes
 **Type** | **string** |  | 
 **Channel** | **string** | Slack channel ID that receives the notification | 
 **IntegrationId** | **string** | Identifier of the Google Chat integration to use | 
-**HideTransition** | Pointer to **bool** | When true, the transition info (e.g., \&quot;from ok to alert\&quot;) is hidden from the Google Chat message | [optional] 
-**HideTime** | Pointer to **bool** | When true, the timestamp is hidden from the Google Chat message | [optional] 
 **Addresses** | **[]string** | Email addresses that will receive the alert | 
 
 ## Methods
@@ -89,56 +87,6 @@ and a boolean to check if the value has been set.
 
 SetIntegrationId sets IntegrationId field to given value.
 
-
-### GetHideTransition
-
-`func (o *CreateNotificationRuleRequestTargetsInnerConfig) GetHideTransition() bool`
-
-GetHideTransition returns the HideTransition field if non-nil, zero value otherwise.
-
-### GetHideTransitionOk
-
-`func (o *CreateNotificationRuleRequestTargetsInnerConfig) GetHideTransitionOk() (*bool, bool)`
-
-GetHideTransitionOk returns a tuple with the HideTransition field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetHideTransition
-
-`func (o *CreateNotificationRuleRequestTargetsInnerConfig) SetHideTransition(v bool)`
-
-SetHideTransition sets HideTransition field to given value.
-
-### HasHideTransition
-
-`func (o *CreateNotificationRuleRequestTargetsInnerConfig) HasHideTransition() bool`
-
-HasHideTransition returns a boolean if a field has been set.
-
-### GetHideTime
-
-`func (o *CreateNotificationRuleRequestTargetsInnerConfig) GetHideTime() bool`
-
-GetHideTime returns the HideTime field if non-nil, zero value otherwise.
-
-### GetHideTimeOk
-
-`func (o *CreateNotificationRuleRequestTargetsInnerConfig) GetHideTimeOk() (*bool, bool)`
-
-GetHideTimeOk returns a tuple with the HideTime field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetHideTime
-
-`func (o *CreateNotificationRuleRequestTargetsInnerConfig) SetHideTime(v bool)`
-
-SetHideTime sets HideTime field to given value.
-
-### HasHideTime
-
-`func (o *CreateNotificationRuleRequestTargetsInnerConfig) HasHideTime() bool`
-
-HasHideTime returns a boolean if a field has been set.
 
 ### GetAddresses
 

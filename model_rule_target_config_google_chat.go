@@ -24,11 +24,7 @@ type RuleTargetConfigGoogleChat struct {
 	// Identifier of the Google Chat integration to use
 	IntegrationId string `json:"integrationId"`
 	// Human readable name of the Google Chat integration
-	IntegrationName string `json:"integrationName"`
-	// When true, the transition info (e.g., \"from ok to alert\") is hidden from the Google Chat message
-	HideTransition *bool `json:"hideTransition,omitempty"`
-	// When true, the timestamp is hidden from the Google Chat message
-	HideTime             *bool `json:"hideTime,omitempty"`
+	IntegrationName      string `json:"integrationName"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -126,70 +122,6 @@ func (o *RuleTargetConfigGoogleChat) SetIntegrationName(v string) {
 	o.IntegrationName = v
 }
 
-// GetHideTransition returns the HideTransition field value if set, zero value otherwise.
-func (o *RuleTargetConfigGoogleChat) GetHideTransition() bool {
-	if o == nil || IsNil(o.HideTransition) {
-		var ret bool
-		return ret
-	}
-	return *o.HideTransition
-}
-
-// GetHideTransitionOk returns a tuple with the HideTransition field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RuleTargetConfigGoogleChat) GetHideTransitionOk() (*bool, bool) {
-	if o == nil || IsNil(o.HideTransition) {
-		return nil, false
-	}
-	return o.HideTransition, true
-}
-
-// HasHideTransition returns a boolean if a field has been set.
-func (o *RuleTargetConfigGoogleChat) HasHideTransition() bool {
-	if o != nil && !IsNil(o.HideTransition) {
-		return true
-	}
-
-	return false
-}
-
-// SetHideTransition gets a reference to the given bool and assigns it to the HideTransition field.
-func (o *RuleTargetConfigGoogleChat) SetHideTransition(v bool) {
-	o.HideTransition = &v
-}
-
-// GetHideTime returns the HideTime field value if set, zero value otherwise.
-func (o *RuleTargetConfigGoogleChat) GetHideTime() bool {
-	if o == nil || IsNil(o.HideTime) {
-		var ret bool
-		return ret
-	}
-	return *o.HideTime
-}
-
-// GetHideTimeOk returns a tuple with the HideTime field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RuleTargetConfigGoogleChat) GetHideTimeOk() (*bool, bool) {
-	if o == nil || IsNil(o.HideTime) {
-		return nil, false
-	}
-	return o.HideTime, true
-}
-
-// HasHideTime returns a boolean if a field has been set.
-func (o *RuleTargetConfigGoogleChat) HasHideTime() bool {
-	if o != nil && !IsNil(o.HideTime) {
-		return true
-	}
-
-	return false
-}
-
-// SetHideTime gets a reference to the given bool and assigns it to the HideTime field.
-func (o *RuleTargetConfigGoogleChat) SetHideTime(v bool) {
-	o.HideTime = &v
-}
-
 func (o RuleTargetConfigGoogleChat) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -203,12 +135,6 @@ func (o RuleTargetConfigGoogleChat) ToMap() (map[string]interface{}, error) {
 	toSerialize["type"] = o.Type
 	toSerialize["integrationId"] = o.IntegrationId
 	toSerialize["integrationName"] = o.IntegrationName
-	if !IsNil(o.HideTransition) {
-		toSerialize["hideTransition"] = o.HideTransition
-	}
-	if !IsNil(o.HideTime) {
-		toSerialize["hideTime"] = o.HideTime
-	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -257,8 +183,6 @@ func (o *RuleTargetConfigGoogleChat) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "integrationId")
 		delete(additionalProperties, "integrationName")
-		delete(additionalProperties, "hideTransition")
-		delete(additionalProperties, "hideTime")
 		o.AdditionalProperties = additionalProperties
 	}
 

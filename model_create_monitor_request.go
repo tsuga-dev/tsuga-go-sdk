@@ -28,7 +28,7 @@ type CreateMonitorRequest struct {
 	Priority      float32                           `json:"priority"`
 	Owner         string                            `json:"owner"`
 	DashboardId   *string                           `json:"dashboardId,omitempty"`
-	// This controls which data the monitor can see
+	// This controls which data the resource can see
 	Permissions          string `json:"permissions"`
 	AdditionalProperties map[string]interface{}
 }

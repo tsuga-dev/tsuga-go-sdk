@@ -15,14 +15,15 @@ import (
 	"fmt"
 )
 
-// checks if the MonitorConfigurationAnomalyMetric type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &MonitorConfigurationAnomalyMetric{}
+// checks if the MonitorConfigurationTrace type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MonitorConfigurationTrace{}
 
-// MonitorConfigurationAnomalyMetric struct for MonitorConfigurationAnomalyMetric
-type MonitorConfigurationAnomalyMetric struct {
-	Type           string                                  `json:"type"`
-	Condition      MonitorConfigurationAnomalyLogCondition `json:"condition"`
-	NoDataBehavior string                                  `json:"noDataBehavior"`
+// MonitorConfigurationTrace struct for MonitorConfigurationTrace
+type MonitorConfigurationTrace struct {
+	Type           string                                `json:"type"`
+	Condition      MonitorConfigurationMetricCondition   `json:"condition"`
+	Conditions     []MonitorConfigurationMetricCondition `json:"conditions,omitempty"`
+	NoDataBehavior string                                `json:"noDataBehavior"`
 	// Timeframe of the monitor in minutes
 	Timeframe float32 `json:"timeframe"`
 	// Monitor group by configuration. Warning! Note that the limit setting is currently ignored.
@@ -34,14 +35,14 @@ type MonitorConfigurationAnomalyMetric struct {
 	AdditionalProperties map[string]interface{}
 }
 
-type _MonitorConfigurationAnomalyMetric MonitorConfigurationAnomalyMetric
+type _MonitorConfigurationTrace MonitorConfigurationTrace
 
-// NewMonitorConfigurationAnomalyMetric instantiates a new MonitorConfigurationAnomalyMetric object
+// NewMonitorConfigurationTrace instantiates a new MonitorConfigurationTrace object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMonitorConfigurationAnomalyMetric(type_ string, condition MonitorConfigurationAnomalyLogCondition, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, queries []MonitorAggregationQuery) *MonitorConfigurationAnomalyMetric {
-	this := MonitorConfigurationAnomalyMetric{}
+func NewMonitorConfigurationTrace(type_ string, condition MonitorConfigurationMetricCondition, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, queries []MonitorAggregationQuery) *MonitorConfigurationTrace {
+	this := MonitorConfigurationTrace{}
 	this.Type = type_
 	this.Condition = condition
 	this.NoDataBehavior = noDataBehavior
@@ -51,16 +52,16 @@ func NewMonitorConfigurationAnomalyMetric(type_ string, condition MonitorConfigu
 	return &this
 }
 
-// NewMonitorConfigurationAnomalyMetricWithDefaults instantiates a new MonitorConfigurationAnomalyMetric object
+// NewMonitorConfigurationTraceWithDefaults instantiates a new MonitorConfigurationTrace object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewMonitorConfigurationAnomalyMetricWithDefaults() *MonitorConfigurationAnomalyMetric {
-	this := MonitorConfigurationAnomalyMetric{}
+func NewMonitorConfigurationTraceWithDefaults() *MonitorConfigurationTrace {
+	this := MonitorConfigurationTrace{}
 	return &this
 }
 
 // GetType returns the Type field value
-func (o *MonitorConfigurationAnomalyMetric) GetType() string {
+func (o *MonitorConfigurationTrace) GetType() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -71,7 +72,7 @@ func (o *MonitorConfigurationAnomalyMetric) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *MonitorConfigurationAnomalyMetric) GetTypeOk() (*string, bool) {
+func (o *MonitorConfigurationTrace) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -79,14 +80,14 @@ func (o *MonitorConfigurationAnomalyMetric) GetTypeOk() (*string, bool) {
 }
 
 // SetType sets field value
-func (o *MonitorConfigurationAnomalyMetric) SetType(v string) {
+func (o *MonitorConfigurationTrace) SetType(v string) {
 	o.Type = v
 }
 
 // GetCondition returns the Condition field value
-func (o *MonitorConfigurationAnomalyMetric) GetCondition() MonitorConfigurationAnomalyLogCondition {
+func (o *MonitorConfigurationTrace) GetCondition() MonitorConfigurationMetricCondition {
 	if o == nil {
-		var ret MonitorConfigurationAnomalyLogCondition
+		var ret MonitorConfigurationMetricCondition
 		return ret
 	}
 
@@ -95,7 +96,7 @@ func (o *MonitorConfigurationAnomalyMetric) GetCondition() MonitorConfigurationA
 
 // GetConditionOk returns a tuple with the Condition field value
 // and a boolean to check if the value has been set.
-func (o *MonitorConfigurationAnomalyMetric) GetConditionOk() (*MonitorConfigurationAnomalyLogCondition, bool) {
+func (o *MonitorConfigurationTrace) GetConditionOk() (*MonitorConfigurationMetricCondition, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -103,12 +104,44 @@ func (o *MonitorConfigurationAnomalyMetric) GetConditionOk() (*MonitorConfigurat
 }
 
 // SetCondition sets field value
-func (o *MonitorConfigurationAnomalyMetric) SetCondition(v MonitorConfigurationAnomalyLogCondition) {
+func (o *MonitorConfigurationTrace) SetCondition(v MonitorConfigurationMetricCondition) {
 	o.Condition = v
 }
 
+// GetConditions returns the Conditions field value if set, zero value otherwise.
+func (o *MonitorConfigurationTrace) GetConditions() []MonitorConfigurationMetricCondition {
+	if o == nil || IsNil(o.Conditions) {
+		var ret []MonitorConfigurationMetricCondition
+		return ret
+	}
+	return o.Conditions
+}
+
+// GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MonitorConfigurationTrace) GetConditionsOk() ([]MonitorConfigurationMetricCondition, bool) {
+	if o == nil || IsNil(o.Conditions) {
+		return nil, false
+	}
+	return o.Conditions, true
+}
+
+// HasConditions returns a boolean if a field has been set.
+func (o *MonitorConfigurationTrace) HasConditions() bool {
+	if o != nil && !IsNil(o.Conditions) {
+		return true
+	}
+
+	return false
+}
+
+// SetConditions gets a reference to the given []MonitorConfigurationMetricCondition and assigns it to the Conditions field.
+func (o *MonitorConfigurationTrace) SetConditions(v []MonitorConfigurationMetricCondition) {
+	o.Conditions = v
+}
+
 // GetNoDataBehavior returns the NoDataBehavior field value
-func (o *MonitorConfigurationAnomalyMetric) GetNoDataBehavior() string {
+func (o *MonitorConfigurationTrace) GetNoDataBehavior() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -119,7 +152,7 @@ func (o *MonitorConfigurationAnomalyMetric) GetNoDataBehavior() string {
 
 // GetNoDataBehaviorOk returns a tuple with the NoDataBehavior field value
 // and a boolean to check if the value has been set.
-func (o *MonitorConfigurationAnomalyMetric) GetNoDataBehaviorOk() (*string, bool) {
+func (o *MonitorConfigurationTrace) GetNoDataBehaviorOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -127,12 +160,12 @@ func (o *MonitorConfigurationAnomalyMetric) GetNoDataBehaviorOk() (*string, bool
 }
 
 // SetNoDataBehavior sets field value
-func (o *MonitorConfigurationAnomalyMetric) SetNoDataBehavior(v string) {
+func (o *MonitorConfigurationTrace) SetNoDataBehavior(v string) {
 	o.NoDataBehavior = v
 }
 
 // GetTimeframe returns the Timeframe field value
-func (o *MonitorConfigurationAnomalyMetric) GetTimeframe() float32 {
+func (o *MonitorConfigurationTrace) GetTimeframe() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -143,7 +176,7 @@ func (o *MonitorConfigurationAnomalyMetric) GetTimeframe() float32 {
 
 // GetTimeframeOk returns a tuple with the Timeframe field value
 // and a boolean to check if the value has been set.
-func (o *MonitorConfigurationAnomalyMetric) GetTimeframeOk() (*float32, bool) {
+func (o *MonitorConfigurationTrace) GetTimeframeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -151,12 +184,12 @@ func (o *MonitorConfigurationAnomalyMetric) GetTimeframeOk() (*float32, bool) {
 }
 
 // SetTimeframe sets field value
-func (o *MonitorConfigurationAnomalyMetric) SetTimeframe(v float32) {
+func (o *MonitorConfigurationTrace) SetTimeframe(v float32) {
 	o.Timeframe = v
 }
 
 // GetGroupByFields returns the GroupByFields field value
-func (o *MonitorConfigurationAnomalyMetric) GetGroupByFields() []MonitorConfigurationMetricGroupByFieldsInner {
+func (o *MonitorConfigurationTrace) GetGroupByFields() []MonitorConfigurationMetricGroupByFieldsInner {
 	if o == nil {
 		var ret []MonitorConfigurationMetricGroupByFieldsInner
 		return ret
@@ -167,7 +200,7 @@ func (o *MonitorConfigurationAnomalyMetric) GetGroupByFields() []MonitorConfigur
 
 // GetGroupByFieldsOk returns a tuple with the GroupByFields field value
 // and a boolean to check if the value has been set.
-func (o *MonitorConfigurationAnomalyMetric) GetGroupByFieldsOk() ([]MonitorConfigurationMetricGroupByFieldsInner, bool) {
+func (o *MonitorConfigurationTrace) GetGroupByFieldsOk() ([]MonitorConfigurationMetricGroupByFieldsInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -175,12 +208,12 @@ func (o *MonitorConfigurationAnomalyMetric) GetGroupByFieldsOk() ([]MonitorConfi
 }
 
 // SetGroupByFields sets field value
-func (o *MonitorConfigurationAnomalyMetric) SetGroupByFields(v []MonitorConfigurationMetricGroupByFieldsInner) {
+func (o *MonitorConfigurationTrace) SetGroupByFields(v []MonitorConfigurationMetricGroupByFieldsInner) {
 	o.GroupByFields = v
 }
 
 // GetAggregationAlertLogic returns the AggregationAlertLogic field value if set, zero value otherwise.
-func (o *MonitorConfigurationAnomalyMetric) GetAggregationAlertLogic() string {
+func (o *MonitorConfigurationTrace) GetAggregationAlertLogic() string {
 	if o == nil || IsNil(o.AggregationAlertLogic) {
 		var ret string
 		return ret
@@ -190,7 +223,7 @@ func (o *MonitorConfigurationAnomalyMetric) GetAggregationAlertLogic() string {
 
 // GetAggregationAlertLogicOk returns a tuple with the AggregationAlertLogic field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MonitorConfigurationAnomalyMetric) GetAggregationAlertLogicOk() (*string, bool) {
+func (o *MonitorConfigurationTrace) GetAggregationAlertLogicOk() (*string, bool) {
 	if o == nil || IsNil(o.AggregationAlertLogic) {
 		return nil, false
 	}
@@ -198,7 +231,7 @@ func (o *MonitorConfigurationAnomalyMetric) GetAggregationAlertLogicOk() (*strin
 }
 
 // HasAggregationAlertLogic returns a boolean if a field has been set.
-func (o *MonitorConfigurationAnomalyMetric) HasAggregationAlertLogic() bool {
+func (o *MonitorConfigurationTrace) HasAggregationAlertLogic() bool {
 	if o != nil && !IsNil(o.AggregationAlertLogic) {
 		return true
 	}
@@ -207,12 +240,12 @@ func (o *MonitorConfigurationAnomalyMetric) HasAggregationAlertLogic() bool {
 }
 
 // SetAggregationAlertLogic gets a reference to the given string and assigns it to the AggregationAlertLogic field.
-func (o *MonitorConfigurationAnomalyMetric) SetAggregationAlertLogic(v string) {
+func (o *MonitorConfigurationTrace) SetAggregationAlertLogic(v string) {
 	o.AggregationAlertLogic = &v
 }
 
 // GetProportionAlertThreshold returns the ProportionAlertThreshold field value if set, zero value otherwise.
-func (o *MonitorConfigurationAnomalyMetric) GetProportionAlertThreshold() int32 {
+func (o *MonitorConfigurationTrace) GetProportionAlertThreshold() int32 {
 	if o == nil || IsNil(o.ProportionAlertThreshold) {
 		var ret int32
 		return ret
@@ -222,7 +255,7 @@ func (o *MonitorConfigurationAnomalyMetric) GetProportionAlertThreshold() int32 
 
 // GetProportionAlertThresholdOk returns a tuple with the ProportionAlertThreshold field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MonitorConfigurationAnomalyMetric) GetProportionAlertThresholdOk() (*int32, bool) {
+func (o *MonitorConfigurationTrace) GetProportionAlertThresholdOk() (*int32, bool) {
 	if o == nil || IsNil(o.ProportionAlertThreshold) {
 		return nil, false
 	}
@@ -230,7 +263,7 @@ func (o *MonitorConfigurationAnomalyMetric) GetProportionAlertThresholdOk() (*in
 }
 
 // HasProportionAlertThreshold returns a boolean if a field has been set.
-func (o *MonitorConfigurationAnomalyMetric) HasProportionAlertThreshold() bool {
+func (o *MonitorConfigurationTrace) HasProportionAlertThreshold() bool {
 	if o != nil && !IsNil(o.ProportionAlertThreshold) {
 		return true
 	}
@@ -239,12 +272,12 @@ func (o *MonitorConfigurationAnomalyMetric) HasProportionAlertThreshold() bool {
 }
 
 // SetProportionAlertThreshold gets a reference to the given int32 and assigns it to the ProportionAlertThreshold field.
-func (o *MonitorConfigurationAnomalyMetric) SetProportionAlertThreshold(v int32) {
+func (o *MonitorConfigurationTrace) SetProportionAlertThreshold(v int32) {
 	o.ProportionAlertThreshold = &v
 }
 
 // GetQueries returns the Queries field value
-func (o *MonitorConfigurationAnomalyMetric) GetQueries() []MonitorAggregationQuery {
+func (o *MonitorConfigurationTrace) GetQueries() []MonitorAggregationQuery {
 	if o == nil {
 		var ret []MonitorAggregationQuery
 		return ret
@@ -255,7 +288,7 @@ func (o *MonitorConfigurationAnomalyMetric) GetQueries() []MonitorAggregationQue
 
 // GetQueriesOk returns a tuple with the Queries field value
 // and a boolean to check if the value has been set.
-func (o *MonitorConfigurationAnomalyMetric) GetQueriesOk() ([]MonitorAggregationQuery, bool) {
+func (o *MonitorConfigurationTrace) GetQueriesOk() ([]MonitorAggregationQuery, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -263,11 +296,11 @@ func (o *MonitorConfigurationAnomalyMetric) GetQueriesOk() ([]MonitorAggregation
 }
 
 // SetQueries sets field value
-func (o *MonitorConfigurationAnomalyMetric) SetQueries(v []MonitorAggregationQuery) {
+func (o *MonitorConfigurationTrace) SetQueries(v []MonitorAggregationQuery) {
 	o.Queries = v
 }
 
-func (o MonitorConfigurationAnomalyMetric) MarshalJSON() ([]byte, error) {
+func (o MonitorConfigurationTrace) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -275,10 +308,13 @@ func (o MonitorConfigurationAnomalyMetric) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o MonitorConfigurationAnomalyMetric) ToMap() (map[string]interface{}, error) {
+func (o MonitorConfigurationTrace) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
 	toSerialize["condition"] = o.Condition
+	if !IsNil(o.Conditions) {
+		toSerialize["conditions"] = o.Conditions
+	}
 	toSerialize["noDataBehavior"] = o.NoDataBehavior
 	toSerialize["timeframe"] = o.Timeframe
 	toSerialize["groupByFields"] = o.GroupByFields
@@ -297,7 +333,7 @@ func (o MonitorConfigurationAnomalyMetric) ToMap() (map[string]interface{}, erro
 	return toSerialize, nil
 }
 
-func (o *MonitorConfigurationAnomalyMetric) UnmarshalJSON(data []byte) (err error) {
+func (o *MonitorConfigurationTrace) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -324,21 +360,22 @@ func (o *MonitorConfigurationAnomalyMetric) UnmarshalJSON(data []byte) (err erro
 		}
 	}
 
-	varMonitorConfigurationAnomalyMetric := _MonitorConfigurationAnomalyMetric{}
+	varMonitorConfigurationTrace := _MonitorConfigurationTrace{}
 
-	err = json.Unmarshal(data, &varMonitorConfigurationAnomalyMetric)
+	err = json.Unmarshal(data, &varMonitorConfigurationTrace)
 
 	if err != nil {
 		return err
 	}
 
-	*o = MonitorConfigurationAnomalyMetric(varMonitorConfigurationAnomalyMetric)
+	*o = MonitorConfigurationTrace(varMonitorConfigurationTrace)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "condition")
+		delete(additionalProperties, "conditions")
 		delete(additionalProperties, "noDataBehavior")
 		delete(additionalProperties, "timeframe")
 		delete(additionalProperties, "groupByFields")
@@ -351,38 +388,38 @@ func (o *MonitorConfigurationAnomalyMetric) UnmarshalJSON(data []byte) (err erro
 	return err
 }
 
-type NullableMonitorConfigurationAnomalyMetric struct {
-	value *MonitorConfigurationAnomalyMetric
+type NullableMonitorConfigurationTrace struct {
+	value *MonitorConfigurationTrace
 	isSet bool
 }
 
-func (v NullableMonitorConfigurationAnomalyMetric) Get() *MonitorConfigurationAnomalyMetric {
+func (v NullableMonitorConfigurationTrace) Get() *MonitorConfigurationTrace {
 	return v.value
 }
 
-func (v *NullableMonitorConfigurationAnomalyMetric) Set(val *MonitorConfigurationAnomalyMetric) {
+func (v *NullableMonitorConfigurationTrace) Set(val *MonitorConfigurationTrace) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableMonitorConfigurationAnomalyMetric) IsSet() bool {
+func (v NullableMonitorConfigurationTrace) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableMonitorConfigurationAnomalyMetric) Unset() {
+func (v *NullableMonitorConfigurationTrace) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableMonitorConfigurationAnomalyMetric(val *MonitorConfigurationAnomalyMetric) *NullableMonitorConfigurationAnomalyMetric {
-	return &NullableMonitorConfigurationAnomalyMetric{value: val, isSet: true}
+func NewNullableMonitorConfigurationTrace(val *MonitorConfigurationTrace) *NullableMonitorConfigurationTrace {
+	return &NullableMonitorConfigurationTrace{value: val, isSet: true}
 }
 
-func (v NullableMonitorConfigurationAnomalyMetric) MarshalJSON() ([]byte, error) {
+func (v NullableMonitorConfigurationTrace) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableMonitorConfigurationAnomalyMetric) UnmarshalJSON(src []byte) error {
+func (v *NullableMonitorConfigurationTrace) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

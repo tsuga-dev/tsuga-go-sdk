@@ -427,29 +427,51 @@ paths:
       requestBody:
         content:
           application/json:
-            example:
-              name: High Error Rate Alert
-              message: Error rate exceeded threshold. Check the API gateway logs.
-              tags:
-              - key: severity
-                value: critical
-              configuration:
-                type: log
-                timeframe: 5
-                groupByFields: []
-                queries:
-                - aggregate:
-                    type: count
-                  filter: level:ERROR service:api-gateway
-                condition:
-                  formula: q1
-                  operator: greater_than
-                  threshold: 100
-                noDataBehavior: resolve
-              priority: 1
-              owner: abc-123-def
-              dashboardId: 789-abc-def
-              permissions: all
+            examples:
+              example1:
+                value:
+                  name: High Error Rate Alert
+                  message: Error rate exceeded threshold. Check the API gateway logs.
+                  tags:
+                  - key: severity
+                    value: critical
+                  configuration:
+                    type: log
+                    timeframe: 5
+                    groupByFields: []
+                    queries:
+                    - aggregate:
+                        type: count
+                      filter: level:ERROR service:api-gateway
+                    condition:
+                      formula: q1
+                      operator: greater_than
+                      threshold: 100
+                    noDataBehavior: resolve
+                  priority: 1
+                  owner: abc-123-def
+                  dashboardId: 789-abc-def
+                  permissions: all
+              example2:
+                value:
+                  name: New Error Pattern Detector
+                  message: A new error pattern was detected in the logs.
+                  tags:
+                  - key: team
+                    value: platform
+                  configuration:
+                    type: log-error-pattern
+                    aggregationAlertLogic: each
+                    noDataBehavior: keep_last_status
+                    filter:
+                      teamIds:
+                      - abc-123-def
+                      env: production
+                      service: api-gateway
+                  priority: 2
+                  owner: abc-123-def
+                  dashboardId: 789-abc-def
+                  permissions: all
             schema:
               $ref: "#/components/schemas/createMonitor_request"
         required: true
@@ -631,29 +653,51 @@ paths:
       requestBody:
         content:
           application/json:
-            example:
-              name: High Error Rate Alert
-              message: Error rate exceeded threshold. Check the API gateway logs.
-              tags:
-              - key: severity
-                value: critical
-              configuration:
-                type: log
-                timeframe: 5
-                groupByFields: []
-                queries:
-                - aggregate:
-                    type: count
-                  filter: level:ERROR service:api-gateway
-                condition:
-                  formula: q1
-                  operator: greater_than
-                  threshold: 100
-                noDataBehavior: resolve
-              priority: 1
-              owner: abc-123-def
-              dashboardId: 789-abc-def
-              permissions: all
+            examples:
+              example1:
+                value:
+                  name: High Error Rate Alert
+                  message: Error rate exceeded threshold. Check the API gateway logs.
+                  tags:
+                  - key: severity
+                    value: critical
+                  configuration:
+                    type: log
+                    timeframe: 5
+                    groupByFields: []
+                    queries:
+                    - aggregate:
+                        type: count
+                      filter: level:ERROR service:api-gateway
+                    condition:
+                      formula: q1
+                      operator: greater_than
+                      threshold: 100
+                    noDataBehavior: resolve
+                  priority: 1
+                  owner: abc-123-def
+                  dashboardId: 789-abc-def
+                  permissions: all
+              example2:
+                value:
+                  name: New Error Pattern Detector
+                  message: A new error pattern was detected in the logs.
+                  tags:
+                  - key: team
+                    value: platform
+                  configuration:
+                    type: log-error-pattern
+                    aggregationAlertLogic: each
+                    noDataBehavior: keep_last_status
+                    filter:
+                      teamIds:
+                      - abc-123-def
+                      env: production
+                      service: api-gateway
+                  priority: 2
+                  owner: abc-123-def
+                  dashboardId: 789-abc-def
+                  permissions: all
             schema:
               $ref: "#/components/schemas/createMonitor_request"
         required: true
@@ -1617,13 +1661,21 @@ components:
     ClientErrorResponse:
       description: Standard envelope for client (4XX) API errors
       example:
-        code: ABORT_ERROR
+        code: CLUSTER_DB_QUERY_INVALID_CONNECTION_PARAMS
         message: message
         statusCode: 0.8008281904610115
       properties:
         code:
           description: Machine readable error code describing what went wrong
           enum:
+          - CLUSTER_DB_QUERY_INVALID_CONNECTION_PARAMS
+          - CLUSTER_DB_QUERY_INVALID_CREDENTIALS
+          - CLUSTER_DB_QUERY_PERMISSION_DENIED
+          - CLUSTER_DB_QUERY_QUERY_SYNTAX_ERROR
+          - CLUSTER_DB_QUERY_DATABASE_UNREACHABLE
+          - CLUSTER_DB_QUERY_CONNECTION_FAILED
+          - CLUSTER_DB_QUERY_QUERY_EXECUTION_FAILED
+          - CLUSTER_DB_QUERY_QUERY_TIMEOUT
           - ABORT_ERROR
           - BAD_REQUEST
           - DUPLICATE_KEY_VIOLATION
@@ -1636,6 +1688,7 @@ components:
           - RATE_LIMITED
           - RESERVED_TAG_POLICY_ERROR
           - RESOURCE_NOT_FOUND
+          - INVALID_INVITATION
           - TAG_POLICY_ALREADY_EXISTS_ERROR
           - TAG_POLICY_VALIDATION_ERROR
           - URL_NOT_FOUND
@@ -1676,7 +1729,7 @@ components:
       example:
         requestId: requestId
         error:
-          code: ABORT_ERROR
+          code: CLUSTER_DB_QUERY_INVALID_CONNECTION_PARAMS
           message: message
           statusCode: 0.8008281904610115
       properties:
@@ -2072,7 +2125,7 @@ components:
           - 5
           type: number
         permissions:
-          description: This controls which data the monitor can see
+          description: This controls which data the resource can see
           enum:
           - all
           - owning-team-and-public
@@ -3169,6 +3222,8 @@ components:
           description: Timeframe of the monitor in minutes
           type: number
         groupByFields:
+          description: Monitor group by configuration. Warning! Note that the limit
+            setting is currently ignored.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
           maxItems: 1
@@ -3221,6 +3276,62 @@ components:
           description: Timeframe of the monitor in minutes
           type: number
         groupByFields:
+          description: Monitor group by configuration. Warning! Note that the limit
+            setting is currently ignored.
+          items:
+            $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
+          maxItems: 1
+          type: array
+        aggregationAlertLogic:
+          enum:
+          - no_aggregation
+          - all
+          - any
+          - each
+          - proportion
+          type: string
+        proportionAlertThreshold:
+          maximum: 99
+          minimum: 1
+          type: integer
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/MonitorAggregationQuery"
+          maxItems: 15
+          type: array
+      required:
+      - condition
+      - groupByFields
+      - noDataBehavior
+      - queries
+      - timeframe
+      - type
+    MonitorConfigurationTrace:
+      properties:
+        type:
+          enum:
+          - trace
+          type: string
+        condition:
+          $ref: "#/components/schemas/MonitorConfigurationMetric_condition"
+        conditions:
+          items:
+            $ref: "#/components/schemas/MonitorConfigurationMetric_condition"
+          type: array
+        noDataBehavior:
+          enum:
+          - alert
+          - resolve
+          - keep_last_status
+          - consider_zero
+          type: string
+        timeframe:
+          description: Timeframe of the monitor in minutes
+          type: number
+        groupByFields:
+          description: Monitor group by configuration. Warning! Note that the limit
+            setting is currently ignored.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
           maxItems: 1
@@ -3268,6 +3379,8 @@ components:
           description: Timeframe of the monitor in minutes
           type: number
         groupByFields:
+          description: Monitor group by configuration. Warning! Note that the limit
+            setting is currently ignored.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
           maxItems: 1
@@ -3315,6 +3428,8 @@ components:
           description: Timeframe of the monitor in minutes
           type: number
         groupByFields:
+          description: Monitor group by configuration. Warning! Note that the limit
+            setting is currently ignored.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
           maxItems: 1
@@ -3409,13 +3524,6 @@ components:
           maxLength: 250
           minLength: 0
           type: string
-        hideTransition:
-          description: "When true, the transition info (e.g., \"from ok to alert\"\
-            ) is hidden from the Slack message"
-          type: boolean
-        hideTime:
-          description: "When true, the timestamp is hidden from the Slack message"
-          type: boolean
       required:
       - channel
       - integrationId
@@ -3534,13 +3642,6 @@ components:
           maxLength: 250
           minLength: 0
           type: string
-        hideTransition:
-          description: "When true, the transition info (e.g., \"from ok to alert\"\
-            ) is hidden from the Google Chat message"
-          type: boolean
-        hideTime:
-          description: "When true, the timestamp is hidden from the Google Chat message"
-          type: boolean
       required:
       - integrationId
       - type
@@ -3559,13 +3660,6 @@ components:
         integrationName:
           description: Human readable name of the Slack integration
           type: string
-        hideTransition:
-          description: "When true, the transition info (e.g., \"from ok to alert\"\
-            ) is hidden from the Slack message"
-          type: boolean
-        hideTime:
-          description: "When true, the timestamp is hidden from the Slack message"
-          type: boolean
       required:
       - channel
       - integrationId
@@ -3694,13 +3788,6 @@ components:
         integrationName:
           description: Human readable name of the Google Chat integration
           type: string
-        hideTransition:
-          description: "When true, the transition info (e.g., \"from ok to alert\"\
-            ) is hidden from the Google Chat message"
-          type: boolean
-        hideTime:
-          description: "When true, the timestamp is hidden from the Google Chat message"
-          type: boolean
       required:
       - integrationId
       - integrationName
@@ -4372,6 +4459,7 @@ components:
         mapping:
           metric: "#/components/schemas/MonitorConfigurationMetric"
           log: "#/components/schemas/MonitorConfigurationLog"
+          trace: "#/components/schemas/MonitorConfigurationTrace"
           anomaly-log: "#/components/schemas/MonitorConfigurationAnomalyLog"
           anomaly-metric: "#/components/schemas/MonitorConfigurationAnomalyMetric"
           log-error-pattern: "#/components/schemas/MonitorConfigurationLogErrorPattern"
@@ -4380,6 +4468,7 @@ components:
       oneOf:
       - $ref: "#/components/schemas/MonitorConfigurationMetric"
       - $ref: "#/components/schemas/MonitorConfigurationLog"
+      - $ref: "#/components/schemas/MonitorConfigurationTrace"
       - $ref: "#/components/schemas/MonitorConfigurationAnomalyLog"
       - $ref: "#/components/schemas/MonitorConfigurationAnomalyMetric"
       - $ref: "#/components/schemas/MonitorConfigurationLogErrorPattern"
@@ -4422,7 +4511,7 @@ components:
           minLength: 0
           type: string
         permissions:
-          description: This controls which data the monitor can see
+          description: This controls which data the resource can see
           enum:
           - all
           - owning-team-and-public
@@ -4731,7 +4820,7 @@ components:
             maxLength: 250
             minLength: 1
             type: string
-          maxItems: 100
+          maxItems: 1000
           type: array
         isRequired:
           type: boolean
@@ -4866,12 +4955,16 @@ components:
     MonitorConfigurationMetric_groupByFields_inner:
       properties:
         fields:
+          description: Fields used by the monitor group by.
           items:
             maxLength: 250
             minLength: 0
             type: string
           type: array
         limit:
+          description: Configured limit for this group by. Warning! This setting is
+            currently ignored. Monitor evaluation will instead apply a fixed limit
+            of 100 groups per field.
           type: number
       required:
       - fields
