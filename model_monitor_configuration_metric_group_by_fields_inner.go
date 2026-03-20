@@ -20,8 +20,10 @@ var _ MappedNullable = &MonitorConfigurationMetricGroupByFieldsInner{}
 
 // MonitorConfigurationMetricGroupByFieldsInner struct for MonitorConfigurationMetricGroupByFieldsInner
 type MonitorConfigurationMetricGroupByFieldsInner struct {
-	Fields               []string `json:"fields"`
-	Limit                float32  `json:"limit"`
+	// Fields used by the monitor group by.
+	Fields []string `json:"fields"`
+	// Configured limit for this group by. Warning! This setting is currently ignored. Monitor evaluation will instead apply a fixed limit of 100 groups per field.
+	Limit                float32 `json:"limit"`
 	AdditionalProperties map[string]interface{}
 }
 

@@ -23,6 +23,7 @@ type CreateMonitorRequestConfiguration struct {
 	MonitorConfigurationLog               *MonitorConfigurationLog
 	MonitorConfigurationLogErrorPattern   *MonitorConfigurationLogErrorPattern
 	MonitorConfigurationMetric            *MonitorConfigurationMetric
+	MonitorConfigurationTrace             *MonitorConfigurationTrace
 }
 
 // MonitorConfigurationAnomalyLogAsCreateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationAnomalyLog wrapped in CreateMonitorRequestConfiguration
@@ -64,6 +65,13 @@ func MonitorConfigurationLogErrorPatternAsCreateMonitorRequestConfiguration(v *M
 func MonitorConfigurationMetricAsCreateMonitorRequestConfiguration(v *MonitorConfigurationMetric) CreateMonitorRequestConfiguration {
 	return CreateMonitorRequestConfiguration{
 		MonitorConfigurationMetric: v,
+	}
+}
+
+// MonitorConfigurationTraceAsCreateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationTrace wrapped in CreateMonitorRequestConfiguration
+func MonitorConfigurationTraceAsCreateMonitorRequestConfiguration(v *MonitorConfigurationTrace) CreateMonitorRequestConfiguration {
+	return CreateMonitorRequestConfiguration{
+		MonitorConfigurationTrace: v,
 	}
 }
 
@@ -149,6 +157,18 @@ func (dst *CreateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'trace'
+	if jsonDict["type"] == "trace" {
+		// try to unmarshal JSON data into MonitorConfigurationTrace
+		err = json.Unmarshal(data, &dst.MonitorConfigurationTrace)
+		if err == nil {
+			return nil // data stored in dst.MonitorConfigurationTrace, return on the first match
+		} else {
+			dst.MonitorConfigurationTrace = nil
+			return fmt.Errorf("failed to unmarshal CreateMonitorRequestConfiguration as MonitorConfigurationTrace: %s", err.Error())
+		}
+	}
+
 	return nil
 }
 
@@ -176,6 +196,10 @@ func (src CreateMonitorRequestConfiguration) MarshalJSON() ([]byte, error) {
 
 	if src.MonitorConfigurationMetric != nil {
 		return json.Marshal(&src.MonitorConfigurationMetric)
+	}
+
+	if src.MonitorConfigurationTrace != nil {
+		return json.Marshal(&src.MonitorConfigurationTrace)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -210,6 +234,10 @@ func (obj *CreateMonitorRequestConfiguration) GetActualInstance() interface{} {
 		return obj.MonitorConfigurationMetric
 	}
 
+	if obj.MonitorConfigurationTrace != nil {
+		return obj.MonitorConfigurationTrace
+	}
+
 	// all schemas are nil
 	return nil
 }
@@ -238,6 +266,10 @@ func (obj CreateMonitorRequestConfiguration) GetActualInstanceValue() interface{
 
 	if obj.MonitorConfigurationMetric != nil {
 		return *obj.MonitorConfigurationMetric
+	}
+
+	if obj.MonitorConfigurationTrace != nil {
+		return *obj.MonitorConfigurationTrace
 	}
 
 	// all schemas are nil

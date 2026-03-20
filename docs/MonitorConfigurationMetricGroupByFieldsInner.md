@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Fields** | **[]string** |  | 
-**Limit** | **float32** |  | 
+**Fields** | **[]string** | Fields used by the monitor group by. | 
+**Limit** | **float32** | Configured limit for this group by. Warning! This setting is currently ignored. Monitor evaluation will instead apply a fixed limit of 100 groups per field. | 
 
 ## Methods
 

@@ -6,8 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** |  | 
 **IntegrationId** | **string** | Identifier of the Google Chat integration to use | 
-**HideTransition** | Pointer to **bool** | When true, the transition info (e.g., \&quot;from ok to alert\&quot;) is hidden from the Google Chat message | [optional] 
-**HideTime** | Pointer to **bool** | When true, the timestamp is hidden from the Google Chat message | [optional] 
 
 ## Methods
 
@@ -67,56 +65,6 @@ and a boolean to check if the value has been set.
 
 SetIntegrationId sets IntegrationId field to given value.
 
-
-### GetHideTransition
-
-`func (o *RuleTargetInputGoogleChat) GetHideTransition() bool`
-
-GetHideTransition returns the HideTransition field if non-nil, zero value otherwise.
-
-### GetHideTransitionOk
-
-`func (o *RuleTargetInputGoogleChat) GetHideTransitionOk() (*bool, bool)`
-
-GetHideTransitionOk returns a tuple with the HideTransition field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetHideTransition
-
-`func (o *RuleTargetInputGoogleChat) SetHideTransition(v bool)`
-
-SetHideTransition sets HideTransition field to given value.
-
-### HasHideTransition
-
-`func (o *RuleTargetInputGoogleChat) HasHideTransition() bool`
-
-HasHideTransition returns a boolean if a field has been set.
-
-### GetHideTime
-
-`func (o *RuleTargetInputGoogleChat) GetHideTime() bool`
-
-GetHideTime returns the HideTime field if non-nil, zero value otherwise.
-
-### GetHideTimeOk
-
-`func (o *RuleTargetInputGoogleChat) GetHideTimeOk() (*bool, bool)`
-
-GetHideTimeOk returns a tuple with the HideTime field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetHideTime
-
-`func (o *RuleTargetInputGoogleChat) SetHideTime(v bool)`
-
-SetHideTime sets HideTime field to given value.
-
-### HasHideTime
-
-`func (o *RuleTargetInputGoogleChat) HasHideTime() bool`
-
-HasHideTime returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

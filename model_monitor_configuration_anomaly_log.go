@@ -24,7 +24,8 @@ type MonitorConfigurationAnomalyLog struct {
 	Condition      MonitorConfigurationAnomalyLogCondition `json:"condition"`
 	NoDataBehavior string                                  `json:"noDataBehavior"`
 	// Timeframe of the monitor in minutes
-	Timeframe                float32                                        `json:"timeframe"`
+	Timeframe float32 `json:"timeframe"`
+	// Monitor group by configuration. Warning! Note that the limit setting is currently ignored.
 	GroupByFields            []MonitorConfigurationMetricGroupByFieldsInner `json:"groupByFields"`
 	AggregationAlertLogic    *string                                        `json:"aggregationAlertLogic,omitempty"`
 	ProportionAlertThreshold *int32                                         `json:"proportionAlertThreshold,omitempty"`

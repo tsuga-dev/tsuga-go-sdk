@@ -24,11 +24,7 @@ type RuleTargetInputSlack struct {
 	// Slack channel ID that receives the notification
 	Channel string `json:"channel"`
 	// Slack workspace ID that receives the notification
-	IntegrationId string `json:"integrationId"`
-	// When true, the transition info (e.g., \"from ok to alert\") is hidden from the Slack message
-	HideTransition *bool `json:"hideTransition,omitempty"`
-	// When true, the timestamp is hidden from the Slack message
-	HideTime             *bool `json:"hideTime,omitempty"`
+	IntegrationId        string `json:"integrationId"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -126,70 +122,6 @@ func (o *RuleTargetInputSlack) SetIntegrationId(v string) {
 	o.IntegrationId = v
 }
 
-// GetHideTransition returns the HideTransition field value if set, zero value otherwise.
-func (o *RuleTargetInputSlack) GetHideTransition() bool {
-	if o == nil || IsNil(o.HideTransition) {
-		var ret bool
-		return ret
-	}
-	return *o.HideTransition
-}
-
-// GetHideTransitionOk returns a tuple with the HideTransition field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RuleTargetInputSlack) GetHideTransitionOk() (*bool, bool) {
-	if o == nil || IsNil(o.HideTransition) {
-		return nil, false
-	}
-	return o.HideTransition, true
-}
-
-// HasHideTransition returns a boolean if a field has been set.
-func (o *RuleTargetInputSlack) HasHideTransition() bool {
-	if o != nil && !IsNil(o.HideTransition) {
-		return true
-	}
-
-	return false
-}
-
-// SetHideTransition gets a reference to the given bool and assigns it to the HideTransition field.
-func (o *RuleTargetInputSlack) SetHideTransition(v bool) {
-	o.HideTransition = &v
-}
-
-// GetHideTime returns the HideTime field value if set, zero value otherwise.
-func (o *RuleTargetInputSlack) GetHideTime() bool {
-	if o == nil || IsNil(o.HideTime) {
-		var ret bool
-		return ret
-	}
-	return *o.HideTime
-}
-
-// GetHideTimeOk returns a tuple with the HideTime field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RuleTargetInputSlack) GetHideTimeOk() (*bool, bool) {
-	if o == nil || IsNil(o.HideTime) {
-		return nil, false
-	}
-	return o.HideTime, true
-}
-
-// HasHideTime returns a boolean if a field has been set.
-func (o *RuleTargetInputSlack) HasHideTime() bool {
-	if o != nil && !IsNil(o.HideTime) {
-		return true
-	}
-
-	return false
-}
-
-// SetHideTime gets a reference to the given bool and assigns it to the HideTime field.
-func (o *RuleTargetInputSlack) SetHideTime(v bool) {
-	o.HideTime = &v
-}
-
 func (o RuleTargetInputSlack) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -203,12 +135,6 @@ func (o RuleTargetInputSlack) ToMap() (map[string]interface{}, error) {
 	toSerialize["type"] = o.Type
 	toSerialize["channel"] = o.Channel
 	toSerialize["integrationId"] = o.IntegrationId
-	if !IsNil(o.HideTransition) {
-		toSerialize["hideTransition"] = o.HideTransition
-	}
-	if !IsNil(o.HideTime) {
-		toSerialize["hideTime"] = o.HideTime
-	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -257,8 +183,6 @@ func (o *RuleTargetInputSlack) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "channel")
 		delete(additionalProperties, "integrationId")
-		delete(additionalProperties, "hideTransition")
-		delete(additionalProperties, "hideTime")
 		o.AdditionalProperties = additionalProperties
 	}
 
