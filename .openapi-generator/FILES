@@ -101,7 +101,7 @@ docs/MonitorConfigurationLog.md
 docs/MonitorConfigurationLogErrorPattern.md
 docs/MonitorConfigurationLogErrorPatternFilter.md
 docs/MonitorConfigurationMetric.md
-docs/MonitorConfigurationMetricCondition.md
+docs/MonitorConfigurationMetricConditionsInner.md
 docs/MonitorConfigurationMetricGroupByFieldsInner.md
 docs/MonitorConfigurationTrace.md
 docs/MonitorsAPI.md
@@ -240,7 +240,7 @@ model_monitor_configuration_log.go
 model_monitor_configuration_log_error_pattern.go
 model_monitor_configuration_log_error_pattern_filter.go
 model_monitor_configuration_metric.go
-model_monitor_configuration_metric_condition.go
+model_monitor_configuration_metric_conditions_inner.go
 model_monitor_configuration_metric_group_by_fields_inner.go
 model_monitor_configuration_trace.go
 model_normalizer.go

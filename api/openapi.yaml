@@ -443,8 +443,8 @@ paths:
                     - aggregate:
                         type: count
                       filter: level:ERROR service:api-gateway
-                    condition:
-                      formula: q1
+                    conditions:
+                    - formula: q1
                       operator: greater_than
                       threshold: 100
                     noDataBehavior: resolve
@@ -669,8 +669,8 @@ paths:
                     - aggregate:
                         type: count
                       filter: level:ERROR service:api-gateway
-                    condition:
-                      formula: q1
+                    conditions:
+                    - formula: q1
                       operator: greater_than
                       threshold: 100
                     noDataBehavior: resolve
@@ -1661,21 +1661,13 @@ components:
     ClientErrorResponse:
       description: Standard envelope for client (4XX) API errors
       example:
-        code: CLUSTER_DB_QUERY_INVALID_CONNECTION_PARAMS
+        code: ABORT_ERROR
         message: message
         statusCode: 0.8008281904610115
       properties:
         code:
           description: Machine readable error code describing what went wrong
           enum:
-          - CLUSTER_DB_QUERY_INVALID_CONNECTION_PARAMS
-          - CLUSTER_DB_QUERY_INVALID_CREDENTIALS
-          - CLUSTER_DB_QUERY_PERMISSION_DENIED
-          - CLUSTER_DB_QUERY_QUERY_SYNTAX_ERROR
-          - CLUSTER_DB_QUERY_DATABASE_UNREACHABLE
-          - CLUSTER_DB_QUERY_CONNECTION_FAILED
-          - CLUSTER_DB_QUERY_QUERY_EXECUTION_FAILED
-          - CLUSTER_DB_QUERY_QUERY_TIMEOUT
           - ABORT_ERROR
           - BAD_REQUEST
           - DUPLICATE_KEY_VIOLATION
@@ -1729,7 +1721,7 @@ components:
       example:
         requestId: requestId
         error:
-          code: CLUSTER_DB_QUERY_INVALID_CONNECTION_PARAMS
+          code: ABORT_ERROR
           message: message
           statusCode: 0.8008281904610115
       properties:
@@ -2084,8 +2076,8 @@ components:
           - aggregate:
               type: count
             filter: level:ERROR service:api-gateway
-          condition:
-            formula: q1
+          conditions:
+          - formula: q1
             operator: greater_than
             threshold: 100
           noDataBehavior: resolve
@@ -2158,8 +2150,8 @@ components:
             - aggregate:
                 type: count
               filter: level:ERROR service:api-gateway
-            condition:
-              formula: q1
+            conditions:
+            - formula: q1
               operator: greater_than
               threshold: 100
             noDataBehavior: resolve
@@ -2181,8 +2173,8 @@ components:
             - aggregate:
                 type: count
               filter: level:ERROR service:api-gateway
-            condition:
-              formula: q1
+            conditions:
+            - formula: q1
               operator: greater_than
               threshold: 100
             noDataBehavior: resolve
@@ -2219,8 +2211,8 @@ components:
             - aggregate:
                 type: count
               filter: level:ERROR service:api-gateway
-            condition:
-              formula: q1
+            conditions:
+            - formula: q1
               operator: greater_than
               threshold: 100
             noDataBehavior: resolve
@@ -2255,8 +2247,8 @@ components:
             - aggregate:
                 type: count
               filter: level:ERROR service:api-gateway
-            condition:
-              formula: q1
+            conditions:
+            - formula: q1
               operator: greater_than
               threshold: 100
             noDataBehavior: resolve
@@ -2291,8 +2283,8 @@ components:
             - aggregate:
                 type: count
               filter: level:ERROR service:api-gateway
-            condition:
-              formula: q1
+            conditions:
+            - formula: q1
               operator: greater_than
               threshold: 100
             noDataBehavior: resolve
@@ -3205,11 +3197,9 @@ components:
           enum:
           - metric
           type: string
-        condition:
-          $ref: "#/components/schemas/MonitorConfigurationMetric_condition"
         conditions:
           items:
-            $ref: "#/components/schemas/MonitorConfigurationMetric_condition"
+            $ref: "#/components/schemas/MonitorConfigurationMetric_conditions_inner"
           type: array
         noDataBehavior:
           enum:
@@ -3247,7 +3237,7 @@ components:
           maxItems: 15
           type: array
       required:
-      - condition
+      - conditions
       - groupByFields
       - noDataBehavior
       - queries
@@ -3259,11 +3249,9 @@ components:
           enum:
           - log
           type: string
-        condition:
-          $ref: "#/components/schemas/MonitorConfigurationMetric_condition"
         conditions:
           items:
-            $ref: "#/components/schemas/MonitorConfigurationMetric_condition"
+            $ref: "#/components/schemas/MonitorConfigurationMetric_conditions_inner"
           type: array
         noDataBehavior:
           enum:
@@ -3301,7 +3289,7 @@ components:
           maxItems: 15
           type: array
       required:
-      - condition
+      - conditions
       - groupByFields
       - noDataBehavior
       - queries
@@ -3313,11 +3301,9 @@ components:
           enum:
           - trace
           type: string
-        condition:
-          $ref: "#/components/schemas/MonitorConfigurationMetric_condition"
         conditions:
           items:
-            $ref: "#/components/schemas/MonitorConfigurationMetric_condition"
+            $ref: "#/components/schemas/MonitorConfigurationMetric_conditions_inner"
           type: array
         noDataBehavior:
           enum:
@@ -3355,7 +3341,7 @@ components:
           maxItems: 15
           type: array
       required:
-      - condition
+      - conditions
       - groupByFields
       - noDataBehavior
       - queries
@@ -4930,7 +4916,7 @@ components:
       required:
       - config
       - id
-    MonitorConfigurationMetric_condition:
+    MonitorConfigurationMetric_conditions_inner:
       properties:
         formula:
           format: math-formula

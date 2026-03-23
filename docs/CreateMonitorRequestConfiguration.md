@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** |  | 
-**Condition** | [**MonitorConfigurationAnomalyLogCondition**](MonitorConfigurationAnomalyLogCondition.md) |  | 
-**Conditions** | Pointer to [**[]MonitorConfigurationMetricCondition**](MonitorConfigurationMetricCondition.md) |  | [optional] 
+**Conditions** | [**[]MonitorConfigurationMetricConditionsInner**](MonitorConfigurationMetricConditionsInner.md) |  | 
 **NoDataBehavior** | **string** |  | 
 **Timeframe** | **float32** | Timeframe of the monitor in minutes | 
 **GroupByFields** | [**[]MonitorConfigurationMetricGroupByFieldsInner**](MonitorConfigurationMetricGroupByFieldsInner.md) | Monitor group by configuration. Warning! Note that the limit setting is currently ignored. | 
 **AggregationAlertLogic** | **string** |  | 
 **ProportionAlertThreshold** | Pointer to **int32** |  | [optional] 
 **Queries** | [**[]MonitorAggregationQuery**](MonitorAggregationQuery.md) | Aggregations that may be combined together in the same query | 
+**Condition** | [**MonitorConfigurationAnomalyLogCondition**](MonitorConfigurationAnomalyLogCondition.md) |  | 
 **Filter** | [**MonitorConfigurationLogErrorPatternFilter**](MonitorConfigurationLogErrorPatternFilter.md) |  | 
 **WarnBeforeInDays** | **int32** |  | 
 **CloudAccounts** | Pointer to **[]string** |  | [optional] 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewCreateMonitorRequestConfiguration
 
-`func NewCreateMonitorRequestConfiguration(type_ string, condition MonitorConfigurationAnomalyLogCondition, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, aggregationAlertLogic string, queries []MonitorAggregationQuery, filter MonitorConfigurationLogErrorPatternFilter, warnBeforeInDays int32, ) *CreateMonitorRequestConfiguration`
+`func NewCreateMonitorRequestConfiguration(type_ string, conditions []MonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, aggregationAlertLogic string, queries []MonitorAggregationQuery, condition MonitorConfigurationAnomalyLogCondition, filter MonitorConfigurationLogErrorPatternFilter, warnBeforeInDays int32, ) *CreateMonitorRequestConfiguration`
 
 NewCreateMonitorRequestConfiguration instantiates a new CreateMonitorRequestConfiguration object
 This constructor will assign default values to properties that have it defined,
@@ -56,50 +56,25 @@ and a boolean to check if the value has been set.
 SetType sets Type field to given value.
 
 
-### GetCondition
-
-`func (o *CreateMonitorRequestConfiguration) GetCondition() MonitorConfigurationAnomalyLogCondition`
-
-GetCondition returns the Condition field if non-nil, zero value otherwise.
-
-### GetConditionOk
-
-`func (o *CreateMonitorRequestConfiguration) GetConditionOk() (*MonitorConfigurationAnomalyLogCondition, bool)`
-
-GetConditionOk returns a tuple with the Condition field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCondition
-
-`func (o *CreateMonitorRequestConfiguration) SetCondition(v MonitorConfigurationAnomalyLogCondition)`
-
-SetCondition sets Condition field to given value.
-
-
 ### GetConditions
 
-`func (o *CreateMonitorRequestConfiguration) GetConditions() []MonitorConfigurationMetricCondition`
+`func (o *CreateMonitorRequestConfiguration) GetConditions() []MonitorConfigurationMetricConditionsInner`
 
 GetConditions returns the Conditions field if non-nil, zero value otherwise.
 
 ### GetConditionsOk
 
-`func (o *CreateMonitorRequestConfiguration) GetConditionsOk() (*[]MonitorConfigurationMetricCondition, bool)`
+`func (o *CreateMonitorRequestConfiguration) GetConditionsOk() (*[]MonitorConfigurationMetricConditionsInner, bool)`
 
 GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConditions
 
-`func (o *CreateMonitorRequestConfiguration) SetConditions(v []MonitorConfigurationMetricCondition)`
+`func (o *CreateMonitorRequestConfiguration) SetConditions(v []MonitorConfigurationMetricConditionsInner)`
 
 SetConditions sets Conditions field to given value.
 
-### HasConditions
-
-`func (o *CreateMonitorRequestConfiguration) HasConditions() bool`
-
-HasConditions returns a boolean if a field has been set.
 
 ### GetNoDataBehavior
 
@@ -224,6 +199,26 @@ and a boolean to check if the value has been set.
 `func (o *CreateMonitorRequestConfiguration) SetQueries(v []MonitorAggregationQuery)`
 
 SetQueries sets Queries field to given value.
+
+
+### GetCondition
+
+`func (o *CreateMonitorRequestConfiguration) GetCondition() MonitorConfigurationAnomalyLogCondition`
+
+GetCondition returns the Condition field if non-nil, zero value otherwise.
+
+### GetConditionOk
+
+`func (o *CreateMonitorRequestConfiguration) GetConditionOk() (*MonitorConfigurationAnomalyLogCondition, bool)`
+
+GetConditionOk returns a tuple with the Condition field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCondition
+
+`func (o *CreateMonitorRequestConfiguration) SetCondition(v MonitorConfigurationAnomalyLogCondition)`
+
+SetCondition sets Condition field to given value.
 
 
 ### GetFilter
