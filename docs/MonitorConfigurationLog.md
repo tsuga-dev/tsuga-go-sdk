@@ -5,8 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** |  | 
-**Condition** | [**MonitorConfigurationMetricCondition**](MonitorConfigurationMetricCondition.md) |  | 
-**Conditions** | Pointer to [**[]MonitorConfigurationMetricCondition**](MonitorConfigurationMetricCondition.md) |  | [optional] 
+**Conditions** | [**[]MonitorConfigurationMetricConditionsInner**](MonitorConfigurationMetricConditionsInner.md) |  | 
 **NoDataBehavior** | **string** |  | 
 **Timeframe** | **float32** | Timeframe of the monitor in minutes | 
 **GroupByFields** | [**[]MonitorConfigurationMetricGroupByFieldsInner**](MonitorConfigurationMetricGroupByFieldsInner.md) | Monitor group by configuration. Warning! Note that the limit setting is currently ignored. | 
@@ -18,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewMonitorConfigurationLog
 
-`func NewMonitorConfigurationLog(type_ string, condition MonitorConfigurationMetricCondition, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, queries []MonitorAggregationQuery, ) *MonitorConfigurationLog`
+`func NewMonitorConfigurationLog(type_ string, conditions []MonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, queries []MonitorAggregationQuery, ) *MonitorConfigurationLog`
 
 NewMonitorConfigurationLog instantiates a new MonitorConfigurationLog object
 This constructor will assign default values to properties that have it defined,
@@ -53,50 +52,25 @@ and a boolean to check if the value has been set.
 SetType sets Type field to given value.
 
 
-### GetCondition
-
-`func (o *MonitorConfigurationLog) GetCondition() MonitorConfigurationMetricCondition`
-
-GetCondition returns the Condition field if non-nil, zero value otherwise.
-
-### GetConditionOk
-
-`func (o *MonitorConfigurationLog) GetConditionOk() (*MonitorConfigurationMetricCondition, bool)`
-
-GetConditionOk returns a tuple with the Condition field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCondition
-
-`func (o *MonitorConfigurationLog) SetCondition(v MonitorConfigurationMetricCondition)`
-
-SetCondition sets Condition field to given value.
-
-
 ### GetConditions
 
-`func (o *MonitorConfigurationLog) GetConditions() []MonitorConfigurationMetricCondition`
+`func (o *MonitorConfigurationLog) GetConditions() []MonitorConfigurationMetricConditionsInner`
 
 GetConditions returns the Conditions field if non-nil, zero value otherwise.
 
 ### GetConditionsOk
 
-`func (o *MonitorConfigurationLog) GetConditionsOk() (*[]MonitorConfigurationMetricCondition, bool)`
+`func (o *MonitorConfigurationLog) GetConditionsOk() (*[]MonitorConfigurationMetricConditionsInner, bool)`
 
 GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConditions
 
-`func (o *MonitorConfigurationLog) SetConditions(v []MonitorConfigurationMetricCondition)`
+`func (o *MonitorConfigurationLog) SetConditions(v []MonitorConfigurationMetricConditionsInner)`
 
 SetConditions sets Conditions field to given value.
 
-### HasConditions
-
-`func (o *MonitorConfigurationLog) HasConditions() bool`
-
-HasConditions returns a boolean if a field has been set.
 
 ### GetNoDataBehavior
 

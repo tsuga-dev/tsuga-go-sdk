@@ -5,8 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** |  | 
-**Condition** | [**MonitorConfigurationMetricCondition**](MonitorConfigurationMetricCondition.md) |  | 
-**Conditions** | Pointer to [**[]MonitorConfigurationMetricCondition**](MonitorConfigurationMetricCondition.md) |  | [optional] 
+**Conditions** | [**[]MonitorConfigurationMetricConditionsInner**](MonitorConfigurationMetricConditionsInner.md) |  | 
 **NoDataBehavior** | **string** |  | 
 **Timeframe** | **float32** | Timeframe of the monitor in minutes | 
 **GroupByFields** | [**[]MonitorConfigurationMetricGroupByFieldsInner**](MonitorConfigurationMetricGroupByFieldsInner.md) | Monitor group by configuration. Warning! Note that the limit setting is currently ignored. | 
@@ -18,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewMonitorConfigurationTrace
 
-`func NewMonitorConfigurationTrace(type_ string, condition MonitorConfigurationMetricCondition, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, queries []MonitorAggregationQuery, ) *MonitorConfigurationTrace`
+`func NewMonitorConfigurationTrace(type_ string, conditions []MonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, queries []MonitorAggregationQuery, ) *MonitorConfigurationTrace`
 
 NewMonitorConfigurationTrace instantiates a new MonitorConfigurationTrace object
 This constructor will assign default values to properties that have it defined,
@@ -53,50 +52,25 @@ and a boolean to check if the value has been set.
 SetType sets Type field to given value.
 
 
-### GetCondition
-
-`func (o *MonitorConfigurationTrace) GetCondition() MonitorConfigurationMetricCondition`
-
-GetCondition returns the Condition field if non-nil, zero value otherwise.
-
-### GetConditionOk
-
-`func (o *MonitorConfigurationTrace) GetConditionOk() (*MonitorConfigurationMetricCondition, bool)`
-
-GetConditionOk returns a tuple with the Condition field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCondition
-
-`func (o *MonitorConfigurationTrace) SetCondition(v MonitorConfigurationMetricCondition)`
-
-SetCondition sets Condition field to given value.
-
-
 ### GetConditions
 
-`func (o *MonitorConfigurationTrace) GetConditions() []MonitorConfigurationMetricCondition`
+`func (o *MonitorConfigurationTrace) GetConditions() []MonitorConfigurationMetricConditionsInner`
 
 GetConditions returns the Conditions field if non-nil, zero value otherwise.
 
 ### GetConditionsOk
 
-`func (o *MonitorConfigurationTrace) GetConditionsOk() (*[]MonitorConfigurationMetricCondition, bool)`
+`func (o *MonitorConfigurationTrace) GetConditionsOk() (*[]MonitorConfigurationMetricConditionsInner, bool)`
 
 GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConditions
 
-`func (o *MonitorConfigurationTrace) SetConditions(v []MonitorConfigurationMetricCondition)`
+`func (o *MonitorConfigurationTrace) SetConditions(v []MonitorConfigurationMetricConditionsInner)`
 
 SetConditions sets Conditions field to given value.
 
-### HasConditions
-
-`func (o *MonitorConfigurationTrace) HasConditions() bool`
-
-HasConditions returns a boolean if a field has been set.
 
 ### GetNoDataBehavior
 

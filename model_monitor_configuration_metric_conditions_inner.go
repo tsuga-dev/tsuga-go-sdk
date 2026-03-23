@@ -15,41 +15,41 @@ import (
 	"fmt"
 )
 
-// checks if the MonitorConfigurationMetricCondition type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &MonitorConfigurationMetricCondition{}
+// checks if the MonitorConfigurationMetricConditionsInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MonitorConfigurationMetricConditionsInner{}
 
-// MonitorConfigurationMetricCondition struct for MonitorConfigurationMetricCondition
-type MonitorConfigurationMetricCondition struct {
+// MonitorConfigurationMetricConditionsInner struct for MonitorConfigurationMetricConditionsInner
+type MonitorConfigurationMetricConditionsInner struct {
 	Formula              string  `json:"formula"`
 	Operator             string  `json:"operator"`
 	Threshold            float32 `json:"threshold"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _MonitorConfigurationMetricCondition MonitorConfigurationMetricCondition
+type _MonitorConfigurationMetricConditionsInner MonitorConfigurationMetricConditionsInner
 
-// NewMonitorConfigurationMetricCondition instantiates a new MonitorConfigurationMetricCondition object
+// NewMonitorConfigurationMetricConditionsInner instantiates a new MonitorConfigurationMetricConditionsInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMonitorConfigurationMetricCondition(formula string, operator string, threshold float32) *MonitorConfigurationMetricCondition {
-	this := MonitorConfigurationMetricCondition{}
+func NewMonitorConfigurationMetricConditionsInner(formula string, operator string, threshold float32) *MonitorConfigurationMetricConditionsInner {
+	this := MonitorConfigurationMetricConditionsInner{}
 	this.Formula = formula
 	this.Operator = operator
 	this.Threshold = threshold
 	return &this
 }
 
-// NewMonitorConfigurationMetricConditionWithDefaults instantiates a new MonitorConfigurationMetricCondition object
+// NewMonitorConfigurationMetricConditionsInnerWithDefaults instantiates a new MonitorConfigurationMetricConditionsInner object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewMonitorConfigurationMetricConditionWithDefaults() *MonitorConfigurationMetricCondition {
-	this := MonitorConfigurationMetricCondition{}
+func NewMonitorConfigurationMetricConditionsInnerWithDefaults() *MonitorConfigurationMetricConditionsInner {
+	this := MonitorConfigurationMetricConditionsInner{}
 	return &this
 }
 
 // GetFormula returns the Formula field value
-func (o *MonitorConfigurationMetricCondition) GetFormula() string {
+func (o *MonitorConfigurationMetricConditionsInner) GetFormula() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -60,7 +60,7 @@ func (o *MonitorConfigurationMetricCondition) GetFormula() string {
 
 // GetFormulaOk returns a tuple with the Formula field value
 // and a boolean to check if the value has been set.
-func (o *MonitorConfigurationMetricCondition) GetFormulaOk() (*string, bool) {
+func (o *MonitorConfigurationMetricConditionsInner) GetFormulaOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -68,12 +68,12 @@ func (o *MonitorConfigurationMetricCondition) GetFormulaOk() (*string, bool) {
 }
 
 // SetFormula sets field value
-func (o *MonitorConfigurationMetricCondition) SetFormula(v string) {
+func (o *MonitorConfigurationMetricConditionsInner) SetFormula(v string) {
 	o.Formula = v
 }
 
 // GetOperator returns the Operator field value
-func (o *MonitorConfigurationMetricCondition) GetOperator() string {
+func (o *MonitorConfigurationMetricConditionsInner) GetOperator() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -84,7 +84,7 @@ func (o *MonitorConfigurationMetricCondition) GetOperator() string {
 
 // GetOperatorOk returns a tuple with the Operator field value
 // and a boolean to check if the value has been set.
-func (o *MonitorConfigurationMetricCondition) GetOperatorOk() (*string, bool) {
+func (o *MonitorConfigurationMetricConditionsInner) GetOperatorOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -92,12 +92,12 @@ func (o *MonitorConfigurationMetricCondition) GetOperatorOk() (*string, bool) {
 }
 
 // SetOperator sets field value
-func (o *MonitorConfigurationMetricCondition) SetOperator(v string) {
+func (o *MonitorConfigurationMetricConditionsInner) SetOperator(v string) {
 	o.Operator = v
 }
 
 // GetThreshold returns the Threshold field value
-func (o *MonitorConfigurationMetricCondition) GetThreshold() float32 {
+func (o *MonitorConfigurationMetricConditionsInner) GetThreshold() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -108,7 +108,7 @@ func (o *MonitorConfigurationMetricCondition) GetThreshold() float32 {
 
 // GetThresholdOk returns a tuple with the Threshold field value
 // and a boolean to check if the value has been set.
-func (o *MonitorConfigurationMetricCondition) GetThresholdOk() (*float32, bool) {
+func (o *MonitorConfigurationMetricConditionsInner) GetThresholdOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -116,11 +116,11 @@ func (o *MonitorConfigurationMetricCondition) GetThresholdOk() (*float32, bool) 
 }
 
 // SetThreshold sets field value
-func (o *MonitorConfigurationMetricCondition) SetThreshold(v float32) {
+func (o *MonitorConfigurationMetricConditionsInner) SetThreshold(v float32) {
 	o.Threshold = v
 }
 
-func (o MonitorConfigurationMetricCondition) MarshalJSON() ([]byte, error) {
+func (o MonitorConfigurationMetricConditionsInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -128,7 +128,7 @@ func (o MonitorConfigurationMetricCondition) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o MonitorConfigurationMetricCondition) ToMap() (map[string]interface{}, error) {
+func (o MonitorConfigurationMetricConditionsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["formula"] = o.Formula
 	toSerialize["operator"] = o.Operator
@@ -141,7 +141,7 @@ func (o MonitorConfigurationMetricCondition) ToMap() (map[string]interface{}, er
 	return toSerialize, nil
 }
 
-func (o *MonitorConfigurationMetricCondition) UnmarshalJSON(data []byte) (err error) {
+func (o *MonitorConfigurationMetricConditionsInner) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -165,15 +165,15 @@ func (o *MonitorConfigurationMetricCondition) UnmarshalJSON(data []byte) (err er
 		}
 	}
 
-	varMonitorConfigurationMetricCondition := _MonitorConfigurationMetricCondition{}
+	varMonitorConfigurationMetricConditionsInner := _MonitorConfigurationMetricConditionsInner{}
 
-	err = json.Unmarshal(data, &varMonitorConfigurationMetricCondition)
+	err = json.Unmarshal(data, &varMonitorConfigurationMetricConditionsInner)
 
 	if err != nil {
 		return err
 	}
 
-	*o = MonitorConfigurationMetricCondition(varMonitorConfigurationMetricCondition)
+	*o = MonitorConfigurationMetricConditionsInner(varMonitorConfigurationMetricConditionsInner)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -187,38 +187,38 @@ func (o *MonitorConfigurationMetricCondition) UnmarshalJSON(data []byte) (err er
 	return err
 }
 
-type NullableMonitorConfigurationMetricCondition struct {
-	value *MonitorConfigurationMetricCondition
+type NullableMonitorConfigurationMetricConditionsInner struct {
+	value *MonitorConfigurationMetricConditionsInner
 	isSet bool
 }
 
-func (v NullableMonitorConfigurationMetricCondition) Get() *MonitorConfigurationMetricCondition {
+func (v NullableMonitorConfigurationMetricConditionsInner) Get() *MonitorConfigurationMetricConditionsInner {
 	return v.value
 }
 
-func (v *NullableMonitorConfigurationMetricCondition) Set(val *MonitorConfigurationMetricCondition) {
+func (v *NullableMonitorConfigurationMetricConditionsInner) Set(val *MonitorConfigurationMetricConditionsInner) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableMonitorConfigurationMetricCondition) IsSet() bool {
+func (v NullableMonitorConfigurationMetricConditionsInner) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableMonitorConfigurationMetricCondition) Unset() {
+func (v *NullableMonitorConfigurationMetricConditionsInner) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableMonitorConfigurationMetricCondition(val *MonitorConfigurationMetricCondition) *NullableMonitorConfigurationMetricCondition {
-	return &NullableMonitorConfigurationMetricCondition{value: val, isSet: true}
+func NewNullableMonitorConfigurationMetricConditionsInner(val *MonitorConfigurationMetricConditionsInner) *NullableMonitorConfigurationMetricConditionsInner {
+	return &NullableMonitorConfigurationMetricConditionsInner{value: val, isSet: true}
 }
 
-func (v NullableMonitorConfigurationMetricCondition) MarshalJSON() ([]byte, error) {
+func (v NullableMonitorConfigurationMetricConditionsInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableMonitorConfigurationMetricCondition) UnmarshalJSON(src []byte) error {
+func (v *NullableMonitorConfigurationMetricConditionsInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

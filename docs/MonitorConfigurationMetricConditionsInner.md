@@ -1,4 +1,4 @@
-# MonitorConfigurationMetricCondition
+# MonitorConfigurationMetricConditionsInner
 
 ## Properties
 
@@ -10,79 +10,79 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewMonitorConfigurationMetricCondition
+### NewMonitorConfigurationMetricConditionsInner
 
-`func NewMonitorConfigurationMetricCondition(formula string, operator string, threshold float32, ) *MonitorConfigurationMetricCondition`
+`func NewMonitorConfigurationMetricConditionsInner(formula string, operator string, threshold float32, ) *MonitorConfigurationMetricConditionsInner`
 
-NewMonitorConfigurationMetricCondition instantiates a new MonitorConfigurationMetricCondition object
+NewMonitorConfigurationMetricConditionsInner instantiates a new MonitorConfigurationMetricConditionsInner object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewMonitorConfigurationMetricConditionWithDefaults
+### NewMonitorConfigurationMetricConditionsInnerWithDefaults
 
-`func NewMonitorConfigurationMetricConditionWithDefaults() *MonitorConfigurationMetricCondition`
+`func NewMonitorConfigurationMetricConditionsInnerWithDefaults() *MonitorConfigurationMetricConditionsInner`
 
-NewMonitorConfigurationMetricConditionWithDefaults instantiates a new MonitorConfigurationMetricCondition object
+NewMonitorConfigurationMetricConditionsInnerWithDefaults instantiates a new MonitorConfigurationMetricConditionsInner object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetFormula
 
-`func (o *MonitorConfigurationMetricCondition) GetFormula() string`
+`func (o *MonitorConfigurationMetricConditionsInner) GetFormula() string`
 
 GetFormula returns the Formula field if non-nil, zero value otherwise.
 
 ### GetFormulaOk
 
-`func (o *MonitorConfigurationMetricCondition) GetFormulaOk() (*string, bool)`
+`func (o *MonitorConfigurationMetricConditionsInner) GetFormulaOk() (*string, bool)`
 
 GetFormulaOk returns a tuple with the Formula field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFormula
 
-`func (o *MonitorConfigurationMetricCondition) SetFormula(v string)`
+`func (o *MonitorConfigurationMetricConditionsInner) SetFormula(v string)`
 
 SetFormula sets Formula field to given value.
 
 
 ### GetOperator
 
-`func (o *MonitorConfigurationMetricCondition) GetOperator() string`
+`func (o *MonitorConfigurationMetricConditionsInner) GetOperator() string`
 
 GetOperator returns the Operator field if non-nil, zero value otherwise.
 
 ### GetOperatorOk
 
-`func (o *MonitorConfigurationMetricCondition) GetOperatorOk() (*string, bool)`
+`func (o *MonitorConfigurationMetricConditionsInner) GetOperatorOk() (*string, bool)`
 
 GetOperatorOk returns a tuple with the Operator field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOperator
 
-`func (o *MonitorConfigurationMetricCondition) SetOperator(v string)`
+`func (o *MonitorConfigurationMetricConditionsInner) SetOperator(v string)`
 
 SetOperator sets Operator field to given value.
 
 
 ### GetThreshold
 
-`func (o *MonitorConfigurationMetricCondition) GetThreshold() float32`
+`func (o *MonitorConfigurationMetricConditionsInner) GetThreshold() float32`
 
 GetThreshold returns the Threshold field if non-nil, zero value otherwise.
 
 ### GetThresholdOk
 
-`func (o *MonitorConfigurationMetricCondition) GetThresholdOk() (*float32, bool)`
+`func (o *MonitorConfigurationMetricConditionsInner) GetThresholdOk() (*float32, bool)`
 
 GetThresholdOk returns a tuple with the Threshold field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetThreshold
 
-`func (o *MonitorConfigurationMetricCondition) SetThreshold(v float32)`
+`func (o *MonitorConfigurationMetricConditionsInner) SetThreshold(v float32)`
 
 SetThreshold sets Threshold field to given value.
 

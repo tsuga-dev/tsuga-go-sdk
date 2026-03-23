@@ -20,10 +20,9 @@ var _ MappedNullable = &MonitorConfigurationMetric{}
 
 // MonitorConfigurationMetric struct for MonitorConfigurationMetric
 type MonitorConfigurationMetric struct {
-	Type           string                                `json:"type"`
-	Condition      MonitorConfigurationMetricCondition   `json:"condition"`
-	Conditions     []MonitorConfigurationMetricCondition `json:"conditions,omitempty"`
-	NoDataBehavior string                                `json:"noDataBehavior"`
+	Type           string                                      `json:"type"`
+	Conditions     []MonitorConfigurationMetricConditionsInner `json:"conditions"`
+	NoDataBehavior string                                      `json:"noDataBehavior"`
 	// Timeframe of the monitor in minutes
 	Timeframe float32 `json:"timeframe"`
 	// Monitor group by configuration. Warning! Note that the limit setting is currently ignored.
@@ -41,10 +40,10 @@ type _MonitorConfigurationMetric MonitorConfigurationMetric
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMonitorConfigurationMetric(type_ string, condition MonitorConfigurationMetricCondition, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, queries []MonitorAggregationQuery) *MonitorConfigurationMetric {
+func NewMonitorConfigurationMetric(type_ string, conditions []MonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, queries []MonitorAggregationQuery) *MonitorConfigurationMetric {
 	this := MonitorConfigurationMetric{}
 	this.Type = type_
-	this.Condition = condition
+	this.Conditions = conditions
 	this.NoDataBehavior = noDataBehavior
 	this.Timeframe = timeframe
 	this.GroupByFields = groupByFields
@@ -84,59 +83,27 @@ func (o *MonitorConfigurationMetric) SetType(v string) {
 	o.Type = v
 }
 
-// GetCondition returns the Condition field value
-func (o *MonitorConfigurationMetric) GetCondition() MonitorConfigurationMetricCondition {
+// GetConditions returns the Conditions field value
+func (o *MonitorConfigurationMetric) GetConditions() []MonitorConfigurationMetricConditionsInner {
 	if o == nil {
-		var ret MonitorConfigurationMetricCondition
+		var ret []MonitorConfigurationMetricConditionsInner
 		return ret
 	}
 
-	return o.Condition
-}
-
-// GetConditionOk returns a tuple with the Condition field value
-// and a boolean to check if the value has been set.
-func (o *MonitorConfigurationMetric) GetConditionOk() (*MonitorConfigurationMetricCondition, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Condition, true
-}
-
-// SetCondition sets field value
-func (o *MonitorConfigurationMetric) SetCondition(v MonitorConfigurationMetricCondition) {
-	o.Condition = v
-}
-
-// GetConditions returns the Conditions field value if set, zero value otherwise.
-func (o *MonitorConfigurationMetric) GetConditions() []MonitorConfigurationMetricCondition {
-	if o == nil || IsNil(o.Conditions) {
-		var ret []MonitorConfigurationMetricCondition
-		return ret
-	}
 	return o.Conditions
 }
 
-// GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
+// GetConditionsOk returns a tuple with the Conditions field value
 // and a boolean to check if the value has been set.
-func (o *MonitorConfigurationMetric) GetConditionsOk() ([]MonitorConfigurationMetricCondition, bool) {
-	if o == nil || IsNil(o.Conditions) {
+func (o *MonitorConfigurationMetric) GetConditionsOk() ([]MonitorConfigurationMetricConditionsInner, bool) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Conditions, true
 }
 
-// HasConditions returns a boolean if a field has been set.
-func (o *MonitorConfigurationMetric) HasConditions() bool {
-	if o != nil && !IsNil(o.Conditions) {
-		return true
-	}
-
-	return false
-}
-
-// SetConditions gets a reference to the given []MonitorConfigurationMetricCondition and assigns it to the Conditions field.
-func (o *MonitorConfigurationMetric) SetConditions(v []MonitorConfigurationMetricCondition) {
+// SetConditions sets field value
+func (o *MonitorConfigurationMetric) SetConditions(v []MonitorConfigurationMetricConditionsInner) {
 	o.Conditions = v
 }
 
@@ -311,10 +278,7 @@ func (o MonitorConfigurationMetric) MarshalJSON() ([]byte, error) {
 func (o MonitorConfigurationMetric) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
-	toSerialize["condition"] = o.Condition
-	if !IsNil(o.Conditions) {
-		toSerialize["conditions"] = o.Conditions
-	}
+	toSerialize["conditions"] = o.Conditions
 	toSerialize["noDataBehavior"] = o.NoDataBehavior
 	toSerialize["timeframe"] = o.Timeframe
 	toSerialize["groupByFields"] = o.GroupByFields
@@ -339,7 +303,7 @@ func (o *MonitorConfigurationMetric) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"type",
-		"condition",
+		"conditions",
 		"noDataBehavior",
 		"timeframe",
 		"groupByFields",
@@ -374,7 +338,6 @@ func (o *MonitorConfigurationMetric) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
-		delete(additionalProperties, "condition")
 		delete(additionalProperties, "conditions")
 		delete(additionalProperties, "noDataBehavior")
 		delete(additionalProperties, "timeframe")
