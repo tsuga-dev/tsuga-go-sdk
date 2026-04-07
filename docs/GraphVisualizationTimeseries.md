@@ -5,9 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a time series chart | 
-**Source** | **string** | Data source being queried for this aggregation | 
+**Source** | **string** | Data source being queried | 
 **Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query | 
 **Formula** | Pointer to **string** | Formula referencing query outputs (e.g. q1+q2) to compute derived series | [optional] 
+**Aliases** | Pointer to [**GraphVisualizationTimeseriesAliases**](GraphVisualizationTimeseriesAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
 **GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
 **TimeBucket** | Pointer to [**GraphVisualizationTimeseriesTimeBucket**](GraphVisualizationTimeseriesTimeBucket.md) |  | [optional] 
@@ -15,6 +16,7 @@ Name | Type | Description | Notes
 **Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 **Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
+**YAxisSettings** | Pointer to [**GraphVisualizationTimeseriesYAxisSettings**](GraphVisualizationTimeseriesYAxisSettings.md) |  | [optional] 
 
 ## Methods
 
@@ -119,6 +121,31 @@ SetFormula sets Formula field to given value.
 `func (o *GraphVisualizationTimeseries) HasFormula() bool`
 
 HasFormula returns a boolean if a field has been set.
+
+### GetAliases
+
+`func (o *GraphVisualizationTimeseries) GetAliases() GraphVisualizationTimeseriesAliases`
+
+GetAliases returns the Aliases field if non-nil, zero value otherwise.
+
+### GetAliasesOk
+
+`func (o *GraphVisualizationTimeseries) GetAliasesOk() (*GraphVisualizationTimeseriesAliases, bool)`
+
+GetAliasesOk returns a tuple with the Aliases field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAliases
+
+`func (o *GraphVisualizationTimeseries) SetAliases(v GraphVisualizationTimeseriesAliases)`
+
+SetAliases sets Aliases field to given value.
+
+### HasAliases
+
+`func (o *GraphVisualizationTimeseries) HasAliases() bool`
+
+HasAliases returns a boolean if a field has been set.
 
 ### GetVisibleSeries
 
@@ -294,6 +321,31 @@ SetThresholds sets Thresholds field to given value.
 `func (o *GraphVisualizationTimeseries) HasThresholds() bool`
 
 HasThresholds returns a boolean if a field has been set.
+
+### GetYAxisSettings
+
+`func (o *GraphVisualizationTimeseries) GetYAxisSettings() GraphVisualizationTimeseriesYAxisSettings`
+
+GetYAxisSettings returns the YAxisSettings field if non-nil, zero value otherwise.
+
+### GetYAxisSettingsOk
+
+`func (o *GraphVisualizationTimeseries) GetYAxisSettingsOk() (*GraphVisualizationTimeseriesYAxisSettings, bool)`
+
+GetYAxisSettingsOk returns a tuple with the YAxisSettings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetYAxisSettings
+
+`func (o *GraphVisualizationTimeseries) SetYAxisSettings(v GraphVisualizationTimeseriesYAxisSettings)`
+
+SetYAxisSettings sets YAxisSettings field to given value.
+
+### HasYAxisSettings
+
+`func (o *GraphVisualizationTimeseries) HasYAxisSettings() bool`
+
+HasYAxisSettings returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

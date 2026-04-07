@@ -13,12 +13,13 @@ Name | Type | Description | Notes
 **Priority** | **float32** | Priority of the monitor | 
 **Permissions** | **string** | This controls which data the resource can see | 
 **DashboardId** | Pointer to **string** | Identifier of a dashboard related to the monitor | [optional] 
+**ClusterIds** | **[]string** |  | 
 
 ## Methods
 
 ### NewMonitor
 
-`func NewMonitor(id string, name string, owner string, configuration CreateMonitorRequestConfiguration, priority float32, permissions string, ) *Monitor`
+`func NewMonitor(id string, name string, owner string, configuration CreateMonitorRequestConfiguration, priority float32, permissions string, clusterIds []string, ) *Monitor`
 
 NewMonitor instantiates a new Monitor object
 This constructor will assign default values to properties that have it defined,
@@ -227,6 +228,26 @@ SetDashboardId sets DashboardId field to given value.
 `func (o *Monitor) HasDashboardId() bool`
 
 HasDashboardId returns a boolean if a field has been set.
+
+### GetClusterIds
+
+`func (o *Monitor) GetClusterIds() []string`
+
+GetClusterIds returns the ClusterIds field if non-nil, zero value otherwise.
+
+### GetClusterIdsOk
+
+`func (o *Monitor) GetClusterIdsOk() (*[]string, bool)`
+
+GetClusterIdsOk returns a tuple with the ClusterIds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClusterIds
+
+`func (o *Monitor) SetClusterIds(v []string)`
+
+SetClusterIds sets ClusterIds field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

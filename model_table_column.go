@@ -15,14 +15,14 @@ import (
 	"fmt"
 )
 
-// checks if the GraphVisualizationTopList type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &GraphVisualizationTopList{}
+// checks if the TableColumn type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TableColumn{}
 
-// GraphVisualizationTopList struct for GraphVisualizationTopList
-type GraphVisualizationTopList struct {
-	// Displays the aggregation as a ranked list of top results
-	Type string `json:"type"`
-	// Data source being queried
+// TableColumn struct for TableColumn
+type TableColumn struct {
+	// Display name of the table column
+	Name string `json:"name"`
+	// Data source being queried for this aggregation
 	Source string `json:"source"`
 	// Aggregations that may be combined together in the same query
 	Queries []AggregationQuery `json:"queries"`
@@ -30,63 +30,61 @@ type GraphVisualizationTopList struct {
 	Formula *string                              `json:"formula,omitempty"`
 	Aliases *GraphVisualizationTimeseriesAliases `json:"aliases,omitempty"`
 	// Flags indicating whether each query or formula series is visible
-	VisibleSeries []bool `json:"visibleSeries,omitempty"`
-	// Fields used to group the results
-	GroupBy    []AggregationGroupBy `json:"groupBy,omitempty"`
-	Normalizer *Normalizer          `json:"normalizer,omitempty"`
+	VisibleSeries []bool      `json:"visibleSeries,omitempty"`
+	Normalizer    *Normalizer `json:"normalizer,omitempty"`
 	// Number of decimal places to display in the value
 	Precision            *float32 `json:"precision,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _GraphVisualizationTopList GraphVisualizationTopList
+type _TableColumn TableColumn
 
-// NewGraphVisualizationTopList instantiates a new GraphVisualizationTopList object
+// NewTableColumn instantiates a new TableColumn object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGraphVisualizationTopList(type_ string, source string, queries []AggregationQuery) *GraphVisualizationTopList {
-	this := GraphVisualizationTopList{}
-	this.Type = type_
+func NewTableColumn(name string, source string, queries []AggregationQuery) *TableColumn {
+	this := TableColumn{}
+	this.Name = name
 	this.Source = source
 	this.Queries = queries
 	return &this
 }
 
-// NewGraphVisualizationTopListWithDefaults instantiates a new GraphVisualizationTopList object
+// NewTableColumnWithDefaults instantiates a new TableColumn object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewGraphVisualizationTopListWithDefaults() *GraphVisualizationTopList {
-	this := GraphVisualizationTopList{}
+func NewTableColumnWithDefaults() *TableColumn {
+	this := TableColumn{}
 	return &this
 }
 
-// GetType returns the Type field value
-func (o *GraphVisualizationTopList) GetType() string {
+// GetName returns the Name field value
+func (o *TableColumn) GetName() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Type
+	return o.Name
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationTopList) GetTypeOk() (*string, bool) {
+func (o *TableColumn) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Type, true
+	return &o.Name, true
 }
 
-// SetType sets field value
-func (o *GraphVisualizationTopList) SetType(v string) {
-	o.Type = v
+// SetName sets field value
+func (o *TableColumn) SetName(v string) {
+	o.Name = v
 }
 
 // GetSource returns the Source field value
-func (o *GraphVisualizationTopList) GetSource() string {
+func (o *TableColumn) GetSource() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -97,7 +95,7 @@ func (o *GraphVisualizationTopList) GetSource() string {
 
 // GetSourceOk returns a tuple with the Source field value
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationTopList) GetSourceOk() (*string, bool) {
+func (o *TableColumn) GetSourceOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -105,12 +103,12 @@ func (o *GraphVisualizationTopList) GetSourceOk() (*string, bool) {
 }
 
 // SetSource sets field value
-func (o *GraphVisualizationTopList) SetSource(v string) {
+func (o *TableColumn) SetSource(v string) {
 	o.Source = v
 }
 
 // GetQueries returns the Queries field value
-func (o *GraphVisualizationTopList) GetQueries() []AggregationQuery {
+func (o *TableColumn) GetQueries() []AggregationQuery {
 	if o == nil {
 		var ret []AggregationQuery
 		return ret
@@ -121,7 +119,7 @@ func (o *GraphVisualizationTopList) GetQueries() []AggregationQuery {
 
 // GetQueriesOk returns a tuple with the Queries field value
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationTopList) GetQueriesOk() ([]AggregationQuery, bool) {
+func (o *TableColumn) GetQueriesOk() ([]AggregationQuery, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -129,12 +127,12 @@ func (o *GraphVisualizationTopList) GetQueriesOk() ([]AggregationQuery, bool) {
 }
 
 // SetQueries sets field value
-func (o *GraphVisualizationTopList) SetQueries(v []AggregationQuery) {
+func (o *TableColumn) SetQueries(v []AggregationQuery) {
 	o.Queries = v
 }
 
 // GetFormula returns the Formula field value if set, zero value otherwise.
-func (o *GraphVisualizationTopList) GetFormula() string {
+func (o *TableColumn) GetFormula() string {
 	if o == nil || IsNil(o.Formula) {
 		var ret string
 		return ret
@@ -144,7 +142,7 @@ func (o *GraphVisualizationTopList) GetFormula() string {
 
 // GetFormulaOk returns a tuple with the Formula field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationTopList) GetFormulaOk() (*string, bool) {
+func (o *TableColumn) GetFormulaOk() (*string, bool) {
 	if o == nil || IsNil(o.Formula) {
 		return nil, false
 	}
@@ -152,7 +150,7 @@ func (o *GraphVisualizationTopList) GetFormulaOk() (*string, bool) {
 }
 
 // HasFormula returns a boolean if a field has been set.
-func (o *GraphVisualizationTopList) HasFormula() bool {
+func (o *TableColumn) HasFormula() bool {
 	if o != nil && !IsNil(o.Formula) {
 		return true
 	}
@@ -161,12 +159,12 @@ func (o *GraphVisualizationTopList) HasFormula() bool {
 }
 
 // SetFormula gets a reference to the given string and assigns it to the Formula field.
-func (o *GraphVisualizationTopList) SetFormula(v string) {
+func (o *TableColumn) SetFormula(v string) {
 	o.Formula = &v
 }
 
 // GetAliases returns the Aliases field value if set, zero value otherwise.
-func (o *GraphVisualizationTopList) GetAliases() GraphVisualizationTimeseriesAliases {
+func (o *TableColumn) GetAliases() GraphVisualizationTimeseriesAliases {
 	if o == nil || IsNil(o.Aliases) {
 		var ret GraphVisualizationTimeseriesAliases
 		return ret
@@ -176,7 +174,7 @@ func (o *GraphVisualizationTopList) GetAliases() GraphVisualizationTimeseriesAli
 
 // GetAliasesOk returns a tuple with the Aliases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationTopList) GetAliasesOk() (*GraphVisualizationTimeseriesAliases, bool) {
+func (o *TableColumn) GetAliasesOk() (*GraphVisualizationTimeseriesAliases, bool) {
 	if o == nil || IsNil(o.Aliases) {
 		return nil, false
 	}
@@ -184,7 +182,7 @@ func (o *GraphVisualizationTopList) GetAliasesOk() (*GraphVisualizationTimeserie
 }
 
 // HasAliases returns a boolean if a field has been set.
-func (o *GraphVisualizationTopList) HasAliases() bool {
+func (o *TableColumn) HasAliases() bool {
 	if o != nil && !IsNil(o.Aliases) {
 		return true
 	}
@@ -193,12 +191,12 @@ func (o *GraphVisualizationTopList) HasAliases() bool {
 }
 
 // SetAliases gets a reference to the given GraphVisualizationTimeseriesAliases and assigns it to the Aliases field.
-func (o *GraphVisualizationTopList) SetAliases(v GraphVisualizationTimeseriesAliases) {
+func (o *TableColumn) SetAliases(v GraphVisualizationTimeseriesAliases) {
 	o.Aliases = &v
 }
 
 // GetVisibleSeries returns the VisibleSeries field value if set, zero value otherwise.
-func (o *GraphVisualizationTopList) GetVisibleSeries() []bool {
+func (o *TableColumn) GetVisibleSeries() []bool {
 	if o == nil || IsNil(o.VisibleSeries) {
 		var ret []bool
 		return ret
@@ -208,7 +206,7 @@ func (o *GraphVisualizationTopList) GetVisibleSeries() []bool {
 
 // GetVisibleSeriesOk returns a tuple with the VisibleSeries field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationTopList) GetVisibleSeriesOk() ([]bool, bool) {
+func (o *TableColumn) GetVisibleSeriesOk() ([]bool, bool) {
 	if o == nil || IsNil(o.VisibleSeries) {
 		return nil, false
 	}
@@ -216,7 +214,7 @@ func (o *GraphVisualizationTopList) GetVisibleSeriesOk() ([]bool, bool) {
 }
 
 // HasVisibleSeries returns a boolean if a field has been set.
-func (o *GraphVisualizationTopList) HasVisibleSeries() bool {
+func (o *TableColumn) HasVisibleSeries() bool {
 	if o != nil && !IsNil(o.VisibleSeries) {
 		return true
 	}
@@ -225,44 +223,12 @@ func (o *GraphVisualizationTopList) HasVisibleSeries() bool {
 }
 
 // SetVisibleSeries gets a reference to the given []bool and assigns it to the VisibleSeries field.
-func (o *GraphVisualizationTopList) SetVisibleSeries(v []bool) {
+func (o *TableColumn) SetVisibleSeries(v []bool) {
 	o.VisibleSeries = v
 }
 
-// GetGroupBy returns the GroupBy field value if set, zero value otherwise.
-func (o *GraphVisualizationTopList) GetGroupBy() []AggregationGroupBy {
-	if o == nil || IsNil(o.GroupBy) {
-		var ret []AggregationGroupBy
-		return ret
-	}
-	return o.GroupBy
-}
-
-// GetGroupByOk returns a tuple with the GroupBy field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GraphVisualizationTopList) GetGroupByOk() ([]AggregationGroupBy, bool) {
-	if o == nil || IsNil(o.GroupBy) {
-		return nil, false
-	}
-	return o.GroupBy, true
-}
-
-// HasGroupBy returns a boolean if a field has been set.
-func (o *GraphVisualizationTopList) HasGroupBy() bool {
-	if o != nil && !IsNil(o.GroupBy) {
-		return true
-	}
-
-	return false
-}
-
-// SetGroupBy gets a reference to the given []AggregationGroupBy and assigns it to the GroupBy field.
-func (o *GraphVisualizationTopList) SetGroupBy(v []AggregationGroupBy) {
-	o.GroupBy = v
-}
-
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
-func (o *GraphVisualizationTopList) GetNormalizer() Normalizer {
+func (o *TableColumn) GetNormalizer() Normalizer {
 	if o == nil || IsNil(o.Normalizer) {
 		var ret Normalizer
 		return ret
@@ -272,7 +238,7 @@ func (o *GraphVisualizationTopList) GetNormalizer() Normalizer {
 
 // GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationTopList) GetNormalizerOk() (*Normalizer, bool) {
+func (o *TableColumn) GetNormalizerOk() (*Normalizer, bool) {
 	if o == nil || IsNil(o.Normalizer) {
 		return nil, false
 	}
@@ -280,7 +246,7 @@ func (o *GraphVisualizationTopList) GetNormalizerOk() (*Normalizer, bool) {
 }
 
 // HasNormalizer returns a boolean if a field has been set.
-func (o *GraphVisualizationTopList) HasNormalizer() bool {
+func (o *TableColumn) HasNormalizer() bool {
 	if o != nil && !IsNil(o.Normalizer) {
 		return true
 	}
@@ -289,12 +255,12 @@ func (o *GraphVisualizationTopList) HasNormalizer() bool {
 }
 
 // SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
-func (o *GraphVisualizationTopList) SetNormalizer(v Normalizer) {
+func (o *TableColumn) SetNormalizer(v Normalizer) {
 	o.Normalizer = &v
 }
 
 // GetPrecision returns the Precision field value if set, zero value otherwise.
-func (o *GraphVisualizationTopList) GetPrecision() float32 {
+func (o *TableColumn) GetPrecision() float32 {
 	if o == nil || IsNil(o.Precision) {
 		var ret float32
 		return ret
@@ -304,7 +270,7 @@ func (o *GraphVisualizationTopList) GetPrecision() float32 {
 
 // GetPrecisionOk returns a tuple with the Precision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationTopList) GetPrecisionOk() (*float32, bool) {
+func (o *TableColumn) GetPrecisionOk() (*float32, bool) {
 	if o == nil || IsNil(o.Precision) {
 		return nil, false
 	}
@@ -312,7 +278,7 @@ func (o *GraphVisualizationTopList) GetPrecisionOk() (*float32, bool) {
 }
 
 // HasPrecision returns a boolean if a field has been set.
-func (o *GraphVisualizationTopList) HasPrecision() bool {
+func (o *TableColumn) HasPrecision() bool {
 	if o != nil && !IsNil(o.Precision) {
 		return true
 	}
@@ -321,11 +287,11 @@ func (o *GraphVisualizationTopList) HasPrecision() bool {
 }
 
 // SetPrecision gets a reference to the given float32 and assigns it to the Precision field.
-func (o *GraphVisualizationTopList) SetPrecision(v float32) {
+func (o *TableColumn) SetPrecision(v float32) {
 	o.Precision = &v
 }
 
-func (o GraphVisualizationTopList) MarshalJSON() ([]byte, error) {
+func (o TableColumn) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -333,9 +299,9 @@ func (o GraphVisualizationTopList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o GraphVisualizationTopList) ToMap() (map[string]interface{}, error) {
+func (o TableColumn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["type"] = o.Type
+	toSerialize["name"] = o.Name
 	toSerialize["source"] = o.Source
 	toSerialize["queries"] = o.Queries
 	if !IsNil(o.Formula) {
@@ -346,9 +312,6 @@ func (o GraphVisualizationTopList) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.VisibleSeries) {
 		toSerialize["visibleSeries"] = o.VisibleSeries
-	}
-	if !IsNil(o.GroupBy) {
-		toSerialize["groupBy"] = o.GroupBy
 	}
 	if !IsNil(o.Normalizer) {
 		toSerialize["normalizer"] = o.Normalizer
@@ -364,12 +327,12 @@ func (o GraphVisualizationTopList) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *GraphVisualizationTopList) UnmarshalJSON(data []byte) (err error) {
+func (o *TableColumn) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"type",
+		"name",
 		"source",
 		"queries",
 	}
@@ -388,26 +351,25 @@ func (o *GraphVisualizationTopList) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varGraphVisualizationTopList := _GraphVisualizationTopList{}
+	varTableColumn := _TableColumn{}
 
-	err = json.Unmarshal(data, &varGraphVisualizationTopList)
+	err = json.Unmarshal(data, &varTableColumn)
 
 	if err != nil {
 		return err
 	}
 
-	*o = GraphVisualizationTopList(varGraphVisualizationTopList)
+	*o = TableColumn(varTableColumn)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "type")
+		delete(additionalProperties, "name")
 		delete(additionalProperties, "source")
 		delete(additionalProperties, "queries")
 		delete(additionalProperties, "formula")
 		delete(additionalProperties, "aliases")
 		delete(additionalProperties, "visibleSeries")
-		delete(additionalProperties, "groupBy")
 		delete(additionalProperties, "normalizer")
 		delete(additionalProperties, "precision")
 		o.AdditionalProperties = additionalProperties
@@ -416,38 +378,38 @@ func (o *GraphVisualizationTopList) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableGraphVisualizationTopList struct {
-	value *GraphVisualizationTopList
+type NullableTableColumn struct {
+	value *TableColumn
 	isSet bool
 }
 
-func (v NullableGraphVisualizationTopList) Get() *GraphVisualizationTopList {
+func (v NullableTableColumn) Get() *TableColumn {
 	return v.value
 }
 
-func (v *NullableGraphVisualizationTopList) Set(val *GraphVisualizationTopList) {
+func (v *NullableTableColumn) Set(val *TableColumn) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableGraphVisualizationTopList) IsSet() bool {
+func (v NullableTableColumn) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableGraphVisualizationTopList) Unset() {
+func (v *NullableTableColumn) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableGraphVisualizationTopList(val *GraphVisualizationTopList) *NullableGraphVisualizationTopList {
-	return &NullableGraphVisualizationTopList{value: val, isSet: true}
+func NewNullableTableColumn(val *TableColumn) *NullableTableColumn {
+	return &NullableTableColumn{value: val, isSet: true}
 }
 
-func (v NullableGraphVisualizationTopList) MarshalJSON() ([]byte, error) {
+func (v NullableTableColumn) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableGraphVisualizationTopList) UnmarshalJSON(src []byte) error {
+func (v *NullableTableColumn) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

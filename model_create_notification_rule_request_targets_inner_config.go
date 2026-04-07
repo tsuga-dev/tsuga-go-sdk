@@ -25,6 +25,7 @@ type CreateNotificationRuleRequestTargetsInnerConfig struct {
 	RuleTargetInputPagerDuty      *RuleTargetInputPagerDuty
 	RuleTargetInputServiceNow     *RuleTargetInputServiceNow
 	RuleTargetInputSlack          *RuleTargetInputSlack
+	RuleTargetInputSquadcast      *RuleTargetInputSquadcast
 	RuleTargetInputWebhook        *RuleTargetInputWebhook
 }
 
@@ -81,6 +82,13 @@ func RuleTargetInputServiceNowAsCreateNotificationRuleRequestTargetsInnerConfig(
 func RuleTargetInputSlackAsCreateNotificationRuleRequestTargetsInnerConfig(v *RuleTargetInputSlack) CreateNotificationRuleRequestTargetsInnerConfig {
 	return CreateNotificationRuleRequestTargetsInnerConfig{
 		RuleTargetInputSlack: v,
+	}
+}
+
+// RuleTargetInputSquadcastAsCreateNotificationRuleRequestTargetsInnerConfig is a convenience function that returns RuleTargetInputSquadcast wrapped in CreateNotificationRuleRequestTargetsInnerConfig
+func RuleTargetInputSquadcastAsCreateNotificationRuleRequestTargetsInnerConfig(v *RuleTargetInputSquadcast) CreateNotificationRuleRequestTargetsInnerConfig {
+	return CreateNotificationRuleRequestTargetsInnerConfig{
+		RuleTargetInputSquadcast: v,
 	}
 }
 
@@ -197,6 +205,18 @@ func (dst *CreateNotificationRuleRequestTargetsInnerConfig) UnmarshalJSON(data [
 		}
 	}
 
+	// check if the discriminator value is 'squadcast'
+	if jsonDict["type"] == "squadcast" {
+		// try to unmarshal JSON data into RuleTargetInputSquadcast
+		err = json.Unmarshal(data, &dst.RuleTargetInputSquadcast)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetInputSquadcast, return on the first match
+		} else {
+			dst.RuleTargetInputSquadcast = nil
+			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTargetsInnerConfig as RuleTargetInputSquadcast: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'webhook'
 	if jsonDict["type"] == "webhook" {
 		// try to unmarshal JSON data into RuleTargetInputWebhook
@@ -246,6 +266,10 @@ func (src CreateNotificationRuleRequestTargetsInnerConfig) MarshalJSON() ([]byte
 		return json.Marshal(&src.RuleTargetInputSlack)
 	}
 
+	if src.RuleTargetInputSquadcast != nil {
+		return json.Marshal(&src.RuleTargetInputSquadcast)
+	}
+
 	if src.RuleTargetInputWebhook != nil {
 		return json.Marshal(&src.RuleTargetInputWebhook)
 	}
@@ -290,6 +314,10 @@ func (obj *CreateNotificationRuleRequestTargetsInnerConfig) GetActualInstance() 
 		return obj.RuleTargetInputSlack
 	}
 
+	if obj.RuleTargetInputSquadcast != nil {
+		return obj.RuleTargetInputSquadcast
+	}
+
 	if obj.RuleTargetInputWebhook != nil {
 		return obj.RuleTargetInputWebhook
 	}
@@ -330,6 +358,10 @@ func (obj CreateNotificationRuleRequestTargetsInnerConfig) GetActualInstanceValu
 
 	if obj.RuleTargetInputSlack != nil {
 		return *obj.RuleTargetInputSlack
+	}
+
+	if obj.RuleTargetInputSquadcast != nil {
+		return *obj.RuleTargetInputSquadcast
 	}
 
 	if obj.RuleTargetInputWebhook != nil {

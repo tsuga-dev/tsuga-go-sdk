@@ -25,6 +25,7 @@ type RuleTargetsInnerConfig struct {
 	RuleTargetConfigPagerDuty      *RuleTargetConfigPagerDuty
 	RuleTargetConfigServiceNow     *RuleTargetConfigServiceNow
 	RuleTargetConfigSlack          *RuleTargetConfigSlack
+	RuleTargetConfigSquadcast      *RuleTargetConfigSquadcast
 	RuleTargetConfigWebhook        *RuleTargetConfigWebhook
 }
 
@@ -81,6 +82,13 @@ func RuleTargetConfigServiceNowAsRuleTargetsInnerConfig(v *RuleTargetConfigServi
 func RuleTargetConfigSlackAsRuleTargetsInnerConfig(v *RuleTargetConfigSlack) RuleTargetsInnerConfig {
 	return RuleTargetsInnerConfig{
 		RuleTargetConfigSlack: v,
+	}
+}
+
+// RuleTargetConfigSquadcastAsRuleTargetsInnerConfig is a convenience function that returns RuleTargetConfigSquadcast wrapped in RuleTargetsInnerConfig
+func RuleTargetConfigSquadcastAsRuleTargetsInnerConfig(v *RuleTargetConfigSquadcast) RuleTargetsInnerConfig {
+	return RuleTargetsInnerConfig{
+		RuleTargetConfigSquadcast: v,
 	}
 }
 
@@ -197,6 +205,18 @@ func (dst *RuleTargetsInnerConfig) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'squadcast'
+	if jsonDict["type"] == "squadcast" {
+		// try to unmarshal JSON data into RuleTargetConfigSquadcast
+		err = json.Unmarshal(data, &dst.RuleTargetConfigSquadcast)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetConfigSquadcast, return on the first match
+		} else {
+			dst.RuleTargetConfigSquadcast = nil
+			return fmt.Errorf("failed to unmarshal RuleTargetsInnerConfig as RuleTargetConfigSquadcast: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'webhook'
 	if jsonDict["type"] == "webhook" {
 		// try to unmarshal JSON data into RuleTargetConfigWebhook
@@ -246,6 +266,10 @@ func (src RuleTargetsInnerConfig) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.RuleTargetConfigSlack)
 	}
 
+	if src.RuleTargetConfigSquadcast != nil {
+		return json.Marshal(&src.RuleTargetConfigSquadcast)
+	}
+
 	if src.RuleTargetConfigWebhook != nil {
 		return json.Marshal(&src.RuleTargetConfigWebhook)
 	}
@@ -290,6 +314,10 @@ func (obj *RuleTargetsInnerConfig) GetActualInstance() interface{} {
 		return obj.RuleTargetConfigSlack
 	}
 
+	if obj.RuleTargetConfigSquadcast != nil {
+		return obj.RuleTargetConfigSquadcast
+	}
+
 	if obj.RuleTargetConfigWebhook != nil {
 		return obj.RuleTargetConfigWebhook
 	}
@@ -330,6 +358,10 @@ func (obj RuleTargetsInnerConfig) GetActualInstanceValue() interface{} {
 
 	if obj.RuleTargetConfigSlack != nil {
 		return *obj.RuleTargetConfigSlack
+	}
+
+	if obj.RuleTargetConfigSquadcast != nil {
+		return *obj.RuleTargetConfigSquadcast
 	}
 
 	if obj.RuleTargetConfigWebhook != nil {

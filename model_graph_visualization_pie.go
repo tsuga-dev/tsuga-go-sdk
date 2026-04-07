@@ -22,12 +22,13 @@ var _ MappedNullable = &GraphVisualizationPie{}
 type GraphVisualizationPie struct {
 	// Displays the aggregation as a pie chart
 	Type string `json:"type"`
-	// Data source being queried for this aggregation
+	// Data source being queried
 	Source string `json:"source"`
 	// Aggregations that may be combined together in the same query
 	Queries []AggregationQuery `json:"queries"`
 	// Formula referencing query outputs (e.g. q1+q2) to compute derived series
-	Formula *string `json:"formula,omitempty"`
+	Formula *string                              `json:"formula,omitempty"`
+	Aliases *GraphVisualizationTimeseriesAliases `json:"aliases,omitempty"`
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Fields used to group the results
@@ -164,6 +165,38 @@ func (o *GraphVisualizationPie) HasFormula() bool {
 // SetFormula gets a reference to the given string and assigns it to the Formula field.
 func (o *GraphVisualizationPie) SetFormula(v string) {
 	o.Formula = &v
+}
+
+// GetAliases returns the Aliases field value if set, zero value otherwise.
+func (o *GraphVisualizationPie) GetAliases() GraphVisualizationTimeseriesAliases {
+	if o == nil || IsNil(o.Aliases) {
+		var ret GraphVisualizationTimeseriesAliases
+		return ret
+	}
+	return *o.Aliases
+}
+
+// GetAliasesOk returns a tuple with the Aliases field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationPie) GetAliasesOk() (*GraphVisualizationTimeseriesAliases, bool) {
+	if o == nil || IsNil(o.Aliases) {
+		return nil, false
+	}
+	return o.Aliases, true
+}
+
+// HasAliases returns a boolean if a field has been set.
+func (o *GraphVisualizationPie) HasAliases() bool {
+	if o != nil && !IsNil(o.Aliases) {
+		return true
+	}
+
+	return false
+}
+
+// SetAliases gets a reference to the given GraphVisualizationTimeseriesAliases and assigns it to the Aliases field.
+func (o *GraphVisualizationPie) SetAliases(v GraphVisualizationTimeseriesAliases) {
+	o.Aliases = &v
 }
 
 // GetVisibleSeries returns the VisibleSeries field value if set, zero value otherwise.
@@ -342,6 +375,9 @@ func (o GraphVisualizationPie) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Formula) {
 		toSerialize["formula"] = o.Formula
 	}
+	if !IsNil(o.Aliases) {
+		toSerialize["aliases"] = o.Aliases
+	}
 	if !IsNil(o.VisibleSeries) {
 		toSerialize["visibleSeries"] = o.VisibleSeries
 	}
@@ -406,6 +442,7 @@ func (o *GraphVisualizationPie) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "source")
 		delete(additionalProperties, "queries")
 		delete(additionalProperties, "formula")
+		delete(additionalProperties, "aliases")
 		delete(additionalProperties, "visibleSeries")
 		delete(additionalProperties, "groupBy")
 		delete(additionalProperties, "normalizer")
