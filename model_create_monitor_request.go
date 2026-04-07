@@ -29,7 +29,8 @@ type CreateMonitorRequest struct {
 	Owner         string                            `json:"owner"`
 	DashboardId   *string                           `json:"dashboardId,omitempty"`
 	// This controls which data the resource can see
-	Permissions          string `json:"permissions"`
+	Permissions          string   `json:"permissions"`
+	ClusterIds           []string `json:"clusterIds,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -273,6 +274,38 @@ func (o *CreateMonitorRequest) SetPermissions(v string) {
 	o.Permissions = v
 }
 
+// GetClusterIds returns the ClusterIds field value if set, zero value otherwise.
+func (o *CreateMonitorRequest) GetClusterIds() []string {
+	if o == nil || IsNil(o.ClusterIds) {
+		var ret []string
+		return ret
+	}
+	return o.ClusterIds
+}
+
+// GetClusterIdsOk returns a tuple with the ClusterIds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateMonitorRequest) GetClusterIdsOk() ([]string, bool) {
+	if o == nil || IsNil(o.ClusterIds) {
+		return nil, false
+	}
+	return o.ClusterIds, true
+}
+
+// HasClusterIds returns a boolean if a field has been set.
+func (o *CreateMonitorRequest) HasClusterIds() bool {
+	if o != nil && !IsNil(o.ClusterIds) {
+		return true
+	}
+
+	return false
+}
+
+// SetClusterIds gets a reference to the given []string and assigns it to the ClusterIds field.
+func (o *CreateMonitorRequest) SetClusterIds(v []string) {
+	o.ClusterIds = v
+}
+
 func (o CreateMonitorRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -297,6 +330,9 @@ func (o CreateMonitorRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["dashboardId"] = o.DashboardId
 	}
 	toSerialize["permissions"] = o.Permissions
+	if !IsNil(o.ClusterIds) {
+		toSerialize["clusterIds"] = o.ClusterIds
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -352,6 +388,7 @@ func (o *CreateMonitorRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "owner")
 		delete(additionalProperties, "dashboardId")
 		delete(additionalProperties, "permissions")
+		delete(additionalProperties, "clusterIds")
 		o.AdditionalProperties = additionalProperties
 	}
 

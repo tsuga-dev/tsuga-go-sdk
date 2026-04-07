@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **Owner** | **string** |  | 
 **DashboardId** | Pointer to **string** |  | [optional] 
 **Permissions** | **string** | This controls which data the resource can see | 
+**ClusterIds** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
@@ -206,6 +207,31 @@ and a boolean to check if the value has been set.
 
 SetPermissions sets Permissions field to given value.
 
+
+### GetClusterIds
+
+`func (o *CreateMonitorRequest) GetClusterIds() []string`
+
+GetClusterIds returns the ClusterIds field if non-nil, zero value otherwise.
+
+### GetClusterIdsOk
+
+`func (o *CreateMonitorRequest) GetClusterIdsOk() (*[]string, bool)`
+
+GetClusterIdsOk returns a tuple with the ClusterIds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClusterIds
+
+`func (o *CreateMonitorRequest) SetClusterIds(v []string)`
+
+SetClusterIds sets ClusterIds field to given value.
+
+### HasClusterIds
+
+`func (o *CreateMonitorRequest) HasClusterIds() bool`
+
+HasClusterIds returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

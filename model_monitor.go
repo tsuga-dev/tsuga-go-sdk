@@ -36,7 +36,8 @@ type Monitor struct {
 	// This controls which data the resource can see
 	Permissions string `json:"permissions"`
 	// Identifier of a dashboard related to the monitor
-	DashboardId          *string `json:"dashboardId,omitempty"`
+	DashboardId          *string  `json:"dashboardId,omitempty"`
+	ClusterIds           []string `json:"clusterIds"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -46,7 +47,7 @@ type _Monitor Monitor
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMonitor(id string, name string, owner string, configuration CreateMonitorRequestConfiguration, priority float32, permissions string) *Monitor {
+func NewMonitor(id string, name string, owner string, configuration CreateMonitorRequestConfiguration, priority float32, permissions string, clusterIds []string) *Monitor {
 	this := Monitor{}
 	this.Id = id
 	this.Name = name
@@ -54,6 +55,7 @@ func NewMonitor(id string, name string, owner string, configuration CreateMonito
 	this.Configuration = configuration
 	this.Priority = priority
 	this.Permissions = permissions
+	this.ClusterIds = clusterIds
 	return &this
 }
 
@@ -305,6 +307,30 @@ func (o *Monitor) SetDashboardId(v string) {
 	o.DashboardId = &v
 }
 
+// GetClusterIds returns the ClusterIds field value
+func (o *Monitor) GetClusterIds() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+
+	return o.ClusterIds
+}
+
+// GetClusterIdsOk returns a tuple with the ClusterIds field value
+// and a boolean to check if the value has been set.
+func (o *Monitor) GetClusterIdsOk() ([]string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ClusterIds, true
+}
+
+// SetClusterIds sets field value
+func (o *Monitor) SetClusterIds(v []string) {
+	o.ClusterIds = v
+}
+
 func (o Monitor) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -330,6 +356,7 @@ func (o Monitor) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DashboardId) {
 		toSerialize["dashboardId"] = o.DashboardId
 	}
+	toSerialize["clusterIds"] = o.ClusterIds
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -349,6 +376,7 @@ func (o *Monitor) UnmarshalJSON(data []byte) (err error) {
 		"configuration",
 		"priority",
 		"permissions",
+		"clusterIds",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -387,6 +415,7 @@ func (o *Monitor) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "priority")
 		delete(additionalProperties, "permissions")
 		delete(additionalProperties, "dashboardId")
+		delete(additionalProperties, "clusterIds")
 		o.AdditionalProperties = additionalProperties
 	}
 

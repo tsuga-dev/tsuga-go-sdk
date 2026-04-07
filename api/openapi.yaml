@@ -452,6 +452,7 @@ paths:
                   owner: abc-123-def
                   dashboardId: 789-abc-def
                   permissions: all
+                  clusterIds: []
               example2:
                 value:
                   name: New Error Pattern Detector
@@ -472,6 +473,7 @@ paths:
                   owner: abc-123-def
                   dashboardId: 789-abc-def
                   permissions: all
+                  clusterIds: []
             schema:
               $ref: "#/components/schemas/createMonitor_request"
         required: true
@@ -678,6 +680,7 @@ paths:
                   owner: abc-123-def
                   dashboardId: 789-abc-def
                   permissions: all
+                  clusterIds: []
               example2:
                 value:
                   name: New Error Pattern Detector
@@ -698,6 +701,7 @@ paths:
                   owner: abc-123-def
                   dashboardId: 789-abc-def
                   permissions: all
+                  clusterIds: []
             schema:
               $ref: "#/components/schemas/createMonitor_request"
         required: true
@@ -1661,13 +1665,21 @@ components:
     ClientErrorResponse:
       description: Standard envelope for client (4XX) API errors
       example:
-        code: ABORT_ERROR
+        code: CLUSTER_DB_QUERY_INVALID_CONNECTION_PARAMS
         message: message
         statusCode: 0.8008281904610115
       properties:
         code:
           description: Machine readable error code describing what went wrong
           enum:
+          - CLUSTER_DB_QUERY_INVALID_CONNECTION_PARAMS
+          - CLUSTER_DB_QUERY_INVALID_CREDENTIALS
+          - CLUSTER_DB_QUERY_PERMISSION_DENIED
+          - CLUSTER_DB_QUERY_QUERY_SYNTAX_ERROR
+          - CLUSTER_DB_QUERY_DATABASE_UNREACHABLE
+          - CLUSTER_DB_QUERY_CONNECTION_FAILED
+          - CLUSTER_DB_QUERY_QUERY_EXECUTION_FAILED
+          - CLUSTER_DB_QUERY_QUERY_TIMEOUT
           - ABORT_ERROR
           - BAD_REQUEST
           - DUPLICATE_KEY_VIOLATION
@@ -1721,7 +1733,7 @@ components:
       example:
         requestId: requestId
         error:
-          code: ABORT_ERROR
+          code: CLUSTER_DB_QUERY_INVALID_CONNECTION_PARAMS
           message: message
           statusCode: 0.8008281904610115
       properties:
@@ -2085,6 +2097,7 @@ components:
         owner: abc-123-def
         dashboardId: 789-abc-def
         permissions: all
+        clusterIds: []
       properties:
         id:
           description: Identifier of the monitor
@@ -2126,7 +2139,12 @@ components:
         dashboardId:
           description: Identifier of a dashboard related to the monitor
           type: string
+        clusterIds:
+          items:
+            type: string
+          type: array
       required:
+      - clusterIds
       - configuration
       - id
       - name
@@ -2159,6 +2177,7 @@ components:
           owner: abc-123-def
           dashboardId: 789-abc-def
           permissions: all
+          clusterIds: []
         - id: 123-456-abc
           name: High Error Rate Alert
           message: Error rate exceeded threshold. Check the API gateway logs.
@@ -2182,6 +2201,7 @@ components:
           owner: abc-123-def
           dashboardId: 789-abc-def
           permissions: all
+          clusterIds: []
         requestId: requestId
       properties:
         requestId:
@@ -2220,6 +2240,7 @@ components:
           owner: abc-123-def
           dashboardId: 789-abc-def
           permissions: all
+          clusterIds: []
         requestId: requestId
       properties:
         requestId:
@@ -2256,6 +2277,7 @@ components:
           owner: abc-123-def
           dashboardId: 789-abc-def
           permissions: all
+          clusterIds: []
         requestId: requestId
       properties:
         requestId:
@@ -2292,6 +2314,7 @@ components:
           owner: abc-123-def
           dashboardId: 789-abc-def
           permissions: all
+          clusterIds: []
         requestId: requestId
       properties:
         requestId:
@@ -3631,6 +3654,20 @@ components:
       required:
       - integrationId
       - type
+    RuleTargetInputSquadcast:
+      properties:
+        type:
+          enum:
+          - squadcast
+          type: string
+        integrationId:
+          description: Identifier of the Squadcast integration to use
+          maxLength: 250
+          minLength: 0
+          type: string
+      required:
+      - integrationId
+      - type
     RuleTargetConfigSlack:
       properties:
         type:
@@ -3778,6 +3815,22 @@ components:
       - integrationId
       - integrationName
       - type
+    RuleTargetConfigSquadcast:
+      properties:
+        type:
+          enum:
+          - squadcast
+          type: string
+        integrationId:
+          description: Identifier of the Squadcast integration to use
+          type: string
+        integrationName:
+          description: Human readable name of the Squadcast integration
+          type: string
+      required:
+      - integrationId
+      - integrationName
+      - type
     DataNormalizerDuration:
       properties:
         type:
@@ -3873,11 +3926,12 @@ components:
           - timeseries
           type: string
         source:
-          description: Data source being queried for this aggregation
+          description: Data source being queried
           enum:
           - logs
           - metrics
           - traces
+          - connections
           type: string
         queries:
           description: Aggregations that may be combined together in the same query
@@ -3892,6 +3946,8 @@ components:
           maxLength: 250
           minLength: 0
           type: string
+        aliases:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
           description: Flags indicating whether each query or formula series is visible
           items:
@@ -3923,6 +3979,8 @@ components:
           items:
             $ref: "#/components/schemas/ThresholdMarker"
           type: array
+        yAxisSettings:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings"
       required:
       - queries
       - source
@@ -3936,11 +3994,12 @@ components:
           - top-list
           type: string
         source:
-          description: Data source being queried for this aggregation
+          description: Data source being queried
           enum:
           - logs
           - metrics
           - traces
+          - connections
           type: string
         queries:
           description: Aggregations that may be combined together in the same query
@@ -3955,6 +4014,8 @@ components:
           maxLength: 250
           minLength: 0
           type: string
+        aliases:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
           description: Flags indicating whether each query or formula series is visible
           items:
@@ -3984,11 +4045,12 @@ components:
           - pie
           type: string
         source:
-          description: Data source being queried for this aggregation
+          description: Data source being queried
           enum:
           - logs
           - metrics
           - traces
+          - connections
           type: string
         queries:
           description: Aggregations that may be combined together in the same query
@@ -4003,6 +4065,8 @@ components:
           maxLength: 250
           minLength: 0
           type: string
+        aliases:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
           description: Flags indicating whether each query or formula series is visible
           items:
@@ -4040,11 +4104,12 @@ components:
           - query-value
           type: string
         source:
-          description: Data source being queried for this aggregation
+          description: Data source being queried
           enum:
           - logs
           - metrics
           - traces
+          - connections
           type: string
         queries:
           description: Aggregations that may be combined together in the same query
@@ -4059,6 +4124,8 @@ components:
           maxLength: 250
           minLength: 0
           type: string
+        aliases:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
           description: Flags indicating whether each query or formula series is visible
           items:
@@ -4101,11 +4168,12 @@ components:
           - bar
           type: string
         source:
-          description: Data source being queried for this aggregation
+          description: Data source being queried
           enum:
           - logs
           - metrics
           - traces
+          - connections
           type: string
         queries:
           description: Aggregations that may be combined together in the same query
@@ -4120,6 +4188,8 @@ components:
           maxLength: 250
           minLength: 0
           type: string
+        aliases:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
           description: Flags indicating whether each query or formula series is visible
           items:
@@ -4151,34 +4221,71 @@ components:
           - legend-only
           - no-legend
           type: string
+        yAxisSettings:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings"
       required:
       - queries
       - source
       - type
       title: Bar
+    GraphVisualizationTable:
+      properties:
+        type:
+          description: Displays the aggregation as a table with multi-level grouping
+          enum:
+          - table
+          type: string
+        columns:
+          description: Each column defines an independent aggregation displayed as
+            a table column
+          items:
+            $ref: "#/components/schemas/TableColumn"
+          minItems: 1
+          type: array
+        groupBy:
+          description: Fields used to group the results
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy"
+          maxItems: 7
+          type: array
+        defaultSorting:
+          items:
+            $ref: "#/components/schemas/TableDefaultSorting"
+          type: array
+      required:
+      - columns
+      - type
+      title: Table
     GraphVisualizationList:
       properties:
         type:
-          description: Displays matching logs in a tabular list
+          description: Displays matching logs or database rows in a tabular list
           enum:
           - list
           type: string
         source:
-          description: Indicates that the widget queries logs
           enum:
           - logs
-          type: string
+          - connections
+          x-enum-descriptions:
+          - Indicates that the widget queries logs
+          - "Indicates that the widget queries connections like PostgreSQL, BigQuery,\
+            \ etc."
         query:
-          description: Log query that selects records for the list
-          format: tsuga-query
-          maxLength: 10000
+          description: Query that selects logs or database rows for the list
+          maxLength: 50000
           minLength: 0
           type: string
         listColumns:
-          description: Custom columns to display for each log entry
+          description: Custom columns to display for each log or database row
           items:
             $ref: "#/components/schemas/WidgetListColumn"
           type: array
+        connectionId:
+          description: Identifier of the connection to query
+          maxLength: 250
+          minLength: 0
+          type: string
       required:
       - query
       - source
@@ -4236,6 +4343,7 @@ components:
           pie: "#/components/schemas/GraphVisualizationPie"
           query-value: "#/components/schemas/GraphVisualizationQueryValue"
           bar: "#/components/schemas/GraphVisualizationBar"
+          table: "#/components/schemas/GraphVisualizationTable"
           list: "#/components/schemas/GraphVisualizationList"
           note: "#/components/schemas/GraphVisualizationNote"
         propertyName: type
@@ -4245,6 +4353,7 @@ components:
       - $ref: "#/components/schemas/GraphVisualizationPie"
       - $ref: "#/components/schemas/GraphVisualizationQueryValue"
       - $ref: "#/components/schemas/GraphVisualizationBar"
+      - $ref: "#/components/schemas/GraphVisualizationTable"
       - $ref: "#/components/schemas/GraphVisualizationList"
       - $ref: "#/components/schemas/GraphVisualizationNote"
       required:
@@ -4503,6 +4612,12 @@ components:
           - owning-team-and-public
           - owning-team-only
           type: string
+        clusterIds:
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          type: array
       required:
       - configuration
       - name
@@ -4580,6 +4695,7 @@ components:
           webhook: "#/components/schemas/RuleTargetInputWebhook"
           servicenow: "#/components/schemas/RuleTargetInputServiceNow"
           google-chat: "#/components/schemas/RuleTargetInputGoogleChat"
+          squadcast: "#/components/schemas/RuleTargetInputSquadcast"
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/RuleTargetInputSlack"
@@ -4591,6 +4707,7 @@ components:
       - $ref: "#/components/schemas/RuleTargetInputWebhook"
       - $ref: "#/components/schemas/RuleTargetInputServiceNow"
       - $ref: "#/components/schemas/RuleTargetInputGoogleChat"
+      - $ref: "#/components/schemas/RuleTargetInputSquadcast"
       required:
       - type
     createNotificationRule_request_targets_inner_renotifyConfig:
@@ -4889,6 +5006,7 @@ components:
           webhook: "#/components/schemas/RuleTargetConfigWebhook"
           servicenow: "#/components/schemas/RuleTargetConfigServiceNow"
           google-chat: "#/components/schemas/RuleTargetConfigGoogleChat"
+          squadcast: "#/components/schemas/RuleTargetConfigSquadcast"
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/RuleTargetConfigSlack"
@@ -4900,6 +5018,7 @@ components:
       - $ref: "#/components/schemas/RuleTargetConfigWebhook"
       - $ref: "#/components/schemas/RuleTargetConfigServiceNow"
       - $ref: "#/components/schemas/RuleTargetConfigGoogleChat"
+      - $ref: "#/components/schemas/RuleTargetConfigSquadcast"
       required:
       - type
     Rule_targets_inner:
@@ -5091,6 +5210,20 @@ components:
       required:
       - aggregate
       title: AggregationQuery
+    GraphVisualizationTimeseries_aliases:
+      properties:
+        formula:
+          description: Optional alias for formula (only used for display in the UI)
+          maxLength: 250
+          minLength: 0
+          type: string
+        queries:
+          additionalProperties:
+            description: Optional alias for a query (only used for display in the
+              UI)
+            maxLength: 250
+            minLength: 0
+            type: string
     AggregationGroupBy:
       properties:
         fields:
@@ -5158,6 +5291,78 @@ components:
       - level
       - value
       title: ThresholdMarker
+    GraphVisualizationTimeseries_yAxisSettings_min_oneOf:
+      properties:
+        type:
+          enum:
+          - auto
+          type: string
+      required:
+      - type
+    GraphVisualizationTimeseries_yAxisSettings_min_oneOf_1:
+      properties:
+        type:
+          enum:
+          - number
+          type: string
+        value:
+          type: number
+      required:
+      - type
+      - value
+    GraphVisualizationTimeseries_yAxisSettings_min:
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings_min_oneOf"
+      - $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings_min_oneOf_1"
+      required:
+      - type
+    GraphVisualizationTimeseries_yAxisSettings_scale_oneOf:
+      properties:
+        type:
+          enum:
+          - pow
+          type: string
+        exponent:
+          minimum: 0
+          type: number
+      required:
+      - exponent
+      - type
+    GraphVisualizationTimeseries_yAxisSettings_scale_oneOf_1:
+      properties:
+        type:
+          enum:
+          - linear
+          - log
+          - sqrt
+          type: string
+      required:
+      - type
+    GraphVisualizationTimeseries_yAxisSettings_scale:
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings_scale_oneOf"
+      - $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings_scale_oneOf_1"
+      required:
+      - type
+    GraphVisualizationTimeseries_yAxisSettings:
+      properties:
+        min:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings_min"
+        max:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings_min"
+        scale:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings_scale"
+        alwaysIncludeZero:
+          type: boolean
+      required:
+      - alwaysIncludeZero
+      - max
+      - min
+      - scale
     ConditionalFormatting:
       properties:
         operator:
@@ -5185,6 +5390,64 @@ components:
       - operator
       - value
       title: ConditionalFormatting
+    TableColumn:
+      properties:
+        name:
+          description: Display name of the table column
+          maxLength: 250
+          minLength: 0
+          type: string
+        source:
+          description: Data source being queried for this aggregation
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/AggregationQuery"
+          maxItems: 15
+          type: array
+        formula:
+          description: Formula referencing query outputs (e.g. q1+q2) to compute derived
+            series
+          format: math-formula
+          maxLength: 250
+          minLength: 0
+          type: string
+        aliases:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+        normalizer:
+          $ref: "#/components/schemas/Normalizer"
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
+      required:
+      - name
+      - queries
+      - source
+      title: TableColumn
+    TableDefaultSorting:
+      properties:
+        id:
+          description: ID of the column to sort by
+          maxLength: 250
+          minLength: 0
+          type: string
+        desc:
+          description: Whether the sort is descending
+          type: boolean
+      required:
+      - desc
+      - id
+      title: TableDefaultSorting
     WidgetListColumn:
       properties:
         attribute:

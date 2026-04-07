@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** |  | 
 **Channel** | **string** | Slack channel ID that receives the notification | 
-**IntegrationId** | **string** | Identifier of the Google Chat integration to use | 
+**IntegrationId** | **string** | Identifier of the Squadcast integration to use | 
 **Addresses** | **[]string** | Email addresses that will receive the alert | 
 
 ## Methods
