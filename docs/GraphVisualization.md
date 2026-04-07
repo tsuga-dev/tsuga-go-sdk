@@ -5,9 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a time series chart | 
-**Source** | **string** | Indicates that the widget queries logs | 
+**Source** | **string** |  | 
 **Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query | 
 **Formula** | Pointer to **string** | Formula referencing query outputs (e.g. q1+q2) to compute derived series | [optional] 
+**Aliases** | Pointer to [**GraphVisualizationTimeseriesAliases**](GraphVisualizationTimeseriesAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
 **GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
 **TimeBucket** | Pointer to [**GraphVisualizationTimeseriesTimeBucket**](GraphVisualizationTimeseriesTimeBucket.md) |  | [optional] 
@@ -15,10 +16,14 @@ Name | Type | Description | Notes
 **Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 **Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
+**YAxisSettings** | Pointer to [**GraphVisualizationTimeseriesYAxisSettings**](GraphVisualizationTimeseriesYAxisSettings.md) |  | [optional] 
 **BackgroundMode** | Pointer to **string** | Controls whether the widget uses a solid or transparent background | [optional] 
 **Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the displayed value | [optional] 
-**Query** | **string** | Log query that selects records for the list | 
-**ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each log entry | [optional] 
+**Columns** | [**[]TableColumn**](TableColumn.md) | Each column defines an independent aggregation displayed as a table column | 
+**DefaultSorting** | Pointer to [**[]TableDefaultSorting**](TableDefaultSorting.md) |  | [optional] 
+**Query** | **string** | Query that selects logs or database rows for the list | 
+**ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each log or database row | [optional] 
+**ConnectionId** | Pointer to **string** | Identifier of the connection to query | [optional] 
 **Note** | Pointer to **string** | Markdown-compatible text shown in the note | [optional] 
 **NoteColor** | Pointer to **string** | Background color used to render the note | [optional] 
 **NoteAlign** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
@@ -28,7 +33,7 @@ Name | Type | Description | Notes
 
 ### NewGraphVisualization
 
-`func NewGraphVisualization(type_ string, source string, queries []AggregationQuery, query string, ) *GraphVisualization`
+`func NewGraphVisualization(type_ string, source string, queries []AggregationQuery, columns []TableColumn, query string, ) *GraphVisualization`
 
 NewGraphVisualization instantiates a new GraphVisualization object
 This constructor will assign default values to properties that have it defined,
@@ -127,6 +132,31 @@ SetFormula sets Formula field to given value.
 `func (o *GraphVisualization) HasFormula() bool`
 
 HasFormula returns a boolean if a field has been set.
+
+### GetAliases
+
+`func (o *GraphVisualization) GetAliases() GraphVisualizationTimeseriesAliases`
+
+GetAliases returns the Aliases field if non-nil, zero value otherwise.
+
+### GetAliasesOk
+
+`func (o *GraphVisualization) GetAliasesOk() (*GraphVisualizationTimeseriesAliases, bool)`
+
+GetAliasesOk returns a tuple with the Aliases field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAliases
+
+`func (o *GraphVisualization) SetAliases(v GraphVisualizationTimeseriesAliases)`
+
+SetAliases sets Aliases field to given value.
+
+### HasAliases
+
+`func (o *GraphVisualization) HasAliases() bool`
+
+HasAliases returns a boolean if a field has been set.
 
 ### GetVisibleSeries
 
@@ -303,6 +333,31 @@ SetThresholds sets Thresholds field to given value.
 
 HasThresholds returns a boolean if a field has been set.
 
+### GetYAxisSettings
+
+`func (o *GraphVisualization) GetYAxisSettings() GraphVisualizationTimeseriesYAxisSettings`
+
+GetYAxisSettings returns the YAxisSettings field if non-nil, zero value otherwise.
+
+### GetYAxisSettingsOk
+
+`func (o *GraphVisualization) GetYAxisSettingsOk() (*GraphVisualizationTimeseriesYAxisSettings, bool)`
+
+GetYAxisSettingsOk returns a tuple with the YAxisSettings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetYAxisSettings
+
+`func (o *GraphVisualization) SetYAxisSettings(v GraphVisualizationTimeseriesYAxisSettings)`
+
+SetYAxisSettings sets YAxisSettings field to given value.
+
+### HasYAxisSettings
+
+`func (o *GraphVisualization) HasYAxisSettings() bool`
+
+HasYAxisSettings returns a boolean if a field has been set.
+
 ### GetBackgroundMode
 
 `func (o *GraphVisualization) GetBackgroundMode() string`
@@ -353,6 +408,51 @@ SetConditions sets Conditions field to given value.
 
 HasConditions returns a boolean if a field has been set.
 
+### GetColumns
+
+`func (o *GraphVisualization) GetColumns() []TableColumn`
+
+GetColumns returns the Columns field if non-nil, zero value otherwise.
+
+### GetColumnsOk
+
+`func (o *GraphVisualization) GetColumnsOk() (*[]TableColumn, bool)`
+
+GetColumnsOk returns a tuple with the Columns field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetColumns
+
+`func (o *GraphVisualization) SetColumns(v []TableColumn)`
+
+SetColumns sets Columns field to given value.
+
+
+### GetDefaultSorting
+
+`func (o *GraphVisualization) GetDefaultSorting() []TableDefaultSorting`
+
+GetDefaultSorting returns the DefaultSorting field if non-nil, zero value otherwise.
+
+### GetDefaultSortingOk
+
+`func (o *GraphVisualization) GetDefaultSortingOk() (*[]TableDefaultSorting, bool)`
+
+GetDefaultSortingOk returns a tuple with the DefaultSorting field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDefaultSorting
+
+`func (o *GraphVisualization) SetDefaultSorting(v []TableDefaultSorting)`
+
+SetDefaultSorting sets DefaultSorting field to given value.
+
+### HasDefaultSorting
+
+`func (o *GraphVisualization) HasDefaultSorting() bool`
+
+HasDefaultSorting returns a boolean if a field has been set.
+
 ### GetQuery
 
 `func (o *GraphVisualization) GetQuery() string`
@@ -397,6 +497,31 @@ SetListColumns sets ListColumns field to given value.
 `func (o *GraphVisualization) HasListColumns() bool`
 
 HasListColumns returns a boolean if a field has been set.
+
+### GetConnectionId
+
+`func (o *GraphVisualization) GetConnectionId() string`
+
+GetConnectionId returns the ConnectionId field if non-nil, zero value otherwise.
+
+### GetConnectionIdOk
+
+`func (o *GraphVisualization) GetConnectionIdOk() (*string, bool)`
+
+GetConnectionIdOk returns a tuple with the ConnectionId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConnectionId
+
+`func (o *GraphVisualization) SetConnectionId(v string)`
+
+SetConnectionId sets ConnectionId field to given value.
+
+### HasConnectionId
+
+`func (o *GraphVisualization) HasConnectionId() bool`
+
+HasConnectionId returns a boolean if a field has been set.
 
 ### GetNote
 

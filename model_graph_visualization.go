@@ -22,6 +22,7 @@ type GraphVisualization struct {
 	GraphVisualizationNote       *GraphVisualizationNote
 	GraphVisualizationPie        *GraphVisualizationPie
 	GraphVisualizationQueryValue *GraphVisualizationQueryValue
+	GraphVisualizationTable      *GraphVisualizationTable
 	GraphVisualizationTimeseries *GraphVisualizationTimeseries
 	GraphVisualizationTopList    *GraphVisualizationTopList
 }
@@ -58,6 +59,13 @@ func GraphVisualizationPieAsGraphVisualization(v *GraphVisualizationPie) GraphVi
 func GraphVisualizationQueryValueAsGraphVisualization(v *GraphVisualizationQueryValue) GraphVisualization {
 	return GraphVisualization{
 		GraphVisualizationQueryValue: v,
+	}
+}
+
+// GraphVisualizationTableAsGraphVisualization is a convenience function that returns GraphVisualizationTable wrapped in GraphVisualization
+func GraphVisualizationTableAsGraphVisualization(v *GraphVisualizationTable) GraphVisualization {
+	return GraphVisualization{
+		GraphVisualizationTable: v,
 	}
 }
 
@@ -145,6 +153,18 @@ func (dst *GraphVisualization) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'table'
+	if jsonDict["type"] == "table" {
+		// try to unmarshal JSON data into GraphVisualizationTable
+		err = json.Unmarshal(data, &dst.GraphVisualizationTable)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationTable, return on the first match
+		} else {
+			dst.GraphVisualizationTable = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationTable: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'timeseries'
 	if jsonDict["type"] == "timeseries" {
 		// try to unmarshal JSON data into GraphVisualizationTimeseries
@@ -194,6 +214,10 @@ func (src GraphVisualization) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.GraphVisualizationQueryValue)
 	}
 
+	if src.GraphVisualizationTable != nil {
+		return json.Marshal(&src.GraphVisualizationTable)
+	}
+
 	if src.GraphVisualizationTimeseries != nil {
 		return json.Marshal(&src.GraphVisualizationTimeseries)
 	}
@@ -230,6 +254,10 @@ func (obj *GraphVisualization) GetActualInstance() interface{} {
 		return obj.GraphVisualizationQueryValue
 	}
 
+	if obj.GraphVisualizationTable != nil {
+		return obj.GraphVisualizationTable
+	}
+
 	if obj.GraphVisualizationTimeseries != nil {
 		return obj.GraphVisualizationTimeseries
 	}
@@ -262,6 +290,10 @@ func (obj GraphVisualization) GetActualInstanceValue() interface{} {
 
 	if obj.GraphVisualizationQueryValue != nil {
 		return *obj.GraphVisualizationQueryValue
+	}
+
+	if obj.GraphVisualizationTable != nil {
+		return *obj.GraphVisualizationTable
 	}
 
 	if obj.GraphVisualizationTimeseries != nil {

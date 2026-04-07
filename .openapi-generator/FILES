@@ -81,8 +81,17 @@ docs/GraphVisualizationList.md
 docs/GraphVisualizationNote.md
 docs/GraphVisualizationPie.md
 docs/GraphVisualizationQueryValue.md
+docs/GraphVisualizationTable.md
 docs/GraphVisualizationTimeseries.md
+docs/GraphVisualizationTimeseriesAliases.md
 docs/GraphVisualizationTimeseriesTimeBucket.md
+docs/GraphVisualizationTimeseriesYAxisSettings.md
+docs/GraphVisualizationTimeseriesYAxisSettingsMin.md
+docs/GraphVisualizationTimeseriesYAxisSettingsMinOneOf.md
+docs/GraphVisualizationTimeseriesYAxisSettingsMinOneOf1.md
+docs/GraphVisualizationTimeseriesYAxisSettingsScale.md
+docs/GraphVisualizationTimeseriesYAxisSettingsScaleOneOf.md
+docs/GraphVisualizationTimeseriesYAxisSettingsScaleOneOf1.md
 docs/GraphVisualizationTopList.md
 docs/ListDashboardsResponse.md
 docs/ListMonitorsResponse.md
@@ -116,6 +125,7 @@ docs/RuleTargetConfigMicrosoftTeams.md
 docs/RuleTargetConfigPagerDuty.md
 docs/RuleTargetConfigServiceNow.md
 docs/RuleTargetConfigSlack.md
+docs/RuleTargetConfigSquadcast.md
 docs/RuleTargetConfigWebhook.md
 docs/RuleTargetInputEmail.md
 docs/RuleTargetInputGoogleChat.md
@@ -125,6 +135,7 @@ docs/RuleTargetInputMicrosoftTeams.md
 docs/RuleTargetInputPagerDuty.md
 docs/RuleTargetInputServiceNow.md
 docs/RuleTargetInputSlack.md
+docs/RuleTargetInputSquadcast.md
 docs/RuleTargetInputWebhook.md
 docs/RuleTargetsInner.md
 docs/RuleTargetsInnerConfig.md
@@ -132,6 +143,8 @@ docs/RuleTeamsFilter.md
 docs/RuleTeamsFilterOneOf.md
 docs/ServerErrorEnvelope.md
 docs/ServerErrorResponse.md
+docs/TableColumn.md
+docs/TableDefaultSorting.md
 docs/Tag.md
 docs/TagPoliciesAPI.md
 docs/TagPolicy.md
@@ -220,8 +233,17 @@ model_graph_visualization_list.go
 model_graph_visualization_note.go
 model_graph_visualization_pie.go
 model_graph_visualization_query_value.go
+model_graph_visualization_table.go
 model_graph_visualization_timeseries.go
+model_graph_visualization_timeseries_aliases.go
 model_graph_visualization_timeseries_time_bucket.go
+model_graph_visualization_timeseries_y_axis_settings.go
+model_graph_visualization_timeseries_y_axis_settings_min.go
+model_graph_visualization_timeseries_y_axis_settings_min_one_of.go
+model_graph_visualization_timeseries_y_axis_settings_min_one_of_1.go
+model_graph_visualization_timeseries_y_axis_settings_scale.go
+model_graph_visualization_timeseries_y_axis_settings_scale_one_of.go
+model_graph_visualization_timeseries_y_axis_settings_scale_one_of_1.go
 model_graph_visualization_top_list.go
 model_list_dashboards_response.go
 model_list_monitors_response.go
@@ -253,6 +275,7 @@ model_rule_target_config_microsoft_teams.go
 model_rule_target_config_pager_duty.go
 model_rule_target_config_service_now.go
 model_rule_target_config_slack.go
+model_rule_target_config_squadcast.go
 model_rule_target_config_webhook.go
 model_rule_target_input_email.go
 model_rule_target_input_google_chat.go
@@ -262,6 +285,7 @@ model_rule_target_input_microsoft_teams.go
 model_rule_target_input_pager_duty.go
 model_rule_target_input_service_now.go
 model_rule_target_input_slack.go
+model_rule_target_input_squadcast.go
 model_rule_target_input_webhook.go
 model_rule_targets_inner.go
 model_rule_targets_inner_config.go
@@ -269,6 +293,8 @@ model_rule_teams_filter.go
 model_rule_teams_filter_one_of.go
 model_server_error_envelope.go
 model_server_error_response.go
+model_table_column.go
+model_table_default_sorting.go
 model_tag.go
 model_tag_policy.go
 model_team.go

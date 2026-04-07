@@ -22,12 +22,13 @@ var _ MappedNullable = &GraphVisualizationBar{}
 type GraphVisualizationBar struct {
 	// Displays the aggregation as a bar chart
 	Type string `json:"type"`
-	// Data source being queried for this aggregation
+	// Data source being queried
 	Source string `json:"source"`
 	// Aggregations that may be combined together in the same query
 	Queries []AggregationQuery `json:"queries"`
 	// Formula referencing query outputs (e.g. q1+q2) to compute derived series
-	Formula *string `json:"formula,omitempty"`
+	Formula *string                              `json:"formula,omitempty"`
+	Aliases *GraphVisualizationTimeseriesAliases `json:"aliases,omitempty"`
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Fields used to group the results
@@ -39,7 +40,8 @@ type GraphVisualizationBar struct {
 	// Threshold markers displayed on the chart
 	Thresholds []ThresholdMarker `json:"thresholds,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
-	LegendMode           *string `json:"legendMode,omitempty"`
+	LegendMode           *string                                    `json:"legendMode,omitempty"`
+	YAxisSettings        *GraphVisualizationTimeseriesYAxisSettings `json:"yAxisSettings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -167,6 +169,38 @@ func (o *GraphVisualizationBar) HasFormula() bool {
 // SetFormula gets a reference to the given string and assigns it to the Formula field.
 func (o *GraphVisualizationBar) SetFormula(v string) {
 	o.Formula = &v
+}
+
+// GetAliases returns the Aliases field value if set, zero value otherwise.
+func (o *GraphVisualizationBar) GetAliases() GraphVisualizationTimeseriesAliases {
+	if o == nil || IsNil(o.Aliases) {
+		var ret GraphVisualizationTimeseriesAliases
+		return ret
+	}
+	return *o.Aliases
+}
+
+// GetAliasesOk returns a tuple with the Aliases field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationBar) GetAliasesOk() (*GraphVisualizationTimeseriesAliases, bool) {
+	if o == nil || IsNil(o.Aliases) {
+		return nil, false
+	}
+	return o.Aliases, true
+}
+
+// HasAliases returns a boolean if a field has been set.
+func (o *GraphVisualizationBar) HasAliases() bool {
+	if o != nil && !IsNil(o.Aliases) {
+		return true
+	}
+
+	return false
+}
+
+// SetAliases gets a reference to the given GraphVisualizationTimeseriesAliases and assigns it to the Aliases field.
+func (o *GraphVisualizationBar) SetAliases(v GraphVisualizationTimeseriesAliases) {
+	o.Aliases = &v
 }
 
 // GetVisibleSeries returns the VisibleSeries field value if set, zero value otherwise.
@@ -393,6 +427,38 @@ func (o *GraphVisualizationBar) SetLegendMode(v string) {
 	o.LegendMode = &v
 }
 
+// GetYAxisSettings returns the YAxisSettings field value if set, zero value otherwise.
+func (o *GraphVisualizationBar) GetYAxisSettings() GraphVisualizationTimeseriesYAxisSettings {
+	if o == nil || IsNil(o.YAxisSettings) {
+		var ret GraphVisualizationTimeseriesYAxisSettings
+		return ret
+	}
+	return *o.YAxisSettings
+}
+
+// GetYAxisSettingsOk returns a tuple with the YAxisSettings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationBar) GetYAxisSettingsOk() (*GraphVisualizationTimeseriesYAxisSettings, bool) {
+	if o == nil || IsNil(o.YAxisSettings) {
+		return nil, false
+	}
+	return o.YAxisSettings, true
+}
+
+// HasYAxisSettings returns a boolean if a field has been set.
+func (o *GraphVisualizationBar) HasYAxisSettings() bool {
+	if o != nil && !IsNil(o.YAxisSettings) {
+		return true
+	}
+
+	return false
+}
+
+// SetYAxisSettings gets a reference to the given GraphVisualizationTimeseriesYAxisSettings and assigns it to the YAxisSettings field.
+func (o *GraphVisualizationBar) SetYAxisSettings(v GraphVisualizationTimeseriesYAxisSettings) {
+	o.YAxisSettings = &v
+}
+
 func (o GraphVisualizationBar) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -408,6 +474,9 @@ func (o GraphVisualizationBar) ToMap() (map[string]interface{}, error) {
 	toSerialize["queries"] = o.Queries
 	if !IsNil(o.Formula) {
 		toSerialize["formula"] = o.Formula
+	}
+	if !IsNil(o.Aliases) {
+		toSerialize["aliases"] = o.Aliases
 	}
 	if !IsNil(o.VisibleSeries) {
 		toSerialize["visibleSeries"] = o.VisibleSeries
@@ -429,6 +498,9 @@ func (o GraphVisualizationBar) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.LegendMode) {
 		toSerialize["legendMode"] = o.LegendMode
+	}
+	if !IsNil(o.YAxisSettings) {
+		toSerialize["yAxisSettings"] = o.YAxisSettings
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -479,6 +551,7 @@ func (o *GraphVisualizationBar) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "source")
 		delete(additionalProperties, "queries")
 		delete(additionalProperties, "formula")
+		delete(additionalProperties, "aliases")
 		delete(additionalProperties, "visibleSeries")
 		delete(additionalProperties, "groupBy")
 		delete(additionalProperties, "timeBucket")
@@ -486,6 +559,7 @@ func (o *GraphVisualizationBar) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "normalizer")
 		delete(additionalProperties, "thresholds")
 		delete(additionalProperties, "legendMode")
+		delete(additionalProperties, "yAxisSettings")
 		o.AdditionalProperties = additionalProperties
 	}
 

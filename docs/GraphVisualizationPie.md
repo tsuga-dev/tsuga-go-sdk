@@ -5,9 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a pie chart | 
-**Source** | **string** | Data source being queried for this aggregation | 
+**Source** | **string** | Data source being queried | 
 **Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query | 
 **Formula** | Pointer to **string** | Formula referencing query outputs (e.g. q1+q2) to compute derived series | [optional] 
+**Aliases** | Pointer to [**GraphVisualizationTimeseriesAliases**](GraphVisualizationTimeseriesAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
 **GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
@@ -117,6 +118,31 @@ SetFormula sets Formula field to given value.
 `func (o *GraphVisualizationPie) HasFormula() bool`
 
 HasFormula returns a boolean if a field has been set.
+
+### GetAliases
+
+`func (o *GraphVisualizationPie) GetAliases() GraphVisualizationTimeseriesAliases`
+
+GetAliases returns the Aliases field if non-nil, zero value otherwise.
+
+### GetAliasesOk
+
+`func (o *GraphVisualizationPie) GetAliasesOk() (*GraphVisualizationTimeseriesAliases, bool)`
+
+GetAliasesOk returns a tuple with the Aliases field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAliases
+
+`func (o *GraphVisualizationPie) SetAliases(v GraphVisualizationTimeseriesAliases)`
+
+SetAliases sets Aliases field to given value.
+
+### HasAliases
+
+`func (o *GraphVisualizationPie) HasAliases() bool`
+
+HasAliases returns a boolean if a field has been set.
 
 ### GetVisibleSeries
 

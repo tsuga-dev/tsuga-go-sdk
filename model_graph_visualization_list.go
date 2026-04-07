@@ -20,14 +20,15 @@ var _ MappedNullable = &GraphVisualizationList{}
 
 // GraphVisualizationList struct for GraphVisualizationList
 type GraphVisualizationList struct {
-	// Displays matching logs in a tabular list
-	Type string `json:"type"`
-	// Indicates that the widget queries logs
+	// Displays matching logs or database rows in a tabular list
+	Type   string `json:"type"`
 	Source string `json:"source"`
-	// Log query that selects records for the list
+	// Query that selects logs or database rows for the list
 	Query string `json:"query"`
-	// Custom columns to display for each log entry
-	ListColumns          []WidgetListColumn `json:"listColumns,omitempty"`
+	// Custom columns to display for each log or database row
+	ListColumns []WidgetListColumn `json:"listColumns,omitempty"`
+	// Identifier of the connection to query
+	ConnectionId         *string `json:"connectionId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,6 +158,38 @@ func (o *GraphVisualizationList) SetListColumns(v []WidgetListColumn) {
 	o.ListColumns = v
 }
 
+// GetConnectionId returns the ConnectionId field value if set, zero value otherwise.
+func (o *GraphVisualizationList) GetConnectionId() string {
+	if o == nil || IsNil(o.ConnectionId) {
+		var ret string
+		return ret
+	}
+	return *o.ConnectionId
+}
+
+// GetConnectionIdOk returns a tuple with the ConnectionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationList) GetConnectionIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ConnectionId) {
+		return nil, false
+	}
+	return o.ConnectionId, true
+}
+
+// HasConnectionId returns a boolean if a field has been set.
+func (o *GraphVisualizationList) HasConnectionId() bool {
+	if o != nil && !IsNil(o.ConnectionId) {
+		return true
+	}
+
+	return false
+}
+
+// SetConnectionId gets a reference to the given string and assigns it to the ConnectionId field.
+func (o *GraphVisualizationList) SetConnectionId(v string) {
+	o.ConnectionId = &v
+}
+
 func (o GraphVisualizationList) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -172,6 +205,9 @@ func (o GraphVisualizationList) ToMap() (map[string]interface{}, error) {
 	toSerialize["query"] = o.Query
 	if !IsNil(o.ListColumns) {
 		toSerialize["listColumns"] = o.ListColumns
+	}
+	if !IsNil(o.ConnectionId) {
+		toSerialize["connectionId"] = o.ConnectionId
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -222,6 +258,7 @@ func (o *GraphVisualizationList) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "source")
 		delete(additionalProperties, "query")
 		delete(additionalProperties, "listColumns")
+		delete(additionalProperties, "connectionId")
 		o.AdditionalProperties = additionalProperties
 	}
 
