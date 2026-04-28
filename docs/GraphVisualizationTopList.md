@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 **Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
+**Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the displayed value | [optional] 
 
 ## Methods
 
@@ -242,6 +243,31 @@ SetPrecision sets Precision field to given value.
 `func (o *GraphVisualizationTopList) HasPrecision() bool`
 
 HasPrecision returns a boolean if a field has been set.
+
+### GetConditions
+
+`func (o *GraphVisualizationTopList) GetConditions() []ConditionalFormatting`
+
+GetConditions returns the Conditions field if non-nil, zero value otherwise.
+
+### GetConditionsOk
+
+`func (o *GraphVisualizationTopList) GetConditionsOk() (*[]ConditionalFormatting, bool)`
+
+GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConditions
+
+`func (o *GraphVisualizationTopList) SetConditions(v []ConditionalFormatting)`
+
+SetConditions sets Conditions field to given value.
+
+### HasConditions
+
+`func (o *GraphVisualizationTopList) HasConditions() bool`
+
+HasConditions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -42,7 +42,7 @@ type DashboardsAPI interface {
 		Delete a dashboard by its id
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id
+		@param id The dashboard ID to delete
 		@return DashboardsAPIDeleteDashboardRequest
 	*/
 	DeleteDashboard(ctx context.Context, id string) DashboardsAPIDeleteDashboardRequest
@@ -247,7 +247,7 @@ DeleteDashboard Method for DeleteDashboard
 Delete a dashboard by its id
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id The dashboard ID to delete
 	@return DashboardsAPIDeleteDashboardRequest
 */
 func (a *DashboardsAPIService) DeleteDashboard(ctx context.Context, id string) DashboardsAPIDeleteDashboardRequest {
@@ -496,7 +496,19 @@ func (a *DashboardsAPIService) GetDashboardExecute(r DashboardsAPIGetDashboardRe
 type DashboardsAPIListDashboardsRequest struct {
 	ctx        context.Context
 	ApiService DashboardsAPI
+	limit      *int32
+	offset     *int32
 	owners     *[]string
+}
+
+func (r DashboardsAPIListDashboardsRequest) Limit(limit int32) DashboardsAPIListDashboardsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r DashboardsAPIListDashboardsRequest) Offset(offset int32) DashboardsAPIListDashboardsRequest {
+	r.offset = &offset
+	return r
 }
 
 // Filter by owner team IDs
@@ -546,6 +558,12 @@ func (a *DashboardsAPIService) ListDashboardsExecute(r DashboardsAPIListDashboar
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	}
 	if r.owners != nil {
 		t := *r.owners
 		if reflect.TypeOf(t).Kind() == reflect.Slice {

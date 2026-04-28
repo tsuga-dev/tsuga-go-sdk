@@ -99,7 +99,7 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | The dashboard ID to delete
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -119,7 +119,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | The dashboard ID to delete | 
 
 ### Other Parameters
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## ListDashboards
 
-> ListDashboardsResponse ListDashboards(ctx).Owners(owners).Execute()
+> ListDashboardsResponse ListDashboards(ctx).Limit(limit).Offset(offset).Owners(owners).Execute()
 
 
 
@@ -239,11 +239,13 @@ import (
 )
 
 func main() {
+	limit := int32(56) // int32 |  (optional)
+	offset := int32(56) // int32 |  (optional)
 	owners := []string{"Inner_example"} // []string | Filter by owner team IDs (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DashboardsAPI.ListDashboards(context.Background()).Owners(owners).Execute()
+	resp, r, err := apiClient.DashboardsAPI.ListDashboards(context.Background()).Limit(limit).Offset(offset).Owners(owners).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.ListDashboards``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -264,6 +266,8 @@ Other parameters are passed through a pointer to a apiListDashboardsRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **limit** | **int32** |  | 
+ **offset** | **int32** |  | 
  **owners** | **[]string** | Filter by owner team IDs | 
 
 ### Return type

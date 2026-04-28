@@ -1,4 +1,4 @@
-# Function
+# MonitorFunction
 
 ## Properties
 
@@ -8,125 +8,104 @@ Name | Type | Description | Notes
 **Window** | **string** | Duration of the rolling window | 
 **Base** | **int32** | The base of the logarithm | 
 **Exponent** | **int32** | The exponent to raise values to | 
-**Seconds** | **int32** | Number of seconds to offset | 
 
 ## Methods
 
-### NewFunction
+### NewMonitorFunction
 
-`func NewFunction(type_ string, window string, base int32, exponent int32, seconds int32, ) *Function`
+`func NewMonitorFunction(type_ string, window string, base int32, exponent int32, ) *MonitorFunction`
 
-NewFunction instantiates a new Function object
+NewMonitorFunction instantiates a new MonitorFunction object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewFunctionWithDefaults
+### NewMonitorFunctionWithDefaults
 
-`func NewFunctionWithDefaults() *Function`
+`func NewMonitorFunctionWithDefaults() *MonitorFunction`
 
-NewFunctionWithDefaults instantiates a new Function object
+NewMonitorFunctionWithDefaults instantiates a new MonitorFunction object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetType
 
-`func (o *Function) GetType() string`
+`func (o *MonitorFunction) GetType() string`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *Function) GetTypeOk() (*string, bool)`
+`func (o *MonitorFunction) GetTypeOk() (*string, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *Function) SetType(v string)`
+`func (o *MonitorFunction) SetType(v string)`
 
 SetType sets Type field to given value.
 
 
 ### GetWindow
 
-`func (o *Function) GetWindow() string`
+`func (o *MonitorFunction) GetWindow() string`
 
 GetWindow returns the Window field if non-nil, zero value otherwise.
 
 ### GetWindowOk
 
-`func (o *Function) GetWindowOk() (*string, bool)`
+`func (o *MonitorFunction) GetWindowOk() (*string, bool)`
 
 GetWindowOk returns a tuple with the Window field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWindow
 
-`func (o *Function) SetWindow(v string)`
+`func (o *MonitorFunction) SetWindow(v string)`
 
 SetWindow sets Window field to given value.
 
 
 ### GetBase
 
-`func (o *Function) GetBase() int32`
+`func (o *MonitorFunction) GetBase() int32`
 
 GetBase returns the Base field if non-nil, zero value otherwise.
 
 ### GetBaseOk
 
-`func (o *Function) GetBaseOk() (*int32, bool)`
+`func (o *MonitorFunction) GetBaseOk() (*int32, bool)`
 
 GetBaseOk returns a tuple with the Base field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBase
 
-`func (o *Function) SetBase(v int32)`
+`func (o *MonitorFunction) SetBase(v int32)`
 
 SetBase sets Base field to given value.
 
 
 ### GetExponent
 
-`func (o *Function) GetExponent() int32`
+`func (o *MonitorFunction) GetExponent() int32`
 
 GetExponent returns the Exponent field if non-nil, zero value otherwise.
 
 ### GetExponentOk
 
-`func (o *Function) GetExponentOk() (*int32, bool)`
+`func (o *MonitorFunction) GetExponentOk() (*int32, bool)`
 
 GetExponentOk returns a tuple with the Exponent field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExponent
 
-`func (o *Function) SetExponent(v int32)`
+`func (o *MonitorFunction) SetExponent(v int32)`
 
 SetExponent sets Exponent field to given value.
-
-
-### GetSeconds
-
-`func (o *Function) GetSeconds() int32`
-
-GetSeconds returns the Seconds field if non-nil, zero value otherwise.
-
-### GetSecondsOk
-
-`func (o *Function) GetSecondsOk() (*int32, bool)`
-
-GetSecondsOk returns a tuple with the Seconds field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSeconds
-
-`func (o *Function) SetSeconds(v int32)`
-
-SetSeconds sets Seconds field to given value.
 
 
 

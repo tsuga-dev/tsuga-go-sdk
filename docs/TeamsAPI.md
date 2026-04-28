@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## ListTeams
 
-> ListTeamsResponse ListTeams(ctx).Execute()
+> ListTeamsResponse ListTeams(ctx).Limit(limit).Offset(offset).Execute()
 
 
 
@@ -239,10 +239,12 @@ import (
 )
 
 func main() {
+	limit := int32(56) // int32 |  (optional)
+	offset := int32(56) // int32 |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamsAPI.ListTeams(context.Background()).Execute()
+	resp, r, err := apiClient.TeamsAPI.ListTeams(context.Background()).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamsAPI.ListTeams``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -254,12 +256,17 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiListTeamsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int32** |  | 
+ **offset** | **int32** |  | 
 
 ### Return type
 

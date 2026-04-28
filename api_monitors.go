@@ -16,6 +16,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
 )
 
@@ -41,7 +42,7 @@ type MonitorsAPI interface {
 		Delete a monitor by its id
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id
+		@param id The monitor ID to delete
 		@return MonitorsAPIDeleteMonitorRequest
 	*/
 	DeleteMonitor(ctx context.Context, id string) MonitorsAPIDeleteMonitorRequest
@@ -246,7 +247,7 @@ DeleteMonitor Method for DeleteMonitor
 Delete a monitor by its id
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id The monitor ID to delete
 	@return MonitorsAPIDeleteMonitorRequest
 */
 func (a *MonitorsAPIService) DeleteMonitor(ctx context.Context, id string) MonitorsAPIDeleteMonitorRequest {
@@ -495,6 +496,24 @@ func (a *MonitorsAPIService) GetMonitorExecute(r MonitorsAPIGetMonitorRequest) (
 type MonitorsAPIListMonitorsRequest struct {
 	ctx        context.Context
 	ApiService MonitorsAPI
+	limit      *int32
+	offset     *int32
+	owners     *[]string
+}
+
+func (r MonitorsAPIListMonitorsRequest) Limit(limit int32) MonitorsAPIListMonitorsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r MonitorsAPIListMonitorsRequest) Offset(offset int32) MonitorsAPIListMonitorsRequest {
+	r.offset = &offset
+	return r
+}
+
+func (r MonitorsAPIListMonitorsRequest) Owners(owners []string) MonitorsAPIListMonitorsRequest {
+	r.owners = &owners
+	return r
 }
 
 func (r MonitorsAPIListMonitorsRequest) Execute() (*ListMonitorsResponse, *http.Response, error) {
@@ -538,6 +557,23 @@ func (a *MonitorsAPIService) ListMonitorsExecute(r MonitorsAPIListMonitorsReques
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	}
+	if r.owners != nil {
+		t := *r.owners
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "owners", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "owners", t, "form", "multi")
+		}
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

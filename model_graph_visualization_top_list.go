@@ -35,7 +35,9 @@ type GraphVisualizationTopList struct {
 	GroupBy    []AggregationGroupBy `json:"groupBy,omitempty"`
 	Normalizer *Normalizer          `json:"normalizer,omitempty"`
 	// Number of decimal places to display in the value
-	Precision            *float32 `json:"precision,omitempty"`
+	Precision *float32 `json:"precision,omitempty"`
+	// Conditional formatting rules applied to the displayed value
+	Conditions           []ConditionalFormatting `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -325,6 +327,38 @@ func (o *GraphVisualizationTopList) SetPrecision(v float32) {
 	o.Precision = &v
 }
 
+// GetConditions returns the Conditions field value if set, zero value otherwise.
+func (o *GraphVisualizationTopList) GetConditions() []ConditionalFormatting {
+	if o == nil || IsNil(o.Conditions) {
+		var ret []ConditionalFormatting
+		return ret
+	}
+	return o.Conditions
+}
+
+// GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationTopList) GetConditionsOk() ([]ConditionalFormatting, bool) {
+	if o == nil || IsNil(o.Conditions) {
+		return nil, false
+	}
+	return o.Conditions, true
+}
+
+// HasConditions returns a boolean if a field has been set.
+func (o *GraphVisualizationTopList) HasConditions() bool {
+	if o != nil && !IsNil(o.Conditions) {
+		return true
+	}
+
+	return false
+}
+
+// SetConditions gets a reference to the given []ConditionalFormatting and assigns it to the Conditions field.
+func (o *GraphVisualizationTopList) SetConditions(v []ConditionalFormatting) {
+	o.Conditions = v
+}
+
 func (o GraphVisualizationTopList) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -355,6 +389,9 @@ func (o GraphVisualizationTopList) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Precision) {
 		toSerialize["precision"] = o.Precision
+	}
+	if !IsNil(o.Conditions) {
+		toSerialize["conditions"] = o.Conditions
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -410,6 +447,7 @@ func (o *GraphVisualizationTopList) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "groupBy")
 		delete(additionalProperties, "normalizer")
 		delete(additionalProperties, "precision")
+		delete(additionalProperties, "conditions")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -495,6 +495,18 @@ func (a *TeamsAPIService) GetTeamExecute(r TeamsAPIGetTeamRequest) (*GetTeamResp
 type TeamsAPIListTeamsRequest struct {
 	ctx        context.Context
 	ApiService TeamsAPI
+	limit      *int32
+	offset     *int32
+}
+
+func (r TeamsAPIListTeamsRequest) Limit(limit int32) TeamsAPIListTeamsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r TeamsAPIListTeamsRequest) Offset(offset int32) TeamsAPIListTeamsRequest {
+	r.offset = &offset
+	return r
 }
 
 func (r TeamsAPIListTeamsRequest) Execute() (*ListTeamsResponse, *http.Response, error) {
@@ -538,6 +550,12 @@ func (a *TeamsAPIService) ListTeamsExecute(r TeamsAPIListTeamsRequest) (*ListTea
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

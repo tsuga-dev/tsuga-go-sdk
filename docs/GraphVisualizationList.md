@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Source** | **string** |  | 
 **Query** | **string** | Query that selects logs or database rows for the list | 
 **ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each log or database row | [optional] 
+**ListColumnsSize** | Pointer to **map[string]float32** |  | [optional] 
 **ConnectionId** | Pointer to **string** | Identifier of the connection to query | [optional] 
 
 ## Methods
@@ -113,6 +114,31 @@ SetListColumns sets ListColumns field to given value.
 `func (o *GraphVisualizationList) HasListColumns() bool`
 
 HasListColumns returns a boolean if a field has been set.
+
+### GetListColumnsSize
+
+`func (o *GraphVisualizationList) GetListColumnsSize() map[string]float32`
+
+GetListColumnsSize returns the ListColumnsSize field if non-nil, zero value otherwise.
+
+### GetListColumnsSizeOk
+
+`func (o *GraphVisualizationList) GetListColumnsSizeOk() (*map[string]float32, bool)`
+
+GetListColumnsSizeOk returns a tuple with the ListColumnsSize field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetListColumnsSize
+
+`func (o *GraphVisualizationList) SetListColumnsSize(v map[string]float32)`
+
+SetListColumnsSize sets ListColumnsSize field to given value.
+
+### HasListColumnsSize
+
+`func (o *GraphVisualizationList) HasListColumnsSize() bool`
+
+HasListColumnsSize returns a boolean if a field has been set.
 
 ### GetConnectionId
 
