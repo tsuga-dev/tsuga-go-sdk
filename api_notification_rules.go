@@ -41,7 +41,7 @@ type NotificationRulesAPI interface {
 		Delete a notification rule by its id
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id
+		@param id The notification rule ID to delete
 		@return NotificationRulesAPIDeleteNotificationRuleRequest
 	*/
 	DeleteNotificationRule(ctx context.Context, id string) NotificationRulesAPIDeleteNotificationRuleRequest
@@ -246,7 +246,7 @@ DeleteNotificationRule Method for DeleteNotificationRule
 Delete a notification rule by its id
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id The notification rule ID to delete
 	@return NotificationRulesAPIDeleteNotificationRuleRequest
 */
 func (a *NotificationRulesAPIService) DeleteNotificationRule(ctx context.Context, id string) NotificationRulesAPIDeleteNotificationRuleRequest {
@@ -495,6 +495,18 @@ func (a *NotificationRulesAPIService) GetNotificationRuleExecute(r NotificationR
 type NotificationRulesAPIListNotificationRulesRequest struct {
 	ctx        context.Context
 	ApiService NotificationRulesAPI
+	limit      *int32
+	offset     *int32
+}
+
+func (r NotificationRulesAPIListNotificationRulesRequest) Limit(limit int32) NotificationRulesAPIListNotificationRulesRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r NotificationRulesAPIListNotificationRulesRequest) Offset(offset int32) NotificationRulesAPIListNotificationRulesRequest {
+	r.offset = &offset
+	return r
 }
 
 func (r NotificationRulesAPIListNotificationRulesRequest) Execute() (*ListNotificationRulesResponse, *http.Response, error) {
@@ -538,6 +550,12 @@ func (a *NotificationRulesAPIService) ListNotificationRulesExecute(r Notificatio
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

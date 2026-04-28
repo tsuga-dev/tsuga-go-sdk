@@ -15,100 +15,84 @@ import (
 	"fmt"
 )
 
-// Function - struct for Function
-type Function struct {
-	FunctionIncrease   *FunctionIncrease
-	FunctionLast       *FunctionLast
-	FunctionLog        *FunctionLog
-	FunctionPerHour    *FunctionPerHour
-	FunctionPerMinute  *FunctionPerMinute
-	FunctionPerSecond  *FunctionPerSecond
-	FunctionPower      *FunctionPower
-	FunctionRate       *FunctionRate
-	FunctionRolling    *FunctionRolling
-	FunctionSqrt       *FunctionSqrt
-	FunctionTimeOffset *FunctionTimeOffset
+// MonitorFunction - struct for MonitorFunction
+type MonitorFunction struct {
+	FunctionIncrease  *FunctionIncrease
+	FunctionLog       *FunctionLog
+	FunctionPerHour   *FunctionPerHour
+	FunctionPerMinute *FunctionPerMinute
+	FunctionPerSecond *FunctionPerSecond
+	FunctionPower     *FunctionPower
+	FunctionRate      *FunctionRate
+	FunctionRolling   *FunctionRolling
+	FunctionSqrt      *FunctionSqrt
 }
 
-// FunctionIncreaseAsFunction is a convenience function that returns FunctionIncrease wrapped in Function
-func FunctionIncreaseAsFunction(v *FunctionIncrease) Function {
-	return Function{
+// FunctionIncreaseAsMonitorFunction is a convenience function that returns FunctionIncrease wrapped in MonitorFunction
+func FunctionIncreaseAsMonitorFunction(v *FunctionIncrease) MonitorFunction {
+	return MonitorFunction{
 		FunctionIncrease: v,
 	}
 }
 
-// FunctionLastAsFunction is a convenience function that returns FunctionLast wrapped in Function
-func FunctionLastAsFunction(v *FunctionLast) Function {
-	return Function{
-		FunctionLast: v,
-	}
-}
-
-// FunctionLogAsFunction is a convenience function that returns FunctionLog wrapped in Function
-func FunctionLogAsFunction(v *FunctionLog) Function {
-	return Function{
+// FunctionLogAsMonitorFunction is a convenience function that returns FunctionLog wrapped in MonitorFunction
+func FunctionLogAsMonitorFunction(v *FunctionLog) MonitorFunction {
+	return MonitorFunction{
 		FunctionLog: v,
 	}
 }
 
-// FunctionPerHourAsFunction is a convenience function that returns FunctionPerHour wrapped in Function
-func FunctionPerHourAsFunction(v *FunctionPerHour) Function {
-	return Function{
+// FunctionPerHourAsMonitorFunction is a convenience function that returns FunctionPerHour wrapped in MonitorFunction
+func FunctionPerHourAsMonitorFunction(v *FunctionPerHour) MonitorFunction {
+	return MonitorFunction{
 		FunctionPerHour: v,
 	}
 }
 
-// FunctionPerMinuteAsFunction is a convenience function that returns FunctionPerMinute wrapped in Function
-func FunctionPerMinuteAsFunction(v *FunctionPerMinute) Function {
-	return Function{
+// FunctionPerMinuteAsMonitorFunction is a convenience function that returns FunctionPerMinute wrapped in MonitorFunction
+func FunctionPerMinuteAsMonitorFunction(v *FunctionPerMinute) MonitorFunction {
+	return MonitorFunction{
 		FunctionPerMinute: v,
 	}
 }
 
-// FunctionPerSecondAsFunction is a convenience function that returns FunctionPerSecond wrapped in Function
-func FunctionPerSecondAsFunction(v *FunctionPerSecond) Function {
-	return Function{
+// FunctionPerSecondAsMonitorFunction is a convenience function that returns FunctionPerSecond wrapped in MonitorFunction
+func FunctionPerSecondAsMonitorFunction(v *FunctionPerSecond) MonitorFunction {
+	return MonitorFunction{
 		FunctionPerSecond: v,
 	}
 }
 
-// FunctionPowerAsFunction is a convenience function that returns FunctionPower wrapped in Function
-func FunctionPowerAsFunction(v *FunctionPower) Function {
-	return Function{
+// FunctionPowerAsMonitorFunction is a convenience function that returns FunctionPower wrapped in MonitorFunction
+func FunctionPowerAsMonitorFunction(v *FunctionPower) MonitorFunction {
+	return MonitorFunction{
 		FunctionPower: v,
 	}
 }
 
-// FunctionRateAsFunction is a convenience function that returns FunctionRate wrapped in Function
-func FunctionRateAsFunction(v *FunctionRate) Function {
-	return Function{
+// FunctionRateAsMonitorFunction is a convenience function that returns FunctionRate wrapped in MonitorFunction
+func FunctionRateAsMonitorFunction(v *FunctionRate) MonitorFunction {
+	return MonitorFunction{
 		FunctionRate: v,
 	}
 }
 
-// FunctionRollingAsFunction is a convenience function that returns FunctionRolling wrapped in Function
-func FunctionRollingAsFunction(v *FunctionRolling) Function {
-	return Function{
+// FunctionRollingAsMonitorFunction is a convenience function that returns FunctionRolling wrapped in MonitorFunction
+func FunctionRollingAsMonitorFunction(v *FunctionRolling) MonitorFunction {
+	return MonitorFunction{
 		FunctionRolling: v,
 	}
 }
 
-// FunctionSqrtAsFunction is a convenience function that returns FunctionSqrt wrapped in Function
-func FunctionSqrtAsFunction(v *FunctionSqrt) Function {
-	return Function{
+// FunctionSqrtAsMonitorFunction is a convenience function that returns FunctionSqrt wrapped in MonitorFunction
+func FunctionSqrtAsMonitorFunction(v *FunctionSqrt) MonitorFunction {
+	return MonitorFunction{
 		FunctionSqrt: v,
 	}
 }
 
-// FunctionTimeOffsetAsFunction is a convenience function that returns FunctionTimeOffset wrapped in Function
-func FunctionTimeOffsetAsFunction(v *FunctionTimeOffset) Function {
-	return Function{
-		FunctionTimeOffset: v,
-	}
-}
-
 // Unmarshal JSON data into one of the pointers in the struct
-func (dst *Function) UnmarshalJSON(data []byte) error {
+func (dst *MonitorFunction) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
@@ -125,19 +109,7 @@ func (dst *Function) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FunctionIncrease, return on the first match
 		} else {
 			dst.FunctionIncrease = nil
-			return fmt.Errorf("failed to unmarshal Function as FunctionIncrease: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'last'
-	if jsonDict["type"] == "last" {
-		// try to unmarshal JSON data into FunctionLast
-		err = json.Unmarshal(data, &dst.FunctionLast)
-		if err == nil {
-			return nil // data stored in dst.FunctionLast, return on the first match
-		} else {
-			dst.FunctionLast = nil
-			return fmt.Errorf("failed to unmarshal Function as FunctionLast: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal MonitorFunction as FunctionIncrease: %s", err.Error())
 		}
 	}
 
@@ -149,7 +121,7 @@ func (dst *Function) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FunctionLog, return on the first match
 		} else {
 			dst.FunctionLog = nil
-			return fmt.Errorf("failed to unmarshal Function as FunctionLog: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal MonitorFunction as FunctionLog: %s", err.Error())
 		}
 	}
 
@@ -161,7 +133,7 @@ func (dst *Function) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FunctionPerHour, return on the first match
 		} else {
 			dst.FunctionPerHour = nil
-			return fmt.Errorf("failed to unmarshal Function as FunctionPerHour: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal MonitorFunction as FunctionPerHour: %s", err.Error())
 		}
 	}
 
@@ -173,7 +145,7 @@ func (dst *Function) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FunctionPerMinute, return on the first match
 		} else {
 			dst.FunctionPerMinute = nil
-			return fmt.Errorf("failed to unmarshal Function as FunctionPerMinute: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal MonitorFunction as FunctionPerMinute: %s", err.Error())
 		}
 	}
 
@@ -185,7 +157,7 @@ func (dst *Function) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FunctionPerSecond, return on the first match
 		} else {
 			dst.FunctionPerSecond = nil
-			return fmt.Errorf("failed to unmarshal Function as FunctionPerSecond: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal MonitorFunction as FunctionPerSecond: %s", err.Error())
 		}
 	}
 
@@ -197,7 +169,7 @@ func (dst *Function) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FunctionPower, return on the first match
 		} else {
 			dst.FunctionPower = nil
-			return fmt.Errorf("failed to unmarshal Function as FunctionPower: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal MonitorFunction as FunctionPower: %s", err.Error())
 		}
 	}
 
@@ -209,7 +181,7 @@ func (dst *Function) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FunctionRate, return on the first match
 		} else {
 			dst.FunctionRate = nil
-			return fmt.Errorf("failed to unmarshal Function as FunctionRate: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal MonitorFunction as FunctionRate: %s", err.Error())
 		}
 	}
 
@@ -221,7 +193,7 @@ func (dst *Function) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FunctionRolling, return on the first match
 		} else {
 			dst.FunctionRolling = nil
-			return fmt.Errorf("failed to unmarshal Function as FunctionRolling: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal MonitorFunction as FunctionRolling: %s", err.Error())
 		}
 	}
 
@@ -233,19 +205,7 @@ func (dst *Function) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FunctionSqrt, return on the first match
 		} else {
 			dst.FunctionSqrt = nil
-			return fmt.Errorf("failed to unmarshal Function as FunctionSqrt: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'time-offset'
-	if jsonDict["type"] == "time-offset" {
-		// try to unmarshal JSON data into FunctionTimeOffset
-		err = json.Unmarshal(data, &dst.FunctionTimeOffset)
-		if err == nil {
-			return nil // data stored in dst.FunctionTimeOffset, return on the first match
-		} else {
-			dst.FunctionTimeOffset = nil
-			return fmt.Errorf("failed to unmarshal Function as FunctionTimeOffset: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal MonitorFunction as FunctionSqrt: %s", err.Error())
 		}
 	}
 
@@ -253,13 +213,9 @@ func (dst *Function) UnmarshalJSON(data []byte) error {
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src Function) MarshalJSON() ([]byte, error) {
+func (src MonitorFunction) MarshalJSON() ([]byte, error) {
 	if src.FunctionIncrease != nil {
 		return json.Marshal(&src.FunctionIncrease)
-	}
-
-	if src.FunctionLast != nil {
-		return json.Marshal(&src.FunctionLast)
 	}
 
 	if src.FunctionLog != nil {
@@ -294,24 +250,16 @@ func (src Function) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.FunctionSqrt)
 	}
 
-	if src.FunctionTimeOffset != nil {
-		return json.Marshal(&src.FunctionTimeOffset)
-	}
-
 	return nil, nil // no data in oneOf schemas
 }
 
 // Get the actual instance
-func (obj *Function) GetActualInstance() interface{} {
+func (obj *MonitorFunction) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
 	if obj.FunctionIncrease != nil {
 		return obj.FunctionIncrease
-	}
-
-	if obj.FunctionLast != nil {
-		return obj.FunctionLast
 	}
 
 	if obj.FunctionLog != nil {
@@ -346,22 +294,14 @@ func (obj *Function) GetActualInstance() interface{} {
 		return obj.FunctionSqrt
 	}
 
-	if obj.FunctionTimeOffset != nil {
-		return obj.FunctionTimeOffset
-	}
-
 	// all schemas are nil
 	return nil
 }
 
 // Get the actual instance value
-func (obj Function) GetActualInstanceValue() interface{} {
+func (obj MonitorFunction) GetActualInstanceValue() interface{} {
 	if obj.FunctionIncrease != nil {
 		return *obj.FunctionIncrease
-	}
-
-	if obj.FunctionLast != nil {
-		return *obj.FunctionLast
 	}
 
 	if obj.FunctionLog != nil {
@@ -396,46 +336,42 @@ func (obj Function) GetActualInstanceValue() interface{} {
 		return *obj.FunctionSqrt
 	}
 
-	if obj.FunctionTimeOffset != nil {
-		return *obj.FunctionTimeOffset
-	}
-
 	// all schemas are nil
 	return nil
 }
 
-type NullableFunction struct {
-	value *Function
+type NullableMonitorFunction struct {
+	value *MonitorFunction
 	isSet bool
 }
 
-func (v NullableFunction) Get() *Function {
+func (v NullableMonitorFunction) Get() *MonitorFunction {
 	return v.value
 }
 
-func (v *NullableFunction) Set(val *Function) {
+func (v *NullableMonitorFunction) Set(val *MonitorFunction) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableFunction) IsSet() bool {
+func (v NullableMonitorFunction) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableFunction) Unset() {
+func (v *NullableMonitorFunction) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableFunction(val *Function) *NullableFunction {
-	return &NullableFunction{value: val, isSet: true}
+func NewNullableMonitorFunction(val *MonitorFunction) *NullableMonitorFunction {
+	return &NullableMonitorFunction{value: val, isSet: true}
 }
 
-func (v NullableFunction) MarshalJSON() ([]byte, error) {
+func (v NullableMonitorFunction) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableFunction) UnmarshalJSON(src []byte) error {
+func (v *NullableMonitorFunction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

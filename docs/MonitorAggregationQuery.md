@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Aggregate** | [**Aggregate**](Aggregate.md) |  | 
-**Functions** | Pointer to [**[]Function**](Function.md) | Post-processing functions applied to aggregation results | [optional] 
+**Functions** | Pointer to [**[]MonitorFunction**](MonitorFunction.md) | Post-processing functions applied to aggregation results | [optional] 
 **Fill** | Pointer to [**MonitorAggregationQueryFill**](MonitorAggregationQueryFill.md) |  | [optional] 
 **Filter** | **string** |  | 
 
@@ -50,20 +50,20 @@ SetAggregate sets Aggregate field to given value.
 
 ### GetFunctions
 
-`func (o *MonitorAggregationQuery) GetFunctions() []Function`
+`func (o *MonitorAggregationQuery) GetFunctions() []MonitorFunction`
 
 GetFunctions returns the Functions field if non-nil, zero value otherwise.
 
 ### GetFunctionsOk
 
-`func (o *MonitorAggregationQuery) GetFunctionsOk() (*[]Function, bool)`
+`func (o *MonitorAggregationQuery) GetFunctionsOk() (*[]MonitorFunction, bool)`
 
 GetFunctionsOk returns a tuple with the Functions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFunctions
 
-`func (o *MonitorAggregationQuery) SetFunctions(v []Function)`
+`func (o *MonitorAggregationQuery) SetFunctions(v []MonitorFunction)`
 
 SetFunctions sets Functions field to given value.
 

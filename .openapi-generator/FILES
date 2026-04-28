@@ -60,6 +60,7 @@ docs/DeleteTagPolicyResponse.md
 docs/DeleteTeamResponse.md
 docs/Function.md
 docs/FunctionIncrease.md
+docs/FunctionLast.md
 docs/FunctionLog.md
 docs/FunctionPerHour.md
 docs/FunctionPerMinute.md
@@ -68,6 +69,7 @@ docs/FunctionPower.md
 docs/FunctionRate.md
 docs/FunctionRolling.md
 docs/FunctionSqrt.md
+docs/FunctionTimeOffset.md
 docs/GetDashboardResponse.md
 docs/GetMonitorResponse.md
 docs/GetNotificationRuleResponse.md
@@ -113,9 +115,12 @@ docs/MonitorConfigurationMetric.md
 docs/MonitorConfigurationMetricConditionsInner.md
 docs/MonitorConfigurationMetricGroupByFieldsInner.md
 docs/MonitorConfigurationTrace.md
+docs/MonitorFunction.md
 docs/MonitorsAPI.md
 docs/Normalizer.md
 docs/NotificationRulesAPI.md
+docs/ResponseMetadata.md
+docs/ResponseMetadataPagination.md
 docs/Rule.md
 docs/RuleTargetConfigEmail.md
 docs/RuleTargetConfigGoogleChat.md
@@ -212,6 +217,7 @@ model_delete_tag_policy_response.go
 model_delete_team_response.go
 model_function.go
 model_function_increase.go
+model_function_last.go
 model_function_log.go
 model_function_per_hour.go
 model_function_per_minute.go
@@ -220,6 +226,7 @@ model_function_power.go
 model_function_rate.go
 model_function_rolling.go
 model_function_sqrt.go
+model_function_time_offset.go
 model_get_dashboard_response.go
 model_get_monitor_response.go
 model_get_notification_rule_response.go
@@ -265,7 +272,10 @@ model_monitor_configuration_metric.go
 model_monitor_configuration_metric_conditions_inner.go
 model_monitor_configuration_metric_group_by_fields_inner.go
 model_monitor_configuration_trace.go
+model_monitor_function.go
 model_normalizer.go
+model_response_metadata.go
+model_response_metadata_pagination.go
 model_rule.go
 model_rule_target_config_email.go
 model_rule_target_config_google_chat.go

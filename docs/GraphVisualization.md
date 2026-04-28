@@ -17,12 +17,13 @@ Name | Type | Description | Notes
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 **Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
 **YAxisSettings** | Pointer to [**GraphVisualizationTimeseriesYAxisSettings**](GraphVisualizationTimeseriesYAxisSettings.md) |  | [optional] 
-**BackgroundMode** | Pointer to **string** | Controls whether the widget uses a solid or transparent background | [optional] 
 **Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the displayed value | [optional] 
+**BackgroundMode** | Pointer to **string** | Controls whether the widget uses a solid or transparent background | [optional] 
 **Columns** | [**[]TableColumn**](TableColumn.md) | Each column defines an independent aggregation displayed as a table column | 
 **DefaultSorting** | Pointer to [**[]TableDefaultSorting**](TableDefaultSorting.md) |  | [optional] 
 **Query** | **string** | Query that selects logs or database rows for the list | 
 **ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each log or database row | [optional] 
+**ListColumnsSize** | Pointer to **map[string]float32** |  | [optional] 
 **ConnectionId** | Pointer to **string** | Identifier of the connection to query | [optional] 
 **Note** | Pointer to **string** | Markdown-compatible text shown in the note | [optional] 
 **NoteColor** | Pointer to **string** | Background color used to render the note | [optional] 
@@ -358,31 +359,6 @@ SetYAxisSettings sets YAxisSettings field to given value.
 
 HasYAxisSettings returns a boolean if a field has been set.
 
-### GetBackgroundMode
-
-`func (o *GraphVisualization) GetBackgroundMode() string`
-
-GetBackgroundMode returns the BackgroundMode field if non-nil, zero value otherwise.
-
-### GetBackgroundModeOk
-
-`func (o *GraphVisualization) GetBackgroundModeOk() (*string, bool)`
-
-GetBackgroundModeOk returns a tuple with the BackgroundMode field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetBackgroundMode
-
-`func (o *GraphVisualization) SetBackgroundMode(v string)`
-
-SetBackgroundMode sets BackgroundMode field to given value.
-
-### HasBackgroundMode
-
-`func (o *GraphVisualization) HasBackgroundMode() bool`
-
-HasBackgroundMode returns a boolean if a field has been set.
-
 ### GetConditions
 
 `func (o *GraphVisualization) GetConditions() []ConditionalFormatting`
@@ -407,6 +383,31 @@ SetConditions sets Conditions field to given value.
 `func (o *GraphVisualization) HasConditions() bool`
 
 HasConditions returns a boolean if a field has been set.
+
+### GetBackgroundMode
+
+`func (o *GraphVisualization) GetBackgroundMode() string`
+
+GetBackgroundMode returns the BackgroundMode field if non-nil, zero value otherwise.
+
+### GetBackgroundModeOk
+
+`func (o *GraphVisualization) GetBackgroundModeOk() (*string, bool)`
+
+GetBackgroundModeOk returns a tuple with the BackgroundMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBackgroundMode
+
+`func (o *GraphVisualization) SetBackgroundMode(v string)`
+
+SetBackgroundMode sets BackgroundMode field to given value.
+
+### HasBackgroundMode
+
+`func (o *GraphVisualization) HasBackgroundMode() bool`
+
+HasBackgroundMode returns a boolean if a field has been set.
 
 ### GetColumns
 
@@ -497,6 +498,31 @@ SetListColumns sets ListColumns field to given value.
 `func (o *GraphVisualization) HasListColumns() bool`
 
 HasListColumns returns a boolean if a field has been set.
+
+### GetListColumnsSize
+
+`func (o *GraphVisualization) GetListColumnsSize() map[string]float32`
+
+GetListColumnsSize returns the ListColumnsSize field if non-nil, zero value otherwise.
+
+### GetListColumnsSizeOk
+
+`func (o *GraphVisualization) GetListColumnsSizeOk() (*map[string]float32, bool)`
+
+GetListColumnsSizeOk returns a tuple with the ListColumnsSize field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetListColumnsSize
+
+`func (o *GraphVisualization) SetListColumnsSize(v map[string]float32)`
+
+SetListColumnsSize sets ListColumnsSize field to given value.
+
+### HasListColumnsSize
+
+`func (o *GraphVisualization) HasListColumnsSize() bool`
+
+HasListColumnsSize returns a boolean if a field has been set.
 
 ### GetConnectionId
 

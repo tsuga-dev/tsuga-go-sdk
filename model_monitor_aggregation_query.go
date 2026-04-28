@@ -22,7 +22,7 @@ var _ MappedNullable = &MonitorAggregationQuery{}
 type MonitorAggregationQuery struct {
 	Aggregate Aggregate `json:"aggregate"`
 	// Post-processing functions applied to aggregation results
-	Functions            []Function                   `json:"functions,omitempty"`
+	Functions            []MonitorFunction            `json:"functions,omitempty"`
 	Fill                 *MonitorAggregationQueryFill `json:"fill,omitempty"`
 	Filter               string                       `json:"filter"`
 	AdditionalProperties map[string]interface{}
@@ -74,9 +74,9 @@ func (o *MonitorAggregationQuery) SetAggregate(v Aggregate) {
 }
 
 // GetFunctions returns the Functions field value if set, zero value otherwise.
-func (o *MonitorAggregationQuery) GetFunctions() []Function {
+func (o *MonitorAggregationQuery) GetFunctions() []MonitorFunction {
 	if o == nil || IsNil(o.Functions) {
-		var ret []Function
+		var ret []MonitorFunction
 		return ret
 	}
 	return o.Functions
@@ -84,7 +84,7 @@ func (o *MonitorAggregationQuery) GetFunctions() []Function {
 
 // GetFunctionsOk returns a tuple with the Functions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MonitorAggregationQuery) GetFunctionsOk() ([]Function, bool) {
+func (o *MonitorAggregationQuery) GetFunctionsOk() ([]MonitorFunction, bool) {
 	if o == nil || IsNil(o.Functions) {
 		return nil, false
 	}
@@ -100,8 +100,8 @@ func (o *MonitorAggregationQuery) HasFunctions() bool {
 	return false
 }
 
-// SetFunctions gets a reference to the given []Function and assigns it to the Functions field.
-func (o *MonitorAggregationQuery) SetFunctions(v []Function) {
+// SetFunctions gets a reference to the given []MonitorFunction and assigns it to the Functions field.
+func (o *MonitorAggregationQuery) SetFunctions(v []MonitorFunction) {
 	o.Functions = v
 }
 

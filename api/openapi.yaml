@@ -13,6 +13,8 @@ security:
 tags:
 - description: Data aggregation and analytics
   name: aggregation
+- description: Custom tag keys for tracking usage across telemetry data
+  name: custom-usage-tags
 - description: Visualization of telemetry data with customizable graphs and filters
   name: dashboards
 - description: API keys for ingesting telemetry data
@@ -52,6 +54,23 @@ paths:
       description: Retrieve all dashboards
       operationId: listDashboards
       parameters:
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
       - description: Filter by owner team IDs
         explode: true
         in: query
@@ -196,7 +215,8 @@ paths:
       description: Delete a dashboard by its id
       operationId: deleteDashboard
       parameters:
-      - explode: false
+      - description: The dashboard ID to delete
+        explode: false
         in: path
         name: id
         required: true
@@ -376,6 +396,35 @@ paths:
     get:
       description: Retrieve all monitors
       operationId: listMonitors
+      parameters:
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: owners
+        required: false
+        schema:
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          type: array
+        style: form
       responses:
         "200":
           content:
@@ -527,7 +576,8 @@ paths:
       description: Delete a monitor by its id
       operationId: deleteMonitor
       parameters:
-      - explode: false
+      - description: The monitor ID to delete
+        explode: false
         in: path
         name: id
         required: true
@@ -754,6 +804,24 @@ paths:
     get:
       description: Retrieve all notification rules
       operationId: listNotificationRules
+      parameters:
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
       responses:
         "200":
           content:
@@ -880,7 +948,8 @@ paths:
       description: Delete a notification rule by its id
       operationId: deleteNotificationRule
       parameters:
-      - explode: false
+      - description: The notification rule ID to delete
+        explode: false
         in: path
         name: id
         required: true
@@ -1366,6 +1435,24 @@ paths:
     get:
       description: Retrieve all teams
       operationId: listTeams
+      parameters:
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
       responses:
         "200":
           content:
@@ -1667,7 +1754,7 @@ components:
       example:
         code: CLUSTER_DB_QUERY_INVALID_CONNECTION_PARAMS
         message: message
-        statusCode: 0.8008281904610115
+        statusCode: 1.4658129805029452
       properties:
         code:
           description: Machine readable error code describing what went wrong
@@ -1680,12 +1767,14 @@ components:
           - CLUSTER_DB_QUERY_CONNECTION_FAILED
           - CLUSTER_DB_QUERY_QUERY_EXECUTION_FAILED
           - CLUSTER_DB_QUERY_QUERY_TIMEOUT
+          - CLUSTER_AGGREGATION_STRUCTURE
           - ABORT_ERROR
           - BAD_REQUEST
           - DUPLICATE_KEY_VIOLATION
           - FOREIGN_KEY_VIOLATION
           - FST_ERR_VALIDATION
           - INVALID_INPUT
+          - FORBIDDEN
           - MISSING_PERMISSION
           - PRIVILEGE_ESCALATION
           - ORG_NOT_FOUND_AUTHENTICATION_ERROR
@@ -1695,6 +1784,7 @@ components:
           - INVALID_INVITATION
           - TAG_POLICY_ALREADY_EXISTS_ERROR
           - TAG_POLICY_VALIDATION_ERROR
+          - UNAUTHORIZED
           - URL_NOT_FOUND
           type: string
         message:
@@ -1711,7 +1801,7 @@ components:
       example:
         code: INTERNAL_ERROR
         message: message
-        statusCode: 6.027456183070403
+        statusCode: 5.962133916683182
       properties:
         code:
           description: Machine readable error code describing what went wrong
@@ -1735,7 +1825,7 @@ components:
         error:
           code: CLUSTER_DB_QUERY_INVALID_CONNECTION_PARAMS
           message: message
-          statusCode: 0.8008281904610115
+          statusCode: 1.4658129805029452
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -1752,7 +1842,7 @@ components:
         error:
           code: INTERNAL_ERROR
           message: message
-          statusCode: 6.027456183070403
+          statusCode: 5.962133916683182
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -1773,6 +1863,16 @@ components:
           type: boolean
       required:
       - success
+    ResponseMetadata:
+      example:
+        pagination:
+          pageCount: 0
+          totalCount: 0
+      properties:
+        pagination:
+          $ref: "#/components/schemas/ResponseMetadata_pagination"
+      required:
+      - pagination
     Dashboard:
       description: Visualization of telemetry data with customizable graphs and filters
       example:
@@ -1865,6 +1965,10 @@ components:
       - owner
     ListDashboardsResponse:
       example:
+        metadata:
+          pagination:
+            pageCount: 0
+            totalCount: 0
         data:
         - id: 123-456-abc
           name: API Performance Overview
@@ -1931,6 +2035,8 @@ components:
           items:
             $ref: "#/components/schemas/Dashboard"
           type: array
+        metadata:
+          $ref: "#/components/schemas/ResponseMetadata"
       required:
       - data
       - requestId
@@ -2153,6 +2259,10 @@ components:
       - priority
     ListMonitorsResponse:
       example:
+        metadata:
+          pagination:
+            pageCount: 0
+            totalCount: 0
         data:
         - id: 123-456-abc
           name: High Error Rate Alert
@@ -2211,6 +2321,8 @@ components:
           items:
             $ref: "#/components/schemas/Monitor"
           type: array
+        metadata:
+          $ref: "#/components/schemas/ResponseMetadata"
       required:
       - data
       - requestId
@@ -2428,6 +2540,10 @@ components:
       - transitionTypesFilter
     ListNotificationRulesResponse:
       example:
+        metadata:
+          pagination:
+            pageCount: 0
+            totalCount: 0
         data:
         - id: 123-456-abc
           name: Critical Alerts
@@ -2482,6 +2598,8 @@ components:
           items:
             $ref: "#/components/schemas/Rule"
           type: array
+        metadata:
+          $ref: "#/components/schemas/ResponseMetadata"
       required:
       - data
       - requestId
@@ -2896,6 +3014,10 @@ components:
       - visibility
     ListTeamsResponse:
       example:
+        metadata:
+          pagination:
+            pageCount: 0
+            totalCount: 0
         data:
         - id: abc-123-def
           name: Platform Engineering
@@ -2920,6 +3042,8 @@ components:
           items:
             $ref: "#/components/schemas/Team"
           type: array
+        metadata:
+          $ref: "#/components/schemas/ResponseMetadata"
       required:
       - data
       - requestId
@@ -3003,6 +3127,11 @@ components:
           description: Counts the total number of records
           enum:
           - count
+          type: string
+        field:
+          description: Attribute containing the values to aggregate
+          maxLength: 250
+          minLength: 0
           type: string
       required:
       - type
@@ -3150,8 +3279,8 @@ components:
       properties:
         type:
           description: '`Increase` is designed for cumulative metrics. It computes
-            the increase of cumulative metrics automatically handling counter resets.
-            When used with an aggregation like `sum` it combines all series without
+            the increase of cumulative metrics by automatically handling counter resets.
+            When used with an aggregation such as `sum` it combines all series without
             requiring an explicit group-by.'
           enum:
           - increase
@@ -3214,6 +3343,32 @@ components:
       required:
       - type
       title: Sqrt
+    FunctionLast:
+      properties:
+        type:
+          description: Takes the last value of the metric for the selected time frame
+          enum:
+          - last
+          type: string
+      required:
+      - type
+      title: Last
+    FunctionTimeOffset:
+      properties:
+        type:
+          description: Shifts a query's data backward by a specified duration for
+            easy comparison over different periods of time.
+          enum:
+          - time-offset
+          type: string
+        seconds:
+          description: Number of seconds to offset
+          minimum: 1
+          type: integer
+      required:
+      - seconds
+      - type
+      title: TimeOffset
     MonitorConfigurationMetric:
       properties:
         type:
@@ -3578,6 +3733,7 @@ components:
             maxLength: 254
             minLength: 0
             type: string
+            errorMessage: Must be a valid lowercase email address.
           maxItems: 20
           minItems: 1
           type: array
@@ -3942,10 +4098,13 @@ components:
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
-          format: math-formula
+          format: tsuga-formula
           maxLength: 250
           minLength: 0
           type: string
+          errorMessage: "Must be a simple mathematical formula, and all variables\
+            \ in it should refer to queries (q1, q2, etc.). The formula you provided\
+            \ is invalid: ${0}"
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
@@ -4010,10 +4169,13 @@ components:
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
-          format: math-formula
+          format: tsuga-formula
           maxLength: 250
           minLength: 0
           type: string
+          errorMessage: "Must be a simple mathematical formula, and all variables\
+            \ in it should refer to queries (q1, q2, etc.). The formula you provided\
+            \ is invalid: ${0}"
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
@@ -4032,6 +4194,11 @@ components:
         precision:
           description: Number of decimal places to display in the value
           type: number
+        conditions:
+          description: Conditional formatting rules applied to the displayed value
+          items:
+            $ref: "#/components/schemas/ConditionalFormatting"
+          type: array
       required:
       - queries
       - source
@@ -4061,10 +4228,13 @@ components:
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
-          format: math-formula
+          format: tsuga-formula
           maxLength: 250
           minLength: 0
           type: string
+          errorMessage: "Must be a simple mathematical formula, and all variables\
+            \ in it should refer to queries (q1, q2, etc.). The formula you provided\
+            \ is invalid: ${0}"
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
@@ -4120,10 +4290,13 @@ components:
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
-          format: math-formula
+          format: tsuga-formula
           maxLength: 250
           minLength: 0
           type: string
+          errorMessage: "Must be a simple mathematical formula, and all variables\
+            \ in it should refer to queries (q1, q2, etc.). The formula you provided\
+            \ is invalid: ${0}"
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
@@ -4184,10 +4357,13 @@ components:
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
-          format: math-formula
+          format: tsuga-formula
           maxLength: 250
           minLength: 0
           type: string
+          errorMessage: "Must be a simple mathematical formula, and all variables\
+            \ in it should refer to queries (q1, q2, etc.). The formula you provided\
+            \ is invalid: ${0}"
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
@@ -4281,6 +4457,10 @@ components:
           items:
             $ref: "#/components/schemas/WidgetListColumn"
           type: array
+        listColumnsSize:
+          additionalProperties:
+            description: List column width by column id
+            type: number
         connectionId:
           description: Identifier of the connection to query
           maxLength: 250
@@ -4970,6 +5150,22 @@ components:
       required:
       - name
       - visibility
+    ResponseMetadata_pagination:
+      example:
+        pageCount: 0
+        totalCount: 0
+      properties:
+        totalCount:
+          description: The total number of items matching the query
+          minimum: 0
+          type: integer
+        pageCount:
+          description: The total number of pages available
+          minimum: 0
+          type: integer
+      required:
+      - pageCount
+      - totalCount
     Rule_teamsFilter_oneOf:
       properties:
         type:
@@ -5038,10 +5234,13 @@ components:
     MonitorConfigurationMetric_conditions_inner:
       properties:
         formula:
-          format: math-formula
+          format: tsuga-formula
           maxLength: 250
           minLength: 0
           type: string
+          errorMessage: "Must be a simple mathematical formula, and all variables\
+            \ in it should refer to queries (q1, q2, etc.). The formula you provided\
+            \ is invalid: ${0}"
         operator:
           enum:
           - greater_than
@@ -5096,7 +5295,7 @@ components:
       required:
       - type
       title: Aggregate
-    Function:
+    MonitorFunction:
       discriminator:
         mapping:
           per-second: "#/components/schemas/FunctionPerSecond"
@@ -5121,7 +5320,7 @@ components:
       - $ref: "#/components/schemas/FunctionSqrt"
       required:
       - type
-      title: Function
+      title: MonitorFunction
     MonitorAggregationQuery_fill_mode:
       properties:
         type:
@@ -5144,7 +5343,7 @@ components:
         functions:
           description: Post-processing functions applied to aggregation results
           items:
-            $ref: "#/components/schemas/Function"
+            $ref: "#/components/schemas/MonitorFunction"
           maxItems: 10
           type: array
         fill:
@@ -5161,10 +5360,13 @@ components:
     MonitorConfigurationAnomalyLog_condition:
       properties:
         formula:
-          format: math-formula
+          format: tsuga-formula
           maxLength: 250
           minLength: 0
           type: string
+          errorMessage: "Must be a simple mathematical formula, and all variables\
+            \ in it should refer to queries (q1, q2, etc.). The formula you provided\
+            \ is invalid: ${0}"
         conditionType:
           enum:
           - rate
@@ -5189,6 +5391,36 @@ components:
       required:
       - env
       - teamIds
+    Function:
+      discriminator:
+        mapping:
+          per-second: "#/components/schemas/FunctionPerSecond"
+          per-minute: "#/components/schemas/FunctionPerMinute"
+          per-hour: "#/components/schemas/FunctionPerHour"
+          rate: "#/components/schemas/FunctionRate"
+          increase: "#/components/schemas/FunctionIncrease"
+          rolling: "#/components/schemas/FunctionRolling"
+          log: "#/components/schemas/FunctionLog"
+          power: "#/components/schemas/FunctionPower"
+          sqrt: "#/components/schemas/FunctionSqrt"
+          last: "#/components/schemas/FunctionLast"
+          time-offset: "#/components/schemas/FunctionTimeOffset"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/FunctionPerSecond"
+      - $ref: "#/components/schemas/FunctionPerMinute"
+      - $ref: "#/components/schemas/FunctionPerHour"
+      - $ref: "#/components/schemas/FunctionRate"
+      - $ref: "#/components/schemas/FunctionIncrease"
+      - $ref: "#/components/schemas/FunctionRolling"
+      - $ref: "#/components/schemas/FunctionLog"
+      - $ref: "#/components/schemas/FunctionPower"
+      - $ref: "#/components/schemas/FunctionSqrt"
+      - $ref: "#/components/schemas/FunctionLast"
+      - $ref: "#/components/schemas/FunctionTimeOffset"
+      required:
+      - type
+      title: Function
     AggregationQuery:
       properties:
         aggregate:
@@ -5413,10 +5645,13 @@ components:
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
-          format: math-formula
+          format: tsuga-formula
           maxLength: 250
           minLength: 0
           type: string
+          errorMessage: "Must be a simple mathematical formula, and all variables\
+            \ in it should refer to queries (q1, q2, etc.). The formula you provided\
+            \ is invalid: ${0}"
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:

@@ -26,7 +26,8 @@ type GraphVisualizationList struct {
 	// Query that selects logs or database rows for the list
 	Query string `json:"query"`
 	// Custom columns to display for each log or database row
-	ListColumns []WidgetListColumn `json:"listColumns,omitempty"`
+	ListColumns     []WidgetListColumn `json:"listColumns,omitempty"`
+	ListColumnsSize map[string]float32 `json:"listColumnsSize,omitempty"`
 	// Identifier of the connection to query
 	ConnectionId         *string `json:"connectionId,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -158,6 +159,38 @@ func (o *GraphVisualizationList) SetListColumns(v []WidgetListColumn) {
 	o.ListColumns = v
 }
 
+// GetListColumnsSize returns the ListColumnsSize field value if set, zero value otherwise.
+func (o *GraphVisualizationList) GetListColumnsSize() map[string]float32 {
+	if o == nil || IsNil(o.ListColumnsSize) {
+		var ret map[string]float32
+		return ret
+	}
+	return o.ListColumnsSize
+}
+
+// GetListColumnsSizeOk returns a tuple with the ListColumnsSize field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationList) GetListColumnsSizeOk() (map[string]float32, bool) {
+	if o == nil || IsNil(o.ListColumnsSize) {
+		return map[string]float32{}, false
+	}
+	return o.ListColumnsSize, true
+}
+
+// HasListColumnsSize returns a boolean if a field has been set.
+func (o *GraphVisualizationList) HasListColumnsSize() bool {
+	if o != nil && !IsNil(o.ListColumnsSize) {
+		return true
+	}
+
+	return false
+}
+
+// SetListColumnsSize gets a reference to the given map[string]float32 and assigns it to the ListColumnsSize field.
+func (o *GraphVisualizationList) SetListColumnsSize(v map[string]float32) {
+	o.ListColumnsSize = v
+}
+
 // GetConnectionId returns the ConnectionId field value if set, zero value otherwise.
 func (o *GraphVisualizationList) GetConnectionId() string {
 	if o == nil || IsNil(o.ConnectionId) {
@@ -205,6 +238,9 @@ func (o GraphVisualizationList) ToMap() (map[string]interface{}, error) {
 	toSerialize["query"] = o.Query
 	if !IsNil(o.ListColumns) {
 		toSerialize["listColumns"] = o.ListColumns
+	}
+	if !IsNil(o.ListColumnsSize) {
+		toSerialize["listColumnsSize"] = o.ListColumnsSize
 	}
 	if !IsNil(o.ConnectionId) {
 		toSerialize["connectionId"] = o.ConnectionId
@@ -258,6 +294,7 @@ func (o *GraphVisualizationList) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "source")
 		delete(additionalProperties, "query")
 		delete(additionalProperties, "listColumns")
+		delete(additionalProperties, "listColumnsSize")
 		delete(additionalProperties, "connectionId")
 		o.AdditionalProperties = additionalProperties
 	}

@@ -99,7 +99,7 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | The monitor ID to delete
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -119,7 +119,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | The monitor ID to delete | 
 
 ### Other Parameters
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## ListMonitors
 
-> ListMonitorsResponse ListMonitors(ctx).Execute()
+> ListMonitorsResponse ListMonitors(ctx).Limit(limit).Offset(offset).Owners(owners).Execute()
 
 
 
@@ -239,10 +239,13 @@ import (
 )
 
 func main() {
+	limit := int32(56) // int32 |  (optional)
+	offset := int32(56) // int32 |  (optional)
+	owners := []string{"Inner_example"} // []string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MonitorsAPI.ListMonitors(context.Background()).Execute()
+	resp, r, err := apiClient.MonitorsAPI.ListMonitors(context.Background()).Limit(limit).Offset(offset).Owners(owners).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MonitorsAPI.ListMonitors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -254,12 +257,18 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiListMonitorsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int32** |  | 
+ **offset** | **int32** |  | 
+ **owners** | **[]string** |  | 
 
 ### Return type
 

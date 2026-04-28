@@ -1,46 +1,46 @@
-# FunctionIncrease
+# FunctionLast
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | &#x60;Increase&#x60; is designed for cumulative metrics. It computes the increase of cumulative metrics by automatically handling counter resets. When used with an aggregation such as &#x60;sum&#x60; it combines all series without requiring an explicit group-by. | 
+**Type** | **string** | Takes the last value of the metric for the selected time frame | 
 
 ## Methods
 
-### NewFunctionIncrease
+### NewFunctionLast
 
-`func NewFunctionIncrease(type_ string, ) *FunctionIncrease`
+`func NewFunctionLast(type_ string, ) *FunctionLast`
 
-NewFunctionIncrease instantiates a new FunctionIncrease object
+NewFunctionLast instantiates a new FunctionLast object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewFunctionIncreaseWithDefaults
+### NewFunctionLastWithDefaults
 
-`func NewFunctionIncreaseWithDefaults() *FunctionIncrease`
+`func NewFunctionLastWithDefaults() *FunctionLast`
 
-NewFunctionIncreaseWithDefaults instantiates a new FunctionIncrease object
+NewFunctionLastWithDefaults instantiates a new FunctionLast object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetType
 
-`func (o *FunctionIncrease) GetType() string`
+`func (o *FunctionLast) GetType() string`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *FunctionIncrease) GetTypeOk() (*string, bool)`
+`func (o *FunctionLast) GetTypeOk() (*string, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *FunctionIncrease) SetType(v string)`
+`func (o *FunctionLast) SetType(v string)`
 
 SetType sets Type field to given value.
 

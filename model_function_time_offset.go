@@ -15,40 +15,41 @@ import (
 	"fmt"
 )
 
-// checks if the AggregateCount type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &AggregateCount{}
+// checks if the FunctionTimeOffset type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FunctionTimeOffset{}
 
-// AggregateCount struct for AggregateCount
-type AggregateCount struct {
-	// Counts the total number of records
+// FunctionTimeOffset struct for FunctionTimeOffset
+type FunctionTimeOffset struct {
+	// Shifts a query's data backward by a specified duration for easy comparison over different periods of time.
 	Type string `json:"type"`
-	// Attribute containing the values to aggregate
-	Field                *string `json:"field,omitempty"`
+	// Number of seconds to offset
+	Seconds              int32 `json:"seconds"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _AggregateCount AggregateCount
+type _FunctionTimeOffset FunctionTimeOffset
 
-// NewAggregateCount instantiates a new AggregateCount object
+// NewFunctionTimeOffset instantiates a new FunctionTimeOffset object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAggregateCount(type_ string) *AggregateCount {
-	this := AggregateCount{}
+func NewFunctionTimeOffset(type_ string, seconds int32) *FunctionTimeOffset {
+	this := FunctionTimeOffset{}
 	this.Type = type_
+	this.Seconds = seconds
 	return &this
 }
 
-// NewAggregateCountWithDefaults instantiates a new AggregateCount object
+// NewFunctionTimeOffsetWithDefaults instantiates a new FunctionTimeOffset object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewAggregateCountWithDefaults() *AggregateCount {
-	this := AggregateCount{}
+func NewFunctionTimeOffsetWithDefaults() *FunctionTimeOffset {
+	this := FunctionTimeOffset{}
 	return &this
 }
 
 // GetType returns the Type field value
-func (o *AggregateCount) GetType() string {
+func (o *FunctionTimeOffset) GetType() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -59,7 +60,7 @@ func (o *AggregateCount) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *AggregateCount) GetTypeOk() (*string, bool) {
+func (o *FunctionTimeOffset) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -67,43 +68,35 @@ func (o *AggregateCount) GetTypeOk() (*string, bool) {
 }
 
 // SetType sets field value
-func (o *AggregateCount) SetType(v string) {
+func (o *FunctionTimeOffset) SetType(v string) {
 	o.Type = v
 }
 
-// GetField returns the Field field value if set, zero value otherwise.
-func (o *AggregateCount) GetField() string {
-	if o == nil || IsNil(o.Field) {
-		var ret string
+// GetSeconds returns the Seconds field value
+func (o *FunctionTimeOffset) GetSeconds() int32 {
+	if o == nil {
+		var ret int32
 		return ret
 	}
-	return *o.Field
+
+	return o.Seconds
 }
 
-// GetFieldOk returns a tuple with the Field field value if set, nil otherwise
+// GetSecondsOk returns a tuple with the Seconds field value
 // and a boolean to check if the value has been set.
-func (o *AggregateCount) GetFieldOk() (*string, bool) {
-	if o == nil || IsNil(o.Field) {
+func (o *FunctionTimeOffset) GetSecondsOk() (*int32, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Field, true
+	return &o.Seconds, true
 }
 
-// HasField returns a boolean if a field has been set.
-func (o *AggregateCount) HasField() bool {
-	if o != nil && !IsNil(o.Field) {
-		return true
-	}
-
-	return false
+// SetSeconds sets field value
+func (o *FunctionTimeOffset) SetSeconds(v int32) {
+	o.Seconds = v
 }
 
-// SetField gets a reference to the given string and assigns it to the Field field.
-func (o *AggregateCount) SetField(v string) {
-	o.Field = &v
-}
-
-func (o AggregateCount) MarshalJSON() ([]byte, error) {
+func (o FunctionTimeOffset) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -111,12 +104,10 @@ func (o AggregateCount) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o AggregateCount) ToMap() (map[string]interface{}, error) {
+func (o FunctionTimeOffset) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
-	if !IsNil(o.Field) {
-		toSerialize["field"] = o.Field
-	}
+	toSerialize["seconds"] = o.Seconds
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -125,12 +116,13 @@ func (o AggregateCount) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *AggregateCount) UnmarshalJSON(data []byte) (err error) {
+func (o *FunctionTimeOffset) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"type",
+		"seconds",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -147,59 +139,59 @@ func (o *AggregateCount) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varAggregateCount := _AggregateCount{}
+	varFunctionTimeOffset := _FunctionTimeOffset{}
 
-	err = json.Unmarshal(data, &varAggregateCount)
+	err = json.Unmarshal(data, &varFunctionTimeOffset)
 
 	if err != nil {
 		return err
 	}
 
-	*o = AggregateCount(varAggregateCount)
+	*o = FunctionTimeOffset(varFunctionTimeOffset)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
-		delete(additionalProperties, "field")
+		delete(additionalProperties, "seconds")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
 }
 
-type NullableAggregateCount struct {
-	value *AggregateCount
+type NullableFunctionTimeOffset struct {
+	value *FunctionTimeOffset
 	isSet bool
 }
 
-func (v NullableAggregateCount) Get() *AggregateCount {
+func (v NullableFunctionTimeOffset) Get() *FunctionTimeOffset {
 	return v.value
 }
 
-func (v *NullableAggregateCount) Set(val *AggregateCount) {
+func (v *NullableFunctionTimeOffset) Set(val *FunctionTimeOffset) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableAggregateCount) IsSet() bool {
+func (v NullableFunctionTimeOffset) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableAggregateCount) Unset() {
+func (v *NullableFunctionTimeOffset) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableAggregateCount(val *AggregateCount) *NullableAggregateCount {
-	return &NullableAggregateCount{value: val, isSet: true}
+func NewNullableFunctionTimeOffset(val *FunctionTimeOffset) *NullableFunctionTimeOffset {
+	return &NullableFunctionTimeOffset{value: val, isSet: true}
 }
 
-func (v NullableAggregateCount) MarshalJSON() ([]byte, error) {
+func (v NullableFunctionTimeOffset) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableAggregateCount) UnmarshalJSON(src []byte) error {
+func (v *NullableFunctionTimeOffset) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

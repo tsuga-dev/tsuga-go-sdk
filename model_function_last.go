@@ -15,38 +15,38 @@ import (
 	"fmt"
 )
 
-// checks if the FunctionIncrease type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &FunctionIncrease{}
+// checks if the FunctionLast type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FunctionLast{}
 
-// FunctionIncrease struct for FunctionIncrease
-type FunctionIncrease struct {
-	// `Increase` is designed for cumulative metrics. It computes the increase of cumulative metrics by automatically handling counter resets. When used with an aggregation such as `sum` it combines all series without requiring an explicit group-by.
+// FunctionLast struct for FunctionLast
+type FunctionLast struct {
+	// Takes the last value of the metric for the selected time frame
 	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _FunctionIncrease FunctionIncrease
+type _FunctionLast FunctionLast
 
-// NewFunctionIncrease instantiates a new FunctionIncrease object
+// NewFunctionLast instantiates a new FunctionLast object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFunctionIncrease(type_ string) *FunctionIncrease {
-	this := FunctionIncrease{}
+func NewFunctionLast(type_ string) *FunctionLast {
+	this := FunctionLast{}
 	this.Type = type_
 	return &this
 }
 
-// NewFunctionIncreaseWithDefaults instantiates a new FunctionIncrease object
+// NewFunctionLastWithDefaults instantiates a new FunctionLast object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewFunctionIncreaseWithDefaults() *FunctionIncrease {
-	this := FunctionIncrease{}
+func NewFunctionLastWithDefaults() *FunctionLast {
+	this := FunctionLast{}
 	return &this
 }
 
 // GetType returns the Type field value
-func (o *FunctionIncrease) GetType() string {
+func (o *FunctionLast) GetType() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -57,7 +57,7 @@ func (o *FunctionIncrease) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *FunctionIncrease) GetTypeOk() (*string, bool) {
+func (o *FunctionLast) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,11 +65,11 @@ func (o *FunctionIncrease) GetTypeOk() (*string, bool) {
 }
 
 // SetType sets field value
-func (o *FunctionIncrease) SetType(v string) {
+func (o *FunctionLast) SetType(v string) {
 	o.Type = v
 }
 
-func (o FunctionIncrease) MarshalJSON() ([]byte, error) {
+func (o FunctionLast) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -77,7 +77,7 @@ func (o FunctionIncrease) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o FunctionIncrease) ToMap() (map[string]interface{}, error) {
+func (o FunctionLast) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
 
@@ -88,7 +88,7 @@ func (o FunctionIncrease) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *FunctionIncrease) UnmarshalJSON(data []byte) (err error) {
+func (o *FunctionLast) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -110,15 +110,15 @@ func (o *FunctionIncrease) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varFunctionIncrease := _FunctionIncrease{}
+	varFunctionLast := _FunctionLast{}
 
-	err = json.Unmarshal(data, &varFunctionIncrease)
+	err = json.Unmarshal(data, &varFunctionLast)
 
 	if err != nil {
 		return err
 	}
 
-	*o = FunctionIncrease(varFunctionIncrease)
+	*o = FunctionLast(varFunctionLast)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -130,38 +130,38 @@ func (o *FunctionIncrease) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableFunctionIncrease struct {
-	value *FunctionIncrease
+type NullableFunctionLast struct {
+	value *FunctionLast
 	isSet bool
 }
 
-func (v NullableFunctionIncrease) Get() *FunctionIncrease {
+func (v NullableFunctionLast) Get() *FunctionLast {
 	return v.value
 }
 
-func (v *NullableFunctionIncrease) Set(val *FunctionIncrease) {
+func (v *NullableFunctionLast) Set(val *FunctionLast) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableFunctionIncrease) IsSet() bool {
+func (v NullableFunctionLast) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableFunctionIncrease) Unset() {
+func (v *NullableFunctionLast) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableFunctionIncrease(val *FunctionIncrease) *NullableFunctionIncrease {
-	return &NullableFunctionIncrease{value: val, isSet: true}
+func NewNullableFunctionLast(val *FunctionLast) *NullableFunctionLast {
+	return &NullableFunctionLast{value: val, isSet: true}
 }
 
-func (v NullableFunctionIncrease) MarshalJSON() ([]byte, error) {
+func (v NullableFunctionLast) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableFunctionIncrease) UnmarshalJSON(src []byte) error {
+func (v *NullableFunctionLast) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
