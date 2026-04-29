@@ -13,6 +13,8 @@ security:
 tags:
 - description: Data aggregation and analytics
   name: aggregation
+- description: Cluster management
+  name: clusters
 - description: Custom tag keys for tracking usage across telemetry data
   name: custom-usage-tags
 - description: Visualization of telemetry data with customizable graphs and filters
@@ -5069,6 +5071,7 @@ components:
             - monitor
             - notification-rule
             - notification-silence
+            - slo
             type: string
           type: array
       required:
@@ -5295,7 +5298,7 @@ components:
       required:
       - type
       title: Aggregate
-    MonitorFunction:
+    Function:
       discriminator:
         mapping:
           per-second: "#/components/schemas/FunctionPerSecond"
@@ -5307,6 +5310,8 @@ components:
           log: "#/components/schemas/FunctionLog"
           power: "#/components/schemas/FunctionPower"
           sqrt: "#/components/schemas/FunctionSqrt"
+          last: "#/components/schemas/FunctionLast"
+          time-offset: "#/components/schemas/FunctionTimeOffset"
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/FunctionPerSecond"
@@ -5318,9 +5323,11 @@ components:
       - $ref: "#/components/schemas/FunctionLog"
       - $ref: "#/components/schemas/FunctionPower"
       - $ref: "#/components/schemas/FunctionSqrt"
+      - $ref: "#/components/schemas/FunctionLast"
+      - $ref: "#/components/schemas/FunctionTimeOffset"
       required:
       - type
-      title: MonitorFunction
+      title: Function
     MonitorAggregationQuery_fill_mode:
       properties:
         type:
@@ -5343,7 +5350,7 @@ components:
         functions:
           description: Post-processing functions applied to aggregation results
           items:
-            $ref: "#/components/schemas/MonitorFunction"
+            $ref: "#/components/schemas/Function"
           maxItems: 10
           type: array
         fill:
@@ -5391,36 +5398,6 @@ components:
       required:
       - env
       - teamIds
-    Function:
-      discriminator:
-        mapping:
-          per-second: "#/components/schemas/FunctionPerSecond"
-          per-minute: "#/components/schemas/FunctionPerMinute"
-          per-hour: "#/components/schemas/FunctionPerHour"
-          rate: "#/components/schemas/FunctionRate"
-          increase: "#/components/schemas/FunctionIncrease"
-          rolling: "#/components/schemas/FunctionRolling"
-          log: "#/components/schemas/FunctionLog"
-          power: "#/components/schemas/FunctionPower"
-          sqrt: "#/components/schemas/FunctionSqrt"
-          last: "#/components/schemas/FunctionLast"
-          time-offset: "#/components/schemas/FunctionTimeOffset"
-        propertyName: type
-      oneOf:
-      - $ref: "#/components/schemas/FunctionPerSecond"
-      - $ref: "#/components/schemas/FunctionPerMinute"
-      - $ref: "#/components/schemas/FunctionPerHour"
-      - $ref: "#/components/schemas/FunctionRate"
-      - $ref: "#/components/schemas/FunctionIncrease"
-      - $ref: "#/components/schemas/FunctionRolling"
-      - $ref: "#/components/schemas/FunctionLog"
-      - $ref: "#/components/schemas/FunctionPower"
-      - $ref: "#/components/schemas/FunctionSqrt"
-      - $ref: "#/components/schemas/FunctionLast"
-      - $ref: "#/components/schemas/FunctionTimeOffset"
-      required:
-      - type
-      title: Function
     AggregationQuery:
       properties:
         aggregate:
