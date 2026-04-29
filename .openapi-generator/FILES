@@ -115,7 +115,6 @@ docs/MonitorConfigurationMetric.md
 docs/MonitorConfigurationMetricConditionsInner.md
 docs/MonitorConfigurationMetricGroupByFieldsInner.md
 docs/MonitorConfigurationTrace.md
-docs/MonitorFunction.md
 docs/MonitorsAPI.md
 docs/Normalizer.md
 docs/NotificationRulesAPI.md
@@ -272,7 +271,6 @@ model_monitor_configuration_metric.go
 model_monitor_configuration_metric_conditions_inner.go
 model_monitor_configuration_metric_group_by_fields_inner.go
 model_monitor_configuration_trace.go
-model_monitor_function.go
 model_normalizer.go
 model_response_metadata.go
 model_response_metadata_pagination.go
