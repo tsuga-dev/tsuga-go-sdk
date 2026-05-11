@@ -56,7 +56,8 @@ paths:
       description: Retrieve all dashboards
       operationId: listDashboards
       parameters:
-      - explode: true
+      - description: The maximum number of items to return
+        explode: true
         in: query
         name: limit
         required: false
@@ -65,7 +66,8 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - explode: true
+      - description: The offset of the first item to return
+        explode: true
         in: query
         name: offset
         required: false
@@ -394,12 +396,89 @@ paths:
               style: simple
       tags:
       - dashboards
+  /v1/dashboards/{id}/graphs/{graphId}:
+    put:
+      description: Update a single graph within a dashboard by ID.
+      operationId: updateDashboardGraph
+      parameters:
+      - description: The dashboard ID containing the graph
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      - description: The graph ID to update
+        explode: false
+        in: path
+        name: graphId
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/updateDashboardGraph_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateDashboardGraphResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - dashboards
   /v1/monitors:
     get:
       description: Retrieve all monitors
       operationId: listMonitors
       parameters:
-      - explode: true
+      - description: The maximum number of items to return
+        explode: true
         in: query
         name: limit
         required: false
@@ -408,7 +487,8 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - explode: true
+      - description: The offset of the first item to return
+        explode: true
         in: query
         name: offset
         required: false
@@ -534,6 +614,61 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CreateMonitorResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - monitors
+  /v1/monitors/query:
+    post:
+      description: "Query monitors with filters, sorting, and pagination"
+      operationId: queryMonitors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/queryMonitors_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueryMonitorsResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -807,7 +942,8 @@ paths:
       description: Retrieve all notification rules
       operationId: listNotificationRules
       parameters:
-      - explode: true
+      - description: The maximum number of items to return
+        explode: true
         in: query
         name: limit
         required: false
@@ -816,7 +952,8 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - explode: true
+      - description: The offset of the first item to return
+        explode: true
         in: query
         name: offset
         required: false
@@ -1438,7 +1575,8 @@ paths:
       description: Retrieve all teams
       operationId: listTeams
       parameters:
-      - explode: true
+      - description: The maximum number of items to return
+        explode: true
         in: query
         name: limit
         required: false
@@ -1447,7 +1585,8 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - explode: true
+      - description: The offset of the first item to return
+        explode: true
         in: query
         name: offset
         required: false
@@ -2165,6 +2304,141 @@ components:
       required:
       - data
       - requestId
+    UpdateDashboardGraphResponse:
+      example:
+        data:
+          layout:
+            w: 9.301444243932576
+            x: 2.3021358869347655
+            h: 3.616076749251911
+            "y": 7.061401241503109
+          visualization:
+            visibleSeries:
+            - true
+            - true
+            aliases:
+              formula: formula
+              queries:
+                key: queries
+            precision: 1.4658129805029452
+            yAxisSettings:
+              min:
+                type: auto
+              max: null
+              scale:
+                type: pow
+                exponent: 0.5637376656633328
+              alwaysIncludeZero: true
+            source: logs
+            groupBy:
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+            - limit: 0.8008281904610115
+              fields:
+              - fields
+            type: timeseries
+            queries:
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
+              aggregate:
+                field: field
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
+              aggregate:
+                field: field
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
+              aggregate:
+                field: field
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
+              aggregate:
+                field: field
+                type: count
+            - filter: filter
+              functions:
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              - type: per-second
+              fill:
+                mode:
+                  type: zero
+              aggregate:
+                field: field
+                type: count
+            thresholds:
+            - level: alert
+              value: 5.962133916683182
+            - level: alert
+              value: 5.962133916683182
+            normalizer:
+              unit: ns
+              type: duration
+            legendMode: table
+            formula: formula
+            timeBucket:
+              metric: sec
+              time: 6.027456183070403
+          name: name
+          description: description
+          id: id
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Graph"
+      required:
+      - data
+      - requestId
     DeleteDashboardResponse:
       example:
         data:
@@ -2260,6 +2534,75 @@ components:
       - permissions
       - priority
     ListMonitorsResponse:
+      example:
+        metadata:
+          pagination:
+            pageCount: 0
+            totalCount: 0
+        data:
+        - id: 123-456-abc
+          name: High Error Rate Alert
+          message: Error rate exceeded threshold. Check the API gateway logs.
+          tags:
+          - key: severity
+            value: critical
+          configuration:
+            type: log
+            timeframe: 5
+            groupByFields: []
+            queries:
+            - aggregate:
+                type: count
+              filter: level:ERROR service:api-gateway
+            conditions:
+            - formula: q1
+              operator: greater_than
+              threshold: 100
+            noDataBehavior: resolve
+          priority: 1
+          owner: abc-123-def
+          dashboardId: 789-abc-def
+          permissions: all
+          clusterIds: []
+        - id: 123-456-abc
+          name: High Error Rate Alert
+          message: Error rate exceeded threshold. Check the API gateway logs.
+          tags:
+          - key: severity
+            value: critical
+          configuration:
+            type: log
+            timeframe: 5
+            groupByFields: []
+            queries:
+            - aggregate:
+                type: count
+              filter: level:ERROR service:api-gateway
+            conditions:
+            - formula: q1
+              operator: greater_than
+              threshold: 100
+            noDataBehavior: resolve
+          priority: 1
+          owner: abc-123-def
+          dashboardId: 789-abc-def
+          permissions: all
+          clusterIds: []
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/Monitor"
+          type: array
+        metadata:
+          $ref: "#/components/schemas/ResponseMetadata"
+      required:
+      - data
+      - requestId
+    QueryMonitorsResponse:
       example:
         metadata:
           pagination:
@@ -3124,6 +3467,9 @@ components:
       - data
       - requestId
     AggregateCount:
+      example:
+        field: field
+        type: count
       properties:
         type:
           description: Counts the total number of records
@@ -3238,6 +3584,8 @@ components:
       - type
       title: Percentile
     FunctionPerSecond:
+      example:
+        type: per-second
       properties:
         type:
           description: Normalizes the metric to events per second
@@ -3735,7 +4083,8 @@ components:
             maxLength: 254
             minLength: 0
             type: string
-            errorMessage: Must be a valid lowercase email address.
+            errorMessage:
+              format: Must be a valid lowercase email address.
           maxItems: 20
           minItems: 1
           type: array
@@ -3990,6 +4339,9 @@ components:
       - integrationName
       - type
     DataNormalizerDuration:
+      example:
+        unit: ns
+        type: duration
       properties:
         type:
           description: Normalizes values as durations using standard time units
@@ -4077,6 +4429,120 @@ components:
       - unit
       title: Custom
     GraphVisualizationTimeseries:
+      example:
+        visibleSeries:
+        - true
+        - true
+        aliases:
+          formula: formula
+          queries:
+            key: queries
+        precision: 1.4658129805029452
+        yAxisSettings:
+          min:
+            type: auto
+          max: null
+          scale:
+            type: pow
+            exponent: 0.5637376656633328
+          alwaysIncludeZero: true
+        source: logs
+        groupBy:
+        - limit: 0.8008281904610115
+          fields:
+          - fields
+        - limit: 0.8008281904610115
+          fields:
+          - fields
+        - limit: 0.8008281904610115
+          fields:
+          - fields
+        - limit: 0.8008281904610115
+          fields:
+          - fields
+        - limit: 0.8008281904610115
+          fields:
+          - fields
+        type: timeseries
+        queries:
+        - filter: filter
+          functions:
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          fill:
+            mode:
+              type: zero
+          aggregate:
+            field: field
+            type: count
+        - filter: filter
+          functions:
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          fill:
+            mode:
+              type: zero
+          aggregate:
+            field: field
+            type: count
+        - filter: filter
+          functions:
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          fill:
+            mode:
+              type: zero
+          aggregate:
+            field: field
+            type: count
+        - filter: filter
+          functions:
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          fill:
+            mode:
+              type: zero
+          aggregate:
+            field: field
+            type: count
+        - filter: filter
+          functions:
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          - type: per-second
+          fill:
+            mode:
+              type: zero
+          aggregate:
+            field: field
+            type: count
+        thresholds:
+        - level: alert
+          value: 5.962133916683182
+        - level: alert
+          value: 5.962133916683182
+        normalizer:
+          unit: ns
+          type: duration
+        legendMode: table
+        formula: formula
+        timeBucket:
+          metric: sec
+          time: 6.027456183070403
       properties:
         type:
           description: Displays the aggregation as a time series chart
@@ -4104,9 +4570,10 @@ components:
           maxLength: 250
           minLength: 0
           type: string
-          errorMessage: "Must be a simple mathematical formula, and all variables\
-            \ in it should refer to queries (q1, q2, etc.). The formula you provided\
-            \ is invalid: ${0}"
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
@@ -4175,9 +4642,10 @@ components:
           maxLength: 250
           minLength: 0
           type: string
-          errorMessage: "Must be a simple mathematical formula, and all variables\
-            \ in it should refer to queries (q1, q2, etc.). The formula you provided\
-            \ is invalid: ${0}"
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
@@ -4234,9 +4702,10 @@ components:
           maxLength: 250
           minLength: 0
           type: string
-          errorMessage: "Must be a simple mathematical formula, and all variables\
-            \ in it should refer to queries (q1, q2, etc.). The formula you provided\
-            \ is invalid: ${0}"
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
@@ -4296,9 +4765,10 @@ components:
           maxLength: 250
           minLength: 0
           type: string
-          errorMessage: "Must be a simple mathematical formula, and all variables\
-            \ in it should refer to queries (q1, q2, etc.). The formula you provided\
-            \ is invalid: ${0}"
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
@@ -4363,9 +4833,10 @@ components:
           maxLength: 250
           minLength: 0
           type: string
-          errorMessage: "Must be a simple mathematical formula, and all variables\
-            \ in it should refer to queries (q1, q2, etc.). The formula you provided\
-            \ is invalid: ${0}"
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
@@ -4542,6 +5013,11 @@ components:
       - type
     Graph_layout:
       description: Grid layout coordinates for this widget
+      example:
+        w: 9.301444243932576
+        x: 2.3021358869347655
+        h: 3.616076749251911
+        "y": 7.061401241503109
       properties:
         x:
           description: Horizontal grid position of the widget
@@ -4561,6 +5037,129 @@ components:
       - x
       - "y"
     Graph:
+      example:
+        layout:
+          w: 9.301444243932576
+          x: 2.3021358869347655
+          h: 3.616076749251911
+          "y": 7.061401241503109
+        visualization:
+          visibleSeries:
+          - true
+          - true
+          aliases:
+            formula: formula
+            queries:
+              key: queries
+          precision: 1.4658129805029452
+          yAxisSettings:
+            min:
+              type: auto
+            max: null
+            scale:
+              type: pow
+              exponent: 0.5637376656633328
+            alwaysIncludeZero: true
+          source: logs
+          groupBy:
+          - limit: 0.8008281904610115
+            fields:
+            - fields
+          - limit: 0.8008281904610115
+            fields:
+            - fields
+          - limit: 0.8008281904610115
+            fields:
+            - fields
+          - limit: 0.8008281904610115
+            fields:
+            - fields
+          - limit: 0.8008281904610115
+            fields:
+            - fields
+          type: timeseries
+          queries:
+          - filter: filter
+            functions:
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            fill:
+              mode:
+                type: zero
+            aggregate:
+              field: field
+              type: count
+          - filter: filter
+            functions:
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            fill:
+              mode:
+                type: zero
+            aggregate:
+              field: field
+              type: count
+          - filter: filter
+            functions:
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            fill:
+              mode:
+                type: zero
+            aggregate:
+              field: field
+              type: count
+          - filter: filter
+            functions:
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            fill:
+              mode:
+                type: zero
+            aggregate:
+              field: field
+              type: count
+          - filter: filter
+            functions:
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            - type: per-second
+            fill:
+              mode:
+                type: zero
+            aggregate:
+              field: field
+              type: count
+          thresholds:
+          - level: alert
+            value: 5.962133916683182
+          - level: alert
+            value: 5.962133916683182
+          normalizer:
+            unit: ns
+            type: duration
+          legendMode: table
+          formula: formula
+          timeBucket:
+            metric: sec
+            time: 6.027456183070403
+        name: name
+        description: description
+        id: id
       properties:
         id:
           description: Identifier of the graph widget
@@ -4731,6 +5330,24 @@ components:
           - previous-3-months
           - previous-year
           type: string
+    updateDashboardGraph_request:
+      properties:
+        name:
+          description: Display name of the graph widget
+          maxLength: 250
+          minLength: 0
+          type: string
+        description:
+          description: Description of the graph widget
+          maxLength: 800
+          minLength: 1
+          type: string
+        visualization:
+          $ref: "#/components/schemas/Graph_visualization"
+        layout:
+          $ref: "#/components/schemas/Graph_layout"
+      required:
+      - visualization
     createMonitor_request_configuration:
       discriminator:
         mapping:
@@ -4806,6 +5423,106 @@ components:
       - owner
       - permissions
       - priority
+    queryMonitors_request_filters:
+      properties:
+        owners:
+          description: Restrict results to monitors owned by any of these team IDs
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 50
+          type: array
+        searchQuery:
+          description: Substring matched against monitor name and configuration
+          maxLength: 250
+          minLength: 1
+          type: string
+        tags:
+          description: Restrict results to monitors that have at least one of the
+            listed key/value tags
+          items:
+            $ref: "#/components/schemas/Tag"
+          maxItems: 50
+          type: array
+        priorities:
+          description: Restrict results to monitors with one of these priorities
+          items:
+            enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            type: number
+          maxItems: 5
+          type: array
+        types:
+          description: Restrict results to monitors with these types
+          items:
+            enum:
+            - threshold
+            - certificate-expiry
+            - anomaly-detection
+            - log-error-pattern
+            type: string
+          maxItems: 4
+          type: array
+        activity:
+          description: "Restrict results by activity status: active monitors or currently\
+            \ snoozed monitors"
+          enum:
+          - active
+          - snoozed
+          type: string
+        clusterIds:
+          description: Restrict results to monitors deployed to any of these cluster
+            IDs (monitors with no cluster restriction are always included)
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 50
+          type: array
+    queryMonitors_request_sort:
+      description: Optional sorting applied to the returned monitors
+      properties:
+        by:
+          description: Field to sort the returned monitors by
+          enum:
+          - priority
+          - type
+          - name
+          - owner
+          - tags
+          - clusterIds
+          - pauseUntil
+          - assetUpdatedAt
+          type: string
+        direction:
+          description: "Sort direction: ascending or descending"
+          enum:
+          - asc
+          - desc
+          type: string
+      required:
+      - by
+      - direction
+    queryMonitors_request:
+      properties:
+        limit:
+          description: The maximum number of items to return
+          maximum: 1000
+          minimum: 1
+          type: integer
+        offset:
+          description: The offset of the first item to return
+          minimum: 0
+          type: integer
+        filters:
+          $ref: "#/components/schemas/queryMonitors_request_filters"
+        sort:
+          $ref: "#/components/schemas/queryMonitors_request_sort"
     createNotificationRule_request_teamsFilter_oneOf:
       properties:
         type:
@@ -5241,9 +5958,10 @@ components:
           maxLength: 250
           minLength: 0
           type: string
-          errorMessage: "Must be a simple mathematical formula, and all variables\
-            \ in it should refer to queries (q1, q2, etc.). The formula you provided\
-            \ is invalid: ${0}"
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
         operator:
           enum:
           - greater_than
@@ -5329,6 +6047,8 @@ components:
       - type
       title: Function
     MonitorAggregationQuery_fill_mode:
+      example:
+        type: zero
       properties:
         type:
           enum:
@@ -5338,6 +6058,9 @@ components:
       required:
       - type
     MonitorAggregationQuery_fill:
+      example:
+        mode:
+          type: zero
       properties:
         mode:
           $ref: "#/components/schemas/MonitorAggregationQuery_fill_mode"
@@ -5371,9 +6094,10 @@ components:
           maxLength: 250
           minLength: 0
           type: string
-          errorMessage: "Must be a simple mathematical formula, and all variables\
-            \ in it should refer to queries (q1, q2, etc.). The formula you provided\
-            \ is invalid: ${0}"
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
         conditionType:
           enum:
           - rate
@@ -5399,6 +6123,20 @@ components:
       - env
       - teamIds
     AggregationQuery:
+      example:
+        filter: filter
+        functions:
+        - type: per-second
+        - type: per-second
+        - type: per-second
+        - type: per-second
+        - type: per-second
+        fill:
+          mode:
+            type: zero
+        aggregate:
+          field: field
+          type: count
       properties:
         aggregate:
           $ref: "#/components/schemas/Aggregate"
@@ -5420,6 +6158,10 @@ components:
       - aggregate
       title: AggregationQuery
     GraphVisualizationTimeseries_aliases:
+      example:
+        formula: formula
+        queries:
+          key: queries
       properties:
         formula:
           description: Optional alias for formula (only used for display in the UI)
@@ -5434,6 +6176,10 @@ components:
             minLength: 0
             type: string
     AggregationGroupBy:
+      example:
+        limit: 0.8008281904610115
+        fields:
+        - fields
       properties:
         fields:
           items:
@@ -5449,6 +6195,9 @@ components:
       - limit
       title: AggregationGroupBy
     GraphVisualizationTimeseries_timeBucket:
+      example:
+        metric: sec
+        time: 6.027456183070403
       properties:
         time:
           description: Number of units that make up each bar bucket
@@ -5485,6 +6234,9 @@ components:
       - type
       title: Normalizer
     ThresholdMarker:
+      example:
+        level: alert
+        value: 5.962133916683182
       properties:
         value:
           description: Y-axis value where the threshold marker is placed
@@ -5501,6 +6253,8 @@ components:
       - value
       title: ThresholdMarker
     GraphVisualizationTimeseries_yAxisSettings_min_oneOf:
+      example:
+        type: auto
       properties:
         type:
           enum:
@@ -5528,6 +6282,9 @@ components:
       required:
       - type
     GraphVisualizationTimeseries_yAxisSettings_scale_oneOf:
+      example:
+        type: pow
+        exponent: 0.5637376656633328
       properties:
         type:
           enum:
@@ -5558,6 +6315,14 @@ components:
       required:
       - type
     GraphVisualizationTimeseries_yAxisSettings:
+      example:
+        min:
+          type: auto
+        max: null
+        scale:
+          type: pow
+          exponent: 0.5637376656633328
+        alwaysIncludeZero: true
       properties:
         min:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings_min"
@@ -5626,9 +6391,10 @@ components:
           maxLength: 250
           minLength: 0
           type: string
-          errorMessage: "Must be a simple mathematical formula, and all variables\
-            \ in it should refer to queries (q1, q2, etc.). The formula you provided\
-            \ is invalid: ${0}"
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:

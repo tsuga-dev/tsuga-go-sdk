@@ -118,6 +118,10 @@ docs/MonitorConfigurationTrace.md
 docs/MonitorsAPI.md
 docs/Normalizer.md
 docs/NotificationRulesAPI.md
+docs/QueryMonitorsRequest.md
+docs/QueryMonitorsRequestFilters.md
+docs/QueryMonitorsRequestSort.md
+docs/QueryMonitorsResponse.md
 docs/ResponseMetadata.md
 docs/ResponseMetadataPagination.md
 docs/Rule.md
@@ -155,6 +159,8 @@ docs/TagPolicy.md
 docs/Team.md
 docs/TeamsAPI.md
 docs/ThresholdMarker.md
+docs/UpdateDashboardGraphRequest.md
+docs/UpdateDashboardGraphResponse.md
 docs/UpdateDashboardRequest.md
 docs/UpdateDashboardResponse.md
 docs/UpdateMonitorResponse.md
@@ -272,6 +278,10 @@ model_monitor_configuration_metric_conditions_inner.go
 model_monitor_configuration_metric_group_by_fields_inner.go
 model_monitor_configuration_trace.go
 model_normalizer.go
+model_query_monitors_request.go
+model_query_monitors_request_filters.go
+model_query_monitors_request_sort.go
+model_query_monitors_response.go
 model_response_metadata.go
 model_response_metadata_pagination.go
 model_rule.go
@@ -307,6 +317,8 @@ model_tag.go
 model_tag_policy.go
 model_team.go
 model_threshold_marker.go
+model_update_dashboard_graph_request.go
+model_update_dashboard_graph_response.go
 model_update_dashboard_request.go
 model_update_dashboard_response.go
 model_update_monitor_response.go

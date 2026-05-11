@@ -499,11 +499,13 @@ type NotificationRulesAPIListNotificationRulesRequest struct {
 	offset     *int32
 }
 
+// The maximum number of items to return
 func (r NotificationRulesAPIListNotificationRulesRequest) Limit(limit int32) NotificationRulesAPIListNotificationRulesRequest {
 	r.limit = &limit
 	return r
 }
 
+// The offset of the first item to return
 func (r NotificationRulesAPIListNotificationRulesRequest) Offset(offset int32) NotificationRulesAPIListNotificationRulesRequest {
 	r.offset = &offset
 	return r

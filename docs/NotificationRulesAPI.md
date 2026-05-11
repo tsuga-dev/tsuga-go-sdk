@@ -239,8 +239,8 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 |  (optional)
-	offset := int32(56) // int32 |  (optional)
+	limit := int32(56) // int32 | The maximum number of items to return (optional)
+	offset := int32(56) // int32 | The offset of the first item to return (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -265,8 +265,8 @@ Other parameters are passed through a pointer to a apiListNotificationRulesReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** |  | 
- **offset** | **int32** |  | 
+ **limit** | **int32** | The maximum number of items to return | 
+ **offset** | **int32** | The offset of the first item to return | 
 
 ### Return type
 
