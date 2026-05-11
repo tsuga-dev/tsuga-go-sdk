@@ -81,6 +81,20 @@ type MonitorsAPI interface {
 	ListMonitorsExecute(r MonitorsAPIListMonitorsRequest) (*ListMonitorsResponse, *http.Response, error)
 
 	/*
+		QueryMonitors Method for QueryMonitors
+
+		Query monitors with filters, sorting, and pagination
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return MonitorsAPIQueryMonitorsRequest
+	*/
+	QueryMonitors(ctx context.Context) MonitorsAPIQueryMonitorsRequest
+
+	// QueryMonitorsExecute executes the request
+	//  @return QueryMonitorsResponse
+	QueryMonitorsExecute(r MonitorsAPIQueryMonitorsRequest) (*QueryMonitorsResponse, *http.Response, error)
+
+	/*
 		UpdateMonitor Method for UpdateMonitor
 
 		Update a monitor by its id
@@ -501,11 +515,13 @@ type MonitorsAPIListMonitorsRequest struct {
 	owners     *[]string
 }
 
+// The maximum number of items to return
 func (r MonitorsAPIListMonitorsRequest) Limit(limit int32) MonitorsAPIListMonitorsRequest {
 	r.limit = &limit
 	return r
 }
 
+// The offset of the first item to return
 func (r MonitorsAPIListMonitorsRequest) Offset(offset int32) MonitorsAPIListMonitorsRequest {
 	r.offset = &offset
 	return r
@@ -591,6 +607,138 @@ func (a *MonitorsAPIService) ListMonitorsExecute(r MonitorsAPIListMonitorsReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
+			var v ClientErrorEnvelope
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode >= 500 {
+			var v ServerErrorEnvelope
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MonitorsAPIQueryMonitorsRequest struct {
+	ctx                  context.Context
+	ApiService           MonitorsAPI
+	queryMonitorsRequest *QueryMonitorsRequest
+}
+
+func (r MonitorsAPIQueryMonitorsRequest) QueryMonitorsRequest(queryMonitorsRequest QueryMonitorsRequest) MonitorsAPIQueryMonitorsRequest {
+	r.queryMonitorsRequest = &queryMonitorsRequest
+	return r
+}
+
+func (r MonitorsAPIQueryMonitorsRequest) Execute() (*QueryMonitorsResponse, *http.Response, error) {
+	return r.ApiService.QueryMonitorsExecute(r)
+}
+
+/*
+QueryMonitors Method for QueryMonitors
+
+Query monitors with filters, sorting, and pagination
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MonitorsAPIQueryMonitorsRequest
+*/
+func (a *MonitorsAPIService) QueryMonitors(ctx context.Context) MonitorsAPIQueryMonitorsRequest {
+	return MonitorsAPIQueryMonitorsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return QueryMonitorsResponse
+func (a *MonitorsAPIService) QueryMonitorsExecute(r MonitorsAPIQueryMonitorsRequest) (*QueryMonitorsResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *QueryMonitorsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MonitorsAPIService.QueryMonitors")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/monitors/query"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.queryMonitorsRequest == nil {
+		return localVarReturnValue, nil, reportError("queryMonitorsRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.queryMonitorsRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

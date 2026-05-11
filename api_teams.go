@@ -499,11 +499,13 @@ type TeamsAPIListTeamsRequest struct {
 	offset     *int32
 }
 
+// The maximum number of items to return
 func (r TeamsAPIListTeamsRequest) Limit(limit int32) TeamsAPIListTeamsRequest {
 	r.limit = &limit
 	return r
 }
 
+// The offset of the first item to return
 func (r TeamsAPIListTeamsRequest) Offset(offset int32) TeamsAPIListTeamsRequest {
 	r.offset = &offset
 	return r

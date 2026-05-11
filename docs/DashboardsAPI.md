@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**GetDashboard**](DashboardsAPI.md#GetDashboard) | **Get** /v1/dashboards/{id} | 
 [**ListDashboards**](DashboardsAPI.md#ListDashboards) | **Get** /v1/dashboards | 
 [**UpdateDashboard**](DashboardsAPI.md#UpdateDashboard) | **Put** /v1/dashboards/{id} | 
+[**UpdateDashboardGraph**](DashboardsAPI.md#UpdateDashboardGraph) | **Put** /v1/dashboards/{id}/graphs/{graphId} | 
 
 
 
@@ -239,8 +240,8 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 |  (optional)
-	offset := int32(56) // int32 |  (optional)
+	limit := int32(56) // int32 | The maximum number of items to return (optional)
+	offset := int32(56) // int32 | The offset of the first item to return (optional)
 	owners := []string{"Inner_example"} // []string | Filter by owner team IDs (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -266,8 +267,8 @@ Other parameters are passed through a pointer to a apiListDashboardsRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** |  | 
- **offset** | **int32** |  | 
+ **limit** | **int32** | The maximum number of items to return | 
+ **offset** | **int32** | The offset of the first item to return | 
  **owners** | **[]string** | Filter by owner team IDs | 
 
 ### Return type
@@ -345,6 +346,81 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UpdateDashboardResponse**](UpdateDashboardResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateDashboardGraph
+
+> UpdateDashboardGraphResponse UpdateDashboardGraph(ctx, id, graphId).UpdateDashboardGraphRequest(updateDashboardGraphRequest).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/tsuga-dev/tsuga-go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | The dashboard ID containing the graph
+	graphId := "graphId_example" // string | The graph ID to update
+	updateDashboardGraphRequest := *openapiclient.NewUpdateDashboardGraphRequest(openapiclient.Graph_visualization{GraphVisualizationBar: openapiclient.NewGraphVisualizationBar("Type_example", "Source_example", []openapiclient.AggregationQuery{*openapiclient.NewAggregationQuery(openapiclient.Aggregate{AggregateAverage: openapiclient.NewAggregateAverage("Type_example", "Field_example")})})}) // UpdateDashboardGraphRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DashboardsAPI.UpdateDashboardGraph(context.Background(), id, graphId).UpdateDashboardGraphRequest(updateDashboardGraphRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.UpdateDashboardGraph``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateDashboardGraph`: UpdateDashboardGraphResponse
+	fmt.Fprintf(os.Stdout, "Response from `DashboardsAPI.UpdateDashboardGraph`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The dashboard ID containing the graph | 
+**graphId** | **string** | The graph ID to update | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateDashboardGraphRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **updateDashboardGraphRequest** | [**UpdateDashboardGraphRequest**](UpdateDashboardGraphRequest.md) |  | 
+
+### Return type
+
+[**UpdateDashboardGraphResponse**](UpdateDashboardGraphResponse.md)
 
 ### Authorization
 

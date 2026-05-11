@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**DeleteMonitor**](MonitorsAPI.md#DeleteMonitor) | **Delete** /v1/monitors/{id} | 
 [**GetMonitor**](MonitorsAPI.md#GetMonitor) | **Get** /v1/monitors/{id} | 
 [**ListMonitors**](MonitorsAPI.md#ListMonitors) | **Get** /v1/monitors | 
+[**QueryMonitors**](MonitorsAPI.md#QueryMonitors) | **Post** /v1/monitors/query | 
 [**UpdateMonitor**](MonitorsAPI.md#UpdateMonitor) | **Put** /v1/monitors/{id} | 
 
 
@@ -239,8 +240,8 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 |  (optional)
-	offset := int32(56) // int32 |  (optional)
+	limit := int32(56) // int32 | The maximum number of items to return (optional)
+	offset := int32(56) // int32 | The offset of the first item to return (optional)
 	owners := []string{"Inner_example"} // []string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -266,8 +267,8 @@ Other parameters are passed through a pointer to a apiListMonitorsRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** |  | 
- **offset** | **int32** |  | 
+ **limit** | **int32** | The maximum number of items to return | 
+ **offset** | **int32** | The offset of the first item to return | 
  **owners** | **[]string** |  | 
 
 ### Return type
@@ -281,6 +282,72 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## QueryMonitors
+
+> QueryMonitorsResponse QueryMonitors(ctx).QueryMonitorsRequest(queryMonitorsRequest).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/tsuga-dev/tsuga-go-sdk"
+)
+
+func main() {
+	queryMonitorsRequest := *openapiclient.NewQueryMonitorsRequest() // QueryMonitorsRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MonitorsAPI.QueryMonitors(context.Background()).QueryMonitorsRequest(queryMonitorsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MonitorsAPI.QueryMonitors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `QueryMonitors`: QueryMonitorsResponse
+	fmt.Fprintf(os.Stdout, "Response from `MonitorsAPI.QueryMonitors`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiQueryMonitorsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **queryMonitorsRequest** | [**QueryMonitorsRequest**](QueryMonitorsRequest.md) |  | 
+
+### Return type
+
+[**QueryMonitorsResponse**](QueryMonitorsResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
