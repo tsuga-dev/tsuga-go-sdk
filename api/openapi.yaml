@@ -472,187 +472,6 @@ paths:
               style: simple
       tags:
       - dashboards
-  /v1/monitors:
-    get:
-      description: Retrieve all monitors
-      operationId: listMonitors
-      parameters:
-      - description: The maximum number of items to return
-        explode: true
-        in: query
-        name: limit
-        required: false
-        schema:
-          maximum: 1000
-          minimum: 1
-          type: integer
-        style: form
-      - description: The offset of the first item to return
-        explode: true
-        in: query
-        name: offset
-        required: false
-        schema:
-          minimum: 0
-          type: integer
-        style: form
-      - explode: true
-        in: query
-        name: owners
-        required: false
-        schema:
-          items:
-            maxLength: 250
-            minLength: 1
-            type: string
-          type: array
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListMonitorsResponse"
-          description: Successful response
-          headers:
-            x-request-id:
-              description: "Unique identifier for this API request, useful for debugging\
-                \ and support"
-              explode: false
-              schema:
-                type: string
-              style: simple
-        "4XX":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ClientErrorEnvelope"
-          description: Client error
-          headers:
-            x-request-id:
-              description: "Unique identifier for this API request, useful for debugging\
-                \ and support"
-              explode: false
-              schema:
-                type: string
-              style: simple
-        "5XX":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ServerErrorEnvelope"
-          description: Server error
-          headers:
-            x-request-id:
-              description: "Unique identifier for this API request, useful for debugging\
-                \ and support"
-              explode: false
-              schema:
-                type: string
-              style: simple
-      tags:
-      - monitors
-    post:
-      description: Create a new monitor
-      operationId: createMonitor
-      requestBody:
-        content:
-          application/json:
-            examples:
-              example1:
-                value:
-                  name: High Error Rate Alert
-                  message: Error rate exceeded threshold. Check the API gateway logs.
-                  tags:
-                  - key: severity
-                    value: critical
-                  configuration:
-                    type: log
-                    timeframe: 5
-                    groupByFields: []
-                    queries:
-                    - aggregate:
-                        type: count
-                      filter: level:ERROR service:api-gateway
-                    conditions:
-                    - formula: q1
-                      operator: greater_than
-                      threshold: 100
-                    noDataBehavior: resolve
-                  priority: 1
-                  owner: abc-123-def
-                  dashboardId: 789-abc-def
-                  permissions: all
-                  clusterIds: []
-              example2:
-                value:
-                  name: New Error Pattern Detector
-                  message: A new error pattern was detected in the logs.
-                  tags:
-                  - key: team
-                    value: platform
-                  configuration:
-                    type: log-error-pattern
-                    aggregationAlertLogic: each
-                    noDataBehavior: keep_last_status
-                    filter:
-                      teamIds:
-                      - abc-123-def
-                      env: production
-                      service: api-gateway
-                  priority: 2
-                  owner: abc-123-def
-                  dashboardId: 789-abc-def
-                  permissions: all
-                  clusterIds: []
-            schema:
-              $ref: "#/components/schemas/createMonitor_request"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CreateMonitorResponse"
-          description: Successful response
-          headers:
-            x-request-id:
-              description: "Unique identifier for this API request, useful for debugging\
-                \ and support"
-              explode: false
-              schema:
-                type: string
-              style: simple
-        "4XX":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ClientErrorEnvelope"
-          description: Client error
-          headers:
-            x-request-id:
-              description: "Unique identifier for this API request, useful for debugging\
-                \ and support"
-              explode: false
-              schema:
-                type: string
-              style: simple
-        "5XX":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ServerErrorEnvelope"
-          description: Server error
-          headers:
-            x-request-id:
-              description: "Unique identifier for this API request, useful for debugging\
-                \ and support"
-              explode: false
-              schema:
-                type: string
-              style: simple
-      tags:
-      - monitors
   /v1/monitors/query:
     post:
       description: "Query monitors with filters, sorting, and pagination"
@@ -660,6 +479,21 @@ paths:
       requestBody:
         content:
           application/json:
+            example:
+              filters:
+                owners:
+                - team-123-abc
+                searchQuery: service:api-gateway
+                tags:
+                - key: paging
+                  value: "true"
+                priorities:
+                - 1
+              sort:
+                by: name
+                direction: asc
+              limit: 10
+              offset: 0
             schema:
               $ref: "#/components/schemas/queryMonitors_request"
         required: true
@@ -890,7 +724,7 @@ paths:
                   permissions: all
                   clusterIds: []
             schema:
-              $ref: "#/components/schemas/createMonitor_request"
+              $ref: "#/components/schemas/updateMonitor_request"
         required: true
       responses:
         "200":
@@ -898,6 +732,108 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UpdateMonitorResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - monitors
+  /v1/monitors:
+    post:
+      description: Create a new monitor
+      operationId: createMonitor
+      requestBody:
+        content:
+          application/json:
+            examples:
+              example1:
+                value:
+                  name: High Error Rate Alert
+                  message: Error rate exceeded threshold. Check the API gateway logs.
+                  tags:
+                  - key: severity
+                    value: critical
+                  configuration:
+                    type: log
+                    timeframe: 5
+                    groupByFields: []
+                    queries:
+                    - aggregate:
+                        type: count
+                      filter: level:ERROR service:api-gateway
+                    conditions:
+                    - formula: q1
+                      operator: greater_than
+                      threshold: 100
+                    noDataBehavior: resolve
+                  priority: 1
+                  owner: abc-123-def
+                  dashboardId: 789-abc-def
+                  permissions: all
+                  clusterIds: []
+              example2:
+                value:
+                  name: New Error Pattern Detector
+                  message: A new error pattern was detected in the logs.
+                  tags:
+                  - key: team
+                    value: platform
+                  configuration:
+                    type: log-error-pattern
+                    aggregationAlertLogic: each
+                    noDataBehavior: keep_last_status
+                    filter:
+                      teamIds:
+                      - abc-123-def
+                      env: production
+                      service: api-gateway
+                  priority: 2
+                  owner: abc-123-def
+                  dashboardId: 789-abc-def
+                  permissions: all
+                  clusterIds: []
+            schema:
+              $ref: "#/components/schemas/updateMonitor_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateMonitorResponse"
           description: Successful response
           headers:
             x-request-id:
@@ -2308,124 +2244,30 @@ components:
       example:
         data:
           layout:
-            w: 9.301444243932576
-            x: 2.3021358869347655
-            h: 3.616076749251911
-            "y": 7.061401241503109
+            w: 5.637376656633329
+            x: 1.4658129805029452
+            h: 2.3021358869347655
+            "y": 5.962133916683182
           visualization:
-            visibleSeries:
-            - true
-            - true
-            aliases:
-              formula: formula
-              queries:
-                key: queries
-            precision: 1.4658129805029452
+            thresholds:
+            - level: alert
+              value: 0.8008281904610115
+            - level: alert
+              value: 0.8008281904610115
+            legendMode: table
+            connectionId: connectionId
             yAxisSettings:
               min:
                 type: auto
               max: null
               scale:
                 type: pow
-                exponent: 0.5637376656633328
+                exponent: 0.6027456183070403
               alwaysIncludeZero: true
-            source: logs
-            groupBy:
-            - limit: 0.8008281904610115
-              fields:
-              - fields
-            - limit: 0.8008281904610115
-              fields:
-              - fields
-            - limit: 0.8008281904610115
-              fields:
-              - fields
-            - limit: 0.8008281904610115
-              fields:
-              - fields
-            - limit: 0.8008281904610115
-              fields:
-              - fields
-            type: timeseries
+            type: timeseries-connection
             queries:
-            - filter: filter
-              functions:
-              - type: per-second
-              - type: per-second
-              - type: per-second
-              - type: per-second
-              - type: per-second
-              fill:
-                mode:
-                  type: zero
-              aggregate:
-                field: field
-                type: count
-            - filter: filter
-              functions:
-              - type: per-second
-              - type: per-second
-              - type: per-second
-              - type: per-second
-              - type: per-second
-              fill:
-                mode:
-                  type: zero
-              aggregate:
-                field: field
-                type: count
-            - filter: filter
-              functions:
-              - type: per-second
-              - type: per-second
-              - type: per-second
-              - type: per-second
-              - type: per-second
-              fill:
-                mode:
-                  type: zero
-              aggregate:
-                field: field
-                type: count
-            - filter: filter
-              functions:
-              - type: per-second
-              - type: per-second
-              - type: per-second
-              - type: per-second
-              - type: per-second
-              fill:
-                mode:
-                  type: zero
-              aggregate:
-                field: field
-                type: count
-            - filter: filter
-              functions:
-              - type: per-second
-              - type: per-second
-              - type: per-second
-              - type: per-second
-              - type: per-second
-              fill:
-                mode:
-                  type: zero
-              aggregate:
-                field: field
-                type: count
-            thresholds:
-            - level: alert
-              value: 5.962133916683182
-            - level: alert
-              value: 5.962133916683182
-            normalizer:
-              unit: ns
-              type: duration
-            legendMode: table
-            formula: formula
-            timeBucket:
-              metric: sec
-              time: 6.027456183070403
+            - queries
+            - queries
           name: name
           description: description
           id: id
@@ -2501,7 +2343,7 @@ components:
           title: Tags
           type: array
         configuration:
-          $ref: "#/components/schemas/createMonitor_request_configuration"
+          $ref: "#/components/schemas/updateMonitor_request_configuration"
         priority:
           description: Priority of the monitor
           enum:
@@ -2533,75 +2375,6 @@ components:
       - owner
       - permissions
       - priority
-    ListMonitorsResponse:
-      example:
-        metadata:
-          pagination:
-            pageCount: 0
-            totalCount: 0
-        data:
-        - id: 123-456-abc
-          name: High Error Rate Alert
-          message: Error rate exceeded threshold. Check the API gateway logs.
-          tags:
-          - key: severity
-            value: critical
-          configuration:
-            type: log
-            timeframe: 5
-            groupByFields: []
-            queries:
-            - aggregate:
-                type: count
-              filter: level:ERROR service:api-gateway
-            conditions:
-            - formula: q1
-              operator: greater_than
-              threshold: 100
-            noDataBehavior: resolve
-          priority: 1
-          owner: abc-123-def
-          dashboardId: 789-abc-def
-          permissions: all
-          clusterIds: []
-        - id: 123-456-abc
-          name: High Error Rate Alert
-          message: Error rate exceeded threshold. Check the API gateway logs.
-          tags:
-          - key: severity
-            value: critical
-          configuration:
-            type: log
-            timeframe: 5
-            groupByFields: []
-            queries:
-            - aggregate:
-                type: count
-              filter: level:ERROR service:api-gateway
-            conditions:
-            - formula: q1
-              operator: greater_than
-              threshold: 100
-            noDataBehavior: resolve
-          priority: 1
-          owner: abc-123-def
-          dashboardId: 789-abc-def
-          permissions: all
-          clusterIds: []
-        requestId: requestId
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          items:
-            $ref: "#/components/schemas/Monitor"
-          type: array
-        metadata:
-          $ref: "#/components/schemas/ResponseMetadata"
-      required:
-      - data
-      - requestId
     QueryMonitorsResponse:
       example:
         metadata:
@@ -3467,9 +3240,6 @@ components:
       - data
       - requestId
     AggregateCount:
-      example:
-        field: field
-        type: count
       properties:
         type:
           description: Counts the total number of records
@@ -3584,8 +3354,6 @@ components:
       - type
       title: Percentile
     FunctionPerSecond:
-      example:
-        type: per-second
       properties:
         type:
           description: Normalizes the metric to events per second
@@ -4339,9 +4107,6 @@ components:
       - integrationName
       - type
     DataNormalizerDuration:
-      example:
-        unit: ns
-        type: duration
       properties:
         type:
           description: Normalizes values as durations using standard time units
@@ -4428,121 +4193,107 @@ components:
       - type
       - unit
       title: Custom
-    GraphVisualizationTimeseries:
+    GraphVisualizationTimeseriesConnection:
       example:
-        visibleSeries:
-        - true
-        - true
-        aliases:
-          formula: formula
-          queries:
-            key: queries
-        precision: 1.4658129805029452
+        thresholds:
+        - level: alert
+          value: 0.8008281904610115
+        - level: alert
+          value: 0.8008281904610115
+        legendMode: table
+        connectionId: connectionId
         yAxisSettings:
           min:
             type: auto
           max: null
           scale:
             type: pow
-            exponent: 0.5637376656633328
+            exponent: 0.6027456183070403
           alwaysIncludeZero: true
-        source: logs
-        groupBy:
-        - limit: 0.8008281904610115
-          fields:
-          - fields
-        - limit: 0.8008281904610115
-          fields:
-          - fields
-        - limit: 0.8008281904610115
-          fields:
-          - fields
-        - limit: 0.8008281904610115
-          fields:
-          - fields
-        - limit: 0.8008281904610115
-          fields:
-          - fields
-        type: timeseries
+        type: timeseries-connection
         queries:
-        - filter: filter
-          functions:
-          - type: per-second
-          - type: per-second
-          - type: per-second
-          - type: per-second
-          - type: per-second
-          fill:
-            mode:
-              type: zero
-          aggregate:
-            field: field
-            type: count
-        - filter: filter
-          functions:
-          - type: per-second
-          - type: per-second
-          - type: per-second
-          - type: per-second
-          - type: per-second
-          fill:
-            mode:
-              type: zero
-          aggregate:
-            field: field
-            type: count
-        - filter: filter
-          functions:
-          - type: per-second
-          - type: per-second
-          - type: per-second
-          - type: per-second
-          - type: per-second
-          fill:
-            mode:
-              type: zero
-          aggregate:
-            field: field
-            type: count
-        - filter: filter
-          functions:
-          - type: per-second
-          - type: per-second
-          - type: per-second
-          - type: per-second
-          - type: per-second
-          fill:
-            mode:
-              type: zero
-          aggregate:
-            field: field
-            type: count
-        - filter: filter
-          functions:
-          - type: per-second
-          - type: per-second
-          - type: per-second
-          - type: per-second
-          - type: per-second
-          fill:
-            mode:
-              type: zero
-          aggregate:
-            field: field
-            type: count
+        - queries
+        - queries
+      properties:
+        type:
+          description: Displays the database rows-based aggregation as a time series
+            chart
+          enum:
+          - timeseries-connection
+          type: string
+        connectionId:
+          description: The ID of the connection to use to query the datastore.
+          maxLength: 250
+          minLength: 1
+          type: string
+        queries:
+          items:
+            description: The read-only SQL query to execute against the connection.
+            format: readonly-sql-query
+            maxLength: 50000
+            minLength: 1
+            type: string
+            errorMessage:
+              format: "Must be a readonly SQL query (only SELECT statements are allowed).\
+                \ The SQL query you provided is not a readonly SQL query: ${0}."
+          minItems: 1
+          type: array
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
         thresholds:
-        - level: alert
-          value: 5.962133916683182
-        - level: alert
-          value: 5.962133916683182
-        normalizer:
-          unit: ns
-          type: duration
-        legendMode: table
-        formula: formula
-        timeBucket:
-          metric: sec
-          time: 6.027456183070403
+          description: Threshold markers displayed on the chart
+          items:
+            $ref: "#/components/schemas/ThresholdMarker"
+          type: array
+        yAxisSettings:
+          $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings"
+      required:
+      - connectionId
+      - queries
+      - type
+      title: TimeseriesConnection
+    GraphVisualizationListConnection:
+      properties:
+        type:
+          description: Displays database rows as a tabular list
+          enum:
+          - list-connection
+          type: string
+        connectionId:
+          description: The ID of the connection to use to query the datastore.
+          maxLength: 250
+          minLength: 1
+          type: string
+        query:
+          description: The read-only SQL query to execute against the connection.
+          format: readonly-sql-query
+          maxLength: 50000
+          minLength: 1
+          type: string
+          errorMessage:
+            format: "Must be a readonly SQL query (only SELECT statements are allowed).\
+              \ The SQL query you provided is not a readonly SQL query: ${0}."
+        listColumns:
+          description: Custom columns to display for each database row
+          items:
+            $ref: "#/components/schemas/WidgetListColumn"
+          type: array
+        listColumnsSize:
+          additionalProperties:
+            description: List column width by column id
+            type: number
+      required:
+      - connectionId
+      - query
+      - type
+      title: ListConnection
+    GraphVisualizationTimeseries:
       properties:
         type:
           description: Displays the aggregation as a time series chart
@@ -4550,12 +4301,11 @@ components:
           - timeseries
           type: string
         source:
-          description: Data source being queried
+          description: Data source being queried for this aggregation
           enum:
           - logs
           - metrics
           - traces
-          - connections
           type: string
         queries:
           description: Aggregations that may be combined together in the same query
@@ -4608,7 +4358,7 @@ components:
             $ref: "#/components/schemas/ThresholdMarker"
           type: array
         yAxisSettings:
-          $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings"
+          $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings"
       required:
       - queries
       - source
@@ -4622,12 +4372,11 @@ components:
           - top-list
           type: string
         source:
-          description: Data source being queried
+          description: Data source being queried for this aggregation
           enum:
           - logs
           - metrics
           - traces
-          - connections
           type: string
         queries:
           description: Aggregations that may be combined together in the same query
@@ -4682,12 +4431,11 @@ components:
           - pie
           type: string
         source:
-          description: Data source being queried
+          description: Data source being queried for this aggregation
           enum:
           - logs
           - metrics
           - traces
-          - connections
           type: string
         queries:
           description: Aggregations that may be combined together in the same query
@@ -4745,12 +4493,11 @@ components:
           - query-value
           type: string
         source:
-          description: Data source being queried
+          description: Data source being queried for this aggregation
           enum:
           - logs
           - metrics
           - traces
-          - connections
           type: string
         queries:
           description: Aggregations that may be combined together in the same query
@@ -4813,12 +4560,11 @@ components:
           - bar
           type: string
         source:
-          description: Data source being queried
+          description: Data source being queried for this aggregation
           enum:
           - logs
           - metrics
           - traces
-          - connections
           type: string
         queries:
           description: Aggregations that may be combined together in the same query
@@ -4871,7 +4617,7 @@ components:
           - no-legend
           type: string
         yAxisSettings:
-          $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings"
+          $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings"
       required:
       - queries
       - source
@@ -4908,25 +4654,18 @@ components:
     GraphVisualizationList:
       properties:
         type:
-          description: Displays matching logs or database rows in a tabular list
+          description: Displays matching logs in a tabular list
           enum:
           - list
           type: string
-        source:
-          enum:
-          - logs
-          - connections
-          x-enum-descriptions:
-          - Indicates that the widget queries logs
-          - "Indicates that the widget queries connections like PostgreSQL, BigQuery,\
-            \ etc."
         query:
-          description: Query that selects logs or database rows for the list
-          maxLength: 50000
+          description: Query that selects logs for the list
+          format: tsuga-query
+          maxLength: 10000
           minLength: 0
           type: string
         listColumns:
-          description: Custom columns to display for each log or database row
+          description: Custom columns to display for each log
           items:
             $ref: "#/components/schemas/WidgetListColumn"
           type: array
@@ -4934,14 +4673,8 @@ components:
           additionalProperties:
             description: List column width by column id
             type: number
-        connectionId:
-          description: Identifier of the connection to query
-          maxLength: 250
-          minLength: 0
-          type: string
       required:
       - query
-      - source
       - type
       title: List
     GraphVisualizationNote:
@@ -4991,6 +4724,8 @@ components:
     Graph_visualization:
       discriminator:
         mapping:
+          timeseries-connection: "#/components/schemas/GraphVisualizationTimeseriesConnection"
+          list-connection: "#/components/schemas/GraphVisualizationListConnection"
           timeseries: "#/components/schemas/GraphVisualizationTimeseries"
           top-list: "#/components/schemas/GraphVisualizationTopList"
           pie: "#/components/schemas/GraphVisualizationPie"
@@ -5001,6 +4736,8 @@ components:
           note: "#/components/schemas/GraphVisualizationNote"
         propertyName: type
       oneOf:
+      - $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection"
+      - $ref: "#/components/schemas/GraphVisualizationListConnection"
       - $ref: "#/components/schemas/GraphVisualizationTimeseries"
       - $ref: "#/components/schemas/GraphVisualizationTopList"
       - $ref: "#/components/schemas/GraphVisualizationPie"
@@ -5014,10 +4751,10 @@ components:
     Graph_layout:
       description: Grid layout coordinates for this widget
       example:
-        w: 9.301444243932576
-        x: 2.3021358869347655
-        h: 3.616076749251911
-        "y": 7.061401241503109
+        w: 5.637376656633329
+        x: 1.4658129805029452
+        h: 2.3021358869347655
+        "y": 5.962133916683182
       properties:
         x:
           description: Horizontal grid position of the widget
@@ -5039,124 +4776,30 @@ components:
     Graph:
       example:
         layout:
-          w: 9.301444243932576
-          x: 2.3021358869347655
-          h: 3.616076749251911
-          "y": 7.061401241503109
+          w: 5.637376656633329
+          x: 1.4658129805029452
+          h: 2.3021358869347655
+          "y": 5.962133916683182
         visualization:
-          visibleSeries:
-          - true
-          - true
-          aliases:
-            formula: formula
-            queries:
-              key: queries
-          precision: 1.4658129805029452
+          thresholds:
+          - level: alert
+            value: 0.8008281904610115
+          - level: alert
+            value: 0.8008281904610115
+          legendMode: table
+          connectionId: connectionId
           yAxisSettings:
             min:
               type: auto
             max: null
             scale:
               type: pow
-              exponent: 0.5637376656633328
+              exponent: 0.6027456183070403
             alwaysIncludeZero: true
-          source: logs
-          groupBy:
-          - limit: 0.8008281904610115
-            fields:
-            - fields
-          - limit: 0.8008281904610115
-            fields:
-            - fields
-          - limit: 0.8008281904610115
-            fields:
-            - fields
-          - limit: 0.8008281904610115
-            fields:
-            - fields
-          - limit: 0.8008281904610115
-            fields:
-            - fields
-          type: timeseries
+          type: timeseries-connection
           queries:
-          - filter: filter
-            functions:
-            - type: per-second
-            - type: per-second
-            - type: per-second
-            - type: per-second
-            - type: per-second
-            fill:
-              mode:
-                type: zero
-            aggregate:
-              field: field
-              type: count
-          - filter: filter
-            functions:
-            - type: per-second
-            - type: per-second
-            - type: per-second
-            - type: per-second
-            - type: per-second
-            fill:
-              mode:
-                type: zero
-            aggregate:
-              field: field
-              type: count
-          - filter: filter
-            functions:
-            - type: per-second
-            - type: per-second
-            - type: per-second
-            - type: per-second
-            - type: per-second
-            fill:
-              mode:
-                type: zero
-            aggregate:
-              field: field
-              type: count
-          - filter: filter
-            functions:
-            - type: per-second
-            - type: per-second
-            - type: per-second
-            - type: per-second
-            - type: per-second
-            fill:
-              mode:
-                type: zero
-            aggregate:
-              field: field
-              type: count
-          - filter: filter
-            functions:
-            - type: per-second
-            - type: per-second
-            - type: per-second
-            - type: per-second
-            - type: per-second
-            fill:
-              mode:
-                type: zero
-            aggregate:
-              field: field
-              type: count
-          thresholds:
-          - level: alert
-            value: 5.962133916683182
-          - level: alert
-            value: 5.962133916683182
-          normalizer:
-            unit: ns
-            type: duration
-          legendMode: table
-          formula: formula
-          timeBucket:
-            metric: sec
-            time: 6.027456183070403
+          - queries
+          - queries
         name: name
         description: description
         id: id
@@ -5348,81 +4991,6 @@ components:
           $ref: "#/components/schemas/Graph_layout"
       required:
       - visualization
-    createMonitor_request_configuration:
-      discriminator:
-        mapping:
-          metric: "#/components/schemas/MonitorConfigurationMetric"
-          log: "#/components/schemas/MonitorConfigurationLog"
-          trace: "#/components/schemas/MonitorConfigurationTrace"
-          anomaly-log: "#/components/schemas/MonitorConfigurationAnomalyLog"
-          anomaly-metric: "#/components/schemas/MonitorConfigurationAnomalyMetric"
-          log-error-pattern: "#/components/schemas/MonitorConfigurationLogErrorPattern"
-          certificate-expiry: "#/components/schemas/MonitorConfigurationCertificateExpiry"
-        propertyName: type
-      oneOf:
-      - $ref: "#/components/schemas/MonitorConfigurationMetric"
-      - $ref: "#/components/schemas/MonitorConfigurationLog"
-      - $ref: "#/components/schemas/MonitorConfigurationTrace"
-      - $ref: "#/components/schemas/MonitorConfigurationAnomalyLog"
-      - $ref: "#/components/schemas/MonitorConfigurationAnomalyMetric"
-      - $ref: "#/components/schemas/MonitorConfigurationLogErrorPattern"
-      - $ref: "#/components/schemas/MonitorConfigurationCertificateExpiry"
-      required:
-      - type
-    createMonitor_request:
-      properties:
-        name:
-          maxLength: 250
-          minLength: 0
-          type: string
-        message:
-          maxLength: 50000
-          minLength: 0
-          type: string
-        tags:
-          description: List of key/value tags applied to the resource
-          items:
-            $ref: "#/components/schemas/Tag"
-          maxItems: 50
-          title: Tags
-          type: array
-        configuration:
-          $ref: "#/components/schemas/createMonitor_request_configuration"
-        priority:
-          enum:
-          - 1
-          - 2
-          - 3
-          - 4
-          - 5
-          type: number
-        owner:
-          maxLength: 250
-          minLength: 1
-          type: string
-        dashboardId:
-          maxLength: 250
-          minLength: 0
-          type: string
-        permissions:
-          description: This controls which data the resource can see
-          enum:
-          - all
-          - owning-team-and-public
-          - owning-team-only
-          type: string
-        clusterIds:
-          items:
-            maxLength: 250
-            minLength: 1
-            type: string
-          type: array
-      required:
-      - configuration
-      - name
-      - owner
-      - permissions
-      - priority
     queryMonitors_request_filters:
       properties:
         owners:
@@ -5523,6 +5091,81 @@ components:
           $ref: "#/components/schemas/queryMonitors_request_filters"
         sort:
           $ref: "#/components/schemas/queryMonitors_request_sort"
+    updateMonitor_request_configuration:
+      discriminator:
+        mapping:
+          metric: "#/components/schemas/MonitorConfigurationMetric"
+          log: "#/components/schemas/MonitorConfigurationLog"
+          trace: "#/components/schemas/MonitorConfigurationTrace"
+          anomaly-log: "#/components/schemas/MonitorConfigurationAnomalyLog"
+          anomaly-metric: "#/components/schemas/MonitorConfigurationAnomalyMetric"
+          log-error-pattern: "#/components/schemas/MonitorConfigurationLogErrorPattern"
+          certificate-expiry: "#/components/schemas/MonitorConfigurationCertificateExpiry"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/MonitorConfigurationMetric"
+      - $ref: "#/components/schemas/MonitorConfigurationLog"
+      - $ref: "#/components/schemas/MonitorConfigurationTrace"
+      - $ref: "#/components/schemas/MonitorConfigurationAnomalyLog"
+      - $ref: "#/components/schemas/MonitorConfigurationAnomalyMetric"
+      - $ref: "#/components/schemas/MonitorConfigurationLogErrorPattern"
+      - $ref: "#/components/schemas/MonitorConfigurationCertificateExpiry"
+      required:
+      - type
+    updateMonitor_request:
+      properties:
+        name:
+          maxLength: 250
+          minLength: 0
+          type: string
+        message:
+          maxLength: 50000
+          minLength: 0
+          type: string
+        tags:
+          description: List of key/value tags applied to the resource
+          items:
+            $ref: "#/components/schemas/Tag"
+          maxItems: 50
+          title: Tags
+          type: array
+        configuration:
+          $ref: "#/components/schemas/updateMonitor_request_configuration"
+        priority:
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          type: number
+        owner:
+          maxLength: 250
+          minLength: 1
+          type: string
+        dashboardId:
+          maxLength: 250
+          minLength: 0
+          type: string
+        permissions:
+          description: This controls which data the resource can see
+          enum:
+          - all
+          - owning-team-and-public
+          - owning-team-only
+          type: string
+        clusterIds:
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          type: array
+      required:
+      - configuration
+      - name
+      - owner
+      - permissions
+      - priority
     createNotificationRule_request_teamsFilter_oneOf:
       properties:
         type:
@@ -6047,8 +5690,6 @@ components:
       - type
       title: Function
     MonitorAggregationQuery_fill_mode:
-      example:
-        type: zero
       properties:
         type:
           enum:
@@ -6058,9 +5699,6 @@ components:
       required:
       - type
     MonitorAggregationQuery_fill:
-      example:
-        mode:
-          type: zero
       properties:
         mode:
           $ref: "#/components/schemas/MonitorAggregationQuery_fill_mode"
@@ -6122,21 +5760,142 @@ components:
       required:
       - env
       - teamIds
-    AggregationQuery:
+    ThresholdMarker:
       example:
-        filter: filter
-        functions:
-        - type: per-second
-        - type: per-second
-        - type: per-second
-        - type: per-second
-        - type: per-second
-        fill:
-          mode:
-            type: zero
-        aggregate:
-          field: field
-          type: count
+        level: alert
+        value: 0.8008281904610115
+      properties:
+        value:
+          description: Y-axis value where the threshold marker is placed
+          type: number
+        level:
+          description: Level applied to the threshold marker
+          enum:
+          - alert
+          - warning
+          - success
+          type: string
+      required:
+      - level
+      - value
+      title: ThresholdMarker
+    GraphVisualizationTimeseriesConnection_yAxisSettings_min_oneOf:
+      example:
+        type: auto
+      properties:
+        type:
+          enum:
+          - auto
+          type: string
+      required:
+      - type
+    GraphVisualizationTimeseriesConnection_yAxisSettings_min_oneOf_1:
+      properties:
+        type:
+          enum:
+          - number
+          type: string
+        value:
+          type: number
+      required:
+      - type
+      - value
+    GraphVisualizationTimeseriesConnection_yAxisSettings_min:
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings_min_oneOf"
+      - $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings_min_oneOf_1"
+      required:
+      - type
+    GraphVisualizationTimeseriesConnection_yAxisSettings_scale_oneOf:
+      example:
+        type: pow
+        exponent: 0.6027456183070403
+      properties:
+        type:
+          enum:
+          - pow
+          type: string
+        exponent:
+          minimum: 0
+          type: number
+      required:
+      - exponent
+      - type
+    GraphVisualizationTimeseriesConnection_yAxisSettings_scale_oneOf_1:
+      properties:
+        type:
+          enum:
+          - linear
+          - log
+          - sqrt
+          type: string
+      required:
+      - type
+    GraphVisualizationTimeseriesConnection_yAxisSettings_scale:
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings_scale_oneOf"
+      - $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings_scale_oneOf_1"
+      required:
+      - type
+    GraphVisualizationTimeseriesConnection_yAxisSettings:
+      example:
+        min:
+          type: auto
+        max: null
+        scale:
+          type: pow
+          exponent: 0.6027456183070403
+        alwaysIncludeZero: true
+      properties:
+        min:
+          $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings_min"
+        max:
+          $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings_min"
+        scale:
+          $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings_scale"
+        alwaysIncludeZero:
+          type: boolean
+      required:
+      - alwaysIncludeZero
+      - max
+      - min
+      - scale
+    Normalizer:
+      discriminator:
+        mapping:
+          duration: "#/components/schemas/DataNormalizerDuration"
+          data: "#/components/schemas/DataNormalizerData"
+          percent: "#/components/schemas/DataNormalizerPercent"
+          date: "#/components/schemas/DataNormalizerDate"
+          level: "#/components/schemas/DataNormalizerLevel"
+          custom: "#/components/schemas/DataNormalizerCustom"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/DataNormalizerDuration"
+      - $ref: "#/components/schemas/DataNormalizerData"
+      - $ref: "#/components/schemas/DataNormalizerPercent"
+      - $ref: "#/components/schemas/DataNormalizerDate"
+      - $ref: "#/components/schemas/DataNormalizerLevel"
+      - $ref: "#/components/schemas/DataNormalizerCustom"
+      required:
+      - type
+      title: Normalizer
+    WidgetListColumn:
+      properties:
+        attribute:
+          description: Attribute (log field or database row column) displayed as a
+            column in the list
+          type: string
+        normalizer:
+          $ref: "#/components/schemas/Normalizer"
+      required:
+      - attribute
+      title: WidgetListColumn
+    AggregationQuery:
       properties:
         aggregate:
           $ref: "#/components/schemas/Aggregate"
@@ -6158,10 +5917,6 @@ components:
       - aggregate
       title: AggregationQuery
     GraphVisualizationTimeseries_aliases:
-      example:
-        formula: formula
-        queries:
-          key: queries
       properties:
         formula:
           description: Optional alias for formula (only used for display in the UI)
@@ -6176,10 +5931,6 @@ components:
             minLength: 0
             type: string
     AggregationGroupBy:
-      example:
-        limit: 0.8008281904610115
-        fields:
-        - fields
       properties:
         fields:
           items:
@@ -6195,9 +5946,6 @@ components:
       - limit
       title: AggregationGroupBy
     GraphVisualizationTimeseries_timeBucket:
-      example:
-        metric: sec
-        time: 6.027456183070403
       properties:
         time:
           description: Number of units that make up each bar bucket
@@ -6213,130 +5961,6 @@ components:
       required:
       - metric
       - time
-    Normalizer:
-      discriminator:
-        mapping:
-          duration: "#/components/schemas/DataNormalizerDuration"
-          data: "#/components/schemas/DataNormalizerData"
-          percent: "#/components/schemas/DataNormalizerPercent"
-          date: "#/components/schemas/DataNormalizerDate"
-          level: "#/components/schemas/DataNormalizerLevel"
-          custom: "#/components/schemas/DataNormalizerCustom"
-        propertyName: type
-      oneOf:
-      - $ref: "#/components/schemas/DataNormalizerDuration"
-      - $ref: "#/components/schemas/DataNormalizerData"
-      - $ref: "#/components/schemas/DataNormalizerPercent"
-      - $ref: "#/components/schemas/DataNormalizerDate"
-      - $ref: "#/components/schemas/DataNormalizerLevel"
-      - $ref: "#/components/schemas/DataNormalizerCustom"
-      required:
-      - type
-      title: Normalizer
-    ThresholdMarker:
-      example:
-        level: alert
-        value: 5.962133916683182
-      properties:
-        value:
-          description: Y-axis value where the threshold marker is placed
-          type: number
-        level:
-          description: Level applied to the threshold marker
-          enum:
-          - alert
-          - warning
-          - success
-          type: string
-      required:
-      - level
-      - value
-      title: ThresholdMarker
-    GraphVisualizationTimeseries_yAxisSettings_min_oneOf:
-      example:
-        type: auto
-      properties:
-        type:
-          enum:
-          - auto
-          type: string
-      required:
-      - type
-    GraphVisualizationTimeseries_yAxisSettings_min_oneOf_1:
-      properties:
-        type:
-          enum:
-          - number
-          type: string
-        value:
-          type: number
-      required:
-      - type
-      - value
-    GraphVisualizationTimeseries_yAxisSettings_min:
-      discriminator:
-        propertyName: type
-      oneOf:
-      - $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings_min_oneOf"
-      - $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings_min_oneOf_1"
-      required:
-      - type
-    GraphVisualizationTimeseries_yAxisSettings_scale_oneOf:
-      example:
-        type: pow
-        exponent: 0.5637376656633328
-      properties:
-        type:
-          enum:
-          - pow
-          type: string
-        exponent:
-          minimum: 0
-          type: number
-      required:
-      - exponent
-      - type
-    GraphVisualizationTimeseries_yAxisSettings_scale_oneOf_1:
-      properties:
-        type:
-          enum:
-          - linear
-          - log
-          - sqrt
-          type: string
-      required:
-      - type
-    GraphVisualizationTimeseries_yAxisSettings_scale:
-      discriminator:
-        propertyName: type
-      oneOf:
-      - $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings_scale_oneOf"
-      - $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings_scale_oneOf_1"
-      required:
-      - type
-    GraphVisualizationTimeseries_yAxisSettings:
-      example:
-        min:
-          type: auto
-        max: null
-        scale:
-          type: pow
-          exponent: 0.5637376656633328
-        alwaysIncludeZero: true
-      properties:
-        min:
-          $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings_min"
-        max:
-          $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings_min"
-        scale:
-          $ref: "#/components/schemas/GraphVisualizationTimeseries_yAxisSettings_scale"
-        alwaysIncludeZero:
-          type: boolean
-      required:
-      - alwaysIncludeZero
-      - max
-      - min
-      - scale
     ConditionalFormatting:
       properties:
         operator:
@@ -6426,16 +6050,6 @@ components:
       - desc
       - id
       title: TableDefaultSorting
-    WidgetListColumn:
-      properties:
-        attribute:
-          description: Attribute displayed as a column in the log list
-          type: string
-        normalizer:
-          $ref: "#/components/schemas/Normalizer"
-      required:
-      - attribute
-      title: WidgetListColumn
   securitySchemes:
     bearerAuth:
       scheme: bearer

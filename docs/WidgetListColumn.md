@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Attribute** | **string** | Attribute displayed as a column in the log list | 
+**Attribute** | **string** | Attribute (log field or database row column) displayed as a column in the list | 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 
 ## Methods

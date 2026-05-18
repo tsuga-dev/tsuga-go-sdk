@@ -15,44 +15,47 @@ import (
 	"fmt"
 )
 
-// checks if the GraphVisualizationList type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &GraphVisualizationList{}
+// checks if the GraphVisualizationListConnection type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GraphVisualizationListConnection{}
 
-// GraphVisualizationList struct for GraphVisualizationList
-type GraphVisualizationList struct {
-	// Displays matching logs in a tabular list
+// GraphVisualizationListConnection struct for GraphVisualizationListConnection
+type GraphVisualizationListConnection struct {
+	// Displays database rows as a tabular list
 	Type string `json:"type"`
-	// Query that selects logs for the list
+	// The ID of the connection to use to query the datastore.
+	ConnectionId string `json:"connectionId"`
+	// The read-only SQL query to execute against the connection.
 	Query string `json:"query"`
-	// Custom columns to display for each log
+	// Custom columns to display for each database row
 	ListColumns          []WidgetListColumn `json:"listColumns,omitempty"`
 	ListColumnsSize      map[string]float32 `json:"listColumnsSize,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _GraphVisualizationList GraphVisualizationList
+type _GraphVisualizationListConnection GraphVisualizationListConnection
 
-// NewGraphVisualizationList instantiates a new GraphVisualizationList object
+// NewGraphVisualizationListConnection instantiates a new GraphVisualizationListConnection object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGraphVisualizationList(type_ string, query string) *GraphVisualizationList {
-	this := GraphVisualizationList{}
+func NewGraphVisualizationListConnection(type_ string, connectionId string, query string) *GraphVisualizationListConnection {
+	this := GraphVisualizationListConnection{}
 	this.Type = type_
+	this.ConnectionId = connectionId
 	this.Query = query
 	return &this
 }
 
-// NewGraphVisualizationListWithDefaults instantiates a new GraphVisualizationList object
+// NewGraphVisualizationListConnectionWithDefaults instantiates a new GraphVisualizationListConnection object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewGraphVisualizationListWithDefaults() *GraphVisualizationList {
-	this := GraphVisualizationList{}
+func NewGraphVisualizationListConnectionWithDefaults() *GraphVisualizationListConnection {
+	this := GraphVisualizationListConnection{}
 	return &this
 }
 
 // GetType returns the Type field value
-func (o *GraphVisualizationList) GetType() string {
+func (o *GraphVisualizationListConnection) GetType() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -63,7 +66,7 @@ func (o *GraphVisualizationList) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationList) GetTypeOk() (*string, bool) {
+func (o *GraphVisualizationListConnection) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -71,12 +74,36 @@ func (o *GraphVisualizationList) GetTypeOk() (*string, bool) {
 }
 
 // SetType sets field value
-func (o *GraphVisualizationList) SetType(v string) {
+func (o *GraphVisualizationListConnection) SetType(v string) {
 	o.Type = v
 }
 
+// GetConnectionId returns the ConnectionId field value
+func (o *GraphVisualizationListConnection) GetConnectionId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ConnectionId
+}
+
+// GetConnectionIdOk returns a tuple with the ConnectionId field value
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationListConnection) GetConnectionIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ConnectionId, true
+}
+
+// SetConnectionId sets field value
+func (o *GraphVisualizationListConnection) SetConnectionId(v string) {
+	o.ConnectionId = v
+}
+
 // GetQuery returns the Query field value
-func (o *GraphVisualizationList) GetQuery() string {
+func (o *GraphVisualizationListConnection) GetQuery() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -87,7 +114,7 @@ func (o *GraphVisualizationList) GetQuery() string {
 
 // GetQueryOk returns a tuple with the Query field value
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationList) GetQueryOk() (*string, bool) {
+func (o *GraphVisualizationListConnection) GetQueryOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -95,12 +122,12 @@ func (o *GraphVisualizationList) GetQueryOk() (*string, bool) {
 }
 
 // SetQuery sets field value
-func (o *GraphVisualizationList) SetQuery(v string) {
+func (o *GraphVisualizationListConnection) SetQuery(v string) {
 	o.Query = v
 }
 
 // GetListColumns returns the ListColumns field value if set, zero value otherwise.
-func (o *GraphVisualizationList) GetListColumns() []WidgetListColumn {
+func (o *GraphVisualizationListConnection) GetListColumns() []WidgetListColumn {
 	if o == nil || IsNil(o.ListColumns) {
 		var ret []WidgetListColumn
 		return ret
@@ -110,7 +137,7 @@ func (o *GraphVisualizationList) GetListColumns() []WidgetListColumn {
 
 // GetListColumnsOk returns a tuple with the ListColumns field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationList) GetListColumnsOk() ([]WidgetListColumn, bool) {
+func (o *GraphVisualizationListConnection) GetListColumnsOk() ([]WidgetListColumn, bool) {
 	if o == nil || IsNil(o.ListColumns) {
 		return nil, false
 	}
@@ -118,7 +145,7 @@ func (o *GraphVisualizationList) GetListColumnsOk() ([]WidgetListColumn, bool) {
 }
 
 // HasListColumns returns a boolean if a field has been set.
-func (o *GraphVisualizationList) HasListColumns() bool {
+func (o *GraphVisualizationListConnection) HasListColumns() bool {
 	if o != nil && !IsNil(o.ListColumns) {
 		return true
 	}
@@ -127,12 +154,12 @@ func (o *GraphVisualizationList) HasListColumns() bool {
 }
 
 // SetListColumns gets a reference to the given []WidgetListColumn and assigns it to the ListColumns field.
-func (o *GraphVisualizationList) SetListColumns(v []WidgetListColumn) {
+func (o *GraphVisualizationListConnection) SetListColumns(v []WidgetListColumn) {
 	o.ListColumns = v
 }
 
 // GetListColumnsSize returns the ListColumnsSize field value if set, zero value otherwise.
-func (o *GraphVisualizationList) GetListColumnsSize() map[string]float32 {
+func (o *GraphVisualizationListConnection) GetListColumnsSize() map[string]float32 {
 	if o == nil || IsNil(o.ListColumnsSize) {
 		var ret map[string]float32
 		return ret
@@ -142,7 +169,7 @@ func (o *GraphVisualizationList) GetListColumnsSize() map[string]float32 {
 
 // GetListColumnsSizeOk returns a tuple with the ListColumnsSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationList) GetListColumnsSizeOk() (map[string]float32, bool) {
+func (o *GraphVisualizationListConnection) GetListColumnsSizeOk() (map[string]float32, bool) {
 	if o == nil || IsNil(o.ListColumnsSize) {
 		return map[string]float32{}, false
 	}
@@ -150,7 +177,7 @@ func (o *GraphVisualizationList) GetListColumnsSizeOk() (map[string]float32, boo
 }
 
 // HasListColumnsSize returns a boolean if a field has been set.
-func (o *GraphVisualizationList) HasListColumnsSize() bool {
+func (o *GraphVisualizationListConnection) HasListColumnsSize() bool {
 	if o != nil && !IsNil(o.ListColumnsSize) {
 		return true
 	}
@@ -159,11 +186,11 @@ func (o *GraphVisualizationList) HasListColumnsSize() bool {
 }
 
 // SetListColumnsSize gets a reference to the given map[string]float32 and assigns it to the ListColumnsSize field.
-func (o *GraphVisualizationList) SetListColumnsSize(v map[string]float32) {
+func (o *GraphVisualizationListConnection) SetListColumnsSize(v map[string]float32) {
 	o.ListColumnsSize = v
 }
 
-func (o GraphVisualizationList) MarshalJSON() ([]byte, error) {
+func (o GraphVisualizationListConnection) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -171,9 +198,10 @@ func (o GraphVisualizationList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o GraphVisualizationList) ToMap() (map[string]interface{}, error) {
+func (o GraphVisualizationListConnection) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
+	toSerialize["connectionId"] = o.ConnectionId
 	toSerialize["query"] = o.Query
 	if !IsNil(o.ListColumns) {
 		toSerialize["listColumns"] = o.ListColumns
@@ -189,12 +217,13 @@ func (o GraphVisualizationList) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *GraphVisualizationList) UnmarshalJSON(data []byte) (err error) {
+func (o *GraphVisualizationListConnection) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"type",
+		"connectionId",
 		"query",
 	}
 
@@ -212,20 +241,21 @@ func (o *GraphVisualizationList) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varGraphVisualizationList := _GraphVisualizationList{}
+	varGraphVisualizationListConnection := _GraphVisualizationListConnection{}
 
-	err = json.Unmarshal(data, &varGraphVisualizationList)
+	err = json.Unmarshal(data, &varGraphVisualizationListConnection)
 
 	if err != nil {
 		return err
 	}
 
-	*o = GraphVisualizationList(varGraphVisualizationList)
+	*o = GraphVisualizationListConnection(varGraphVisualizationListConnection)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
+		delete(additionalProperties, "connectionId")
 		delete(additionalProperties, "query")
 		delete(additionalProperties, "listColumns")
 		delete(additionalProperties, "listColumnsSize")
@@ -235,38 +265,38 @@ func (o *GraphVisualizationList) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableGraphVisualizationList struct {
-	value *GraphVisualizationList
+type NullableGraphVisualizationListConnection struct {
+	value *GraphVisualizationListConnection
 	isSet bool
 }
 
-func (v NullableGraphVisualizationList) Get() *GraphVisualizationList {
+func (v NullableGraphVisualizationListConnection) Get() *GraphVisualizationListConnection {
 	return v.value
 }
 
-func (v *NullableGraphVisualizationList) Set(val *GraphVisualizationList) {
+func (v *NullableGraphVisualizationListConnection) Set(val *GraphVisualizationListConnection) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableGraphVisualizationList) IsSet() bool {
+func (v NullableGraphVisualizationListConnection) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableGraphVisualizationList) Unset() {
+func (v *NullableGraphVisualizationListConnection) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableGraphVisualizationList(val *GraphVisualizationList) *NullableGraphVisualizationList {
-	return &NullableGraphVisualizationList{value: val, isSet: true}
+func NewNullableGraphVisualizationListConnection(val *GraphVisualizationListConnection) *NullableGraphVisualizationListConnection {
+	return &NullableGraphVisualizationListConnection{value: val, isSet: true}
 }
 
-func (v NullableGraphVisualizationList) MarshalJSON() ([]byte, error) {
+func (v NullableGraphVisualizationListConnection) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableGraphVisualizationList) UnmarshalJSON(src []byte) error {
+func (v *NullableGraphVisualizationListConnection) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

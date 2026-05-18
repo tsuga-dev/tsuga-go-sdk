@@ -20,7 +20,7 @@ var _ MappedNullable = &WidgetListColumn{}
 
 // WidgetListColumn struct for WidgetListColumn
 type WidgetListColumn struct {
-	// Attribute displayed as a column in the log list
+	// Attribute (log field or database row column) displayed as a column in the list
 	Attribute            string      `json:"attribute"`
 	Normalizer           *Normalizer `json:"normalizer,omitempty"`
 	AdditionalProperties map[string]interface{}

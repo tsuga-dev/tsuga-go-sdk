@@ -7,7 +7,6 @@ Method | HTTP request | Description
 [**CreateMonitor**](MonitorsAPI.md#CreateMonitor) | **Post** /v1/monitors | 
 [**DeleteMonitor**](MonitorsAPI.md#DeleteMonitor) | **Delete** /v1/monitors/{id} | 
 [**GetMonitor**](MonitorsAPI.md#GetMonitor) | **Get** /v1/monitors/{id} | 
-[**ListMonitors**](MonitorsAPI.md#ListMonitors) | **Get** /v1/monitors | 
 [**QueryMonitors**](MonitorsAPI.md#QueryMonitors) | **Post** /v1/monitors/query | 
 [**UpdateMonitor**](MonitorsAPI.md#UpdateMonitor) | **Put** /v1/monitors/{id} | 
 
@@ -15,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateMonitor
 
-> CreateMonitorResponse CreateMonitor(ctx).CreateMonitorRequest(createMonitorRequest).Execute()
+> CreateMonitorResponse CreateMonitor(ctx).UpdateMonitorRequest(updateMonitorRequest).Execute()
 
 
 
@@ -34,11 +33,11 @@ import (
 )
 
 func main() {
-	createMonitorRequest := *openapiclient.NewCreateMonitorRequest("Name_example", openapiclient.createMonitor_request_configuration{MonitorConfigurationAnomalyLog: openapiclient.NewMonitorConfigurationAnomalyLog("Type_example", *openapiclient.NewMonitorConfigurationAnomalyLogCondition("Formula_example", "ConditionType_example"), "NoDataBehavior_example", float32(123), []openapiclient.MonitorConfigurationMetricGroupByFieldsInner{*openapiclient.NewMonitorConfigurationMetricGroupByFieldsInner([]string{"Fields_example"}, float32(123))}, []openapiclient.MonitorAggregationQuery{*openapiclient.NewMonitorAggregationQuery(openapiclient.Aggregate{AggregateAverage: openapiclient.NewAggregateAverage("Type_example", "Field_example")}, "Filter_example")})}, float32(123), "Owner_example", "Permissions_example") // CreateMonitorRequest | 
+	updateMonitorRequest := *openapiclient.NewUpdateMonitorRequest("Name_example", openapiclient.updateMonitor_request_configuration{MonitorConfigurationAnomalyLog: openapiclient.NewMonitorConfigurationAnomalyLog("Type_example", *openapiclient.NewMonitorConfigurationAnomalyLogCondition("Formula_example", "ConditionType_example"), "NoDataBehavior_example", float32(123), []openapiclient.MonitorConfigurationMetricGroupByFieldsInner{*openapiclient.NewMonitorConfigurationMetricGroupByFieldsInner([]string{"Fields_example"}, float32(123))}, []openapiclient.MonitorAggregationQuery{*openapiclient.NewMonitorAggregationQuery(openapiclient.Aggregate{AggregateAverage: openapiclient.NewAggregateAverage("Type_example", "Field_example")}, "Filter_example")})}, float32(123), "Owner_example", "Permissions_example") // UpdateMonitorRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MonitorsAPI.CreateMonitor(context.Background()).CreateMonitorRequest(createMonitorRequest).Execute()
+	resp, r, err := apiClient.MonitorsAPI.CreateMonitor(context.Background()).UpdateMonitorRequest(updateMonitorRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MonitorsAPI.CreateMonitor``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -59,7 +58,7 @@ Other parameters are passed through a pointer to a apiCreateMonitorRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createMonitorRequest** | [**CreateMonitorRequest**](CreateMonitorRequest.md) |  | 
+ **updateMonitorRequest** | [**UpdateMonitorRequest**](UpdateMonitorRequest.md) |  | 
 
 ### Return type
 
@@ -219,76 +218,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## ListMonitors
-
-> ListMonitorsResponse ListMonitors(ctx).Limit(limit).Offset(offset).Owners(owners).Execute()
-
-
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/tsuga-dev/tsuga-go-sdk"
-)
-
-func main() {
-	limit := int32(56) // int32 | The maximum number of items to return (optional)
-	offset := int32(56) // int32 | The offset of the first item to return (optional)
-	owners := []string{"Inner_example"} // []string |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MonitorsAPI.ListMonitors(context.Background()).Limit(limit).Offset(offset).Owners(owners).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MonitorsAPI.ListMonitors``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListMonitors`: ListMonitorsResponse
-	fmt.Fprintf(os.Stdout, "Response from `MonitorsAPI.ListMonitors`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListMonitorsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **limit** | **int32** | The maximum number of items to return | 
- **offset** | **int32** | The offset of the first item to return | 
- **owners** | **[]string** |  | 
-
-### Return type
-
-[**ListMonitorsResponse**](ListMonitorsResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## QueryMonitors
 
 > QueryMonitorsResponse QueryMonitors(ctx).QueryMonitorsRequest(queryMonitorsRequest).Execute()
@@ -357,7 +286,7 @@ Name | Type | Description  | Notes
 
 ## UpdateMonitor
 
-> UpdateMonitorResponse UpdateMonitor(ctx, id).CreateMonitorRequest(createMonitorRequest).Execute()
+> UpdateMonitorResponse UpdateMonitor(ctx, id).UpdateMonitorRequest(updateMonitorRequest).Execute()
 
 
 
@@ -377,11 +306,11 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	createMonitorRequest := *openapiclient.NewCreateMonitorRequest("Name_example", openapiclient.createMonitor_request_configuration{MonitorConfigurationAnomalyLog: openapiclient.NewMonitorConfigurationAnomalyLog("Type_example", *openapiclient.NewMonitorConfigurationAnomalyLogCondition("Formula_example", "ConditionType_example"), "NoDataBehavior_example", float32(123), []openapiclient.MonitorConfigurationMetricGroupByFieldsInner{*openapiclient.NewMonitorConfigurationMetricGroupByFieldsInner([]string{"Fields_example"}, float32(123))}, []openapiclient.MonitorAggregationQuery{*openapiclient.NewMonitorAggregationQuery(openapiclient.Aggregate{AggregateAverage: openapiclient.NewAggregateAverage("Type_example", "Field_example")}, "Filter_example")})}, float32(123), "Owner_example", "Permissions_example") // CreateMonitorRequest | 
+	updateMonitorRequest := *openapiclient.NewUpdateMonitorRequest("Name_example", openapiclient.updateMonitor_request_configuration{MonitorConfigurationAnomalyLog: openapiclient.NewMonitorConfigurationAnomalyLog("Type_example", *openapiclient.NewMonitorConfigurationAnomalyLogCondition("Formula_example", "ConditionType_example"), "NoDataBehavior_example", float32(123), []openapiclient.MonitorConfigurationMetricGroupByFieldsInner{*openapiclient.NewMonitorConfigurationMetricGroupByFieldsInner([]string{"Fields_example"}, float32(123))}, []openapiclient.MonitorAggregationQuery{*openapiclient.NewMonitorAggregationQuery(openapiclient.Aggregate{AggregateAverage: openapiclient.NewAggregateAverage("Type_example", "Field_example")}, "Filter_example")})}, float32(123), "Owner_example", "Permissions_example") // UpdateMonitorRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MonitorsAPI.UpdateMonitor(context.Background(), id).CreateMonitorRequest(createMonitorRequest).Execute()
+	resp, r, err := apiClient.MonitorsAPI.UpdateMonitor(context.Background(), id).UpdateMonitorRequest(updateMonitorRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MonitorsAPI.UpdateMonitor``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -407,7 +336,7 @@ Other parameters are passed through a pointer to a apiUpdateMonitorRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **createMonitorRequest** | [**CreateMonitorRequest**](CreateMonitorRequest.md) |  | 
+ **updateMonitorRequest** | [**UpdateMonitorRequest**](UpdateMonitorRequest.md) |  | 
 
 ### Return type
 

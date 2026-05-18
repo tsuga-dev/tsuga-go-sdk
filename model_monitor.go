@@ -30,7 +30,7 @@ type Monitor struct {
 	Message *string `json:"message,omitempty"`
 	// List of key/value tags applied to the resource
 	Tags          []Tag                             `json:"tags,omitempty"`
-	Configuration CreateMonitorRequestConfiguration `json:"configuration"`
+	Configuration UpdateMonitorRequestConfiguration `json:"configuration"`
 	// Priority of the monitor
 	Priority float32 `json:"priority"`
 	// This controls which data the resource can see
@@ -47,7 +47,7 @@ type _Monitor Monitor
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMonitor(id string, name string, owner string, configuration CreateMonitorRequestConfiguration, priority float32, permissions string, clusterIds []string) *Monitor {
+func NewMonitor(id string, name string, owner string, configuration UpdateMonitorRequestConfiguration, priority float32, permissions string, clusterIds []string) *Monitor {
 	this := Monitor{}
 	this.Id = id
 	this.Name = name
@@ -204,9 +204,9 @@ func (o *Monitor) SetTags(v []Tag) {
 }
 
 // GetConfiguration returns the Configuration field value
-func (o *Monitor) GetConfiguration() CreateMonitorRequestConfiguration {
+func (o *Monitor) GetConfiguration() UpdateMonitorRequestConfiguration {
 	if o == nil {
-		var ret CreateMonitorRequestConfiguration
+		var ret UpdateMonitorRequestConfiguration
 		return ret
 	}
 
@@ -215,7 +215,7 @@ func (o *Monitor) GetConfiguration() CreateMonitorRequestConfiguration {
 
 // GetConfigurationOk returns a tuple with the Configuration field value
 // and a boolean to check if the value has been set.
-func (o *Monitor) GetConfigurationOk() (*CreateMonitorRequestConfiguration, bool) {
+func (o *Monitor) GetConfigurationOk() (*UpdateMonitorRequestConfiguration, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -223,7 +223,7 @@ func (o *Monitor) GetConfigurationOk() (*CreateMonitorRequestConfiguration, bool
 }
 
 // SetConfiguration sets field value
-func (o *Monitor) SetConfiguration(v CreateMonitorRequestConfiguration) {
+func (o *Monitor) SetConfiguration(v UpdateMonitorRequestConfiguration) {
 	o.Configuration = v
 }
 

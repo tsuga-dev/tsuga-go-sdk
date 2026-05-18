@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a bar chart | 
-**Source** | **string** | Data source being queried | 
+**Source** | **string** | Data source being queried for this aggregation | 
 **Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query | 
 **Formula** | Pointer to **string** | Formula referencing query outputs (e.g. q1+q2) to compute derived series | [optional] 
 **Aliases** | Pointer to [**GraphVisualizationTimeseriesAliases**](GraphVisualizationTimeseriesAliases.md) |  | [optional] 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 **Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
-**YAxisSettings** | Pointer to [**GraphVisualizationTimeseriesYAxisSettings**](GraphVisualizationTimeseriesYAxisSettings.md) |  | [optional] 
+**YAxisSettings** | Pointer to [**GraphVisualizationTimeseriesConnectionYAxisSettings**](GraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
 
 ## Methods
 
@@ -324,20 +324,20 @@ HasLegendMode returns a boolean if a field has been set.
 
 ### GetYAxisSettings
 
-`func (o *GraphVisualizationBar) GetYAxisSettings() GraphVisualizationTimeseriesYAxisSettings`
+`func (o *GraphVisualizationBar) GetYAxisSettings() GraphVisualizationTimeseriesConnectionYAxisSettings`
 
 GetYAxisSettings returns the YAxisSettings field if non-nil, zero value otherwise.
 
 ### GetYAxisSettingsOk
 
-`func (o *GraphVisualizationBar) GetYAxisSettingsOk() (*GraphVisualizationTimeseriesYAxisSettings, bool)`
+`func (o *GraphVisualizationBar) GetYAxisSettingsOk() (*GraphVisualizationTimeseriesConnectionYAxisSettings, bool)`
 
 GetYAxisSettingsOk returns a tuple with the YAxisSettings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetYAxisSettings
 
-`func (o *GraphVisualizationBar) SetYAxisSettings(v GraphVisualizationTimeseriesYAxisSettings)`
+`func (o *GraphVisualizationBar) SetYAxisSettings(v GraphVisualizationTimeseriesConnectionYAxisSettings)`
 
 SetYAxisSettings sets YAxisSettings field to given value.
 

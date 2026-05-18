@@ -22,7 +22,7 @@ var _ MappedNullable = &GraphVisualizationQueryValue{}
 type GraphVisualizationQueryValue struct {
 	// Displays the aggregation as a single value
 	Type string `json:"type"`
-	// Data source being queried
+	// Data source being queried for this aggregation
 	Source string `json:"source"`
 	// Aggregations that may be combined together in the same query
 	Queries []AggregationQuery `json:"queries"`
