@@ -15,16 +15,16 @@ import (
 	"fmt"
 )
 
-// checks if the CreateMonitorRequest type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &CreateMonitorRequest{}
+// checks if the UpdateMonitorRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateMonitorRequest{}
 
-// CreateMonitorRequest struct for CreateMonitorRequest
-type CreateMonitorRequest struct {
+// UpdateMonitorRequest struct for UpdateMonitorRequest
+type UpdateMonitorRequest struct {
 	Name    string  `json:"name"`
 	Message *string `json:"message,omitempty"`
 	// List of key/value tags applied to the resource
 	Tags          []Tag                             `json:"tags,omitempty"`
-	Configuration CreateMonitorRequestConfiguration `json:"configuration"`
+	Configuration UpdateMonitorRequestConfiguration `json:"configuration"`
 	Priority      float32                           `json:"priority"`
 	Owner         string                            `json:"owner"`
 	DashboardId   *string                           `json:"dashboardId,omitempty"`
@@ -34,14 +34,14 @@ type CreateMonitorRequest struct {
 	AdditionalProperties map[string]interface{}
 }
 
-type _CreateMonitorRequest CreateMonitorRequest
+type _UpdateMonitorRequest UpdateMonitorRequest
 
-// NewCreateMonitorRequest instantiates a new CreateMonitorRequest object
+// NewUpdateMonitorRequest instantiates a new UpdateMonitorRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateMonitorRequest(name string, configuration CreateMonitorRequestConfiguration, priority float32, owner string, permissions string) *CreateMonitorRequest {
-	this := CreateMonitorRequest{}
+func NewUpdateMonitorRequest(name string, configuration UpdateMonitorRequestConfiguration, priority float32, owner string, permissions string) *UpdateMonitorRequest {
+	this := UpdateMonitorRequest{}
 	this.Name = name
 	this.Configuration = configuration
 	this.Priority = priority
@@ -50,16 +50,16 @@ func NewCreateMonitorRequest(name string, configuration CreateMonitorRequestConf
 	return &this
 }
 
-// NewCreateMonitorRequestWithDefaults instantiates a new CreateMonitorRequest object
+// NewUpdateMonitorRequestWithDefaults instantiates a new UpdateMonitorRequest object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewCreateMonitorRequestWithDefaults() *CreateMonitorRequest {
-	this := CreateMonitorRequest{}
+func NewUpdateMonitorRequestWithDefaults() *UpdateMonitorRequest {
+	this := UpdateMonitorRequest{}
 	return &this
 }
 
 // GetName returns the Name field value
-func (o *CreateMonitorRequest) GetName() string {
+func (o *UpdateMonitorRequest) GetName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -70,7 +70,7 @@ func (o *CreateMonitorRequest) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *CreateMonitorRequest) GetNameOk() (*string, bool) {
+func (o *UpdateMonitorRequest) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -78,12 +78,12 @@ func (o *CreateMonitorRequest) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value
-func (o *CreateMonitorRequest) SetName(v string) {
+func (o *UpdateMonitorRequest) SetName(v string) {
 	o.Name = v
 }
 
 // GetMessage returns the Message field value if set, zero value otherwise.
-func (o *CreateMonitorRequest) GetMessage() string {
+func (o *UpdateMonitorRequest) GetMessage() string {
 	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
@@ -93,7 +93,7 @@ func (o *CreateMonitorRequest) GetMessage() string {
 
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateMonitorRequest) GetMessageOk() (*string, bool) {
+func (o *UpdateMonitorRequest) GetMessageOk() (*string, bool) {
 	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
@@ -101,7 +101,7 @@ func (o *CreateMonitorRequest) GetMessageOk() (*string, bool) {
 }
 
 // HasMessage returns a boolean if a field has been set.
-func (o *CreateMonitorRequest) HasMessage() bool {
+func (o *UpdateMonitorRequest) HasMessage() bool {
 	if o != nil && !IsNil(o.Message) {
 		return true
 	}
@@ -110,12 +110,12 @@ func (o *CreateMonitorRequest) HasMessage() bool {
 }
 
 // SetMessage gets a reference to the given string and assigns it to the Message field.
-func (o *CreateMonitorRequest) SetMessage(v string) {
+func (o *UpdateMonitorRequest) SetMessage(v string) {
 	o.Message = &v
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *CreateMonitorRequest) GetTags() []Tag {
+func (o *UpdateMonitorRequest) GetTags() []Tag {
 	if o == nil || IsNil(o.Tags) {
 		var ret []Tag
 		return ret
@@ -125,7 +125,7 @@ func (o *CreateMonitorRequest) GetTags() []Tag {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateMonitorRequest) GetTagsOk() ([]Tag, bool) {
+func (o *UpdateMonitorRequest) GetTagsOk() ([]Tag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -133,7 +133,7 @@ func (o *CreateMonitorRequest) GetTagsOk() ([]Tag, bool) {
 }
 
 // HasTags returns a boolean if a field has been set.
-func (o *CreateMonitorRequest) HasTags() bool {
+func (o *UpdateMonitorRequest) HasTags() bool {
 	if o != nil && !IsNil(o.Tags) {
 		return true
 	}
@@ -142,14 +142,14 @@ func (o *CreateMonitorRequest) HasTags() bool {
 }
 
 // SetTags gets a reference to the given []Tag and assigns it to the Tags field.
-func (o *CreateMonitorRequest) SetTags(v []Tag) {
+func (o *UpdateMonitorRequest) SetTags(v []Tag) {
 	o.Tags = v
 }
 
 // GetConfiguration returns the Configuration field value
-func (o *CreateMonitorRequest) GetConfiguration() CreateMonitorRequestConfiguration {
+func (o *UpdateMonitorRequest) GetConfiguration() UpdateMonitorRequestConfiguration {
 	if o == nil {
-		var ret CreateMonitorRequestConfiguration
+		var ret UpdateMonitorRequestConfiguration
 		return ret
 	}
 
@@ -158,7 +158,7 @@ func (o *CreateMonitorRequest) GetConfiguration() CreateMonitorRequestConfigurat
 
 // GetConfigurationOk returns a tuple with the Configuration field value
 // and a boolean to check if the value has been set.
-func (o *CreateMonitorRequest) GetConfigurationOk() (*CreateMonitorRequestConfiguration, bool) {
+func (o *UpdateMonitorRequest) GetConfigurationOk() (*UpdateMonitorRequestConfiguration, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -166,12 +166,12 @@ func (o *CreateMonitorRequest) GetConfigurationOk() (*CreateMonitorRequestConfig
 }
 
 // SetConfiguration sets field value
-func (o *CreateMonitorRequest) SetConfiguration(v CreateMonitorRequestConfiguration) {
+func (o *UpdateMonitorRequest) SetConfiguration(v UpdateMonitorRequestConfiguration) {
 	o.Configuration = v
 }
 
 // GetPriority returns the Priority field value
-func (o *CreateMonitorRequest) GetPriority() float32 {
+func (o *UpdateMonitorRequest) GetPriority() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -182,7 +182,7 @@ func (o *CreateMonitorRequest) GetPriority() float32 {
 
 // GetPriorityOk returns a tuple with the Priority field value
 // and a boolean to check if the value has been set.
-func (o *CreateMonitorRequest) GetPriorityOk() (*float32, bool) {
+func (o *UpdateMonitorRequest) GetPriorityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -190,12 +190,12 @@ func (o *CreateMonitorRequest) GetPriorityOk() (*float32, bool) {
 }
 
 // SetPriority sets field value
-func (o *CreateMonitorRequest) SetPriority(v float32) {
+func (o *UpdateMonitorRequest) SetPriority(v float32) {
 	o.Priority = v
 }
 
 // GetOwner returns the Owner field value
-func (o *CreateMonitorRequest) GetOwner() string {
+func (o *UpdateMonitorRequest) GetOwner() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -206,7 +206,7 @@ func (o *CreateMonitorRequest) GetOwner() string {
 
 // GetOwnerOk returns a tuple with the Owner field value
 // and a boolean to check if the value has been set.
-func (o *CreateMonitorRequest) GetOwnerOk() (*string, bool) {
+func (o *UpdateMonitorRequest) GetOwnerOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -214,12 +214,12 @@ func (o *CreateMonitorRequest) GetOwnerOk() (*string, bool) {
 }
 
 // SetOwner sets field value
-func (o *CreateMonitorRequest) SetOwner(v string) {
+func (o *UpdateMonitorRequest) SetOwner(v string) {
 	o.Owner = v
 }
 
 // GetDashboardId returns the DashboardId field value if set, zero value otherwise.
-func (o *CreateMonitorRequest) GetDashboardId() string {
+func (o *UpdateMonitorRequest) GetDashboardId() string {
 	if o == nil || IsNil(o.DashboardId) {
 		var ret string
 		return ret
@@ -229,7 +229,7 @@ func (o *CreateMonitorRequest) GetDashboardId() string {
 
 // GetDashboardIdOk returns a tuple with the DashboardId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateMonitorRequest) GetDashboardIdOk() (*string, bool) {
+func (o *UpdateMonitorRequest) GetDashboardIdOk() (*string, bool) {
 	if o == nil || IsNil(o.DashboardId) {
 		return nil, false
 	}
@@ -237,7 +237,7 @@ func (o *CreateMonitorRequest) GetDashboardIdOk() (*string, bool) {
 }
 
 // HasDashboardId returns a boolean if a field has been set.
-func (o *CreateMonitorRequest) HasDashboardId() bool {
+func (o *UpdateMonitorRequest) HasDashboardId() bool {
 	if o != nil && !IsNil(o.DashboardId) {
 		return true
 	}
@@ -246,12 +246,12 @@ func (o *CreateMonitorRequest) HasDashboardId() bool {
 }
 
 // SetDashboardId gets a reference to the given string and assigns it to the DashboardId field.
-func (o *CreateMonitorRequest) SetDashboardId(v string) {
+func (o *UpdateMonitorRequest) SetDashboardId(v string) {
 	o.DashboardId = &v
 }
 
 // GetPermissions returns the Permissions field value
-func (o *CreateMonitorRequest) GetPermissions() string {
+func (o *UpdateMonitorRequest) GetPermissions() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -262,7 +262,7 @@ func (o *CreateMonitorRequest) GetPermissions() string {
 
 // GetPermissionsOk returns a tuple with the Permissions field value
 // and a boolean to check if the value has been set.
-func (o *CreateMonitorRequest) GetPermissionsOk() (*string, bool) {
+func (o *UpdateMonitorRequest) GetPermissionsOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -270,12 +270,12 @@ func (o *CreateMonitorRequest) GetPermissionsOk() (*string, bool) {
 }
 
 // SetPermissions sets field value
-func (o *CreateMonitorRequest) SetPermissions(v string) {
+func (o *UpdateMonitorRequest) SetPermissions(v string) {
 	o.Permissions = v
 }
 
 // GetClusterIds returns the ClusterIds field value if set, zero value otherwise.
-func (o *CreateMonitorRequest) GetClusterIds() []string {
+func (o *UpdateMonitorRequest) GetClusterIds() []string {
 	if o == nil || IsNil(o.ClusterIds) {
 		var ret []string
 		return ret
@@ -285,7 +285,7 @@ func (o *CreateMonitorRequest) GetClusterIds() []string {
 
 // GetClusterIdsOk returns a tuple with the ClusterIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateMonitorRequest) GetClusterIdsOk() ([]string, bool) {
+func (o *UpdateMonitorRequest) GetClusterIdsOk() ([]string, bool) {
 	if o == nil || IsNil(o.ClusterIds) {
 		return nil, false
 	}
@@ -293,7 +293,7 @@ func (o *CreateMonitorRequest) GetClusterIdsOk() ([]string, bool) {
 }
 
 // HasClusterIds returns a boolean if a field has been set.
-func (o *CreateMonitorRequest) HasClusterIds() bool {
+func (o *UpdateMonitorRequest) HasClusterIds() bool {
 	if o != nil && !IsNil(o.ClusterIds) {
 		return true
 	}
@@ -302,11 +302,11 @@ func (o *CreateMonitorRequest) HasClusterIds() bool {
 }
 
 // SetClusterIds gets a reference to the given []string and assigns it to the ClusterIds field.
-func (o *CreateMonitorRequest) SetClusterIds(v []string) {
+func (o *UpdateMonitorRequest) SetClusterIds(v []string) {
 	o.ClusterIds = v
 }
 
-func (o CreateMonitorRequest) MarshalJSON() ([]byte, error) {
+func (o UpdateMonitorRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -314,7 +314,7 @@ func (o CreateMonitorRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o CreateMonitorRequest) ToMap() (map[string]interface{}, error) {
+func (o UpdateMonitorRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
 	if !IsNil(o.Message) {
@@ -341,7 +341,7 @@ func (o CreateMonitorRequest) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *CreateMonitorRequest) UnmarshalJSON(data []byte) (err error) {
+func (o *UpdateMonitorRequest) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -367,15 +367,15 @@ func (o *CreateMonitorRequest) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varCreateMonitorRequest := _CreateMonitorRequest{}
+	varUpdateMonitorRequest := _UpdateMonitorRequest{}
 
-	err = json.Unmarshal(data, &varCreateMonitorRequest)
+	err = json.Unmarshal(data, &varUpdateMonitorRequest)
 
 	if err != nil {
 		return err
 	}
 
-	*o = CreateMonitorRequest(varCreateMonitorRequest)
+	*o = UpdateMonitorRequest(varUpdateMonitorRequest)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -395,38 +395,38 @@ func (o *CreateMonitorRequest) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableCreateMonitorRequest struct {
-	value *CreateMonitorRequest
+type NullableUpdateMonitorRequest struct {
+	value *UpdateMonitorRequest
 	isSet bool
 }
 
-func (v NullableCreateMonitorRequest) Get() *CreateMonitorRequest {
+func (v NullableUpdateMonitorRequest) Get() *UpdateMonitorRequest {
 	return v.value
 }
 
-func (v *NullableCreateMonitorRequest) Set(val *CreateMonitorRequest) {
+func (v *NullableUpdateMonitorRequest) Set(val *UpdateMonitorRequest) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableCreateMonitorRequest) IsSet() bool {
+func (v NullableUpdateMonitorRequest) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableCreateMonitorRequest) Unset() {
+func (v *NullableUpdateMonitorRequest) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableCreateMonitorRequest(val *CreateMonitorRequest) *NullableCreateMonitorRequest {
-	return &NullableCreateMonitorRequest{value: val, isSet: true}
+func NewNullableUpdateMonitorRequest(val *UpdateMonitorRequest) *NullableUpdateMonitorRequest {
+	return &NullableUpdateMonitorRequest{value: val, isSet: true}
 }
 
-func (v NullableCreateMonitorRequest) MarshalJSON() ([]byte, error) {
+func (v NullableUpdateMonitorRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableCreateMonitorRequest) UnmarshalJSON(src []byte) error {
+func (v *NullableUpdateMonitorRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

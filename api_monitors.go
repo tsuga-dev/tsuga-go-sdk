@@ -16,7 +16,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"reflect"
 	"strings"
 )
 
@@ -67,20 +66,6 @@ type MonitorsAPI interface {
 	GetMonitorExecute(r MonitorsAPIGetMonitorRequest) (*GetMonitorResponse, *http.Response, error)
 
 	/*
-		ListMonitors Method for ListMonitors
-
-		Retrieve all monitors
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return MonitorsAPIListMonitorsRequest
-	*/
-	ListMonitors(ctx context.Context) MonitorsAPIListMonitorsRequest
-
-	// ListMonitorsExecute executes the request
-	//  @return ListMonitorsResponse
-	ListMonitorsExecute(r MonitorsAPIListMonitorsRequest) (*ListMonitorsResponse, *http.Response, error)
-
-	/*
 		QueryMonitors Method for QueryMonitors
 
 		Query monitors with filters, sorting, and pagination
@@ -116,11 +101,11 @@ type MonitorsAPIService service
 type MonitorsAPICreateMonitorRequest struct {
 	ctx                  context.Context
 	ApiService           MonitorsAPI
-	createMonitorRequest *CreateMonitorRequest
+	updateMonitorRequest *UpdateMonitorRequest
 }
 
-func (r MonitorsAPICreateMonitorRequest) CreateMonitorRequest(createMonitorRequest CreateMonitorRequest) MonitorsAPICreateMonitorRequest {
-	r.createMonitorRequest = &createMonitorRequest
+func (r MonitorsAPICreateMonitorRequest) UpdateMonitorRequest(updateMonitorRequest UpdateMonitorRequest) MonitorsAPICreateMonitorRequest {
+	r.updateMonitorRequest = &updateMonitorRequest
 	return r
 }
 
@@ -164,8 +149,8 @@ func (a *MonitorsAPIService) CreateMonitorExecute(r MonitorsAPICreateMonitorRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createMonitorRequest == nil {
-		return localVarReturnValue, nil, reportError("createMonitorRequest is required and must be specified")
+	if r.updateMonitorRequest == nil {
+		return localVarReturnValue, nil, reportError("updateMonitorRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -186,7 +171,7 @@ func (a *MonitorsAPIService) CreateMonitorExecute(r MonitorsAPICreateMonitorRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createMonitorRequest
+	localVarPostBody = r.updateMonitorRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -507,164 +492,6 @@ func (a *MonitorsAPIService) GetMonitorExecute(r MonitorsAPIGetMonitorRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MonitorsAPIListMonitorsRequest struct {
-	ctx        context.Context
-	ApiService MonitorsAPI
-	limit      *int32
-	offset     *int32
-	owners     *[]string
-}
-
-// The maximum number of items to return
-func (r MonitorsAPIListMonitorsRequest) Limit(limit int32) MonitorsAPIListMonitorsRequest {
-	r.limit = &limit
-	return r
-}
-
-// The offset of the first item to return
-func (r MonitorsAPIListMonitorsRequest) Offset(offset int32) MonitorsAPIListMonitorsRequest {
-	r.offset = &offset
-	return r
-}
-
-func (r MonitorsAPIListMonitorsRequest) Owners(owners []string) MonitorsAPIListMonitorsRequest {
-	r.owners = &owners
-	return r
-}
-
-func (r MonitorsAPIListMonitorsRequest) Execute() (*ListMonitorsResponse, *http.Response, error) {
-	return r.ApiService.ListMonitorsExecute(r)
-}
-
-/*
-ListMonitors Method for ListMonitors
-
-Retrieve all monitors
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MonitorsAPIListMonitorsRequest
-*/
-func (a *MonitorsAPIService) ListMonitors(ctx context.Context) MonitorsAPIListMonitorsRequest {
-	return MonitorsAPIListMonitorsRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ListMonitorsResponse
-func (a *MonitorsAPIService) ListMonitorsExecute(r MonitorsAPIListMonitorsRequest) (*ListMonitorsResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ListMonitorsResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MonitorsAPIService.ListMonitors")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/monitors"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
-	}
-	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
-	}
-	if r.owners != nil {
-		t := *r.owners
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "owners", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "owners", t, "form", "multi")
-		}
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ClientErrorEnvelope
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ServerErrorEnvelope
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type MonitorsAPIQueryMonitorsRequest struct {
 	ctx                  context.Context
 	ApiService           MonitorsAPI
@@ -801,11 +628,11 @@ type MonitorsAPIUpdateMonitorRequest struct {
 	ctx                  context.Context
 	ApiService           MonitorsAPI
 	id                   string
-	createMonitorRequest *CreateMonitorRequest
+	updateMonitorRequest *UpdateMonitorRequest
 }
 
-func (r MonitorsAPIUpdateMonitorRequest) CreateMonitorRequest(createMonitorRequest CreateMonitorRequest) MonitorsAPIUpdateMonitorRequest {
-	r.createMonitorRequest = &createMonitorRequest
+func (r MonitorsAPIUpdateMonitorRequest) UpdateMonitorRequest(updateMonitorRequest UpdateMonitorRequest) MonitorsAPIUpdateMonitorRequest {
+	r.updateMonitorRequest = &updateMonitorRequest
 	return r
 }
 
@@ -858,8 +685,8 @@ func (a *MonitorsAPIService) UpdateMonitorExecute(r MonitorsAPIUpdateMonitorRequ
 	if strlen(r.id) > 250 {
 		return localVarReturnValue, nil, reportError("id must have less than 250 elements")
 	}
-	if r.createMonitorRequest == nil {
-		return localVarReturnValue, nil, reportError("createMonitorRequest is required and must be specified")
+	if r.updateMonitorRequest == nil {
+		return localVarReturnValue, nil, reportError("updateMonitorRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -880,7 +707,7 @@ func (a *MonitorsAPIService) UpdateMonitorExecute(r MonitorsAPIUpdateMonitorRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createMonitorRequest
+	localVarPostBody = r.updateMonitorRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

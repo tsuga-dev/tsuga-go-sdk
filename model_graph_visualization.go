@@ -17,14 +17,16 @@ import (
 
 // GraphVisualization - struct for GraphVisualization
 type GraphVisualization struct {
-	GraphVisualizationBar        *GraphVisualizationBar
-	GraphVisualizationList       *GraphVisualizationList
-	GraphVisualizationNote       *GraphVisualizationNote
-	GraphVisualizationPie        *GraphVisualizationPie
-	GraphVisualizationQueryValue *GraphVisualizationQueryValue
-	GraphVisualizationTable      *GraphVisualizationTable
-	GraphVisualizationTimeseries *GraphVisualizationTimeseries
-	GraphVisualizationTopList    *GraphVisualizationTopList
+	GraphVisualizationBar                  *GraphVisualizationBar
+	GraphVisualizationList                 *GraphVisualizationList
+	GraphVisualizationListConnection       *GraphVisualizationListConnection
+	GraphVisualizationNote                 *GraphVisualizationNote
+	GraphVisualizationPie                  *GraphVisualizationPie
+	GraphVisualizationQueryValue           *GraphVisualizationQueryValue
+	GraphVisualizationTable                *GraphVisualizationTable
+	GraphVisualizationTimeseries           *GraphVisualizationTimeseries
+	GraphVisualizationTimeseriesConnection *GraphVisualizationTimeseriesConnection
+	GraphVisualizationTopList              *GraphVisualizationTopList
 }
 
 // GraphVisualizationBarAsGraphVisualization is a convenience function that returns GraphVisualizationBar wrapped in GraphVisualization
@@ -38,6 +40,13 @@ func GraphVisualizationBarAsGraphVisualization(v *GraphVisualizationBar) GraphVi
 func GraphVisualizationListAsGraphVisualization(v *GraphVisualizationList) GraphVisualization {
 	return GraphVisualization{
 		GraphVisualizationList: v,
+	}
+}
+
+// GraphVisualizationListConnectionAsGraphVisualization is a convenience function that returns GraphVisualizationListConnection wrapped in GraphVisualization
+func GraphVisualizationListConnectionAsGraphVisualization(v *GraphVisualizationListConnection) GraphVisualization {
+	return GraphVisualization{
+		GraphVisualizationListConnection: v,
 	}
 }
 
@@ -73,6 +82,13 @@ func GraphVisualizationTableAsGraphVisualization(v *GraphVisualizationTable) Gra
 func GraphVisualizationTimeseriesAsGraphVisualization(v *GraphVisualizationTimeseries) GraphVisualization {
 	return GraphVisualization{
 		GraphVisualizationTimeseries: v,
+	}
+}
+
+// GraphVisualizationTimeseriesConnectionAsGraphVisualization is a convenience function that returns GraphVisualizationTimeseriesConnection wrapped in GraphVisualization
+func GraphVisualizationTimeseriesConnectionAsGraphVisualization(v *GraphVisualizationTimeseriesConnection) GraphVisualization {
+	return GraphVisualization{
+		GraphVisualizationTimeseriesConnection: v,
 	}
 }
 
@@ -114,6 +130,18 @@ func (dst *GraphVisualization) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.GraphVisualizationList = nil
 			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationList: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'list-connection'
+	if jsonDict["type"] == "list-connection" {
+		// try to unmarshal JSON data into GraphVisualizationListConnection
+		err = json.Unmarshal(data, &dst.GraphVisualizationListConnection)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationListConnection, return on the first match
+		} else {
+			dst.GraphVisualizationListConnection = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationListConnection: %s", err.Error())
 		}
 	}
 
@@ -177,6 +205,18 @@ func (dst *GraphVisualization) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'timeseries-connection'
+	if jsonDict["type"] == "timeseries-connection" {
+		// try to unmarshal JSON data into GraphVisualizationTimeseriesConnection
+		err = json.Unmarshal(data, &dst.GraphVisualizationTimeseriesConnection)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationTimeseriesConnection, return on the first match
+		} else {
+			dst.GraphVisualizationTimeseriesConnection = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationTimeseriesConnection: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'top-list'
 	if jsonDict["type"] == "top-list" {
 		// try to unmarshal JSON data into GraphVisualizationTopList
@@ -202,6 +242,10 @@ func (src GraphVisualization) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.GraphVisualizationList)
 	}
 
+	if src.GraphVisualizationListConnection != nil {
+		return json.Marshal(&src.GraphVisualizationListConnection)
+	}
+
 	if src.GraphVisualizationNote != nil {
 		return json.Marshal(&src.GraphVisualizationNote)
 	}
@@ -220,6 +264,10 @@ func (src GraphVisualization) MarshalJSON() ([]byte, error) {
 
 	if src.GraphVisualizationTimeseries != nil {
 		return json.Marshal(&src.GraphVisualizationTimeseries)
+	}
+
+	if src.GraphVisualizationTimeseriesConnection != nil {
+		return json.Marshal(&src.GraphVisualizationTimeseriesConnection)
 	}
 
 	if src.GraphVisualizationTopList != nil {
@@ -242,6 +290,10 @@ func (obj *GraphVisualization) GetActualInstance() interface{} {
 		return obj.GraphVisualizationList
 	}
 
+	if obj.GraphVisualizationListConnection != nil {
+		return obj.GraphVisualizationListConnection
+	}
+
 	if obj.GraphVisualizationNote != nil {
 		return obj.GraphVisualizationNote
 	}
@@ -262,6 +314,10 @@ func (obj *GraphVisualization) GetActualInstance() interface{} {
 		return obj.GraphVisualizationTimeseries
 	}
 
+	if obj.GraphVisualizationTimeseriesConnection != nil {
+		return obj.GraphVisualizationTimeseriesConnection
+	}
+
 	if obj.GraphVisualizationTopList != nil {
 		return obj.GraphVisualizationTopList
 	}
@@ -278,6 +334,10 @@ func (obj GraphVisualization) GetActualInstanceValue() interface{} {
 
 	if obj.GraphVisualizationList != nil {
 		return *obj.GraphVisualizationList
+	}
+
+	if obj.GraphVisualizationListConnection != nil {
+		return *obj.GraphVisualizationListConnection
 	}
 
 	if obj.GraphVisualizationNote != nil {
@@ -298,6 +358,10 @@ func (obj GraphVisualization) GetActualInstanceValue() interface{} {
 
 	if obj.GraphVisualizationTimeseries != nil {
 		return *obj.GraphVisualizationTimeseries
+	}
+
+	if obj.GraphVisualizationTimeseriesConnection != nil {
+		return *obj.GraphVisualizationTimeseriesConnection
 	}
 
 	if obj.GraphVisualizationTopList != nil {

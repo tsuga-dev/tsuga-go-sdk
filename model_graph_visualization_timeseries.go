@@ -22,7 +22,7 @@ var _ MappedNullable = &GraphVisualizationTimeseries{}
 type GraphVisualizationTimeseries struct {
 	// Displays the aggregation as a time series chart
 	Type string `json:"type"`
-	// Data source being queried
+	// Data source being queried for this aggregation
 	Source string `json:"source"`
 	// Aggregations that may be combined together in the same query
 	Queries []AggregationQuery `json:"queries"`
@@ -40,8 +40,8 @@ type GraphVisualizationTimeseries struct {
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode *string `json:"legendMode,omitempty"`
 	// Threshold markers displayed on the chart
-	Thresholds           []ThresholdMarker                          `json:"thresholds,omitempty"`
-	YAxisSettings        *GraphVisualizationTimeseriesYAxisSettings `json:"yAxisSettings,omitempty"`
+	Thresholds           []ThresholdMarker                                    `json:"thresholds,omitempty"`
+	YAxisSettings        *GraphVisualizationTimeseriesConnectionYAxisSettings `json:"yAxisSettings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -428,9 +428,9 @@ func (o *GraphVisualizationTimeseries) SetThresholds(v []ThresholdMarker) {
 }
 
 // GetYAxisSettings returns the YAxisSettings field value if set, zero value otherwise.
-func (o *GraphVisualizationTimeseries) GetYAxisSettings() GraphVisualizationTimeseriesYAxisSettings {
+func (o *GraphVisualizationTimeseries) GetYAxisSettings() GraphVisualizationTimeseriesConnectionYAxisSettings {
 	if o == nil || IsNil(o.YAxisSettings) {
-		var ret GraphVisualizationTimeseriesYAxisSettings
+		var ret GraphVisualizationTimeseriesConnectionYAxisSettings
 		return ret
 	}
 	return *o.YAxisSettings
@@ -438,7 +438,7 @@ func (o *GraphVisualizationTimeseries) GetYAxisSettings() GraphVisualizationTime
 
 // GetYAxisSettingsOk returns a tuple with the YAxisSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationTimeseries) GetYAxisSettingsOk() (*GraphVisualizationTimeseriesYAxisSettings, bool) {
+func (o *GraphVisualizationTimeseries) GetYAxisSettingsOk() (*GraphVisualizationTimeseriesConnectionYAxisSettings, bool) {
 	if o == nil || IsNil(o.YAxisSettings) {
 		return nil, false
 	}
@@ -454,8 +454,8 @@ func (o *GraphVisualizationTimeseries) HasYAxisSettings() bool {
 	return false
 }
 
-// SetYAxisSettings gets a reference to the given GraphVisualizationTimeseriesYAxisSettings and assigns it to the YAxisSettings field.
-func (o *GraphVisualizationTimeseries) SetYAxisSettings(v GraphVisualizationTimeseriesYAxisSettings) {
+// SetYAxisSettings gets a reference to the given GraphVisualizationTimeseriesConnectionYAxisSettings and assigns it to the YAxisSettings field.
+func (o *GraphVisualizationTimeseries) SetYAxisSettings(v GraphVisualizationTimeseriesConnectionYAxisSettings) {
 	o.YAxisSettings = &v
 }
 

@@ -15,8 +15,8 @@ import (
 	"fmt"
 )
 
-// CreateMonitorRequestConfiguration - struct for CreateMonitorRequestConfiguration
-type CreateMonitorRequestConfiguration struct {
+// UpdateMonitorRequestConfiguration - struct for UpdateMonitorRequestConfiguration
+type UpdateMonitorRequestConfiguration struct {
 	MonitorConfigurationAnomalyLog        *MonitorConfigurationAnomalyLog
 	MonitorConfigurationAnomalyMetric     *MonitorConfigurationAnomalyMetric
 	MonitorConfigurationCertificateExpiry *MonitorConfigurationCertificateExpiry
@@ -26,57 +26,57 @@ type CreateMonitorRequestConfiguration struct {
 	MonitorConfigurationTrace             *MonitorConfigurationTrace
 }
 
-// MonitorConfigurationAnomalyLogAsCreateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationAnomalyLog wrapped in CreateMonitorRequestConfiguration
-func MonitorConfigurationAnomalyLogAsCreateMonitorRequestConfiguration(v *MonitorConfigurationAnomalyLog) CreateMonitorRequestConfiguration {
-	return CreateMonitorRequestConfiguration{
+// MonitorConfigurationAnomalyLogAsUpdateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationAnomalyLog wrapped in UpdateMonitorRequestConfiguration
+func MonitorConfigurationAnomalyLogAsUpdateMonitorRequestConfiguration(v *MonitorConfigurationAnomalyLog) UpdateMonitorRequestConfiguration {
+	return UpdateMonitorRequestConfiguration{
 		MonitorConfigurationAnomalyLog: v,
 	}
 }
 
-// MonitorConfigurationAnomalyMetricAsCreateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationAnomalyMetric wrapped in CreateMonitorRequestConfiguration
-func MonitorConfigurationAnomalyMetricAsCreateMonitorRequestConfiguration(v *MonitorConfigurationAnomalyMetric) CreateMonitorRequestConfiguration {
-	return CreateMonitorRequestConfiguration{
+// MonitorConfigurationAnomalyMetricAsUpdateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationAnomalyMetric wrapped in UpdateMonitorRequestConfiguration
+func MonitorConfigurationAnomalyMetricAsUpdateMonitorRequestConfiguration(v *MonitorConfigurationAnomalyMetric) UpdateMonitorRequestConfiguration {
+	return UpdateMonitorRequestConfiguration{
 		MonitorConfigurationAnomalyMetric: v,
 	}
 }
 
-// MonitorConfigurationCertificateExpiryAsCreateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationCertificateExpiry wrapped in CreateMonitorRequestConfiguration
-func MonitorConfigurationCertificateExpiryAsCreateMonitorRequestConfiguration(v *MonitorConfigurationCertificateExpiry) CreateMonitorRequestConfiguration {
-	return CreateMonitorRequestConfiguration{
+// MonitorConfigurationCertificateExpiryAsUpdateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationCertificateExpiry wrapped in UpdateMonitorRequestConfiguration
+func MonitorConfigurationCertificateExpiryAsUpdateMonitorRequestConfiguration(v *MonitorConfigurationCertificateExpiry) UpdateMonitorRequestConfiguration {
+	return UpdateMonitorRequestConfiguration{
 		MonitorConfigurationCertificateExpiry: v,
 	}
 }
 
-// MonitorConfigurationLogAsCreateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationLog wrapped in CreateMonitorRequestConfiguration
-func MonitorConfigurationLogAsCreateMonitorRequestConfiguration(v *MonitorConfigurationLog) CreateMonitorRequestConfiguration {
-	return CreateMonitorRequestConfiguration{
+// MonitorConfigurationLogAsUpdateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationLog wrapped in UpdateMonitorRequestConfiguration
+func MonitorConfigurationLogAsUpdateMonitorRequestConfiguration(v *MonitorConfigurationLog) UpdateMonitorRequestConfiguration {
+	return UpdateMonitorRequestConfiguration{
 		MonitorConfigurationLog: v,
 	}
 }
 
-// MonitorConfigurationLogErrorPatternAsCreateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationLogErrorPattern wrapped in CreateMonitorRequestConfiguration
-func MonitorConfigurationLogErrorPatternAsCreateMonitorRequestConfiguration(v *MonitorConfigurationLogErrorPattern) CreateMonitorRequestConfiguration {
-	return CreateMonitorRequestConfiguration{
+// MonitorConfigurationLogErrorPatternAsUpdateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationLogErrorPattern wrapped in UpdateMonitorRequestConfiguration
+func MonitorConfigurationLogErrorPatternAsUpdateMonitorRequestConfiguration(v *MonitorConfigurationLogErrorPattern) UpdateMonitorRequestConfiguration {
+	return UpdateMonitorRequestConfiguration{
 		MonitorConfigurationLogErrorPattern: v,
 	}
 }
 
-// MonitorConfigurationMetricAsCreateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationMetric wrapped in CreateMonitorRequestConfiguration
-func MonitorConfigurationMetricAsCreateMonitorRequestConfiguration(v *MonitorConfigurationMetric) CreateMonitorRequestConfiguration {
-	return CreateMonitorRequestConfiguration{
+// MonitorConfigurationMetricAsUpdateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationMetric wrapped in UpdateMonitorRequestConfiguration
+func MonitorConfigurationMetricAsUpdateMonitorRequestConfiguration(v *MonitorConfigurationMetric) UpdateMonitorRequestConfiguration {
+	return UpdateMonitorRequestConfiguration{
 		MonitorConfigurationMetric: v,
 	}
 }
 
-// MonitorConfigurationTraceAsCreateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationTrace wrapped in CreateMonitorRequestConfiguration
-func MonitorConfigurationTraceAsCreateMonitorRequestConfiguration(v *MonitorConfigurationTrace) CreateMonitorRequestConfiguration {
-	return CreateMonitorRequestConfiguration{
+// MonitorConfigurationTraceAsUpdateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationTrace wrapped in UpdateMonitorRequestConfiguration
+func MonitorConfigurationTraceAsUpdateMonitorRequestConfiguration(v *MonitorConfigurationTrace) UpdateMonitorRequestConfiguration {
+	return UpdateMonitorRequestConfiguration{
 		MonitorConfigurationTrace: v,
 	}
 }
 
 // Unmarshal JSON data into one of the pointers in the struct
-func (dst *CreateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
+func (dst *UpdateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
@@ -93,7 +93,7 @@ func (dst *CreateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.MonitorConfigurationAnomalyLog, return on the first match
 		} else {
 			dst.MonitorConfigurationAnomalyLog = nil
-			return fmt.Errorf("failed to unmarshal CreateMonitorRequestConfiguration as MonitorConfigurationAnomalyLog: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as MonitorConfigurationAnomalyLog: %s", err.Error())
 		}
 	}
 
@@ -105,7 +105,7 @@ func (dst *CreateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.MonitorConfigurationAnomalyMetric, return on the first match
 		} else {
 			dst.MonitorConfigurationAnomalyMetric = nil
-			return fmt.Errorf("failed to unmarshal CreateMonitorRequestConfiguration as MonitorConfigurationAnomalyMetric: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as MonitorConfigurationAnomalyMetric: %s", err.Error())
 		}
 	}
 
@@ -117,7 +117,7 @@ func (dst *CreateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.MonitorConfigurationCertificateExpiry, return on the first match
 		} else {
 			dst.MonitorConfigurationCertificateExpiry = nil
-			return fmt.Errorf("failed to unmarshal CreateMonitorRequestConfiguration as MonitorConfigurationCertificateExpiry: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as MonitorConfigurationCertificateExpiry: %s", err.Error())
 		}
 	}
 
@@ -129,7 +129,7 @@ func (dst *CreateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.MonitorConfigurationLog, return on the first match
 		} else {
 			dst.MonitorConfigurationLog = nil
-			return fmt.Errorf("failed to unmarshal CreateMonitorRequestConfiguration as MonitorConfigurationLog: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as MonitorConfigurationLog: %s", err.Error())
 		}
 	}
 
@@ -141,7 +141,7 @@ func (dst *CreateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.MonitorConfigurationLogErrorPattern, return on the first match
 		} else {
 			dst.MonitorConfigurationLogErrorPattern = nil
-			return fmt.Errorf("failed to unmarshal CreateMonitorRequestConfiguration as MonitorConfigurationLogErrorPattern: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as MonitorConfigurationLogErrorPattern: %s", err.Error())
 		}
 	}
 
@@ -153,7 +153,7 @@ func (dst *CreateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.MonitorConfigurationMetric, return on the first match
 		} else {
 			dst.MonitorConfigurationMetric = nil
-			return fmt.Errorf("failed to unmarshal CreateMonitorRequestConfiguration as MonitorConfigurationMetric: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as MonitorConfigurationMetric: %s", err.Error())
 		}
 	}
 
@@ -165,7 +165,7 @@ func (dst *CreateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.MonitorConfigurationTrace, return on the first match
 		} else {
 			dst.MonitorConfigurationTrace = nil
-			return fmt.Errorf("failed to unmarshal CreateMonitorRequestConfiguration as MonitorConfigurationTrace: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as MonitorConfigurationTrace: %s", err.Error())
 		}
 	}
 
@@ -173,7 +173,7 @@ func (dst *CreateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src CreateMonitorRequestConfiguration) MarshalJSON() ([]byte, error) {
+func (src UpdateMonitorRequestConfiguration) MarshalJSON() ([]byte, error) {
 	if src.MonitorConfigurationAnomalyLog != nil {
 		return json.Marshal(&src.MonitorConfigurationAnomalyLog)
 	}
@@ -206,7 +206,7 @@ func (src CreateMonitorRequestConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *CreateMonitorRequestConfiguration) GetActualInstance() interface{} {
+func (obj *UpdateMonitorRequestConfiguration) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -243,7 +243,7 @@ func (obj *CreateMonitorRequestConfiguration) GetActualInstance() interface{} {
 }
 
 // Get the actual instance value
-func (obj CreateMonitorRequestConfiguration) GetActualInstanceValue() interface{} {
+func (obj UpdateMonitorRequestConfiguration) GetActualInstanceValue() interface{} {
 	if obj.MonitorConfigurationAnomalyLog != nil {
 		return *obj.MonitorConfigurationAnomalyLog
 	}
@@ -276,38 +276,38 @@ func (obj CreateMonitorRequestConfiguration) GetActualInstanceValue() interface{
 	return nil
 }
 
-type NullableCreateMonitorRequestConfiguration struct {
-	value *CreateMonitorRequestConfiguration
+type NullableUpdateMonitorRequestConfiguration struct {
+	value *UpdateMonitorRequestConfiguration
 	isSet bool
 }
 
-func (v NullableCreateMonitorRequestConfiguration) Get() *CreateMonitorRequestConfiguration {
+func (v NullableUpdateMonitorRequestConfiguration) Get() *UpdateMonitorRequestConfiguration {
 	return v.value
 }
 
-func (v *NullableCreateMonitorRequestConfiguration) Set(val *CreateMonitorRequestConfiguration) {
+func (v *NullableUpdateMonitorRequestConfiguration) Set(val *UpdateMonitorRequestConfiguration) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableCreateMonitorRequestConfiguration) IsSet() bool {
+func (v NullableUpdateMonitorRequestConfiguration) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableCreateMonitorRequestConfiguration) Unset() {
+func (v *NullableUpdateMonitorRequestConfiguration) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableCreateMonitorRequestConfiguration(val *CreateMonitorRequestConfiguration) *NullableCreateMonitorRequestConfiguration {
-	return &NullableCreateMonitorRequestConfiguration{value: val, isSet: true}
+func NewNullableUpdateMonitorRequestConfiguration(val *UpdateMonitorRequestConfiguration) *NullableUpdateMonitorRequestConfiguration {
+	return &NullableUpdateMonitorRequestConfiguration{value: val, isSet: true}
 }
 
-func (v NullableCreateMonitorRequestConfiguration) MarshalJSON() ([]byte, error) {
+func (v NullableUpdateMonitorRequestConfiguration) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableCreateMonitorRequestConfiguration) UnmarshalJSON(src []byte) error {
+func (v *NullableUpdateMonitorRequestConfiguration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

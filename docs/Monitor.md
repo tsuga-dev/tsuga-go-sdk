@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Owner** | **string** | Team ID that owns and manages the monitor | 
 **Message** | Pointer to **string** | Message to be displayed if a notification is triggered | [optional] 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
-**Configuration** | [**CreateMonitorRequestConfiguration**](CreateMonitorRequestConfiguration.md) |  | 
+**Configuration** | [**UpdateMonitorRequestConfiguration**](UpdateMonitorRequestConfiguration.md) |  | 
 **Priority** | **float32** | Priority of the monitor | 
 **Permissions** | **string** | This controls which data the resource can see | 
 **DashboardId** | Pointer to **string** | Identifier of a dashboard related to the monitor | [optional] 
@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 
 ### NewMonitor
 
-`func NewMonitor(id string, name string, owner string, configuration CreateMonitorRequestConfiguration, priority float32, permissions string, clusterIds []string, ) *Monitor`
+`func NewMonitor(id string, name string, owner string, configuration UpdateMonitorRequestConfiguration, priority float32, permissions string, clusterIds []string, ) *Monitor`
 
 NewMonitor instantiates a new Monitor object
 This constructor will assign default values to properties that have it defined,
@@ -146,20 +146,20 @@ HasTags returns a boolean if a field has been set.
 
 ### GetConfiguration
 
-`func (o *Monitor) GetConfiguration() CreateMonitorRequestConfiguration`
+`func (o *Monitor) GetConfiguration() UpdateMonitorRequestConfiguration`
 
 GetConfiguration returns the Configuration field if non-nil, zero value otherwise.
 
 ### GetConfigurationOk
 
-`func (o *Monitor) GetConfigurationOk() (*CreateMonitorRequestConfiguration, bool)`
+`func (o *Monitor) GetConfigurationOk() (*UpdateMonitorRequestConfiguration, bool)`
 
 GetConfigurationOk returns a tuple with the Configuration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConfiguration
 
-`func (o *Monitor) SetConfiguration(v CreateMonitorRequestConfiguration)`
+`func (o *Monitor) SetConfiguration(v UpdateMonitorRequestConfiguration)`
 
 SetConfiguration sets Configuration field to given value.
 

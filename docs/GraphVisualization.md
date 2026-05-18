@@ -4,9 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | Displays the aggregation as a time series chart | 
-**Source** | **string** |  | 
+**Type** | **string** | Displays the database rows-based aggregation as a time series chart | 
+**ConnectionId** | **string** | The ID of the connection to use to query the datastore. | 
 **Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query | 
+**LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
+**Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
+**YAxisSettings** | Pointer to [**GraphVisualizationTimeseriesConnectionYAxisSettings**](GraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
+**Query** | **string** | Query that selects logs for the list | 
+**ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each log | [optional] 
+**ListColumnsSize** | Pointer to **map[string]float32** |  | [optional] 
+**Source** | **string** | Data source being queried for this aggregation | 
 **Formula** | Pointer to **string** | Formula referencing query outputs (e.g. q1+q2) to compute derived series | [optional] 
 **Aliases** | Pointer to [**GraphVisualizationTimeseriesAliases**](GraphVisualizationTimeseriesAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
@@ -14,17 +21,10 @@ Name | Type | Description | Notes
 **TimeBucket** | Pointer to [**GraphVisualizationTimeseriesTimeBucket**](GraphVisualizationTimeseriesTimeBucket.md) |  | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 **Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
-**LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
-**Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
-**YAxisSettings** | Pointer to [**GraphVisualizationTimeseriesYAxisSettings**](GraphVisualizationTimeseriesYAxisSettings.md) |  | [optional] 
 **Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the displayed value | [optional] 
 **BackgroundMode** | Pointer to **string** | Controls whether the widget uses a solid or transparent background | [optional] 
 **Columns** | [**[]TableColumn**](TableColumn.md) | Each column defines an independent aggregation displayed as a table column | 
 **DefaultSorting** | Pointer to [**[]TableDefaultSorting**](TableDefaultSorting.md) |  | [optional] 
-**Query** | **string** | Query that selects logs or database rows for the list | 
-**ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each log or database row | [optional] 
-**ListColumnsSize** | Pointer to **map[string]float32** |  | [optional] 
-**ConnectionId** | Pointer to **string** | Identifier of the connection to query | [optional] 
 **Note** | Pointer to **string** | Markdown-compatible text shown in the note | [optional] 
 **NoteColor** | Pointer to **string** | Background color used to render the note | [optional] 
 **NoteAlign** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
@@ -34,7 +34,7 @@ Name | Type | Description | Notes
 
 ### NewGraphVisualization
 
-`func NewGraphVisualization(type_ string, source string, queries []AggregationQuery, columns []TableColumn, query string, ) *GraphVisualization`
+`func NewGraphVisualization(type_ string, connectionId string, queries []AggregationQuery, query string, source string, columns []TableColumn, ) *GraphVisualization`
 
 NewGraphVisualization instantiates a new GraphVisualization object
 This constructor will assign default values to properties that have it defined,
@@ -69,24 +69,24 @@ and a boolean to check if the value has been set.
 SetType sets Type field to given value.
 
 
-### GetSource
+### GetConnectionId
 
-`func (o *GraphVisualization) GetSource() string`
+`func (o *GraphVisualization) GetConnectionId() string`
 
-GetSource returns the Source field if non-nil, zero value otherwise.
+GetConnectionId returns the ConnectionId field if non-nil, zero value otherwise.
 
-### GetSourceOk
+### GetConnectionIdOk
 
-`func (o *GraphVisualization) GetSourceOk() (*string, bool)`
+`func (o *GraphVisualization) GetConnectionIdOk() (*string, bool)`
 
-GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
+GetConnectionIdOk returns a tuple with the ConnectionId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSource
+### SetConnectionId
 
-`func (o *GraphVisualization) SetSource(v string)`
+`func (o *GraphVisualization) SetConnectionId(v string)`
 
-SetSource sets Source field to given value.
+SetConnectionId sets ConnectionId field to given value.
 
 
 ### GetQueries
@@ -107,6 +107,171 @@ and a boolean to check if the value has been set.
 `func (o *GraphVisualization) SetQueries(v []AggregationQuery)`
 
 SetQueries sets Queries field to given value.
+
+
+### GetLegendMode
+
+`func (o *GraphVisualization) GetLegendMode() string`
+
+GetLegendMode returns the LegendMode field if non-nil, zero value otherwise.
+
+### GetLegendModeOk
+
+`func (o *GraphVisualization) GetLegendModeOk() (*string, bool)`
+
+GetLegendModeOk returns a tuple with the LegendMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLegendMode
+
+`func (o *GraphVisualization) SetLegendMode(v string)`
+
+SetLegendMode sets LegendMode field to given value.
+
+### HasLegendMode
+
+`func (o *GraphVisualization) HasLegendMode() bool`
+
+HasLegendMode returns a boolean if a field has been set.
+
+### GetThresholds
+
+`func (o *GraphVisualization) GetThresholds() []ThresholdMarker`
+
+GetThresholds returns the Thresholds field if non-nil, zero value otherwise.
+
+### GetThresholdsOk
+
+`func (o *GraphVisualization) GetThresholdsOk() (*[]ThresholdMarker, bool)`
+
+GetThresholdsOk returns a tuple with the Thresholds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetThresholds
+
+`func (o *GraphVisualization) SetThresholds(v []ThresholdMarker)`
+
+SetThresholds sets Thresholds field to given value.
+
+### HasThresholds
+
+`func (o *GraphVisualization) HasThresholds() bool`
+
+HasThresholds returns a boolean if a field has been set.
+
+### GetYAxisSettings
+
+`func (o *GraphVisualization) GetYAxisSettings() GraphVisualizationTimeseriesConnectionYAxisSettings`
+
+GetYAxisSettings returns the YAxisSettings field if non-nil, zero value otherwise.
+
+### GetYAxisSettingsOk
+
+`func (o *GraphVisualization) GetYAxisSettingsOk() (*GraphVisualizationTimeseriesConnectionYAxisSettings, bool)`
+
+GetYAxisSettingsOk returns a tuple with the YAxisSettings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetYAxisSettings
+
+`func (o *GraphVisualization) SetYAxisSettings(v GraphVisualizationTimeseriesConnectionYAxisSettings)`
+
+SetYAxisSettings sets YAxisSettings field to given value.
+
+### HasYAxisSettings
+
+`func (o *GraphVisualization) HasYAxisSettings() bool`
+
+HasYAxisSettings returns a boolean if a field has been set.
+
+### GetQuery
+
+`func (o *GraphVisualization) GetQuery() string`
+
+GetQuery returns the Query field if non-nil, zero value otherwise.
+
+### GetQueryOk
+
+`func (o *GraphVisualization) GetQueryOk() (*string, bool)`
+
+GetQueryOk returns a tuple with the Query field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQuery
+
+`func (o *GraphVisualization) SetQuery(v string)`
+
+SetQuery sets Query field to given value.
+
+
+### GetListColumns
+
+`func (o *GraphVisualization) GetListColumns() []WidgetListColumn`
+
+GetListColumns returns the ListColumns field if non-nil, zero value otherwise.
+
+### GetListColumnsOk
+
+`func (o *GraphVisualization) GetListColumnsOk() (*[]WidgetListColumn, bool)`
+
+GetListColumnsOk returns a tuple with the ListColumns field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetListColumns
+
+`func (o *GraphVisualization) SetListColumns(v []WidgetListColumn)`
+
+SetListColumns sets ListColumns field to given value.
+
+### HasListColumns
+
+`func (o *GraphVisualization) HasListColumns() bool`
+
+HasListColumns returns a boolean if a field has been set.
+
+### GetListColumnsSize
+
+`func (o *GraphVisualization) GetListColumnsSize() map[string]float32`
+
+GetListColumnsSize returns the ListColumnsSize field if non-nil, zero value otherwise.
+
+### GetListColumnsSizeOk
+
+`func (o *GraphVisualization) GetListColumnsSizeOk() (*map[string]float32, bool)`
+
+GetListColumnsSizeOk returns a tuple with the ListColumnsSize field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetListColumnsSize
+
+`func (o *GraphVisualization) SetListColumnsSize(v map[string]float32)`
+
+SetListColumnsSize sets ListColumnsSize field to given value.
+
+### HasListColumnsSize
+
+`func (o *GraphVisualization) HasListColumnsSize() bool`
+
+HasListColumnsSize returns a boolean if a field has been set.
+
+### GetSource
+
+`func (o *GraphVisualization) GetSource() string`
+
+GetSource returns the Source field if non-nil, zero value otherwise.
+
+### GetSourceOk
+
+`func (o *GraphVisualization) GetSourceOk() (*string, bool)`
+
+GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSource
+
+`func (o *GraphVisualization) SetSource(v string)`
+
+SetSource sets Source field to given value.
 
 
 ### GetFormula
@@ -284,81 +449,6 @@ SetPrecision sets Precision field to given value.
 
 HasPrecision returns a boolean if a field has been set.
 
-### GetLegendMode
-
-`func (o *GraphVisualization) GetLegendMode() string`
-
-GetLegendMode returns the LegendMode field if non-nil, zero value otherwise.
-
-### GetLegendModeOk
-
-`func (o *GraphVisualization) GetLegendModeOk() (*string, bool)`
-
-GetLegendModeOk returns a tuple with the LegendMode field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLegendMode
-
-`func (o *GraphVisualization) SetLegendMode(v string)`
-
-SetLegendMode sets LegendMode field to given value.
-
-### HasLegendMode
-
-`func (o *GraphVisualization) HasLegendMode() bool`
-
-HasLegendMode returns a boolean if a field has been set.
-
-### GetThresholds
-
-`func (o *GraphVisualization) GetThresholds() []ThresholdMarker`
-
-GetThresholds returns the Thresholds field if non-nil, zero value otherwise.
-
-### GetThresholdsOk
-
-`func (o *GraphVisualization) GetThresholdsOk() (*[]ThresholdMarker, bool)`
-
-GetThresholdsOk returns a tuple with the Thresholds field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetThresholds
-
-`func (o *GraphVisualization) SetThresholds(v []ThresholdMarker)`
-
-SetThresholds sets Thresholds field to given value.
-
-### HasThresholds
-
-`func (o *GraphVisualization) HasThresholds() bool`
-
-HasThresholds returns a boolean if a field has been set.
-
-### GetYAxisSettings
-
-`func (o *GraphVisualization) GetYAxisSettings() GraphVisualizationTimeseriesYAxisSettings`
-
-GetYAxisSettings returns the YAxisSettings field if non-nil, zero value otherwise.
-
-### GetYAxisSettingsOk
-
-`func (o *GraphVisualization) GetYAxisSettingsOk() (*GraphVisualizationTimeseriesYAxisSettings, bool)`
-
-GetYAxisSettingsOk returns a tuple with the YAxisSettings field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetYAxisSettings
-
-`func (o *GraphVisualization) SetYAxisSettings(v GraphVisualizationTimeseriesYAxisSettings)`
-
-SetYAxisSettings sets YAxisSettings field to given value.
-
-### HasYAxisSettings
-
-`func (o *GraphVisualization) HasYAxisSettings() bool`
-
-HasYAxisSettings returns a boolean if a field has been set.
-
 ### GetConditions
 
 `func (o *GraphVisualization) GetConditions() []ConditionalFormatting`
@@ -453,101 +543,6 @@ SetDefaultSorting sets DefaultSorting field to given value.
 `func (o *GraphVisualization) HasDefaultSorting() bool`
 
 HasDefaultSorting returns a boolean if a field has been set.
-
-### GetQuery
-
-`func (o *GraphVisualization) GetQuery() string`
-
-GetQuery returns the Query field if non-nil, zero value otherwise.
-
-### GetQueryOk
-
-`func (o *GraphVisualization) GetQueryOk() (*string, bool)`
-
-GetQueryOk returns a tuple with the Query field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetQuery
-
-`func (o *GraphVisualization) SetQuery(v string)`
-
-SetQuery sets Query field to given value.
-
-
-### GetListColumns
-
-`func (o *GraphVisualization) GetListColumns() []WidgetListColumn`
-
-GetListColumns returns the ListColumns field if non-nil, zero value otherwise.
-
-### GetListColumnsOk
-
-`func (o *GraphVisualization) GetListColumnsOk() (*[]WidgetListColumn, bool)`
-
-GetListColumnsOk returns a tuple with the ListColumns field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetListColumns
-
-`func (o *GraphVisualization) SetListColumns(v []WidgetListColumn)`
-
-SetListColumns sets ListColumns field to given value.
-
-### HasListColumns
-
-`func (o *GraphVisualization) HasListColumns() bool`
-
-HasListColumns returns a boolean if a field has been set.
-
-### GetListColumnsSize
-
-`func (o *GraphVisualization) GetListColumnsSize() map[string]float32`
-
-GetListColumnsSize returns the ListColumnsSize field if non-nil, zero value otherwise.
-
-### GetListColumnsSizeOk
-
-`func (o *GraphVisualization) GetListColumnsSizeOk() (*map[string]float32, bool)`
-
-GetListColumnsSizeOk returns a tuple with the ListColumnsSize field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetListColumnsSize
-
-`func (o *GraphVisualization) SetListColumnsSize(v map[string]float32)`
-
-SetListColumnsSize sets ListColumnsSize field to given value.
-
-### HasListColumnsSize
-
-`func (o *GraphVisualization) HasListColumnsSize() bool`
-
-HasListColumnsSize returns a boolean if a field has been set.
-
-### GetConnectionId
-
-`func (o *GraphVisualization) GetConnectionId() string`
-
-GetConnectionId returns the ConnectionId field if non-nil, zero value otherwise.
-
-### GetConnectionIdOk
-
-`func (o *GraphVisualization) GetConnectionIdOk() (*string, bool)`
-
-GetConnectionIdOk returns a tuple with the ConnectionId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetConnectionId
-
-`func (o *GraphVisualization) SetConnectionId(v string)`
-
-SetConnectionId sets ConnectionId field to given value.
-
-### HasConnectionId
-
-`func (o *GraphVisualization) HasConnectionId() bool`
-
-HasConnectionId returns a boolean if a field has been set.
 
 ### GetNote
 
