@@ -51,6 +51,77 @@ tags:
 - description: User management and authentication
   name: users
 paths:
+  /v1/dashboards/query:
+    post:
+      description: "Query dashboards with filters, sorting, and pagination"
+      operationId: queryDashboards
+      requestBody:
+        content:
+          application/json:
+            example:
+              filters:
+                owners:
+                  values:
+                  - team-123-abc
+                searchQuery:
+                  value: API
+                tags:
+                  values:
+                  - key: service
+                    value: api-gateway
+              sort:
+                by: name
+                direction: asc
+              limit: 10
+              offset: 0
+            schema:
+              $ref: "#/components/schemas/queryDashboards_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueryDashboardsResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - dashboards
   /v1/dashboards:
     get:
       description: Retrieve all dashboards
@@ -482,13 +553,19 @@ paths:
             example:
               filters:
                 owners:
-                - team-123-abc
-                searchQuery: service:api-gateway
+                  values:
+                  - team-123-abc
+                searchQuery:
+                  value: service:api-gateway
                 tags:
-                - key: paging
-                  value: "true"
+                  values:
+                  - key: paging
+                    value: "true"
                 priorities:
-                - 1
+                  values:
+                  - 4
+                  - 5
+                  exclude: true
               sort:
                 by: name
                 direction: asc
@@ -1929,6 +2006,16 @@ components:
       required:
       - error
       - requestId
+    ResponseMetadata:
+      example:
+        pagination:
+          pageCount: 6
+          totalCount: 0
+      properties:
+        pagination:
+          $ref: "#/components/schemas/ResponseMetadata_pagination"
+      required:
+      - pagination
     DeleteResponse:
       example:
         success: true
@@ -1940,16 +2027,6 @@ components:
           type: boolean
       required:
       - success
-    ResponseMetadata:
-      example:
-        pagination:
-          pageCount: 0
-          totalCount: 0
-      properties:
-        pagination:
-          $ref: "#/components/schemas/ResponseMetadata_pagination"
-      required:
-      - pagination
     Dashboard:
       description: Visualization of telemetry data with customizable graphs and filters
       example:
@@ -1994,19 +2071,17 @@ components:
         graphs:
           description: Ordered widgets that compose the dashboard
           items:
-            $ref: "#/components/schemas/Graph"
+            $ref: "#/components/schemas/Graph_1"
           type: array
         filters:
           description: Filters applied to every widget on the dashboard
           items:
-            $ref: "#/components/schemas/createDashboard_request_filters_inner"
-          maxItems: 10
+            $ref: "#/components/schemas/Dashboard_filters_inner"
           type: array
         tags:
           description: List of key/value tags applied to the resource
           items:
-            $ref: "#/components/schemas/Tag"
-          maxItems: 50
+            $ref: "#/components/schemas/Tag_1"
           title: Tags
           type: array
         timePreset:
@@ -2040,11 +2115,88 @@ components:
       - id
       - name
       - owner
+    QueryDashboardsResponse:
+      example:
+        metadata:
+          pagination:
+            pageCount: 6
+            totalCount: 0
+        data:
+        - id: 123-456-abc
+          name: API Performance Overview
+          owner: abc-123-def
+          graphs:
+          - id: 789-abc-def
+            name: Request Latency P99
+            visualization:
+              type: timeseries
+              source: metrics
+              queries:
+              - aggregate:
+                  type: percentile
+                  field: duration
+                  percentile: 99
+                filter: service:api-gateway
+            layout:
+              x: 0
+              "y": 0
+              w: 6
+              h: 4
+          filters:
+          - key: env
+            values:
+            - production
+          tags:
+          - key: team
+            value: platform
+          timePreset: past-1-hour
+        - id: 123-456-abc
+          name: API Performance Overview
+          owner: abc-123-def
+          graphs:
+          - id: 789-abc-def
+            name: Request Latency P99
+            visualization:
+              type: timeseries
+              source: metrics
+              queries:
+              - aggregate:
+                  type: percentile
+                  field: duration
+                  percentile: 99
+                filter: service:api-gateway
+            layout:
+              x: 0
+              "y": 0
+              w: 6
+              h: 4
+          filters:
+          - key: env
+            values:
+            - production
+          tags:
+          - key: team
+            value: platform
+          timePreset: past-1-hour
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/Dashboard"
+          type: array
+        metadata:
+          $ref: "#/components/schemas/ResponseMetadata"
+      required:
+      - data
+      - requestId
     ListDashboardsResponse:
       example:
         metadata:
           pagination:
-            pageCount: 0
+            pageCount: 6
             totalCount: 0
         data:
         - id: 123-456-abc
@@ -2262,7 +2414,7 @@ components:
               max: null
               scale:
                 type: pow
-                exponent: 0.6027456183070403
+                exponent: 6.027456183070403
               alwaysIncludeZero: true
             type: timeseries-connection
             queries:
@@ -2277,7 +2429,7 @@ components:
           description: Identifier used to trace the lifecycle of this API request
           type: string
         data:
-          $ref: "#/components/schemas/Graph"
+          $ref: "#/components/schemas/Graph_1"
       required:
       - data
       - requestId
@@ -2338,12 +2490,11 @@ components:
         tags:
           description: List of key/value tags applied to the resource
           items:
-            $ref: "#/components/schemas/Tag"
-          maxItems: 50
+            $ref: "#/components/schemas/Tag_1"
           title: Tags
           type: array
         configuration:
-          $ref: "#/components/schemas/updateMonitor_request_configuration"
+          $ref: "#/components/schemas/Monitor_configuration"
         priority:
           description: Priority of the monitor
           enum:
@@ -2379,7 +2530,7 @@ components:
       example:
         metadata:
           pagination:
-            pageCount: 0
+            pageCount: 6
             totalCount: 0
         data:
         - id: 123-456-abc
@@ -2636,8 +2787,7 @@ components:
         tags:
           description: List of key/value tags applied to the resource
           items:
-            $ref: "#/components/schemas/Tag"
-          maxItems: 50
+            $ref: "#/components/schemas/Tag_1"
           title: Tags
           type: array
         targets:
@@ -2660,7 +2810,7 @@ components:
       example:
         metadata:
           pagination:
-            pageCount: 0
+            pageCount: 6
             totalCount: 0
         data:
         - id: 123-456-abc
@@ -2851,15 +3001,12 @@ components:
           teamIds:
           - teamIds
           - teamIds
-          - teamIds
-          - teamIds
-          - teamIds
         configuration:
           assetTypes:
           - logs
           - logs
           shouldInsertWarning: true
-          dropSample: 8.008281904610115
+          dropSample: 0.8008281904610115
           type: telemetry
         name: name
         description: description
@@ -2887,9 +3034,9 @@ components:
         isRequired:
           type: boolean
         teamScope:
-          $ref: "#/components/schemas/createTagPolicy_request_teamScope"
+          $ref: "#/components/schemas/TagPolicy_teamScope"
         configuration:
-          $ref: "#/components/schemas/createTagPolicy_request_configuration"
+          $ref: "#/components/schemas/TagPolicy_configuration"
         owner:
           type: string
       required:
@@ -2910,15 +3057,12 @@ components:
             teamIds:
             - teamIds
             - teamIds
-            - teamIds
-            - teamIds
-            - teamIds
           configuration:
             assetTypes:
             - logs
             - logs
             shouldInsertWarning: true
-            dropSample: 8.008281904610115
+            dropSample: 0.8008281904610115
             type: telemetry
           name: name
           description: description
@@ -2935,15 +3079,12 @@ components:
             teamIds:
             - teamIds
             - teamIds
-            - teamIds
-            - teamIds
-            - teamIds
           configuration:
             assetTypes:
             - logs
             - logs
             shouldInsertWarning: true
-            dropSample: 8.008281904610115
+            dropSample: 0.8008281904610115
             type: telemetry
           name: name
           description: description
@@ -2975,15 +3116,12 @@ components:
             teamIds:
             - teamIds
             - teamIds
-            - teamIds
-            - teamIds
-            - teamIds
           configuration:
             assetTypes:
             - logs
             - logs
             shouldInsertWarning: true
-            dropSample: 8.008281904610115
+            dropSample: 0.8008281904610115
             type: telemetry
           name: name
           description: description
@@ -3013,15 +3151,12 @@ components:
             teamIds:
             - teamIds
             - teamIds
-            - teamIds
-            - teamIds
-            - teamIds
           configuration:
             assetTypes:
             - logs
             - logs
             shouldInsertWarning: true
-            dropSample: 8.008281904610115
+            dropSample: 0.8008281904610115
             type: telemetry
           name: name
           description: description
@@ -3051,15 +3186,12 @@ components:
             teamIds:
             - teamIds
             - teamIds
-            - teamIds
-            - teamIds
-            - teamIds
           configuration:
             assetTypes:
             - logs
             - logs
             shouldInsertWarning: true
-            dropSample: 8.008281904610115
+            dropSample: 0.8008281904610115
             type: telemetry
           name: name
           description: description
@@ -3122,8 +3254,7 @@ components:
         tags:
           description: List of key/value tags applied to the resource
           items:
-            $ref: "#/components/schemas/Tag"
-          maxItems: 50
+            $ref: "#/components/schemas/Tag_1"
           title: Tags
           type: array
       required:
@@ -3134,7 +3265,7 @@ components:
       example:
         metadata:
           pagination:
-            pageCount: 0
+            pageCount: 6
             totalCount: 0
         data:
         - id: abc-123-def
@@ -3248,13 +3379,113 @@ components:
           type: string
         field:
           description: Attribute containing the values to aggregate
+          type: string
+      required:
+      - type
+      title: Count
+    AggregateUniqueCount:
+      properties:
+        type:
+          description: Counts the distinct values of the field
+          enum:
+          - unique-count
+          type: string
+        field:
+          description: Attribute containing the values to aggregate
+          type: string
+      required:
+      - field
+      - type
+      title: UniqueCount
+    AggregateAverage:
+      properties:
+        type:
+          description: Calculates the average value of the selected field
+          enum:
+          - average
+          type: string
+        field:
+          description: Attribute containing the values to aggregate
+          type: string
+      required:
+      - field
+      - type
+      title: Average
+    AggregateMax:
+      properties:
+        type:
+          description: Finds the largest value of the field
+          enum:
+          - max
+          type: string
+        field:
+          description: Attribute containing the values to aggregate
+          type: string
+      required:
+      - field
+      - type
+      title: Max
+    AggregateMin:
+      properties:
+        type:
+          description: Finds the smallest value of the field
+          enum:
+          - min
+          type: string
+        field:
+          description: Attribute containing the values to aggregate
+          type: string
+      required:
+      - field
+      - type
+      title: Min
+    AggregateSum:
+      properties:
+        type:
+          description: Sums the values of the selected field
+          enum:
+          - sum
+          type: string
+        field:
+          description: Attribute containing the values to aggregate
+          type: string
+      required:
+      - field
+      - type
+      title: Sum
+    AggregatePercentile:
+      properties:
+        type:
+          description: Calculates a percentile of the selected field
+          enum:
+          - percentile
+          type: string
+        field:
+          description: Attribute containing the values to aggregate
+          type: string
+        percentile:
+          type: number
+      required:
+      - field
+      - percentile
+      - type
+      title: Percentile
+    InputAggregateCount:
+      properties:
+        type:
+          description: Counts the total number of records
+          enum:
+          - count
+          type: string
+        field:
+          description: Attribute containing the values to aggregate
           maxLength: 250
           minLength: 0
           type: string
       required:
       - type
       title: Count
-    AggregateUniqueCount:
+    InputAggregateUniqueCount:
       properties:
         type:
           description: Counts the distinct values of the field
@@ -3270,7 +3501,7 @@ components:
       - field
       - type
       title: UniqueCount
-    AggregateAverage:
+    InputAggregateAverage:
       properties:
         type:
           description: Calculates the average value of the selected field
@@ -3286,7 +3517,7 @@ components:
       - field
       - type
       title: Average
-    AggregateMax:
+    InputAggregateMax:
       properties:
         type:
           description: Finds the largest value of the field
@@ -3302,7 +3533,7 @@ components:
       - field
       - type
       title: Max
-    AggregateMin:
+    InputAggregateMin:
       properties:
         type:
           description: Finds the smallest value of the field
@@ -3318,7 +3549,7 @@ components:
       - field
       - type
       title: Min
-    AggregateSum:
+    InputAggregateSum:
       properties:
         type:
           description: Sums the values of the selected field
@@ -3334,7 +3565,7 @@ components:
       - field
       - type
       title: Sum
-    AggregatePercentile:
+    InputAggregatePercentile:
       properties:
         type:
           description: Calculates a percentile of the selected field
@@ -3415,8 +3646,6 @@ components:
           type: string
         window:
           description: Duration of the rolling window
-          maxLength: 250
-          minLength: 1
           type: string
       required:
       - type
@@ -3431,7 +3660,6 @@ components:
           type: string
         base:
           description: The base of the logarithm
-          minimum: 2
           type: integer
       required:
       - base
@@ -3481,6 +3709,52 @@ components:
           type: string
         seconds:
           description: Number of seconds to offset
+          type: integer
+      required:
+      - seconds
+      - type
+      title: TimeOffset
+    InputFunctionRolling:
+      properties:
+        type:
+          description: Computes a rolling window aggregate
+          enum:
+          - rolling
+          type: string
+        window:
+          description: Duration of the rolling window
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - type
+      - window
+      title: Rolling
+    InputFunctionLog:
+      properties:
+        type:
+          description: Applies a logarithm transformation to the values
+          enum:
+          - log
+          type: string
+        base:
+          description: The base of the logarithm
+          minimum: 2
+          type: integer
+      required:
+      - base
+      - type
+      title: Log
+    InputFunctionTimeOffset:
+      properties:
+        type:
+          description: Shifts a query's data backward by a specified duration for
+            easy comparison over different periods of time.
+          enum:
+          - time-offset
+          type: string
+        seconds:
+          description: Number of seconds to offset
           minimum: 1
           type: integer
       required:
@@ -3512,7 +3786,6 @@ components:
             setting is currently ignored.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
-          maxItems: 1
           type: array
         aggregationAlertLogic:
           enum:
@@ -3523,14 +3796,10 @@ components:
           - proportion
           type: string
         proportionAlertThreshold:
-          maximum: 99
-          minimum: 1
           type: integer
         queries:
-          description: Aggregations that may be combined together in the same query
           items:
             $ref: "#/components/schemas/MonitorAggregationQuery"
-          maxItems: 15
           type: array
       required:
       - conditions
@@ -3564,7 +3833,6 @@ components:
             setting is currently ignored.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
-          maxItems: 1
           type: array
         aggregationAlertLogic:
           enum:
@@ -3575,14 +3843,10 @@ components:
           - proportion
           type: string
         proportionAlertThreshold:
-          maximum: 99
-          minimum: 1
           type: integer
         queries:
-          description: Aggregations that may be combined together in the same query
           items:
             $ref: "#/components/schemas/MonitorAggregationQuery"
-          maxItems: 15
           type: array
       required:
       - conditions
@@ -3616,7 +3880,6 @@ components:
             setting is currently ignored.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
-          maxItems: 1
           type: array
         aggregationAlertLogic:
           enum:
@@ -3627,14 +3890,10 @@ components:
           - proportion
           type: string
         proportionAlertThreshold:
-          maximum: 99
-          minimum: 1
           type: integer
         queries:
-          description: Aggregations that may be combined together in the same query
           items:
             $ref: "#/components/schemas/MonitorAggregationQuery"
-          maxItems: 15
           type: array
       required:
       - conditions
@@ -3665,7 +3924,6 @@ components:
             setting is currently ignored.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
-          maxItems: 1
           type: array
         aggregationAlertLogic:
           enum:
@@ -3676,14 +3934,10 @@ components:
           - proportion
           type: string
         proportionAlertThreshold:
-          maximum: 99
-          minimum: 1
           type: integer
         queries:
-          description: Aggregations that may be combined together in the same query
           items:
             $ref: "#/components/schemas/MonitorAggregationQuery"
-          maxItems: 15
           type: array
       required:
       - condition
@@ -3714,7 +3968,6 @@ components:
             setting is currently ignored.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
-          maxItems: 1
           type: array
         aggregationAlertLogic:
           enum:
@@ -3725,14 +3978,10 @@ components:
           - proportion
           type: string
         proportionAlertThreshold:
-          maximum: 99
-          minimum: 1
           type: integer
         queries:
-          description: Aggregations that may be combined together in the same query
           items:
             $ref: "#/components/schemas/MonitorAggregationQuery"
-          maxItems: 15
           type: array
       required:
       - condition
@@ -3769,6 +4018,285 @@ components:
           - certificate-expiry
           type: string
         warnBeforeInDays:
+          type: integer
+        cloudAccounts:
+          items:
+            type: string
+          type: array
+        aggregationAlertLogic:
+          enum:
+          - each
+          type: string
+        noDataBehavior:
+          enum:
+          - resolve
+          type: string
+      required:
+      - aggregationAlertLogic
+      - noDataBehavior
+      - type
+      - warnBeforeInDays
+    InputMonitorConfigurationMetric:
+      properties:
+        type:
+          enum:
+          - metric
+          type: string
+        conditions:
+          items:
+            $ref: "#/components/schemas/InputMonitorConfigurationMetric_conditions_inner"
+          type: array
+        noDataBehavior:
+          enum:
+          - alert
+          - resolve
+          - keep_last_status
+          - consider_zero
+          type: string
+        timeframe:
+          description: Timeframe of the monitor in minutes
+          type: number
+        groupByFields:
+          description: Monitor group by configuration. Warning! Note that the limit
+            setting is currently ignored.
+          items:
+            $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
+          maxItems: 1
+          type: array
+        aggregationAlertLogic:
+          enum:
+          - no_aggregation
+          - all
+          - any
+          - each
+          - proportion
+          type: string
+        proportionAlertThreshold:
+          maximum: 99
+          minimum: 1
+          type: integer
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/MonitorAggregationQuery_1"
+          maxItems: 15
+          type: array
+      required:
+      - conditions
+      - groupByFields
+      - noDataBehavior
+      - queries
+      - timeframe
+      - type
+    InputMonitorConfigurationLog:
+      properties:
+        type:
+          enum:
+          - log
+          type: string
+        conditions:
+          items:
+            $ref: "#/components/schemas/InputMonitorConfigurationMetric_conditions_inner"
+          type: array
+        noDataBehavior:
+          enum:
+          - alert
+          - resolve
+          - keep_last_status
+          - consider_zero
+          type: string
+        timeframe:
+          description: Timeframe of the monitor in minutes
+          type: number
+        groupByFields:
+          description: Monitor group by configuration. Warning! Note that the limit
+            setting is currently ignored.
+          items:
+            $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
+          maxItems: 1
+          type: array
+        aggregationAlertLogic:
+          enum:
+          - no_aggregation
+          - all
+          - any
+          - each
+          - proportion
+          type: string
+        proportionAlertThreshold:
+          maximum: 99
+          minimum: 1
+          type: integer
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/MonitorAggregationQuery_1"
+          maxItems: 15
+          type: array
+      required:
+      - conditions
+      - groupByFields
+      - noDataBehavior
+      - queries
+      - timeframe
+      - type
+    InputMonitorConfigurationTrace:
+      properties:
+        type:
+          enum:
+          - trace
+          type: string
+        conditions:
+          items:
+            $ref: "#/components/schemas/InputMonitorConfigurationMetric_conditions_inner"
+          type: array
+        noDataBehavior:
+          enum:
+          - alert
+          - resolve
+          - keep_last_status
+          - consider_zero
+          type: string
+        timeframe:
+          description: Timeframe of the monitor in minutes
+          type: number
+        groupByFields:
+          description: Monitor group by configuration. Warning! Note that the limit
+            setting is currently ignored.
+          items:
+            $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
+          maxItems: 1
+          type: array
+        aggregationAlertLogic:
+          enum:
+          - no_aggregation
+          - all
+          - any
+          - each
+          - proportion
+          type: string
+        proportionAlertThreshold:
+          maximum: 99
+          minimum: 1
+          type: integer
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/MonitorAggregationQuery_1"
+          maxItems: 15
+          type: array
+      required:
+      - conditions
+      - groupByFields
+      - noDataBehavior
+      - queries
+      - timeframe
+      - type
+    InputMonitorConfigurationAnomalyLog:
+      properties:
+        type:
+          enum:
+          - anomaly-log
+          type: string
+        condition:
+          $ref: "#/components/schemas/InputMonitorConfigurationAnomalyLog_condition"
+        noDataBehavior:
+          enum:
+          - alert
+          - resolve
+          - keep_last_status
+          type: string
+        timeframe:
+          description: Timeframe of the monitor in minutes
+          type: number
+        groupByFields:
+          description: Monitor group by configuration. Warning! Note that the limit
+            setting is currently ignored.
+          items:
+            $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
+          maxItems: 1
+          type: array
+        aggregationAlertLogic:
+          enum:
+          - no_aggregation
+          - all
+          - any
+          - each
+          - proportion
+          type: string
+        proportionAlertThreshold:
+          maximum: 99
+          minimum: 1
+          type: integer
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/MonitorAggregationQuery_1"
+          maxItems: 15
+          type: array
+      required:
+      - condition
+      - groupByFields
+      - noDataBehavior
+      - queries
+      - timeframe
+      - type
+    InputMonitorConfigurationAnomalyMetric:
+      properties:
+        type:
+          enum:
+          - anomaly-metric
+          type: string
+        condition:
+          $ref: "#/components/schemas/InputMonitorConfigurationAnomalyLog_condition"
+        noDataBehavior:
+          enum:
+          - alert
+          - resolve
+          - keep_last_status
+          type: string
+        timeframe:
+          description: Timeframe of the monitor in minutes
+          type: number
+        groupByFields:
+          description: Monitor group by configuration. Warning! Note that the limit
+            setting is currently ignored.
+          items:
+            $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
+          maxItems: 1
+          type: array
+        aggregationAlertLogic:
+          enum:
+          - no_aggregation
+          - all
+          - any
+          - each
+          - proportion
+          type: string
+        proportionAlertThreshold:
+          maximum: 99
+          minimum: 1
+          type: integer
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/MonitorAggregationQuery_1"
+          maxItems: 15
+          type: array
+      required:
+      - condition
+      - groupByFields
+      - noDataBehavior
+      - queries
+      - timeframe
+      - type
+    InputMonitorConfigurationCertificateExpiry:
+      properties:
+        type:
+          enum:
+          - certificate-expiry
+          type: string
+        warnBeforeInDays:
           maximum: 365
           minimum: 1
           type: integer
@@ -3790,159 +4318,6 @@ components:
       - noDataBehavior
       - type
       - warnBeforeInDays
-    RuleTargetInputSlack:
-      properties:
-        type:
-          enum:
-          - slack
-          type: string
-        channel:
-          description: Slack channel ID that receives the notification
-          maxLength: 250
-          minLength: 0
-          type: string
-        integrationId:
-          description: Slack workspace ID that receives the notification
-          maxLength: 250
-          minLength: 0
-          type: string
-      required:
-      - channel
-      - integrationId
-      - type
-    RuleTargetInputIncidentIo:
-      properties:
-        type:
-          enum:
-          - incident-io
-          type: string
-        integrationId:
-          description: Identifier of the incident.io integration to use
-          maxLength: 250
-          minLength: 0
-          type: string
-      required:
-      - integrationId
-      - type
-    RuleTargetInputPagerDuty:
-      properties:
-        type:
-          enum:
-          - pagerduty
-          type: string
-        integrationId:
-          description: Identifier of the PagerDuty integration to use
-          maxLength: 250
-          minLength: 0
-          type: string
-      required:
-      - integrationId
-      - type
-    RuleTargetInputEmail:
-      properties:
-        type:
-          enum:
-          - email
-          type: string
-        addresses:
-          description: Email addresses that will receive the alert
-          items:
-            format: lowercase-email
-            maxLength: 254
-            minLength: 0
-            type: string
-            errorMessage:
-              format: Must be a valid lowercase email address.
-          maxItems: 20
-          minItems: 1
-          type: array
-      required:
-      - addresses
-      - type
-    RuleTargetInputGrafanaIrm:
-      properties:
-        type:
-          enum:
-          - grafana-irm
-          type: string
-        integrationId:
-          description: Identifier of the Grafana IRM integration to use
-          maxLength: 250
-          minLength: 0
-          type: string
-      required:
-      - integrationId
-      - type
-    RuleTargetInputMicrosoftTeams:
-      properties:
-        type:
-          enum:
-          - microsoft-teams
-          type: string
-        integrationId:
-          description: Identifier of the Microsoft Teams integration to use
-          maxLength: 250
-          minLength: 0
-          type: string
-      required:
-      - integrationId
-      - type
-    RuleTargetInputWebhook:
-      properties:
-        type:
-          enum:
-          - webhook
-          type: string
-        integrationId:
-          description: Identifier of the webhook integration to use
-          maxLength: 250
-          minLength: 0
-          type: string
-      required:
-      - integrationId
-      - type
-    RuleTargetInputServiceNow:
-      properties:
-        type:
-          enum:
-          - servicenow
-          type: string
-        integrationId:
-          description: Identifier of the ServiceNow integration to use
-          maxLength: 250
-          minLength: 0
-          type: string
-      required:
-      - integrationId
-      - type
-    RuleTargetInputGoogleChat:
-      properties:
-        type:
-          enum:
-          - google-chat
-          type: string
-        integrationId:
-          description: Identifier of the Google Chat integration to use
-          maxLength: 250
-          minLength: 0
-          type: string
-      required:
-      - integrationId
-      - type
-    RuleTargetInputSquadcast:
-      properties:
-        type:
-          enum:
-          - squadcast
-          type: string
-        integrationId:
-          description: Identifier of the Squadcast integration to use
-          maxLength: 250
-          minLength: 0
-          type: string
-      required:
-      - integrationId
-      - type
     RuleTargetConfigSlack:
       properties:
         type:
@@ -3988,7 +4363,6 @@ components:
         addresses:
           description: Email addresses that will receive the alert
           items:
-            format: email
             type: string
           type: array
       required:
@@ -4106,6 +4480,159 @@ components:
       - integrationId
       - integrationName
       - type
+    RuleTargetInputSlack:
+      properties:
+        type:
+          enum:
+          - slack
+          type: string
+        channel:
+          description: Slack channel ID that receives the notification
+          maxLength: 250
+          minLength: 1
+          type: string
+        integrationId:
+          description: Slack workspace ID that receives the notification
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - channel
+      - integrationId
+      - type
+    RuleTargetInputIncidentIo:
+      properties:
+        type:
+          enum:
+          - incident-io
+          type: string
+        integrationId:
+          description: Identifier of the incident.io integration to use
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - integrationId
+      - type
+    RuleTargetInputPagerDuty:
+      properties:
+        type:
+          enum:
+          - pagerduty
+          type: string
+        integrationId:
+          description: Identifier of the PagerDuty integration to use
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - integrationId
+      - type
+    RuleTargetInputEmail:
+      properties:
+        type:
+          enum:
+          - email
+          type: string
+        addresses:
+          description: Email addresses that will receive the alert
+          items:
+            format: lowercase-email
+            maxLength: 254
+            minLength: 0
+            type: string
+            errorMessage:
+              format: Must be a valid lowercase email address.
+          maxItems: 20
+          minItems: 1
+          type: array
+      required:
+      - addresses
+      - type
+    RuleTargetInputGrafanaIrm:
+      properties:
+        type:
+          enum:
+          - grafana-irm
+          type: string
+        integrationId:
+          description: Identifier of the Grafana IRM integration to use
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - integrationId
+      - type
+    RuleTargetInputMicrosoftTeams:
+      properties:
+        type:
+          enum:
+          - microsoft-teams
+          type: string
+        integrationId:
+          description: Identifier of the Microsoft Teams integration to use
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - integrationId
+      - type
+    RuleTargetInputWebhook:
+      properties:
+        type:
+          enum:
+          - webhook
+          type: string
+        integrationId:
+          description: Identifier of the webhook integration to use
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - integrationId
+      - type
+    RuleTargetInputServiceNow:
+      properties:
+        type:
+          enum:
+          - servicenow
+          type: string
+        integrationId:
+          description: Identifier of the ServiceNow integration to use
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - integrationId
+      - type
+    RuleTargetInputGoogleChat:
+      properties:
+        type:
+          enum:
+          - google-chat
+          type: string
+        integrationId:
+          description: Identifier of the Google Chat integration to use
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - integrationId
+      - type
+    RuleTargetInputSquadcast:
+      properties:
+        type:
+          enum:
+          - squadcast
+          type: string
+        integrationId:
+          description: Identifier of the Squadcast integration to use
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - integrationId
+      - type
     DataNormalizerDuration:
       properties:
         type:
@@ -4179,6 +4706,16 @@ components:
       required:
       - type
       title: Level
+    DataNormalizerCpu:
+      properties:
+        type:
+          description: Normalizes values as CPU usage
+          enum:
+          - cpu
+          type: string
+      required:
+      - type
+      title: CPU
     DataNormalizerCustom:
       properties:
         type:
@@ -4188,6 +4725,21 @@ components:
           type: string
         unit:
           description: Text label describing the custom unit
+          type: string
+      required:
+      - type
+      - unit
+      title: Custom
+    InputDataNormalizerCustom:
+      properties:
+        type:
+          description: Normalizes values using a custom unit label
+          enum:
+          - custom
+          type: string
+        unit:
+          description: Text label describing the custom unit
+          maxLength: 20
           type: string
       required:
       - type
@@ -4208,7 +4760,7 @@ components:
           max: null
           scale:
             type: pow
-            exponent: 0.6027456183070403
+            exponent: 6.027456183070403
           alwaysIncludeZero: true
         type: timeseries-connection
         queries:
@@ -4223,20 +4775,11 @@ components:
           type: string
         connectionId:
           description: The ID of the connection to use to query the datastore.
-          maxLength: 250
-          minLength: 1
           type: string
         queries:
           items:
             description: The read-only SQL query to execute against the connection.
-            format: readonly-sql-query
-            maxLength: 50000
-            minLength: 1
             type: string
-            errorMessage:
-              format: "Must be a readonly SQL query (only SELECT statements are allowed).\
-                \ The SQL query you provided is not a readonly SQL query: ${0}."
-          minItems: 1
           type: array
         legendMode:
           description: "Controls whether and how the widget displays legend or series\
@@ -4267,18 +4810,10 @@ components:
           type: string
         connectionId:
           description: The ID of the connection to use to query the datastore.
-          maxLength: 250
-          minLength: 1
           type: string
         query:
           description: The read-only SQL query to execute against the connection.
-          format: readonly-sql-query
-          maxLength: 50000
-          minLength: 1
           type: string
-          errorMessage:
-            format: "Must be a readonly SQL query (only SELECT statements are allowed).\
-              \ The SQL query you provided is not a readonly SQL query: ${0}."
         listColumns:
           description: Custom columns to display for each database row
           items:
@@ -4293,6 +4828,135 @@ components:
       - query
       - type
       title: ListConnection
+    GraphVisualizationTopListConnection:
+      properties:
+        type:
+          description: Displays the database rows-based aggregation as a ranked top
+            list
+          enum:
+          - top-list-connection
+          type: string
+        connectionId:
+          description: The ID of the connection to use to query the datastore.
+          type: string
+        queries:
+          items:
+            description: The read-only SQL query to execute against the connection.
+            type: string
+          type: array
+      required:
+      - connectionId
+      - queries
+      - type
+      title: TopListConnection
+    GraphVisualizationPieConnection:
+      properties:
+        type:
+          description: Displays the database rows-based aggregation as a pie chart
+          enum:
+          - pie-connection
+          type: string
+        connectionId:
+          description: The ID of the connection to use to query the datastore.
+          type: string
+        queries:
+          items:
+            description: The read-only SQL query to execute against the connection.
+            type: string
+          type: array
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
+      required:
+      - connectionId
+      - queries
+      - type
+      title: PieConnection
+    GraphVisualizationBarConnection:
+      properties:
+        type:
+          description: Displays the database rows-based aggregation as a bar chart
+          enum:
+          - bar-connection
+          type: string
+        connectionId:
+          description: The ID of the connection to use to query the datastore.
+          type: string
+        queries:
+          items:
+            description: The read-only SQL query to execute against the connection.
+            type: string
+          type: array
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
+        thresholds:
+          description: Threshold markers displayed on the chart
+          items:
+            $ref: "#/components/schemas/ThresholdMarker"
+          type: array
+        yAxisSettings:
+          $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings"
+      required:
+      - connectionId
+      - queries
+      - type
+      title: BarConnection
+    GraphVisualizationQueryValueConnection:
+      properties:
+        type:
+          description: Displays a single value computed by a SQL query against a database
+            connection
+          enum:
+          - query-value-connection
+          type: string
+        connectionId:
+          description: The ID of the connection to use to query the datastore.
+          type: string
+        queries:
+          items:
+            description: The read-only SQL query to execute against the connection.
+            type: string
+          type: array
+        backgroundMode:
+          description: Controls whether the widget uses a solid or transparent background
+          enum:
+          - background
+          - no-background
+          type: string
+        conditions:
+          description: Conditional formatting rules applied to the displayed value
+          items:
+            $ref: "#/components/schemas/ConditionalFormatting"
+          type: array
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
+        normalizer:
+          $ref: "#/components/schemas/Normalizer"
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
+      required:
+      - connectionId
+      - queries
+      - type
+      title: QueryValueConnection
     GraphVisualizationTimeseries:
       properties:
         type:
@@ -4311,19 +4975,11 @@ components:
           description: Aggregations that may be combined together in the same query
           items:
             $ref: "#/components/schemas/AggregationQuery"
-          maxItems: 15
           type: array
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
-          format: tsuga-formula
-          maxLength: 250
-          minLength: 0
           type: string
-          errorMessage:
-            format: "Must be a simple mathematical formula, and all variables in it\
-              \ should refer to queries (q1, q2, etc.). The formula you provided is\
-              \ invalid: ${0}"
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
@@ -4335,7 +4991,6 @@ components:
           description: Fields used to group the results
           items:
             $ref: "#/components/schemas/AggregationGroupBy"
-          maxItems: 7
           type: array
         timeBucket:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_timeBucket"
@@ -4359,6 +5014,9 @@ components:
           type: array
         yAxisSettings:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings"
+        smoothing:
+          description: Whether to apply automatic smoothing to the rendered timeseries
+          type: boolean
       required:
       - queries
       - source
@@ -4382,19 +5040,11 @@ components:
           description: Aggregations that may be combined together in the same query
           items:
             $ref: "#/components/schemas/AggregationQuery"
-          maxItems: 15
           type: array
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
-          format: tsuga-formula
-          maxLength: 250
-          minLength: 0
           type: string
-          errorMessage:
-            format: "Must be a simple mathematical formula, and all variables in it\
-              \ should refer to queries (q1, q2, etc.). The formula you provided is\
-              \ invalid: ${0}"
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
@@ -4406,7 +5056,6 @@ components:
           description: Fields used to group the results
           items:
             $ref: "#/components/schemas/AggregationGroupBy"
-          maxItems: 7
           type: array
         normalizer:
           $ref: "#/components/schemas/Normalizer"
@@ -4441,19 +5090,11 @@ components:
           description: Aggregations that may be combined together in the same query
           items:
             $ref: "#/components/schemas/AggregationQuery"
-          maxItems: 15
           type: array
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
-          format: tsuga-formula
-          maxLength: 250
-          minLength: 0
           type: string
-          errorMessage:
-            format: "Must be a simple mathematical formula, and all variables in it\
-              \ should refer to queries (q1, q2, etc.). The formula you provided is\
-              \ invalid: ${0}"
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
@@ -4465,7 +5106,6 @@ components:
           description: Fields used to group the results
           items:
             $ref: "#/components/schemas/AggregationGroupBy"
-          maxItems: 7
           type: array
         normalizer:
           $ref: "#/components/schemas/Normalizer"
@@ -4503,19 +5143,11 @@ components:
           description: Aggregations that may be combined together in the same query
           items:
             $ref: "#/components/schemas/AggregationQuery"
-          maxItems: 15
           type: array
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
-          format: tsuga-formula
-          maxLength: 250
-          minLength: 0
           type: string
-          errorMessage:
-            format: "Must be a simple mathematical formula, and all variables in it\
-              \ should refer to queries (q1, q2, etc.). The formula you provided is\
-              \ invalid: ${0}"
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
@@ -4552,6 +5184,51 @@ components:
       - source
       - type
       title: QueryValue
+    GraphVisualizationGauge:
+      properties:
+        type:
+          description: Displays the aggregation as a gauge
+          enum:
+          - gauge
+          type: string
+        source:
+          description: Data source being queried for this aggregation
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/AggregationQuery"
+          type: array
+        formula:
+          description: Formula referencing query outputs (e.g. q1+q2) to compute derived
+            series
+          type: string
+        aliases:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+        conditions:
+          description: Conditional formatting rules applied to the displayed value
+          items:
+            $ref: "#/components/schemas/ConditionalFormatting"
+          type: array
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
+        normalizer:
+          $ref: "#/components/schemas/Normalizer"
+      required:
+      - queries
+      - source
+      - type
+      title: Gauge
     GraphVisualizationBar:
       properties:
         type:
@@ -4570,19 +5247,11 @@ components:
           description: Aggregations that may be combined together in the same query
           items:
             $ref: "#/components/schemas/AggregationQuery"
-          maxItems: 15
           type: array
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
-          format: tsuga-formula
-          maxLength: 250
-          minLength: 0
           type: string
-          errorMessage:
-            format: "Must be a simple mathematical formula, and all variables in it\
-              \ should refer to queries (q1, q2, etc.). The formula you provided is\
-              \ invalid: ${0}"
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
@@ -4594,7 +5263,6 @@ components:
           description: Fields used to group the results
           items:
             $ref: "#/components/schemas/AggregationGroupBy"
-          maxItems: 7
           type: array
         timeBucket:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_timeBucket"
@@ -4623,6 +5291,114 @@ components:
       - source
       - type
       title: Bar
+    GraphVisualizationDistribution:
+      properties:
+        type:
+          description: Displays the aggregation as a distribution chart
+          enum:
+          - distribution
+          type: string
+        source:
+          description: Data source being queried for this aggregation
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/AggregationQuery"
+          type: array
+        formula:
+          description: Formula referencing query outputs (e.g. q1+q2) to compute derived
+            series
+          type: string
+        aliases:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+        groupBy:
+          description: Fields used to group the results
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy"
+          type: array
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
+        normalizer:
+          $ref: "#/components/schemas/Normalizer"
+        percentileMarkers:
+          description: Percentile markers displayed on top of the distribution chart
+          items:
+            description: Marker value expressed as a percentage between 0 and 100
+            type: integer
+          type: array
+      required:
+      - queries
+      - source
+      - type
+      title: Distribution
+    GraphVisualizationHeatmap:
+      properties:
+        type:
+          description: Displays the aggregation as a heatmap chart
+          enum:
+          - heatmap
+          type: string
+        source:
+          description: Data source being queried for this aggregation
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/AggregationQuery"
+          type: array
+        formula:
+          description: Formula referencing query outputs (e.g. q1+q2) to compute derived
+            series
+          type: string
+        aliases:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+        groupBy:
+          description: Fields used to group the results
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy"
+          type: array
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
+        normalizer:
+          $ref: "#/components/schemas/Normalizer"
+        palette:
+          description: Color palette used to render the heatmap intensity gradient
+          enum:
+          - red
+          - pink
+          - violet
+          - blue
+          - cyan
+          - green
+          - yellow
+          - orange
+          type: string
+      required:
+      - queries
+      - source
+      - type
+      title: Heatmap
     GraphVisualizationTable:
       properties:
         type:
@@ -4635,13 +5411,11 @@ components:
             a table column
           items:
             $ref: "#/components/schemas/TableColumn"
-          minItems: 1
           type: array
         groupBy:
           description: Fields used to group the results
           items:
             $ref: "#/components/schemas/AggregationGroupBy"
-          maxItems: 7
           type: array
         defaultSorting:
           items:
@@ -4660,9 +5434,6 @@ components:
           type: string
         query:
           description: Query that selects logs for the list
-          format: tsuga-query
-          maxLength: 10000
-          minLength: 0
           type: string
         listColumns:
           description: Custom columns to display for each log
@@ -4678,6 +5449,875 @@ components:
       - type
       title: List
     GraphVisualizationNote:
+      properties:
+        type:
+          description: Displays static text on the dashboard
+          enum:
+          - note
+          type: string
+        note:
+          description: Markdown-compatible text shown in the note
+          type: string
+        noteColor:
+          description: Background color used to render the note
+          enum:
+          - white
+          - gray.100
+          - amber.200
+          - lime.200
+          - emerald.200
+          - cyan.200
+          - blue.200
+          - violet.200
+          - fuchsia.200
+          - pink.200
+          - red.200
+          type: string
+        noteAlign:
+          description: Flex alignment keyword used for widget layout
+          enum:
+          - flex-start
+          - center
+          - flex-end
+          type: string
+        noteJustifyContent:
+          description: Flex alignment keyword used for widget layout
+          enum:
+          - flex-start
+          - center
+          - flex-end
+          type: string
+      required:
+      - type
+      title: Note
+    GraphVisualizationListLogPatterns:
+      properties:
+        type:
+          description: Displays log patterns clustered from logs matching the query
+          enum:
+          - list-log-patterns
+          type: string
+        query:
+          description: Tsuga query that selects logs to cluster into patterns
+          type: string
+        layout:
+          description: Layout used to render log patterns
+          enum:
+          - horizontal
+          - vertical
+          type: string
+      required:
+      - query
+      - type
+      title: ListLogPatterns
+    InputGraphVisualizationTimeseriesConnection:
+      properties:
+        type:
+          description: Displays the database rows-based aggregation as a time series
+            chart
+          enum:
+          - timeseries-connection
+          type: string
+        connectionId:
+          description: The ID of the connection to use to query the datastore.
+          maxLength: 250
+          minLength: 1
+          type: string
+        queries:
+          items:
+            description: The read-only SQL query to execute against the connection.
+            format: readonly-sql-query
+            maxLength: 50000
+            minLength: 1
+            type: string
+            errorMessage:
+              format: Must be a readonly SQL query - only SELECT statements are allowed.
+          minItems: 1
+          type: array
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
+        thresholds:
+          description: Threshold markers displayed on the chart
+          items:
+            $ref: "#/components/schemas/ThresholdMarker"
+          type: array
+        yAxisSettings:
+          $ref: "#/components/schemas/InputGraphVisualizationTimeseriesConnection_yAxisSettings"
+      required:
+      - connectionId
+      - queries
+      - type
+      title: TimeseriesConnection
+    InputGraphVisualizationListConnection:
+      properties:
+        type:
+          description: Displays database rows as a tabular list
+          enum:
+          - list-connection
+          type: string
+        connectionId:
+          description: The ID of the connection to use to query the datastore.
+          maxLength: 250
+          minLength: 1
+          type: string
+        query:
+          description: The read-only SQL query to execute against the connection.
+          format: readonly-sql-query
+          maxLength: 50000
+          minLength: 1
+          type: string
+          errorMessage:
+            format: Must be a readonly SQL query - only SELECT statements are allowed.
+        listColumns:
+          description: Custom columns to display for each database row
+          items:
+            $ref: "#/components/schemas/WidgetListColumn_1"
+          type: array
+        listColumnsSize:
+          additionalProperties:
+            description: List column width by column id
+            type: number
+      required:
+      - connectionId
+      - query
+      - type
+      title: ListConnection
+    InputGraphVisualizationTopListConnection:
+      properties:
+        type:
+          description: Displays the database rows-based aggregation as a ranked top
+            list
+          enum:
+          - top-list-connection
+          type: string
+        connectionId:
+          description: The ID of the connection to use to query the datastore.
+          maxLength: 250
+          minLength: 1
+          type: string
+        queries:
+          items:
+            description: The read-only SQL query to execute against the connection.
+            format: readonly-sql-query
+            maxLength: 50000
+            minLength: 1
+            type: string
+            errorMessage:
+              format: Must be a readonly SQL query - only SELECT statements are allowed.
+          minItems: 1
+          type: array
+      required:
+      - connectionId
+      - queries
+      - type
+      title: TopListConnection
+    InputGraphVisualizationPieConnection:
+      properties:
+        type:
+          description: Displays the database rows-based aggregation as a pie chart
+          enum:
+          - pie-connection
+          type: string
+        connectionId:
+          description: The ID of the connection to use to query the datastore.
+          maxLength: 250
+          minLength: 1
+          type: string
+        queries:
+          items:
+            description: The read-only SQL query to execute against the connection.
+            format: readonly-sql-query
+            maxLength: 50000
+            minLength: 1
+            type: string
+            errorMessage:
+              format: Must be a readonly SQL query - only SELECT statements are allowed.
+          minItems: 1
+          type: array
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
+      required:
+      - connectionId
+      - queries
+      - type
+      title: PieConnection
+    InputGraphVisualizationBarConnection:
+      properties:
+        type:
+          description: Displays the database rows-based aggregation as a bar chart
+          enum:
+          - bar-connection
+          type: string
+        connectionId:
+          description: The ID of the connection to use to query the datastore.
+          maxLength: 250
+          minLength: 1
+          type: string
+        queries:
+          items:
+            description: The read-only SQL query to execute against the connection.
+            format: readonly-sql-query
+            maxLength: 50000
+            minLength: 1
+            type: string
+            errorMessage:
+              format: Must be a readonly SQL query - only SELECT statements are allowed.
+          minItems: 1
+          type: array
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
+        thresholds:
+          description: Threshold markers displayed on the chart
+          items:
+            $ref: "#/components/schemas/ThresholdMarker"
+          type: array
+        yAxisSettings:
+          $ref: "#/components/schemas/InputGraphVisualizationTimeseriesConnection_yAxisSettings"
+      required:
+      - connectionId
+      - queries
+      - type
+      title: BarConnection
+    InputGraphVisualizationQueryValueConnection:
+      properties:
+        type:
+          description: Displays a single value computed by a SQL query against a database
+            connection
+          enum:
+          - query-value-connection
+          type: string
+        connectionId:
+          description: The ID of the connection to use to query the datastore.
+          maxLength: 250
+          minLength: 1
+          type: string
+        queries:
+          items:
+            description: The read-only SQL query to execute against the connection.
+            format: readonly-sql-query
+            maxLength: 50000
+            minLength: 1
+            type: string
+            errorMessage:
+              format: Must be a readonly SQL query - only SELECT statements are allowed.
+          minItems: 1
+          type: array
+        backgroundMode:
+          description: Controls whether the widget uses a solid or transparent background
+          enum:
+          - background
+          - no-background
+          type: string
+        conditions:
+          description: Conditional formatting rules applied to the displayed value
+          items:
+            $ref: "#/components/schemas/ConditionalFormatting"
+          type: array
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
+        normalizer:
+          $ref: "#/components/schemas/Normalizer_1"
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
+      required:
+      - connectionId
+      - queries
+      - type
+      title: QueryValueConnection
+    InputGraphVisualizationTimeseries:
+      properties:
+        type:
+          description: Displays the aggregation as a time series chart
+          enum:
+          - timeseries
+          type: string
+        source:
+          description: Data source being queried for this aggregation
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/AggregationQuery_1"
+          maxItems: 15
+          type: array
+        formula:
+          description: Formula referencing query outputs (e.g. q1+q2) to compute derived
+            series
+          format: tsuga-formula
+          maxLength: 250
+          minLength: 0
+          type: string
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
+        aliases:
+          $ref: "#/components/schemas/InputGraphVisualizationTimeseries_aliases"
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+        groupBy:
+          description: Fields used to group the results
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy_1"
+          maxItems: 7
+          type: array
+        timeBucket:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_timeBucket"
+        normalizer:
+          $ref: "#/components/schemas/Normalizer_1"
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
+        thresholds:
+          description: Threshold markers displayed on the chart
+          items:
+            $ref: "#/components/schemas/ThresholdMarker"
+          type: array
+        yAxisSettings:
+          $ref: "#/components/schemas/InputGraphVisualizationTimeseriesConnection_yAxisSettings"
+        smoothing:
+          description: Whether to apply automatic smoothing to the rendered timeseries
+          type: boolean
+      required:
+      - queries
+      - source
+      - type
+      title: Timeseries
+    InputGraphVisualizationTopList:
+      properties:
+        type:
+          description: Displays the aggregation as a ranked list of top results
+          enum:
+          - top-list
+          type: string
+        source:
+          description: Data source being queried for this aggregation
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/AggregationQuery_1"
+          maxItems: 15
+          type: array
+        formula:
+          description: Formula referencing query outputs (e.g. q1+q2) to compute derived
+            series
+          format: tsuga-formula
+          maxLength: 250
+          minLength: 0
+          type: string
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
+        aliases:
+          $ref: "#/components/schemas/InputGraphVisualizationTimeseries_aliases"
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+        groupBy:
+          description: Fields used to group the results
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy_1"
+          maxItems: 7
+          type: array
+        normalizer:
+          $ref: "#/components/schemas/Normalizer_1"
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
+        conditions:
+          description: Conditional formatting rules applied to the displayed value
+          items:
+            $ref: "#/components/schemas/ConditionalFormatting"
+          type: array
+      required:
+      - queries
+      - source
+      - type
+      title: TopList
+    InputGraphVisualizationPie:
+      properties:
+        type:
+          description: Displays the aggregation as a pie chart
+          enum:
+          - pie
+          type: string
+        source:
+          description: Data source being queried for this aggregation
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/AggregationQuery_1"
+          maxItems: 15
+          type: array
+        formula:
+          description: Formula referencing query outputs (e.g. q1+q2) to compute derived
+            series
+          format: tsuga-formula
+          maxLength: 250
+          minLength: 0
+          type: string
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
+        aliases:
+          $ref: "#/components/schemas/InputGraphVisualizationTimeseries_aliases"
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+        groupBy:
+          description: Fields used to group the results
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy_1"
+          maxItems: 7
+          type: array
+        normalizer:
+          $ref: "#/components/schemas/Normalizer_1"
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
+      required:
+      - queries
+      - source
+      - type
+      title: Pie
+    InputGraphVisualizationQueryValue:
+      properties:
+        type:
+          description: Displays the aggregation as a single value
+          enum:
+          - query-value
+          type: string
+        source:
+          description: Data source being queried for this aggregation
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/AggregationQuery_1"
+          maxItems: 15
+          type: array
+        formula:
+          description: Formula referencing query outputs (e.g. q1+q2) to compute derived
+            series
+          format: tsuga-formula
+          maxLength: 250
+          minLength: 0
+          type: string
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
+        aliases:
+          $ref: "#/components/schemas/InputGraphVisualizationTimeseries_aliases"
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+        backgroundMode:
+          description: Controls whether the widget uses a solid or transparent background
+          enum:
+          - background
+          - no-background
+          type: string
+        conditions:
+          description: Conditional formatting rules applied to the displayed value
+          items:
+            $ref: "#/components/schemas/ConditionalFormatting"
+          type: array
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
+        normalizer:
+          $ref: "#/components/schemas/Normalizer_1"
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
+      required:
+      - queries
+      - source
+      - type
+      title: QueryValue
+    InputGraphVisualizationGauge:
+      properties:
+        type:
+          description: Displays the aggregation as a gauge
+          enum:
+          - gauge
+          type: string
+        source:
+          description: Data source being queried for this aggregation
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/AggregationQuery_1"
+          maxItems: 15
+          type: array
+        formula:
+          description: Formula referencing query outputs (e.g. q1+q2) to compute derived
+            series
+          format: tsuga-formula
+          maxLength: 250
+          minLength: 0
+          type: string
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
+        aliases:
+          $ref: "#/components/schemas/InputGraphVisualizationTimeseries_aliases"
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+        conditions:
+          description: Conditional formatting rules applied to the displayed value
+          items:
+            $ref: "#/components/schemas/ConditionalFormatting"
+          type: array
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
+        normalizer:
+          $ref: "#/components/schemas/Normalizer_1"
+      required:
+      - queries
+      - source
+      - type
+      title: Gauge
+    InputGraphVisualizationBar:
+      properties:
+        type:
+          description: Displays the aggregation as a bar chart
+          enum:
+          - bar
+          type: string
+        source:
+          description: Data source being queried for this aggregation
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/AggregationQuery_1"
+          maxItems: 15
+          type: array
+        formula:
+          description: Formula referencing query outputs (e.g. q1+q2) to compute derived
+            series
+          format: tsuga-formula
+          maxLength: 250
+          minLength: 0
+          type: string
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
+        aliases:
+          $ref: "#/components/schemas/InputGraphVisualizationTimeseries_aliases"
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+        groupBy:
+          description: Fields used to group the results
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy_1"
+          maxItems: 7
+          type: array
+        timeBucket:
+          $ref: "#/components/schemas/GraphVisualizationTimeseries_timeBucket"
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
+        normalizer:
+          $ref: "#/components/schemas/Normalizer_1"
+        thresholds:
+          description: Threshold markers displayed on the chart
+          items:
+            $ref: "#/components/schemas/ThresholdMarker"
+          type: array
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
+        yAxisSettings:
+          $ref: "#/components/schemas/InputGraphVisualizationTimeseriesConnection_yAxisSettings"
+      required:
+      - queries
+      - source
+      - type
+      title: Bar
+    InputGraphVisualizationDistribution:
+      properties:
+        type:
+          description: Displays the aggregation as a distribution chart
+          enum:
+          - distribution
+          type: string
+        source:
+          description: Data source being queried for this aggregation
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/AggregationQuery_1"
+          maxItems: 15
+          type: array
+        formula:
+          description: Formula referencing query outputs (e.g. q1+q2) to compute derived
+            series
+          format: tsuga-formula
+          maxLength: 250
+          minLength: 0
+          type: string
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
+        aliases:
+          $ref: "#/components/schemas/InputGraphVisualizationTimeseries_aliases"
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+        groupBy:
+          description: Fields used to group the results
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy_1"
+          maxItems: 7
+          type: array
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
+        normalizer:
+          $ref: "#/components/schemas/Normalizer_1"
+        percentileMarkers:
+          description: Percentile markers displayed on top of the distribution chart
+          items:
+            description: Marker value expressed as a percentage between 0 and 100
+            maximum: 100
+            minimum: 0
+            type: integer
+          type: array
+      required:
+      - queries
+      - source
+      - type
+      title: Distribution
+    InputGraphVisualizationHeatmap:
+      properties:
+        type:
+          description: Displays the aggregation as a heatmap chart
+          enum:
+          - heatmap
+          type: string
+        source:
+          description: Data source being queried for this aggregation
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/AggregationQuery_1"
+          maxItems: 15
+          type: array
+        formula:
+          description: Formula referencing query outputs (e.g. q1+q2) to compute derived
+            series
+          format: tsuga-formula
+          maxLength: 250
+          minLength: 0
+          type: string
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
+        aliases:
+          $ref: "#/components/schemas/InputGraphVisualizationTimeseries_aliases"
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+        groupBy:
+          description: Fields used to group the results
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy_1"
+          maxItems: 7
+          type: array
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
+        normalizer:
+          $ref: "#/components/schemas/Normalizer_1"
+        palette:
+          description: Color palette used to render the heatmap intensity gradient
+          enum:
+          - red
+          - pink
+          - violet
+          - blue
+          - cyan
+          - green
+          - yellow
+          - orange
+          type: string
+      required:
+      - queries
+      - source
+      - type
+      title: Heatmap
+    InputGraphVisualizationTable:
+      properties:
+        type:
+          description: Displays the aggregation as a table with multi-level grouping
+          enum:
+          - table
+          type: string
+        columns:
+          description: Each column defines an independent aggregation displayed as
+            a table column
+          items:
+            $ref: "#/components/schemas/TableColumn_1"
+          minItems: 1
+          type: array
+        groupBy:
+          description: Fields used to group the results
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy_1"
+          maxItems: 7
+          type: array
+        defaultSorting:
+          items:
+            $ref: "#/components/schemas/TableDefaultSorting_1"
+          type: array
+      required:
+      - columns
+      - type
+      title: Table
+    InputGraphVisualizationList:
+      properties:
+        type:
+          description: Displays matching logs in a tabular list
+          enum:
+          - list
+          type: string
+        query:
+          description: Query that selects logs for the list
+          format: tsuga-query
+          maxLength: 10000
+          minLength: 0
+          type: string
+        listColumns:
+          description: Custom columns to display for each log
+          items:
+            $ref: "#/components/schemas/WidgetListColumn_1"
+          type: array
+        listColumnsSize:
+          additionalProperties:
+            description: List column width by column id
+            type: number
+      required:
+      - query
+      - type
+      title: List
+    InputGraphVisualizationNote:
       properties:
         type:
           description: Displays static text on the dashboard
@@ -4721,31 +6361,171 @@ components:
       required:
       - type
       title: Note
+    InputGraphVisualizationListLogPatterns:
+      properties:
+        type:
+          description: Displays log patterns clustered from logs matching the query
+          enum:
+          - list-log-patterns
+          type: string
+        query:
+          description: Tsuga query that selects logs to cluster into patterns
+          format: tsuga-query
+          maxLength: 10000
+          minLength: 0
+          type: string
+        layout:
+          description: Layout used to render log patterns
+          enum:
+          - horizontal
+          - vertical
+          type: string
+      required:
+      - query
+      - type
+      title: ListLogPatterns
+    queryDashboards_request_filters_owners:
+      description: Restrict results to dashboards owned by any of these team IDs
+      properties:
+        values:
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 50
+          type: array
+        exclude:
+          description: "If true, exclude rows matching these values instead of including\
+            \ them"
+          type: boolean
+      required:
+      - values
+    queryDashboards_request_filters_searchQuery:
+      description: Substring matched against the dashboard name
+      properties:
+        value:
+          maxLength: 250
+          minLength: 1
+          type: string
+        exclude:
+          description: "If true, exclude dashboards matching this value instead of\
+            \ including them"
+          type: boolean
+      required:
+      - value
+    Tag:
+      properties:
+        key:
+          maxLength: 128
+          type: string
+        value:
+          maxLength: 256
+          pattern: ^\S(.*\S)?$
+          type: string
+      required:
+      - key
+      - value
+      title: Tag
+    queryDashboards_request_filters_tags:
+      description: Restrict results to dashboards that have at least one of the listed
+        key/value tags
+      properties:
+        values:
+          items:
+            $ref: "#/components/schemas/Tag"
+          maxItems: 50
+          type: array
+        exclude:
+          description: "If true, exclude rows matching these values instead of including\
+            \ them"
+          type: boolean
+      required:
+      - values
+    queryDashboards_request_filters:
+      properties:
+        owners:
+          $ref: "#/components/schemas/queryDashboards_request_filters_owners"
+        searchQuery:
+          $ref: "#/components/schemas/queryDashboards_request_filters_searchQuery"
+        tags:
+          $ref: "#/components/schemas/queryDashboards_request_filters_tags"
+    queryDashboards_request_sort:
+      description: Optional sorting applied to the returned dashboards
+      properties:
+        by:
+          description: Field to sort the returned dashboards by
+          enum:
+          - owner
+          - tags
+          - widgetCount
+          - updatedAt
+          - name
+          type: string
+        direction:
+          description: "Sort direction: ascending or descending"
+          enum:
+          - asc
+          - desc
+          type: string
+      required:
+      - by
+      - direction
+    queryDashboards_request:
+      properties:
+        limit:
+          description: The maximum number of items to return
+          maximum: 1000
+          minimum: 1
+          type: integer
+        offset:
+          description: The offset of the first item to return
+          minimum: 0
+          type: integer
+        filters:
+          $ref: "#/components/schemas/queryDashboards_request_filters"
+        sort:
+          $ref: "#/components/schemas/queryDashboards_request_sort"
     Graph_visualization:
       discriminator:
         mapping:
-          timeseries-connection: "#/components/schemas/GraphVisualizationTimeseriesConnection"
-          list-connection: "#/components/schemas/GraphVisualizationListConnection"
-          timeseries: "#/components/schemas/GraphVisualizationTimeseries"
-          top-list: "#/components/schemas/GraphVisualizationTopList"
-          pie: "#/components/schemas/GraphVisualizationPie"
-          query-value: "#/components/schemas/GraphVisualizationQueryValue"
-          bar: "#/components/schemas/GraphVisualizationBar"
-          table: "#/components/schemas/GraphVisualizationTable"
-          list: "#/components/schemas/GraphVisualizationList"
-          note: "#/components/schemas/GraphVisualizationNote"
+          timeseries-connection: "#/components/schemas/InputGraphVisualizationTimeseriesConnection"
+          list-connection: "#/components/schemas/InputGraphVisualizationListConnection"
+          top-list-connection: "#/components/schemas/InputGraphVisualizationTopListConnection"
+          pie-connection: "#/components/schemas/InputGraphVisualizationPieConnection"
+          bar-connection: "#/components/schemas/InputGraphVisualizationBarConnection"
+          query-value-connection: "#/components/schemas/InputGraphVisualizationQueryValueConnection"
+          timeseries: "#/components/schemas/InputGraphVisualizationTimeseries"
+          top-list: "#/components/schemas/InputGraphVisualizationTopList"
+          pie: "#/components/schemas/InputGraphVisualizationPie"
+          query-value: "#/components/schemas/InputGraphVisualizationQueryValue"
+          gauge: "#/components/schemas/InputGraphVisualizationGauge"
+          bar: "#/components/schemas/InputGraphVisualizationBar"
+          distribution: "#/components/schemas/InputGraphVisualizationDistribution"
+          heatmap: "#/components/schemas/InputGraphVisualizationHeatmap"
+          table: "#/components/schemas/InputGraphVisualizationTable"
+          list: "#/components/schemas/InputGraphVisualizationList"
+          note: "#/components/schemas/InputGraphVisualizationNote"
+          list-log-patterns: "#/components/schemas/InputGraphVisualizationListLogPatterns"
         propertyName: type
       oneOf:
-      - $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection"
-      - $ref: "#/components/schemas/GraphVisualizationListConnection"
-      - $ref: "#/components/schemas/GraphVisualizationTimeseries"
-      - $ref: "#/components/schemas/GraphVisualizationTopList"
-      - $ref: "#/components/schemas/GraphVisualizationPie"
-      - $ref: "#/components/schemas/GraphVisualizationQueryValue"
-      - $ref: "#/components/schemas/GraphVisualizationBar"
-      - $ref: "#/components/schemas/GraphVisualizationTable"
-      - $ref: "#/components/schemas/GraphVisualizationList"
-      - $ref: "#/components/schemas/GraphVisualizationNote"
+      - $ref: "#/components/schemas/InputGraphVisualizationTimeseriesConnection"
+      - $ref: "#/components/schemas/InputGraphVisualizationListConnection"
+      - $ref: "#/components/schemas/InputGraphVisualizationTopListConnection"
+      - $ref: "#/components/schemas/InputGraphVisualizationPieConnection"
+      - $ref: "#/components/schemas/InputGraphVisualizationBarConnection"
+      - $ref: "#/components/schemas/InputGraphVisualizationQueryValueConnection"
+      - $ref: "#/components/schemas/InputGraphVisualizationTimeseries"
+      - $ref: "#/components/schemas/InputGraphVisualizationTopList"
+      - $ref: "#/components/schemas/InputGraphVisualizationPie"
+      - $ref: "#/components/schemas/InputGraphVisualizationQueryValue"
+      - $ref: "#/components/schemas/InputGraphVisualizationGauge"
+      - $ref: "#/components/schemas/InputGraphVisualizationBar"
+      - $ref: "#/components/schemas/InputGraphVisualizationDistribution"
+      - $ref: "#/components/schemas/InputGraphVisualizationHeatmap"
+      - $ref: "#/components/schemas/InputGraphVisualizationTable"
+      - $ref: "#/components/schemas/InputGraphVisualizationList"
+      - $ref: "#/components/schemas/InputGraphVisualizationNote"
+      - $ref: "#/components/schemas/InputGraphVisualizationListLogPatterns"
       required:
       - type
     Graph_layout:
@@ -4774,35 +6554,6 @@ components:
       - x
       - "y"
     Graph:
-      example:
-        layout:
-          w: 5.637376656633329
-          x: 1.4658129805029452
-          h: 2.3021358869347655
-          "y": 5.962133916683182
-        visualization:
-          thresholds:
-          - level: alert
-            value: 0.8008281904610115
-          - level: alert
-            value: 0.8008281904610115
-          legendMode: table
-          connectionId: connectionId
-          yAxisSettings:
-            min:
-              type: auto
-            max: null
-            scale:
-              type: pow
-              exponent: 0.6027456183070403
-            alwaysIncludeZero: true
-          type: timeseries-connection
-          queries:
-          - queries
-          - queries
-        name: name
-        description: description
-        id: id
       properties:
         id:
           description: Identifier of the graph widget
@@ -4844,19 +6595,6 @@ components:
       required:
       - key
       - values
-    Tag:
-      properties:
-        key:
-          maxLength: 128
-          type: string
-        value:
-          maxLength: 256
-          pattern: ^\S(.*\S)?$
-          type: string
-      required:
-      - key
-      - value
-      title: Tag
     createDashboard_request:
       properties:
         name:
@@ -4991,30 +6729,54 @@ components:
           $ref: "#/components/schemas/Graph_layout"
       required:
       - visualization
-    queryMonitors_request_filters:
+    queryMonitors_request_filters_owners:
+      description: Restrict results to monitors owned by any of these team IDs
       properties:
-        owners:
-          description: Restrict results to monitors owned by any of these team IDs
+        values:
           items:
             maxLength: 250
             minLength: 1
             type: string
           maxItems: 50
           type: array
-        searchQuery:
-          description: Substring matched against monitor name and configuration
+        exclude:
+          description: "If true, exclude rows matching these values instead of including\
+            \ them"
+          type: boolean
+      required:
+      - values
+    queryMonitors_request_filters_searchQuery:
+      description: Substring matched against monitor name and configuration
+      properties:
+        value:
           maxLength: 250
           minLength: 1
           type: string
-        tags:
-          description: Restrict results to monitors that have at least one of the
-            listed key/value tags
+        exclude:
+          description: "If true, exclude monitors matching this value instead of including\
+            \ them"
+          type: boolean
+      required:
+      - value
+    queryMonitors_request_filters_tags:
+      description: Restrict results to monitors that have at least one of the listed
+        key/value tags
+      properties:
+        values:
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
           type: array
-        priorities:
-          description: Restrict results to monitors with one of these priorities
+        exclude:
+          description: "If true, exclude rows matching these values instead of including\
+            \ them"
+          type: boolean
+      required:
+      - values
+    queryMonitors_request_filters_priorities:
+      description: Restrict results to monitors with one of these priorities
+      properties:
+        values:
           items:
             enum:
             - 1
@@ -5025,8 +6787,16 @@ components:
             type: number
           maxItems: 5
           type: array
-        types:
-          description: Restrict results to monitors with these types
+        exclude:
+          description: "If true, exclude rows matching these values instead of including\
+            \ them"
+          type: boolean
+      required:
+      - values
+    queryMonitors_request_filters_types:
+      description: Restrict results to monitors with these types
+      properties:
+        values:
           items:
             enum:
             - threshold
@@ -5036,6 +6806,41 @@ components:
             type: string
           maxItems: 4
           type: array
+        exclude:
+          description: "If true, exclude rows matching these values instead of including\
+            \ them"
+          type: boolean
+      required:
+      - values
+    queryMonitors_request_filters_clusterIds:
+      description: Restrict results to monitors deployed to any of these cluster IDs
+        (monitors with no cluster restriction are always included)
+      properties:
+        values:
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 50
+          type: array
+        exclude:
+          description: "If true, exclude rows matching these values instead of including\
+            \ them"
+          type: boolean
+      required:
+      - values
+    queryMonitors_request_filters:
+      properties:
+        owners:
+          $ref: "#/components/schemas/queryMonitors_request_filters_owners"
+        searchQuery:
+          $ref: "#/components/schemas/queryMonitors_request_filters_searchQuery"
+        tags:
+          $ref: "#/components/schemas/queryMonitors_request_filters_tags"
+        priorities:
+          $ref: "#/components/schemas/queryMonitors_request_filters_priorities"
+        types:
+          $ref: "#/components/schemas/queryMonitors_request_filters_types"
         activity:
           description: "Restrict results by activity status: active monitors or currently\
             \ snoozed monitors"
@@ -5044,14 +6849,7 @@ components:
           - snoozed
           type: string
         clusterIds:
-          description: Restrict results to monitors deployed to any of these cluster
-            IDs (monitors with no cluster restriction are always included)
-          items:
-            maxLength: 250
-            minLength: 1
-            type: string
-          maxItems: 50
-          type: array
+          $ref: "#/components/schemas/queryMonitors_request_filters_clusterIds"
     queryMonitors_request_sort:
       description: Optional sorting applied to the returned monitors
       properties:
@@ -5094,22 +6892,22 @@ components:
     updateMonitor_request_configuration:
       discriminator:
         mapping:
-          metric: "#/components/schemas/MonitorConfigurationMetric"
-          log: "#/components/schemas/MonitorConfigurationLog"
-          trace: "#/components/schemas/MonitorConfigurationTrace"
-          anomaly-log: "#/components/schemas/MonitorConfigurationAnomalyLog"
-          anomaly-metric: "#/components/schemas/MonitorConfigurationAnomalyMetric"
+          metric: "#/components/schemas/InputMonitorConfigurationMetric"
+          log: "#/components/schemas/InputMonitorConfigurationLog"
+          trace: "#/components/schemas/InputMonitorConfigurationTrace"
+          anomaly-log: "#/components/schemas/InputMonitorConfigurationAnomalyLog"
+          anomaly-metric: "#/components/schemas/InputMonitorConfigurationAnomalyMetric"
           log-error-pattern: "#/components/schemas/MonitorConfigurationLogErrorPattern"
-          certificate-expiry: "#/components/schemas/MonitorConfigurationCertificateExpiry"
+          certificate-expiry: "#/components/schemas/InputMonitorConfigurationCertificateExpiry"
         propertyName: type
       oneOf:
-      - $ref: "#/components/schemas/MonitorConfigurationMetric"
-      - $ref: "#/components/schemas/MonitorConfigurationLog"
-      - $ref: "#/components/schemas/MonitorConfigurationTrace"
-      - $ref: "#/components/schemas/MonitorConfigurationAnomalyLog"
-      - $ref: "#/components/schemas/MonitorConfigurationAnomalyMetric"
+      - $ref: "#/components/schemas/InputMonitorConfigurationMetric"
+      - $ref: "#/components/schemas/InputMonitorConfigurationLog"
+      - $ref: "#/components/schemas/InputMonitorConfigurationTrace"
+      - $ref: "#/components/schemas/InputMonitorConfigurationAnomalyLog"
+      - $ref: "#/components/schemas/InputMonitorConfigurationAnomalyMetric"
       - $ref: "#/components/schemas/MonitorConfigurationLogErrorPattern"
-      - $ref: "#/components/schemas/MonitorConfigurationCertificateExpiry"
+      - $ref: "#/components/schemas/InputMonitorConfigurationCertificateExpiry"
       required:
       - type
     updateMonitor_request:
@@ -5359,14 +7157,6 @@ components:
       - teamsFilter
       - transitionTypesFilter
     createTagPolicy_request_teamScope:
-      example:
-        mode: include
-        teamIds:
-        - teamIds
-        - teamIds
-        - teamIds
-        - teamIds
-        - teamIds
       properties:
         teamIds:
           items:
@@ -5385,13 +7175,6 @@ components:
       - mode
       - teamIds
     createTagPolicy_request_configuration_oneOf:
-      example:
-        assetTypes:
-        - logs
-        - logs
-        shouldInsertWarning: true
-        dropSample: 8.008281904610115
-        type: telemetry
       properties:
         type:
           enum:
@@ -5515,20 +7298,153 @@ components:
       - visibility
     ResponseMetadata_pagination:
       example:
-        pageCount: 0
+        pageCount: 6
         totalCount: 0
       properties:
         totalCount:
           description: The total number of items matching the query
-          minimum: 0
           type: integer
         pageCount:
           description: The total number of pages available
-          minimum: 0
           type: integer
       required:
       - pageCount
       - totalCount
+    Graph_1_visualization:
+      discriminator:
+        mapping:
+          timeseries-connection: "#/components/schemas/GraphVisualizationTimeseriesConnection"
+          list-connection: "#/components/schemas/GraphVisualizationListConnection"
+          top-list-connection: "#/components/schemas/GraphVisualizationTopListConnection"
+          pie-connection: "#/components/schemas/GraphVisualizationPieConnection"
+          bar-connection: "#/components/schemas/GraphVisualizationBarConnection"
+          query-value-connection: "#/components/schemas/GraphVisualizationQueryValueConnection"
+          timeseries: "#/components/schemas/GraphVisualizationTimeseries"
+          top-list: "#/components/schemas/GraphVisualizationTopList"
+          pie: "#/components/schemas/GraphVisualizationPie"
+          query-value: "#/components/schemas/GraphVisualizationQueryValue"
+          gauge: "#/components/schemas/GraphVisualizationGauge"
+          bar: "#/components/schemas/GraphVisualizationBar"
+          distribution: "#/components/schemas/GraphVisualizationDistribution"
+          heatmap: "#/components/schemas/GraphVisualizationHeatmap"
+          table: "#/components/schemas/GraphVisualizationTable"
+          list: "#/components/schemas/GraphVisualizationList"
+          note: "#/components/schemas/GraphVisualizationNote"
+          list-log-patterns: "#/components/schemas/GraphVisualizationListLogPatterns"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection"
+      - $ref: "#/components/schemas/GraphVisualizationListConnection"
+      - $ref: "#/components/schemas/GraphVisualizationTopListConnection"
+      - $ref: "#/components/schemas/GraphVisualizationPieConnection"
+      - $ref: "#/components/schemas/GraphVisualizationBarConnection"
+      - $ref: "#/components/schemas/GraphVisualizationQueryValueConnection"
+      - $ref: "#/components/schemas/GraphVisualizationTimeseries"
+      - $ref: "#/components/schemas/GraphVisualizationTopList"
+      - $ref: "#/components/schemas/GraphVisualizationPie"
+      - $ref: "#/components/schemas/GraphVisualizationQueryValue"
+      - $ref: "#/components/schemas/GraphVisualizationGauge"
+      - $ref: "#/components/schemas/GraphVisualizationBar"
+      - $ref: "#/components/schemas/GraphVisualizationDistribution"
+      - $ref: "#/components/schemas/GraphVisualizationHeatmap"
+      - $ref: "#/components/schemas/GraphVisualizationTable"
+      - $ref: "#/components/schemas/GraphVisualizationList"
+      - $ref: "#/components/schemas/GraphVisualizationNote"
+      - $ref: "#/components/schemas/GraphVisualizationListLogPatterns"
+      required:
+      - type
+    Graph_1:
+      example:
+        layout:
+          w: 5.637376656633329
+          x: 1.4658129805029452
+          h: 2.3021358869347655
+          "y": 5.962133916683182
+        visualization:
+          thresholds:
+          - level: alert
+            value: 0.8008281904610115
+          - level: alert
+            value: 0.8008281904610115
+          legendMode: table
+          connectionId: connectionId
+          yAxisSettings:
+            min:
+              type: auto
+            max: null
+            scale:
+              type: pow
+              exponent: 6.027456183070403
+            alwaysIncludeZero: true
+          type: timeseries-connection
+          queries:
+          - queries
+          - queries
+        name: name
+        description: description
+        id: id
+      properties:
+        id:
+          description: Identifier of the graph widget
+          type: string
+        name:
+          description: Display name of the graph widget
+          type: string
+        description:
+          description: Description of the graph widget
+          type: string
+        visualization:
+          $ref: "#/components/schemas/Graph_1_visualization"
+        layout:
+          $ref: "#/components/schemas/Graph_layout"
+      required:
+      - id
+      - visualization
+      title: Graph
+    Dashboard_filters_inner:
+      properties:
+        key:
+          description: Filter key
+          type: string
+        values:
+          items:
+            description: Filter value
+            type: string
+          type: array
+      required:
+      - key
+      - values
+    Tag_1:
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      required:
+      - key
+      - value
+      title: Tag
+    Monitor_configuration:
+      discriminator:
+        mapping:
+          metric: "#/components/schemas/MonitorConfigurationMetric"
+          log: "#/components/schemas/MonitorConfigurationLog"
+          trace: "#/components/schemas/MonitorConfigurationTrace"
+          anomaly-log: "#/components/schemas/MonitorConfigurationAnomalyLog"
+          anomaly-metric: "#/components/schemas/MonitorConfigurationAnomalyMetric"
+          log-error-pattern: "#/components/schemas/MonitorConfigurationLogErrorPattern"
+          certificate-expiry: "#/components/schemas/MonitorConfigurationCertificateExpiry"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/MonitorConfigurationMetric"
+      - $ref: "#/components/schemas/MonitorConfigurationLog"
+      - $ref: "#/components/schemas/MonitorConfigurationTrace"
+      - $ref: "#/components/schemas/MonitorConfigurationAnomalyLog"
+      - $ref: "#/components/schemas/MonitorConfigurationAnomalyMetric"
+      - $ref: "#/components/schemas/MonitorConfigurationLogErrorPattern"
+      - $ref: "#/components/schemas/MonitorConfigurationCertificateExpiry"
+      required:
+      - type
     Rule_teamsFilter_oneOf:
       properties:
         type:
@@ -5552,6 +7468,41 @@ components:
       - $ref: "#/components/schemas/createNotificationRule_request_teamsFilter_oneOf_2"
       required:
       - type
+    Rule_targets_inner_rateLimit:
+      description: Per-target rate-limiting configuration
+      properties:
+        maxMessages:
+          description: Maximum number of messages allowed during the rate-limiting
+            window
+          type: integer
+        minutes:
+          description: Length of the rate-limiting window in minutes
+          type: integer
+      required:
+      - maxMessages
+      - minutes
+    Rule_targets_inner_renotifyConfig:
+      description: Configuration for repeating notifications over time
+      properties:
+        mode:
+          enum:
+          - each
+          type: string
+        renotificationStates:
+          description: Alert states that will trigger a renotification
+          items:
+            enum:
+            - alert
+            - alert_no_data
+            type: string
+          type: array
+        renotifyIntervalMinutes:
+          description: Minimum number of minutes to wait before renotifying
+          type: integer
+      required:
+      - mode
+      - renotificationStates
+      - renotifyIntervalMinutes
     Rule_targets_inner_config:
       description: Configuration describing how the alert was delivered
       discriminator:
@@ -5586,25 +7537,74 @@ components:
           description: Identifier of the notification target
           type: string
         rateLimit:
-          $ref: "#/components/schemas/createNotificationRule_request_targets_inner_rateLimit"
+          $ref: "#/components/schemas/Rule_targets_inner_rateLimit"
         renotifyConfig:
-          $ref: "#/components/schemas/createNotificationRule_request_targets_inner_renotifyConfig"
+          $ref: "#/components/schemas/Rule_targets_inner_renotifyConfig"
         config:
           $ref: "#/components/schemas/Rule_targets_inner_config"
       required:
       - config
       - id
+    TagPolicy_teamScope:
+      example:
+        mode: include
+        teamIds:
+        - teamIds
+        - teamIds
+      properties:
+        teamIds:
+          items:
+            type: string
+          type: array
+        mode:
+          enum:
+          - include
+          - exclude
+          type: string
+      required:
+      - mode
+      - teamIds
+    TagPolicy_configuration_oneOf:
+      example:
+        assetTypes:
+        - logs
+        - logs
+        shouldInsertWarning: true
+        dropSample: 0.8008281904610115
+        type: telemetry
+      properties:
+        type:
+          enum:
+          - telemetry
+          type: string
+        assetTypes:
+          items:
+            enum:
+            - logs
+            - metrics
+            - traces
+            type: string
+          type: array
+        shouldInsertWarning:
+          type: boolean
+        dropSample:
+          type: number
+      required:
+      - assetTypes
+      - shouldInsertWarning
+      - type
+    TagPolicy_configuration:
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/TagPolicy_configuration_oneOf"
+      - $ref: "#/components/schemas/createTagPolicy_request_configuration_oneOf_1"
+      required:
+      - type
     MonitorConfigurationMetric_conditions_inner:
       properties:
         formula:
-          format: tsuga-formula
-          maxLength: 250
-          minLength: 0
           type: string
-          errorMessage:
-            format: "Must be a simple mathematical formula, and all variables in it\
-              \ should refer to queries (q1, q2, etc.). The formula you provided is\
-              \ invalid: ${0}"
         operator:
           enum:
           - greater_than
@@ -5625,8 +7625,6 @@ components:
         fields:
           description: Fields used by the monitor group by.
           items:
-            maxLength: 250
-            minLength: 0
             type: string
           type: array
         limit:
@@ -5712,14 +7710,11 @@ components:
           description: Post-processing functions applied to aggregation results
           items:
             $ref: "#/components/schemas/Function"
-          maxItems: 10
           type: array
         fill:
           $ref: "#/components/schemas/MonitorAggregationQuery_fill"
         filter:
-          format: tsuga-query
-          maxLength: 10000
-          minLength: 0
+          description: Filter to apply to the aggregation
           type: string
       required:
       - aggregate
@@ -5728,14 +7723,7 @@ components:
     MonitorConfigurationAnomalyLog_condition:
       properties:
         formula:
-          format: tsuga-formula
-          maxLength: 250
-          minLength: 0
           type: string
-          errorMessage:
-            format: "Must be a simple mathematical formula, and all variables in it\
-              \ should refer to queries (q1, q2, etc.). The formula you provided is\
-              \ invalid: ${0}"
         conditionType:
           enum:
           - rate
@@ -5760,6 +7748,144 @@ components:
       required:
       - env
       - teamIds
+    InputMonitorConfigurationMetric_conditions_inner:
+      properties:
+        formula:
+          format: tsuga-formula
+          maxLength: 250
+          minLength: 0
+          type: string
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
+        operator:
+          enum:
+          - greater_than
+          - less_than
+          - equal
+          - not_equal
+          - greater_than_or_equal
+          - less_than_or_equal
+          type: string
+        threshold:
+          type: number
+      required:
+      - formula
+      - operator
+      - threshold
+    InputMonitorConfigurationMetric_groupByFields_inner:
+      properties:
+        fields:
+          description: Fields used by the monitor group by.
+          items:
+            maxLength: 250
+            minLength: 0
+            type: string
+          type: array
+        limit:
+          description: Configured limit for this group by. Warning! This setting is
+            currently ignored. Monitor evaluation will instead apply a fixed limit
+            of 100 groups per field.
+          type: number
+      required:
+      - fields
+      - limit
+    InputAggregate:
+      discriminator:
+        mapping:
+          count: "#/components/schemas/InputAggregateCount"
+          unique-count: "#/components/schemas/InputAggregateUniqueCount"
+          average: "#/components/schemas/InputAggregateAverage"
+          max: "#/components/schemas/InputAggregateMax"
+          min: "#/components/schemas/InputAggregateMin"
+          sum: "#/components/schemas/InputAggregateSum"
+          percentile: "#/components/schemas/InputAggregatePercentile"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/InputAggregateCount"
+      - $ref: "#/components/schemas/InputAggregateUniqueCount"
+      - $ref: "#/components/schemas/InputAggregateAverage"
+      - $ref: "#/components/schemas/InputAggregateMax"
+      - $ref: "#/components/schemas/InputAggregateMin"
+      - $ref: "#/components/schemas/InputAggregateSum"
+      - $ref: "#/components/schemas/InputAggregatePercentile"
+      required:
+      - type
+      title: InputAggregate
+    InputFunction:
+      discriminator:
+        mapping:
+          per-second: "#/components/schemas/FunctionPerSecond"
+          per-minute: "#/components/schemas/FunctionPerMinute"
+          per-hour: "#/components/schemas/FunctionPerHour"
+          rate: "#/components/schemas/FunctionRate"
+          increase: "#/components/schemas/FunctionIncrease"
+          rolling: "#/components/schemas/InputFunctionRolling"
+          log: "#/components/schemas/InputFunctionLog"
+          power: "#/components/schemas/FunctionPower"
+          sqrt: "#/components/schemas/FunctionSqrt"
+          last: "#/components/schemas/FunctionLast"
+          time-offset: "#/components/schemas/InputFunctionTimeOffset"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/FunctionPerSecond"
+      - $ref: "#/components/schemas/FunctionPerMinute"
+      - $ref: "#/components/schemas/FunctionPerHour"
+      - $ref: "#/components/schemas/FunctionRate"
+      - $ref: "#/components/schemas/FunctionIncrease"
+      - $ref: "#/components/schemas/InputFunctionRolling"
+      - $ref: "#/components/schemas/InputFunctionLog"
+      - $ref: "#/components/schemas/FunctionPower"
+      - $ref: "#/components/schemas/FunctionSqrt"
+      - $ref: "#/components/schemas/FunctionLast"
+      - $ref: "#/components/schemas/InputFunctionTimeOffset"
+      required:
+      - type
+      title: InputFunction
+    MonitorAggregationQuery_1:
+      properties:
+        aggregate:
+          $ref: "#/components/schemas/InputAggregate"
+        functions:
+          description: Post-processing functions applied to aggregation results
+          items:
+            $ref: "#/components/schemas/InputFunction"
+          maxItems: 10
+          type: array
+        fill:
+          $ref: "#/components/schemas/MonitorAggregationQuery_fill"
+        filter:
+          format: tsuga-query
+          maxLength: 10000
+          minLength: 0
+          type: string
+      required:
+      - aggregate
+      - filter
+      title: MonitorAggregationQuery
+    InputMonitorConfigurationAnomalyLog_condition:
+      properties:
+        formula:
+          format: tsuga-formula
+          maxLength: 250
+          minLength: 0
+          type: string
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
+        conditionType:
+          enum:
+          - rate
+          - error
+          - cpu
+          - general
+          - to_be_set
+          type: string
+      required:
+      - conditionType
+      - formula
     ThresholdMarker:
       example:
         level: alert
@@ -5811,14 +7937,13 @@ components:
     GraphVisualizationTimeseriesConnection_yAxisSettings_scale_oneOf:
       example:
         type: pow
-        exponent: 0.6027456183070403
+        exponent: 6.027456183070403
       properties:
         type:
           enum:
           - pow
           type: string
         exponent:
-          minimum: 0
           type: number
       required:
       - exponent
@@ -5848,7 +7973,7 @@ components:
         max: null
         scale:
           type: pow
-          exponent: 0.6027456183070403
+          exponent: 6.027456183070403
         alwaysIncludeZero: true
       properties:
         min:
@@ -5872,6 +7997,7 @@ components:
           percent: "#/components/schemas/DataNormalizerPercent"
           date: "#/components/schemas/DataNormalizerDate"
           level: "#/components/schemas/DataNormalizerLevel"
+          cpu: "#/components/schemas/DataNormalizerCpu"
           custom: "#/components/schemas/DataNormalizerCustom"
         propertyName: type
       oneOf:
@@ -5880,6 +8006,7 @@ components:
       - $ref: "#/components/schemas/DataNormalizerPercent"
       - $ref: "#/components/schemas/DataNormalizerDate"
       - $ref: "#/components/schemas/DataNormalizerLevel"
+      - $ref: "#/components/schemas/DataNormalizerCpu"
       - $ref: "#/components/schemas/DataNormalizerCustom"
       required:
       - type
@@ -5895,72 +8022,6 @@ components:
       required:
       - attribute
       title: WidgetListColumn
-    AggregationQuery:
-      properties:
-        aggregate:
-          $ref: "#/components/schemas/Aggregate"
-        functions:
-          description: Post-processing functions applied to aggregation results
-          items:
-            $ref: "#/components/schemas/Function"
-          maxItems: 10
-          type: array
-        fill:
-          $ref: "#/components/schemas/MonitorAggregationQuery_fill"
-        filter:
-          description: Filter to apply to the aggregation
-          format: tsuga-query
-          maxLength: 10000
-          minLength: 0
-          type: string
-      required:
-      - aggregate
-      title: AggregationQuery
-    GraphVisualizationTimeseries_aliases:
-      properties:
-        formula:
-          description: Optional alias for formula (only used for display in the UI)
-          maxLength: 250
-          minLength: 0
-          type: string
-        queries:
-          additionalProperties:
-            description: Optional alias for a query (only used for display in the
-              UI)
-            maxLength: 250
-            minLength: 0
-            type: string
-    AggregationGroupBy:
-      properties:
-        fields:
-          items:
-            maxLength: 250
-            minLength: 0
-            type: string
-          maxItems: 1
-          type: array
-        limit:
-          type: number
-      required:
-      - fields
-      - limit
-      title: AggregationGroupBy
-    GraphVisualizationTimeseries_timeBucket:
-      properties:
-        time:
-          description: Number of units that make up each bar bucket
-          type: number
-        metric:
-          description: Unit used to measure the bucket width
-          enum:
-          - sec
-          - min
-          - hour
-          - day
-          type: string
-      required:
-      - metric
-      - time
     ConditionalFormatting:
       properties:
         operator:
@@ -5988,12 +8049,65 @@ components:
       - operator
       - value
       title: ConditionalFormatting
+    AggregationQuery:
+      properties:
+        aggregate:
+          $ref: "#/components/schemas/Aggregate"
+        functions:
+          description: Post-processing functions applied to aggregation results
+          items:
+            $ref: "#/components/schemas/Function"
+          type: array
+        fill:
+          $ref: "#/components/schemas/MonitorAggregationQuery_fill"
+        filter:
+          description: Filter to apply to the aggregation
+          type: string
+      required:
+      - aggregate
+      title: AggregationQuery
+    GraphVisualizationTimeseries_aliases:
+      properties:
+        formula:
+          description: Optional alias for formula (only used for display in the UI)
+          type: string
+        queries:
+          additionalProperties:
+            description: Optional alias for a query (only used for display in the
+              UI)
+            type: string
+    AggregationGroupBy:
+      properties:
+        fields:
+          items:
+            type: string
+          type: array
+        limit:
+          type: number
+      required:
+      - fields
+      - limit
+      title: AggregationGroupBy
+    GraphVisualizationTimeseries_timeBucket:
+      properties:
+        time:
+          description: Number of units that make up each bar bucket
+          type: number
+        metric:
+          description: Unit used to measure the bucket width
+          enum:
+          - sec
+          - min
+          - hour
+          - day
+          type: string
+      required:
+      - metric
+      - time
     TableColumn:
       properties:
         name:
           description: Display name of the table column
-          maxLength: 250
-          minLength: 0
           type: string
         source:
           description: Data source being queried for this aggregation
@@ -6006,19 +8120,11 @@ components:
           description: Aggregations that may be combined together in the same query
           items:
             $ref: "#/components/schemas/AggregationQuery"
-          maxItems: 15
           type: array
         formula:
           description: Formula referencing query outputs (e.g. q1+q2) to compute derived
             series
-          format: tsuga-formula
-          maxLength: 250
-          minLength: 0
           type: string
-          errorMessage:
-            format: "Must be a simple mathematical formula, and all variables in it\
-              \ should refer to queries (q1, q2, etc.). The formula you provided is\
-              \ invalid: ${0}"
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseries_aliases"
         visibleSeries:
@@ -6037,6 +8143,184 @@ components:
       - source
       title: TableColumn
     TableDefaultSorting:
+      properties:
+        id:
+          description: ID of the column to sort by
+          type: string
+        desc:
+          description: Whether the sort is descending
+          type: boolean
+      required:
+      - desc
+      - id
+      title: TableDefaultSorting
+    InputGraphVisualizationTimeseriesConnection_yAxisSettings_scale_oneOf:
+      properties:
+        type:
+          enum:
+          - pow
+          type: string
+        exponent:
+          minimum: 0
+          type: number
+      required:
+      - exponent
+      - type
+    InputGraphVisualizationTimeseriesConnection_yAxisSettings_scale:
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/InputGraphVisualizationTimeseriesConnection_yAxisSettings_scale_oneOf"
+      - $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings_scale_oneOf_1"
+      required:
+      - type
+    InputGraphVisualizationTimeseriesConnection_yAxisSettings:
+      properties:
+        min:
+          $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings_min"
+        max:
+          $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings_min"
+        scale:
+          $ref: "#/components/schemas/InputGraphVisualizationTimeseriesConnection_yAxisSettings_scale"
+        alwaysIncludeZero:
+          type: boolean
+      required:
+      - alwaysIncludeZero
+      - max
+      - min
+      - scale
+    Normalizer_1:
+      discriminator:
+        mapping:
+          duration: "#/components/schemas/DataNormalizerDuration"
+          data: "#/components/schemas/DataNormalizerData"
+          percent: "#/components/schemas/DataNormalizerPercent"
+          date: "#/components/schemas/DataNormalizerDate"
+          level: "#/components/schemas/DataNormalizerLevel"
+          cpu: "#/components/schemas/DataNormalizerCpu"
+          custom: "#/components/schemas/InputDataNormalizerCustom"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/DataNormalizerDuration"
+      - $ref: "#/components/schemas/DataNormalizerData"
+      - $ref: "#/components/schemas/DataNormalizerPercent"
+      - $ref: "#/components/schemas/DataNormalizerDate"
+      - $ref: "#/components/schemas/DataNormalizerLevel"
+      - $ref: "#/components/schemas/DataNormalizerCpu"
+      - $ref: "#/components/schemas/InputDataNormalizerCustom"
+      required:
+      - type
+      title: Normalizer
+    WidgetListColumn_1:
+      properties:
+        attribute:
+          description: Attribute (log field or database row column) displayed as a
+            column in the list
+          type: string
+        normalizer:
+          $ref: "#/components/schemas/Normalizer_1"
+      required:
+      - attribute
+      title: WidgetListColumn
+    AggregationQuery_1:
+      properties:
+        aggregate:
+          $ref: "#/components/schemas/InputAggregate"
+        functions:
+          description: Post-processing functions applied to aggregation results
+          items:
+            $ref: "#/components/schemas/InputFunction"
+          maxItems: 10
+          type: array
+        fill:
+          $ref: "#/components/schemas/MonitorAggregationQuery_fill"
+        filter:
+          description: Filter to apply to the aggregation
+          format: tsuga-query
+          maxLength: 10000
+          minLength: 0
+          type: string
+      required:
+      - aggregate
+      title: AggregationQuery
+    InputGraphVisualizationTimeseries_aliases:
+      properties:
+        formula:
+          description: Optional alias for formula (only used for display in the UI)
+          maxLength: 250
+          minLength: 0
+          type: string
+        queries:
+          additionalProperties:
+            description: Optional alias for a query (only used for display in the
+              UI)
+            maxLength: 250
+            minLength: 0
+            type: string
+    AggregationGroupBy_1:
+      properties:
+        fields:
+          items:
+            maxLength: 250
+            minLength: 0
+            type: string
+          maxItems: 1
+          type: array
+        limit:
+          type: number
+      required:
+      - fields
+      - limit
+      title: AggregationGroupBy
+    TableColumn_1:
+      properties:
+        name:
+          description: Display name of the table column
+          maxLength: 250
+          minLength: 0
+          type: string
+        source:
+          description: Data source being queried for this aggregation
+          enum:
+          - logs
+          - metrics
+          - traces
+          type: string
+        queries:
+          description: Aggregations that may be combined together in the same query
+          items:
+            $ref: "#/components/schemas/AggregationQuery_1"
+          maxItems: 15
+          type: array
+        formula:
+          description: Formula referencing query outputs (e.g. q1+q2) to compute derived
+            series
+          format: tsuga-formula
+          maxLength: 250
+          minLength: 0
+          type: string
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
+        aliases:
+          $ref: "#/components/schemas/InputGraphVisualizationTimeseries_aliases"
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+        normalizer:
+          $ref: "#/components/schemas/Normalizer_1"
+        precision:
+          description: Number of decimal places to display in the value
+          type: number
+      required:
+      - name
+      - queries
+      - source
+      title: TableColumn
+    TableDefaultSorting_1:
       properties:
         id:
           description: ID of the column to sort by

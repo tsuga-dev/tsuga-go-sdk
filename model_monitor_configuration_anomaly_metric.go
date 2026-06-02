@@ -29,9 +29,8 @@ type MonitorConfigurationAnomalyMetric struct {
 	GroupByFields            []MonitorConfigurationMetricGroupByFieldsInner `json:"groupByFields"`
 	AggregationAlertLogic    *string                                        `json:"aggregationAlertLogic,omitempty"`
 	ProportionAlertThreshold *int32                                         `json:"proportionAlertThreshold,omitempty"`
-	// Aggregations that may be combined together in the same query
-	Queries              []MonitorAggregationQuery `json:"queries"`
-	AdditionalProperties map[string]interface{}
+	Queries                  []MonitorAggregationQuery                      `json:"queries"`
+	AdditionalProperties     map[string]interface{}
 }
 
 type _MonitorConfigurationAnomalyMetric MonitorConfigurationAnomalyMetric

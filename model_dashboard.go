@@ -27,11 +27,11 @@ type Dashboard struct {
 	// Team ID that owns and manages the dashboard
 	Owner string `json:"owner"`
 	// Ordered widgets that compose the dashboard
-	Graphs []Graph `json:"graphs"`
+	Graphs []Graph1 `json:"graphs"`
 	// Filters applied to every widget on the dashboard
-	Filters []CreateDashboardRequestFiltersInner `json:"filters,omitempty"`
+	Filters []DashboardFiltersInner `json:"filters,omitempty"`
 	// List of key/value tags applied to the resource
-	Tags                 []Tag   `json:"tags,omitempty"`
+	Tags                 []Tag1  `json:"tags,omitempty"`
 	TimePreset           *string `json:"timePreset,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -42,7 +42,7 @@ type _Dashboard Dashboard
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDashboard(id string, name string, owner string, graphs []Graph) *Dashboard {
+func NewDashboard(id string, name string, owner string, graphs []Graph1) *Dashboard {
 	this := Dashboard{}
 	this.Id = id
 	this.Name = name
@@ -132,9 +132,9 @@ func (o *Dashboard) SetOwner(v string) {
 }
 
 // GetGraphs returns the Graphs field value
-func (o *Dashboard) GetGraphs() []Graph {
+func (o *Dashboard) GetGraphs() []Graph1 {
 	if o == nil {
-		var ret []Graph
+		var ret []Graph1
 		return ret
 	}
 
@@ -143,7 +143,7 @@ func (o *Dashboard) GetGraphs() []Graph {
 
 // GetGraphsOk returns a tuple with the Graphs field value
 // and a boolean to check if the value has been set.
-func (o *Dashboard) GetGraphsOk() ([]Graph, bool) {
+func (o *Dashboard) GetGraphsOk() ([]Graph1, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -151,14 +151,14 @@ func (o *Dashboard) GetGraphsOk() ([]Graph, bool) {
 }
 
 // SetGraphs sets field value
-func (o *Dashboard) SetGraphs(v []Graph) {
+func (o *Dashboard) SetGraphs(v []Graph1) {
 	o.Graphs = v
 }
 
 // GetFilters returns the Filters field value if set, zero value otherwise.
-func (o *Dashboard) GetFilters() []CreateDashboardRequestFiltersInner {
+func (o *Dashboard) GetFilters() []DashboardFiltersInner {
 	if o == nil || IsNil(o.Filters) {
-		var ret []CreateDashboardRequestFiltersInner
+		var ret []DashboardFiltersInner
 		return ret
 	}
 	return o.Filters
@@ -166,7 +166,7 @@ func (o *Dashboard) GetFilters() []CreateDashboardRequestFiltersInner {
 
 // GetFiltersOk returns a tuple with the Filters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Dashboard) GetFiltersOk() ([]CreateDashboardRequestFiltersInner, bool) {
+func (o *Dashboard) GetFiltersOk() ([]DashboardFiltersInner, bool) {
 	if o == nil || IsNil(o.Filters) {
 		return nil, false
 	}
@@ -182,15 +182,15 @@ func (o *Dashboard) HasFilters() bool {
 	return false
 }
 
-// SetFilters gets a reference to the given []CreateDashboardRequestFiltersInner and assigns it to the Filters field.
-func (o *Dashboard) SetFilters(v []CreateDashboardRequestFiltersInner) {
+// SetFilters gets a reference to the given []DashboardFiltersInner and assigns it to the Filters field.
+func (o *Dashboard) SetFilters(v []DashboardFiltersInner) {
 	o.Filters = v
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *Dashboard) GetTags() []Tag {
+func (o *Dashboard) GetTags() []Tag1 {
 	if o == nil || IsNil(o.Tags) {
-		var ret []Tag
+		var ret []Tag1
 		return ret
 	}
 	return o.Tags
@@ -198,7 +198,7 @@ func (o *Dashboard) GetTags() []Tag {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Dashboard) GetTagsOk() ([]Tag, bool) {
+func (o *Dashboard) GetTagsOk() ([]Tag1, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -214,8 +214,8 @@ func (o *Dashboard) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
-func (o *Dashboard) SetTags(v []Tag) {
+// SetTags gets a reference to the given []Tag1 and assigns it to the Tags field.
+func (o *Dashboard) SetTags(v []Tag1) {
 	o.Tags = v
 }
 

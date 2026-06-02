@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Owners** | Pointer to **[]string** | Restrict results to monitors owned by any of these team IDs | [optional] 
-**SearchQuery** | Pointer to **string** | Substring matched against monitor name and configuration | [optional] 
-**Tags** | Pointer to [**[]Tag**](Tag.md) | Restrict results to monitors that have at least one of the listed key/value tags | [optional] 
-**Priorities** | Pointer to **[]float32** | Restrict results to monitors with one of these priorities | [optional] 
-**Types** | Pointer to **[]string** | Restrict results to monitors with these types | [optional] 
+**Owners** | Pointer to [**QueryMonitorsRequestFiltersOwners**](QueryMonitorsRequestFiltersOwners.md) |  | [optional] 
+**SearchQuery** | Pointer to [**QueryMonitorsRequestFiltersSearchQuery**](QueryMonitorsRequestFiltersSearchQuery.md) |  | [optional] 
+**Tags** | Pointer to [**QueryMonitorsRequestFiltersTags**](QueryMonitorsRequestFiltersTags.md) |  | [optional] 
+**Priorities** | Pointer to [**QueryMonitorsRequestFiltersPriorities**](QueryMonitorsRequestFiltersPriorities.md) |  | [optional] 
+**Types** | Pointer to [**QueryMonitorsRequestFiltersTypes**](QueryMonitorsRequestFiltersTypes.md) |  | [optional] 
 **Activity** | Pointer to **string** | Restrict results by activity status: active monitors or currently snoozed monitors | [optional] 
-**ClusterIds** | Pointer to **[]string** | Restrict results to monitors deployed to any of these cluster IDs (monitors with no cluster restriction are always included) | [optional] 
+**ClusterIds** | Pointer to [**QueryMonitorsRequestFiltersClusterIds**](QueryMonitorsRequestFiltersClusterIds.md) |  | [optional] 
 
 ## Methods
 
@@ -33,20 +33,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetOwners
 
-`func (o *QueryMonitorsRequestFilters) GetOwners() []string`
+`func (o *QueryMonitorsRequestFilters) GetOwners() QueryMonitorsRequestFiltersOwners`
 
 GetOwners returns the Owners field if non-nil, zero value otherwise.
 
 ### GetOwnersOk
 
-`func (o *QueryMonitorsRequestFilters) GetOwnersOk() (*[]string, bool)`
+`func (o *QueryMonitorsRequestFilters) GetOwnersOk() (*QueryMonitorsRequestFiltersOwners, bool)`
 
 GetOwnersOk returns a tuple with the Owners field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOwners
 
-`func (o *QueryMonitorsRequestFilters) SetOwners(v []string)`
+`func (o *QueryMonitorsRequestFilters) SetOwners(v QueryMonitorsRequestFiltersOwners)`
 
 SetOwners sets Owners field to given value.
 
@@ -58,20 +58,20 @@ HasOwners returns a boolean if a field has been set.
 
 ### GetSearchQuery
 
-`func (o *QueryMonitorsRequestFilters) GetSearchQuery() string`
+`func (o *QueryMonitorsRequestFilters) GetSearchQuery() QueryMonitorsRequestFiltersSearchQuery`
 
 GetSearchQuery returns the SearchQuery field if non-nil, zero value otherwise.
 
 ### GetSearchQueryOk
 
-`func (o *QueryMonitorsRequestFilters) GetSearchQueryOk() (*string, bool)`
+`func (o *QueryMonitorsRequestFilters) GetSearchQueryOk() (*QueryMonitorsRequestFiltersSearchQuery, bool)`
 
 GetSearchQueryOk returns a tuple with the SearchQuery field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSearchQuery
 
-`func (o *QueryMonitorsRequestFilters) SetSearchQuery(v string)`
+`func (o *QueryMonitorsRequestFilters) SetSearchQuery(v QueryMonitorsRequestFiltersSearchQuery)`
 
 SetSearchQuery sets SearchQuery field to given value.
 
@@ -83,20 +83,20 @@ HasSearchQuery returns a boolean if a field has been set.
 
 ### GetTags
 
-`func (o *QueryMonitorsRequestFilters) GetTags() []Tag`
+`func (o *QueryMonitorsRequestFilters) GetTags() QueryMonitorsRequestFiltersTags`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *QueryMonitorsRequestFilters) GetTagsOk() (*[]Tag, bool)`
+`func (o *QueryMonitorsRequestFilters) GetTagsOk() (*QueryMonitorsRequestFiltersTags, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *QueryMonitorsRequestFilters) SetTags(v []Tag)`
+`func (o *QueryMonitorsRequestFilters) SetTags(v QueryMonitorsRequestFiltersTags)`
 
 SetTags sets Tags field to given value.
 
@@ -108,20 +108,20 @@ HasTags returns a boolean if a field has been set.
 
 ### GetPriorities
 
-`func (o *QueryMonitorsRequestFilters) GetPriorities() []float32`
+`func (o *QueryMonitorsRequestFilters) GetPriorities() QueryMonitorsRequestFiltersPriorities`
 
 GetPriorities returns the Priorities field if non-nil, zero value otherwise.
 
 ### GetPrioritiesOk
 
-`func (o *QueryMonitorsRequestFilters) GetPrioritiesOk() (*[]float32, bool)`
+`func (o *QueryMonitorsRequestFilters) GetPrioritiesOk() (*QueryMonitorsRequestFiltersPriorities, bool)`
 
 GetPrioritiesOk returns a tuple with the Priorities field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPriorities
 
-`func (o *QueryMonitorsRequestFilters) SetPriorities(v []float32)`
+`func (o *QueryMonitorsRequestFilters) SetPriorities(v QueryMonitorsRequestFiltersPriorities)`
 
 SetPriorities sets Priorities field to given value.
 
@@ -133,20 +133,20 @@ HasPriorities returns a boolean if a field has been set.
 
 ### GetTypes
 
-`func (o *QueryMonitorsRequestFilters) GetTypes() []string`
+`func (o *QueryMonitorsRequestFilters) GetTypes() QueryMonitorsRequestFiltersTypes`
 
 GetTypes returns the Types field if non-nil, zero value otherwise.
 
 ### GetTypesOk
 
-`func (o *QueryMonitorsRequestFilters) GetTypesOk() (*[]string, bool)`
+`func (o *QueryMonitorsRequestFilters) GetTypesOk() (*QueryMonitorsRequestFiltersTypes, bool)`
 
 GetTypesOk returns a tuple with the Types field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTypes
 
-`func (o *QueryMonitorsRequestFilters) SetTypes(v []string)`
+`func (o *QueryMonitorsRequestFilters) SetTypes(v QueryMonitorsRequestFiltersTypes)`
 
 SetTypes sets Types field to given value.
 
@@ -183,20 +183,20 @@ HasActivity returns a boolean if a field has been set.
 
 ### GetClusterIds
 
-`func (o *QueryMonitorsRequestFilters) GetClusterIds() []string`
+`func (o *QueryMonitorsRequestFilters) GetClusterIds() QueryMonitorsRequestFiltersClusterIds`
 
 GetClusterIds returns the ClusterIds field if non-nil, zero value otherwise.
 
 ### GetClusterIdsOk
 
-`func (o *QueryMonitorsRequestFilters) GetClusterIdsOk() (*[]string, bool)`
+`func (o *QueryMonitorsRequestFilters) GetClusterIdsOk() (*QueryMonitorsRequestFiltersClusterIds, bool)`
 
 GetClusterIdsOk returns a tuple with the ClusterIds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetClusterIds
 
-`func (o *QueryMonitorsRequestFilters) SetClusterIds(v []string)`
+`func (o *QueryMonitorsRequestFilters) SetClusterIds(v QueryMonitorsRequestFiltersClusterIds)`
 
 SetClusterIds sets ClusterIds field to given value.
 

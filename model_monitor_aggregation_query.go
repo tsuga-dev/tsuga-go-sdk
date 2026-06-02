@@ -22,9 +22,10 @@ var _ MappedNullable = &MonitorAggregationQuery{}
 type MonitorAggregationQuery struct {
 	Aggregate Aggregate `json:"aggregate"`
 	// Post-processing functions applied to aggregation results
-	Functions            []Function                   `json:"functions,omitempty"`
-	Fill                 *MonitorAggregationQueryFill `json:"fill,omitempty"`
-	Filter               string                       `json:"filter"`
+	Functions []Function                   `json:"functions,omitempty"`
+	Fill      *MonitorAggregationQueryFill `json:"fill,omitempty"`
+	// Filter to apply to the aggregation
+	Filter               string `json:"filter"`
 	AdditionalProperties map[string]interface{}
 }
 

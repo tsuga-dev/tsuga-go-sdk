@@ -21,10 +21,10 @@ var _ MappedNullable = &RuleTargetsInner{}
 // RuleTargetsInner struct for RuleTargetsInner
 type RuleTargetsInner struct {
 	// Identifier of the notification target
-	Id                   string                                                   `json:"id"`
-	RateLimit            *CreateNotificationRuleRequestTargetsInnerRateLimit      `json:"rateLimit,omitempty"`
-	RenotifyConfig       *CreateNotificationRuleRequestTargetsInnerRenotifyConfig `json:"renotifyConfig,omitempty"`
-	Config               RuleTargetsInnerConfig                                   `json:"config"`
+	Id                   string                          `json:"id"`
+	RateLimit            *RuleTargetsInnerRateLimit      `json:"rateLimit,omitempty"`
+	RenotifyConfig       *RuleTargetsInnerRenotifyConfig `json:"renotifyConfig,omitempty"`
+	Config               RuleTargetsInnerConfig          `json:"config"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,9 +74,9 @@ func (o *RuleTargetsInner) SetId(v string) {
 }
 
 // GetRateLimit returns the RateLimit field value if set, zero value otherwise.
-func (o *RuleTargetsInner) GetRateLimit() CreateNotificationRuleRequestTargetsInnerRateLimit {
+func (o *RuleTargetsInner) GetRateLimit() RuleTargetsInnerRateLimit {
 	if o == nil || IsNil(o.RateLimit) {
-		var ret CreateNotificationRuleRequestTargetsInnerRateLimit
+		var ret RuleTargetsInnerRateLimit
 		return ret
 	}
 	return *o.RateLimit
@@ -84,7 +84,7 @@ func (o *RuleTargetsInner) GetRateLimit() CreateNotificationRuleRequestTargetsIn
 
 // GetRateLimitOk returns a tuple with the RateLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RuleTargetsInner) GetRateLimitOk() (*CreateNotificationRuleRequestTargetsInnerRateLimit, bool) {
+func (o *RuleTargetsInner) GetRateLimitOk() (*RuleTargetsInnerRateLimit, bool) {
 	if o == nil || IsNil(o.RateLimit) {
 		return nil, false
 	}
@@ -100,15 +100,15 @@ func (o *RuleTargetsInner) HasRateLimit() bool {
 	return false
 }
 
-// SetRateLimit gets a reference to the given CreateNotificationRuleRequestTargetsInnerRateLimit and assigns it to the RateLimit field.
-func (o *RuleTargetsInner) SetRateLimit(v CreateNotificationRuleRequestTargetsInnerRateLimit) {
+// SetRateLimit gets a reference to the given RuleTargetsInnerRateLimit and assigns it to the RateLimit field.
+func (o *RuleTargetsInner) SetRateLimit(v RuleTargetsInnerRateLimit) {
 	o.RateLimit = &v
 }
 
 // GetRenotifyConfig returns the RenotifyConfig field value if set, zero value otherwise.
-func (o *RuleTargetsInner) GetRenotifyConfig() CreateNotificationRuleRequestTargetsInnerRenotifyConfig {
+func (o *RuleTargetsInner) GetRenotifyConfig() RuleTargetsInnerRenotifyConfig {
 	if o == nil || IsNil(o.RenotifyConfig) {
-		var ret CreateNotificationRuleRequestTargetsInnerRenotifyConfig
+		var ret RuleTargetsInnerRenotifyConfig
 		return ret
 	}
 	return *o.RenotifyConfig
@@ -116,7 +116,7 @@ func (o *RuleTargetsInner) GetRenotifyConfig() CreateNotificationRuleRequestTarg
 
 // GetRenotifyConfigOk returns a tuple with the RenotifyConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RuleTargetsInner) GetRenotifyConfigOk() (*CreateNotificationRuleRequestTargetsInnerRenotifyConfig, bool) {
+func (o *RuleTargetsInner) GetRenotifyConfigOk() (*RuleTargetsInnerRenotifyConfig, bool) {
 	if o == nil || IsNil(o.RenotifyConfig) {
 		return nil, false
 	}
@@ -132,8 +132,8 @@ func (o *RuleTargetsInner) HasRenotifyConfig() bool {
 	return false
 }
 
-// SetRenotifyConfig gets a reference to the given CreateNotificationRuleRequestTargetsInnerRenotifyConfig and assigns it to the RenotifyConfig field.
-func (o *RuleTargetsInner) SetRenotifyConfig(v CreateNotificationRuleRequestTargetsInnerRenotifyConfig) {
+// SetRenotifyConfig gets a reference to the given RuleTargetsInnerRenotifyConfig and assigns it to the RenotifyConfig field.
+func (o *RuleTargetsInner) SetRenotifyConfig(v RuleTargetsInnerRenotifyConfig) {
 	o.RenotifyConfig = &v
 }
 

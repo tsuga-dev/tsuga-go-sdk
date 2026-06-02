@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 **Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
 **YAxisSettings** | Pointer to [**GraphVisualizationTimeseriesConnectionYAxisSettings**](GraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
+**Smoothing** | Pointer to **bool** | Whether to apply automatic smoothing to the rendered timeseries | [optional] 
 
 ## Methods
 
@@ -346,6 +347,31 @@ SetYAxisSettings sets YAxisSettings field to given value.
 `func (o *GraphVisualizationTimeseries) HasYAxisSettings() bool`
 
 HasYAxisSettings returns a boolean if a field has been set.
+
+### GetSmoothing
+
+`func (o *GraphVisualizationTimeseries) GetSmoothing() bool`
+
+GetSmoothing returns the Smoothing field if non-nil, zero value otherwise.
+
+### GetSmoothingOk
+
+`func (o *GraphVisualizationTimeseries) GetSmoothingOk() (*bool, bool)`
+
+GetSmoothingOk returns a tuple with the Smoothing field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSmoothing
+
+`func (o *GraphVisualizationTimeseries) SetSmoothing(v bool)`
+
+SetSmoothing sets Smoothing field to given value.
+
+### HasSmoothing
+
+`func (o *GraphVisualizationTimeseries) HasSmoothing() bool`
+
+HasSmoothing returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

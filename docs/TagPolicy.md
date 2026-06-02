@@ -11,15 +11,15 @@ Name | Type | Description | Notes
 **TagKey** | **string** |  | 
 **AllowedTagValues** | **[]string** |  | 
 **IsRequired** | **bool** |  | 
-**TeamScope** | Pointer to [**CreateTagPolicyRequestTeamScope**](CreateTagPolicyRequestTeamScope.md) |  | [optional] 
-**Configuration** | [**CreateTagPolicyRequestConfiguration**](CreateTagPolicyRequestConfiguration.md) |  | 
+**TeamScope** | Pointer to [**TagPolicyTeamScope**](TagPolicyTeamScope.md) |  | [optional] 
+**Configuration** | [**TagPolicyConfiguration**](TagPolicyConfiguration.md) |  | 
 **Owner** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewTagPolicy
 
-`func NewTagPolicy(id string, name string, isActive bool, tagKey string, allowedTagValues []string, isRequired bool, configuration CreateTagPolicyRequestConfiguration, ) *TagPolicy`
+`func NewTagPolicy(id string, name string, isActive bool, tagKey string, allowedTagValues []string, isRequired bool, configuration TagPolicyConfiguration, ) *TagPolicy`
 
 NewTagPolicy instantiates a new TagPolicy object
 This constructor will assign default values to properties that have it defined,
@@ -181,20 +181,20 @@ SetIsRequired sets IsRequired field to given value.
 
 ### GetTeamScope
 
-`func (o *TagPolicy) GetTeamScope() CreateTagPolicyRequestTeamScope`
+`func (o *TagPolicy) GetTeamScope() TagPolicyTeamScope`
 
 GetTeamScope returns the TeamScope field if non-nil, zero value otherwise.
 
 ### GetTeamScopeOk
 
-`func (o *TagPolicy) GetTeamScopeOk() (*CreateTagPolicyRequestTeamScope, bool)`
+`func (o *TagPolicy) GetTeamScopeOk() (*TagPolicyTeamScope, bool)`
 
 GetTeamScopeOk returns a tuple with the TeamScope field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTeamScope
 
-`func (o *TagPolicy) SetTeamScope(v CreateTagPolicyRequestTeamScope)`
+`func (o *TagPolicy) SetTeamScope(v TagPolicyTeamScope)`
 
 SetTeamScope sets TeamScope field to given value.
 
@@ -206,20 +206,20 @@ HasTeamScope returns a boolean if a field has been set.
 
 ### GetConfiguration
 
-`func (o *TagPolicy) GetConfiguration() CreateTagPolicyRequestConfiguration`
+`func (o *TagPolicy) GetConfiguration() TagPolicyConfiguration`
 
 GetConfiguration returns the Configuration field if non-nil, zero value otherwise.
 
 ### GetConfigurationOk
 
-`func (o *TagPolicy) GetConfigurationOk() (*CreateTagPolicyRequestConfiguration, bool)`
+`func (o *TagPolicy) GetConfigurationOk() (*TagPolicyConfiguration, bool)`
 
 GetConfigurationOk returns a tuple with the Configuration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConfiguration
 
-`func (o *TagPolicy) SetConfiguration(v CreateTagPolicyRequestConfiguration)`
+`func (o *TagPolicy) SetConfiguration(v TagPolicyConfiguration)`
 
 SetConfiguration sets Configuration field to given value.
 

@@ -1,0 +1,275 @@
+# GraphVisualizationHeatmap
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Type** | **string** | Displays the aggregation as a heatmap chart | 
+**Source** | **string** | Data source being queried for this aggregation | 
+**Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query | 
+**Formula** | Pointer to **string** | Formula referencing query outputs (e.g. q1+q2) to compute derived series | [optional] 
+**Aliases** | Pointer to [**GraphVisualizationTimeseriesAliases**](GraphVisualizationTimeseriesAliases.md) |  | [optional] 
+**VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
+**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
+**Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
+**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
+**Palette** | Pointer to **string** | Color palette used to render the heatmap intensity gradient | [optional] 
+
+## Methods
+
+### NewGraphVisualizationHeatmap
+
+`func NewGraphVisualizationHeatmap(type_ string, source string, queries []AggregationQuery, ) *GraphVisualizationHeatmap`
+
+NewGraphVisualizationHeatmap instantiates a new GraphVisualizationHeatmap object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewGraphVisualizationHeatmapWithDefaults
+
+`func NewGraphVisualizationHeatmapWithDefaults() *GraphVisualizationHeatmap`
+
+NewGraphVisualizationHeatmapWithDefaults instantiates a new GraphVisualizationHeatmap object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetType
+
+`func (o *GraphVisualizationHeatmap) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *GraphVisualizationHeatmap) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *GraphVisualizationHeatmap) SetType(v string)`
+
+SetType sets Type field to given value.
+
+
+### GetSource
+
+`func (o *GraphVisualizationHeatmap) GetSource() string`
+
+GetSource returns the Source field if non-nil, zero value otherwise.
+
+### GetSourceOk
+
+`func (o *GraphVisualizationHeatmap) GetSourceOk() (*string, bool)`
+
+GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSource
+
+`func (o *GraphVisualizationHeatmap) SetSource(v string)`
+
+SetSource sets Source field to given value.
+
+
+### GetQueries
+
+`func (o *GraphVisualizationHeatmap) GetQueries() []AggregationQuery`
+
+GetQueries returns the Queries field if non-nil, zero value otherwise.
+
+### GetQueriesOk
+
+`func (o *GraphVisualizationHeatmap) GetQueriesOk() (*[]AggregationQuery, bool)`
+
+GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQueries
+
+`func (o *GraphVisualizationHeatmap) SetQueries(v []AggregationQuery)`
+
+SetQueries sets Queries field to given value.
+
+
+### GetFormula
+
+`func (o *GraphVisualizationHeatmap) GetFormula() string`
+
+GetFormula returns the Formula field if non-nil, zero value otherwise.
+
+### GetFormulaOk
+
+`func (o *GraphVisualizationHeatmap) GetFormulaOk() (*string, bool)`
+
+GetFormulaOk returns a tuple with the Formula field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFormula
+
+`func (o *GraphVisualizationHeatmap) SetFormula(v string)`
+
+SetFormula sets Formula field to given value.
+
+### HasFormula
+
+`func (o *GraphVisualizationHeatmap) HasFormula() bool`
+
+HasFormula returns a boolean if a field has been set.
+
+### GetAliases
+
+`func (o *GraphVisualizationHeatmap) GetAliases() GraphVisualizationTimeseriesAliases`
+
+GetAliases returns the Aliases field if non-nil, zero value otherwise.
+
+### GetAliasesOk
+
+`func (o *GraphVisualizationHeatmap) GetAliasesOk() (*GraphVisualizationTimeseriesAliases, bool)`
+
+GetAliasesOk returns a tuple with the Aliases field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAliases
+
+`func (o *GraphVisualizationHeatmap) SetAliases(v GraphVisualizationTimeseriesAliases)`
+
+SetAliases sets Aliases field to given value.
+
+### HasAliases
+
+`func (o *GraphVisualizationHeatmap) HasAliases() bool`
+
+HasAliases returns a boolean if a field has been set.
+
+### GetVisibleSeries
+
+`func (o *GraphVisualizationHeatmap) GetVisibleSeries() []bool`
+
+GetVisibleSeries returns the VisibleSeries field if non-nil, zero value otherwise.
+
+### GetVisibleSeriesOk
+
+`func (o *GraphVisualizationHeatmap) GetVisibleSeriesOk() (*[]bool, bool)`
+
+GetVisibleSeriesOk returns a tuple with the VisibleSeries field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVisibleSeries
+
+`func (o *GraphVisualizationHeatmap) SetVisibleSeries(v []bool)`
+
+SetVisibleSeries sets VisibleSeries field to given value.
+
+### HasVisibleSeries
+
+`func (o *GraphVisualizationHeatmap) HasVisibleSeries() bool`
+
+HasVisibleSeries returns a boolean if a field has been set.
+
+### GetGroupBy
+
+`func (o *GraphVisualizationHeatmap) GetGroupBy() []AggregationGroupBy`
+
+GetGroupBy returns the GroupBy field if non-nil, zero value otherwise.
+
+### GetGroupByOk
+
+`func (o *GraphVisualizationHeatmap) GetGroupByOk() (*[]AggregationGroupBy, bool)`
+
+GetGroupByOk returns a tuple with the GroupBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGroupBy
+
+`func (o *GraphVisualizationHeatmap) SetGroupBy(v []AggregationGroupBy)`
+
+SetGroupBy sets GroupBy field to given value.
+
+### HasGroupBy
+
+`func (o *GraphVisualizationHeatmap) HasGroupBy() bool`
+
+HasGroupBy returns a boolean if a field has been set.
+
+### GetPrecision
+
+`func (o *GraphVisualizationHeatmap) GetPrecision() float32`
+
+GetPrecision returns the Precision field if non-nil, zero value otherwise.
+
+### GetPrecisionOk
+
+`func (o *GraphVisualizationHeatmap) GetPrecisionOk() (*float32, bool)`
+
+GetPrecisionOk returns a tuple with the Precision field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrecision
+
+`func (o *GraphVisualizationHeatmap) SetPrecision(v float32)`
+
+SetPrecision sets Precision field to given value.
+
+### HasPrecision
+
+`func (o *GraphVisualizationHeatmap) HasPrecision() bool`
+
+HasPrecision returns a boolean if a field has been set.
+
+### GetNormalizer
+
+`func (o *GraphVisualizationHeatmap) GetNormalizer() Normalizer`
+
+GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
+
+### GetNormalizerOk
+
+`func (o *GraphVisualizationHeatmap) GetNormalizerOk() (*Normalizer, bool)`
+
+GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNormalizer
+
+`func (o *GraphVisualizationHeatmap) SetNormalizer(v Normalizer)`
+
+SetNormalizer sets Normalizer field to given value.
+
+### HasNormalizer
+
+`func (o *GraphVisualizationHeatmap) HasNormalizer() bool`
+
+HasNormalizer returns a boolean if a field has been set.
+
+### GetPalette
+
+`func (o *GraphVisualizationHeatmap) GetPalette() string`
+
+GetPalette returns the Palette field if non-nil, zero value otherwise.
+
+### GetPaletteOk
+
+`func (o *GraphVisualizationHeatmap) GetPaletteOk() (*string, bool)`
+
+GetPaletteOk returns a tuple with the Palette field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPalette
+
+`func (o *GraphVisualizationHeatmap) SetPalette(v string)`
+
+SetPalette sets Palette field to given value.
+
+### HasPalette
+
+`func (o *GraphVisualizationHeatmap) HasPalette() bool`
+
+HasPalette returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

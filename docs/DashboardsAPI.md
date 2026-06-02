@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**DeleteDashboard**](DashboardsAPI.md#DeleteDashboard) | **Delete** /v1/dashboards/{id} | 
 [**GetDashboard**](DashboardsAPI.md#GetDashboard) | **Get** /v1/dashboards/{id} | 
 [**ListDashboards**](DashboardsAPI.md#ListDashboards) | **Get** /v1/dashboards | 
+[**QueryDashboards**](DashboardsAPI.md#QueryDashboards) | **Post** /v1/dashboards/query | 
 [**UpdateDashboard**](DashboardsAPI.md#UpdateDashboard) | **Put** /v1/dashboards/{id} | 
 [**UpdateDashboardGraph**](DashboardsAPI.md#UpdateDashboardGraph) | **Put** /v1/dashboards/{id}/graphs/{graphId} | 
 
@@ -34,7 +35,7 @@ import (
 )
 
 func main() {
-	createDashboardRequest := *openapiclient.NewCreateDashboardRequest("Name_example", "Owner_example", []openapiclient.Graph{*openapiclient.NewGraph("Id_example", openapiclient.Graph_visualization{GraphVisualizationBar: openapiclient.NewGraphVisualizationBar("Type_example", "Source_example", []openapiclient.AggregationQuery{*openapiclient.NewAggregationQuery(openapiclient.Aggregate{AggregateAverage: openapiclient.NewAggregateAverage("Type_example", "Field_example")})})})}) // CreateDashboardRequest | 
+	createDashboardRequest := *openapiclient.NewCreateDashboardRequest("Name_example", "Owner_example", []openapiclient.Graph{*openapiclient.NewGraph("Id_example", openapiclient.Graph_visualization{InputGraphVisualizationBar: openapiclient.NewInputGraphVisualizationBar("Type_example", "Source_example", []openapiclient.AggregationQuery1{*openapiclient.NewAggregationQuery1(openapiclient.InputAggregate{InputAggregateAverage: openapiclient.NewInputAggregateAverage("Type_example", "Field_example")})})})}) // CreateDashboardRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -289,6 +290,72 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## QueryDashboards
+
+> QueryDashboardsResponse QueryDashboards(ctx).QueryDashboardsRequest(queryDashboardsRequest).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/tsuga-dev/tsuga-go-sdk"
+)
+
+func main() {
+	queryDashboardsRequest := *openapiclient.NewQueryDashboardsRequest() // QueryDashboardsRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DashboardsAPI.QueryDashboards(context.Background()).QueryDashboardsRequest(queryDashboardsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.QueryDashboards``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `QueryDashboards`: QueryDashboardsResponse
+	fmt.Fprintf(os.Stdout, "Response from `DashboardsAPI.QueryDashboards`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiQueryDashboardsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **queryDashboardsRequest** | [**QueryDashboardsRequest**](QueryDashboardsRequest.md) |  | 
+
+### Return type
+
+[**QueryDashboardsResponse**](QueryDashboardsResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## UpdateDashboard
 
 > UpdateDashboardResponse UpdateDashboard(ctx, id).UpdateDashboardRequest(updateDashboardRequest).Execute()
@@ -384,7 +451,7 @@ import (
 func main() {
 	id := "id_example" // string | The dashboard ID containing the graph
 	graphId := "graphId_example" // string | The graph ID to update
-	updateDashboardGraphRequest := *openapiclient.NewUpdateDashboardGraphRequest(openapiclient.Graph_visualization{GraphVisualizationBar: openapiclient.NewGraphVisualizationBar("Type_example", "Source_example", []openapiclient.AggregationQuery{*openapiclient.NewAggregationQuery(openapiclient.Aggregate{AggregateAverage: openapiclient.NewAggregateAverage("Type_example", "Field_example")})})}) // UpdateDashboardGraphRequest | 
+	updateDashboardGraphRequest := *openapiclient.NewUpdateDashboardGraphRequest(openapiclient.Graph_visualization{InputGraphVisualizationBar: openapiclient.NewInputGraphVisualizationBar("Type_example", "Source_example", []openapiclient.AggregationQuery1{*openapiclient.NewAggregationQuery1(openapiclient.InputAggregate{InputAggregateAverage: openapiclient.NewInputAggregateAverage("Type_example", "Field_example")})})}) // UpdateDashboardGraphRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

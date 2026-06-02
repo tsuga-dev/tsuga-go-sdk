@@ -29,8 +29,8 @@ type Monitor struct {
 	// Message to be displayed if a notification is triggered
 	Message *string `json:"message,omitempty"`
 	// List of key/value tags applied to the resource
-	Tags          []Tag                             `json:"tags,omitempty"`
-	Configuration UpdateMonitorRequestConfiguration `json:"configuration"`
+	Tags          []Tag1               `json:"tags,omitempty"`
+	Configuration MonitorConfiguration `json:"configuration"`
 	// Priority of the monitor
 	Priority float32 `json:"priority"`
 	// This controls which data the resource can see
@@ -47,7 +47,7 @@ type _Monitor Monitor
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMonitor(id string, name string, owner string, configuration UpdateMonitorRequestConfiguration, priority float32, permissions string, clusterIds []string) *Monitor {
+func NewMonitor(id string, name string, owner string, configuration MonitorConfiguration, priority float32, permissions string, clusterIds []string) *Monitor {
 	this := Monitor{}
 	this.Id = id
 	this.Name = name
@@ -172,9 +172,9 @@ func (o *Monitor) SetMessage(v string) {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *Monitor) GetTags() []Tag {
+func (o *Monitor) GetTags() []Tag1 {
 	if o == nil || IsNil(o.Tags) {
-		var ret []Tag
+		var ret []Tag1
 		return ret
 	}
 	return o.Tags
@@ -182,7 +182,7 @@ func (o *Monitor) GetTags() []Tag {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Monitor) GetTagsOk() ([]Tag, bool) {
+func (o *Monitor) GetTagsOk() ([]Tag1, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -198,15 +198,15 @@ func (o *Monitor) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
-func (o *Monitor) SetTags(v []Tag) {
+// SetTags gets a reference to the given []Tag1 and assigns it to the Tags field.
+func (o *Monitor) SetTags(v []Tag1) {
 	o.Tags = v
 }
 
 // GetConfiguration returns the Configuration field value
-func (o *Monitor) GetConfiguration() UpdateMonitorRequestConfiguration {
+func (o *Monitor) GetConfiguration() MonitorConfiguration {
 	if o == nil {
-		var ret UpdateMonitorRequestConfiguration
+		var ret MonitorConfiguration
 		return ret
 	}
 
@@ -215,7 +215,7 @@ func (o *Monitor) GetConfiguration() UpdateMonitorRequestConfiguration {
 
 // GetConfigurationOk returns a tuple with the Configuration field value
 // and a boolean to check if the value has been set.
-func (o *Monitor) GetConfigurationOk() (*UpdateMonitorRequestConfiguration, bool) {
+func (o *Monitor) GetConfigurationOk() (*MonitorConfiguration, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -223,7 +223,7 @@ func (o *Monitor) GetConfigurationOk() (*UpdateMonitorRequestConfiguration, bool
 }
 
 // SetConfiguration sets field value
-func (o *Monitor) SetConfiguration(v UpdateMonitorRequestConfiguration) {
+func (o *Monitor) SetConfiguration(v MonitorConfiguration) {
 	o.Configuration = v
 }
 

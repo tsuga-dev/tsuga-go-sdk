@@ -19,20 +19,14 @@ var _ MappedNullable = &QueryMonitorsRequestFilters{}
 
 // QueryMonitorsRequestFilters struct for QueryMonitorsRequestFilters
 type QueryMonitorsRequestFilters struct {
-	// Restrict results to monitors owned by any of these team IDs
-	Owners []string `json:"owners,omitempty"`
-	// Substring matched against monitor name and configuration
-	SearchQuery *string `json:"searchQuery,omitempty"`
-	// Restrict results to monitors that have at least one of the listed key/value tags
-	Tags []Tag `json:"tags,omitempty"`
-	// Restrict results to monitors with one of these priorities
-	Priorities []float32 `json:"priorities,omitempty"`
-	// Restrict results to monitors with these types
-	Types []string `json:"types,omitempty"`
+	Owners      *QueryMonitorsRequestFiltersOwners      `json:"owners,omitempty"`
+	SearchQuery *QueryMonitorsRequestFiltersSearchQuery `json:"searchQuery,omitempty"`
+	Tags        *QueryMonitorsRequestFiltersTags        `json:"tags,omitempty"`
+	Priorities  *QueryMonitorsRequestFiltersPriorities  `json:"priorities,omitempty"`
+	Types       *QueryMonitorsRequestFiltersTypes       `json:"types,omitempty"`
 	// Restrict results by activity status: active monitors or currently snoozed monitors
-	Activity *string `json:"activity,omitempty"`
-	// Restrict results to monitors deployed to any of these cluster IDs (monitors with no cluster restriction are always included)
-	ClusterIds           []string `json:"clusterIds,omitempty"`
+	Activity             *string                                `json:"activity,omitempty"`
+	ClusterIds           *QueryMonitorsRequestFiltersClusterIds `json:"clusterIds,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,17 +50,17 @@ func NewQueryMonitorsRequestFiltersWithDefaults() *QueryMonitorsRequestFilters {
 }
 
 // GetOwners returns the Owners field value if set, zero value otherwise.
-func (o *QueryMonitorsRequestFilters) GetOwners() []string {
+func (o *QueryMonitorsRequestFilters) GetOwners() QueryMonitorsRequestFiltersOwners {
 	if o == nil || IsNil(o.Owners) {
-		var ret []string
+		var ret QueryMonitorsRequestFiltersOwners
 		return ret
 	}
-	return o.Owners
+	return *o.Owners
 }
 
 // GetOwnersOk returns a tuple with the Owners field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QueryMonitorsRequestFilters) GetOwnersOk() ([]string, bool) {
+func (o *QueryMonitorsRequestFilters) GetOwnersOk() (*QueryMonitorsRequestFiltersOwners, bool) {
 	if o == nil || IsNil(o.Owners) {
 		return nil, false
 	}
@@ -82,15 +76,15 @@ func (o *QueryMonitorsRequestFilters) HasOwners() bool {
 	return false
 }
 
-// SetOwners gets a reference to the given []string and assigns it to the Owners field.
-func (o *QueryMonitorsRequestFilters) SetOwners(v []string) {
-	o.Owners = v
+// SetOwners gets a reference to the given QueryMonitorsRequestFiltersOwners and assigns it to the Owners field.
+func (o *QueryMonitorsRequestFilters) SetOwners(v QueryMonitorsRequestFiltersOwners) {
+	o.Owners = &v
 }
 
 // GetSearchQuery returns the SearchQuery field value if set, zero value otherwise.
-func (o *QueryMonitorsRequestFilters) GetSearchQuery() string {
+func (o *QueryMonitorsRequestFilters) GetSearchQuery() QueryMonitorsRequestFiltersSearchQuery {
 	if o == nil || IsNil(o.SearchQuery) {
-		var ret string
+		var ret QueryMonitorsRequestFiltersSearchQuery
 		return ret
 	}
 	return *o.SearchQuery
@@ -98,7 +92,7 @@ func (o *QueryMonitorsRequestFilters) GetSearchQuery() string {
 
 // GetSearchQueryOk returns a tuple with the SearchQuery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QueryMonitorsRequestFilters) GetSearchQueryOk() (*string, bool) {
+func (o *QueryMonitorsRequestFilters) GetSearchQueryOk() (*QueryMonitorsRequestFiltersSearchQuery, bool) {
 	if o == nil || IsNil(o.SearchQuery) {
 		return nil, false
 	}
@@ -114,23 +108,23 @@ func (o *QueryMonitorsRequestFilters) HasSearchQuery() bool {
 	return false
 }
 
-// SetSearchQuery gets a reference to the given string and assigns it to the SearchQuery field.
-func (o *QueryMonitorsRequestFilters) SetSearchQuery(v string) {
+// SetSearchQuery gets a reference to the given QueryMonitorsRequestFiltersSearchQuery and assigns it to the SearchQuery field.
+func (o *QueryMonitorsRequestFilters) SetSearchQuery(v QueryMonitorsRequestFiltersSearchQuery) {
 	o.SearchQuery = &v
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *QueryMonitorsRequestFilters) GetTags() []Tag {
+func (o *QueryMonitorsRequestFilters) GetTags() QueryMonitorsRequestFiltersTags {
 	if o == nil || IsNil(o.Tags) {
-		var ret []Tag
+		var ret QueryMonitorsRequestFiltersTags
 		return ret
 	}
-	return o.Tags
+	return *o.Tags
 }
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QueryMonitorsRequestFilters) GetTagsOk() ([]Tag, bool) {
+func (o *QueryMonitorsRequestFilters) GetTagsOk() (*QueryMonitorsRequestFiltersTags, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -146,23 +140,23 @@ func (o *QueryMonitorsRequestFilters) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
-func (o *QueryMonitorsRequestFilters) SetTags(v []Tag) {
-	o.Tags = v
+// SetTags gets a reference to the given QueryMonitorsRequestFiltersTags and assigns it to the Tags field.
+func (o *QueryMonitorsRequestFilters) SetTags(v QueryMonitorsRequestFiltersTags) {
+	o.Tags = &v
 }
 
 // GetPriorities returns the Priorities field value if set, zero value otherwise.
-func (o *QueryMonitorsRequestFilters) GetPriorities() []float32 {
+func (o *QueryMonitorsRequestFilters) GetPriorities() QueryMonitorsRequestFiltersPriorities {
 	if o == nil || IsNil(o.Priorities) {
-		var ret []float32
+		var ret QueryMonitorsRequestFiltersPriorities
 		return ret
 	}
-	return o.Priorities
+	return *o.Priorities
 }
 
 // GetPrioritiesOk returns a tuple with the Priorities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QueryMonitorsRequestFilters) GetPrioritiesOk() ([]float32, bool) {
+func (o *QueryMonitorsRequestFilters) GetPrioritiesOk() (*QueryMonitorsRequestFiltersPriorities, bool) {
 	if o == nil || IsNil(o.Priorities) {
 		return nil, false
 	}
@@ -178,23 +172,23 @@ func (o *QueryMonitorsRequestFilters) HasPriorities() bool {
 	return false
 }
 
-// SetPriorities gets a reference to the given []float32 and assigns it to the Priorities field.
-func (o *QueryMonitorsRequestFilters) SetPriorities(v []float32) {
-	o.Priorities = v
+// SetPriorities gets a reference to the given QueryMonitorsRequestFiltersPriorities and assigns it to the Priorities field.
+func (o *QueryMonitorsRequestFilters) SetPriorities(v QueryMonitorsRequestFiltersPriorities) {
+	o.Priorities = &v
 }
 
 // GetTypes returns the Types field value if set, zero value otherwise.
-func (o *QueryMonitorsRequestFilters) GetTypes() []string {
+func (o *QueryMonitorsRequestFilters) GetTypes() QueryMonitorsRequestFiltersTypes {
 	if o == nil || IsNil(o.Types) {
-		var ret []string
+		var ret QueryMonitorsRequestFiltersTypes
 		return ret
 	}
-	return o.Types
+	return *o.Types
 }
 
 // GetTypesOk returns a tuple with the Types field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QueryMonitorsRequestFilters) GetTypesOk() ([]string, bool) {
+func (o *QueryMonitorsRequestFilters) GetTypesOk() (*QueryMonitorsRequestFiltersTypes, bool) {
 	if o == nil || IsNil(o.Types) {
 		return nil, false
 	}
@@ -210,9 +204,9 @@ func (o *QueryMonitorsRequestFilters) HasTypes() bool {
 	return false
 }
 
-// SetTypes gets a reference to the given []string and assigns it to the Types field.
-func (o *QueryMonitorsRequestFilters) SetTypes(v []string) {
-	o.Types = v
+// SetTypes gets a reference to the given QueryMonitorsRequestFiltersTypes and assigns it to the Types field.
+func (o *QueryMonitorsRequestFilters) SetTypes(v QueryMonitorsRequestFiltersTypes) {
+	o.Types = &v
 }
 
 // GetActivity returns the Activity field value if set, zero value otherwise.
@@ -248,17 +242,17 @@ func (o *QueryMonitorsRequestFilters) SetActivity(v string) {
 }
 
 // GetClusterIds returns the ClusterIds field value if set, zero value otherwise.
-func (o *QueryMonitorsRequestFilters) GetClusterIds() []string {
+func (o *QueryMonitorsRequestFilters) GetClusterIds() QueryMonitorsRequestFiltersClusterIds {
 	if o == nil || IsNil(o.ClusterIds) {
-		var ret []string
+		var ret QueryMonitorsRequestFiltersClusterIds
 		return ret
 	}
-	return o.ClusterIds
+	return *o.ClusterIds
 }
 
 // GetClusterIdsOk returns a tuple with the ClusterIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QueryMonitorsRequestFilters) GetClusterIdsOk() ([]string, bool) {
+func (o *QueryMonitorsRequestFilters) GetClusterIdsOk() (*QueryMonitorsRequestFiltersClusterIds, bool) {
 	if o == nil || IsNil(o.ClusterIds) {
 		return nil, false
 	}
@@ -274,9 +268,9 @@ func (o *QueryMonitorsRequestFilters) HasClusterIds() bool {
 	return false
 }
 
-// SetClusterIds gets a reference to the given []string and assigns it to the ClusterIds field.
-func (o *QueryMonitorsRequestFilters) SetClusterIds(v []string) {
-	o.ClusterIds = v
+// SetClusterIds gets a reference to the given QueryMonitorsRequestFiltersClusterIds and assigns it to the ClusterIds field.
+func (o *QueryMonitorsRequestFilters) SetClusterIds(v QueryMonitorsRequestFiltersClusterIds) {
+	o.ClusterIds = &v
 }
 
 func (o QueryMonitorsRequestFilters) MarshalJSON() ([]byte, error) {

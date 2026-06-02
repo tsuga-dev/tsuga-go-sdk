@@ -1,0 +1,135 @@
+# InputFunction
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Type** | **string** | Normalizes the metric to events per second | 
+**Window** | **string** | Duration of the rolling window | 
+**Base** | **int32** | The base of the logarithm | 
+**Exponent** | **int32** | The exponent to raise values to | 
+**Seconds** | **int32** | Number of seconds to offset | 
+
+## Methods
+
+### NewInputFunction
+
+`func NewInputFunction(type_ string, window string, base int32, exponent int32, seconds int32, ) *InputFunction`
+
+NewInputFunction instantiates a new InputFunction object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewInputFunctionWithDefaults
+
+`func NewInputFunctionWithDefaults() *InputFunction`
+
+NewInputFunctionWithDefaults instantiates a new InputFunction object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetType
+
+`func (o *InputFunction) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *InputFunction) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *InputFunction) SetType(v string)`
+
+SetType sets Type field to given value.
+
+
+### GetWindow
+
+`func (o *InputFunction) GetWindow() string`
+
+GetWindow returns the Window field if non-nil, zero value otherwise.
+
+### GetWindowOk
+
+`func (o *InputFunction) GetWindowOk() (*string, bool)`
+
+GetWindowOk returns a tuple with the Window field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWindow
+
+`func (o *InputFunction) SetWindow(v string)`
+
+SetWindow sets Window field to given value.
+
+
+### GetBase
+
+`func (o *InputFunction) GetBase() int32`
+
+GetBase returns the Base field if non-nil, zero value otherwise.
+
+### GetBaseOk
+
+`func (o *InputFunction) GetBaseOk() (*int32, bool)`
+
+GetBaseOk returns a tuple with the Base field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBase
+
+`func (o *InputFunction) SetBase(v int32)`
+
+SetBase sets Base field to given value.
+
+
+### GetExponent
+
+`func (o *InputFunction) GetExponent() int32`
+
+GetExponent returns the Exponent field if non-nil, zero value otherwise.
+
+### GetExponentOk
+
+`func (o *InputFunction) GetExponentOk() (*int32, bool)`
+
+GetExponentOk returns a tuple with the Exponent field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExponent
+
+`func (o *InputFunction) SetExponent(v int32)`
+
+SetExponent sets Exponent field to given value.
+
+
+### GetSeconds
+
+`func (o *InputFunction) GetSeconds() int32`
+
+GetSeconds returns the Seconds field if non-nil, zero value otherwise.
+
+### GetSecondsOk
+
+`func (o *InputFunction) GetSecondsOk() (*int32, bool)`
+
+GetSecondsOk returns a tuple with the Seconds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSeconds
+
+`func (o *InputFunction) SetSeconds(v int32)`
+
+SetSeconds sets Seconds field to given value.
+
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
