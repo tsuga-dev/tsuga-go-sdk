@@ -17,12 +17,20 @@ import (
 
 // Normalizer - struct for Normalizer
 type Normalizer struct {
+	DataNormalizerCpu      *DataNormalizerCpu
 	DataNormalizerCustom   *DataNormalizerCustom
 	DataNormalizerData     *DataNormalizerData
 	DataNormalizerDate     *DataNormalizerDate
 	DataNormalizerDuration *DataNormalizerDuration
 	DataNormalizerLevel    *DataNormalizerLevel
 	DataNormalizerPercent  *DataNormalizerPercent
+}
+
+// DataNormalizerCpuAsNormalizer is a convenience function that returns DataNormalizerCpu wrapped in Normalizer
+func DataNormalizerCpuAsNormalizer(v *DataNormalizerCpu) Normalizer {
+	return Normalizer{
+		DataNormalizerCpu: v,
+	}
 }
 
 // DataNormalizerCustomAsNormalizer is a convenience function that returns DataNormalizerCustom wrapped in Normalizer
@@ -75,6 +83,18 @@ func (dst *Normalizer) UnmarshalJSON(data []byte) error {
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// check if the discriminator value is 'cpu'
+	if jsonDict["type"] == "cpu" {
+		// try to unmarshal JSON data into DataNormalizerCpu
+		err = json.Unmarshal(data, &dst.DataNormalizerCpu)
+		if err == nil {
+			return nil // data stored in dst.DataNormalizerCpu, return on the first match
+		} else {
+			dst.DataNormalizerCpu = nil
+			return fmt.Errorf("failed to unmarshal Normalizer as DataNormalizerCpu: %s", err.Error())
+		}
 	}
 
 	// check if the discriminator value is 'custom'
@@ -154,6 +174,10 @@ func (dst *Normalizer) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Normalizer) MarshalJSON() ([]byte, error) {
+	if src.DataNormalizerCpu != nil {
+		return json.Marshal(&src.DataNormalizerCpu)
+	}
+
 	if src.DataNormalizerCustom != nil {
 		return json.Marshal(&src.DataNormalizerCustom)
 	}
@@ -186,6 +210,10 @@ func (obj *Normalizer) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
+	if obj.DataNormalizerCpu != nil {
+		return obj.DataNormalizerCpu
+	}
+
 	if obj.DataNormalizerCustom != nil {
 		return obj.DataNormalizerCustom
 	}
@@ -216,6 +244,10 @@ func (obj *Normalizer) GetActualInstance() interface{} {
 
 // Get the actual instance value
 func (obj Normalizer) GetActualInstanceValue() interface{} {
+	if obj.DataNormalizerCpu != nil {
+		return *obj.DataNormalizerCpu
+	}
+
 	if obj.DataNormalizerCustom != nil {
 		return *obj.DataNormalizerCustom
 	}

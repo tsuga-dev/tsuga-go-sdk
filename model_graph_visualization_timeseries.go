@@ -40,8 +40,10 @@ type GraphVisualizationTimeseries struct {
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode *string `json:"legendMode,omitempty"`
 	// Threshold markers displayed on the chart
-	Thresholds           []ThresholdMarker                                    `json:"thresholds,omitempty"`
-	YAxisSettings        *GraphVisualizationTimeseriesConnectionYAxisSettings `json:"yAxisSettings,omitempty"`
+	Thresholds    []ThresholdMarker                                    `json:"thresholds,omitempty"`
+	YAxisSettings *GraphVisualizationTimeseriesConnectionYAxisSettings `json:"yAxisSettings,omitempty"`
+	// Whether to apply automatic smoothing to the rendered timeseries
+	Smoothing            *bool `json:"smoothing,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -459,6 +461,38 @@ func (o *GraphVisualizationTimeseries) SetYAxisSettings(v GraphVisualizationTime
 	o.YAxisSettings = &v
 }
 
+// GetSmoothing returns the Smoothing field value if set, zero value otherwise.
+func (o *GraphVisualizationTimeseries) GetSmoothing() bool {
+	if o == nil || IsNil(o.Smoothing) {
+		var ret bool
+		return ret
+	}
+	return *o.Smoothing
+}
+
+// GetSmoothingOk returns a tuple with the Smoothing field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationTimeseries) GetSmoothingOk() (*bool, bool) {
+	if o == nil || IsNil(o.Smoothing) {
+		return nil, false
+	}
+	return o.Smoothing, true
+}
+
+// HasSmoothing returns a boolean if a field has been set.
+func (o *GraphVisualizationTimeseries) HasSmoothing() bool {
+	if o != nil && !IsNil(o.Smoothing) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmoothing gets a reference to the given bool and assigns it to the Smoothing field.
+func (o *GraphVisualizationTimeseries) SetSmoothing(v bool) {
+	o.Smoothing = &v
+}
+
 func (o GraphVisualizationTimeseries) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -501,6 +535,9 @@ func (o GraphVisualizationTimeseries) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.YAxisSettings) {
 		toSerialize["yAxisSettings"] = o.YAxisSettings
+	}
+	if !IsNil(o.Smoothing) {
+		toSerialize["smoothing"] = o.Smoothing
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -560,6 +597,7 @@ func (o *GraphVisualizationTimeseries) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "legendMode")
 		delete(additionalProperties, "thresholds")
 		delete(additionalProperties, "yAxisSettings")
+		delete(additionalProperties, "smoothing")
 		o.AdditionalProperties = additionalProperties
 	}
 

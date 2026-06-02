@@ -30,7 +30,7 @@ func unmarshal[T any](t *testing.T, raw string) T {
 }
 
 // -----------------------------------------------------------------------------
-// GraphVisualization — oneOf with 7 subtypes discriminated by "type"
+// GraphVisualization — oneOf with 18 subtypes discriminated by "type"
 // -----------------------------------------------------------------------------
 //
 // Before the discriminator mapping fix, UnmarshalJSON tried every subtype and
@@ -50,11 +50,11 @@ func TestGraphVisualizationDiscriminator(t *testing.T) {
 			json: `{"type":"timeseries","source":"logs","queries":[{"aggregate":{"type":"count"}}]}`,
 			checkFn: func(t *testing.T, v tsuga.GraphVisualization) {
 				t.Helper()
-				if v.GraphVisualizationTimeseries == nil {
-					t.Fatal("expected GraphVisualizationTimeseries to be set")
+				if v.InputGraphVisualizationTimeseries == nil {
+					t.Fatal("expected InputGraphVisualizationTimeseries to be set")
 				}
-				if v.GraphVisualizationTimeseries.GetType() != "timeseries" {
-					t.Errorf("type = %q, want %q", v.GraphVisualizationTimeseries.GetType(), "timeseries")
+				if v.InputGraphVisualizationTimeseries.GetType() != "timeseries" {
+					t.Errorf("type = %q, want %q", v.InputGraphVisualizationTimeseries.GetType(), "timeseries")
 				}
 			},
 		},
@@ -63,8 +63,8 @@ func TestGraphVisualizationDiscriminator(t *testing.T) {
 			json: `{"type":"bar","source":"metrics","queries":[{"aggregate":{"type":"count"}}]}`,
 			checkFn: func(t *testing.T, v tsuga.GraphVisualization) {
 				t.Helper()
-				if v.GraphVisualizationBar == nil {
-					t.Fatal("expected GraphVisualizationBar to be set")
+				if v.InputGraphVisualizationBar == nil {
+					t.Fatal("expected InputGraphVisualizationBar to be set")
 				}
 			},
 		},
@@ -73,8 +73,8 @@ func TestGraphVisualizationDiscriminator(t *testing.T) {
 			json: `{"type":"top-list","source":"traces","queries":[{"aggregate":{"type":"count"}}]}`,
 			checkFn: func(t *testing.T, v tsuga.GraphVisualization) {
 				t.Helper()
-				if v.GraphVisualizationTopList == nil {
-					t.Fatal("expected GraphVisualizationTopList to be set")
+				if v.InputGraphVisualizationTopList == nil {
+					t.Fatal("expected InputGraphVisualizationTopList to be set")
 				}
 			},
 		},
@@ -83,8 +83,8 @@ func TestGraphVisualizationDiscriminator(t *testing.T) {
 			json: `{"type":"pie","source":"logs","queries":[{"aggregate":{"type":"count"}}]}`,
 			checkFn: func(t *testing.T, v tsuga.GraphVisualization) {
 				t.Helper()
-				if v.GraphVisualizationPie == nil {
-					t.Fatal("expected GraphVisualizationPie to be set")
+				if v.InputGraphVisualizationPie == nil {
+					t.Fatal("expected InputGraphVisualizationPie to be set")
 				}
 			},
 		},
@@ -93,8 +93,8 @@ func TestGraphVisualizationDiscriminator(t *testing.T) {
 			json: `{"type":"query-value","source":"logs","queries":[{"aggregate":{"type":"count"}}]}`,
 			checkFn: func(t *testing.T, v tsuga.GraphVisualization) {
 				t.Helper()
-				if v.GraphVisualizationQueryValue == nil {
-					t.Fatal("expected GraphVisualizationQueryValue to be set")
+				if v.InputGraphVisualizationQueryValue == nil {
+					t.Fatal("expected InputGraphVisualizationQueryValue to be set")
 				}
 			},
 		},
@@ -103,8 +103,8 @@ func TestGraphVisualizationDiscriminator(t *testing.T) {
 			json: `{"type":"list","source":"logs","query":"level:error"}`,
 			checkFn: func(t *testing.T, v tsuga.GraphVisualization) {
 				t.Helper()
-				if v.GraphVisualizationList == nil {
-					t.Fatal("expected GraphVisualizationList to be set")
+				if v.InputGraphVisualizationList == nil {
+					t.Fatal("expected InputGraphVisualizationList to be set")
 				}
 			},
 		},
@@ -113,8 +113,8 @@ func TestGraphVisualizationDiscriminator(t *testing.T) {
 			json: `{"type":"note","note":"hello world"}`,
 			checkFn: func(t *testing.T, v tsuga.GraphVisualization) {
 				t.Helper()
-				if v.GraphVisualizationNote == nil {
-					t.Fatal("expected GraphVisualizationNote to be set")
+				if v.InputGraphVisualizationNote == nil {
+					t.Fatal("expected InputGraphVisualizationNote to be set")
 				}
 			},
 		},
@@ -130,25 +130,58 @@ func TestGraphVisualizationDiscriminator(t *testing.T) {
 			// in an `any` slice produces a non-nil interface value, which would
 			// make every entry appear set (classic Go nil-interface trap).
 			populated := 0
-			if v.GraphVisualizationTimeseries != nil {
+			if v.InputGraphVisualizationBar != nil {
 				populated++
 			}
-			if v.GraphVisualizationBar != nil {
+			if v.InputGraphVisualizationBarConnection != nil {
 				populated++
 			}
-			if v.GraphVisualizationTopList != nil {
+			if v.InputGraphVisualizationDistribution != nil {
 				populated++
 			}
-			if v.GraphVisualizationPie != nil {
+			if v.InputGraphVisualizationGauge != nil {
 				populated++
 			}
-			if v.GraphVisualizationQueryValue != nil {
+			if v.InputGraphVisualizationHeatmap != nil {
 				populated++
 			}
-			if v.GraphVisualizationList != nil {
+			if v.InputGraphVisualizationList != nil {
 				populated++
 			}
-			if v.GraphVisualizationNote != nil {
+			if v.InputGraphVisualizationListConnection != nil {
+				populated++
+			}
+			if v.InputGraphVisualizationListLogPatterns != nil {
+				populated++
+			}
+			if v.InputGraphVisualizationNote != nil {
+				populated++
+			}
+			if v.InputGraphVisualizationPie != nil {
+				populated++
+			}
+			if v.InputGraphVisualizationPieConnection != nil {
+				populated++
+			}
+			if v.InputGraphVisualizationQueryValue != nil {
+				populated++
+			}
+			if v.InputGraphVisualizationQueryValueConnection != nil {
+				populated++
+			}
+			if v.InputGraphVisualizationTable != nil {
+				populated++
+			}
+			if v.InputGraphVisualizationTimeseries != nil {
+				populated++
+			}
+			if v.InputGraphVisualizationTimeseriesConnection != nil {
+				populated++
+			}
+			if v.InputGraphVisualizationTopList != nil {
+				populated++
+			}
+			if v.InputGraphVisualizationTopListConnection != nil {
 				populated++
 			}
 			if populated != 1 {

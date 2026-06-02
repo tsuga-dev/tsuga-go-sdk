@@ -17,40 +17,54 @@ import (
 
 // UpdateMonitorRequestConfiguration - struct for UpdateMonitorRequestConfiguration
 type UpdateMonitorRequestConfiguration struct {
-	MonitorConfigurationAnomalyLog        *MonitorConfigurationAnomalyLog
-	MonitorConfigurationAnomalyMetric     *MonitorConfigurationAnomalyMetric
-	MonitorConfigurationCertificateExpiry *MonitorConfigurationCertificateExpiry
-	MonitorConfigurationLog               *MonitorConfigurationLog
-	MonitorConfigurationLogErrorPattern   *MonitorConfigurationLogErrorPattern
-	MonitorConfigurationMetric            *MonitorConfigurationMetric
-	MonitorConfigurationTrace             *MonitorConfigurationTrace
+	InputMonitorConfigurationAnomalyLog        *InputMonitorConfigurationAnomalyLog
+	InputMonitorConfigurationAnomalyMetric     *InputMonitorConfigurationAnomalyMetric
+	InputMonitorConfigurationCertificateExpiry *InputMonitorConfigurationCertificateExpiry
+	InputMonitorConfigurationLog               *InputMonitorConfigurationLog
+	InputMonitorConfigurationMetric            *InputMonitorConfigurationMetric
+	InputMonitorConfigurationTrace             *InputMonitorConfigurationTrace
+	MonitorConfigurationLogErrorPattern        *MonitorConfigurationLogErrorPattern
 }
 
-// MonitorConfigurationAnomalyLogAsUpdateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationAnomalyLog wrapped in UpdateMonitorRequestConfiguration
-func MonitorConfigurationAnomalyLogAsUpdateMonitorRequestConfiguration(v *MonitorConfigurationAnomalyLog) UpdateMonitorRequestConfiguration {
+// InputMonitorConfigurationAnomalyLogAsUpdateMonitorRequestConfiguration is a convenience function that returns InputMonitorConfigurationAnomalyLog wrapped in UpdateMonitorRequestConfiguration
+func InputMonitorConfigurationAnomalyLogAsUpdateMonitorRequestConfiguration(v *InputMonitorConfigurationAnomalyLog) UpdateMonitorRequestConfiguration {
 	return UpdateMonitorRequestConfiguration{
-		MonitorConfigurationAnomalyLog: v,
+		InputMonitorConfigurationAnomalyLog: v,
 	}
 }
 
-// MonitorConfigurationAnomalyMetricAsUpdateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationAnomalyMetric wrapped in UpdateMonitorRequestConfiguration
-func MonitorConfigurationAnomalyMetricAsUpdateMonitorRequestConfiguration(v *MonitorConfigurationAnomalyMetric) UpdateMonitorRequestConfiguration {
+// InputMonitorConfigurationAnomalyMetricAsUpdateMonitorRequestConfiguration is a convenience function that returns InputMonitorConfigurationAnomalyMetric wrapped in UpdateMonitorRequestConfiguration
+func InputMonitorConfigurationAnomalyMetricAsUpdateMonitorRequestConfiguration(v *InputMonitorConfigurationAnomalyMetric) UpdateMonitorRequestConfiguration {
 	return UpdateMonitorRequestConfiguration{
-		MonitorConfigurationAnomalyMetric: v,
+		InputMonitorConfigurationAnomalyMetric: v,
 	}
 }
 
-// MonitorConfigurationCertificateExpiryAsUpdateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationCertificateExpiry wrapped in UpdateMonitorRequestConfiguration
-func MonitorConfigurationCertificateExpiryAsUpdateMonitorRequestConfiguration(v *MonitorConfigurationCertificateExpiry) UpdateMonitorRequestConfiguration {
+// InputMonitorConfigurationCertificateExpiryAsUpdateMonitorRequestConfiguration is a convenience function that returns InputMonitorConfigurationCertificateExpiry wrapped in UpdateMonitorRequestConfiguration
+func InputMonitorConfigurationCertificateExpiryAsUpdateMonitorRequestConfiguration(v *InputMonitorConfigurationCertificateExpiry) UpdateMonitorRequestConfiguration {
 	return UpdateMonitorRequestConfiguration{
-		MonitorConfigurationCertificateExpiry: v,
+		InputMonitorConfigurationCertificateExpiry: v,
 	}
 }
 
-// MonitorConfigurationLogAsUpdateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationLog wrapped in UpdateMonitorRequestConfiguration
-func MonitorConfigurationLogAsUpdateMonitorRequestConfiguration(v *MonitorConfigurationLog) UpdateMonitorRequestConfiguration {
+// InputMonitorConfigurationLogAsUpdateMonitorRequestConfiguration is a convenience function that returns InputMonitorConfigurationLog wrapped in UpdateMonitorRequestConfiguration
+func InputMonitorConfigurationLogAsUpdateMonitorRequestConfiguration(v *InputMonitorConfigurationLog) UpdateMonitorRequestConfiguration {
 	return UpdateMonitorRequestConfiguration{
-		MonitorConfigurationLog: v,
+		InputMonitorConfigurationLog: v,
+	}
+}
+
+// InputMonitorConfigurationMetricAsUpdateMonitorRequestConfiguration is a convenience function that returns InputMonitorConfigurationMetric wrapped in UpdateMonitorRequestConfiguration
+func InputMonitorConfigurationMetricAsUpdateMonitorRequestConfiguration(v *InputMonitorConfigurationMetric) UpdateMonitorRequestConfiguration {
+	return UpdateMonitorRequestConfiguration{
+		InputMonitorConfigurationMetric: v,
+	}
+}
+
+// InputMonitorConfigurationTraceAsUpdateMonitorRequestConfiguration is a convenience function that returns InputMonitorConfigurationTrace wrapped in UpdateMonitorRequestConfiguration
+func InputMonitorConfigurationTraceAsUpdateMonitorRequestConfiguration(v *InputMonitorConfigurationTrace) UpdateMonitorRequestConfiguration {
+	return UpdateMonitorRequestConfiguration{
+		InputMonitorConfigurationTrace: v,
 	}
 }
 
@@ -58,20 +72,6 @@ func MonitorConfigurationLogAsUpdateMonitorRequestConfiguration(v *MonitorConfig
 func MonitorConfigurationLogErrorPatternAsUpdateMonitorRequestConfiguration(v *MonitorConfigurationLogErrorPattern) UpdateMonitorRequestConfiguration {
 	return UpdateMonitorRequestConfiguration{
 		MonitorConfigurationLogErrorPattern: v,
-	}
-}
-
-// MonitorConfigurationMetricAsUpdateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationMetric wrapped in UpdateMonitorRequestConfiguration
-func MonitorConfigurationMetricAsUpdateMonitorRequestConfiguration(v *MonitorConfigurationMetric) UpdateMonitorRequestConfiguration {
-	return UpdateMonitorRequestConfiguration{
-		MonitorConfigurationMetric: v,
-	}
-}
-
-// MonitorConfigurationTraceAsUpdateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationTrace wrapped in UpdateMonitorRequestConfiguration
-func MonitorConfigurationTraceAsUpdateMonitorRequestConfiguration(v *MonitorConfigurationTrace) UpdateMonitorRequestConfiguration {
-	return UpdateMonitorRequestConfiguration{
-		MonitorConfigurationTrace: v,
 	}
 }
 
@@ -87,49 +87,49 @@ func (dst *UpdateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 
 	// check if the discriminator value is 'anomaly-log'
 	if jsonDict["type"] == "anomaly-log" {
-		// try to unmarshal JSON data into MonitorConfigurationAnomalyLog
-		err = json.Unmarshal(data, &dst.MonitorConfigurationAnomalyLog)
+		// try to unmarshal JSON data into InputMonitorConfigurationAnomalyLog
+		err = json.Unmarshal(data, &dst.InputMonitorConfigurationAnomalyLog)
 		if err == nil {
-			return nil // data stored in dst.MonitorConfigurationAnomalyLog, return on the first match
+			return nil // data stored in dst.InputMonitorConfigurationAnomalyLog, return on the first match
 		} else {
-			dst.MonitorConfigurationAnomalyLog = nil
-			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as MonitorConfigurationAnomalyLog: %s", err.Error())
+			dst.InputMonitorConfigurationAnomalyLog = nil
+			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as InputMonitorConfigurationAnomalyLog: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'anomaly-metric'
 	if jsonDict["type"] == "anomaly-metric" {
-		// try to unmarshal JSON data into MonitorConfigurationAnomalyMetric
-		err = json.Unmarshal(data, &dst.MonitorConfigurationAnomalyMetric)
+		// try to unmarshal JSON data into InputMonitorConfigurationAnomalyMetric
+		err = json.Unmarshal(data, &dst.InputMonitorConfigurationAnomalyMetric)
 		if err == nil {
-			return nil // data stored in dst.MonitorConfigurationAnomalyMetric, return on the first match
+			return nil // data stored in dst.InputMonitorConfigurationAnomalyMetric, return on the first match
 		} else {
-			dst.MonitorConfigurationAnomalyMetric = nil
-			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as MonitorConfigurationAnomalyMetric: %s", err.Error())
+			dst.InputMonitorConfigurationAnomalyMetric = nil
+			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as InputMonitorConfigurationAnomalyMetric: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'certificate-expiry'
 	if jsonDict["type"] == "certificate-expiry" {
-		// try to unmarshal JSON data into MonitorConfigurationCertificateExpiry
-		err = json.Unmarshal(data, &dst.MonitorConfigurationCertificateExpiry)
+		// try to unmarshal JSON data into InputMonitorConfigurationCertificateExpiry
+		err = json.Unmarshal(data, &dst.InputMonitorConfigurationCertificateExpiry)
 		if err == nil {
-			return nil // data stored in dst.MonitorConfigurationCertificateExpiry, return on the first match
+			return nil // data stored in dst.InputMonitorConfigurationCertificateExpiry, return on the first match
 		} else {
-			dst.MonitorConfigurationCertificateExpiry = nil
-			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as MonitorConfigurationCertificateExpiry: %s", err.Error())
+			dst.InputMonitorConfigurationCertificateExpiry = nil
+			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as InputMonitorConfigurationCertificateExpiry: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'log'
 	if jsonDict["type"] == "log" {
-		// try to unmarshal JSON data into MonitorConfigurationLog
-		err = json.Unmarshal(data, &dst.MonitorConfigurationLog)
+		// try to unmarshal JSON data into InputMonitorConfigurationLog
+		err = json.Unmarshal(data, &dst.InputMonitorConfigurationLog)
 		if err == nil {
-			return nil // data stored in dst.MonitorConfigurationLog, return on the first match
+			return nil // data stored in dst.InputMonitorConfigurationLog, return on the first match
 		} else {
-			dst.MonitorConfigurationLog = nil
-			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as MonitorConfigurationLog: %s", err.Error())
+			dst.InputMonitorConfigurationLog = nil
+			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as InputMonitorConfigurationLog: %s", err.Error())
 		}
 	}
 
@@ -147,25 +147,25 @@ func (dst *UpdateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 
 	// check if the discriminator value is 'metric'
 	if jsonDict["type"] == "metric" {
-		// try to unmarshal JSON data into MonitorConfigurationMetric
-		err = json.Unmarshal(data, &dst.MonitorConfigurationMetric)
+		// try to unmarshal JSON data into InputMonitorConfigurationMetric
+		err = json.Unmarshal(data, &dst.InputMonitorConfigurationMetric)
 		if err == nil {
-			return nil // data stored in dst.MonitorConfigurationMetric, return on the first match
+			return nil // data stored in dst.InputMonitorConfigurationMetric, return on the first match
 		} else {
-			dst.MonitorConfigurationMetric = nil
-			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as MonitorConfigurationMetric: %s", err.Error())
+			dst.InputMonitorConfigurationMetric = nil
+			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as InputMonitorConfigurationMetric: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'trace'
 	if jsonDict["type"] == "trace" {
-		// try to unmarshal JSON data into MonitorConfigurationTrace
-		err = json.Unmarshal(data, &dst.MonitorConfigurationTrace)
+		// try to unmarshal JSON data into InputMonitorConfigurationTrace
+		err = json.Unmarshal(data, &dst.InputMonitorConfigurationTrace)
 		if err == nil {
-			return nil // data stored in dst.MonitorConfigurationTrace, return on the first match
+			return nil // data stored in dst.InputMonitorConfigurationTrace, return on the first match
 		} else {
-			dst.MonitorConfigurationTrace = nil
-			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as MonitorConfigurationTrace: %s", err.Error())
+			dst.InputMonitorConfigurationTrace = nil
+			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as InputMonitorConfigurationTrace: %s", err.Error())
 		}
 	}
 
@@ -174,32 +174,32 @@ func (dst *UpdateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src UpdateMonitorRequestConfiguration) MarshalJSON() ([]byte, error) {
-	if src.MonitorConfigurationAnomalyLog != nil {
-		return json.Marshal(&src.MonitorConfigurationAnomalyLog)
+	if src.InputMonitorConfigurationAnomalyLog != nil {
+		return json.Marshal(&src.InputMonitorConfigurationAnomalyLog)
 	}
 
-	if src.MonitorConfigurationAnomalyMetric != nil {
-		return json.Marshal(&src.MonitorConfigurationAnomalyMetric)
+	if src.InputMonitorConfigurationAnomalyMetric != nil {
+		return json.Marshal(&src.InputMonitorConfigurationAnomalyMetric)
 	}
 
-	if src.MonitorConfigurationCertificateExpiry != nil {
-		return json.Marshal(&src.MonitorConfigurationCertificateExpiry)
+	if src.InputMonitorConfigurationCertificateExpiry != nil {
+		return json.Marshal(&src.InputMonitorConfigurationCertificateExpiry)
 	}
 
-	if src.MonitorConfigurationLog != nil {
-		return json.Marshal(&src.MonitorConfigurationLog)
+	if src.InputMonitorConfigurationLog != nil {
+		return json.Marshal(&src.InputMonitorConfigurationLog)
+	}
+
+	if src.InputMonitorConfigurationMetric != nil {
+		return json.Marshal(&src.InputMonitorConfigurationMetric)
+	}
+
+	if src.InputMonitorConfigurationTrace != nil {
+		return json.Marshal(&src.InputMonitorConfigurationTrace)
 	}
 
 	if src.MonitorConfigurationLogErrorPattern != nil {
 		return json.Marshal(&src.MonitorConfigurationLogErrorPattern)
-	}
-
-	if src.MonitorConfigurationMetric != nil {
-		return json.Marshal(&src.MonitorConfigurationMetric)
-	}
-
-	if src.MonitorConfigurationTrace != nil {
-		return json.Marshal(&src.MonitorConfigurationTrace)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -210,32 +210,32 @@ func (obj *UpdateMonitorRequestConfiguration) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
-	if obj.MonitorConfigurationAnomalyLog != nil {
-		return obj.MonitorConfigurationAnomalyLog
+	if obj.InputMonitorConfigurationAnomalyLog != nil {
+		return obj.InputMonitorConfigurationAnomalyLog
 	}
 
-	if obj.MonitorConfigurationAnomalyMetric != nil {
-		return obj.MonitorConfigurationAnomalyMetric
+	if obj.InputMonitorConfigurationAnomalyMetric != nil {
+		return obj.InputMonitorConfigurationAnomalyMetric
 	}
 
-	if obj.MonitorConfigurationCertificateExpiry != nil {
-		return obj.MonitorConfigurationCertificateExpiry
+	if obj.InputMonitorConfigurationCertificateExpiry != nil {
+		return obj.InputMonitorConfigurationCertificateExpiry
 	}
 
-	if obj.MonitorConfigurationLog != nil {
-		return obj.MonitorConfigurationLog
+	if obj.InputMonitorConfigurationLog != nil {
+		return obj.InputMonitorConfigurationLog
+	}
+
+	if obj.InputMonitorConfigurationMetric != nil {
+		return obj.InputMonitorConfigurationMetric
+	}
+
+	if obj.InputMonitorConfigurationTrace != nil {
+		return obj.InputMonitorConfigurationTrace
 	}
 
 	if obj.MonitorConfigurationLogErrorPattern != nil {
 		return obj.MonitorConfigurationLogErrorPattern
-	}
-
-	if obj.MonitorConfigurationMetric != nil {
-		return obj.MonitorConfigurationMetric
-	}
-
-	if obj.MonitorConfigurationTrace != nil {
-		return obj.MonitorConfigurationTrace
 	}
 
 	// all schemas are nil
@@ -244,32 +244,32 @@ func (obj *UpdateMonitorRequestConfiguration) GetActualInstance() interface{} {
 
 // Get the actual instance value
 func (obj UpdateMonitorRequestConfiguration) GetActualInstanceValue() interface{} {
-	if obj.MonitorConfigurationAnomalyLog != nil {
-		return *obj.MonitorConfigurationAnomalyLog
+	if obj.InputMonitorConfigurationAnomalyLog != nil {
+		return *obj.InputMonitorConfigurationAnomalyLog
 	}
 
-	if obj.MonitorConfigurationAnomalyMetric != nil {
-		return *obj.MonitorConfigurationAnomalyMetric
+	if obj.InputMonitorConfigurationAnomalyMetric != nil {
+		return *obj.InputMonitorConfigurationAnomalyMetric
 	}
 
-	if obj.MonitorConfigurationCertificateExpiry != nil {
-		return *obj.MonitorConfigurationCertificateExpiry
+	if obj.InputMonitorConfigurationCertificateExpiry != nil {
+		return *obj.InputMonitorConfigurationCertificateExpiry
 	}
 
-	if obj.MonitorConfigurationLog != nil {
-		return *obj.MonitorConfigurationLog
+	if obj.InputMonitorConfigurationLog != nil {
+		return *obj.InputMonitorConfigurationLog
+	}
+
+	if obj.InputMonitorConfigurationMetric != nil {
+		return *obj.InputMonitorConfigurationMetric
+	}
+
+	if obj.InputMonitorConfigurationTrace != nil {
+		return *obj.InputMonitorConfigurationTrace
 	}
 
 	if obj.MonitorConfigurationLogErrorPattern != nil {
 		return *obj.MonitorConfigurationLogErrorPattern
-	}
-
-	if obj.MonitorConfigurationMetric != nil {
-		return *obj.MonitorConfigurationMetric
-	}
-
-	if obj.MonitorConfigurationTrace != nil {
-		return *obj.MonitorConfigurationTrace
 	}
 
 	// all schemas are nil

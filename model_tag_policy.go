@@ -20,16 +20,16 @@ var _ MappedNullable = &TagPolicy{}
 
 // TagPolicy Policy that enforces tag requirements on Tsuga assets or telemetry data
 type TagPolicy struct {
-	Id                   string                              `json:"id"`
-	Name                 string                              `json:"name"`
-	Description          *string                             `json:"description,omitempty"`
-	IsActive             bool                                `json:"isActive"`
-	TagKey               string                              `json:"tagKey"`
-	AllowedTagValues     []string                            `json:"allowedTagValues"`
-	IsRequired           bool                                `json:"isRequired"`
-	TeamScope            *CreateTagPolicyRequestTeamScope    `json:"teamScope,omitempty"`
-	Configuration        CreateTagPolicyRequestConfiguration `json:"configuration"`
-	Owner                *string                             `json:"owner,omitempty"`
+	Id                   string                 `json:"id"`
+	Name                 string                 `json:"name"`
+	Description          *string                `json:"description,omitempty"`
+	IsActive             bool                   `json:"isActive"`
+	TagKey               string                 `json:"tagKey"`
+	AllowedTagValues     []string               `json:"allowedTagValues"`
+	IsRequired           bool                   `json:"isRequired"`
+	TeamScope            *TagPolicyTeamScope    `json:"teamScope,omitempty"`
+	Configuration        TagPolicyConfiguration `json:"configuration"`
+	Owner                *string                `json:"owner,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -39,7 +39,7 @@ type _TagPolicy TagPolicy
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTagPolicy(id string, name string, isActive bool, tagKey string, allowedTagValues []string, isRequired bool, configuration CreateTagPolicyRequestConfiguration) *TagPolicy {
+func NewTagPolicy(id string, name string, isActive bool, tagKey string, allowedTagValues []string, isRequired bool, configuration TagPolicyConfiguration) *TagPolicy {
 	this := TagPolicy{}
 	this.Id = id
 	this.Name = name
@@ -236,9 +236,9 @@ func (o *TagPolicy) SetIsRequired(v bool) {
 }
 
 // GetTeamScope returns the TeamScope field value if set, zero value otherwise.
-func (o *TagPolicy) GetTeamScope() CreateTagPolicyRequestTeamScope {
+func (o *TagPolicy) GetTeamScope() TagPolicyTeamScope {
 	if o == nil || IsNil(o.TeamScope) {
-		var ret CreateTagPolicyRequestTeamScope
+		var ret TagPolicyTeamScope
 		return ret
 	}
 	return *o.TeamScope
@@ -246,7 +246,7 @@ func (o *TagPolicy) GetTeamScope() CreateTagPolicyRequestTeamScope {
 
 // GetTeamScopeOk returns a tuple with the TeamScope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TagPolicy) GetTeamScopeOk() (*CreateTagPolicyRequestTeamScope, bool) {
+func (o *TagPolicy) GetTeamScopeOk() (*TagPolicyTeamScope, bool) {
 	if o == nil || IsNil(o.TeamScope) {
 		return nil, false
 	}
@@ -262,15 +262,15 @@ func (o *TagPolicy) HasTeamScope() bool {
 	return false
 }
 
-// SetTeamScope gets a reference to the given CreateTagPolicyRequestTeamScope and assigns it to the TeamScope field.
-func (o *TagPolicy) SetTeamScope(v CreateTagPolicyRequestTeamScope) {
+// SetTeamScope gets a reference to the given TagPolicyTeamScope and assigns it to the TeamScope field.
+func (o *TagPolicy) SetTeamScope(v TagPolicyTeamScope) {
 	o.TeamScope = &v
 }
 
 // GetConfiguration returns the Configuration field value
-func (o *TagPolicy) GetConfiguration() CreateTagPolicyRequestConfiguration {
+func (o *TagPolicy) GetConfiguration() TagPolicyConfiguration {
 	if o == nil {
-		var ret CreateTagPolicyRequestConfiguration
+		var ret TagPolicyConfiguration
 		return ret
 	}
 
@@ -279,7 +279,7 @@ func (o *TagPolicy) GetConfiguration() CreateTagPolicyRequestConfiguration {
 
 // GetConfigurationOk returns a tuple with the Configuration field value
 // and a boolean to check if the value has been set.
-func (o *TagPolicy) GetConfigurationOk() (*CreateTagPolicyRequestConfiguration, bool) {
+func (o *TagPolicy) GetConfigurationOk() (*TagPolicyConfiguration, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -287,7 +287,7 @@ func (o *TagPolicy) GetConfigurationOk() (*CreateTagPolicyRequestConfiguration, 
 }
 
 // SetConfiguration sets field value
-func (o *TagPolicy) SetConfiguration(v CreateTagPolicyRequestConfiguration) {
+func (o *TagPolicy) SetConfiguration(v TagPolicyConfiguration) {
 	o.Configuration = v
 }
 

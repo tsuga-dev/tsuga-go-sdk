@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **Name** | **string** | Display name of the monitor | 
 **Owner** | **string** | Team ID that owns and manages the monitor | 
 **Message** | Pointer to **string** | Message to be displayed if a notification is triggered | [optional] 
-**Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
-**Configuration** | [**UpdateMonitorRequestConfiguration**](UpdateMonitorRequestConfiguration.md) |  | 
+**Tags** | Pointer to [**[]Tag1**](Tag1.md) | List of key/value tags applied to the resource | [optional] 
+**Configuration** | [**MonitorConfiguration**](MonitorConfiguration.md) |  | 
 **Priority** | **float32** | Priority of the monitor | 
 **Permissions** | **string** | This controls which data the resource can see | 
 **DashboardId** | Pointer to **string** | Identifier of a dashboard related to the monitor | [optional] 
@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 
 ### NewMonitor
 
-`func NewMonitor(id string, name string, owner string, configuration UpdateMonitorRequestConfiguration, priority float32, permissions string, clusterIds []string, ) *Monitor`
+`func NewMonitor(id string, name string, owner string, configuration MonitorConfiguration, priority float32, permissions string, clusterIds []string, ) *Monitor`
 
 NewMonitor instantiates a new Monitor object
 This constructor will assign default values to properties that have it defined,
@@ -121,20 +121,20 @@ HasMessage returns a boolean if a field has been set.
 
 ### GetTags
 
-`func (o *Monitor) GetTags() []Tag`
+`func (o *Monitor) GetTags() []Tag1`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *Monitor) GetTagsOk() (*[]Tag, bool)`
+`func (o *Monitor) GetTagsOk() (*[]Tag1, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *Monitor) SetTags(v []Tag)`
+`func (o *Monitor) SetTags(v []Tag1)`
 
 SetTags sets Tags field to given value.
 
@@ -146,20 +146,20 @@ HasTags returns a boolean if a field has been set.
 
 ### GetConfiguration
 
-`func (o *Monitor) GetConfiguration() UpdateMonitorRequestConfiguration`
+`func (o *Monitor) GetConfiguration() MonitorConfiguration`
 
 GetConfiguration returns the Configuration field if non-nil, zero value otherwise.
 
 ### GetConfigurationOk
 
-`func (o *Monitor) GetConfigurationOk() (*UpdateMonitorRequestConfiguration, bool)`
+`func (o *Monitor) GetConfigurationOk() (*MonitorConfiguration, bool)`
 
 GetConfigurationOk returns a tuple with the Configuration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConfiguration
 
-`func (o *Monitor) SetConfiguration(v UpdateMonitorRequestConfiguration)`
+`func (o *Monitor) SetConfiguration(v MonitorConfiguration)`
 
 SetConfiguration sets Configuration field to given value.
 

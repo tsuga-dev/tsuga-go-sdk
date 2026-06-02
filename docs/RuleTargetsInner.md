@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Identifier of the notification target | 
-**RateLimit** | Pointer to [**CreateNotificationRuleRequestTargetsInnerRateLimit**](CreateNotificationRuleRequestTargetsInnerRateLimit.md) |  | [optional] 
-**RenotifyConfig** | Pointer to [**CreateNotificationRuleRequestTargetsInnerRenotifyConfig**](CreateNotificationRuleRequestTargetsInnerRenotifyConfig.md) |  | [optional] 
+**RateLimit** | Pointer to [**RuleTargetsInnerRateLimit**](RuleTargetsInnerRateLimit.md) |  | [optional] 
+**RenotifyConfig** | Pointer to [**RuleTargetsInnerRenotifyConfig**](RuleTargetsInnerRenotifyConfig.md) |  | [optional] 
 **Config** | [**RuleTargetsInnerConfig**](RuleTargetsInnerConfig.md) |  | 
 
 ## Methods
@@ -50,20 +50,20 @@ SetId sets Id field to given value.
 
 ### GetRateLimit
 
-`func (o *RuleTargetsInner) GetRateLimit() CreateNotificationRuleRequestTargetsInnerRateLimit`
+`func (o *RuleTargetsInner) GetRateLimit() RuleTargetsInnerRateLimit`
 
 GetRateLimit returns the RateLimit field if non-nil, zero value otherwise.
 
 ### GetRateLimitOk
 
-`func (o *RuleTargetsInner) GetRateLimitOk() (*CreateNotificationRuleRequestTargetsInnerRateLimit, bool)`
+`func (o *RuleTargetsInner) GetRateLimitOk() (*RuleTargetsInnerRateLimit, bool)`
 
 GetRateLimitOk returns a tuple with the RateLimit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRateLimit
 
-`func (o *RuleTargetsInner) SetRateLimit(v CreateNotificationRuleRequestTargetsInnerRateLimit)`
+`func (o *RuleTargetsInner) SetRateLimit(v RuleTargetsInnerRateLimit)`
 
 SetRateLimit sets RateLimit field to given value.
 
@@ -75,20 +75,20 @@ HasRateLimit returns a boolean if a field has been set.
 
 ### GetRenotifyConfig
 
-`func (o *RuleTargetsInner) GetRenotifyConfig() CreateNotificationRuleRequestTargetsInnerRenotifyConfig`
+`func (o *RuleTargetsInner) GetRenotifyConfig() RuleTargetsInnerRenotifyConfig`
 
 GetRenotifyConfig returns the RenotifyConfig field if non-nil, zero value otherwise.
 
 ### GetRenotifyConfigOk
 
-`func (o *RuleTargetsInner) GetRenotifyConfigOk() (*CreateNotificationRuleRequestTargetsInnerRenotifyConfig, bool)`
+`func (o *RuleTargetsInner) GetRenotifyConfigOk() (*RuleTargetsInnerRenotifyConfig, bool)`
 
 GetRenotifyConfigOk returns a tuple with the RenotifyConfig field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRenotifyConfig
 
-`func (o *RuleTargetsInner) SetRenotifyConfig(v CreateNotificationRuleRequestTargetsInnerRenotifyConfig)`
+`func (o *RuleTargetsInner) SetRenotifyConfig(v RuleTargetsInnerRenotifyConfig)`
 
 SetRenotifyConfig sets RenotifyConfig field to given value.
 

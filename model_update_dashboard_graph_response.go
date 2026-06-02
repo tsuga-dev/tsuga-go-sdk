@@ -22,7 +22,7 @@ var _ MappedNullable = &UpdateDashboardGraphResponse{}
 type UpdateDashboardGraphResponse struct {
 	// Identifier used to trace the lifecycle of this API request
 	RequestId            string `json:"requestId"`
-	Data                 Graph  `json:"data"`
+	Data                 Graph1 `json:"data"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,7 +32,7 @@ type _UpdateDashboardGraphResponse UpdateDashboardGraphResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateDashboardGraphResponse(requestId string, data Graph) *UpdateDashboardGraphResponse {
+func NewUpdateDashboardGraphResponse(requestId string, data Graph1) *UpdateDashboardGraphResponse {
 	this := UpdateDashboardGraphResponse{}
 	this.RequestId = requestId
 	this.Data = data
@@ -72,9 +72,9 @@ func (o *UpdateDashboardGraphResponse) SetRequestId(v string) {
 }
 
 // GetData returns the Data field value
-func (o *UpdateDashboardGraphResponse) GetData() Graph {
+func (o *UpdateDashboardGraphResponse) GetData() Graph1 {
 	if o == nil {
-		var ret Graph
+		var ret Graph1
 		return ret
 	}
 
@@ -83,7 +83,7 @@ func (o *UpdateDashboardGraphResponse) GetData() Graph {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *UpdateDashboardGraphResponse) GetDataOk() (*Graph, bool) {
+func (o *UpdateDashboardGraphResponse) GetDataOk() (*Graph1, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -91,7 +91,7 @@ func (o *UpdateDashboardGraphResponse) GetDataOk() (*Graph, bool) {
 }
 
 // SetData sets field value
-func (o *UpdateDashboardGraphResponse) SetData(v Graph) {
+func (o *UpdateDashboardGraphResponse) SetData(v Graph1) {
 	o.Data = v
 }
 

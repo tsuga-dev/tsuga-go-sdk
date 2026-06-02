@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Name** | **string** | Human readable team name displayed throughout the app | 
 **Description** | Pointer to **string** |  | [optional] 
 **Visibility** | **string** | Controls whether the resources of the team are discoverable by users | 
-**Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
+**Tags** | Pointer to [**[]Tag1**](Tag1.md) | List of key/value tags applied to the resource | [optional] 
 
 ## Methods
 
@@ -116,20 +116,20 @@ SetVisibility sets Visibility field to given value.
 
 ### GetTags
 
-`func (o *Team) GetTags() []Tag`
+`func (o *Team) GetTags() []Tag1`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *Team) GetTagsOk() (*[]Tag, bool)`
+`func (o *Team) GetTagsOk() (*[]Tag1, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *Team) SetTags(v []Tag)`
+`func (o *Team) SetTags(v []Tag1)`
 
 SetTags sets Tags field to given value.
 

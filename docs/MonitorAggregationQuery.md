@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Aggregate** | [**Aggregate**](Aggregate.md) |  | 
 **Functions** | Pointer to [**[]Function**](Function.md) | Post-processing functions applied to aggregation results | [optional] 
 **Fill** | Pointer to [**MonitorAggregationQueryFill**](MonitorAggregationQueryFill.md) |  | [optional] 
-**Filter** | **string** |  | 
+**Filter** | **string** | Filter to apply to the aggregation | 
 
 ## Methods
 
