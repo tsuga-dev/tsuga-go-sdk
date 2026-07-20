@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -20,7 +20,7 @@ var _ MappedNullable = &CreateNotificationRuleRequestTargetsInner{}
 
 // CreateNotificationRuleRequestTargetsInner struct for CreateNotificationRuleRequestTargetsInner
 type CreateNotificationRuleRequestTargetsInner struct {
-	// Identifier of the notification target
+	// Identifier of the notification target within this rule. Choose a stable ID that is unique among this rule's targets; Tsuga uses it with the rule ID for per-target delivery state such as rate limiting.
 	Id                   string                                                   `json:"id"`
 	RateLimit            *CreateNotificationRuleRequestTargetsInnerRateLimit      `json:"rateLimit,omitempty"`
 	Config               CreateNotificationRuleRequestTargetsInnerConfig          `json:"config"`

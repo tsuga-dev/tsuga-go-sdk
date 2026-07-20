@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -18,23 +18,26 @@ import (
 // checks if the CreateNotificationRuleRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CreateNotificationRuleRequest{}
 
-// CreateNotificationRuleRequest struct for CreateNotificationRuleRequest
+// CreateNotificationRuleRequest Notification rule create or update request. Provide matching filters, owner, tags, active state, and delivery targets.
 type CreateNotificationRuleRequest struct {
-	// Display name of the notification rule
-	Name        string                                   `json:"name"`
+	// Display name of the notification rule.
+	Name string `json:"name"`
+	// Optional query that narrows which alert transitions trigger the rule. Matches on the monitor transition group key and the monitor tags, e.g. `env:prod service:api`. Omit or leave empty to match regardless of tags.
+	QueryString *string                                  `json:"queryString,omitempty"`
 	TeamsFilter CreateNotificationRuleRequestTeamsFilter `json:"teamsFilter"`
-	// Priorities that narrow down the alerts that can trigger a notification
+	// Monitor priorities that must match for this rule to fire. An empty array matches every priority.
 	PrioritiesFilter []float32 `json:"prioritiesFilter"`
-	// Alert state transitions that can trigger a notification
+	// Alert state transitions that must match for this rule to fire. An empty array matches every transition type.
 	TransitionTypesFilter []string `json:"transitionTypesFilter"`
-	// Cluster IDs that can trigger a notification
-	ClusterIdsFilter []string `json:"clusterIdsFilter,omitempty"`
+	// Cluster IDs that must match for this rule to fire. Omit it, or leave it empty, to match every cluster.
+	ClusterIdsFilter []*string `json:"clusterIdsFilter,omitempty"`
 	// Team ID that owns and manages the rule
 	Owner string `json:"owner"`
-	// List of key/value tags applied to the resource
-	Tags     []Tag `json:"tags,omitempty"`
-	IsActive bool  `json:"isActive"`
-	// Notification targets that can receive notifications when the rule matches
+	// Key/value tags to apply to the resource. Up to 50 tags are accepted and tag policies may require specific keys or values.
+	Tags []Tag `json:"tags,omitempty"`
+	// Set to true for the rule to send notifications when its filters match.
+	IsActive bool `json:"isActive"`
+	// Destinations that receive a notification whenever this rule matches an alert transition. At least one target is required. This list replaces the existing targets on update.
 	Targets              []CreateNotificationRuleRequestTargetsInner `json:"targets"`
 	AdditionalProperties map[string]interface{}
 }
@@ -87,6 +90,38 @@ func (o *CreateNotificationRuleRequest) GetNameOk() (*string, bool) {
 // SetName sets field value
 func (o *CreateNotificationRuleRequest) SetName(v string) {
 	o.Name = v
+}
+
+// GetQueryString returns the QueryString field value if set, zero value otherwise.
+func (o *CreateNotificationRuleRequest) GetQueryString() string {
+	if o == nil || IsNil(o.QueryString) {
+		var ret string
+		return ret
+	}
+	return *o.QueryString
+}
+
+// GetQueryStringOk returns a tuple with the QueryString field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateNotificationRuleRequest) GetQueryStringOk() (*string, bool) {
+	if o == nil || IsNil(o.QueryString) {
+		return nil, false
+	}
+	return o.QueryString, true
+}
+
+// HasQueryString returns a boolean if a field has been set.
+func (o *CreateNotificationRuleRequest) HasQueryString() bool {
+	if o != nil && !IsNil(o.QueryString) {
+		return true
+	}
+
+	return false
+}
+
+// SetQueryString gets a reference to the given string and assigns it to the QueryString field.
+func (o *CreateNotificationRuleRequest) SetQueryString(v string) {
+	o.QueryString = &v
 }
 
 // GetTeamsFilter returns the TeamsFilter field value
@@ -162,9 +197,9 @@ func (o *CreateNotificationRuleRequest) SetTransitionTypesFilter(v []string) {
 }
 
 // GetClusterIdsFilter returns the ClusterIdsFilter field value if set, zero value otherwise.
-func (o *CreateNotificationRuleRequest) GetClusterIdsFilter() []string {
+func (o *CreateNotificationRuleRequest) GetClusterIdsFilter() []*string {
 	if o == nil || IsNil(o.ClusterIdsFilter) {
-		var ret []string
+		var ret []*string
 		return ret
 	}
 	return o.ClusterIdsFilter
@@ -172,7 +207,7 @@ func (o *CreateNotificationRuleRequest) GetClusterIdsFilter() []string {
 
 // GetClusterIdsFilterOk returns a tuple with the ClusterIdsFilter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateNotificationRuleRequest) GetClusterIdsFilterOk() ([]string, bool) {
+func (o *CreateNotificationRuleRequest) GetClusterIdsFilterOk() ([]*string, bool) {
 	if o == nil || IsNil(o.ClusterIdsFilter) {
 		return nil, false
 	}
@@ -188,8 +223,8 @@ func (o *CreateNotificationRuleRequest) HasClusterIdsFilter() bool {
 	return false
 }
 
-// SetClusterIdsFilter gets a reference to the given []string and assigns it to the ClusterIdsFilter field.
-func (o *CreateNotificationRuleRequest) SetClusterIdsFilter(v []string) {
+// SetClusterIdsFilter gets a reference to the given []*string and assigns it to the ClusterIdsFilter field.
+func (o *CreateNotificationRuleRequest) SetClusterIdsFilter(v []*string) {
 	o.ClusterIdsFilter = v
 }
 
@@ -308,6 +343,9 @@ func (o CreateNotificationRuleRequest) MarshalJSON() ([]byte, error) {
 func (o CreateNotificationRuleRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
+	if !IsNil(o.QueryString) {
+		toSerialize["queryString"] = o.QueryString
+	}
 	toSerialize["teamsFilter"] = o.TeamsFilter
 	toSerialize["prioritiesFilter"] = o.PrioritiesFilter
 	toSerialize["transitionTypesFilter"] = o.TransitionTypesFilter
@@ -370,6 +408,7 @@ func (o *CreateNotificationRuleRequest) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "queryString")
 		delete(additionalProperties, "teamsFilter")
 		delete(additionalProperties, "prioritiesFilter")
 		delete(additionalProperties, "transitionTypesFilter")

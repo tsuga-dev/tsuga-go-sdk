@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -20,12 +20,17 @@ var _ MappedNullable = &MonitorConfigurationCertificateExpiry{}
 
 // MonitorConfigurationCertificateExpiry struct for MonitorConfigurationCertificateExpiry
 type MonitorConfigurationCertificateExpiry struct {
-	Type                  string   `json:"type"`
-	WarnBeforeInDays      int32    `json:"warnBeforeInDays"`
-	CloudAccounts         []string `json:"cloudAccounts,omitempty"`
-	AggregationAlertLogic string   `json:"aggregationAlertLogic"`
-	NoDataBehavior        string   `json:"noDataBehavior"`
-	AdditionalProperties  map[string]interface{}
+	// Monitor that alerts before discovered certificates expire.
+	Type string `json:"type"`
+	// Number of days before certificate expiry when the monitor should warn.
+	WarnBeforeInDays int32 `json:"warnBeforeInDays"`
+	// Cloud account IDs whose certificates are checked. Omitted means certificates from all cloud accounts are checked.
+	CloudAccounts []string `json:"cloudAccounts,omitempty"`
+	// Certificate expiry monitors alert independently for each certificate.
+	AggregationAlertLogic string `json:"aggregationAlertLogic"`
+	// Certificate expiry monitors resolve when matching certificate data disappears.
+	NoDataBehavior       string `json:"noDataBehavior"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MonitorConfigurationCertificateExpiry MonitorConfigurationCertificateExpiry

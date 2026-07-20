@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**Description** | Pointer to **string** |  | [optional] 
-**IsActive** | **bool** |  | 
-**TagKey** | **string** |  | 
-**AllowedTagValues** | **[]string** |  | 
-**IsRequired** | **bool** |  | 
+**Name** | **string** | Human-readable tag policy name. | 
+**Description** | Pointer to **string** | Optional policy description. | [optional] 
+**IsActive** | **bool** | Set to true for Tsuga to evaluate this policy. Reserved policies (for example the built-in &#x60;env&#x60; policy on ingestion API keys) reject a false value. | 
+**TagKey** | **string** | Tag key enforced by this policy. Tsuga trims surrounding whitespace before storing the policy. | 
+**AllowedTagValues** | **[]string** | Allowed values for &#x60;tagKey&#x60;. Leave empty to allow any value when the tag exists. Tsuga trims each submitted value before storing the policy. | 
+**IsRequired** | **bool** | Set to true to require the tag. If false, allowed values still apply when the tag exists. Reserved policies reject a false value. | 
 **TeamScope** | Pointer to [**CreateTagPolicyRequestTeamScope**](CreateTagPolicyRequestTeamScope.md) |  | [optional] 
 **Configuration** | [**CreateTagPolicyRequestConfiguration**](CreateTagPolicyRequestConfiguration.md) |  | 
-**Owner** | **string** |  | 
+**Owner** | **string** | Team ID that will own and manage the policy. | 
 
 ## Methods
 
 ### NewCreateTagPolicyRequest
 
-`func NewCreateTagPolicyRequest(name string, isActive bool, tagKey string, allowedTagValues []string, isRequired bool, configuration CreateTagPolicyRequestConfiguration, owner string, ) *CreateTagPolicyRequest`
+`func NewCreateTagPolicyRequest(name string, isActive bool, tagKey string, allowedTagValues []*string, isRequired bool, configuration CreateTagPolicyRequestConfiguration, owner string, ) *CreateTagPolicyRequest`
 
 NewCreateTagPolicyRequest instantiates a new CreateTagPolicyRequest object
 This constructor will assign default values to properties that have it defined,
@@ -120,20 +120,20 @@ SetTagKey sets TagKey field to given value.
 
 ### GetAllowedTagValues
 
-`func (o *CreateTagPolicyRequest) GetAllowedTagValues() []string`
+`func (o *CreateTagPolicyRequest) GetAllowedTagValues() []*string`
 
 GetAllowedTagValues returns the AllowedTagValues field if non-nil, zero value otherwise.
 
 ### GetAllowedTagValuesOk
 
-`func (o *CreateTagPolicyRequest) GetAllowedTagValuesOk() (*[]string, bool)`
+`func (o *CreateTagPolicyRequest) GetAllowedTagValuesOk() (*[]*string, bool)`
 
 GetAllowedTagValuesOk returns a tuple with the AllowedTagValues field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAllowedTagValues
 
-`func (o *CreateTagPolicyRequest) SetAllowedTagValues(v []string)`
+`func (o *CreateTagPolicyRequest) SetAllowedTagValues(v []*string)`
 
 SetAllowedTagValues sets AllowedTagValues field to given value.
 

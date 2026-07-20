@@ -4,17 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
+**Type** | **string** | Slack target backed by a configured Slack integration. | 
 **Channel** | **string** | Slack channel ID that receives the notification | 
-**IntegrationId** | **string** | Identifier of the Squadcast integration to use | 
-**IntegrationName** | **string** | Human readable name of the Squadcast integration | 
+**IntegrationId** | **string** | Identifier of the Jira integration to use | 
+**IntegrationName** | **string** | Human readable name of the Jira integration | 
 **Addresses** | **[]string** | Email addresses that will receive the alert | 
+**ProjectKey** | **string** | Key of the Jira project that alert issues are filed into, like \&quot;OPS\&quot;. | 
+**IssueType** | **string** | Name of the Jira issue type created for alerts, like \&quot;Bug\&quot; or \&quot;Task\&quot;. | 
 
 ## Methods
 
 ### NewRuleTargetsInnerConfig
 
-`func NewRuleTargetsInnerConfig(type_ string, channel string, integrationId string, integrationName string, addresses []string, ) *RuleTargetsInnerConfig`
+`func NewRuleTargetsInnerConfig(type_ string, channel string, integrationId string, integrationName string, addresses []string, projectKey string, issueType string, ) *RuleTargetsInnerConfig`
 
 NewRuleTargetsInnerConfig instantiates a new RuleTargetsInnerConfig object
 This constructor will assign default values to properties that have it defined,
@@ -127,6 +129,46 @@ and a boolean to check if the value has been set.
 `func (o *RuleTargetsInnerConfig) SetAddresses(v []string)`
 
 SetAddresses sets Addresses field to given value.
+
+
+### GetProjectKey
+
+`func (o *RuleTargetsInnerConfig) GetProjectKey() string`
+
+GetProjectKey returns the ProjectKey field if non-nil, zero value otherwise.
+
+### GetProjectKeyOk
+
+`func (o *RuleTargetsInnerConfig) GetProjectKeyOk() (*string, bool)`
+
+GetProjectKeyOk returns a tuple with the ProjectKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProjectKey
+
+`func (o *RuleTargetsInnerConfig) SetProjectKey(v string)`
+
+SetProjectKey sets ProjectKey field to given value.
+
+
+### GetIssueType
+
+`func (o *RuleTargetsInnerConfig) GetIssueType() string`
+
+GetIssueType returns the IssueType field if non-nil, zero value otherwise.
+
+### GetIssueTypeOk
+
+`func (o *RuleTargetsInnerConfig) GetIssueTypeOk() (*string, bool)`
+
+GetIssueTypeOk returns a tuple with the IssueType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIssueType
+
+`func (o *RuleTargetsInnerConfig) SetIssueType(v string)`
+
+SetIssueType sets IssueType field to given value.
 
 
 

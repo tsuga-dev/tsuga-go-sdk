@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
-**Teams** | **[]string** | Team IDs to select | 
+**Type** | **string** | Match alert transitions associated with the listed teams. The caller must be allowed to access every listed team. | 
+**Teams** | **[]string** | Team IDs selected by this filter. | 
 
 ## Methods
 

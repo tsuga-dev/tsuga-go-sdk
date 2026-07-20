@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -15,10 +15,11 @@ import (
 	"fmt"
 )
 
-// GraphVisualization - struct for GraphVisualization
+// GraphVisualization - Widget visualization configuration. The `type` discriminator selects the widget kind and its required fields.
 type GraphVisualization struct {
 	InputGraphVisualizationBar                  *InputGraphVisualizationBar
 	InputGraphVisualizationBarConnection        *InputGraphVisualizationBarConnection
+	InputGraphVisualizationBarPromql            *InputGraphVisualizationBarPromql
 	InputGraphVisualizationDistribution         *InputGraphVisualizationDistribution
 	InputGraphVisualizationGauge                *InputGraphVisualizationGauge
 	InputGraphVisualizationHeatmap              *InputGraphVisualizationHeatmap
@@ -28,13 +29,17 @@ type GraphVisualization struct {
 	InputGraphVisualizationNote                 *InputGraphVisualizationNote
 	InputGraphVisualizationPie                  *InputGraphVisualizationPie
 	InputGraphVisualizationPieConnection        *InputGraphVisualizationPieConnection
+	InputGraphVisualizationPiePromql            *InputGraphVisualizationPiePromql
 	InputGraphVisualizationQueryValue           *InputGraphVisualizationQueryValue
 	InputGraphVisualizationQueryValueConnection *InputGraphVisualizationQueryValueConnection
+	InputGraphVisualizationQueryValuePromql     *InputGraphVisualizationQueryValuePromql
 	InputGraphVisualizationTable                *InputGraphVisualizationTable
 	InputGraphVisualizationTimeseries           *InputGraphVisualizationTimeseries
 	InputGraphVisualizationTimeseriesConnection *InputGraphVisualizationTimeseriesConnection
+	InputGraphVisualizationTimeseriesPromql     *InputGraphVisualizationTimeseriesPromql
 	InputGraphVisualizationTopList              *InputGraphVisualizationTopList
 	InputGraphVisualizationTopListConnection    *InputGraphVisualizationTopListConnection
+	InputGraphVisualizationTopListPromql        *InputGraphVisualizationTopListPromql
 }
 
 // InputGraphVisualizationBarAsGraphVisualization is a convenience function that returns InputGraphVisualizationBar wrapped in GraphVisualization
@@ -48,6 +53,13 @@ func InputGraphVisualizationBarAsGraphVisualization(v *InputGraphVisualizationBa
 func InputGraphVisualizationBarConnectionAsGraphVisualization(v *InputGraphVisualizationBarConnection) GraphVisualization {
 	return GraphVisualization{
 		InputGraphVisualizationBarConnection: v,
+	}
+}
+
+// InputGraphVisualizationBarPromqlAsGraphVisualization is a convenience function that returns InputGraphVisualizationBarPromql wrapped in GraphVisualization
+func InputGraphVisualizationBarPromqlAsGraphVisualization(v *InputGraphVisualizationBarPromql) GraphVisualization {
+	return GraphVisualization{
+		InputGraphVisualizationBarPromql: v,
 	}
 }
 
@@ -114,6 +126,13 @@ func InputGraphVisualizationPieConnectionAsGraphVisualization(v *InputGraphVisua
 	}
 }
 
+// InputGraphVisualizationPiePromqlAsGraphVisualization is a convenience function that returns InputGraphVisualizationPiePromql wrapped in GraphVisualization
+func InputGraphVisualizationPiePromqlAsGraphVisualization(v *InputGraphVisualizationPiePromql) GraphVisualization {
+	return GraphVisualization{
+		InputGraphVisualizationPiePromql: v,
+	}
+}
+
 // InputGraphVisualizationQueryValueAsGraphVisualization is a convenience function that returns InputGraphVisualizationQueryValue wrapped in GraphVisualization
 func InputGraphVisualizationQueryValueAsGraphVisualization(v *InputGraphVisualizationQueryValue) GraphVisualization {
 	return GraphVisualization{
@@ -125,6 +144,13 @@ func InputGraphVisualizationQueryValueAsGraphVisualization(v *InputGraphVisualiz
 func InputGraphVisualizationQueryValueConnectionAsGraphVisualization(v *InputGraphVisualizationQueryValueConnection) GraphVisualization {
 	return GraphVisualization{
 		InputGraphVisualizationQueryValueConnection: v,
+	}
+}
+
+// InputGraphVisualizationQueryValuePromqlAsGraphVisualization is a convenience function that returns InputGraphVisualizationQueryValuePromql wrapped in GraphVisualization
+func InputGraphVisualizationQueryValuePromqlAsGraphVisualization(v *InputGraphVisualizationQueryValuePromql) GraphVisualization {
+	return GraphVisualization{
+		InputGraphVisualizationQueryValuePromql: v,
 	}
 }
 
@@ -149,6 +175,13 @@ func InputGraphVisualizationTimeseriesConnectionAsGraphVisualization(v *InputGra
 	}
 }
 
+// InputGraphVisualizationTimeseriesPromqlAsGraphVisualization is a convenience function that returns InputGraphVisualizationTimeseriesPromql wrapped in GraphVisualization
+func InputGraphVisualizationTimeseriesPromqlAsGraphVisualization(v *InputGraphVisualizationTimeseriesPromql) GraphVisualization {
+	return GraphVisualization{
+		InputGraphVisualizationTimeseriesPromql: v,
+	}
+}
+
 // InputGraphVisualizationTopListAsGraphVisualization is a convenience function that returns InputGraphVisualizationTopList wrapped in GraphVisualization
 func InputGraphVisualizationTopListAsGraphVisualization(v *InputGraphVisualizationTopList) GraphVisualization {
 	return GraphVisualization{
@@ -160,6 +193,13 @@ func InputGraphVisualizationTopListAsGraphVisualization(v *InputGraphVisualizati
 func InputGraphVisualizationTopListConnectionAsGraphVisualization(v *InputGraphVisualizationTopListConnection) GraphVisualization {
 	return GraphVisualization{
 		InputGraphVisualizationTopListConnection: v,
+	}
+}
+
+// InputGraphVisualizationTopListPromqlAsGraphVisualization is a convenience function that returns InputGraphVisualizationTopListPromql wrapped in GraphVisualization
+func InputGraphVisualizationTopListPromqlAsGraphVisualization(v *InputGraphVisualizationTopListPromql) GraphVisualization {
+	return GraphVisualization{
+		InputGraphVisualizationTopListPromql: v,
 	}
 }
 
@@ -194,6 +234,18 @@ func (dst *GraphVisualization) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.InputGraphVisualizationBarConnection = nil
 			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationBarConnection: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'bar-promql'
+	if jsonDict["type"] == "bar-promql" {
+		// try to unmarshal JSON data into InputGraphVisualizationBarPromql
+		err = json.Unmarshal(data, &dst.InputGraphVisualizationBarPromql)
+		if err == nil {
+			return nil // data stored in dst.InputGraphVisualizationBarPromql, return on the first match
+		} else {
+			dst.InputGraphVisualizationBarPromql = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationBarPromql: %s", err.Error())
 		}
 	}
 
@@ -305,6 +357,18 @@ func (dst *GraphVisualization) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'pie-promql'
+	if jsonDict["type"] == "pie-promql" {
+		// try to unmarshal JSON data into InputGraphVisualizationPiePromql
+		err = json.Unmarshal(data, &dst.InputGraphVisualizationPiePromql)
+		if err == nil {
+			return nil // data stored in dst.InputGraphVisualizationPiePromql, return on the first match
+		} else {
+			dst.InputGraphVisualizationPiePromql = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationPiePromql: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'query-value'
 	if jsonDict["type"] == "query-value" {
 		// try to unmarshal JSON data into InputGraphVisualizationQueryValue
@@ -326,6 +390,18 @@ func (dst *GraphVisualization) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.InputGraphVisualizationQueryValueConnection = nil
 			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationQueryValueConnection: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'query-value-promql'
+	if jsonDict["type"] == "query-value-promql" {
+		// try to unmarshal JSON data into InputGraphVisualizationQueryValuePromql
+		err = json.Unmarshal(data, &dst.InputGraphVisualizationQueryValuePromql)
+		if err == nil {
+			return nil // data stored in dst.InputGraphVisualizationQueryValuePromql, return on the first match
+		} else {
+			dst.InputGraphVisualizationQueryValuePromql = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationQueryValuePromql: %s", err.Error())
 		}
 	}
 
@@ -365,6 +441,18 @@ func (dst *GraphVisualization) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'timeseries-promql'
+	if jsonDict["type"] == "timeseries-promql" {
+		// try to unmarshal JSON data into InputGraphVisualizationTimeseriesPromql
+		err = json.Unmarshal(data, &dst.InputGraphVisualizationTimeseriesPromql)
+		if err == nil {
+			return nil // data stored in dst.InputGraphVisualizationTimeseriesPromql, return on the first match
+		} else {
+			dst.InputGraphVisualizationTimeseriesPromql = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationTimeseriesPromql: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'top-list'
 	if jsonDict["type"] == "top-list" {
 		// try to unmarshal JSON data into InputGraphVisualizationTopList
@@ -389,6 +477,18 @@ func (dst *GraphVisualization) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'top-list-promql'
+	if jsonDict["type"] == "top-list-promql" {
+		// try to unmarshal JSON data into InputGraphVisualizationTopListPromql
+		err = json.Unmarshal(data, &dst.InputGraphVisualizationTopListPromql)
+		if err == nil {
+			return nil // data stored in dst.InputGraphVisualizationTopListPromql, return on the first match
+		} else {
+			dst.InputGraphVisualizationTopListPromql = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationTopListPromql: %s", err.Error())
+		}
+	}
+
 	return nil
 }
 
@@ -400,6 +500,10 @@ func (src GraphVisualization) MarshalJSON() ([]byte, error) {
 
 	if src.InputGraphVisualizationBarConnection != nil {
 		return json.Marshal(&src.InputGraphVisualizationBarConnection)
+	}
+
+	if src.InputGraphVisualizationBarPromql != nil {
+		return json.Marshal(&src.InputGraphVisualizationBarPromql)
 	}
 
 	if src.InputGraphVisualizationDistribution != nil {
@@ -438,12 +542,20 @@ func (src GraphVisualization) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.InputGraphVisualizationPieConnection)
 	}
 
+	if src.InputGraphVisualizationPiePromql != nil {
+		return json.Marshal(&src.InputGraphVisualizationPiePromql)
+	}
+
 	if src.InputGraphVisualizationQueryValue != nil {
 		return json.Marshal(&src.InputGraphVisualizationQueryValue)
 	}
 
 	if src.InputGraphVisualizationQueryValueConnection != nil {
 		return json.Marshal(&src.InputGraphVisualizationQueryValueConnection)
+	}
+
+	if src.InputGraphVisualizationQueryValuePromql != nil {
+		return json.Marshal(&src.InputGraphVisualizationQueryValuePromql)
 	}
 
 	if src.InputGraphVisualizationTable != nil {
@@ -458,12 +570,20 @@ func (src GraphVisualization) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.InputGraphVisualizationTimeseriesConnection)
 	}
 
+	if src.InputGraphVisualizationTimeseriesPromql != nil {
+		return json.Marshal(&src.InputGraphVisualizationTimeseriesPromql)
+	}
+
 	if src.InputGraphVisualizationTopList != nil {
 		return json.Marshal(&src.InputGraphVisualizationTopList)
 	}
 
 	if src.InputGraphVisualizationTopListConnection != nil {
 		return json.Marshal(&src.InputGraphVisualizationTopListConnection)
+	}
+
+	if src.InputGraphVisualizationTopListPromql != nil {
+		return json.Marshal(&src.InputGraphVisualizationTopListPromql)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -480,6 +600,10 @@ func (obj *GraphVisualization) GetActualInstance() interface{} {
 
 	if obj.InputGraphVisualizationBarConnection != nil {
 		return obj.InputGraphVisualizationBarConnection
+	}
+
+	if obj.InputGraphVisualizationBarPromql != nil {
+		return obj.InputGraphVisualizationBarPromql
 	}
 
 	if obj.InputGraphVisualizationDistribution != nil {
@@ -518,12 +642,20 @@ func (obj *GraphVisualization) GetActualInstance() interface{} {
 		return obj.InputGraphVisualizationPieConnection
 	}
 
+	if obj.InputGraphVisualizationPiePromql != nil {
+		return obj.InputGraphVisualizationPiePromql
+	}
+
 	if obj.InputGraphVisualizationQueryValue != nil {
 		return obj.InputGraphVisualizationQueryValue
 	}
 
 	if obj.InputGraphVisualizationQueryValueConnection != nil {
 		return obj.InputGraphVisualizationQueryValueConnection
+	}
+
+	if obj.InputGraphVisualizationQueryValuePromql != nil {
+		return obj.InputGraphVisualizationQueryValuePromql
 	}
 
 	if obj.InputGraphVisualizationTable != nil {
@@ -538,12 +670,20 @@ func (obj *GraphVisualization) GetActualInstance() interface{} {
 		return obj.InputGraphVisualizationTimeseriesConnection
 	}
 
+	if obj.InputGraphVisualizationTimeseriesPromql != nil {
+		return obj.InputGraphVisualizationTimeseriesPromql
+	}
+
 	if obj.InputGraphVisualizationTopList != nil {
 		return obj.InputGraphVisualizationTopList
 	}
 
 	if obj.InputGraphVisualizationTopListConnection != nil {
 		return obj.InputGraphVisualizationTopListConnection
+	}
+
+	if obj.InputGraphVisualizationTopListPromql != nil {
+		return obj.InputGraphVisualizationTopListPromql
 	}
 
 	// all schemas are nil
@@ -558,6 +698,10 @@ func (obj GraphVisualization) GetActualInstanceValue() interface{} {
 
 	if obj.InputGraphVisualizationBarConnection != nil {
 		return *obj.InputGraphVisualizationBarConnection
+	}
+
+	if obj.InputGraphVisualizationBarPromql != nil {
+		return *obj.InputGraphVisualizationBarPromql
 	}
 
 	if obj.InputGraphVisualizationDistribution != nil {
@@ -596,12 +740,20 @@ func (obj GraphVisualization) GetActualInstanceValue() interface{} {
 		return *obj.InputGraphVisualizationPieConnection
 	}
 
+	if obj.InputGraphVisualizationPiePromql != nil {
+		return *obj.InputGraphVisualizationPiePromql
+	}
+
 	if obj.InputGraphVisualizationQueryValue != nil {
 		return *obj.InputGraphVisualizationQueryValue
 	}
 
 	if obj.InputGraphVisualizationQueryValueConnection != nil {
 		return *obj.InputGraphVisualizationQueryValueConnection
+	}
+
+	if obj.InputGraphVisualizationQueryValuePromql != nil {
+		return *obj.InputGraphVisualizationQueryValuePromql
 	}
 
 	if obj.InputGraphVisualizationTable != nil {
@@ -616,12 +768,20 @@ func (obj GraphVisualization) GetActualInstanceValue() interface{} {
 		return *obj.InputGraphVisualizationTimeseriesConnection
 	}
 
+	if obj.InputGraphVisualizationTimeseriesPromql != nil {
+		return *obj.InputGraphVisualizationTimeseriesPromql
+	}
+
 	if obj.InputGraphVisualizationTopList != nil {
 		return *obj.InputGraphVisualizationTopList
 	}
 
 	if obj.InputGraphVisualizationTopListConnection != nil {
 		return *obj.InputGraphVisualizationTopListConnection
+	}
+
+	if obj.InputGraphVisualizationTopListPromql != nil {
+		return *obj.InputGraphVisualizationTopListPromql
 	}
 
 	// all schemas are nil

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
+**Type** | **string** | Microsoft Teams target backed by a configured Microsoft Teams integration. | 
 **IntegrationId** | **string** | Identifier of the Microsoft Teams integration to use | 
 
 ## Methods

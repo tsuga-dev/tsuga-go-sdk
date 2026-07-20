@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TeamIds** | **[]string** |  | 
-**Env** | **string** |  | 
-**Service** | Pointer to **string** |  | [optional] 
+**TeamIds** | **[]string** | Team IDs whose logs are searched for new error patterns. Tsuga resolves these team IDs to team names when exporting monitor assets. | 
+**Env** | **string** | Environment whose logs are searched for new error patterns. | 
+**Service** | Pointer to **string** | Optional service name whose logs are searched for new error patterns. If omitted, the monitor searches all services matching the team and environment filter. | [optional] 
 
 ## Methods
 

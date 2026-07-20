@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
+**Type** | **string** | &#x60;zero&#x60; fills missing points with zero. &#x60;null&#x60; keeps missing points null. | 
 
 ## Methods
 

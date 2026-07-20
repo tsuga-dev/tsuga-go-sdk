@@ -4,15 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Display name of the notification rule | 
+**Name** | **string** | Display name of the notification rule. | 
+**QueryString** | Pointer to **string** | Optional query that narrows which alert transitions trigger the rule. Matches on the monitor transition group key and the monitor tags, e.g. &#x60;env:prod service:api&#x60;. Omit or leave empty to match regardless of tags. | [optional] 
 **TeamsFilter** | [**CreateNotificationRuleRequestTeamsFilter**](CreateNotificationRuleRequestTeamsFilter.md) |  | 
-**PrioritiesFilter** | **[]float32** | Priorities that narrow down the alerts that can trigger a notification | 
-**TransitionTypesFilter** | **[]string** | Alert state transitions that can trigger a notification | 
-**ClusterIdsFilter** | Pointer to **[]string** | Cluster IDs that can trigger a notification | [optional] 
+**PrioritiesFilter** | **[]float32** | Monitor priorities that must match for this rule to fire. An empty array matches every priority. | 
+**TransitionTypesFilter** | **[]string** | Alert state transitions that must match for this rule to fire. An empty array matches every transition type. | 
+**ClusterIdsFilter** | Pointer to **[]string** | Cluster IDs that must match for this rule to fire. Omit it, or leave it empty, to match every cluster. | [optional] 
 **Owner** | **string** | Team ID that owns and manages the rule | 
-**Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
-**IsActive** | **bool** |  | 
-**Targets** | [**[]CreateNotificationRuleRequestTargetsInner**](CreateNotificationRuleRequestTargetsInner.md) | Notification targets that can receive notifications when the rule matches | 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Up to 50 tags are accepted and tag policies may require specific keys or values. | [optional] 
+**IsActive** | **bool** | Set to true for the rule to send notifications when its filters match. | 
+**Targets** | [**[]CreateNotificationRuleRequestTargetsInner**](CreateNotificationRuleRequestTargetsInner.md) | Destinations that receive a notification whenever this rule matches an alert transition. At least one target is required. This list replaces the existing targets on update. | 
 
 ## Methods
 
@@ -52,6 +53,31 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+
+### GetQueryString
+
+`func (o *CreateNotificationRuleRequest) GetQueryString() string`
+
+GetQueryString returns the QueryString field if non-nil, zero value otherwise.
+
+### GetQueryStringOk
+
+`func (o *CreateNotificationRuleRequest) GetQueryStringOk() (*string, bool)`
+
+GetQueryStringOk returns a tuple with the QueryString field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQueryString
+
+`func (o *CreateNotificationRuleRequest) SetQueryString(v string)`
+
+SetQueryString sets QueryString field to given value.
+
+### HasQueryString
+
+`func (o *CreateNotificationRuleRequest) HasQueryString() bool`
+
+HasQueryString returns a boolean if a field has been set.
 
 ### GetTeamsFilter
 
@@ -115,20 +141,20 @@ SetTransitionTypesFilter sets TransitionTypesFilter field to given value.
 
 ### GetClusterIdsFilter
 
-`func (o *CreateNotificationRuleRequest) GetClusterIdsFilter() []string`
+`func (o *CreateNotificationRuleRequest) GetClusterIdsFilter() []*string`
 
 GetClusterIdsFilter returns the ClusterIdsFilter field if non-nil, zero value otherwise.
 
 ### GetClusterIdsFilterOk
 
-`func (o *CreateNotificationRuleRequest) GetClusterIdsFilterOk() (*[]string, bool)`
+`func (o *CreateNotificationRuleRequest) GetClusterIdsFilterOk() (*[]*string, bool)`
 
 GetClusterIdsFilterOk returns a tuple with the ClusterIdsFilter field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetClusterIdsFilter
 
-`func (o *CreateNotificationRuleRequest) SetClusterIdsFilter(v []string)`
+`func (o *CreateNotificationRuleRequest) SetClusterIdsFilter(v []*string)`
 
 SetClusterIdsFilter sets ClusterIdsFilter field to given value.
 

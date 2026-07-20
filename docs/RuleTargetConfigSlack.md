@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
+**Type** | **string** | Slack target backed by a configured Slack integration. | 
 **Channel** | **string** | Slack channel ID that receives the notification | 
 **IntegrationId** | **string** | Slack workspace ID that receives the notification | 
 **IntegrationName** | **string** | Human readable name of the Slack integration | 

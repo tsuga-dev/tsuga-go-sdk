@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -20,9 +20,12 @@ var _ MappedNullable = &DashboardFiltersInner{}
 
 // DashboardFiltersInner struct for DashboardFiltersInner
 type DashboardFiltersInner struct {
-	// Filter key
-	Key                  string   `json:"key"`
-	Values               []string `json:"values"`
+	// Dashboard-wide filter key, usually a telemetry attribute name.
+	Key string `json:"key"`
+	// Allowed values for this dashboard-wide filter. Set by the dashboard author and returned as stored.
+	Values []string `json:"values"`
+	// If true, widgets exclude telemetry whose value matches this filter instead of including it (is-not).
+	Exclude              *bool `json:"exclude,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -95,6 +98,38 @@ func (o *DashboardFiltersInner) SetValues(v []string) {
 	o.Values = v
 }
 
+// GetExclude returns the Exclude field value if set, zero value otherwise.
+func (o *DashboardFiltersInner) GetExclude() bool {
+	if o == nil || IsNil(o.Exclude) {
+		var ret bool
+		return ret
+	}
+	return *o.Exclude
+}
+
+// GetExcludeOk returns a tuple with the Exclude field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DashboardFiltersInner) GetExcludeOk() (*bool, bool) {
+	if o == nil || IsNil(o.Exclude) {
+		return nil, false
+	}
+	return o.Exclude, true
+}
+
+// HasExclude returns a boolean if a field has been set.
+func (o *DashboardFiltersInner) HasExclude() bool {
+	if o != nil && !IsNil(o.Exclude) {
+		return true
+	}
+
+	return false
+}
+
+// SetExclude gets a reference to the given bool and assigns it to the Exclude field.
+func (o *DashboardFiltersInner) SetExclude(v bool) {
+	o.Exclude = &v
+}
+
 func (o DashboardFiltersInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -107,6 +142,9 @@ func (o DashboardFiltersInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["key"] = o.Key
 	toSerialize["values"] = o.Values
+	if !IsNil(o.Exclude) {
+		toSerialize["exclude"] = o.Exclude
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -153,6 +191,7 @@ func (o *DashboardFiltersInner) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "key")
 		delete(additionalProperties, "values")
+		delete(additionalProperties, "exclude")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
-**Value** | **float32** |  | 
+**Type** | **string** | Use a fixed numeric axis bound | 
+**Value** | **float32** | Fixed numeric axis bound value | 
 
 ## Methods
 

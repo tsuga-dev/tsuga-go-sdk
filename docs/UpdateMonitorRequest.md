@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**Message** | Pointer to **string** |  | [optional] 
-**Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
+**Name** | **string** | Display name of the monitor and alert source. | 
+**Message** | Pointer to **string** | Message included in notifications triggered by this monitor. Optional on create. On update, omitting it keeps the existing message. | [optional] 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Up to 50 tags are accepted and tag policies may require specific keys or values. | [optional] 
 **Configuration** | [**UpdateMonitorRequestConfiguration**](UpdateMonitorRequestConfiguration.md) |  | 
-**Priority** | **float32** |  | 
-**Owner** | **string** |  | 
-**DashboardId** | Pointer to **string** |  | [optional] 
-**Permissions** | **string** | This controls which data the resource can see | 
-**ClusterIds** | Pointer to **[]string** |  | [optional] 
+**Priority** | **float32** | Monitor priority from 1 through 5, where 1 is highest priority. | 
+**Owner** | **string** | Team ID that owns and manages the monitor. | 
+**DashboardId** | Pointer to **NullableString** |  | [optional] 
+**Permissions** | **string** | &#x60;all&#x60; allows the resource to query all permitted telemetry, &#x60;owning-team-and-public&#x60; limits it to the owning team plus public data, and &#x60;owning-team-only&#x60; limits it to the owning team. | 
+**ClusterIds** | Pointer to **[]string** | Cluster IDs where the monitor should be deployed. Empty or omitted means all eligible clusters for cluster-deployed monitor types. | [optional] 
 
 ## Methods
 
@@ -188,6 +188,16 @@ SetDashboardId sets DashboardId field to given value.
 
 HasDashboardId returns a boolean if a field has been set.
 
+### SetDashboardIdNil
+
+`func (o *UpdateMonitorRequest) SetDashboardIdNil(b bool)`
+
+ SetDashboardIdNil sets the value for DashboardId to be an explicit nil
+
+### UnsetDashboardId
+`func (o *UpdateMonitorRequest) UnsetDashboardId()`
+
+UnsetDashboardId ensures that no value is present for DashboardId, not even an explicit nil
 ### GetPermissions
 
 `func (o *UpdateMonitorRequest) GetPermissions() string`
@@ -210,20 +220,20 @@ SetPermissions sets Permissions field to given value.
 
 ### GetClusterIds
 
-`func (o *UpdateMonitorRequest) GetClusterIds() []string`
+`func (o *UpdateMonitorRequest) GetClusterIds() []*string`
 
 GetClusterIds returns the ClusterIds field if non-nil, zero value otherwise.
 
 ### GetClusterIdsOk
 
-`func (o *UpdateMonitorRequest) GetClusterIdsOk() (*[]string, bool)`
+`func (o *UpdateMonitorRequest) GetClusterIdsOk() (*[]*string, bool)`
 
 GetClusterIdsOk returns a tuple with the ClusterIds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetClusterIds
 
-`func (o *UpdateMonitorRequest) SetClusterIds(v []string)`
+`func (o *UpdateMonitorRequest) SetClusterIds(v []*string)`
 
 SetClusterIds sets ClusterIds field to given value.
 

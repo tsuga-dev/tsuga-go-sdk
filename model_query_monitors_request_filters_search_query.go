@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -18,8 +18,9 @@ import (
 // checks if the QueryMonitorsRequestFiltersSearchQuery type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &QueryMonitorsRequestFiltersSearchQuery{}
 
-// QueryMonitorsRequestFiltersSearchQuery Substring matched against monitor name and configuration
+// QueryMonitorsRequestFiltersSearchQuery Search query filter for monitors.
 type QueryMonitorsRequestFiltersSearchQuery struct {
+	// Case-insensitive substring matched against monitor ID, monitor name, query filters, and aggregate fields. Wildcard characters are treated literally.
 	Value string `json:"value"`
 	// If true, exclude monitors matching this value instead of including them
 	Exclude              *bool `json:"exclude,omitempty"`

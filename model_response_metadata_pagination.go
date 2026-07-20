@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -20,9 +20,9 @@ var _ MappedNullable = &ResponseMetadataPagination{}
 
 // ResponseMetadataPagination struct for ResponseMetadataPagination
 type ResponseMetadataPagination struct {
-	// The total number of items matching the query
+	// Total number of items matching the query before `limit` and `offset` are applied.
 	TotalCount int32 `json:"totalCount"`
-	// The total number of pages available
+	// Total number of pages available for the requested `limit`.
 	PageCount            int32 `json:"pageCount"`
 	AdditionalProperties map[string]interface{}
 }

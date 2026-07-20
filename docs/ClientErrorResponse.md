@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Code** | Pointer to **string** | Machine readable error code describing what went wrong | [optional] 
 **Message** | **string** | Human readable explanation of the error | 
 **StatusCode** | **float32** | HTTP status code that was returned | 
+**Details** | Pointer to [**TagPolicyViolationDetails**](TagPolicyViolationDetails.md) |  | [optional] 
 
 ## Methods
 
@@ -91,6 +92,31 @@ and a boolean to check if the value has been set.
 
 SetStatusCode sets StatusCode field to given value.
 
+
+### GetDetails
+
+`func (o *ClientErrorResponse) GetDetails() TagPolicyViolationDetails`
+
+GetDetails returns the Details field if non-nil, zero value otherwise.
+
+### GetDetailsOk
+
+`func (o *ClientErrorResponse) GetDetailsOk() (*TagPolicyViolationDetails, bool)`
+
+GetDetailsOk returns a tuple with the Details field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDetails
+
+`func (o *ClientErrorResponse) SetDetails(v TagPolicyViolationDetails)`
+
+SetDetails sets Details field to given value.
+
+### HasDetails
+
+`func (o *ClientErrorResponse) HasDetails() bool`
+
+HasDetails returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

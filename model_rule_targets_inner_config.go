@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -15,12 +15,13 @@ import (
 	"fmt"
 )
 
-// RuleTargetsInnerConfig - Configuration describing how the alert was delivered
+// RuleTargetsInnerConfig - Destination that received the notification. The `type` field discriminates the variant: `email` sends directly to the listed addresses, and every other type routes through the named integration referenced by `integrationId`.
 type RuleTargetsInnerConfig struct {
 	RuleTargetConfigEmail          *RuleTargetConfigEmail
 	RuleTargetConfigGoogleChat     *RuleTargetConfigGoogleChat
 	RuleTargetConfigGrafanaIrm     *RuleTargetConfigGrafanaIrm
 	RuleTargetConfigIncidentIo     *RuleTargetConfigIncidentIo
+	RuleTargetConfigJira           *RuleTargetConfigJira
 	RuleTargetConfigMicrosoftTeams *RuleTargetConfigMicrosoftTeams
 	RuleTargetConfigPagerDuty      *RuleTargetConfigPagerDuty
 	RuleTargetConfigServiceNow     *RuleTargetConfigServiceNow
@@ -54,6 +55,13 @@ func RuleTargetConfigGrafanaIrmAsRuleTargetsInnerConfig(v *RuleTargetConfigGrafa
 func RuleTargetConfigIncidentIoAsRuleTargetsInnerConfig(v *RuleTargetConfigIncidentIo) RuleTargetsInnerConfig {
 	return RuleTargetsInnerConfig{
 		RuleTargetConfigIncidentIo: v,
+	}
+}
+
+// RuleTargetConfigJiraAsRuleTargetsInnerConfig is a convenience function that returns RuleTargetConfigJira wrapped in RuleTargetsInnerConfig
+func RuleTargetConfigJiraAsRuleTargetsInnerConfig(v *RuleTargetConfigJira) RuleTargetsInnerConfig {
+	return RuleTargetsInnerConfig{
+		RuleTargetConfigJira: v,
 	}
 }
 
@@ -157,6 +165,18 @@ func (dst *RuleTargetsInnerConfig) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'jira'
+	if jsonDict["type"] == "jira" {
+		// try to unmarshal JSON data into RuleTargetConfigJira
+		err = json.Unmarshal(data, &dst.RuleTargetConfigJira)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetConfigJira, return on the first match
+		} else {
+			dst.RuleTargetConfigJira = nil
+			return fmt.Errorf("failed to unmarshal RuleTargetsInnerConfig as RuleTargetConfigJira: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'microsoft-teams'
 	if jsonDict["type"] == "microsoft-teams" {
 		// try to unmarshal JSON data into RuleTargetConfigMicrosoftTeams
@@ -250,6 +270,10 @@ func (src RuleTargetsInnerConfig) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.RuleTargetConfigIncidentIo)
 	}
 
+	if src.RuleTargetConfigJira != nil {
+		return json.Marshal(&src.RuleTargetConfigJira)
+	}
+
 	if src.RuleTargetConfigMicrosoftTeams != nil {
 		return json.Marshal(&src.RuleTargetConfigMicrosoftTeams)
 	}
@@ -298,6 +322,10 @@ func (obj *RuleTargetsInnerConfig) GetActualInstance() interface{} {
 		return obj.RuleTargetConfigIncidentIo
 	}
 
+	if obj.RuleTargetConfigJira != nil {
+		return obj.RuleTargetConfigJira
+	}
+
 	if obj.RuleTargetConfigMicrosoftTeams != nil {
 		return obj.RuleTargetConfigMicrosoftTeams
 	}
@@ -342,6 +370,10 @@ func (obj RuleTargetsInnerConfig) GetActualInstanceValue() interface{} {
 
 	if obj.RuleTargetConfigIncidentIo != nil {
 		return *obj.RuleTargetConfigIncidentIo
+	}
+
+	if obj.RuleTargetConfigJira != nil {
+		return *obj.RuleTargetConfigJira
 	}
 
 	if obj.RuleTargetConfigMicrosoftTeams != nil {

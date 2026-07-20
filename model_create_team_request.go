@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -18,14 +18,15 @@ import (
 // checks if the CreateTeamRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CreateTeamRequest{}
 
-// CreateTeamRequest struct for CreateTeamRequest
+// CreateTeamRequest Team create or update request. Provide the team name, optional description, visibility, and tags.
 type CreateTeamRequest struct {
-	// Name to assign to the team
-	Name        string  `json:"name"`
+	// Name to assign to the team. Must be kebab-case (lowercase letters, numbers, and dashes only) and unique in the organization. Maximum length is 100 characters.
+	Name string `json:"name"`
+	// Optional team description. Maximum length is 250 characters.
 	Description *string `json:"description,omitempty"`
-	// Controls whether the resources of the team are discoverable by users
+	// `public` makes team-owned resources discoverable according to access controls. `private` restricts discovery to team members and authorized users.
 	Visibility string `json:"visibility"`
-	// List of key/value tags applied to the resource
+	// Key/value tags to apply to the resource. Up to 50 tags are accepted and tag policies may require specific keys or values.
 	Tags                 []Tag `json:"tags,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Limit** | Pointer to **int32** | The maximum number of items to return | [optional] 
-**Offset** | Pointer to **int32** | The offset of the first item to return | [optional] 
+**Limit** | Pointer to **int32** | Maximum number of items to return in this page. Valid values are 1 through 1000. | [optional] 
+**Offset** | Pointer to **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | [optional] 
 **Filters** | Pointer to [**QueryDashboardsRequestFilters**](QueryDashboardsRequestFilters.md) |  | [optional] 
 **Sort** | Pointer to [**QueryDashboardsRequestSort**](QueryDashboardsRequestSort.md) |  | [optional] 
 

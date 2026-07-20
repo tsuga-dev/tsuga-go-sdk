@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**By** | **string** | Field to sort the returned dashboards by | 
+**By** | **string** | Field to sort the returned dashboards by: &#x60;owner&#x60; sorts by owning team ID, &#x60;tags&#x60; sorts by tag key/value pairs, &#x60;widgetCount&#x60; sorts by the number of graphs on the dashboard, &#x60;updatedAt&#x60; sorts by last-updated timestamp, and &#x60;name&#x60; sorts alphabetically by dashboard name. | 
 **Direction** | **string** | Sort direction: ascending or descending | 
 
 ## Methods

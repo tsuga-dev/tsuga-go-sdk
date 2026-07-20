@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Name to assign to the team | 
-**Description** | Pointer to **string** |  | [optional] 
-**Visibility** | **string** | Controls whether the resources of the team are discoverable by users | 
-**Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
+**Name** | **string** | Name to assign to the team. Must be kebab-case (lowercase letters, numbers, and dashes only) and unique in the organization. Maximum length is 100 characters. | 
+**Description** | Pointer to **string** | Optional team description. Maximum length is 250 characters. | [optional] 
+**Visibility** | **string** | &#x60;public&#x60; makes team-owned resources discoverable according to access controls. &#x60;private&#x60; restricts discovery to team members and authorized users. | 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Up to 50 tags are accepted and tag policies may require specific keys or values. | [optional] 
 
 ## Methods
 

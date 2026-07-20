@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | Identifier of the monitor | 
-**Name** | **string** | Display name of the monitor | 
-**Owner** | **string** | Team ID that owns and manages the monitor | 
-**Message** | Pointer to **string** | Message to be displayed if a notification is triggered | [optional] 
-**Tags** | Pointer to [**[]Tag1**](Tag1.md) | List of key/value tags applied to the resource | [optional] 
+**Id** | **string** | Tsuga-generated monitor ID assigned when the monitor is created. | 
+**Name** | **string** | Display name of the monitor and alert source. | 
+**Owner** | **string** | Team ID that owns and manages the monitor. | 
+**Message** | Pointer to **string** | Caller-supplied message included in notifications triggered by this monitor. Omitted when the monitor was created or last updated without one. | [optional] 
+**Tags** | Pointer to [**[]Tag1**](Tag1.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
 **Configuration** | [**MonitorConfiguration**](MonitorConfiguration.md) |  | 
-**Priority** | **float32** | Priority of the monitor | 
-**Permissions** | **string** | This controls which data the resource can see | 
-**DashboardId** | Pointer to **string** | Identifier of a dashboard related to the monitor | [optional] 
-**ClusterIds** | **[]string** |  | 
+**Priority** | **float32** | Monitor priority from 1 through 5, where 1 is highest priority. | 
+**Permissions** | **string** | &#x60;all&#x60; allows the resource to query all permitted telemetry, &#x60;owning-team-and-public&#x60; limits it to the owning team plus public data, and &#x60;owning-team-only&#x60; limits it to the owning team. | 
+**DashboardId** | Pointer to **string** | ID of the dashboard linked to this monitor for context when investigating alerts. Caller-supplied. Omitted when no dashboard is linked. | [optional] 
+**ClusterIds** | **[]string** | Cluster IDs where the monitor is deployed. Empty means all eligible clusters. | 
 
 ## Methods
 

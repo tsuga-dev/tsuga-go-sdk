@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -15,10 +15,11 @@ import (
 	"fmt"
 )
 
-// MonitorConfiguration - struct for MonitorConfiguration
+// MonitorConfiguration - Monitor evaluation configuration. The `type` discriminator determines which telemetry source, condition shape, and evaluation rules Tsuga uses.
 type MonitorConfiguration struct {
 	MonitorConfigurationAnomalyLog        *MonitorConfigurationAnomalyLog
 	MonitorConfigurationAnomalyMetric     *MonitorConfigurationAnomalyMetric
+	MonitorConfigurationAnomalyTrace      *MonitorConfigurationAnomalyTrace
 	MonitorConfigurationCertificateExpiry *MonitorConfigurationCertificateExpiry
 	MonitorConfigurationLog               *MonitorConfigurationLog
 	MonitorConfigurationLogErrorPattern   *MonitorConfigurationLogErrorPattern
@@ -37,6 +38,13 @@ func MonitorConfigurationAnomalyLogAsMonitorConfiguration(v *MonitorConfiguratio
 func MonitorConfigurationAnomalyMetricAsMonitorConfiguration(v *MonitorConfigurationAnomalyMetric) MonitorConfiguration {
 	return MonitorConfiguration{
 		MonitorConfigurationAnomalyMetric: v,
+	}
+}
+
+// MonitorConfigurationAnomalyTraceAsMonitorConfiguration is a convenience function that returns MonitorConfigurationAnomalyTrace wrapped in MonitorConfiguration
+func MonitorConfigurationAnomalyTraceAsMonitorConfiguration(v *MonitorConfigurationAnomalyTrace) MonitorConfiguration {
+	return MonitorConfiguration{
+		MonitorConfigurationAnomalyTrace: v,
 	}
 }
 
@@ -106,6 +114,18 @@ func (dst *MonitorConfiguration) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.MonitorConfigurationAnomalyMetric = nil
 			return fmt.Errorf("failed to unmarshal MonitorConfiguration as MonitorConfigurationAnomalyMetric: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'anomaly-trace'
+	if jsonDict["type"] == "anomaly-trace" {
+		// try to unmarshal JSON data into MonitorConfigurationAnomalyTrace
+		err = json.Unmarshal(data, &dst.MonitorConfigurationAnomalyTrace)
+		if err == nil {
+			return nil // data stored in dst.MonitorConfigurationAnomalyTrace, return on the first match
+		} else {
+			dst.MonitorConfigurationAnomalyTrace = nil
+			return fmt.Errorf("failed to unmarshal MonitorConfiguration as MonitorConfigurationAnomalyTrace: %s", err.Error())
 		}
 	}
 
@@ -182,6 +202,10 @@ func (src MonitorConfiguration) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.MonitorConfigurationAnomalyMetric)
 	}
 
+	if src.MonitorConfigurationAnomalyTrace != nil {
+		return json.Marshal(&src.MonitorConfigurationAnomalyTrace)
+	}
+
 	if src.MonitorConfigurationCertificateExpiry != nil {
 		return json.Marshal(&src.MonitorConfigurationCertificateExpiry)
 	}
@@ -218,6 +242,10 @@ func (obj *MonitorConfiguration) GetActualInstance() interface{} {
 		return obj.MonitorConfigurationAnomalyMetric
 	}
 
+	if obj.MonitorConfigurationAnomalyTrace != nil {
+		return obj.MonitorConfigurationAnomalyTrace
+	}
+
 	if obj.MonitorConfigurationCertificateExpiry != nil {
 		return obj.MonitorConfigurationCertificateExpiry
 	}
@@ -250,6 +278,10 @@ func (obj MonitorConfiguration) GetActualInstanceValue() interface{} {
 
 	if obj.MonitorConfigurationAnomalyMetric != nil {
 		return *obj.MonitorConfigurationAnomalyMetric
+	}
+
+	if obj.MonitorConfigurationAnomalyTrace != nil {
+		return *obj.MonitorConfigurationAnomalyTrace
 	}
 
 	if obj.MonitorConfigurationCertificateExpiry != nil {

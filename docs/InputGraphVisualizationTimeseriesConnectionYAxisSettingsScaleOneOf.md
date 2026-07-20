@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
-**Exponent** | **float32** |  | 
+**Type** | **string** | Power scale | 
+**Exponent** | **float32** | Exponent used by the power scale | 
 
 ## Methods
 

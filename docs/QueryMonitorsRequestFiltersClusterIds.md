@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Values** | **[]string** |  | 
+**Values** | **[]string** | Values compared by this filter. When &#x60;exclude&#x60; is omitted or false, rows matching any value are kept; when &#x60;exclude&#x60; is true, matching rows are removed. | 
 **Exclude** | Pointer to **bool** | If true, exclude rows matching these values instead of including them | [optional] 
 
 ## Methods

@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -18,18 +18,26 @@ import (
 // checks if the TagPolicy type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &TagPolicy{}
 
-// TagPolicy Policy that enforces tag requirements on Tsuga assets or telemetry data
+// TagPolicy Policy that enforces tag requirements on Tsuga-managed assets or telemetry data. See [Tag policies](/documentation/account-and-settings/tag-policies).
 type TagPolicy struct {
-	Id                   string                 `json:"id"`
-	Name                 string                 `json:"name"`
-	Description          *string                `json:"description,omitempty"`
-	IsActive             bool                   `json:"isActive"`
-	TagKey               string                 `json:"tagKey"`
-	AllowedTagValues     []string               `json:"allowedTagValues"`
-	IsRequired           bool                   `json:"isRequired"`
-	TeamScope            *TagPolicyTeamScope    `json:"teamScope,omitempty"`
-	Configuration        TagPolicyConfiguration `json:"configuration"`
-	Owner                *string                `json:"owner,omitempty"`
+	// Tsuga-generated tag policy ID assigned when the policy is created.
+	Id string `json:"id"`
+	// Human-readable tag policy name.
+	Name string `json:"name"`
+	// Optional user-provided policy description.
+	Description *string `json:"description,omitempty"`
+	// Whether Tsuga currently evaluates this policy. Reserved policies (for example the built-in `env` policy on ingestion API keys) cannot be set to false.
+	IsActive bool `json:"isActive"`
+	// Tag key enforced by this policy.
+	TagKey string `json:"tagKey"`
+	// Allowed values for `tagKey`. An empty array means any value is accepted when the tag exists.
+	AllowedTagValues []string `json:"allowedTagValues"`
+	// Whether the tag must be present. If false, `allowedTagValues` is still enforced when the tag exists. Reserved policies cannot be set to false.
+	IsRequired    bool                   `json:"isRequired"`
+	TeamScope     *TagPolicyTeamScope    `json:"teamScope,omitempty"`
+	Configuration TagPolicyConfiguration `json:"configuration"`
+	// Team ID that owns and manages the policy.
+	Owner                *string `json:"owner,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

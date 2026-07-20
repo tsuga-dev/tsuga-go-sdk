@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -25,8 +25,10 @@ type InputGraphVisualizationList struct {
 	// Query that selects logs for the list
 	Query string `json:"query"`
 	// Custom columns to display for each log
-	ListColumns          []WidgetListColumn1 `json:"listColumns,omitempty"`
-	ListColumnsSize      map[string]float32  `json:"listColumnsSize,omitempty"`
+	ListColumns     []WidgetListColumn1 `json:"listColumns,omitempty"`
+	ListColumnsSize map[string]float32  `json:"listColumnsSize,omitempty"`
+	// Whether list widget cell text wraps instead of truncating. Set by the dashboard author for list widgets. Optional on create or update; omit or set false to use truncated cells.
+	IsCellWrapped        *bool `json:"isCellWrapped,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -163,6 +165,38 @@ func (o *InputGraphVisualizationList) SetListColumnsSize(v map[string]float32) {
 	o.ListColumnsSize = v
 }
 
+// GetIsCellWrapped returns the IsCellWrapped field value if set, zero value otherwise.
+func (o *InputGraphVisualizationList) GetIsCellWrapped() bool {
+	if o == nil || IsNil(o.IsCellWrapped) {
+		var ret bool
+		return ret
+	}
+	return *o.IsCellWrapped
+}
+
+// GetIsCellWrappedOk returns a tuple with the IsCellWrapped field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputGraphVisualizationList) GetIsCellWrappedOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsCellWrapped) {
+		return nil, false
+	}
+	return o.IsCellWrapped, true
+}
+
+// HasIsCellWrapped returns a boolean if a field has been set.
+func (o *InputGraphVisualizationList) HasIsCellWrapped() bool {
+	if o != nil && !IsNil(o.IsCellWrapped) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsCellWrapped gets a reference to the given bool and assigns it to the IsCellWrapped field.
+func (o *InputGraphVisualizationList) SetIsCellWrapped(v bool) {
+	o.IsCellWrapped = &v
+}
+
 func (o InputGraphVisualizationList) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -180,6 +214,9 @@ func (o InputGraphVisualizationList) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ListColumnsSize) {
 		toSerialize["listColumnsSize"] = o.ListColumnsSize
+	}
+	if !IsNil(o.IsCellWrapped) {
+		toSerialize["isCellWrapped"] = o.IsCellWrapped
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -229,6 +266,7 @@ func (o *InputGraphVisualizationList) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "query")
 		delete(additionalProperties, "listColumns")
 		delete(additionalProperties, "listColumnsSize")
+		delete(additionalProperties, "isCellWrapped")
 		o.AdditionalProperties = additionalProperties
 	}
 

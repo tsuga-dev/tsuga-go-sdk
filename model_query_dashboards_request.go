@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -17,11 +17,11 @@ import (
 // checks if the QueryDashboardsRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &QueryDashboardsRequest{}
 
-// QueryDashboardsRequest struct for QueryDashboardsRequest
+// QueryDashboardsRequest Dashboard query request. Use filters, sorting, limit, and offset to page through visible dashboards.
 type QueryDashboardsRequest struct {
-	// The maximum number of items to return
+	// Maximum number of items to return in this page. Valid values are 1 through 1000.
 	Limit *int32 `json:"limit,omitempty"`
-	// The offset of the first item to return
+	// Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0.
 	Offset               *int32                         `json:"offset,omitempty"`
 	Filters              *QueryDashboardsRequestFilters `json:"filters,omitempty"`
 	Sort                 *QueryDashboardsRequestSort    `json:"sort,omitempty"`

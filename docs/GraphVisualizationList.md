@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Query** | **string** | Query that selects logs for the list | 
 **ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each log | [optional] 
 **ListColumnsSize** | Pointer to **map[string]float32** |  | [optional] 
+**IsCellWrapped** | Pointer to **bool** | Whether list widget cell text wraps instead of truncating. Set by the dashboard author for list widgets. Optional on create or update and returned when configured. | [optional] 
 
 ## Methods
 
@@ -117,6 +118,31 @@ SetListColumnsSize sets ListColumnsSize field to given value.
 `func (o *GraphVisualizationList) HasListColumnsSize() bool`
 
 HasListColumnsSize returns a boolean if a field has been set.
+
+### GetIsCellWrapped
+
+`func (o *GraphVisualizationList) GetIsCellWrapped() bool`
+
+GetIsCellWrapped returns the IsCellWrapped field if non-nil, zero value otherwise.
+
+### GetIsCellWrappedOk
+
+`func (o *GraphVisualizationList) GetIsCellWrappedOk() (*bool, bool)`
+
+GetIsCellWrappedOk returns a tuple with the IsCellWrapped field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsCellWrapped
+
+`func (o *GraphVisualizationList) SetIsCellWrapped(v bool)`
+
+SetIsCellWrapped sets IsCellWrapped field to given value.
+
+### HasIsCellWrapped
+
+`func (o *GraphVisualizationList) HasIsCellWrapped() bool`
+
+HasIsCellWrapped returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

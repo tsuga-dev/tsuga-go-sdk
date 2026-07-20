@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -20,17 +20,23 @@ var _ MappedNullable = &MonitorConfigurationTrace{}
 
 // MonitorConfigurationTrace struct for MonitorConfigurationTrace
 type MonitorConfigurationTrace struct {
-	Type           string                                      `json:"type"`
-	Conditions     []MonitorConfigurationMetricConditionsInner `json:"conditions"`
-	NoDataBehavior string                                      `json:"noDataBehavior"`
-	// Timeframe of the monitor in minutes
+	// Threshold monitor over trace aggregations.
+	Type string `json:"type"`
+	// Threshold conditions evaluated against query and formula results. All listed conditions must match for a non-grouped threshold monitor to alert.
+	Conditions []MonitorConfigurationMetricConditionsInner `json:"conditions"`
+	// How the monitor updates state when no data is returned. `alert` enters no-data alert state, `resolve` resolves, `keep_last_status` preserves the previous state, and `consider_zero` evaluates missing values as zero.
+	NoDataBehavior string `json:"noDataBehavior"`
+	// Lookback window, in minutes, that each monitor evaluation aggregates over.
 	Timeframe float32 `json:"timeframe"`
 	// Monitor group by configuration. Warning! Note that the limit setting is currently ignored.
-	GroupByFields            []MonitorConfigurationMetricGroupByFieldsInner `json:"groupByFields"`
-	AggregationAlertLogic    *string                                        `json:"aggregationAlertLogic,omitempty"`
-	ProportionAlertThreshold *int32                                         `json:"proportionAlertThreshold,omitempty"`
-	Queries                  []MonitorAggregationQuery                      `json:"queries"`
-	AdditionalProperties     map[string]interface{}
+	GroupByFields []MonitorConfigurationMetricGroupByFieldsInner `json:"groupByFields"`
+	// How grouped results are combined into alert state. Use `no_aggregation` only when `groupByFields` is empty; use `all`, `any`, `each`, or `proportion` with non-empty `groupByFields`. `proportion` also requires `proportionAlertThreshold`.
+	AggregationAlertLogic *string `json:"aggregationAlertLogic,omitempty"`
+	// Percentage threshold used when `aggregationAlertLogic` is `proportion`.
+	ProportionAlertThreshold *int32 `json:"proportionAlertThreshold,omitempty"`
+	// Aggregation queries used by alerting and SLO evaluation. Each query is referenced from formulas as q1, q2, and so on.
+	Queries              []MonitorAggregationQuery `json:"queries"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MonitorConfigurationTrace MonitorConfigurationTrace

@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Name** | **string** |  | 
-**Description** | Pointer to **string** |  | [optional] 
-**IsActive** | **bool** |  | 
-**TagKey** | **string** |  | 
-**AllowedTagValues** | **[]string** |  | 
-**IsRequired** | **bool** |  | 
+**Id** | **string** | Tsuga-generated tag policy ID assigned when the policy is created. | 
+**Name** | **string** | Human-readable tag policy name. | 
+**Description** | Pointer to **string** | Optional user-provided policy description. | [optional] 
+**IsActive** | **bool** | Whether Tsuga currently evaluates this policy. Reserved policies (for example the built-in &#x60;env&#x60; policy on ingestion API keys) cannot be set to false. | 
+**TagKey** | **string** | Tag key enforced by this policy. | 
+**AllowedTagValues** | **[]string** | Allowed values for &#x60;tagKey&#x60;. An empty array means any value is accepted when the tag exists. | 
+**IsRequired** | **bool** | Whether the tag must be present. If false, &#x60;allowedTagValues&#x60; is still enforced when the tag exists. Reserved policies cannot be set to false. | 
 **TeamScope** | Pointer to [**TagPolicyTeamScope**](TagPolicyTeamScope.md) |  | [optional] 
 **Configuration** | [**TagPolicyConfiguration**](TagPolicyConfiguration.md) |  | 
-**Owner** | Pointer to **string** |  | [optional] 
+**Owner** | Pointer to **string** | Team ID that owns and manages the policy. | [optional] 
 
 ## Methods
 

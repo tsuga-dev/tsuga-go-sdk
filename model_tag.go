@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -20,7 +20,9 @@ var _ MappedNullable = &Tag{}
 
 // Tag struct for Tag
 type Tag struct {
-	Key                  string `json:"key"`
+	// Tag key to attach to the resource. Maximum length is 128 characters.
+	Key string `json:"key"`
+	// Tag value to attach to the resource. Maximum length is 256 characters and leading or trailing whitespace is rejected.
 	Value                string `json:"value" validate:"regexp=^\\\\S(.*\\\\S)?$"`
 	AdditionalProperties map[string]interface{}
 }

@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Owners** | Pointer to [**QueryDashboardsRequestFiltersOwners**](QueryDashboardsRequestFiltersOwners.md) |  | [optional] 
 **SearchQuery** | Pointer to [**QueryDashboardsRequestFiltersSearchQuery**](QueryDashboardsRequestFiltersSearchQuery.md) |  | [optional] 
 **Tags** | Pointer to [**QueryDashboardsRequestFiltersTags**](QueryDashboardsRequestFiltersTags.md) |  | [optional] 
+**FolderId** | Pointer to **NullableString** |  | [optional] 
 
 ## Methods
 
@@ -102,6 +103,41 @@ SetTags sets Tags field to given value.
 
 HasTags returns a boolean if a field has been set.
 
+### GetFolderId
+
+`func (o *QueryDashboardsRequestFilters) GetFolderId() string`
+
+GetFolderId returns the FolderId field if non-nil, zero value otherwise.
+
+### GetFolderIdOk
+
+`func (o *QueryDashboardsRequestFilters) GetFolderIdOk() (*string, bool)`
+
+GetFolderIdOk returns a tuple with the FolderId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFolderId
+
+`func (o *QueryDashboardsRequestFilters) SetFolderId(v string)`
+
+SetFolderId sets FolderId field to given value.
+
+### HasFolderId
+
+`func (o *QueryDashboardsRequestFilters) HasFolderId() bool`
+
+HasFolderId returns a boolean if a field has been set.
+
+### SetFolderIdNil
+
+`func (o *QueryDashboardsRequestFilters) SetFolderIdNil(b bool)`
+
+ SetFolderIdNil sets the value for FolderId to be an explicit nil
+
+### UnsetFolderId
+`func (o *QueryDashboardsRequestFilters) UnsetFolderId()`
+
+UnsetFolderId ensures that no value is present for FolderId, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

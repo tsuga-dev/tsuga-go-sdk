@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -24,7 +24,7 @@ type MonitorsAPI interface {
 	/*
 		CreateMonitor Method for CreateMonitor
 
-		Create a new monitor
+		Creates a monitor owned by the specified team. The monitor can evaluate logs, metrics, traces, anomaly behavior, certificate expiry, or new error patterns depending on its configuration.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return MonitorsAPICreateMonitorRequest
@@ -38,10 +38,10 @@ type MonitorsAPI interface {
 	/*
 		DeleteMonitor Method for DeleteMonitor
 
-		Delete a monitor by its id
+		Deletes a monitor by ID. Deleting a monitor stops future evaluations and alert transitions for that monitor.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id The monitor ID to delete
+		@param id Identifier of the saved monitor to delete. Use the `id` returned by monitor query, create, or update responses.
 		@return MonitorsAPIDeleteMonitorRequest
 	*/
 	DeleteMonitor(ctx context.Context, id string) MonitorsAPIDeleteMonitorRequest
@@ -53,10 +53,10 @@ type MonitorsAPI interface {
 	/*
 		GetMonitor Method for GetMonitor
 
-		Retrieve a monitor by its id
+		Retrieves one monitor definition by ID when the authenticated operation key can read it. Use this before updating, duplicating, or auditing a monitor.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id
+		@param id Monitor ID returned by monitor query, create, or update operations.
 		@return MonitorsAPIGetMonitorRequest
 	*/
 	GetMonitor(ctx context.Context, id string) MonitorsAPIGetMonitorRequest
@@ -68,7 +68,7 @@ type MonitorsAPI interface {
 	/*
 		QueryMonitors Method for QueryMonitors
 
-		Query monitors with filters, sorting, and pagination
+		Queries monitors visible to the authenticated operation key. Use this endpoint to inventory monitor definitions, filter by owner, tag, priority, type, activity, or cluster, and page through results. See [Monitors](/documentation/alert/monitors/index).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return MonitorsAPIQueryMonitorsRequest
@@ -82,10 +82,10 @@ type MonitorsAPI interface {
 	/*
 		UpdateMonitor Method for UpdateMonitor
 
-		Update a monitor by its id
+		Updates an existing monitor definition by ID. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, and `clusterIds` keep their existing values. Omitting `dashboardId` clears the dashboard link, and public updates clear any existing snooze because `pauseUntil` is not part of the public schema.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id
+		@param id Identifier of the saved monitor to update. Use the `id` returned by monitor query or create responses.
 		@return MonitorsAPIUpdateMonitorRequest
 	*/
 	UpdateMonitor(ctx context.Context, id string) MonitorsAPIUpdateMonitorRequest
@@ -101,11 +101,12 @@ type MonitorsAPIService service
 type MonitorsAPICreateMonitorRequest struct {
 	ctx                  context.Context
 	ApiService           MonitorsAPI
-	updateMonitorRequest *UpdateMonitorRequest
+	createMonitorRequest *CreateMonitorRequest
 }
 
-func (r MonitorsAPICreateMonitorRequest) UpdateMonitorRequest(updateMonitorRequest UpdateMonitorRequest) MonitorsAPICreateMonitorRequest {
-	r.updateMonitorRequest = &updateMonitorRequest
+// Monitor creation request. Provide ownership, data access, alert configuration, priority, tags, and optional dashboard or cluster scope.
+func (r MonitorsAPICreateMonitorRequest) CreateMonitorRequest(createMonitorRequest CreateMonitorRequest) MonitorsAPICreateMonitorRequest {
+	r.createMonitorRequest = &createMonitorRequest
 	return r
 }
 
@@ -116,7 +117,7 @@ func (r MonitorsAPICreateMonitorRequest) Execute() (*CreateMonitorResponse, *htt
 /*
 CreateMonitor Method for CreateMonitor
 
-Create a new monitor
+Creates a monitor owned by the specified team. The monitor can evaluate logs, metrics, traces, anomaly behavior, certificate expiry, or new error patterns depending on its configuration.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MonitorsAPICreateMonitorRequest
@@ -149,8 +150,8 @@ func (a *MonitorsAPIService) CreateMonitorExecute(r MonitorsAPICreateMonitorRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.updateMonitorRequest == nil {
-		return localVarReturnValue, nil, reportError("updateMonitorRequest is required and must be specified")
+	if r.createMonitorRequest == nil {
+		return localVarReturnValue, nil, reportError("createMonitorRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -171,7 +172,7 @@ func (a *MonitorsAPIService) CreateMonitorExecute(r MonitorsAPICreateMonitorRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.updateMonitorRequest
+	localVarPostBody = r.createMonitorRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -243,10 +244,10 @@ func (r MonitorsAPIDeleteMonitorRequest) Execute() (*DeleteMonitorResponse, *htt
 /*
 DeleteMonitor Method for DeleteMonitor
 
-Delete a monitor by its id
+Deletes a monitor by ID. Deleting a monitor stops future evaluations and alert transitions for that monitor.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The monitor ID to delete
+	@param id Identifier of the saved monitor to delete. Use the `id` returned by monitor query, create, or update responses.
 	@return MonitorsAPIDeleteMonitorRequest
 */
 func (a *MonitorsAPIService) DeleteMonitor(ctx context.Context, id string) MonitorsAPIDeleteMonitorRequest {
@@ -374,10 +375,10 @@ func (r MonitorsAPIGetMonitorRequest) Execute() (*GetMonitorResponse, *http.Resp
 /*
 GetMonitor Method for GetMonitor
 
-Retrieve a monitor by its id
+Retrieves one monitor definition by ID when the authenticated operation key can read it. Use this before updating, duplicating, or auditing a monitor.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id Monitor ID returned by monitor query, create, or update operations.
 	@return MonitorsAPIGetMonitorRequest
 */
 func (a *MonitorsAPIService) GetMonitor(ctx context.Context, id string) MonitorsAPIGetMonitorRequest {
@@ -498,6 +499,7 @@ type MonitorsAPIQueryMonitorsRequest struct {
 	queryMonitorsRequest *QueryMonitorsRequest
 }
 
+// Monitor query request. Use filters, sorting, limit, and offset to page through visible monitors.
 func (r MonitorsAPIQueryMonitorsRequest) QueryMonitorsRequest(queryMonitorsRequest QueryMonitorsRequest) MonitorsAPIQueryMonitorsRequest {
 	r.queryMonitorsRequest = &queryMonitorsRequest
 	return r
@@ -510,7 +512,7 @@ func (r MonitorsAPIQueryMonitorsRequest) Execute() (*QueryMonitorsResponse, *htt
 /*
 QueryMonitors Method for QueryMonitors
 
-Query monitors with filters, sorting, and pagination
+Queries monitors visible to the authenticated operation key. Use this endpoint to inventory monitor definitions, filter by owner, tag, priority, type, activity, or cluster, and page through results. See [Monitors](/documentation/alert/monitors/index).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MonitorsAPIQueryMonitorsRequest
@@ -631,6 +633,7 @@ type MonitorsAPIUpdateMonitorRequest struct {
 	updateMonitorRequest *UpdateMonitorRequest
 }
 
+// Monitor update request. Required fields and the submitted configuration are overwritten; omitted &#x60;message&#x60;, &#x60;tags&#x60;, and &#x60;clusterIds&#x60; keep their existing values. Omitting &#x60;dashboardId&#x60; clears the dashboard link.
 func (r MonitorsAPIUpdateMonitorRequest) UpdateMonitorRequest(updateMonitorRequest UpdateMonitorRequest) MonitorsAPIUpdateMonitorRequest {
 	r.updateMonitorRequest = &updateMonitorRequest
 	return r
@@ -643,10 +646,10 @@ func (r MonitorsAPIUpdateMonitorRequest) Execute() (*UpdateMonitorResponse, *htt
 /*
 UpdateMonitor Method for UpdateMonitor
 
-Update a monitor by its id
+Updates an existing monitor definition by ID. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, and `clusterIds` keep their existing values. Omitting `dashboardId` clears the dashboard link, and public updates clear any existing snooze because `pauseUntil` is not part of the public schema.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id Identifier of the saved monitor to update. Use the `id` returned by monitor query or create responses.
 	@return MonitorsAPIUpdateMonitorRequest
 */
 func (a *MonitorsAPIService) UpdateMonitor(ctx context.Context, id string) MonitorsAPIUpdateMonitorRequest {

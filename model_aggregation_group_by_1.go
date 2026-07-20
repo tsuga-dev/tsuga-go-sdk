@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -20,8 +20,14 @@ var _ MappedNullable = &AggregationGroupBy1{}
 
 // AggregationGroupBy1 struct for AggregationGroupBy1
 type AggregationGroupBy1 struct {
-	Fields               []string `json:"fields"`
-	Limit                float32  `json:"limit"`
+	// Telemetry attribute name to group aggregation results by. Currently limited to one field per grouping level.
+	Fields []string `json:"fields"`
+	// Maximum number of distinct values of `fields` to return for this grouping level, ranked by aggregate value. Groups beyond the limit are truncated from the response, not merged into an \"other\" group.
+	Limit float32 `json:"limit"`
+	// Sort direction applied to groups: ascending or descending.
+	SortOrder *string `json:"sortOrder,omitempty"`
+	// Value used to group documents that have no value for a grouped field.
+	ReplaceNullWith      *string `json:"replaceNullWith,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -94,6 +100,70 @@ func (o *AggregationGroupBy1) SetLimit(v float32) {
 	o.Limit = v
 }
 
+// GetSortOrder returns the SortOrder field value if set, zero value otherwise.
+func (o *AggregationGroupBy1) GetSortOrder() string {
+	if o == nil || IsNil(o.SortOrder) {
+		var ret string
+		return ret
+	}
+	return *o.SortOrder
+}
+
+// GetSortOrderOk returns a tuple with the SortOrder field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AggregationGroupBy1) GetSortOrderOk() (*string, bool) {
+	if o == nil || IsNil(o.SortOrder) {
+		return nil, false
+	}
+	return o.SortOrder, true
+}
+
+// HasSortOrder returns a boolean if a field has been set.
+func (o *AggregationGroupBy1) HasSortOrder() bool {
+	if o != nil && !IsNil(o.SortOrder) {
+		return true
+	}
+
+	return false
+}
+
+// SetSortOrder gets a reference to the given string and assigns it to the SortOrder field.
+func (o *AggregationGroupBy1) SetSortOrder(v string) {
+	o.SortOrder = &v
+}
+
+// GetReplaceNullWith returns the ReplaceNullWith field value if set, zero value otherwise.
+func (o *AggregationGroupBy1) GetReplaceNullWith() string {
+	if o == nil || IsNil(o.ReplaceNullWith) {
+		var ret string
+		return ret
+	}
+	return *o.ReplaceNullWith
+}
+
+// GetReplaceNullWithOk returns a tuple with the ReplaceNullWith field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AggregationGroupBy1) GetReplaceNullWithOk() (*string, bool) {
+	if o == nil || IsNil(o.ReplaceNullWith) {
+		return nil, false
+	}
+	return o.ReplaceNullWith, true
+}
+
+// HasReplaceNullWith returns a boolean if a field has been set.
+func (o *AggregationGroupBy1) HasReplaceNullWith() bool {
+	if o != nil && !IsNil(o.ReplaceNullWith) {
+		return true
+	}
+
+	return false
+}
+
+// SetReplaceNullWith gets a reference to the given string and assigns it to the ReplaceNullWith field.
+func (o *AggregationGroupBy1) SetReplaceNullWith(v string) {
+	o.ReplaceNullWith = &v
+}
+
 func (o AggregationGroupBy1) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -106,6 +176,12 @@ func (o AggregationGroupBy1) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["fields"] = o.Fields
 	toSerialize["limit"] = o.Limit
+	if !IsNil(o.SortOrder) {
+		toSerialize["sortOrder"] = o.SortOrder
+	}
+	if !IsNil(o.ReplaceNullWith) {
+		toSerialize["replaceNullWith"] = o.ReplaceNullWith
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -152,6 +228,8 @@ func (o *AggregationGroupBy1) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "fields")
 		delete(additionalProperties, "limit")
+		delete(additionalProperties, "sortOrder")
+		delete(additionalProperties, "replaceNullWith")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Success** | **bool** | Indicates the resource was deleted successfully | 
+**Success** | **bool** | Always &#x60;true&#x60; when the delete request completed and the resource was removed. | 
 
 ## Methods
 

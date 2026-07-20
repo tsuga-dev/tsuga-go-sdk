@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -15,10 +15,11 @@ import (
 	"fmt"
 )
 
-// Graph1Visualization - struct for Graph1Visualization
+// Graph1Visualization - Widget visualization configuration. The `type` discriminator selects the widget kind and its required fields.
 type Graph1Visualization struct {
 	GraphVisualizationBar                  *GraphVisualizationBar
 	GraphVisualizationBarConnection        *GraphVisualizationBarConnection
+	GraphVisualizationBarPromql            *GraphVisualizationBarPromql
 	GraphVisualizationDistribution         *GraphVisualizationDistribution
 	GraphVisualizationGauge                *GraphVisualizationGauge
 	GraphVisualizationHeatmap              *GraphVisualizationHeatmap
@@ -28,13 +29,17 @@ type Graph1Visualization struct {
 	GraphVisualizationNote                 *GraphVisualizationNote
 	GraphVisualizationPie                  *GraphVisualizationPie
 	GraphVisualizationPieConnection        *GraphVisualizationPieConnection
+	GraphVisualizationPiePromql            *GraphVisualizationPiePromql
 	GraphVisualizationQueryValue           *GraphVisualizationQueryValue
 	GraphVisualizationQueryValueConnection *GraphVisualizationQueryValueConnection
+	GraphVisualizationQueryValuePromql     *GraphVisualizationQueryValuePromql
 	GraphVisualizationTable                *GraphVisualizationTable
 	GraphVisualizationTimeseries           *GraphVisualizationTimeseries
 	GraphVisualizationTimeseriesConnection *GraphVisualizationTimeseriesConnection
+	GraphVisualizationTimeseriesPromql     *GraphVisualizationTimeseriesPromql
 	GraphVisualizationTopList              *GraphVisualizationTopList
 	GraphVisualizationTopListConnection    *GraphVisualizationTopListConnection
+	GraphVisualizationTopListPromql        *GraphVisualizationTopListPromql
 }
 
 // GraphVisualizationBarAsGraph1Visualization is a convenience function that returns GraphVisualizationBar wrapped in Graph1Visualization
@@ -48,6 +53,13 @@ func GraphVisualizationBarAsGraph1Visualization(v *GraphVisualizationBar) Graph1
 func GraphVisualizationBarConnectionAsGraph1Visualization(v *GraphVisualizationBarConnection) Graph1Visualization {
 	return Graph1Visualization{
 		GraphVisualizationBarConnection: v,
+	}
+}
+
+// GraphVisualizationBarPromqlAsGraph1Visualization is a convenience function that returns GraphVisualizationBarPromql wrapped in Graph1Visualization
+func GraphVisualizationBarPromqlAsGraph1Visualization(v *GraphVisualizationBarPromql) Graph1Visualization {
+	return Graph1Visualization{
+		GraphVisualizationBarPromql: v,
 	}
 }
 
@@ -114,6 +126,13 @@ func GraphVisualizationPieConnectionAsGraph1Visualization(v *GraphVisualizationP
 	}
 }
 
+// GraphVisualizationPiePromqlAsGraph1Visualization is a convenience function that returns GraphVisualizationPiePromql wrapped in Graph1Visualization
+func GraphVisualizationPiePromqlAsGraph1Visualization(v *GraphVisualizationPiePromql) Graph1Visualization {
+	return Graph1Visualization{
+		GraphVisualizationPiePromql: v,
+	}
+}
+
 // GraphVisualizationQueryValueAsGraph1Visualization is a convenience function that returns GraphVisualizationQueryValue wrapped in Graph1Visualization
 func GraphVisualizationQueryValueAsGraph1Visualization(v *GraphVisualizationQueryValue) Graph1Visualization {
 	return Graph1Visualization{
@@ -125,6 +144,13 @@ func GraphVisualizationQueryValueAsGraph1Visualization(v *GraphVisualizationQuer
 func GraphVisualizationQueryValueConnectionAsGraph1Visualization(v *GraphVisualizationQueryValueConnection) Graph1Visualization {
 	return Graph1Visualization{
 		GraphVisualizationQueryValueConnection: v,
+	}
+}
+
+// GraphVisualizationQueryValuePromqlAsGraph1Visualization is a convenience function that returns GraphVisualizationQueryValuePromql wrapped in Graph1Visualization
+func GraphVisualizationQueryValuePromqlAsGraph1Visualization(v *GraphVisualizationQueryValuePromql) Graph1Visualization {
+	return Graph1Visualization{
+		GraphVisualizationQueryValuePromql: v,
 	}
 }
 
@@ -149,6 +175,13 @@ func GraphVisualizationTimeseriesConnectionAsGraph1Visualization(v *GraphVisuali
 	}
 }
 
+// GraphVisualizationTimeseriesPromqlAsGraph1Visualization is a convenience function that returns GraphVisualizationTimeseriesPromql wrapped in Graph1Visualization
+func GraphVisualizationTimeseriesPromqlAsGraph1Visualization(v *GraphVisualizationTimeseriesPromql) Graph1Visualization {
+	return Graph1Visualization{
+		GraphVisualizationTimeseriesPromql: v,
+	}
+}
+
 // GraphVisualizationTopListAsGraph1Visualization is a convenience function that returns GraphVisualizationTopList wrapped in Graph1Visualization
 func GraphVisualizationTopListAsGraph1Visualization(v *GraphVisualizationTopList) Graph1Visualization {
 	return Graph1Visualization{
@@ -160,6 +193,13 @@ func GraphVisualizationTopListAsGraph1Visualization(v *GraphVisualizationTopList
 func GraphVisualizationTopListConnectionAsGraph1Visualization(v *GraphVisualizationTopListConnection) Graph1Visualization {
 	return Graph1Visualization{
 		GraphVisualizationTopListConnection: v,
+	}
+}
+
+// GraphVisualizationTopListPromqlAsGraph1Visualization is a convenience function that returns GraphVisualizationTopListPromql wrapped in Graph1Visualization
+func GraphVisualizationTopListPromqlAsGraph1Visualization(v *GraphVisualizationTopListPromql) Graph1Visualization {
+	return Graph1Visualization{
+		GraphVisualizationTopListPromql: v,
 	}
 }
 
@@ -194,6 +234,18 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.GraphVisualizationBarConnection = nil
 			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationBarConnection: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'bar-promql'
+	if jsonDict["type"] == "bar-promql" {
+		// try to unmarshal JSON data into GraphVisualizationBarPromql
+		err = json.Unmarshal(data, &dst.GraphVisualizationBarPromql)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationBarPromql, return on the first match
+		} else {
+			dst.GraphVisualizationBarPromql = nil
+			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationBarPromql: %s", err.Error())
 		}
 	}
 
@@ -305,6 +357,18 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'pie-promql'
+	if jsonDict["type"] == "pie-promql" {
+		// try to unmarshal JSON data into GraphVisualizationPiePromql
+		err = json.Unmarshal(data, &dst.GraphVisualizationPiePromql)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationPiePromql, return on the first match
+		} else {
+			dst.GraphVisualizationPiePromql = nil
+			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationPiePromql: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'query-value'
 	if jsonDict["type"] == "query-value" {
 		// try to unmarshal JSON data into GraphVisualizationQueryValue
@@ -326,6 +390,18 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.GraphVisualizationQueryValueConnection = nil
 			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationQueryValueConnection: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'query-value-promql'
+	if jsonDict["type"] == "query-value-promql" {
+		// try to unmarshal JSON data into GraphVisualizationQueryValuePromql
+		err = json.Unmarshal(data, &dst.GraphVisualizationQueryValuePromql)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationQueryValuePromql, return on the first match
+		} else {
+			dst.GraphVisualizationQueryValuePromql = nil
+			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationQueryValuePromql: %s", err.Error())
 		}
 	}
 
@@ -365,6 +441,18 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'timeseries-promql'
+	if jsonDict["type"] == "timeseries-promql" {
+		// try to unmarshal JSON data into GraphVisualizationTimeseriesPromql
+		err = json.Unmarshal(data, &dst.GraphVisualizationTimeseriesPromql)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationTimeseriesPromql, return on the first match
+		} else {
+			dst.GraphVisualizationTimeseriesPromql = nil
+			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationTimeseriesPromql: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'top-list'
 	if jsonDict["type"] == "top-list" {
 		// try to unmarshal JSON data into GraphVisualizationTopList
@@ -389,6 +477,18 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'top-list-promql'
+	if jsonDict["type"] == "top-list-promql" {
+		// try to unmarshal JSON data into GraphVisualizationTopListPromql
+		err = json.Unmarshal(data, &dst.GraphVisualizationTopListPromql)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationTopListPromql, return on the first match
+		} else {
+			dst.GraphVisualizationTopListPromql = nil
+			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationTopListPromql: %s", err.Error())
+		}
+	}
+
 	return nil
 }
 
@@ -400,6 +500,10 @@ func (src Graph1Visualization) MarshalJSON() ([]byte, error) {
 
 	if src.GraphVisualizationBarConnection != nil {
 		return json.Marshal(&src.GraphVisualizationBarConnection)
+	}
+
+	if src.GraphVisualizationBarPromql != nil {
+		return json.Marshal(&src.GraphVisualizationBarPromql)
 	}
 
 	if src.GraphVisualizationDistribution != nil {
@@ -438,12 +542,20 @@ func (src Graph1Visualization) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.GraphVisualizationPieConnection)
 	}
 
+	if src.GraphVisualizationPiePromql != nil {
+		return json.Marshal(&src.GraphVisualizationPiePromql)
+	}
+
 	if src.GraphVisualizationQueryValue != nil {
 		return json.Marshal(&src.GraphVisualizationQueryValue)
 	}
 
 	if src.GraphVisualizationQueryValueConnection != nil {
 		return json.Marshal(&src.GraphVisualizationQueryValueConnection)
+	}
+
+	if src.GraphVisualizationQueryValuePromql != nil {
+		return json.Marshal(&src.GraphVisualizationQueryValuePromql)
 	}
 
 	if src.GraphVisualizationTable != nil {
@@ -458,12 +570,20 @@ func (src Graph1Visualization) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.GraphVisualizationTimeseriesConnection)
 	}
 
+	if src.GraphVisualizationTimeseriesPromql != nil {
+		return json.Marshal(&src.GraphVisualizationTimeseriesPromql)
+	}
+
 	if src.GraphVisualizationTopList != nil {
 		return json.Marshal(&src.GraphVisualizationTopList)
 	}
 
 	if src.GraphVisualizationTopListConnection != nil {
 		return json.Marshal(&src.GraphVisualizationTopListConnection)
+	}
+
+	if src.GraphVisualizationTopListPromql != nil {
+		return json.Marshal(&src.GraphVisualizationTopListPromql)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -480,6 +600,10 @@ func (obj *Graph1Visualization) GetActualInstance() interface{} {
 
 	if obj.GraphVisualizationBarConnection != nil {
 		return obj.GraphVisualizationBarConnection
+	}
+
+	if obj.GraphVisualizationBarPromql != nil {
+		return obj.GraphVisualizationBarPromql
 	}
 
 	if obj.GraphVisualizationDistribution != nil {
@@ -518,12 +642,20 @@ func (obj *Graph1Visualization) GetActualInstance() interface{} {
 		return obj.GraphVisualizationPieConnection
 	}
 
+	if obj.GraphVisualizationPiePromql != nil {
+		return obj.GraphVisualizationPiePromql
+	}
+
 	if obj.GraphVisualizationQueryValue != nil {
 		return obj.GraphVisualizationQueryValue
 	}
 
 	if obj.GraphVisualizationQueryValueConnection != nil {
 		return obj.GraphVisualizationQueryValueConnection
+	}
+
+	if obj.GraphVisualizationQueryValuePromql != nil {
+		return obj.GraphVisualizationQueryValuePromql
 	}
 
 	if obj.GraphVisualizationTable != nil {
@@ -538,12 +670,20 @@ func (obj *Graph1Visualization) GetActualInstance() interface{} {
 		return obj.GraphVisualizationTimeseriesConnection
 	}
 
+	if obj.GraphVisualizationTimeseriesPromql != nil {
+		return obj.GraphVisualizationTimeseriesPromql
+	}
+
 	if obj.GraphVisualizationTopList != nil {
 		return obj.GraphVisualizationTopList
 	}
 
 	if obj.GraphVisualizationTopListConnection != nil {
 		return obj.GraphVisualizationTopListConnection
+	}
+
+	if obj.GraphVisualizationTopListPromql != nil {
+		return obj.GraphVisualizationTopListPromql
 	}
 
 	// all schemas are nil
@@ -558,6 +698,10 @@ func (obj Graph1Visualization) GetActualInstanceValue() interface{} {
 
 	if obj.GraphVisualizationBarConnection != nil {
 		return *obj.GraphVisualizationBarConnection
+	}
+
+	if obj.GraphVisualizationBarPromql != nil {
+		return *obj.GraphVisualizationBarPromql
 	}
 
 	if obj.GraphVisualizationDistribution != nil {
@@ -596,12 +740,20 @@ func (obj Graph1Visualization) GetActualInstanceValue() interface{} {
 		return *obj.GraphVisualizationPieConnection
 	}
 
+	if obj.GraphVisualizationPiePromql != nil {
+		return *obj.GraphVisualizationPiePromql
+	}
+
 	if obj.GraphVisualizationQueryValue != nil {
 		return *obj.GraphVisualizationQueryValue
 	}
 
 	if obj.GraphVisualizationQueryValueConnection != nil {
 		return *obj.GraphVisualizationQueryValueConnection
+	}
+
+	if obj.GraphVisualizationQueryValuePromql != nil {
+		return *obj.GraphVisualizationQueryValuePromql
 	}
 
 	if obj.GraphVisualizationTable != nil {
@@ -616,12 +768,20 @@ func (obj Graph1Visualization) GetActualInstanceValue() interface{} {
 		return *obj.GraphVisualizationTimeseriesConnection
 	}
 
+	if obj.GraphVisualizationTimeseriesPromql != nil {
+		return *obj.GraphVisualizationTimeseriesPromql
+	}
+
 	if obj.GraphVisualizationTopList != nil {
 		return *obj.GraphVisualizationTopList
 	}
 
 	if obj.GraphVisualizationTopListConnection != nil {
 		return *obj.GraphVisualizationTopListConnection
+	}
+
+	if obj.GraphVisualizationTopListPromql != nil {
+		return *obj.GraphVisualizationTopListPromql
 	}
 
 	// all schemas are nil

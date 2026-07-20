@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -24,7 +24,7 @@ type NotificationRulesAPI interface {
 	/*
 		CreateNotificationRule Method for CreateNotificationRule
 
-		Create a new notification rule
+		Creates a notification rule that matches alert transitions and sends notifications to configured targets. Monitors keep evaluating separately from notification rules.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return NotificationRulesAPICreateNotificationRuleRequest
@@ -38,10 +38,10 @@ type NotificationRulesAPI interface {
 	/*
 		DeleteNotificationRule Method for DeleteNotificationRule
 
-		Delete a notification rule by its id
+		Deletes a notification rule by ID. Alerting monitors continue to evaluate, but this rule no longer sends notifications.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id The notification rule ID to delete
+		@param id Identifier of the notification rule to delete. Use the `id` returned by notification rule list, get, create, or update responses.
 		@return NotificationRulesAPIDeleteNotificationRuleRequest
 	*/
 	DeleteNotificationRule(ctx context.Context, id string) NotificationRulesAPIDeleteNotificationRuleRequest
@@ -53,10 +53,10 @@ type NotificationRulesAPI interface {
 	/*
 		GetNotificationRule Method for GetNotificationRule
 
-		Retrieve a notification rule by its id
+		Retrieves one notification rule by ID when the authenticated operation key can read it. Use this before updating routing or target configuration.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id
+		@param id Identifier of the notification rule to retrieve. Use the `id` returned by notification rule list or create responses.
 		@return NotificationRulesAPIGetNotificationRuleRequest
 	*/
 	GetNotificationRule(ctx context.Context, id string) NotificationRulesAPIGetNotificationRuleRequest
@@ -68,7 +68,7 @@ type NotificationRulesAPI interface {
 	/*
 		ListNotificationRules Method for ListNotificationRules
 
-		Retrieve all notification rules
+		Lists notification rules visible to the authenticated operation key. Use this endpoint to audit alert delivery routing. Pagination fields limit the returned page.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return NotificationRulesAPIListNotificationRulesRequest
@@ -82,10 +82,10 @@ type NotificationRulesAPI interface {
 	/*
 		UpdateNotificationRule Method for UpdateNotificationRule
 
-		Update a notification rule by its id
+		Updates an existing notification rule by ID. Required fields and the submitted target list are overwritten; omitted optional fields keep their existing values.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id
+		@param id Identifier of the notification rule to update. Use the `id` returned by notification rule list, get, or create responses.
 		@return NotificationRulesAPIUpdateNotificationRuleRequest
 	*/
 	UpdateNotificationRule(ctx context.Context, id string) NotificationRulesAPIUpdateNotificationRuleRequest
@@ -104,6 +104,7 @@ type NotificationRulesAPICreateNotificationRuleRequest struct {
 	createNotificationRuleRequest *CreateNotificationRuleRequest
 }
 
+// Notification rule create or update request. Provide matching filters, owner, tags, active state, and delivery targets.
 func (r NotificationRulesAPICreateNotificationRuleRequest) CreateNotificationRuleRequest(createNotificationRuleRequest CreateNotificationRuleRequest) NotificationRulesAPICreateNotificationRuleRequest {
 	r.createNotificationRuleRequest = &createNotificationRuleRequest
 	return r
@@ -116,7 +117,7 @@ func (r NotificationRulesAPICreateNotificationRuleRequest) Execute() (*CreateNot
 /*
 CreateNotificationRule Method for CreateNotificationRule
 
-Create a new notification rule
+Creates a notification rule that matches alert transitions and sends notifications to configured targets. Monitors keep evaluating separately from notification rules.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return NotificationRulesAPICreateNotificationRuleRequest
@@ -243,10 +244,10 @@ func (r NotificationRulesAPIDeleteNotificationRuleRequest) Execute() (*DeleteNot
 /*
 DeleteNotificationRule Method for DeleteNotificationRule
 
-Delete a notification rule by its id
+Deletes a notification rule by ID. Alerting monitors continue to evaluate, but this rule no longer sends notifications.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The notification rule ID to delete
+	@param id Identifier of the notification rule to delete. Use the `id` returned by notification rule list, get, create, or update responses.
 	@return NotificationRulesAPIDeleteNotificationRuleRequest
 */
 func (a *NotificationRulesAPIService) DeleteNotificationRule(ctx context.Context, id string) NotificationRulesAPIDeleteNotificationRuleRequest {
@@ -374,10 +375,10 @@ func (r NotificationRulesAPIGetNotificationRuleRequest) Execute() (*GetNotificat
 /*
 GetNotificationRule Method for GetNotificationRule
 
-Retrieve a notification rule by its id
+Retrieves one notification rule by ID when the authenticated operation key can read it. Use this before updating routing or target configuration.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id Identifier of the notification rule to retrieve. Use the `id` returned by notification rule list or create responses.
 	@return NotificationRulesAPIGetNotificationRuleRequest
 */
 func (a *NotificationRulesAPIService) GetNotificationRule(ctx context.Context, id string) NotificationRulesAPIGetNotificationRuleRequest {
@@ -499,13 +500,13 @@ type NotificationRulesAPIListNotificationRulesRequest struct {
 	offset     *int32
 }
 
-// The maximum number of items to return
+// Maximum number of items to return in this page. Valid values are 1 through 1000.
 func (r NotificationRulesAPIListNotificationRulesRequest) Limit(limit int32) NotificationRulesAPIListNotificationRulesRequest {
 	r.limit = &limit
 	return r
 }
 
-// The offset of the first item to return
+// Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0.
 func (r NotificationRulesAPIListNotificationRulesRequest) Offset(offset int32) NotificationRulesAPIListNotificationRulesRequest {
 	r.offset = &offset
 	return r
@@ -518,7 +519,7 @@ func (r NotificationRulesAPIListNotificationRulesRequest) Execute() (*ListNotifi
 /*
 ListNotificationRules Method for ListNotificationRules
 
-Retrieve all notification rules
+Lists notification rules visible to the authenticated operation key. Use this endpoint to audit alert delivery routing. Pagination fields limit the returned page.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return NotificationRulesAPIListNotificationRulesRequest
@@ -637,11 +638,12 @@ type NotificationRulesAPIUpdateNotificationRuleRequest struct {
 	ctx                           context.Context
 	ApiService                    NotificationRulesAPI
 	id                            string
-	createNotificationRuleRequest *CreateNotificationRuleRequest
+	updateNotificationRuleRequest *UpdateNotificationRuleRequest
 }
 
-func (r NotificationRulesAPIUpdateNotificationRuleRequest) CreateNotificationRuleRequest(createNotificationRuleRequest CreateNotificationRuleRequest) NotificationRulesAPIUpdateNotificationRuleRequest {
-	r.createNotificationRuleRequest = &createNotificationRuleRequest
+// Notification rule create or update request. Provide matching filters, owner, tags, active state, and delivery targets.
+func (r NotificationRulesAPIUpdateNotificationRuleRequest) UpdateNotificationRuleRequest(updateNotificationRuleRequest UpdateNotificationRuleRequest) NotificationRulesAPIUpdateNotificationRuleRequest {
+	r.updateNotificationRuleRequest = &updateNotificationRuleRequest
 	return r
 }
 
@@ -652,10 +654,10 @@ func (r NotificationRulesAPIUpdateNotificationRuleRequest) Execute() (*UpdateNot
 /*
 UpdateNotificationRule Method for UpdateNotificationRule
 
-Update a notification rule by its id
+Updates an existing notification rule by ID. Required fields and the submitted target list are overwritten; omitted optional fields keep their existing values.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id Identifier of the notification rule to update. Use the `id` returned by notification rule list, get, or create responses.
 	@return NotificationRulesAPIUpdateNotificationRuleRequest
 */
 func (a *NotificationRulesAPIService) UpdateNotificationRule(ctx context.Context, id string) NotificationRulesAPIUpdateNotificationRuleRequest {
@@ -694,8 +696,8 @@ func (a *NotificationRulesAPIService) UpdateNotificationRuleExecute(r Notificati
 	if strlen(r.id) > 250 {
 		return localVarReturnValue, nil, reportError("id must have less than 250 elements")
 	}
-	if r.createNotificationRuleRequest == nil {
-		return localVarReturnValue, nil, reportError("createNotificationRuleRequest is required and must be specified")
+	if r.updateNotificationRuleRequest == nil {
+		return localVarReturnValue, nil, reportError("updateNotificationRuleRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -716,7 +718,7 @@ func (a *NotificationRulesAPIService) UpdateNotificationRuleExecute(r Notificati
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createNotificationRuleRequest
+	localVarPostBody = r.updateNotificationRuleRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

@@ -6,8 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a table with multi-level grouping | 
 **Columns** | [**[]TableColumn1**](TableColumn1.md) | Each column defines an independent aggregation displayed as a table column | 
-**GroupBy** | Pointer to [**[]AggregationGroupBy1**](AggregationGroupBy1.md) | Fields used to group the results | [optional] 
+**GroupBy** | Pointer to [**[]AggregationGroupBy1**](AggregationGroupBy1.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. Limited to 7 levels. | [optional] 
 **DefaultSorting** | Pointer to [**[]TableDefaultSorting1**](TableDefaultSorting1.md) |  | [optional] 
+**ColumnSizes** | Pointer to **map[string]float32** |  | [optional] 
 
 ## Methods
 
@@ -117,6 +118,31 @@ SetDefaultSorting sets DefaultSorting field to given value.
 `func (o *InputGraphVisualizationTable) HasDefaultSorting() bool`
 
 HasDefaultSorting returns a boolean if a field has been set.
+
+### GetColumnSizes
+
+`func (o *InputGraphVisualizationTable) GetColumnSizes() map[string]float32`
+
+GetColumnSizes returns the ColumnSizes field if non-nil, zero value otherwise.
+
+### GetColumnSizesOk
+
+`func (o *InputGraphVisualizationTable) GetColumnSizesOk() (*map[string]float32, bool)`
+
+GetColumnSizesOk returns a tuple with the ColumnSizes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetColumnSizes
+
+`func (o *InputGraphVisualizationTable) SetColumnSizes(v map[string]float32)`
+
+SetColumnSizes sets ColumnSizes field to given value.
+
+### HasColumnSizes
+
+`func (o *InputGraphVisualizationTable) HasColumnSizes() bool`
+
+HasColumnSizes returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

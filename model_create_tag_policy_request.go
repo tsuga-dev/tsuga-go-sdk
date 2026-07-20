@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -18,17 +18,24 @@ import (
 // checks if the CreateTagPolicyRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CreateTagPolicyRequest{}
 
-// CreateTagPolicyRequest struct for CreateTagPolicyRequest
+// CreateTagPolicyRequest Tag policy create or update request. Provide policy identity, owner, enforced tag key, allowed values, team scope, active state, and asset or telemetry configuration.
 type CreateTagPolicyRequest struct {
-	Name                 string                              `json:"name"`
-	Description          *string                             `json:"description,omitempty"`
-	IsActive             bool                                `json:"isActive"`
-	TagKey               string                              `json:"tagKey"`
-	AllowedTagValues     []string                            `json:"allowedTagValues"`
-	IsRequired           bool                                `json:"isRequired"`
-	TeamScope            *CreateTagPolicyRequestTeamScope    `json:"teamScope,omitempty"`
-	Configuration        CreateTagPolicyRequestConfiguration `json:"configuration"`
-	Owner                string                              `json:"owner"`
+	// Human-readable tag policy name.
+	Name string `json:"name"`
+	// Optional policy description.
+	Description *string `json:"description,omitempty"`
+	// Set to true for Tsuga to evaluate this policy. Reserved policies (for example the built-in `env` policy on ingestion API keys) reject a false value.
+	IsActive bool `json:"isActive"`
+	// Tag key enforced by this policy. Tsuga trims surrounding whitespace before storing the policy.
+	TagKey string `json:"tagKey"`
+	// Allowed values for `tagKey`. Leave empty to allow any value when the tag exists. Tsuga trims each submitted value before storing the policy.
+	AllowedTagValues []*string `json:"allowedTagValues"`
+	// Set to true to require the tag. If false, allowed values still apply when the tag exists. Reserved policies reject a false value.
+	IsRequired    bool                                `json:"isRequired"`
+	TeamScope     *CreateTagPolicyRequestTeamScope    `json:"teamScope,omitempty"`
+	Configuration CreateTagPolicyRequestConfiguration `json:"configuration"`
+	// Team ID that will own and manage the policy.
+	Owner                string `json:"owner"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -38,7 +45,7 @@ type _CreateTagPolicyRequest CreateTagPolicyRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateTagPolicyRequest(name string, isActive bool, tagKey string, allowedTagValues []string, isRequired bool, configuration CreateTagPolicyRequestConfiguration, owner string) *CreateTagPolicyRequest {
+func NewCreateTagPolicyRequest(name string, isActive bool, tagKey string, allowedTagValues []*string, isRequired bool, configuration CreateTagPolicyRequestConfiguration, owner string) *CreateTagPolicyRequest {
 	this := CreateTagPolicyRequest{}
 	this.Name = name
 	this.IsActive = isActive
@@ -163,9 +170,9 @@ func (o *CreateTagPolicyRequest) SetTagKey(v string) {
 }
 
 // GetAllowedTagValues returns the AllowedTagValues field value
-func (o *CreateTagPolicyRequest) GetAllowedTagValues() []string {
+func (o *CreateTagPolicyRequest) GetAllowedTagValues() []*string {
 	if o == nil {
-		var ret []string
+		var ret []*string
 		return ret
 	}
 
@@ -174,7 +181,7 @@ func (o *CreateTagPolicyRequest) GetAllowedTagValues() []string {
 
 // GetAllowedTagValuesOk returns a tuple with the AllowedTagValues field value
 // and a boolean to check if the value has been set.
-func (o *CreateTagPolicyRequest) GetAllowedTagValuesOk() ([]string, bool) {
+func (o *CreateTagPolicyRequest) GetAllowedTagValuesOk() ([]*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -182,7 +189,7 @@ func (o *CreateTagPolicyRequest) GetAllowedTagValuesOk() ([]string, bool) {
 }
 
 // SetAllowedTagValues sets field value
-func (o *CreateTagPolicyRequest) SetAllowedTagValues(v []string) {
+func (o *CreateTagPolicyRequest) SetAllowedTagValues(v []*string) {
 	o.AllowedTagValues = v
 }
 

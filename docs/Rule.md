@@ -4,16 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | Identifier of the notification rule | 
-**Name** | **string** | Display name of the notification rule | 
+**Id** | **string** | Tsuga-generated notification rule ID assigned when the rule is created. | 
+**Name** | **string** | Display name of the notification rule. | 
+**QueryString** | Pointer to **string** | Optional query that narrows which alert transitions trigger the rule. Matches on the monitor transition group key and the monitor tags, e.g. &#x60;env:prod service:api&#x60;. Omit or leave empty to match regardless of tags. | [optional] 
 **TeamsFilter** | [**RuleTeamsFilter**](RuleTeamsFilter.md) |  | 
-**PrioritiesFilter** | **[]float32** | Priorities that narrow down the alerts that can trigger a notification | 
-**TransitionTypesFilter** | **[]string** | Alert state transitions that can trigger a notification | 
-**ClusterIdsFilter** | **[]string** | Cluster IDs that can trigger a notification | 
-**Owner** | **string** | Team ID that owns and manages the rule | 
-**IsActive** | **bool** |  | 
-**Tags** | Pointer to [**[]Tag1**](Tag1.md) | List of key/value tags applied to the resource | [optional] 
-**Targets** | [**[]RuleTargetsInner**](RuleTargetsInner.md) | Notification targets that can receive notifications when the rule matches | 
+**PrioritiesFilter** | **[]float32** | Monitor priorities that must match for this rule to fire. An empty array matches every priority. | 
+**TransitionTypesFilter** | **[]string** | Alert state transitions that must match for this rule to fire. An empty array matches every transition type. | 
+**ClusterIdsFilter** | **[]string** | Cluster IDs that must match for this rule to fire. An empty array matches every cluster, as does a transition that has no cluster ID. | 
+**Owner** | **string** | Team ID that owns and manages the rule. | 
+**IsActive** | **bool** | Whether the rule currently sends notifications when its filters match. | 
+**Tags** | Pointer to [**[]Tag1**](Tag1.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
+**Targets** | [**[]RuleTargetsInner**](RuleTargetsInner.md) | Destinations that receive a notification whenever this rule matches an alert transition. Every target in the list is notified independently, subject to its own rate limit and renotification settings. | 
 
 ## Methods
 
@@ -73,6 +74,31 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+
+### GetQueryString
+
+`func (o *Rule) GetQueryString() string`
+
+GetQueryString returns the QueryString field if non-nil, zero value otherwise.
+
+### GetQueryStringOk
+
+`func (o *Rule) GetQueryStringOk() (*string, bool)`
+
+GetQueryStringOk returns a tuple with the QueryString field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQueryString
+
+`func (o *Rule) SetQueryString(v string)`
+
+SetQueryString sets QueryString field to given value.
+
+### HasQueryString
+
+`func (o *Rule) HasQueryString() bool`
+
+HasQueryString returns a boolean if a field has been set.
 
 ### GetTeamsFilter
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Formula** | **string** |  | 
-**ConditionType** | **string** |  | 
+**Formula** | **string** | Formula result analyzed for anomalous behavior, usually &#x60;q1&#x60; or a formula alias. | 
+**ConditionType** | **string** | Anomaly model type used to classify expected behavior: &#x60;rate&#x60; flags downward anomalies (e.g. count rates), &#x60;error&#x60; and &#x60;cpu&#x60; flag upward anomalies (e.g. error counts/rates, CPU usage), and &#x60;general&#x60; flags both directions. Use &#x60;to_be_set&#x60; to let Tsuga infer the model type from the monitor query during create or update. | 
 
 ## Methods
 

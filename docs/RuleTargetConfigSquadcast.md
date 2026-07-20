@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
+**Type** | **string** | Squadcast target backed by a configured Squadcast integration. | 
 **IntegrationId** | **string** | Identifier of the Squadcast integration to use | 
 **IntegrationName** | **string** | Human readable name of the Squadcast integration | 
 

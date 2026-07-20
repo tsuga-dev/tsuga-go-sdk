@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MaxMessages** | **int32** | Maximum number of messages allowed during the rate-limiting window | 
-**Minutes** | **int32** | Length of the rate-limiting window in minutes | 
+**MaxMessages** | **int32** | Maximum number of notifications this target can send during the rate-limiting window. The ratio of &#x60;maxMessages&#x60; to &#x60;minutes&#x60; cannot exceed 100 notifications per minute. | 
+**Minutes** | **int32** | Length of the rate-limiting window, in minutes. The ratio of &#x60;maxMessages&#x60; to &#x60;minutes&#x60; cannot exceed 100 notifications per minute. | 
 
 ## Methods
 

@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	createTeamRequest := *openapiclient.NewCreateTeamRequest("Name_example", "Visibility_example") // CreateTeamRequest | 
+	createTeamRequest := *openapiclient.NewCreateTeamRequest("Name_example", "Visibility_example") // CreateTeamRequest | Team create or update request. Provide the team name, optional description, visibility, and tags.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -58,7 +58,7 @@ Other parameters are passed through a pointer to a apiCreateTeamRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createTeamRequest** | [**CreateTeamRequest**](CreateTeamRequest.md) |  | 
+ **createTeamRequest** | [**CreateTeamRequest**](CreateTeamRequest.md) | Team create or update request. Provide the team name, optional description, visibility, and tags. | 
 
 ### Return type
 
@@ -99,7 +99,7 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | Identifier of the team to delete. Use the `id` returned by team list, create, or update responses.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -119,7 +119,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | Identifier of the team to delete. Use the &#x60;id&#x60; returned by team list, create, or update responses. | 
 
 ### Other Parameters
 
@@ -169,7 +169,7 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | Identifier of the team to retrieve. Use the `id` returned by team list or create responses.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -189,7 +189,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | Identifier of the team to retrieve. Use the &#x60;id&#x60; returned by team list or create responses. | 
 
 ### Other Parameters
 
@@ -239,8 +239,8 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 | The maximum number of items to return (optional)
-	offset := int32(56) // int32 | The offset of the first item to return (optional)
+	limit := int32(56) // int32 | Maximum number of items to return in this page. Valid values are 1 through 1000. (optional)
+	offset := int32(56) // int32 | Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -265,8 +265,8 @@ Other parameters are passed through a pointer to a apiListTeamsRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | The maximum number of items to return | 
- **offset** | **int32** | The offset of the first item to return | 
+ **limit** | **int32** | Maximum number of items to return in this page. Valid values are 1 through 1000. | 
+ **offset** | **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | 
 
 ### Return type
 
@@ -307,8 +307,8 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
-	createTeamRequest := *openapiclient.NewCreateTeamRequest("Name_example", "Visibility_example") // CreateTeamRequest | 
+	id := "id_example" // string | Identifier of the team to update. Use the `id` returned by team list, get, or create responses.
+	createTeamRequest := *openapiclient.NewCreateTeamRequest("Name_example", "Visibility_example") // CreateTeamRequest | Team create or update request. Provide the team name, optional description, visibility, and tags.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -328,7 +328,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | Identifier of the team to update. Use the &#x60;id&#x60; returned by team list, get, or create responses. | 
 
 ### Other Parameters
 
@@ -338,7 +338,7 @@ Other parameters are passed through a pointer to a apiUpdateTeamRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **createTeamRequest** | [**CreateTeamRequest**](CreateTeamRequest.md) |  | 
+ **createTeamRequest** | [**CreateTeamRequest**](CreateTeamRequest.md) | Team create or update request. Provide the team name, optional description, visibility, and tags. | 
 
 ### Return type
 

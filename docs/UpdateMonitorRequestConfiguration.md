@@ -4,24 +4,24 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
-**Conditions** | [**[]InputMonitorConfigurationMetricConditionsInner**](InputMonitorConfigurationMetricConditionsInner.md) |  | 
-**NoDataBehavior** | **string** |  | 
-**Timeframe** | **float32** | Timeframe of the monitor in minutes | 
+**Type** | **string** | Threshold monitor over metric aggregations. | 
+**Conditions** | [**[]InputMonitorConfigurationMetricConditionsInner**](InputMonitorConfigurationMetricConditionsInner.md) | Threshold conditions evaluated against query and formula results. Provide at least one condition and no more than five conditions. | 
+**NoDataBehavior** | **string** | Certificate expiry monitors resolve when matching certificate data disappears. | 
+**Timeframe** | **float32** | Lookback window, in minutes, that each anomaly monitor evaluation aggregates over. Valid input is 5 through 1440 minutes. | 
 **GroupByFields** | [**[]InputMonitorConfigurationMetricGroupByFieldsInner**](InputMonitorConfigurationMetricGroupByFieldsInner.md) | Monitor group by configuration. Warning! Note that the limit setting is currently ignored. | 
-**AggregationAlertLogic** | **string** |  | 
-**ProportionAlertThreshold** | Pointer to **int32** |  | [optional] 
-**Queries** | [**[]MonitorAggregationQuery1**](MonitorAggregationQuery1.md) | Aggregations that may be combined together in the same query | 
+**AggregationAlertLogic** | **string** | Certificate expiry monitors alert independently for each certificate. | 
+**ProportionAlertThreshold** | Pointer to **int32** | Percentage threshold used when &#x60;aggregationAlertLogic&#x60; is &#x60;proportion&#x60;. Valid values are 1 through 99. | [optional] 
+**Queries** | [**[]MonitorAggregationQuery1**](MonitorAggregationQuery1.md) | Aggregation queries used by alerting and SLO evaluation. Each query is referenced from formulas as q1, q2, and so on. | 
 **Condition** | [**InputMonitorConfigurationAnomalyLogCondition**](InputMonitorConfigurationAnomalyLogCondition.md) |  | 
-**Filter** | [**MonitorConfigurationLogErrorPatternFilter**](MonitorConfigurationLogErrorPatternFilter.md) |  | 
-**WarnBeforeInDays** | **int32** |  | 
-**CloudAccounts** | Pointer to **[]string** |  | [optional] 
+**Filter** | [**InputMonitorConfigurationLogErrorPatternFilter**](InputMonitorConfigurationLogErrorPatternFilter.md) |  | 
+**WarnBeforeInDays** | **int32** | Number of days before certificate expiry when the monitor should warn. Valid values are 1 through 365. | 
+**CloudAccounts** | Pointer to **[]string** | Cloud account IDs whose certificates are checked. Omit to check certificates from all cloud accounts. | [optional] 
 
 ## Methods
 
 ### NewUpdateMonitorRequestConfiguration
 
-`func NewUpdateMonitorRequestConfiguration(type_ string, conditions []InputMonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe float32, groupByFields []InputMonitorConfigurationMetricGroupByFieldsInner, aggregationAlertLogic string, queries []MonitorAggregationQuery1, condition InputMonitorConfigurationAnomalyLogCondition, filter MonitorConfigurationLogErrorPatternFilter, warnBeforeInDays int32, ) *UpdateMonitorRequestConfiguration`
+`func NewUpdateMonitorRequestConfiguration(type_ string, conditions []InputMonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe float32, groupByFields []InputMonitorConfigurationMetricGroupByFieldsInner, aggregationAlertLogic string, queries []MonitorAggregationQuery1, condition InputMonitorConfigurationAnomalyLogCondition, filter InputMonitorConfigurationLogErrorPatternFilter, warnBeforeInDays int32, ) *UpdateMonitorRequestConfiguration`
 
 NewUpdateMonitorRequestConfiguration instantiates a new UpdateMonitorRequestConfiguration object
 This constructor will assign default values to properties that have it defined,
@@ -223,20 +223,20 @@ SetCondition sets Condition field to given value.
 
 ### GetFilter
 
-`func (o *UpdateMonitorRequestConfiguration) GetFilter() MonitorConfigurationLogErrorPatternFilter`
+`func (o *UpdateMonitorRequestConfiguration) GetFilter() InputMonitorConfigurationLogErrorPatternFilter`
 
 GetFilter returns the Filter field if non-nil, zero value otherwise.
 
 ### GetFilterOk
 
-`func (o *UpdateMonitorRequestConfiguration) GetFilterOk() (*MonitorConfigurationLogErrorPatternFilter, bool)`
+`func (o *UpdateMonitorRequestConfiguration) GetFilterOk() (*InputMonitorConfigurationLogErrorPatternFilter, bool)`
 
 GetFilterOk returns a tuple with the Filter field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFilter
 
-`func (o *UpdateMonitorRequestConfiguration) SetFilter(v MonitorConfigurationLogErrorPatternFilter)`
+`func (o *UpdateMonitorRequestConfiguration) SetFilter(v InputMonitorConfigurationLogErrorPatternFilter)`
 
 SetFilter sets Filter field to given value.
 

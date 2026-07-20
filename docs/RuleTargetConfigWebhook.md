@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
+**Type** | **string** | Webhook target backed by a configured webhook integration. | 
 **IntegrationId** | **string** | Identifier of the webhook integration to use | 
 **IntegrationName** | **string** | Human readable name of the webhook integration | 
 

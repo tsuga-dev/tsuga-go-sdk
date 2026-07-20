@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
+**Type** | **string** | Grafana IRM target backed by a configured Grafana IRM integration. | 
 **IntegrationId** | **string** | Identifier of the Grafana IRM integration to use | 
 **IntegrationName** | **string** | Human readable name of the Grafana IRM integration | 
 

@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Fields** | **[]string** |  | 
-**Limit** | **float32** |  | 
+**Fields** | **[]string** | Telemetry attribute names used to group aggregation results. | 
+**Limit** | **float32** | Maximum number of distinct values of &#x60;fields&#x60; returned for this grouping level, ranked by aggregate value. Groups beyond the limit are truncated, not merged into an \&quot;other\&quot; group. | 
+**SortOrder** | Pointer to **string** | Sort direction applied to groups: ascending or descending. | [optional] 
+**ReplaceNullWith** | Pointer to **string** | Value used to group documents that have no value for a grouped field. | [optional] 
 
 ## Methods
 
@@ -65,6 +67,56 @@ and a boolean to check if the value has been set.
 
 SetLimit sets Limit field to given value.
 
+
+### GetSortOrder
+
+`func (o *AggregationGroupBy) GetSortOrder() string`
+
+GetSortOrder returns the SortOrder field if non-nil, zero value otherwise.
+
+### GetSortOrderOk
+
+`func (o *AggregationGroupBy) GetSortOrderOk() (*string, bool)`
+
+GetSortOrderOk returns a tuple with the SortOrder field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSortOrder
+
+`func (o *AggregationGroupBy) SetSortOrder(v string)`
+
+SetSortOrder sets SortOrder field to given value.
+
+### HasSortOrder
+
+`func (o *AggregationGroupBy) HasSortOrder() bool`
+
+HasSortOrder returns a boolean if a field has been set.
+
+### GetReplaceNullWith
+
+`func (o *AggregationGroupBy) GetReplaceNullWith() string`
+
+GetReplaceNullWith returns the ReplaceNullWith field if non-nil, zero value otherwise.
+
+### GetReplaceNullWithOk
+
+`func (o *AggregationGroupBy) GetReplaceNullWithOk() (*string, bool)`
+
+GetReplaceNullWithOk returns a tuple with the ReplaceNullWith field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReplaceNullWith
+
+`func (o *AggregationGroupBy) SetReplaceNullWith(v string)`
+
+SetReplaceNullWith sets ReplaceNullWith field to given value.
+
+### HasReplaceNullWith
+
+`func (o *AggregationGroupBy) HasReplaceNullWith() bool`
+
+HasReplaceNullWith returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

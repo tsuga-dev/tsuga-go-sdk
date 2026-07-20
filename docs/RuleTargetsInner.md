@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | Identifier of the notification target | 
+**Id** | **string** | Identifier of the notification target within this rule. Set by the rule author and used with the rule ID for per-target delivery state such as rate limiting. | 
 **RateLimit** | Pointer to [**RuleTargetsInnerRateLimit**](RuleTargetsInnerRateLimit.md) |  | [optional] 
 **RenotifyConfig** | Pointer to [**RuleTargetsInnerRenotifyConfig**](RuleTargetsInnerRenotifyConfig.md) |  | [optional] 
 **Config** | [**RuleTargetsInnerConfig**](RuleTargetsInnerConfig.md) |  | 

@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -15,12 +15,13 @@ import (
 	"fmt"
 )
 
-// CreateNotificationRuleRequestTargetsInnerConfig - Configuration describing how the alert should be delivered
+// CreateNotificationRuleRequestTargetsInnerConfig - Destination that should receive the notification. The `type` field discriminates the variant: `email` sends directly to the listed addresses and needs no integration; every other type routes through the integration identified by `integrationId`, which must already exist (create it first with the notification integration endpoints).
 type CreateNotificationRuleRequestTargetsInnerConfig struct {
 	RuleTargetInputEmail          *RuleTargetInputEmail
 	RuleTargetInputGoogleChat     *RuleTargetInputGoogleChat
 	RuleTargetInputGrafanaIrm     *RuleTargetInputGrafanaIrm
 	RuleTargetInputIncidentIo     *RuleTargetInputIncidentIo
+	RuleTargetInputJira           *RuleTargetInputJira
 	RuleTargetInputMicrosoftTeams *RuleTargetInputMicrosoftTeams
 	RuleTargetInputPagerDuty      *RuleTargetInputPagerDuty
 	RuleTargetInputServiceNow     *RuleTargetInputServiceNow
@@ -54,6 +55,13 @@ func RuleTargetInputGrafanaIrmAsCreateNotificationRuleRequestTargetsInnerConfig(
 func RuleTargetInputIncidentIoAsCreateNotificationRuleRequestTargetsInnerConfig(v *RuleTargetInputIncidentIo) CreateNotificationRuleRequestTargetsInnerConfig {
 	return CreateNotificationRuleRequestTargetsInnerConfig{
 		RuleTargetInputIncidentIo: v,
+	}
+}
+
+// RuleTargetInputJiraAsCreateNotificationRuleRequestTargetsInnerConfig is a convenience function that returns RuleTargetInputJira wrapped in CreateNotificationRuleRequestTargetsInnerConfig
+func RuleTargetInputJiraAsCreateNotificationRuleRequestTargetsInnerConfig(v *RuleTargetInputJira) CreateNotificationRuleRequestTargetsInnerConfig {
+	return CreateNotificationRuleRequestTargetsInnerConfig{
+		RuleTargetInputJira: v,
 	}
 }
 
@@ -157,6 +165,18 @@ func (dst *CreateNotificationRuleRequestTargetsInnerConfig) UnmarshalJSON(data [
 		}
 	}
 
+	// check if the discriminator value is 'jira'
+	if jsonDict["type"] == "jira" {
+		// try to unmarshal JSON data into RuleTargetInputJira
+		err = json.Unmarshal(data, &dst.RuleTargetInputJira)
+		if err == nil {
+			return nil // data stored in dst.RuleTargetInputJira, return on the first match
+		} else {
+			dst.RuleTargetInputJira = nil
+			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTargetsInnerConfig as RuleTargetInputJira: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'microsoft-teams'
 	if jsonDict["type"] == "microsoft-teams" {
 		// try to unmarshal JSON data into RuleTargetInputMicrosoftTeams
@@ -250,6 +270,10 @@ func (src CreateNotificationRuleRequestTargetsInnerConfig) MarshalJSON() ([]byte
 		return json.Marshal(&src.RuleTargetInputIncidentIo)
 	}
 
+	if src.RuleTargetInputJira != nil {
+		return json.Marshal(&src.RuleTargetInputJira)
+	}
+
 	if src.RuleTargetInputMicrosoftTeams != nil {
 		return json.Marshal(&src.RuleTargetInputMicrosoftTeams)
 	}
@@ -298,6 +322,10 @@ func (obj *CreateNotificationRuleRequestTargetsInnerConfig) GetActualInstance() 
 		return obj.RuleTargetInputIncidentIo
 	}
 
+	if obj.RuleTargetInputJira != nil {
+		return obj.RuleTargetInputJira
+	}
+
 	if obj.RuleTargetInputMicrosoftTeams != nil {
 		return obj.RuleTargetInputMicrosoftTeams
 	}
@@ -342,6 +370,10 @@ func (obj CreateNotificationRuleRequestTargetsInnerConfig) GetActualInstanceValu
 
 	if obj.RuleTargetInputIncidentIo != nil {
 		return *obj.RuleTargetInputIncidentIo
+	}
+
+	if obj.RuleTargetInputJira != nil {
+		return *obj.RuleTargetInputJira
 	}
 
 	if obj.RuleTargetInputMicrosoftTeams != nil {

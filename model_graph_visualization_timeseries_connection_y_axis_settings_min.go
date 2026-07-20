@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -15,7 +15,7 @@ import (
 	"fmt"
 )
 
-// GraphVisualizationTimeseriesConnectionYAxisSettingsMin - struct for GraphVisualizationTimeseriesConnectionYAxisSettingsMin
+// GraphVisualizationTimeseriesConnectionYAxisSettingsMin - Axis bound mode: automatic or fixed numeric value
 type GraphVisualizationTimeseriesConnectionYAxisSettingsMin struct {
 	GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf  *GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf
 	GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1 *GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1

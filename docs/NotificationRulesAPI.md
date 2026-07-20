@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	createNotificationRuleRequest := *openapiclient.NewCreateNotificationRuleRequest("Name_example", openapiclient.createNotificationRule_request_teamsFilter{CreateNotificationRuleRequestTeamsFilterOneOf: openapiclient.NewCreateNotificationRuleRequestTeamsFilterOneOf("Type_example", []string{"Teams_example"})}, []float32{float32(123)}, []string{"TransitionTypesFilter_example"}, "Owner_example", false, []openapiclient.CreateNotificationRuleRequestTargetsInner{*openapiclient.NewCreateNotificationRuleRequestTargetsInner("Id_example", openapiclient.createNotificationRule_request_targets_inner_config{RuleTargetInputEmail: openapiclient.NewRuleTargetInputEmail("Type_example", []string{"Addresses_example"})})}) // CreateNotificationRuleRequest | 
+	createNotificationRuleRequest := *openapiclient.NewCreateNotificationRuleRequest("Name_example", openapiclient.createNotificationRule_request_teamsFilter{AllPublicTeams: openapiclient.NewAllPublicTeams("Type_example")}, []float32{float32(123)}, []string{"TransitionTypesFilter_example"}, "Owner_example", false, []openapiclient.CreateNotificationRuleRequestTargetsInner{*openapiclient.NewCreateNotificationRuleRequestTargetsInner("Id_example", openapiclient.createNotificationRule_request_targets_inner_config{RuleTargetInputEmail: openapiclient.NewRuleTargetInputEmail("Type_example", []string{"Addresses_example"})})}) // CreateNotificationRuleRequest | Notification rule create or update request. Provide matching filters, owner, tags, active state, and delivery targets.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -58,7 +58,7 @@ Other parameters are passed through a pointer to a apiCreateNotificationRuleRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createNotificationRuleRequest** | [**CreateNotificationRuleRequest**](CreateNotificationRuleRequest.md) |  | 
+ **createNotificationRuleRequest** | [**CreateNotificationRuleRequest**](CreateNotificationRuleRequest.md) | Notification rule create or update request. Provide matching filters, owner, tags, active state, and delivery targets. | 
 
 ### Return type
 
@@ -99,7 +99,7 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The notification rule ID to delete
+	id := "id_example" // string | Identifier of the notification rule to delete. Use the `id` returned by notification rule list, get, create, or update responses.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -119,7 +119,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The notification rule ID to delete | 
+**id** | **string** | Identifier of the notification rule to delete. Use the &#x60;id&#x60; returned by notification rule list, get, create, or update responses. | 
 
 ### Other Parameters
 
@@ -169,7 +169,7 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | Identifier of the notification rule to retrieve. Use the `id` returned by notification rule list or create responses.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -189,7 +189,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | Identifier of the notification rule to retrieve. Use the &#x60;id&#x60; returned by notification rule list or create responses. | 
 
 ### Other Parameters
 
@@ -239,8 +239,8 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 | The maximum number of items to return (optional)
-	offset := int32(56) // int32 | The offset of the first item to return (optional)
+	limit := int32(56) // int32 | Maximum number of items to return in this page. Valid values are 1 through 1000. (optional)
+	offset := int32(56) // int32 | Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -265,8 +265,8 @@ Other parameters are passed through a pointer to a apiListNotificationRulesReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | The maximum number of items to return | 
- **offset** | **int32** | The offset of the first item to return | 
+ **limit** | **int32** | Maximum number of items to return in this page. Valid values are 1 through 1000. | 
+ **offset** | **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | 
 
 ### Return type
 
@@ -288,7 +288,7 @@ Name | Type | Description  | Notes
 
 ## UpdateNotificationRule
 
-> UpdateNotificationRuleResponse UpdateNotificationRule(ctx, id).CreateNotificationRuleRequest(createNotificationRuleRequest).Execute()
+> UpdateNotificationRuleResponse UpdateNotificationRule(ctx, id).UpdateNotificationRuleRequest(updateNotificationRuleRequest).Execute()
 
 
 
@@ -307,12 +307,12 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
-	createNotificationRuleRequest := *openapiclient.NewCreateNotificationRuleRequest("Name_example", openapiclient.createNotificationRule_request_teamsFilter{CreateNotificationRuleRequestTeamsFilterOneOf: openapiclient.NewCreateNotificationRuleRequestTeamsFilterOneOf("Type_example", []string{"Teams_example"})}, []float32{float32(123)}, []string{"TransitionTypesFilter_example"}, "Owner_example", false, []openapiclient.CreateNotificationRuleRequestTargetsInner{*openapiclient.NewCreateNotificationRuleRequestTargetsInner("Id_example", openapiclient.createNotificationRule_request_targets_inner_config{RuleTargetInputEmail: openapiclient.NewRuleTargetInputEmail("Type_example", []string{"Addresses_example"})})}) // CreateNotificationRuleRequest | 
+	id := "id_example" // string | Identifier of the notification rule to update. Use the `id` returned by notification rule list, get, or create responses.
+	updateNotificationRuleRequest := *openapiclient.NewUpdateNotificationRuleRequest("Name_example", openapiclient.createNotificationRule_request_teamsFilter{AllPublicTeams: openapiclient.NewAllPublicTeams("Type_example")}, []float32{float32(123)}, []string{"TransitionTypesFilter_example"}, "Owner_example", false, []openapiclient.CreateNotificationRuleRequestTargetsInner{*openapiclient.NewCreateNotificationRuleRequestTargetsInner("Id_example", openapiclient.createNotificationRule_request_targets_inner_config{RuleTargetInputEmail: openapiclient.NewRuleTargetInputEmail("Type_example", []string{"Addresses_example"})})}) // UpdateNotificationRuleRequest | Notification rule create or update request. Provide matching filters, owner, tags, active state, and delivery targets.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NotificationRulesAPI.UpdateNotificationRule(context.Background(), id).CreateNotificationRuleRequest(createNotificationRuleRequest).Execute()
+	resp, r, err := apiClient.NotificationRulesAPI.UpdateNotificationRule(context.Background(), id).UpdateNotificationRuleRequest(updateNotificationRuleRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NotificationRulesAPI.UpdateNotificationRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -328,7 +328,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | Identifier of the notification rule to update. Use the &#x60;id&#x60; returned by notification rule list, get, or create responses. | 
 
 ### Other Parameters
 
@@ -338,7 +338,7 @@ Other parameters are passed through a pointer to a apiUpdateNotificationRuleRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **createNotificationRuleRequest** | [**CreateNotificationRuleRequest**](CreateNotificationRuleRequest.md) |  | 
+ **updateNotificationRuleRequest** | [**UpdateNotificationRuleRequest**](UpdateNotificationRuleRequest.md) | Notification rule create or update request. Provide matching filters, owner, tags, active state, and delivery targets. | 
 
 ### Return type
 

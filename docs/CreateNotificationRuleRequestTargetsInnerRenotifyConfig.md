@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Mode** | **string** |  | 
-**RenotificationStates** | **[]string** | Alert states that will trigger a renotification | 
-**RenotifyIntervalMinutes** | **int32** | Minimum number of minutes to wait before renotifying | 
+**Mode** | **string** | Renotification mode. &#x60;each&#x60; sends repeat notifications for each matching monitor alert that remains in a configured state. | 
+**RenotificationStates** | **[]string** | Monitor alert states that trigger repeat notifications while the target remains configured for renotification. | 
+**RenotifyIntervalMinutes** | **int32** | Minimum number of minutes to wait after the previous notification. | 
 
 ## Methods
 

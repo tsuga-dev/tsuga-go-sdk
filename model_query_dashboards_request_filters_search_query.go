@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -18,8 +18,9 @@ import (
 // checks if the QueryDashboardsRequestFiltersSearchQuery type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &QueryDashboardsRequestFiltersSearchQuery{}
 
-// QueryDashboardsRequestFiltersSearchQuery Substring matched against the dashboard name
+// QueryDashboardsRequestFiltersSearchQuery Text filter for dashboard names or IDs. Set by the caller in dashboard query requests. Optional; `exclude: true` returns dashboards whose name and ID do not match the substring.
 type QueryDashboardsRequestFiltersSearchQuery struct {
+	// Substring matched case-insensitively against dashboard names or dashboard IDs. Set by the caller in dashboard query requests. Optional; omit to avoid text filtering.
 	Value string `json:"value"`
 	// If true, exclude dashboards matching this value instead of including them
 	Exclude              *bool `json:"exclude,omitempty"`

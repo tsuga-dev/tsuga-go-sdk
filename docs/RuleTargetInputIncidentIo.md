@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
+**Type** | **string** | incident.io target backed by a configured incident.io integration. | 
 **IntegrationId** | **string** | Identifier of the incident.io integration to use | 
 
 ## Methods

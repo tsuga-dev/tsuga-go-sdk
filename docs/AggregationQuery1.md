@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Aggregate** | [**InputAggregate**](InputAggregate.md) |  | 
-**Functions** | Pointer to [**[]InputFunction**](InputFunction.md) | Post-processing functions applied to aggregation results | [optional] 
+**Functions** | Pointer to [**[]InputFunction**](InputFunction.md) | Post-processing functions applied to aggregation results. Defaults to an empty array when omitted. Limited to 10 items. | [optional] 
 **Fill** | Pointer to [**MonitorAggregationQueryFill**](MonitorAggregationQueryFill.md) |  | [optional] 
-**Filter** | Pointer to **string** | Filter to apply to the aggregation | [optional] 
+**Filter** | Pointer to **string** | Tsuga query filter to apply to the aggregation. Defaults to an empty string when omitted. | [optional] 
 
 ## Methods
 

@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -25,7 +25,8 @@ type ClientErrorResponse struct {
 	// Human readable explanation of the error
 	Message string `json:"message"`
 	// HTTP status code that was returned
-	StatusCode           float32 `json:"statusCode"`
+	StatusCode           float32                    `json:"statusCode"`
+	Details              *TagPolicyViolationDetails `json:"details,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -130,6 +131,38 @@ func (o *ClientErrorResponse) SetStatusCode(v float32) {
 	o.StatusCode = v
 }
 
+// GetDetails returns the Details field value if set, zero value otherwise.
+func (o *ClientErrorResponse) GetDetails() TagPolicyViolationDetails {
+	if o == nil || IsNil(o.Details) {
+		var ret TagPolicyViolationDetails
+		return ret
+	}
+	return *o.Details
+}
+
+// GetDetailsOk returns a tuple with the Details field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ClientErrorResponse) GetDetailsOk() (*TagPolicyViolationDetails, bool) {
+	if o == nil || IsNil(o.Details) {
+		return nil, false
+	}
+	return o.Details, true
+}
+
+// HasDetails returns a boolean if a field has been set.
+func (o *ClientErrorResponse) HasDetails() bool {
+	if o != nil && !IsNil(o.Details) {
+		return true
+	}
+
+	return false
+}
+
+// SetDetails gets a reference to the given TagPolicyViolationDetails and assigns it to the Details field.
+func (o *ClientErrorResponse) SetDetails(v TagPolicyViolationDetails) {
+	o.Details = &v
+}
+
 func (o ClientErrorResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -145,6 +178,9 @@ func (o ClientErrorResponse) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["message"] = o.Message
 	toSerialize["statusCode"] = o.StatusCode
+	if !IsNil(o.Details) {
+		toSerialize["details"] = o.Details
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -192,6 +228,7 @@ func (o *ClientErrorResponse) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "code")
 		delete(additionalProperties, "message")
 		delete(additionalProperties, "statusCode")
+		delete(additionalProperties, "details")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TeamIds** | **[]string** |  | 
-**Mode** | **string** |  | 
+**TeamIds** | **[]string** | Team IDs used by this policy scope. | 
+**Mode** | **string** | &#x60;include&#x60; applies the policy only to listed teams. &#x60;exclude&#x60; applies it to all teams except the listed teams. | 
 
 ## Methods
 

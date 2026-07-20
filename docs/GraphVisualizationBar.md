@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a bar chart | 
-**Source** | **string** | Data source being queried for this aggregation | 
-**Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query | 
-**Formula** | Pointer to **string** | Formula referencing query outputs (e.g. q1+q2) to compute derived series | [optional] 
-**Aliases** | Pointer to [**GraphVisualizationTimeseriesAliases**](GraphVisualizationTimeseriesAliases.md) |  | [optional] 
+**Source** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, &#x60;traces&#x60;, or &#x60;rum&#x60;. | 
+**Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. | 
+**Formula** | Pointer to **string** | Formula referencing submitted query outputs, such as &#x60;q1 + q2&#x60;. References must be within &#x60;q1&#x60; through &#x60;qN&#x60; for the submitted queries. | [optional] 
+**Aliases** | Pointer to [**GraphVisualizationTimeseriesPromqlAliases**](GraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
-**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
-**TimeBucket** | Pointer to [**GraphVisualizationTimeseriesTimeBucket**](GraphVisualizationTimeseriesTimeBucket.md) |  | [optional] 
+**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values. | [optional] 
+**TimeBucket** | Pointer to [**GraphVisualizationTimeseriesPromqlTimeBucket**](GraphVisualizationTimeseriesPromqlTimeBucket.md) |  | [optional] 
 **Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 **Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
@@ -124,20 +124,20 @@ HasFormula returns a boolean if a field has been set.
 
 ### GetAliases
 
-`func (o *GraphVisualizationBar) GetAliases() GraphVisualizationTimeseriesAliases`
+`func (o *GraphVisualizationBar) GetAliases() GraphVisualizationTimeseriesPromqlAliases`
 
 GetAliases returns the Aliases field if non-nil, zero value otherwise.
 
 ### GetAliasesOk
 
-`func (o *GraphVisualizationBar) GetAliasesOk() (*GraphVisualizationTimeseriesAliases, bool)`
+`func (o *GraphVisualizationBar) GetAliasesOk() (*GraphVisualizationTimeseriesPromqlAliases, bool)`
 
 GetAliasesOk returns a tuple with the Aliases field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAliases
 
-`func (o *GraphVisualizationBar) SetAliases(v GraphVisualizationTimeseriesAliases)`
+`func (o *GraphVisualizationBar) SetAliases(v GraphVisualizationTimeseriesPromqlAliases)`
 
 SetAliases sets Aliases field to given value.
 
@@ -199,20 +199,20 @@ HasGroupBy returns a boolean if a field has been set.
 
 ### GetTimeBucket
 
-`func (o *GraphVisualizationBar) GetTimeBucket() GraphVisualizationTimeseriesTimeBucket`
+`func (o *GraphVisualizationBar) GetTimeBucket() GraphVisualizationTimeseriesPromqlTimeBucket`
 
 GetTimeBucket returns the TimeBucket field if non-nil, zero value otherwise.
 
 ### GetTimeBucketOk
 
-`func (o *GraphVisualizationBar) GetTimeBucketOk() (*GraphVisualizationTimeseriesTimeBucket, bool)`
+`func (o *GraphVisualizationBar) GetTimeBucketOk() (*GraphVisualizationTimeseriesPromqlTimeBucket, bool)`
 
 GetTimeBucketOk returns a tuple with the TimeBucket field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeBucket
 
-`func (o *GraphVisualizationBar) SetTimeBucket(v GraphVisualizationTimeseriesTimeBucket)`
+`func (o *GraphVisualizationBar) SetTimeBucket(v GraphVisualizationTimeseriesPromqlTimeBucket)`
 
 SetTimeBucket sets TimeBucket field to given value.
 

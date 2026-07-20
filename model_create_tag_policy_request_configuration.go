@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -15,23 +15,23 @@ import (
 	"fmt"
 )
 
-// CreateTagPolicyRequestConfiguration - struct for CreateTagPolicyRequestConfiguration
+// CreateTagPolicyRequestConfiguration - Policy surface and enforcement behavior. Use `telemetry` for telemetry data or `tsuga_asset` for Tsuga-managed resources.
 type CreateTagPolicyRequestConfiguration struct {
-	CreateTagPolicyRequestConfigurationOneOf  *CreateTagPolicyRequestConfigurationOneOf
-	CreateTagPolicyRequestConfigurationOneOf1 *CreateTagPolicyRequestConfigurationOneOf1
+	TelemetryTagPolicy  *TelemetryTagPolicy
+	TsugaAssetTagPolicy *TsugaAssetTagPolicy
 }
 
-// CreateTagPolicyRequestConfigurationOneOfAsCreateTagPolicyRequestConfiguration is a convenience function that returns CreateTagPolicyRequestConfigurationOneOf wrapped in CreateTagPolicyRequestConfiguration
-func CreateTagPolicyRequestConfigurationOneOfAsCreateTagPolicyRequestConfiguration(v *CreateTagPolicyRequestConfigurationOneOf) CreateTagPolicyRequestConfiguration {
+// TelemetryTagPolicyAsCreateTagPolicyRequestConfiguration is a convenience function that returns TelemetryTagPolicy wrapped in CreateTagPolicyRequestConfiguration
+func TelemetryTagPolicyAsCreateTagPolicyRequestConfiguration(v *TelemetryTagPolicy) CreateTagPolicyRequestConfiguration {
 	return CreateTagPolicyRequestConfiguration{
-		CreateTagPolicyRequestConfigurationOneOf: v,
+		TelemetryTagPolicy: v,
 	}
 }
 
-// CreateTagPolicyRequestConfigurationOneOf1AsCreateTagPolicyRequestConfiguration is a convenience function that returns CreateTagPolicyRequestConfigurationOneOf1 wrapped in CreateTagPolicyRequestConfiguration
-func CreateTagPolicyRequestConfigurationOneOf1AsCreateTagPolicyRequestConfiguration(v *CreateTagPolicyRequestConfigurationOneOf1) CreateTagPolicyRequestConfiguration {
+// TsugaAssetTagPolicyAsCreateTagPolicyRequestConfiguration is a convenience function that returns TsugaAssetTagPolicy wrapped in CreateTagPolicyRequestConfiguration
+func TsugaAssetTagPolicyAsCreateTagPolicyRequestConfiguration(v *TsugaAssetTagPolicy) CreateTagPolicyRequestConfiguration {
 	return CreateTagPolicyRequestConfiguration{
-		CreateTagPolicyRequestConfigurationOneOf1: v,
+		TsugaAssetTagPolicy: v,
 	}
 }
 
@@ -45,27 +45,27 @@ func (dst *CreateTagPolicyRequestConfiguration) UnmarshalJSON(data []byte) error
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'createTagPolicy_request_configuration_oneOf'
-	if jsonDict["type"] == "createTagPolicy_request_configuration_oneOf" {
-		// try to unmarshal JSON data into CreateTagPolicyRequestConfigurationOneOf
-		err = json.Unmarshal(data, &dst.CreateTagPolicyRequestConfigurationOneOf)
+	// check if the discriminator value is 'TelemetryTagPolicy'
+	if jsonDict["type"] == "TelemetryTagPolicy" {
+		// try to unmarshal JSON data into TelemetryTagPolicy
+		err = json.Unmarshal(data, &dst.TelemetryTagPolicy)
 		if err == nil {
-			return nil // data stored in dst.CreateTagPolicyRequestConfigurationOneOf, return on the first match
+			return nil // data stored in dst.TelemetryTagPolicy, return on the first match
 		} else {
-			dst.CreateTagPolicyRequestConfigurationOneOf = nil
-			return fmt.Errorf("failed to unmarshal CreateTagPolicyRequestConfiguration as CreateTagPolicyRequestConfigurationOneOf: %s", err.Error())
+			dst.TelemetryTagPolicy = nil
+			return fmt.Errorf("failed to unmarshal CreateTagPolicyRequestConfiguration as TelemetryTagPolicy: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'createTagPolicy_request_configuration_oneOf_1'
-	if jsonDict["type"] == "createTagPolicy_request_configuration_oneOf_1" {
-		// try to unmarshal JSON data into CreateTagPolicyRequestConfigurationOneOf1
-		err = json.Unmarshal(data, &dst.CreateTagPolicyRequestConfigurationOneOf1)
+	// check if the discriminator value is 'TsugaAssetTagPolicy'
+	if jsonDict["type"] == "TsugaAssetTagPolicy" {
+		// try to unmarshal JSON data into TsugaAssetTagPolicy
+		err = json.Unmarshal(data, &dst.TsugaAssetTagPolicy)
 		if err == nil {
-			return nil // data stored in dst.CreateTagPolicyRequestConfigurationOneOf1, return on the first match
+			return nil // data stored in dst.TsugaAssetTagPolicy, return on the first match
 		} else {
-			dst.CreateTagPolicyRequestConfigurationOneOf1 = nil
-			return fmt.Errorf("failed to unmarshal CreateTagPolicyRequestConfiguration as CreateTagPolicyRequestConfigurationOneOf1: %s", err.Error())
+			dst.TsugaAssetTagPolicy = nil
+			return fmt.Errorf("failed to unmarshal CreateTagPolicyRequestConfiguration as TsugaAssetTagPolicy: %s", err.Error())
 		}
 	}
 
@@ -74,12 +74,12 @@ func (dst *CreateTagPolicyRequestConfiguration) UnmarshalJSON(data []byte) error
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src CreateTagPolicyRequestConfiguration) MarshalJSON() ([]byte, error) {
-	if src.CreateTagPolicyRequestConfigurationOneOf != nil {
-		return json.Marshal(&src.CreateTagPolicyRequestConfigurationOneOf)
+	if src.TelemetryTagPolicy != nil {
+		return json.Marshal(&src.TelemetryTagPolicy)
 	}
 
-	if src.CreateTagPolicyRequestConfigurationOneOf1 != nil {
-		return json.Marshal(&src.CreateTagPolicyRequestConfigurationOneOf1)
+	if src.TsugaAssetTagPolicy != nil {
+		return json.Marshal(&src.TsugaAssetTagPolicy)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -90,12 +90,12 @@ func (obj *CreateTagPolicyRequestConfiguration) GetActualInstance() interface{} 
 	if obj == nil {
 		return nil
 	}
-	if obj.CreateTagPolicyRequestConfigurationOneOf != nil {
-		return obj.CreateTagPolicyRequestConfigurationOneOf
+	if obj.TelemetryTagPolicy != nil {
+		return obj.TelemetryTagPolicy
 	}
 
-	if obj.CreateTagPolicyRequestConfigurationOneOf1 != nil {
-		return obj.CreateTagPolicyRequestConfigurationOneOf1
+	if obj.TsugaAssetTagPolicy != nil {
+		return obj.TsugaAssetTagPolicy
 	}
 
 	// all schemas are nil
@@ -104,12 +104,12 @@ func (obj *CreateTagPolicyRequestConfiguration) GetActualInstance() interface{} 
 
 // Get the actual instance value
 func (obj CreateTagPolicyRequestConfiguration) GetActualInstanceValue() interface{} {
-	if obj.CreateTagPolicyRequestConfigurationOneOf != nil {
-		return *obj.CreateTagPolicyRequestConfigurationOneOf
+	if obj.TelemetryTagPolicy != nil {
+		return *obj.TelemetryTagPolicy
 	}
 
-	if obj.CreateTagPolicyRequestConfigurationOneOf1 != nil {
-		return *obj.CreateTagPolicyRequestConfigurationOneOf1
+	if obj.TsugaAssetTagPolicy != nil {
+		return *obj.TsugaAssetTagPolicy
 	}
 
 	// all schemas are nil

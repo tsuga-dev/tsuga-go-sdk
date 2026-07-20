@@ -4,12 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Display name of the dashboard | 
-**Owner** | **string** | Team ID that owns and manages the dashboard | 
+**Name** | **string** | Display name of the dashboard. Set by the caller on create or update. | 
+**Owner** | **string** | ID of the team that owns the dashboard. Set by the caller on create or update. Required and used for dashboard access control. | 
 **Graphs** | [**[]Graph**](Graph.md) | Ordered widgets that compose the dashboard | 
-**Filters** | Pointer to [**[]CreateDashboardRequestFiltersInner**](CreateDashboardRequestFiltersInner.md) | Filters applied to every widget on the dashboard | [optional] 
-**Tags** | Pointer to [**[]Tag**](Tag.md) | List of key/value tags applied to the resource | [optional] 
-**TimePreset** | Pointer to **string** |  | [optional] 
+**Filters** | Pointer to [**[]UpdateDashboardRequestFiltersInner**](UpdateDashboardRequestFiltersInner.md) | Dashboard-wide filters applied to every widget on the dashboard. Up to 10 filters are allowed. | [optional] 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Up to 50 tags are accepted and tag policies may require specific keys or values. | [optional] 
+**TimePreset** | Pointer to **string** | Relative time preset used when opening the dashboard. Set by the caller or by Tsuga’s default. Optional; create defaults to &#x60;past-30-minutes&#x60; when omitted, and update omission preserves the current value. | [optional] 
+**FolderId** | Pointer to **NullableString** |  | [optional] 
 
 ## Methods
 
@@ -92,20 +93,20 @@ SetGraphs sets Graphs field to given value.
 
 ### GetFilters
 
-`func (o *CreateDashboardRequest) GetFilters() []CreateDashboardRequestFiltersInner`
+`func (o *CreateDashboardRequest) GetFilters() []UpdateDashboardRequestFiltersInner`
 
 GetFilters returns the Filters field if non-nil, zero value otherwise.
 
 ### GetFiltersOk
 
-`func (o *CreateDashboardRequest) GetFiltersOk() (*[]CreateDashboardRequestFiltersInner, bool)`
+`func (o *CreateDashboardRequest) GetFiltersOk() (*[]UpdateDashboardRequestFiltersInner, bool)`
 
 GetFiltersOk returns a tuple with the Filters field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFilters
 
-`func (o *CreateDashboardRequest) SetFilters(v []CreateDashboardRequestFiltersInner)`
+`func (o *CreateDashboardRequest) SetFilters(v []UpdateDashboardRequestFiltersInner)`
 
 SetFilters sets Filters field to given value.
 
@@ -165,6 +166,41 @@ SetTimePreset sets TimePreset field to given value.
 
 HasTimePreset returns a boolean if a field has been set.
 
+### GetFolderId
+
+`func (o *CreateDashboardRequest) GetFolderId() string`
+
+GetFolderId returns the FolderId field if non-nil, zero value otherwise.
+
+### GetFolderIdOk
+
+`func (o *CreateDashboardRequest) GetFolderIdOk() (*string, bool)`
+
+GetFolderIdOk returns a tuple with the FolderId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFolderId
+
+`func (o *CreateDashboardRequest) SetFolderId(v string)`
+
+SetFolderId sets FolderId field to given value.
+
+### HasFolderId
+
+`func (o *CreateDashboardRequest) HasFolderId() bool`
+
+HasFolderId returns a boolean if a field has been set.
+
+### SetFolderIdNil
+
+`func (o *CreateDashboardRequest) SetFolderIdNil(b bool)`
+
+ SetFolderIdNil sets the value for FolderId to be an explicit nil
+
+### UnsetFolderId
+`func (o *CreateDashboardRequest) UnsetFolderId()`
+
+UnsetFolderId ensures that no value is present for FolderId, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

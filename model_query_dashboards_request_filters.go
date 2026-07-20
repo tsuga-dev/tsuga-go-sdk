@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -22,6 +22,7 @@ type QueryDashboardsRequestFilters struct {
 	Owners               *QueryDashboardsRequestFiltersOwners      `json:"owners,omitempty"`
 	SearchQuery          *QueryDashboardsRequestFiltersSearchQuery `json:"searchQuery,omitempty"`
 	Tags                 *QueryDashboardsRequestFiltersTags        `json:"tags,omitempty"`
+	FolderId             NullableString                            `json:"folderId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -140,6 +141,49 @@ func (o *QueryDashboardsRequestFilters) SetTags(v QueryDashboardsRequestFiltersT
 	o.Tags = &v
 }
 
+// GetFolderId returns the FolderId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *QueryDashboardsRequestFilters) GetFolderId() string {
+	if o == nil || IsNil(o.FolderId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.FolderId.Get()
+}
+
+// GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *QueryDashboardsRequestFilters) GetFolderIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.FolderId.Get(), o.FolderId.IsSet()
+}
+
+// HasFolderId returns a boolean if a field has been set.
+func (o *QueryDashboardsRequestFilters) HasFolderId() bool {
+	if o != nil && o.FolderId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetFolderId gets a reference to the given NullableString and assigns it to the FolderId field.
+func (o *QueryDashboardsRequestFilters) SetFolderId(v string) {
+	o.FolderId.Set(&v)
+}
+
+// SetFolderIdNil sets the value for FolderId to be an explicit nil
+func (o *QueryDashboardsRequestFilters) SetFolderIdNil() {
+	o.FolderId.Set(nil)
+}
+
+// UnsetFolderId ensures that no value is present for FolderId, not even an explicit nil
+func (o *QueryDashboardsRequestFilters) UnsetFolderId() {
+	o.FolderId.Unset()
+}
+
 func (o QueryDashboardsRequestFilters) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -158,6 +202,9 @@ func (o QueryDashboardsRequestFilters) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
+	}
+	if o.FolderId.IsSet() {
+		toSerialize["folderId"] = o.FolderId.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -184,6 +231,7 @@ func (o *QueryDashboardsRequestFilters) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "owners")
 		delete(additionalProperties, "searchQuery")
 		delete(additionalProperties, "tags")
+		delete(additionalProperties, "folderId")
 		o.AdditionalProperties = additionalProperties
 	}
 

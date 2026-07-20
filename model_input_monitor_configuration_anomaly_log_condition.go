@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -20,7 +20,9 @@ var _ MappedNullable = &InputMonitorConfigurationAnomalyLogCondition{}
 
 // InputMonitorConfigurationAnomalyLogCondition struct for InputMonitorConfigurationAnomalyLogCondition
 type InputMonitorConfigurationAnomalyLogCondition struct {
-	Formula              string `json:"formula"`
+	// Formula result analyzed for anomalous behavior, usually `q1` or a formula alias.
+	Formula string `json:"formula"`
+	// Anomaly model type used to classify expected behavior: `rate` flags downward anomalies (e.g. count rates), `error` and `cpu` flag upward anomalies (e.g. error counts/rates, CPU usage), and `general` flags both directions. Use `to_be_set` to let Tsuga infer the model type from the monitor query during create or update.
 	ConditionType        string `json:"conditionType"`
 	AdditionalProperties map[string]interface{}
 }

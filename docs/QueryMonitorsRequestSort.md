@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**By** | **string** | Field to sort the returned monitors by | 
-**Direction** | **string** | Sort direction: ascending or descending | 
+**By** | **string** | Field to sort the returned monitors by. For &#x60;priority&#x60;, &#x60;desc&#x60; returns highest-priority monitors first because priority 1 is highest. | 
+**Direction** | **string** | Sort direction. For &#x60;priority&#x60;, &#x60;desc&#x60; returns priority 1 first and &#x60;asc&#x60; returns priority 5 first. | 
 
 ## Methods
 

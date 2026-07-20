@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -24,9 +24,10 @@ type GraphVisualizationTable struct {
 	Type string `json:"type"`
 	// Each column defines an independent aggregation displayed as a table column
 	Columns []TableColumn `json:"columns"`
-	// Fields used to group the results
+	// Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values.
 	GroupBy              []AggregationGroupBy  `json:"groupBy,omitempty"`
 	DefaultSorting       []TableDefaultSorting `json:"defaultSorting,omitempty"`
+	ColumnSizes          map[string]float32    `json:"columnSizes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -163,6 +164,38 @@ func (o *GraphVisualizationTable) SetDefaultSorting(v []TableDefaultSorting) {
 	o.DefaultSorting = v
 }
 
+// GetColumnSizes returns the ColumnSizes field value if set, zero value otherwise.
+func (o *GraphVisualizationTable) GetColumnSizes() map[string]float32 {
+	if o == nil || IsNil(o.ColumnSizes) {
+		var ret map[string]float32
+		return ret
+	}
+	return o.ColumnSizes
+}
+
+// GetColumnSizesOk returns a tuple with the ColumnSizes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationTable) GetColumnSizesOk() (map[string]float32, bool) {
+	if o == nil || IsNil(o.ColumnSizes) {
+		return map[string]float32{}, false
+	}
+	return o.ColumnSizes, true
+}
+
+// HasColumnSizes returns a boolean if a field has been set.
+func (o *GraphVisualizationTable) HasColumnSizes() bool {
+	if o != nil && !IsNil(o.ColumnSizes) {
+		return true
+	}
+
+	return false
+}
+
+// SetColumnSizes gets a reference to the given map[string]float32 and assigns it to the ColumnSizes field.
+func (o *GraphVisualizationTable) SetColumnSizes(v map[string]float32) {
+	o.ColumnSizes = v
+}
+
 func (o GraphVisualizationTable) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -180,6 +213,9 @@ func (o GraphVisualizationTable) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.DefaultSorting) {
 		toSerialize["defaultSorting"] = o.DefaultSorting
+	}
+	if !IsNil(o.ColumnSizes) {
+		toSerialize["columnSizes"] = o.ColumnSizes
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -229,6 +265,7 @@ func (o *GraphVisualizationTable) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "columns")
 		delete(additionalProperties, "groupBy")
 		delete(additionalProperties, "defaultSorting")
+		delete(additionalProperties, "columnSizes")
 		o.AdditionalProperties = additionalProperties
 	}
 

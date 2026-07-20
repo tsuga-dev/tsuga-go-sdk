@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -22,19 +22,19 @@ var _ MappedNullable = &InputGraphVisualizationTimeseries{}
 type InputGraphVisualizationTimeseries struct {
 	// Displays the aggregation as a time series chart
 	Type string `json:"type"`
-	// Data source being queried for this aggregation
+	// Telemetry source queried by this aggregation: `logs`, `metrics`, `traces`, or `rum`.
 	Source string `json:"source"`
-	// Aggregations that may be combined together in the same query
+	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order. Limited to 15 items. For dataSource \"metrics\", each aggregate's `field` is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"system.cpu.utilization.context.host.name\").
 	Queries []AggregationQuery1 `json:"queries"`
-	// Formula referencing query outputs (e.g. q1+q2) to compute derived series
-	Formula *string                                   `json:"formula,omitempty"`
-	Aliases *InputGraphVisualizationTimeseriesAliases `json:"aliases,omitempty"`
+	// Formula referencing query outputs, such as `q1 + q2`, to compute derived results. Defaults to `q1`. Formulas may reference only submitted queries (`q1` through `qN`); undefined query references return 400.
+	Formula *string                                         `json:"formula,omitempty"`
+	Aliases *InputGraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
-	// Fields used to group the results
-	GroupBy    []AggregationGroupBy1                   `json:"groupBy,omitempty"`
-	TimeBucket *GraphVisualizationTimeseriesTimeBucket `json:"timeBucket,omitempty"`
-	Normalizer *Normalizer1                            `json:"normalizer,omitempty"`
+	// Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. Limited to 7 levels.
+	GroupBy    []AggregationGroupBy1                         `json:"groupBy,omitempty"`
+	TimeBucket *GraphVisualizationTimeseriesPromqlTimeBucket `json:"timeBucket,omitempty"`
+	Normalizer *Normalizer1                                  `json:"normalizer,omitempty"`
 	// Number of decimal places to display in the value
 	Precision *float32 `json:"precision,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
@@ -174,9 +174,9 @@ func (o *InputGraphVisualizationTimeseries) SetFormula(v string) {
 }
 
 // GetAliases returns the Aliases field value if set, zero value otherwise.
-func (o *InputGraphVisualizationTimeseries) GetAliases() InputGraphVisualizationTimeseriesAliases {
+func (o *InputGraphVisualizationTimeseries) GetAliases() InputGraphVisualizationTimeseriesPromqlAliases {
 	if o == nil || IsNil(o.Aliases) {
-		var ret InputGraphVisualizationTimeseriesAliases
+		var ret InputGraphVisualizationTimeseriesPromqlAliases
 		return ret
 	}
 	return *o.Aliases
@@ -184,7 +184,7 @@ func (o *InputGraphVisualizationTimeseries) GetAliases() InputGraphVisualization
 
 // GetAliasesOk returns a tuple with the Aliases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationTimeseries) GetAliasesOk() (*InputGraphVisualizationTimeseriesAliases, bool) {
+func (o *InputGraphVisualizationTimeseries) GetAliasesOk() (*InputGraphVisualizationTimeseriesPromqlAliases, bool) {
 	if o == nil || IsNil(o.Aliases) {
 		return nil, false
 	}
@@ -200,8 +200,8 @@ func (o *InputGraphVisualizationTimeseries) HasAliases() bool {
 	return false
 }
 
-// SetAliases gets a reference to the given InputGraphVisualizationTimeseriesAliases and assigns it to the Aliases field.
-func (o *InputGraphVisualizationTimeseries) SetAliases(v InputGraphVisualizationTimeseriesAliases) {
+// SetAliases gets a reference to the given InputGraphVisualizationTimeseriesPromqlAliases and assigns it to the Aliases field.
+func (o *InputGraphVisualizationTimeseries) SetAliases(v InputGraphVisualizationTimeseriesPromqlAliases) {
 	o.Aliases = &v
 }
 
@@ -270,9 +270,9 @@ func (o *InputGraphVisualizationTimeseries) SetGroupBy(v []AggregationGroupBy1) 
 }
 
 // GetTimeBucket returns the TimeBucket field value if set, zero value otherwise.
-func (o *InputGraphVisualizationTimeseries) GetTimeBucket() GraphVisualizationTimeseriesTimeBucket {
+func (o *InputGraphVisualizationTimeseries) GetTimeBucket() GraphVisualizationTimeseriesPromqlTimeBucket {
 	if o == nil || IsNil(o.TimeBucket) {
-		var ret GraphVisualizationTimeseriesTimeBucket
+		var ret GraphVisualizationTimeseriesPromqlTimeBucket
 		return ret
 	}
 	return *o.TimeBucket
@@ -280,7 +280,7 @@ func (o *InputGraphVisualizationTimeseries) GetTimeBucket() GraphVisualizationTi
 
 // GetTimeBucketOk returns a tuple with the TimeBucket field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationTimeseries) GetTimeBucketOk() (*GraphVisualizationTimeseriesTimeBucket, bool) {
+func (o *InputGraphVisualizationTimeseries) GetTimeBucketOk() (*GraphVisualizationTimeseriesPromqlTimeBucket, bool) {
 	if o == nil || IsNil(o.TimeBucket) {
 		return nil, false
 	}
@@ -296,8 +296,8 @@ func (o *InputGraphVisualizationTimeseries) HasTimeBucket() bool {
 	return false
 }
 
-// SetTimeBucket gets a reference to the given GraphVisualizationTimeseriesTimeBucket and assigns it to the TimeBucket field.
-func (o *InputGraphVisualizationTimeseries) SetTimeBucket(v GraphVisualizationTimeseriesTimeBucket) {
+// SetTimeBucket gets a reference to the given GraphVisualizationTimeseriesPromqlTimeBucket and assigns it to the TimeBucket field.
+func (o *InputGraphVisualizationTimeseries) SetTimeBucket(v GraphVisualizationTimeseriesPromqlTimeBucket) {
 	o.TimeBucket = &v
 }
 
