@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Value** | **string** |  | 
+**Value** | **string** | Substring matched case-insensitively against dashboard names or dashboard IDs. Set by the caller in dashboard query requests. Optional; omit to avoid text filtering. | 
 **Exclude** | Pointer to **bool** | If true, exclude dashboards matching this value instead of including them | [optional] 
 
 ## Methods

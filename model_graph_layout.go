@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -18,15 +18,15 @@ import (
 // checks if the GraphLayout type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GraphLayout{}
 
-// GraphLayout Grid layout coordinates for this widget
+// GraphLayout Grid position and size of the widget. Set by the dashboard author when arranging widgets. Optional; when provided, width and height must meet the minimum size for the widget type.
 type GraphLayout struct {
-	// Horizontal grid position of the widget
+	// Column position of the widget on the 12-column dashboard grid. 0 is the leftmost column; increasing values move right.
 	X float32 `json:"x"`
-	// Vertical grid position of the widget
+	// Row position of the widget on the dashboard grid, in row units of 50 pixels each. 0 is the topmost row; increasing values move down.
 	Y float32 `json:"y"`
-	// Width of the widget in grid units
+	// Width of the widget in grid columns, out of the 12-column grid.
 	W float32 `json:"w"`
-	// Height of the widget in grid units
+	// Height of the widget in grid rows, where each row is 50 pixels tall.
 	H                    float32 `json:"h"`
 	AdditionalProperties map[string]interface{}
 }

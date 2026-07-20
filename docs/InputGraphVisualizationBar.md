@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a bar chart | 
-**Source** | **string** | Data source being queried for this aggregation | 
-**Queries** | [**[]AggregationQuery1**](AggregationQuery1.md) | Aggregations that may be combined together in the same query | 
-**Formula** | Pointer to **string** | Formula referencing query outputs (e.g. q1+q2) to compute derived series | [optional] 
-**Aliases** | Pointer to [**InputGraphVisualizationTimeseriesAliases**](InputGraphVisualizationTimeseriesAliases.md) |  | [optional] 
+**Source** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, &#x60;traces&#x60;, or &#x60;rum&#x60;. | 
+**Queries** | [**[]AggregationQuery1**](AggregationQuery1.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. Limited to 15 items. For dataSource \&quot;metrics\&quot;, each aggregate&#39;s &#x60;field&#x60; is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \&quot;&lt;metricName&gt;.context.&lt;attribute&gt;\&quot; (e.g. \&quot;system.cpu.utilization.context.host.name\&quot;). | 
+**Formula** | Pointer to **string** | Formula referencing query outputs, such as &#x60;q1 + q2&#x60;, to compute derived results. Defaults to &#x60;q1&#x60;. Formulas may reference only submitted queries (&#x60;q1&#x60; through &#x60;qN&#x60;); undefined query references return 400. | [optional] 
+**Aliases** | Pointer to [**InputGraphVisualizationTimeseriesPromqlAliases**](InputGraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
-**GroupBy** | Pointer to [**[]AggregationGroupBy1**](AggregationGroupBy1.md) | Fields used to group the results | [optional] 
-**TimeBucket** | Pointer to [**GraphVisualizationTimeseriesTimeBucket**](GraphVisualizationTimeseriesTimeBucket.md) |  | [optional] 
+**GroupBy** | Pointer to [**[]AggregationGroupBy1**](AggregationGroupBy1.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. Limited to 7 levels. | [optional] 
+**TimeBucket** | Pointer to [**GraphVisualizationTimeseriesPromqlTimeBucket**](GraphVisualizationTimeseriesPromqlTimeBucket.md) |  | [optional] 
 **Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
 **Normalizer** | Pointer to [**Normalizer1**](Normalizer1.md) |  | [optional] 
 **Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
@@ -124,20 +124,20 @@ HasFormula returns a boolean if a field has been set.
 
 ### GetAliases
 
-`func (o *InputGraphVisualizationBar) GetAliases() InputGraphVisualizationTimeseriesAliases`
+`func (o *InputGraphVisualizationBar) GetAliases() InputGraphVisualizationTimeseriesPromqlAliases`
 
 GetAliases returns the Aliases field if non-nil, zero value otherwise.
 
 ### GetAliasesOk
 
-`func (o *InputGraphVisualizationBar) GetAliasesOk() (*InputGraphVisualizationTimeseriesAliases, bool)`
+`func (o *InputGraphVisualizationBar) GetAliasesOk() (*InputGraphVisualizationTimeseriesPromqlAliases, bool)`
 
 GetAliasesOk returns a tuple with the Aliases field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAliases
 
-`func (o *InputGraphVisualizationBar) SetAliases(v InputGraphVisualizationTimeseriesAliases)`
+`func (o *InputGraphVisualizationBar) SetAliases(v InputGraphVisualizationTimeseriesPromqlAliases)`
 
 SetAliases sets Aliases field to given value.
 
@@ -199,20 +199,20 @@ HasGroupBy returns a boolean if a field has been set.
 
 ### GetTimeBucket
 
-`func (o *InputGraphVisualizationBar) GetTimeBucket() GraphVisualizationTimeseriesTimeBucket`
+`func (o *InputGraphVisualizationBar) GetTimeBucket() GraphVisualizationTimeseriesPromqlTimeBucket`
 
 GetTimeBucket returns the TimeBucket field if non-nil, zero value otherwise.
 
 ### GetTimeBucketOk
 
-`func (o *InputGraphVisualizationBar) GetTimeBucketOk() (*GraphVisualizationTimeseriesTimeBucket, bool)`
+`func (o *InputGraphVisualizationBar) GetTimeBucketOk() (*GraphVisualizationTimeseriesPromqlTimeBucket, bool)`
 
 GetTimeBucketOk returns a tuple with the TimeBucket field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeBucket
 
-`func (o *InputGraphVisualizationBar) SetTimeBucket(v GraphVisualizationTimeseriesTimeBucket)`
+`func (o *InputGraphVisualizationBar) SetTimeBucket(v GraphVisualizationTimeseriesPromqlTimeBucket)`
 
 SetTimeBucket sets TimeBucket field to given value.
 

@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -20,6 +20,7 @@ var _ MappedNullable = &RuleTargetConfigEmail{}
 
 // RuleTargetConfigEmail struct for RuleTargetConfigEmail
 type RuleTargetConfigEmail struct {
+	// Email target that sends directly to the listed addresses and does not require an integration.
 	Type string `json:"type"`
 	// Email addresses that will receive the alert
 	Addresses            []string `json:"addresses"`

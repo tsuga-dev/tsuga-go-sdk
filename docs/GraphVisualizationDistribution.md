@@ -5,15 +5,16 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a distribution chart | 
-**Source** | **string** | Data source being queried for this aggregation | 
-**Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query | 
-**Formula** | Pointer to **string** | Formula referencing query outputs (e.g. q1+q2) to compute derived series | [optional] 
-**Aliases** | Pointer to [**GraphVisualizationTimeseriesAliases**](GraphVisualizationTimeseriesAliases.md) |  | [optional] 
+**Source** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, &#x60;traces&#x60;, or &#x60;rum&#x60;. | 
+**Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. | 
+**Formula** | Pointer to **string** | Formula referencing submitted query outputs, such as &#x60;q1 + q2&#x60;. References must be within &#x60;q1&#x60; through &#x60;qN&#x60; for the submitted queries. | [optional] 
+**Aliases** | Pointer to [**GraphVisualizationTimeseriesPromqlAliases**](GraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
-**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
+**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values. | [optional] 
 **Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 **PercentileMarkers** | Pointer to **[]int32** | Percentile markers displayed on top of the distribution chart | [optional] 
+**BoundsScale** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -121,20 +122,20 @@ HasFormula returns a boolean if a field has been set.
 
 ### GetAliases
 
-`func (o *GraphVisualizationDistribution) GetAliases() GraphVisualizationTimeseriesAliases`
+`func (o *GraphVisualizationDistribution) GetAliases() GraphVisualizationTimeseriesPromqlAliases`
 
 GetAliases returns the Aliases field if non-nil, zero value otherwise.
 
 ### GetAliasesOk
 
-`func (o *GraphVisualizationDistribution) GetAliasesOk() (*GraphVisualizationTimeseriesAliases, bool)`
+`func (o *GraphVisualizationDistribution) GetAliasesOk() (*GraphVisualizationTimeseriesPromqlAliases, bool)`
 
 GetAliasesOk returns a tuple with the Aliases field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAliases
 
-`func (o *GraphVisualizationDistribution) SetAliases(v GraphVisualizationTimeseriesAliases)`
+`func (o *GraphVisualizationDistribution) SetAliases(v GraphVisualizationTimeseriesPromqlAliases)`
 
 SetAliases sets Aliases field to given value.
 
@@ -268,6 +269,31 @@ SetPercentileMarkers sets PercentileMarkers field to given value.
 `func (o *GraphVisualizationDistribution) HasPercentileMarkers() bool`
 
 HasPercentileMarkers returns a boolean if a field has been set.
+
+### GetBoundsScale
+
+`func (o *GraphVisualizationDistribution) GetBoundsScale() string`
+
+GetBoundsScale returns the BoundsScale field if non-nil, zero value otherwise.
+
+### GetBoundsScaleOk
+
+`func (o *GraphVisualizationDistribution) GetBoundsScaleOk() (*string, bool)`
+
+GetBoundsScaleOk returns a tuple with the BoundsScale field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBoundsScale
+
+`func (o *GraphVisualizationDistribution) SetBoundsScale(v string)`
+
+SetBoundsScale sets BoundsScale field to given value.
+
+### HasBoundsScale
+
+`func (o *GraphVisualizationDistribution) HasBoundsScale() bool`
+
+HasBoundsScale returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

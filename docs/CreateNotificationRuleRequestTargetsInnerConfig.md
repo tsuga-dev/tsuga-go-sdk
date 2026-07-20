@@ -4,16 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
+**Type** | **string** | Slack target backed by a configured Slack integration. | 
 **Channel** | **string** | Slack channel ID that receives the notification | 
-**IntegrationId** | **string** | Identifier of the Squadcast integration to use | 
+**IntegrationId** | **string** | Identifier of the Jira integration to use | 
 **Addresses** | **[]string** | Email addresses that will receive the alert | 
+**ProjectKey** | **string** | Key of the Jira project that alert issues are filed into, like \&quot;OPS\&quot;. | 
+**IssueType** | **string** | Name of the Jira issue type created for alerts, like \&quot;Bug\&quot; or \&quot;Task\&quot;. | 
 
 ## Methods
 
 ### NewCreateNotificationRuleRequestTargetsInnerConfig
 
-`func NewCreateNotificationRuleRequestTargetsInnerConfig(type_ string, channel string, integrationId string, addresses []string, ) *CreateNotificationRuleRequestTargetsInnerConfig`
+`func NewCreateNotificationRuleRequestTargetsInnerConfig(type_ string, channel string, integrationId string, addresses []string, projectKey string, issueType string, ) *CreateNotificationRuleRequestTargetsInnerConfig`
 
 NewCreateNotificationRuleRequestTargetsInnerConfig instantiates a new CreateNotificationRuleRequestTargetsInnerConfig object
 This constructor will assign default values to properties that have it defined,
@@ -106,6 +108,46 @@ and a boolean to check if the value has been set.
 `func (o *CreateNotificationRuleRequestTargetsInnerConfig) SetAddresses(v []string)`
 
 SetAddresses sets Addresses field to given value.
+
+
+### GetProjectKey
+
+`func (o *CreateNotificationRuleRequestTargetsInnerConfig) GetProjectKey() string`
+
+GetProjectKey returns the ProjectKey field if non-nil, zero value otherwise.
+
+### GetProjectKeyOk
+
+`func (o *CreateNotificationRuleRequestTargetsInnerConfig) GetProjectKeyOk() (*string, bool)`
+
+GetProjectKeyOk returns a tuple with the ProjectKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProjectKey
+
+`func (o *CreateNotificationRuleRequestTargetsInnerConfig) SetProjectKey(v string)`
+
+SetProjectKey sets ProjectKey field to given value.
+
+
+### GetIssueType
+
+`func (o *CreateNotificationRuleRequestTargetsInnerConfig) GetIssueType() string`
+
+GetIssueType returns the IssueType field if non-nil, zero value otherwise.
+
+### GetIssueTypeOk
+
+`func (o *CreateNotificationRuleRequestTargetsInnerConfig) GetIssueTypeOk() (*string, bool)`
+
+GetIssueTypeOk returns a tuple with the IssueType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIssueType
+
+`func (o *CreateNotificationRuleRequestTargetsInnerConfig) SetIssueType(v string)`
+
+SetIssueType sets IssueType field to given value.
 
 
 

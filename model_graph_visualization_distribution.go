@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -22,22 +22,23 @@ var _ MappedNullable = &GraphVisualizationDistribution{}
 type GraphVisualizationDistribution struct {
 	// Displays the aggregation as a distribution chart
 	Type string `json:"type"`
-	// Data source being queried for this aggregation
+	// Telemetry source queried by this aggregation: `logs`, `metrics`, `traces`, or `rum`.
 	Source string `json:"source"`
-	// Aggregations that may be combined together in the same query
+	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order.
 	Queries []AggregationQuery `json:"queries"`
-	// Formula referencing query outputs (e.g. q1+q2) to compute derived series
-	Formula *string                              `json:"formula,omitempty"`
-	Aliases *GraphVisualizationTimeseriesAliases `json:"aliases,omitempty"`
+	// Formula referencing submitted query outputs, such as `q1 + q2`. References must be within `q1` through `qN` for the submitted queries.
+	Formula *string                                    `json:"formula,omitempty"`
+	Aliases *GraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
-	// Fields used to group the results
+	// Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values.
 	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
 	// Number of decimal places to display in the value
 	Precision  *float32    `json:"precision,omitempty"`
 	Normalizer *Normalizer `json:"normalizer,omitempty"`
 	// Percentile markers displayed on top of the distribution chart
 	PercentileMarkers    []int32 `json:"percentileMarkers,omitempty"`
+	BoundsScale          *string `json:"boundsScale,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -168,9 +169,9 @@ func (o *GraphVisualizationDistribution) SetFormula(v string) {
 }
 
 // GetAliases returns the Aliases field value if set, zero value otherwise.
-func (o *GraphVisualizationDistribution) GetAliases() GraphVisualizationTimeseriesAliases {
+func (o *GraphVisualizationDistribution) GetAliases() GraphVisualizationTimeseriesPromqlAliases {
 	if o == nil || IsNil(o.Aliases) {
-		var ret GraphVisualizationTimeseriesAliases
+		var ret GraphVisualizationTimeseriesPromqlAliases
 		return ret
 	}
 	return *o.Aliases
@@ -178,7 +179,7 @@ func (o *GraphVisualizationDistribution) GetAliases() GraphVisualizationTimeseri
 
 // GetAliasesOk returns a tuple with the Aliases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationDistribution) GetAliasesOk() (*GraphVisualizationTimeseriesAliases, bool) {
+func (o *GraphVisualizationDistribution) GetAliasesOk() (*GraphVisualizationTimeseriesPromqlAliases, bool) {
 	if o == nil || IsNil(o.Aliases) {
 		return nil, false
 	}
@@ -194,8 +195,8 @@ func (o *GraphVisualizationDistribution) HasAliases() bool {
 	return false
 }
 
-// SetAliases gets a reference to the given GraphVisualizationTimeseriesAliases and assigns it to the Aliases field.
-func (o *GraphVisualizationDistribution) SetAliases(v GraphVisualizationTimeseriesAliases) {
+// SetAliases gets a reference to the given GraphVisualizationTimeseriesPromqlAliases and assigns it to the Aliases field.
+func (o *GraphVisualizationDistribution) SetAliases(v GraphVisualizationTimeseriesPromqlAliases) {
 	o.Aliases = &v
 }
 
@@ -359,6 +360,38 @@ func (o *GraphVisualizationDistribution) SetPercentileMarkers(v []int32) {
 	o.PercentileMarkers = v
 }
 
+// GetBoundsScale returns the BoundsScale field value if set, zero value otherwise.
+func (o *GraphVisualizationDistribution) GetBoundsScale() string {
+	if o == nil || IsNil(o.BoundsScale) {
+		var ret string
+		return ret
+	}
+	return *o.BoundsScale
+}
+
+// GetBoundsScaleOk returns a tuple with the BoundsScale field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationDistribution) GetBoundsScaleOk() (*string, bool) {
+	if o == nil || IsNil(o.BoundsScale) {
+		return nil, false
+	}
+	return o.BoundsScale, true
+}
+
+// HasBoundsScale returns a boolean if a field has been set.
+func (o *GraphVisualizationDistribution) HasBoundsScale() bool {
+	if o != nil && !IsNil(o.BoundsScale) {
+		return true
+	}
+
+	return false
+}
+
+// SetBoundsScale gets a reference to the given string and assigns it to the BoundsScale field.
+func (o *GraphVisualizationDistribution) SetBoundsScale(v string) {
+	o.BoundsScale = &v
+}
+
 func (o GraphVisualizationDistribution) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -392,6 +425,9 @@ func (o GraphVisualizationDistribution) ToMap() (map[string]interface{}, error) 
 	}
 	if !IsNil(o.PercentileMarkers) {
 		toSerialize["percentileMarkers"] = o.PercentileMarkers
+	}
+	if !IsNil(o.BoundsScale) {
+		toSerialize["boundsScale"] = o.BoundsScale
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -448,6 +484,7 @@ func (o *GraphVisualizationDistribution) UnmarshalJSON(data []byte) (err error) 
 		delete(additionalProperties, "precision")
 		delete(additionalProperties, "normalizer")
 		delete(additionalProperties, "percentileMarkers")
+		delete(additionalProperties, "boundsScale")
 		o.AdditionalProperties = additionalProperties
 	}
 

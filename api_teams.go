@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -24,7 +24,7 @@ type TeamsAPI interface {
 	/*
 		CreateTeam Method for CreateTeam
 
-		Create a new team
+		Creates a team for ownership and access control. Use this before assigning resources to a new owner team.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return TeamsAPICreateTeamRequest
@@ -38,10 +38,10 @@ type TeamsAPI interface {
 	/*
 		DeleteTeam Method for DeleteTeam
 
-		Delete a team by its id
+		Deletes a team. Fails while the team still owns resources (dashboards, monitors, routes, API keys, etc.); reassign or delete those first. Team memberships are removed automatically as part of the deletion.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id
+		@param id Identifier of the team to delete. Use the `id` returned by team list, create, or update responses.
 		@return TeamsAPIDeleteTeamRequest
 	*/
 	DeleteTeam(ctx context.Context, id string) TeamsAPIDeleteTeamRequest
@@ -53,10 +53,10 @@ type TeamsAPI interface {
 	/*
 		GetTeam Method for GetTeam
 
-		Retrieve a team by its id
+		Retrieves one team by ID when the authenticated operation key can read it. Use this to resolve ownership metadata before creating or updating team-owned resources.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id
+		@param id Identifier of the team to retrieve. Use the `id` returned by team list or create responses.
 		@return TeamsAPIGetTeamRequest
 	*/
 	GetTeam(ctx context.Context, id string) TeamsAPIGetTeamRequest
@@ -68,7 +68,7 @@ type TeamsAPI interface {
 	/*
 		ListTeams Method for ListTeams
 
-		Retrieve all teams
+		Lists teams visible to the authenticated operation key. Use this endpoint to inventory owners for resources, dashboards, monitors, routes, and policies. Pagination fields limit the returned page.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return TeamsAPIListTeamsRequest
@@ -82,10 +82,10 @@ type TeamsAPI interface {
 	/*
 		UpdateTeam Method for UpdateTeam
 
-		Update a team by its id
+		Replaces a team definition by ID, including name, description, visibility, and tags.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id
+		@param id Identifier of the team to update. Use the `id` returned by team list, get, or create responses.
 		@return TeamsAPIUpdateTeamRequest
 	*/
 	UpdateTeam(ctx context.Context, id string) TeamsAPIUpdateTeamRequest
@@ -104,6 +104,7 @@ type TeamsAPICreateTeamRequest struct {
 	createTeamRequest *CreateTeamRequest
 }
 
+// Team create or update request. Provide the team name, optional description, visibility, and tags.
 func (r TeamsAPICreateTeamRequest) CreateTeamRequest(createTeamRequest CreateTeamRequest) TeamsAPICreateTeamRequest {
 	r.createTeamRequest = &createTeamRequest
 	return r
@@ -116,7 +117,7 @@ func (r TeamsAPICreateTeamRequest) Execute() (*CreateTeamResponse, *http.Respons
 /*
 CreateTeam Method for CreateTeam
 
-Create a new team
+Creates a team for ownership and access control. Use this before assigning resources to a new owner team.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TeamsAPICreateTeamRequest
@@ -243,10 +244,10 @@ func (r TeamsAPIDeleteTeamRequest) Execute() (*DeleteTeamResponse, *http.Respons
 /*
 DeleteTeam Method for DeleteTeam
 
-Delete a team by its id
+Deletes a team. Fails while the team still owns resources (dashboards, monitors, routes, API keys, etc.); reassign or delete those first. Team memberships are removed automatically as part of the deletion.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id Identifier of the team to delete. Use the `id` returned by team list, create, or update responses.
 	@return TeamsAPIDeleteTeamRequest
 */
 func (a *TeamsAPIService) DeleteTeam(ctx context.Context, id string) TeamsAPIDeleteTeamRequest {
@@ -374,10 +375,10 @@ func (r TeamsAPIGetTeamRequest) Execute() (*GetTeamResponse, *http.Response, err
 /*
 GetTeam Method for GetTeam
 
-Retrieve a team by its id
+Retrieves one team by ID when the authenticated operation key can read it. Use this to resolve ownership metadata before creating or updating team-owned resources.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id Identifier of the team to retrieve. Use the `id` returned by team list or create responses.
 	@return TeamsAPIGetTeamRequest
 */
 func (a *TeamsAPIService) GetTeam(ctx context.Context, id string) TeamsAPIGetTeamRequest {
@@ -499,13 +500,13 @@ type TeamsAPIListTeamsRequest struct {
 	offset     *int32
 }
 
-// The maximum number of items to return
+// Maximum number of items to return in this page. Valid values are 1 through 1000.
 func (r TeamsAPIListTeamsRequest) Limit(limit int32) TeamsAPIListTeamsRequest {
 	r.limit = &limit
 	return r
 }
 
-// The offset of the first item to return
+// Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0.
 func (r TeamsAPIListTeamsRequest) Offset(offset int32) TeamsAPIListTeamsRequest {
 	r.offset = &offset
 	return r
@@ -518,7 +519,7 @@ func (r TeamsAPIListTeamsRequest) Execute() (*ListTeamsResponse, *http.Response,
 /*
 ListTeams Method for ListTeams
 
-Retrieve all teams
+Lists teams visible to the authenticated operation key. Use this endpoint to inventory owners for resources, dashboards, monitors, routes, and policies. Pagination fields limit the returned page.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TeamsAPIListTeamsRequest
@@ -640,6 +641,7 @@ type TeamsAPIUpdateTeamRequest struct {
 	createTeamRequest *CreateTeamRequest
 }
 
+// Team create or update request. Provide the team name, optional description, visibility, and tags.
 func (r TeamsAPIUpdateTeamRequest) CreateTeamRequest(createTeamRequest CreateTeamRequest) TeamsAPIUpdateTeamRequest {
 	r.createTeamRequest = &createTeamRequest
 	return r
@@ -652,10 +654,10 @@ func (r TeamsAPIUpdateTeamRequest) Execute() (*UpdateTeamResponse, *http.Respons
 /*
 UpdateTeam Method for UpdateTeam
 
-Update a team by its id
+Replaces a team definition by ID, including name, description, visibility, and tags.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id Identifier of the team to update. Use the `id` returned by team list, get, or create responses.
 	@return TeamsAPIUpdateTeamRequest
 */
 func (a *TeamsAPIService) UpdateTeam(ctx context.Context, id string) TeamsAPIUpdateTeamRequest {

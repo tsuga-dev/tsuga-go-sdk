@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -18,19 +18,24 @@ import (
 // checks if the UpdateMonitorRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &UpdateMonitorRequest{}
 
-// UpdateMonitorRequest struct for UpdateMonitorRequest
+// UpdateMonitorRequest Monitor update request. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, and `clusterIds` keep their existing values. Omitting `dashboardId` clears the dashboard link.
 type UpdateMonitorRequest struct {
-	Name    string  `json:"name"`
+	// Display name of the monitor and alert source.
+	Name string `json:"name"`
+	// Message included in notifications triggered by this monitor. Optional on create. On update, omitting it keeps the existing message.
 	Message *string `json:"message,omitempty"`
-	// List of key/value tags applied to the resource
+	// Key/value tags to apply to the resource. Up to 50 tags are accepted and tag policies may require specific keys or values.
 	Tags          []Tag                             `json:"tags,omitempty"`
 	Configuration UpdateMonitorRequestConfiguration `json:"configuration"`
-	Priority      float32                           `json:"priority"`
-	Owner         string                            `json:"owner"`
-	DashboardId   *string                           `json:"dashboardId,omitempty"`
-	// This controls which data the resource can see
-	Permissions          string   `json:"permissions"`
-	ClusterIds           []string `json:"clusterIds,omitempty"`
+	// Monitor priority from 1 through 5, where 1 is highest priority.
+	Priority float32 `json:"priority"`
+	// Team ID that owns and manages the monitor.
+	Owner       string         `json:"owner"`
+	DashboardId NullableString `json:"dashboardId,omitempty"`
+	// `all` allows the resource to query all permitted telemetry, `owning-team-and-public` limits it to the owning team plus public data, and `owning-team-only` limits it to the owning team.
+	Permissions string `json:"permissions"`
+	// Cluster IDs where the monitor should be deployed. Empty or omitted means all eligible clusters for cluster-deployed monitor types.
+	ClusterIds           []*string `json:"clusterIds,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -218,36 +223,47 @@ func (o *UpdateMonitorRequest) SetOwner(v string) {
 	o.Owner = v
 }
 
-// GetDashboardId returns the DashboardId field value if set, zero value otherwise.
+// GetDashboardId returns the DashboardId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateMonitorRequest) GetDashboardId() string {
-	if o == nil || IsNil(o.DashboardId) {
+	if o == nil || IsNil(o.DashboardId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.DashboardId
+	return *o.DashboardId.Get()
 }
 
 // GetDashboardIdOk returns a tuple with the DashboardId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UpdateMonitorRequest) GetDashboardIdOk() (*string, bool) {
-	if o == nil || IsNil(o.DashboardId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DashboardId, true
+	return o.DashboardId.Get(), o.DashboardId.IsSet()
 }
 
 // HasDashboardId returns a boolean if a field has been set.
 func (o *UpdateMonitorRequest) HasDashboardId() bool {
-	if o != nil && !IsNil(o.DashboardId) {
+	if o != nil && o.DashboardId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDashboardId gets a reference to the given string and assigns it to the DashboardId field.
+// SetDashboardId gets a reference to the given NullableString and assigns it to the DashboardId field.
 func (o *UpdateMonitorRequest) SetDashboardId(v string) {
-	o.DashboardId = &v
+	o.DashboardId.Set(&v)
+}
+
+// SetDashboardIdNil sets the value for DashboardId to be an explicit nil
+func (o *UpdateMonitorRequest) SetDashboardIdNil() {
+	o.DashboardId.Set(nil)
+}
+
+// UnsetDashboardId ensures that no value is present for DashboardId, not even an explicit nil
+func (o *UpdateMonitorRequest) UnsetDashboardId() {
+	o.DashboardId.Unset()
 }
 
 // GetPermissions returns the Permissions field value
@@ -275,9 +291,9 @@ func (o *UpdateMonitorRequest) SetPermissions(v string) {
 }
 
 // GetClusterIds returns the ClusterIds field value if set, zero value otherwise.
-func (o *UpdateMonitorRequest) GetClusterIds() []string {
+func (o *UpdateMonitorRequest) GetClusterIds() []*string {
 	if o == nil || IsNil(o.ClusterIds) {
-		var ret []string
+		var ret []*string
 		return ret
 	}
 	return o.ClusterIds
@@ -285,7 +301,7 @@ func (o *UpdateMonitorRequest) GetClusterIds() []string {
 
 // GetClusterIdsOk returns a tuple with the ClusterIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateMonitorRequest) GetClusterIdsOk() ([]string, bool) {
+func (o *UpdateMonitorRequest) GetClusterIdsOk() ([]*string, bool) {
 	if o == nil || IsNil(o.ClusterIds) {
 		return nil, false
 	}
@@ -301,8 +317,8 @@ func (o *UpdateMonitorRequest) HasClusterIds() bool {
 	return false
 }
 
-// SetClusterIds gets a reference to the given []string and assigns it to the ClusterIds field.
-func (o *UpdateMonitorRequest) SetClusterIds(v []string) {
+// SetClusterIds gets a reference to the given []*string and assigns it to the ClusterIds field.
+func (o *UpdateMonitorRequest) SetClusterIds(v []*string) {
 	o.ClusterIds = v
 }
 
@@ -326,8 +342,8 @@ func (o UpdateMonitorRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["configuration"] = o.Configuration
 	toSerialize["priority"] = o.Priority
 	toSerialize["owner"] = o.Owner
-	if !IsNil(o.DashboardId) {
-		toSerialize["dashboardId"] = o.DashboardId
+	if o.DashboardId.IsSet() {
+		toSerialize["dashboardId"] = o.DashboardId.Get()
 	}
 	toSerialize["permissions"] = o.Permissions
 	if !IsNil(o.ClusterIds) {

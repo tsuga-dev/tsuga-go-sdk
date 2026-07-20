@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	createTagPolicyRequest := *openapiclient.NewCreateTagPolicyRequest("Name_example", false, "TagKey_example", []string{"AllowedTagValues_example"}, false, openapiclient.createTagPolicy_request_configuration{CreateTagPolicyRequestConfigurationOneOf: openapiclient.NewCreateTagPolicyRequestConfigurationOneOf("Type_example", []string{"AssetTypes_example"}, false)}, "Owner_example") // CreateTagPolicyRequest | 
+	createTagPolicyRequest := *openapiclient.NewCreateTagPolicyRequest("Name_example", false, "TagKey_example", []*string{nil}, false, openapiclient.createTagPolicy_request_configuration{TelemetryTagPolicy: openapiclient.NewTelemetryTagPolicy("Type_example", []string{"AssetTypes_example"}, false)}, "Owner_example") // CreateTagPolicyRequest | Tag policy create or update request. Provide policy identity, owner, enforced tag key, allowed values, team scope, active state, and asset or telemetry configuration.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -58,7 +58,7 @@ Other parameters are passed through a pointer to a apiCreateTagPolicyRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createTagPolicyRequest** | [**CreateTagPolicyRequest**](CreateTagPolicyRequest.md) |  | 
+ **createTagPolicyRequest** | [**CreateTagPolicyRequest**](CreateTagPolicyRequest.md) | Tag policy create or update request. Provide policy identity, owner, enforced tag key, allowed values, team scope, active state, and asset or telemetry configuration. | 
 
 ### Return type
 
@@ -99,7 +99,7 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | Identifier of the tag policy to delete. Use the `id` returned by tag policy list, create, or update responses.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -119,7 +119,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | Identifier of the tag policy to delete. Use the &#x60;id&#x60; returned by tag policy list, create, or update responses. | 
 
 ### Other Parameters
 
@@ -169,7 +169,7 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | Identifier of the tag policy to retrieve. Use the `id` returned by tag policy list or create responses.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -189,7 +189,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | Identifier of the tag policy to retrieve. Use the &#x60;id&#x60; returned by tag policy list or create responses. | 
 
 ### Other Parameters
 
@@ -281,7 +281,7 @@ Other parameters are passed through a pointer to a apiListTagPoliciesRequest str
 
 ## UpdateTagPolicy
 
-> UpdateTagPolicyResponse UpdateTagPolicy(ctx, id).CreateTagPolicyRequest(createTagPolicyRequest).Execute()
+> UpdateTagPolicyResponse UpdateTagPolicy(ctx, id).UpdateTagPolicyRequest(updateTagPolicyRequest).Execute()
 
 
 
@@ -300,12 +300,12 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
-	createTagPolicyRequest := *openapiclient.NewCreateTagPolicyRequest("Name_example", false, "TagKey_example", []string{"AllowedTagValues_example"}, false, openapiclient.createTagPolicy_request_configuration{CreateTagPolicyRequestConfigurationOneOf: openapiclient.NewCreateTagPolicyRequestConfigurationOneOf("Type_example", []string{"AssetTypes_example"}, false)}, "Owner_example") // CreateTagPolicyRequest | 
+	id := "id_example" // string | Identifier of the tag policy to update. Use the `id` returned by tag policy list, get, or create responses.
+	updateTagPolicyRequest := *openapiclient.NewUpdateTagPolicyRequest("Name_example", false, "TagKey_example", []string{"AllowedTagValues_example"}, false, openapiclient.createTagPolicy_request_configuration{TelemetryTagPolicy: openapiclient.NewTelemetryTagPolicy("Type_example", []string{"AssetTypes_example"}, false)}, "Owner_example") // UpdateTagPolicyRequest | Tag policy create or update request. Provide policy identity, owner, enforced tag key, allowed values, team scope, active state, and asset or telemetry configuration.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TagPoliciesAPI.UpdateTagPolicy(context.Background(), id).CreateTagPolicyRequest(createTagPolicyRequest).Execute()
+	resp, r, err := apiClient.TagPoliciesAPI.UpdateTagPolicy(context.Background(), id).UpdateTagPolicyRequest(updateTagPolicyRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TagPoliciesAPI.UpdateTagPolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -321,7 +321,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | Identifier of the tag policy to update. Use the &#x60;id&#x60; returned by tag policy list, get, or create responses. | 
 
 ### Other Parameters
 
@@ -331,7 +331,7 @@ Other parameters are passed through a pointer to a apiUpdateTagPolicyRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **createTagPolicyRequest** | [**CreateTagPolicyRequest**](CreateTagPolicyRequest.md) |  | 
+ **updateTagPolicyRequest** | [**UpdateTagPolicyRequest**](UpdateTagPolicyRequest.md) | Tag policy create or update request. Provide policy identity, owner, enforced tag key, allowed values, team scope, active state, and asset or telemetry configuration. | 
 
 ### Return type
 

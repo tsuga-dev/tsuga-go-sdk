@@ -5,12 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a gauge | 
-**Source** | **string** | Data source being queried for this aggregation | 
-**Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query | 
-**Formula** | Pointer to **string** | Formula referencing query outputs (e.g. q1+q2) to compute derived series | [optional] 
-**Aliases** | Pointer to [**GraphVisualizationTimeseriesAliases**](GraphVisualizationTimeseriesAliases.md) |  | [optional] 
+**Source** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, &#x60;traces&#x60;, or &#x60;rum&#x60;. | 
+**Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. | 
+**Formula** | Pointer to **string** | Formula referencing submitted query outputs, such as &#x60;q1 + q2&#x60;. References must be within &#x60;q1&#x60; through &#x60;qN&#x60; for the submitted queries. | [optional] 
+**Aliases** | Pointer to [**GraphVisualizationTimeseriesPromqlAliases**](GraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
-**Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the displayed value | [optional] 
+**Max** | Pointer to **float32** | Gauge maximum value | [optional] 
+**ColorThresholds** | Pointer to [**[]GaugeColorThreshold**](GaugeColorThreshold.md) | Color thresholds inside the gauge range | [optional] 
 **Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 
@@ -120,20 +121,20 @@ HasFormula returns a boolean if a field has been set.
 
 ### GetAliases
 
-`func (o *GraphVisualizationGauge) GetAliases() GraphVisualizationTimeseriesAliases`
+`func (o *GraphVisualizationGauge) GetAliases() GraphVisualizationTimeseriesPromqlAliases`
 
 GetAliases returns the Aliases field if non-nil, zero value otherwise.
 
 ### GetAliasesOk
 
-`func (o *GraphVisualizationGauge) GetAliasesOk() (*GraphVisualizationTimeseriesAliases, bool)`
+`func (o *GraphVisualizationGauge) GetAliasesOk() (*GraphVisualizationTimeseriesPromqlAliases, bool)`
 
 GetAliasesOk returns a tuple with the Aliases field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAliases
 
-`func (o *GraphVisualizationGauge) SetAliases(v GraphVisualizationTimeseriesAliases)`
+`func (o *GraphVisualizationGauge) SetAliases(v GraphVisualizationTimeseriesPromqlAliases)`
 
 SetAliases sets Aliases field to given value.
 
@@ -168,30 +169,55 @@ SetVisibleSeries sets VisibleSeries field to given value.
 
 HasVisibleSeries returns a boolean if a field has been set.
 
-### GetConditions
+### GetMax
 
-`func (o *GraphVisualizationGauge) GetConditions() []ConditionalFormatting`
+`func (o *GraphVisualizationGauge) GetMax() float32`
 
-GetConditions returns the Conditions field if non-nil, zero value otherwise.
+GetMax returns the Max field if non-nil, zero value otherwise.
 
-### GetConditionsOk
+### GetMaxOk
 
-`func (o *GraphVisualizationGauge) GetConditionsOk() (*[]ConditionalFormatting, bool)`
+`func (o *GraphVisualizationGauge) GetMaxOk() (*float32, bool)`
 
-GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
+GetMaxOk returns a tuple with the Max field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetConditions
+### SetMax
 
-`func (o *GraphVisualizationGauge) SetConditions(v []ConditionalFormatting)`
+`func (o *GraphVisualizationGauge) SetMax(v float32)`
 
-SetConditions sets Conditions field to given value.
+SetMax sets Max field to given value.
 
-### HasConditions
+### HasMax
 
-`func (o *GraphVisualizationGauge) HasConditions() bool`
+`func (o *GraphVisualizationGauge) HasMax() bool`
 
-HasConditions returns a boolean if a field has been set.
+HasMax returns a boolean if a field has been set.
+
+### GetColorThresholds
+
+`func (o *GraphVisualizationGauge) GetColorThresholds() []GaugeColorThreshold`
+
+GetColorThresholds returns the ColorThresholds field if non-nil, zero value otherwise.
+
+### GetColorThresholdsOk
+
+`func (o *GraphVisualizationGauge) GetColorThresholdsOk() (*[]GaugeColorThreshold, bool)`
+
+GetColorThresholdsOk returns a tuple with the ColorThresholds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetColorThresholds
+
+`func (o *GraphVisualizationGauge) SetColorThresholds(v []GaugeColorThreshold)`
+
+SetColorThresholds sets ColorThresholds field to given value.
+
+### HasColorThresholds
+
+`func (o *GraphVisualizationGauge) HasColorThresholds() bool`
+
+HasColorThresholds returns a boolean if a field has been set.
 
 ### GetPrecision
 

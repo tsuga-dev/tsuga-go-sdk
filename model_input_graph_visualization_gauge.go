@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -22,17 +22,19 @@ var _ MappedNullable = &InputGraphVisualizationGauge{}
 type InputGraphVisualizationGauge struct {
 	// Displays the aggregation as a gauge
 	Type string `json:"type"`
-	// Data source being queried for this aggregation
+	// Telemetry source queried by this aggregation: `logs`, `metrics`, `traces`, or `rum`.
 	Source string `json:"source"`
-	// Aggregations that may be combined together in the same query
+	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order. Limited to 15 items. For dataSource \"metrics\", each aggregate's `field` is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"system.cpu.utilization.context.host.name\").
 	Queries []AggregationQuery1 `json:"queries"`
-	// Formula referencing query outputs (e.g. q1+q2) to compute derived series
-	Formula *string                                   `json:"formula,omitempty"`
-	Aliases *InputGraphVisualizationTimeseriesAliases `json:"aliases,omitempty"`
+	// Formula referencing query outputs, such as `q1 + q2`, to compute derived results. Defaults to `q1`. Formulas may reference only submitted queries (`q1` through `qN`); undefined query references return 400.
+	Formula *string                                         `json:"formula,omitempty"`
+	Aliases *InputGraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
-	// Conditional formatting rules applied to the displayed value
-	Conditions []ConditionalFormatting `json:"conditions,omitempty"`
+	// Gauge maximum value
+	Max *float32 `json:"max,omitempty"`
+	// Color thresholds inside the gauge range
+	ColorThresholds []GaugeColorThreshold `json:"colorThresholds,omitempty"`
 	// Number of decimal places to display in the value
 	Precision            *float32     `json:"precision,omitempty"`
 	Normalizer           *Normalizer1 `json:"normalizer,omitempty"`
@@ -166,9 +168,9 @@ func (o *InputGraphVisualizationGauge) SetFormula(v string) {
 }
 
 // GetAliases returns the Aliases field value if set, zero value otherwise.
-func (o *InputGraphVisualizationGauge) GetAliases() InputGraphVisualizationTimeseriesAliases {
+func (o *InputGraphVisualizationGauge) GetAliases() InputGraphVisualizationTimeseriesPromqlAliases {
 	if o == nil || IsNil(o.Aliases) {
-		var ret InputGraphVisualizationTimeseriesAliases
+		var ret InputGraphVisualizationTimeseriesPromqlAliases
 		return ret
 	}
 	return *o.Aliases
@@ -176,7 +178,7 @@ func (o *InputGraphVisualizationGauge) GetAliases() InputGraphVisualizationTimes
 
 // GetAliasesOk returns a tuple with the Aliases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationGauge) GetAliasesOk() (*InputGraphVisualizationTimeseriesAliases, bool) {
+func (o *InputGraphVisualizationGauge) GetAliasesOk() (*InputGraphVisualizationTimeseriesPromqlAliases, bool) {
 	if o == nil || IsNil(o.Aliases) {
 		return nil, false
 	}
@@ -192,8 +194,8 @@ func (o *InputGraphVisualizationGauge) HasAliases() bool {
 	return false
 }
 
-// SetAliases gets a reference to the given InputGraphVisualizationTimeseriesAliases and assigns it to the Aliases field.
-func (o *InputGraphVisualizationGauge) SetAliases(v InputGraphVisualizationTimeseriesAliases) {
+// SetAliases gets a reference to the given InputGraphVisualizationTimeseriesPromqlAliases and assigns it to the Aliases field.
+func (o *InputGraphVisualizationGauge) SetAliases(v InputGraphVisualizationTimeseriesPromqlAliases) {
 	o.Aliases = &v
 }
 
@@ -229,36 +231,68 @@ func (o *InputGraphVisualizationGauge) SetVisibleSeries(v []bool) {
 	o.VisibleSeries = v
 }
 
-// GetConditions returns the Conditions field value if set, zero value otherwise.
-func (o *InputGraphVisualizationGauge) GetConditions() []ConditionalFormatting {
-	if o == nil || IsNil(o.Conditions) {
-		var ret []ConditionalFormatting
+// GetMax returns the Max field value if set, zero value otherwise.
+func (o *InputGraphVisualizationGauge) GetMax() float32 {
+	if o == nil || IsNil(o.Max) {
+		var ret float32
 		return ret
 	}
-	return o.Conditions
+	return *o.Max
 }
 
-// GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
+// GetMaxOk returns a tuple with the Max field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationGauge) GetConditionsOk() ([]ConditionalFormatting, bool) {
-	if o == nil || IsNil(o.Conditions) {
+func (o *InputGraphVisualizationGauge) GetMaxOk() (*float32, bool) {
+	if o == nil || IsNil(o.Max) {
 		return nil, false
 	}
-	return o.Conditions, true
+	return o.Max, true
 }
 
-// HasConditions returns a boolean if a field has been set.
-func (o *InputGraphVisualizationGauge) HasConditions() bool {
-	if o != nil && !IsNil(o.Conditions) {
+// HasMax returns a boolean if a field has been set.
+func (o *InputGraphVisualizationGauge) HasMax() bool {
+	if o != nil && !IsNil(o.Max) {
 		return true
 	}
 
 	return false
 }
 
-// SetConditions gets a reference to the given []ConditionalFormatting and assigns it to the Conditions field.
-func (o *InputGraphVisualizationGauge) SetConditions(v []ConditionalFormatting) {
-	o.Conditions = v
+// SetMax gets a reference to the given float32 and assigns it to the Max field.
+func (o *InputGraphVisualizationGauge) SetMax(v float32) {
+	o.Max = &v
+}
+
+// GetColorThresholds returns the ColorThresholds field value if set, zero value otherwise.
+func (o *InputGraphVisualizationGauge) GetColorThresholds() []GaugeColorThreshold {
+	if o == nil || IsNil(o.ColorThresholds) {
+		var ret []GaugeColorThreshold
+		return ret
+	}
+	return o.ColorThresholds
+}
+
+// GetColorThresholdsOk returns a tuple with the ColorThresholds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputGraphVisualizationGauge) GetColorThresholdsOk() ([]GaugeColorThreshold, bool) {
+	if o == nil || IsNil(o.ColorThresholds) {
+		return nil, false
+	}
+	return o.ColorThresholds, true
+}
+
+// HasColorThresholds returns a boolean if a field has been set.
+func (o *InputGraphVisualizationGauge) HasColorThresholds() bool {
+	if o != nil && !IsNil(o.ColorThresholds) {
+		return true
+	}
+
+	return false
+}
+
+// SetColorThresholds gets a reference to the given []GaugeColorThreshold and assigns it to the ColorThresholds field.
+func (o *InputGraphVisualizationGauge) SetColorThresholds(v []GaugeColorThreshold) {
+	o.ColorThresholds = v
 }
 
 // GetPrecision returns the Precision field value if set, zero value otherwise.
@@ -347,8 +381,11 @@ func (o InputGraphVisualizationGauge) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.VisibleSeries) {
 		toSerialize["visibleSeries"] = o.VisibleSeries
 	}
-	if !IsNil(o.Conditions) {
-		toSerialize["conditions"] = o.Conditions
+	if !IsNil(o.Max) {
+		toSerialize["max"] = o.Max
+	}
+	if !IsNil(o.ColorThresholds) {
+		toSerialize["colorThresholds"] = o.ColorThresholds
 	}
 	if !IsNil(o.Precision) {
 		toSerialize["precision"] = o.Precision
@@ -407,7 +444,8 @@ func (o *InputGraphVisualizationGauge) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "formula")
 		delete(additionalProperties, "aliases")
 		delete(additionalProperties, "visibleSeries")
-		delete(additionalProperties, "conditions")
+		delete(additionalProperties, "max")
+		delete(additionalProperties, "colorThresholds")
 		delete(additionalProperties, "precision")
 		delete(additionalProperties, "normalizer")
 		o.AdditionalProperties = additionalProperties

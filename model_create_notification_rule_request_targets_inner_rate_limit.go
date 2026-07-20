@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -18,11 +18,11 @@ import (
 // checks if the CreateNotificationRuleRequestTargetsInnerRateLimit type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CreateNotificationRuleRequestTargetsInnerRateLimit{}
 
-// CreateNotificationRuleRequestTargetsInnerRateLimit Per-target rate-limiting configuration
+// CreateNotificationRuleRequestTargetsInnerRateLimit Per-target rate limit used when sending notifications. If omitted, Tsuga allows up to 1000 notifications every 10 minutes for this target.
 type CreateNotificationRuleRequestTargetsInnerRateLimit struct {
-	// Maximum number of messages allowed during the rate-limiting window
+	// Maximum number of notifications this target can send during the rate-limiting window. The ratio of `maxMessages` to `minutes` cannot exceed 100 notifications per minute.
 	MaxMessages int32 `json:"maxMessages"`
-	// Length of the rate-limiting window in minutes
+	// Length of the rate-limiting window, in minutes. The ratio of `maxMessages` to `minutes` cannot exceed 100 notifications per minute.
 	Minutes              int32 `json:"minutes"`
 	AdditionalProperties map[string]interface{}
 }

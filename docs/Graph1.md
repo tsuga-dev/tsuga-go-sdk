@@ -4,9 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | Identifier of the graph widget | 
-**Name** | Pointer to **string** | Display name of the graph widget | [optional] 
-**Description** | Pointer to **string** | Description of the graph widget | [optional] 
+**Id** | **string** | Unique identifier of the graph widget inside the dashboard. Set by the caller when the graph is created; use it to target the graph in later update requests. | 
+**Name** | Pointer to **string** | Display name of the graph widget. | [optional] 
+**Description** | Pointer to **string** | Optional text shown with the graph widget. | [optional] 
+**DescriptionAlign** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
+**DescriptionJustifyContent** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
 **Visualization** | [**Graph1Visualization**](Graph1Visualization.md) |  | 
 **Layout** | Pointer to [**GraphLayout**](GraphLayout.md) |  | [optional] 
 
@@ -98,6 +100,56 @@ SetDescription sets Description field to given value.
 `func (o *Graph1) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetDescriptionAlign
+
+`func (o *Graph1) GetDescriptionAlign() string`
+
+GetDescriptionAlign returns the DescriptionAlign field if non-nil, zero value otherwise.
+
+### GetDescriptionAlignOk
+
+`func (o *Graph1) GetDescriptionAlignOk() (*string, bool)`
+
+GetDescriptionAlignOk returns a tuple with the DescriptionAlign field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescriptionAlign
+
+`func (o *Graph1) SetDescriptionAlign(v string)`
+
+SetDescriptionAlign sets DescriptionAlign field to given value.
+
+### HasDescriptionAlign
+
+`func (o *Graph1) HasDescriptionAlign() bool`
+
+HasDescriptionAlign returns a boolean if a field has been set.
+
+### GetDescriptionJustifyContent
+
+`func (o *Graph1) GetDescriptionJustifyContent() string`
+
+GetDescriptionJustifyContent returns the DescriptionJustifyContent field if non-nil, zero value otherwise.
+
+### GetDescriptionJustifyContentOk
+
+`func (o *Graph1) GetDescriptionJustifyContentOk() (*string, bool)`
+
+GetDescriptionJustifyContentOk returns a tuple with the DescriptionJustifyContent field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescriptionJustifyContent
+
+`func (o *Graph1) SetDescriptionJustifyContent(v string)`
+
+SetDescriptionJustifyContent sets DescriptionJustifyContent field to given value.
+
+### HasDescriptionJustifyContent
+
+`func (o *Graph1) HasDescriptionJustifyContent() bool`
+
+HasDescriptionJustifyContent returns a boolean if a field has been set.
 
 ### GetVisualization
 

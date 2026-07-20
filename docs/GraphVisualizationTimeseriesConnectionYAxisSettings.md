@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Min** | [**GraphVisualizationTimeseriesConnectionYAxisSettingsMin**](GraphVisualizationTimeseriesConnectionYAxisSettingsMin.md) |  | 
 **Max** | [**GraphVisualizationTimeseriesConnectionYAxisSettingsMin**](GraphVisualizationTimeseriesConnectionYAxisSettingsMin.md) |  | 
 **Scale** | [**GraphVisualizationTimeseriesConnectionYAxisSettingsScale**](GraphVisualizationTimeseriesConnectionYAxisSettingsScale.md) |  | 
-**AlwaysIncludeZero** | **bool** |  | 
+**AlwaysIncludeZero** | **bool** | Whether the rendered Y axis should always include zero | 
 
 ## Methods
 

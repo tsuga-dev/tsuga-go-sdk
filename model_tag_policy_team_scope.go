@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -18,10 +18,12 @@ import (
 // checks if the TagPolicyTeamScope type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &TagPolicyTeamScope{}
 
-// TagPolicyTeamScope struct for TagPolicyTeamScope
+// TagPolicyTeamScope Team scope that limits where this policy applies. Omitted means the policy applies to all teams.
 type TagPolicyTeamScope struct {
-	TeamIds              []string `json:"teamIds"`
-	Mode                 string   `json:"mode"`
+	// Team IDs used by this policy scope.
+	TeamIds []string `json:"teamIds"`
+	// `include` applies the policy only to listed teams. `exclude` applies it to all teams except the listed teams.
+	Mode                 string `json:"mode"`
 	AdditionalProperties map[string]interface{}
 }
 

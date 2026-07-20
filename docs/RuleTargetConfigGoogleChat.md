@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
+**Type** | **string** | Google Chat target backed by a configured Google Chat integration. | 
 **IntegrationId** | **string** | Identifier of the Google Chat integration to use | 
 **IntegrationName** | **string** | Human readable name of the Google Chat integration | 
 

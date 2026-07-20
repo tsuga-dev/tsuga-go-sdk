@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -20,7 +20,7 @@ var _ MappedNullable = &DeleteResponse{}
 
 // DeleteResponse struct for DeleteResponse
 type DeleteResponse struct {
-	// Indicates the resource was deleted successfully
+	// Always `true` when the delete request completed and the resource was removed.
 	Success              bool `json:"success"`
 	AdditionalProperties map[string]interface{}
 }

@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -21,10 +21,10 @@ var _ MappedNullable = &AggregationQuery1{}
 // AggregationQuery1 struct for AggregationQuery1
 type AggregationQuery1 struct {
 	Aggregate InputAggregate `json:"aggregate"`
-	// Post-processing functions applied to aggregation results
+	// Post-processing functions applied to aggregation results. Defaults to an empty array when omitted. Limited to 10 items.
 	Functions []InputFunction              `json:"functions,omitempty"`
 	Fill      *MonitorAggregationQueryFill `json:"fill,omitempty"`
-	// Filter to apply to the aggregation
+	// Tsuga query filter to apply to the aggregation. Defaults to an empty string when omitted.
 	Filter               *string `json:"filter,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

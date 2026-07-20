@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Calculates a percentile of the selected field | 
 **Field** | **string** | Attribute containing the values to aggregate | 
-**Percentile** | **float32** |  | 
+**Percentile** | **float32** | Percentile to compute for the selected field, from 0 through 100. | 
 
 ## Methods
 

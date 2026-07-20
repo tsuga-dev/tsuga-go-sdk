@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
+**Type** | **string** | ServiceNow target backed by a configured ServiceNow integration. | 
 **IntegrationId** | **string** | Identifier of the ServiceNow integration to use | 
 **IntegrationName** | **string** | Human readable name of the ServiceNow integration | 
 

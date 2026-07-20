@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -15,15 +15,16 @@ import (
 	"fmt"
 )
 
-// UpdateMonitorRequestConfiguration - struct for UpdateMonitorRequestConfiguration
+// UpdateMonitorRequestConfiguration - Monitor evaluation configuration. The `type` discriminator determines which telemetry source, condition shape, and evaluation rules Tsuga uses.
 type UpdateMonitorRequestConfiguration struct {
 	InputMonitorConfigurationAnomalyLog        *InputMonitorConfigurationAnomalyLog
 	InputMonitorConfigurationAnomalyMetric     *InputMonitorConfigurationAnomalyMetric
+	InputMonitorConfigurationAnomalyTrace      *InputMonitorConfigurationAnomalyTrace
 	InputMonitorConfigurationCertificateExpiry *InputMonitorConfigurationCertificateExpiry
 	InputMonitorConfigurationLog               *InputMonitorConfigurationLog
+	InputMonitorConfigurationLogErrorPattern   *InputMonitorConfigurationLogErrorPattern
 	InputMonitorConfigurationMetric            *InputMonitorConfigurationMetric
 	InputMonitorConfigurationTrace             *InputMonitorConfigurationTrace
-	MonitorConfigurationLogErrorPattern        *MonitorConfigurationLogErrorPattern
 }
 
 // InputMonitorConfigurationAnomalyLogAsUpdateMonitorRequestConfiguration is a convenience function that returns InputMonitorConfigurationAnomalyLog wrapped in UpdateMonitorRequestConfiguration
@@ -37,6 +38,13 @@ func InputMonitorConfigurationAnomalyLogAsUpdateMonitorRequestConfiguration(v *I
 func InputMonitorConfigurationAnomalyMetricAsUpdateMonitorRequestConfiguration(v *InputMonitorConfigurationAnomalyMetric) UpdateMonitorRequestConfiguration {
 	return UpdateMonitorRequestConfiguration{
 		InputMonitorConfigurationAnomalyMetric: v,
+	}
+}
+
+// InputMonitorConfigurationAnomalyTraceAsUpdateMonitorRequestConfiguration is a convenience function that returns InputMonitorConfigurationAnomalyTrace wrapped in UpdateMonitorRequestConfiguration
+func InputMonitorConfigurationAnomalyTraceAsUpdateMonitorRequestConfiguration(v *InputMonitorConfigurationAnomalyTrace) UpdateMonitorRequestConfiguration {
+	return UpdateMonitorRequestConfiguration{
+		InputMonitorConfigurationAnomalyTrace: v,
 	}
 }
 
@@ -54,6 +62,13 @@ func InputMonitorConfigurationLogAsUpdateMonitorRequestConfiguration(v *InputMon
 	}
 }
 
+// InputMonitorConfigurationLogErrorPatternAsUpdateMonitorRequestConfiguration is a convenience function that returns InputMonitorConfigurationLogErrorPattern wrapped in UpdateMonitorRequestConfiguration
+func InputMonitorConfigurationLogErrorPatternAsUpdateMonitorRequestConfiguration(v *InputMonitorConfigurationLogErrorPattern) UpdateMonitorRequestConfiguration {
+	return UpdateMonitorRequestConfiguration{
+		InputMonitorConfigurationLogErrorPattern: v,
+	}
+}
+
 // InputMonitorConfigurationMetricAsUpdateMonitorRequestConfiguration is a convenience function that returns InputMonitorConfigurationMetric wrapped in UpdateMonitorRequestConfiguration
 func InputMonitorConfigurationMetricAsUpdateMonitorRequestConfiguration(v *InputMonitorConfigurationMetric) UpdateMonitorRequestConfiguration {
 	return UpdateMonitorRequestConfiguration{
@@ -65,13 +80,6 @@ func InputMonitorConfigurationMetricAsUpdateMonitorRequestConfiguration(v *Input
 func InputMonitorConfigurationTraceAsUpdateMonitorRequestConfiguration(v *InputMonitorConfigurationTrace) UpdateMonitorRequestConfiguration {
 	return UpdateMonitorRequestConfiguration{
 		InputMonitorConfigurationTrace: v,
-	}
-}
-
-// MonitorConfigurationLogErrorPatternAsUpdateMonitorRequestConfiguration is a convenience function that returns MonitorConfigurationLogErrorPattern wrapped in UpdateMonitorRequestConfiguration
-func MonitorConfigurationLogErrorPatternAsUpdateMonitorRequestConfiguration(v *MonitorConfigurationLogErrorPattern) UpdateMonitorRequestConfiguration {
-	return UpdateMonitorRequestConfiguration{
-		MonitorConfigurationLogErrorPattern: v,
 	}
 }
 
@@ -109,6 +117,18 @@ func (dst *UpdateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'anomaly-trace'
+	if jsonDict["type"] == "anomaly-trace" {
+		// try to unmarshal JSON data into InputMonitorConfigurationAnomalyTrace
+		err = json.Unmarshal(data, &dst.InputMonitorConfigurationAnomalyTrace)
+		if err == nil {
+			return nil // data stored in dst.InputMonitorConfigurationAnomalyTrace, return on the first match
+		} else {
+			dst.InputMonitorConfigurationAnomalyTrace = nil
+			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as InputMonitorConfigurationAnomalyTrace: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'certificate-expiry'
 	if jsonDict["type"] == "certificate-expiry" {
 		// try to unmarshal JSON data into InputMonitorConfigurationCertificateExpiry
@@ -135,13 +155,13 @@ func (dst *UpdateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 
 	// check if the discriminator value is 'log-error-pattern'
 	if jsonDict["type"] == "log-error-pattern" {
-		// try to unmarshal JSON data into MonitorConfigurationLogErrorPattern
-		err = json.Unmarshal(data, &dst.MonitorConfigurationLogErrorPattern)
+		// try to unmarshal JSON data into InputMonitorConfigurationLogErrorPattern
+		err = json.Unmarshal(data, &dst.InputMonitorConfigurationLogErrorPattern)
 		if err == nil {
-			return nil // data stored in dst.MonitorConfigurationLogErrorPattern, return on the first match
+			return nil // data stored in dst.InputMonitorConfigurationLogErrorPattern, return on the first match
 		} else {
-			dst.MonitorConfigurationLogErrorPattern = nil
-			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as MonitorConfigurationLogErrorPattern: %s", err.Error())
+			dst.InputMonitorConfigurationLogErrorPattern = nil
+			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as InputMonitorConfigurationLogErrorPattern: %s", err.Error())
 		}
 	}
 
@@ -182,6 +202,10 @@ func (src UpdateMonitorRequestConfiguration) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.InputMonitorConfigurationAnomalyMetric)
 	}
 
+	if src.InputMonitorConfigurationAnomalyTrace != nil {
+		return json.Marshal(&src.InputMonitorConfigurationAnomalyTrace)
+	}
+
 	if src.InputMonitorConfigurationCertificateExpiry != nil {
 		return json.Marshal(&src.InputMonitorConfigurationCertificateExpiry)
 	}
@@ -190,16 +214,16 @@ func (src UpdateMonitorRequestConfiguration) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.InputMonitorConfigurationLog)
 	}
 
+	if src.InputMonitorConfigurationLogErrorPattern != nil {
+		return json.Marshal(&src.InputMonitorConfigurationLogErrorPattern)
+	}
+
 	if src.InputMonitorConfigurationMetric != nil {
 		return json.Marshal(&src.InputMonitorConfigurationMetric)
 	}
 
 	if src.InputMonitorConfigurationTrace != nil {
 		return json.Marshal(&src.InputMonitorConfigurationTrace)
-	}
-
-	if src.MonitorConfigurationLogErrorPattern != nil {
-		return json.Marshal(&src.MonitorConfigurationLogErrorPattern)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -218,6 +242,10 @@ func (obj *UpdateMonitorRequestConfiguration) GetActualInstance() interface{} {
 		return obj.InputMonitorConfigurationAnomalyMetric
 	}
 
+	if obj.InputMonitorConfigurationAnomalyTrace != nil {
+		return obj.InputMonitorConfigurationAnomalyTrace
+	}
+
 	if obj.InputMonitorConfigurationCertificateExpiry != nil {
 		return obj.InputMonitorConfigurationCertificateExpiry
 	}
@@ -226,16 +254,16 @@ func (obj *UpdateMonitorRequestConfiguration) GetActualInstance() interface{} {
 		return obj.InputMonitorConfigurationLog
 	}
 
+	if obj.InputMonitorConfigurationLogErrorPattern != nil {
+		return obj.InputMonitorConfigurationLogErrorPattern
+	}
+
 	if obj.InputMonitorConfigurationMetric != nil {
 		return obj.InputMonitorConfigurationMetric
 	}
 
 	if obj.InputMonitorConfigurationTrace != nil {
 		return obj.InputMonitorConfigurationTrace
-	}
-
-	if obj.MonitorConfigurationLogErrorPattern != nil {
-		return obj.MonitorConfigurationLogErrorPattern
 	}
 
 	// all schemas are nil
@@ -252,6 +280,10 @@ func (obj UpdateMonitorRequestConfiguration) GetActualInstanceValue() interface{
 		return *obj.InputMonitorConfigurationAnomalyMetric
 	}
 
+	if obj.InputMonitorConfigurationAnomalyTrace != nil {
+		return *obj.InputMonitorConfigurationAnomalyTrace
+	}
+
 	if obj.InputMonitorConfigurationCertificateExpiry != nil {
 		return *obj.InputMonitorConfigurationCertificateExpiry
 	}
@@ -260,16 +292,16 @@ func (obj UpdateMonitorRequestConfiguration) GetActualInstanceValue() interface{
 		return *obj.InputMonitorConfigurationLog
 	}
 
+	if obj.InputMonitorConfigurationLogErrorPattern != nil {
+		return *obj.InputMonitorConfigurationLogErrorPattern
+	}
+
 	if obj.InputMonitorConfigurationMetric != nil {
 		return *obj.InputMonitorConfigurationMetric
 	}
 
 	if obj.InputMonitorConfigurationTrace != nil {
 		return *obj.InputMonitorConfigurationTrace
-	}
-
-	if obj.MonitorConfigurationLogErrorPattern != nil {
-		return *obj.MonitorConfigurationLogErrorPattern
 	}
 
 	// all schemas are nil

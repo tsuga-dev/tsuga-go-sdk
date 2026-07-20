@@ -6,28 +6,33 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the database rows-based aggregation as a time series chart | 
 **ConnectionId** | **string** | The ID of the connection to use to query the datastore. | 
-**Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query | 
+**Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. | 
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 **Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
 **YAxisSettings** | Pointer to [**GraphVisualizationTimeseriesConnectionYAxisSettings**](GraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
 **Query** | **string** | Tsuga query that selects logs to cluster into patterns | 
 **ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each log | [optional] 
 **ListColumnsSize** | Pointer to **map[string]float32** |  | [optional] 
+**IsCellWrapped** | Pointer to **bool** | Whether list widget cell text wraps instead of truncating. Set by the dashboard author for list widgets. Optional on create or update and returned when configured. | [optional] 
 **BackgroundMode** | Pointer to **string** | Controls whether the widget uses a solid or transparent background | [optional] 
 **Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the displayed value | [optional] 
 **Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
-**Source** | **string** | Data source being queried for this aggregation | 
-**Formula** | Pointer to **string** | Formula referencing query outputs (e.g. q1+q2) to compute derived series | [optional] 
-**Aliases** | Pointer to [**GraphVisualizationTimeseriesAliases**](GraphVisualizationTimeseriesAliases.md) |  | [optional] 
-**VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
-**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
-**TimeBucket** | Pointer to [**GraphVisualizationTimeseriesTimeBucket**](GraphVisualizationTimeseriesTimeBucket.md) |  | [optional] 
+**Aliases** | Pointer to [**GraphVisualizationTimeseriesPromqlAliases**](GraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
+**TimeBucket** | Pointer to [**GraphVisualizationTimeseriesPromqlTimeBucket**](GraphVisualizationTimeseriesPromqlTimeBucket.md) |  | [optional] 
 **Smoothing** | Pointer to **bool** | Whether to apply automatic smoothing to the rendered timeseries | [optional] 
+**Source** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, &#x60;traces&#x60;, or &#x60;rum&#x60;. | 
+**Formula** | Pointer to **string** | Formula referencing submitted query outputs, such as &#x60;q1 + q2&#x60;. References must be within &#x60;q1&#x60; through &#x60;qN&#x60; for the submitted queries. | [optional] 
+**VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
+**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values. | [optional] 
+**Max** | Pointer to **float32** | Gauge maximum value | [optional] 
+**ColorThresholds** | Pointer to [**[]GaugeColorThreshold**](GaugeColorThreshold.md) | Color thresholds inside the gauge range | [optional] 
 **PercentileMarkers** | Pointer to **[]int32** | Percentile markers displayed on top of the distribution chart | [optional] 
+**BoundsScale** | Pointer to **string** |  | [optional] 
 **Palette** | Pointer to **string** | Color palette used to render the heatmap intensity gradient | [optional] 
 **Columns** | [**[]TableColumn**](TableColumn.md) | Each column defines an independent aggregation displayed as a table column | 
 **DefaultSorting** | Pointer to [**[]TableDefaultSorting**](TableDefaultSorting.md) |  | [optional] 
+**ColumnSizes** | Pointer to **map[string]float32** |  | [optional] 
 **Note** | Pointer to **string** | Markdown-compatible text shown in the note | [optional] 
 **NoteColor** | Pointer to **string** | Background color used to render the note | [optional] 
 **NoteAlign** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
@@ -258,6 +263,31 @@ SetListColumnsSize sets ListColumnsSize field to given value.
 
 HasListColumnsSize returns a boolean if a field has been set.
 
+### GetIsCellWrapped
+
+`func (o *Graph1Visualization) GetIsCellWrapped() bool`
+
+GetIsCellWrapped returns the IsCellWrapped field if non-nil, zero value otherwise.
+
+### GetIsCellWrappedOk
+
+`func (o *Graph1Visualization) GetIsCellWrappedOk() (*bool, bool)`
+
+GetIsCellWrappedOk returns a tuple with the IsCellWrapped field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsCellWrapped
+
+`func (o *Graph1Visualization) SetIsCellWrapped(v bool)`
+
+SetIsCellWrapped sets IsCellWrapped field to given value.
+
+### HasIsCellWrapped
+
+`func (o *Graph1Visualization) HasIsCellWrapped() bool`
+
+HasIsCellWrapped returns a boolean if a field has been set.
+
 ### GetBackgroundMode
 
 `func (o *Graph1Visualization) GetBackgroundMode() string`
@@ -358,6 +388,81 @@ SetNormalizer sets Normalizer field to given value.
 
 HasNormalizer returns a boolean if a field has been set.
 
+### GetAliases
+
+`func (o *Graph1Visualization) GetAliases() GraphVisualizationTimeseriesPromqlAliases`
+
+GetAliases returns the Aliases field if non-nil, zero value otherwise.
+
+### GetAliasesOk
+
+`func (o *Graph1Visualization) GetAliasesOk() (*GraphVisualizationTimeseriesPromqlAliases, bool)`
+
+GetAliasesOk returns a tuple with the Aliases field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAliases
+
+`func (o *Graph1Visualization) SetAliases(v GraphVisualizationTimeseriesPromqlAliases)`
+
+SetAliases sets Aliases field to given value.
+
+### HasAliases
+
+`func (o *Graph1Visualization) HasAliases() bool`
+
+HasAliases returns a boolean if a field has been set.
+
+### GetTimeBucket
+
+`func (o *Graph1Visualization) GetTimeBucket() GraphVisualizationTimeseriesPromqlTimeBucket`
+
+GetTimeBucket returns the TimeBucket field if non-nil, zero value otherwise.
+
+### GetTimeBucketOk
+
+`func (o *Graph1Visualization) GetTimeBucketOk() (*GraphVisualizationTimeseriesPromqlTimeBucket, bool)`
+
+GetTimeBucketOk returns a tuple with the TimeBucket field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTimeBucket
+
+`func (o *Graph1Visualization) SetTimeBucket(v GraphVisualizationTimeseriesPromqlTimeBucket)`
+
+SetTimeBucket sets TimeBucket field to given value.
+
+### HasTimeBucket
+
+`func (o *Graph1Visualization) HasTimeBucket() bool`
+
+HasTimeBucket returns a boolean if a field has been set.
+
+### GetSmoothing
+
+`func (o *Graph1Visualization) GetSmoothing() bool`
+
+GetSmoothing returns the Smoothing field if non-nil, zero value otherwise.
+
+### GetSmoothingOk
+
+`func (o *Graph1Visualization) GetSmoothingOk() (*bool, bool)`
+
+GetSmoothingOk returns a tuple with the Smoothing field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSmoothing
+
+`func (o *Graph1Visualization) SetSmoothing(v bool)`
+
+SetSmoothing sets Smoothing field to given value.
+
+### HasSmoothing
+
+`func (o *Graph1Visualization) HasSmoothing() bool`
+
+HasSmoothing returns a boolean if a field has been set.
+
 ### GetSource
 
 `func (o *Graph1Visualization) GetSource() string`
@@ -402,31 +507,6 @@ SetFormula sets Formula field to given value.
 `func (o *Graph1Visualization) HasFormula() bool`
 
 HasFormula returns a boolean if a field has been set.
-
-### GetAliases
-
-`func (o *Graph1Visualization) GetAliases() GraphVisualizationTimeseriesAliases`
-
-GetAliases returns the Aliases field if non-nil, zero value otherwise.
-
-### GetAliasesOk
-
-`func (o *Graph1Visualization) GetAliasesOk() (*GraphVisualizationTimeseriesAliases, bool)`
-
-GetAliasesOk returns a tuple with the Aliases field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAliases
-
-`func (o *Graph1Visualization) SetAliases(v GraphVisualizationTimeseriesAliases)`
-
-SetAliases sets Aliases field to given value.
-
-### HasAliases
-
-`func (o *Graph1Visualization) HasAliases() bool`
-
-HasAliases returns a boolean if a field has been set.
 
 ### GetVisibleSeries
 
@@ -478,55 +558,55 @@ SetGroupBy sets GroupBy field to given value.
 
 HasGroupBy returns a boolean if a field has been set.
 
-### GetTimeBucket
+### GetMax
 
-`func (o *Graph1Visualization) GetTimeBucket() GraphVisualizationTimeseriesTimeBucket`
+`func (o *Graph1Visualization) GetMax() float32`
 
-GetTimeBucket returns the TimeBucket field if non-nil, zero value otherwise.
+GetMax returns the Max field if non-nil, zero value otherwise.
 
-### GetTimeBucketOk
+### GetMaxOk
 
-`func (o *Graph1Visualization) GetTimeBucketOk() (*GraphVisualizationTimeseriesTimeBucket, bool)`
+`func (o *Graph1Visualization) GetMaxOk() (*float32, bool)`
 
-GetTimeBucketOk returns a tuple with the TimeBucket field if it's non-nil, zero value otherwise
+GetMaxOk returns a tuple with the Max field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetTimeBucket
+### SetMax
 
-`func (o *Graph1Visualization) SetTimeBucket(v GraphVisualizationTimeseriesTimeBucket)`
+`func (o *Graph1Visualization) SetMax(v float32)`
 
-SetTimeBucket sets TimeBucket field to given value.
+SetMax sets Max field to given value.
 
-### HasTimeBucket
+### HasMax
 
-`func (o *Graph1Visualization) HasTimeBucket() bool`
+`func (o *Graph1Visualization) HasMax() bool`
 
-HasTimeBucket returns a boolean if a field has been set.
+HasMax returns a boolean if a field has been set.
 
-### GetSmoothing
+### GetColorThresholds
 
-`func (o *Graph1Visualization) GetSmoothing() bool`
+`func (o *Graph1Visualization) GetColorThresholds() []GaugeColorThreshold`
 
-GetSmoothing returns the Smoothing field if non-nil, zero value otherwise.
+GetColorThresholds returns the ColorThresholds field if non-nil, zero value otherwise.
 
-### GetSmoothingOk
+### GetColorThresholdsOk
 
-`func (o *Graph1Visualization) GetSmoothingOk() (*bool, bool)`
+`func (o *Graph1Visualization) GetColorThresholdsOk() (*[]GaugeColorThreshold, bool)`
 
-GetSmoothingOk returns a tuple with the Smoothing field if it's non-nil, zero value otherwise
+GetColorThresholdsOk returns a tuple with the ColorThresholds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSmoothing
+### SetColorThresholds
 
-`func (o *Graph1Visualization) SetSmoothing(v bool)`
+`func (o *Graph1Visualization) SetColorThresholds(v []GaugeColorThreshold)`
 
-SetSmoothing sets Smoothing field to given value.
+SetColorThresholds sets ColorThresholds field to given value.
 
-### HasSmoothing
+### HasColorThresholds
 
-`func (o *Graph1Visualization) HasSmoothing() bool`
+`func (o *Graph1Visualization) HasColorThresholds() bool`
 
-HasSmoothing returns a boolean if a field has been set.
+HasColorThresholds returns a boolean if a field has been set.
 
 ### GetPercentileMarkers
 
@@ -552,6 +632,31 @@ SetPercentileMarkers sets PercentileMarkers field to given value.
 `func (o *Graph1Visualization) HasPercentileMarkers() bool`
 
 HasPercentileMarkers returns a boolean if a field has been set.
+
+### GetBoundsScale
+
+`func (o *Graph1Visualization) GetBoundsScale() string`
+
+GetBoundsScale returns the BoundsScale field if non-nil, zero value otherwise.
+
+### GetBoundsScaleOk
+
+`func (o *Graph1Visualization) GetBoundsScaleOk() (*string, bool)`
+
+GetBoundsScaleOk returns a tuple with the BoundsScale field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBoundsScale
+
+`func (o *Graph1Visualization) SetBoundsScale(v string)`
+
+SetBoundsScale sets BoundsScale field to given value.
+
+### HasBoundsScale
+
+`func (o *Graph1Visualization) HasBoundsScale() bool`
+
+HasBoundsScale returns a boolean if a field has been set.
 
 ### GetPalette
 
@@ -622,6 +727,31 @@ SetDefaultSorting sets DefaultSorting field to given value.
 `func (o *Graph1Visualization) HasDefaultSorting() bool`
 
 HasDefaultSorting returns a boolean if a field has been set.
+
+### GetColumnSizes
+
+`func (o *Graph1Visualization) GetColumnSizes() map[string]float32`
+
+GetColumnSizes returns the ColumnSizes field if non-nil, zero value otherwise.
+
+### GetColumnSizesOk
+
+`func (o *Graph1Visualization) GetColumnSizesOk() (*map[string]float32, bool)`
+
+GetColumnSizesOk returns a tuple with the ColumnSizes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetColumnSizes
+
+`func (o *Graph1Visualization) SetColumnSizes(v map[string]float32)`
+
+SetColumnSizes sets ColumnSizes field to given value.
+
+### HasColumnSizes
+
+`func (o *Graph1Visualization) HasColumnSizes() bool`
+
+HasColumnSizes returns a boolean if a field has been set.
 
 ### GetNote
 

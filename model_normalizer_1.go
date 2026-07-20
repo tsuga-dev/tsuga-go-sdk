@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -15,13 +15,14 @@ import (
 	"fmt"
 )
 
-// Normalizer1 - struct for Normalizer1
+// Normalizer1 - Display-value formatter for widget values or list/table columns. Set by the dashboard author. Optional; custom unit labels are limited to 20 characters.
 type Normalizer1 struct {
 	DataNormalizerCpu         *DataNormalizerCpu
 	DataNormalizerData        *DataNormalizerData
 	DataNormalizerDate        *DataNormalizerDate
 	DataNormalizerDuration    *DataNormalizerDuration
 	DataNormalizerLevel       *DataNormalizerLevel
+	DataNormalizerNone        *DataNormalizerNone
 	DataNormalizerPercent     *DataNormalizerPercent
 	InputDataNormalizerCustom *InputDataNormalizerCustom
 }
@@ -58,6 +59,13 @@ func DataNormalizerDurationAsNormalizer1(v *DataNormalizerDuration) Normalizer1 
 func DataNormalizerLevelAsNormalizer1(v *DataNormalizerLevel) Normalizer1 {
 	return Normalizer1{
 		DataNormalizerLevel: v,
+	}
+}
+
+// DataNormalizerNoneAsNormalizer1 is a convenience function that returns DataNormalizerNone wrapped in Normalizer1
+func DataNormalizerNoneAsNormalizer1(v *DataNormalizerNone) Normalizer1 {
+	return Normalizer1{
+		DataNormalizerNone: v,
 	}
 }
 
@@ -157,6 +165,18 @@ func (dst *Normalizer1) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'none'
+	if jsonDict["type"] == "none" {
+		// try to unmarshal JSON data into DataNormalizerNone
+		err = json.Unmarshal(data, &dst.DataNormalizerNone)
+		if err == nil {
+			return nil // data stored in dst.DataNormalizerNone, return on the first match
+		} else {
+			dst.DataNormalizerNone = nil
+			return fmt.Errorf("failed to unmarshal Normalizer1 as DataNormalizerNone: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'percent'
 	if jsonDict["type"] == "percent" {
 		// try to unmarshal JSON data into DataNormalizerPercent
@@ -192,6 +212,10 @@ func (src Normalizer1) MarshalJSON() ([]byte, error) {
 
 	if src.DataNormalizerLevel != nil {
 		return json.Marshal(&src.DataNormalizerLevel)
+	}
+
+	if src.DataNormalizerNone != nil {
+		return json.Marshal(&src.DataNormalizerNone)
 	}
 
 	if src.DataNormalizerPercent != nil {
@@ -230,6 +254,10 @@ func (obj *Normalizer1) GetActualInstance() interface{} {
 		return obj.DataNormalizerLevel
 	}
 
+	if obj.DataNormalizerNone != nil {
+		return obj.DataNormalizerNone
+	}
+
 	if obj.DataNormalizerPercent != nil {
 		return obj.DataNormalizerPercent
 	}
@@ -262,6 +290,10 @@ func (obj Normalizer1) GetActualInstanceValue() interface{} {
 
 	if obj.DataNormalizerLevel != nil {
 		return *obj.DataNormalizerLevel
+	}
+
+	if obj.DataNormalizerNone != nil {
+		return *obj.DataNormalizerNone
 	}
 
 	if obj.DataNormalizerPercent != nil {

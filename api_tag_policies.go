@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -24,7 +24,7 @@ type TagPoliciesAPI interface {
 	/*
 		CreateTagPolicy Method for CreateTagPolicy
 
-		Create a new tag policy
+		Creates a tag policy for Tsuga-managed assets or telemetry data. Use the configuration type to choose the policy surface.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return TagPoliciesAPICreateTagPolicyRequest
@@ -38,10 +38,10 @@ type TagPoliciesAPI interface {
 	/*
 		DeleteTagPolicy Method for DeleteTagPolicy
 
-		Delete a tag policy by its id
+		Deletes a tag policy by ID. Tsuga stops evaluating the policy after deletion. Reserved policies (for example the built-in `env` policy on ingestion API keys) cannot be deleted.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id
+		@param id Identifier of the tag policy to delete. Use the `id` returned by tag policy list, create, or update responses.
 		@return TagPoliciesAPIDeleteTagPolicyRequest
 	*/
 	DeleteTagPolicy(ctx context.Context, id string) TagPoliciesAPIDeleteTagPolicyRequest
@@ -53,10 +53,10 @@ type TagPoliciesAPI interface {
 	/*
 		GetTagPolicy Method for GetTagPolicy
 
-		Retrieve a tag policy by its id
+		Retrieves one tag policy by ID when the authenticated operation key can read it. Use this before updating policy scope or enforcement settings.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id
+		@param id Identifier of the tag policy to retrieve. Use the `id` returned by tag policy list or create responses.
 		@return TagPoliciesAPIGetTagPolicyRequest
 	*/
 	GetTagPolicy(ctx context.Context, id string) TagPoliciesAPIGetTagPolicyRequest
@@ -68,7 +68,7 @@ type TagPoliciesAPI interface {
 	/*
 		ListTagPolicies Method for ListTagPolicies
 
-		Retrieve all tag policies
+		Lists tag policies visible to the authenticated operation key. Use this to audit required tags, allowed values, team scope, and whether each policy applies to assets or telemetry.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return TagPoliciesAPIListTagPoliciesRequest
@@ -82,10 +82,10 @@ type TagPoliciesAPI interface {
 	/*
 		UpdateTagPolicy Method for UpdateTagPolicy
 
-		Update a tag policy by its id
+		Replaces an existing tag policy by ID, including scope, requiredness, allowed values, owner, active state, and configuration. Reserved policies (for example the built-in `env` policy on ingestion API keys) reject changes to `tagKey` and reject `isActive: false` or `isRequired: false`.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id
+		@param id Identifier of the tag policy to update. Use the `id` returned by tag policy list, get, or create responses.
 		@return TagPoliciesAPIUpdateTagPolicyRequest
 	*/
 	UpdateTagPolicy(ctx context.Context, id string) TagPoliciesAPIUpdateTagPolicyRequest
@@ -104,6 +104,7 @@ type TagPoliciesAPICreateTagPolicyRequest struct {
 	createTagPolicyRequest *CreateTagPolicyRequest
 }
 
+// Tag policy create or update request. Provide policy identity, owner, enforced tag key, allowed values, team scope, active state, and asset or telemetry configuration.
 func (r TagPoliciesAPICreateTagPolicyRequest) CreateTagPolicyRequest(createTagPolicyRequest CreateTagPolicyRequest) TagPoliciesAPICreateTagPolicyRequest {
 	r.createTagPolicyRequest = &createTagPolicyRequest
 	return r
@@ -116,7 +117,7 @@ func (r TagPoliciesAPICreateTagPolicyRequest) Execute() (*CreateTagPolicyRespons
 /*
 CreateTagPolicy Method for CreateTagPolicy
 
-Create a new tag policy
+Creates a tag policy for Tsuga-managed assets or telemetry data. Use the configuration type to choose the policy surface.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TagPoliciesAPICreateTagPolicyRequest
@@ -243,10 +244,10 @@ func (r TagPoliciesAPIDeleteTagPolicyRequest) Execute() (*DeleteTagPolicyRespons
 /*
 DeleteTagPolicy Method for DeleteTagPolicy
 
-Delete a tag policy by its id
+Deletes a tag policy by ID. Tsuga stops evaluating the policy after deletion. Reserved policies (for example the built-in `env` policy on ingestion API keys) cannot be deleted.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id Identifier of the tag policy to delete. Use the `id` returned by tag policy list, create, or update responses.
 	@return TagPoliciesAPIDeleteTagPolicyRequest
 */
 func (a *TagPoliciesAPIService) DeleteTagPolicy(ctx context.Context, id string) TagPoliciesAPIDeleteTagPolicyRequest {
@@ -374,10 +375,10 @@ func (r TagPoliciesAPIGetTagPolicyRequest) Execute() (*GetTagPolicyResponse, *ht
 /*
 GetTagPolicy Method for GetTagPolicy
 
-Retrieve a tag policy by its id
+Retrieves one tag policy by ID when the authenticated operation key can read it. Use this before updating policy scope or enforcement settings.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id Identifier of the tag policy to retrieve. Use the `id` returned by tag policy list or create responses.
 	@return TagPoliciesAPIGetTagPolicyRequest
 */
 func (a *TagPoliciesAPIService) GetTagPolicy(ctx context.Context, id string) TagPoliciesAPIGetTagPolicyRequest {
@@ -504,7 +505,7 @@ func (r TagPoliciesAPIListTagPoliciesRequest) Execute() (*ListTagPoliciesRespons
 /*
 ListTagPolicies Method for ListTagPolicies
 
-Retrieve all tag policies
+Lists tag policies visible to the authenticated operation key. Use this to audit required tags, allowed values, team scope, and whether each policy applies to assets or telemetry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TagPoliciesAPIListTagPoliciesRequest
@@ -617,11 +618,12 @@ type TagPoliciesAPIUpdateTagPolicyRequest struct {
 	ctx                    context.Context
 	ApiService             TagPoliciesAPI
 	id                     string
-	createTagPolicyRequest *CreateTagPolicyRequest
+	updateTagPolicyRequest *UpdateTagPolicyRequest
 }
 
-func (r TagPoliciesAPIUpdateTagPolicyRequest) CreateTagPolicyRequest(createTagPolicyRequest CreateTagPolicyRequest) TagPoliciesAPIUpdateTagPolicyRequest {
-	r.createTagPolicyRequest = &createTagPolicyRequest
+// Tag policy create or update request. Provide policy identity, owner, enforced tag key, allowed values, team scope, active state, and asset or telemetry configuration.
+func (r TagPoliciesAPIUpdateTagPolicyRequest) UpdateTagPolicyRequest(updateTagPolicyRequest UpdateTagPolicyRequest) TagPoliciesAPIUpdateTagPolicyRequest {
+	r.updateTagPolicyRequest = &updateTagPolicyRequest
 	return r
 }
 
@@ -632,10 +634,10 @@ func (r TagPoliciesAPIUpdateTagPolicyRequest) Execute() (*UpdateTagPolicyRespons
 /*
 UpdateTagPolicy Method for UpdateTagPolicy
 
-Update a tag policy by its id
+Replaces an existing tag policy by ID, including scope, requiredness, allowed values, owner, active state, and configuration. Reserved policies (for example the built-in `env` policy on ingestion API keys) reject changes to `tagKey` and reject `isActive: false` or `isRequired: false`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id Identifier of the tag policy to update. Use the `id` returned by tag policy list, get, or create responses.
 	@return TagPoliciesAPIUpdateTagPolicyRequest
 */
 func (a *TagPoliciesAPIService) UpdateTagPolicy(ctx context.Context, id string) TagPoliciesAPIUpdateTagPolicyRequest {
@@ -674,8 +676,8 @@ func (a *TagPoliciesAPIService) UpdateTagPolicyExecute(r TagPoliciesAPIUpdateTag
 	if strlen(r.id) > 250 {
 		return localVarReturnValue, nil, reportError("id must have less than 250 elements")
 	}
-	if r.createTagPolicyRequest == nil {
-		return localVarReturnValue, nil, reportError("createTagPolicyRequest is required and must be specified")
+	if r.updateTagPolicyRequest == nil {
+		return localVarReturnValue, nil, reportError("updateTagPolicyRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -696,7 +698,7 @@ func (a *TagPoliciesAPIService) UpdateTagPolicyExecute(r TagPoliciesAPIUpdateTag
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createTagPolicyRequest
+	localVarPostBody = r.updateTagPolicyRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

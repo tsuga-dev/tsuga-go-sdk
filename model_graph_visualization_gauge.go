@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -22,17 +22,19 @@ var _ MappedNullable = &GraphVisualizationGauge{}
 type GraphVisualizationGauge struct {
 	// Displays the aggregation as a gauge
 	Type string `json:"type"`
-	// Data source being queried for this aggregation
+	// Telemetry source queried by this aggregation: `logs`, `metrics`, `traces`, or `rum`.
 	Source string `json:"source"`
-	// Aggregations that may be combined together in the same query
+	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order.
 	Queries []AggregationQuery `json:"queries"`
-	// Formula referencing query outputs (e.g. q1+q2) to compute derived series
-	Formula *string                              `json:"formula,omitempty"`
-	Aliases *GraphVisualizationTimeseriesAliases `json:"aliases,omitempty"`
+	// Formula referencing submitted query outputs, such as `q1 + q2`. References must be within `q1` through `qN` for the submitted queries.
+	Formula *string                                    `json:"formula,omitempty"`
+	Aliases *GraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
-	// Conditional formatting rules applied to the displayed value
-	Conditions []ConditionalFormatting `json:"conditions,omitempty"`
+	// Gauge maximum value
+	Max *float32 `json:"max,omitempty"`
+	// Color thresholds inside the gauge range
+	ColorThresholds []GaugeColorThreshold `json:"colorThresholds,omitempty"`
 	// Number of decimal places to display in the value
 	Precision            *float32    `json:"precision,omitempty"`
 	Normalizer           *Normalizer `json:"normalizer,omitempty"`
@@ -166,9 +168,9 @@ func (o *GraphVisualizationGauge) SetFormula(v string) {
 }
 
 // GetAliases returns the Aliases field value if set, zero value otherwise.
-func (o *GraphVisualizationGauge) GetAliases() GraphVisualizationTimeseriesAliases {
+func (o *GraphVisualizationGauge) GetAliases() GraphVisualizationTimeseriesPromqlAliases {
 	if o == nil || IsNil(o.Aliases) {
-		var ret GraphVisualizationTimeseriesAliases
+		var ret GraphVisualizationTimeseriesPromqlAliases
 		return ret
 	}
 	return *o.Aliases
@@ -176,7 +178,7 @@ func (o *GraphVisualizationGauge) GetAliases() GraphVisualizationTimeseriesAlias
 
 // GetAliasesOk returns a tuple with the Aliases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationGauge) GetAliasesOk() (*GraphVisualizationTimeseriesAliases, bool) {
+func (o *GraphVisualizationGauge) GetAliasesOk() (*GraphVisualizationTimeseriesPromqlAliases, bool) {
 	if o == nil || IsNil(o.Aliases) {
 		return nil, false
 	}
@@ -192,8 +194,8 @@ func (o *GraphVisualizationGauge) HasAliases() bool {
 	return false
 }
 
-// SetAliases gets a reference to the given GraphVisualizationTimeseriesAliases and assigns it to the Aliases field.
-func (o *GraphVisualizationGauge) SetAliases(v GraphVisualizationTimeseriesAliases) {
+// SetAliases gets a reference to the given GraphVisualizationTimeseriesPromqlAliases and assigns it to the Aliases field.
+func (o *GraphVisualizationGauge) SetAliases(v GraphVisualizationTimeseriesPromqlAliases) {
 	o.Aliases = &v
 }
 
@@ -229,36 +231,68 @@ func (o *GraphVisualizationGauge) SetVisibleSeries(v []bool) {
 	o.VisibleSeries = v
 }
 
-// GetConditions returns the Conditions field value if set, zero value otherwise.
-func (o *GraphVisualizationGauge) GetConditions() []ConditionalFormatting {
-	if o == nil || IsNil(o.Conditions) {
-		var ret []ConditionalFormatting
+// GetMax returns the Max field value if set, zero value otherwise.
+func (o *GraphVisualizationGauge) GetMax() float32 {
+	if o == nil || IsNil(o.Max) {
+		var ret float32
 		return ret
 	}
-	return o.Conditions
+	return *o.Max
 }
 
-// GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
+// GetMaxOk returns a tuple with the Max field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationGauge) GetConditionsOk() ([]ConditionalFormatting, bool) {
-	if o == nil || IsNil(o.Conditions) {
+func (o *GraphVisualizationGauge) GetMaxOk() (*float32, bool) {
+	if o == nil || IsNil(o.Max) {
 		return nil, false
 	}
-	return o.Conditions, true
+	return o.Max, true
 }
 
-// HasConditions returns a boolean if a field has been set.
-func (o *GraphVisualizationGauge) HasConditions() bool {
-	if o != nil && !IsNil(o.Conditions) {
+// HasMax returns a boolean if a field has been set.
+func (o *GraphVisualizationGauge) HasMax() bool {
+	if o != nil && !IsNil(o.Max) {
 		return true
 	}
 
 	return false
 }
 
-// SetConditions gets a reference to the given []ConditionalFormatting and assigns it to the Conditions field.
-func (o *GraphVisualizationGauge) SetConditions(v []ConditionalFormatting) {
-	o.Conditions = v
+// SetMax gets a reference to the given float32 and assigns it to the Max field.
+func (o *GraphVisualizationGauge) SetMax(v float32) {
+	o.Max = &v
+}
+
+// GetColorThresholds returns the ColorThresholds field value if set, zero value otherwise.
+func (o *GraphVisualizationGauge) GetColorThresholds() []GaugeColorThreshold {
+	if o == nil || IsNil(o.ColorThresholds) {
+		var ret []GaugeColorThreshold
+		return ret
+	}
+	return o.ColorThresholds
+}
+
+// GetColorThresholdsOk returns a tuple with the ColorThresholds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationGauge) GetColorThresholdsOk() ([]GaugeColorThreshold, bool) {
+	if o == nil || IsNil(o.ColorThresholds) {
+		return nil, false
+	}
+	return o.ColorThresholds, true
+}
+
+// HasColorThresholds returns a boolean if a field has been set.
+func (o *GraphVisualizationGauge) HasColorThresholds() bool {
+	if o != nil && !IsNil(o.ColorThresholds) {
+		return true
+	}
+
+	return false
+}
+
+// SetColorThresholds gets a reference to the given []GaugeColorThreshold and assigns it to the ColorThresholds field.
+func (o *GraphVisualizationGauge) SetColorThresholds(v []GaugeColorThreshold) {
+	o.ColorThresholds = v
 }
 
 // GetPrecision returns the Precision field value if set, zero value otherwise.
@@ -347,8 +381,11 @@ func (o GraphVisualizationGauge) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.VisibleSeries) {
 		toSerialize["visibleSeries"] = o.VisibleSeries
 	}
-	if !IsNil(o.Conditions) {
-		toSerialize["conditions"] = o.Conditions
+	if !IsNil(o.Max) {
+		toSerialize["max"] = o.Max
+	}
+	if !IsNil(o.ColorThresholds) {
+		toSerialize["colorThresholds"] = o.ColorThresholds
 	}
 	if !IsNil(o.Precision) {
 		toSerialize["precision"] = o.Precision
@@ -407,7 +444,8 @@ func (o *GraphVisualizationGauge) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "formula")
 		delete(additionalProperties, "aliases")
 		delete(additionalProperties, "visibleSeries")
-		delete(additionalProperties, "conditions")
+		delete(additionalProperties, "max")
+		delete(additionalProperties, "colorThresholds")
 		delete(additionalProperties, "precision")
 		delete(additionalProperties, "normalizer")
 		o.AdditionalProperties = additionalProperties

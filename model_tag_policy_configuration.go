@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -15,23 +15,23 @@ import (
 	"fmt"
 )
 
-// TagPolicyConfiguration - struct for TagPolicyConfiguration
+// TagPolicyConfiguration - Policy surface and enforcement behavior. Use `telemetry` for telemetry data or `tsuga_asset` for Tsuga-managed resources.
 type TagPolicyConfiguration struct {
-	CreateTagPolicyRequestConfigurationOneOf1 *CreateTagPolicyRequestConfigurationOneOf1
-	TagPolicyConfigurationOneOf               *TagPolicyConfigurationOneOf
+	TelemetryTagPolicy1 *TelemetryTagPolicy1
+	TsugaAssetTagPolicy *TsugaAssetTagPolicy
 }
 
-// CreateTagPolicyRequestConfigurationOneOf1AsTagPolicyConfiguration is a convenience function that returns CreateTagPolicyRequestConfigurationOneOf1 wrapped in TagPolicyConfiguration
-func CreateTagPolicyRequestConfigurationOneOf1AsTagPolicyConfiguration(v *CreateTagPolicyRequestConfigurationOneOf1) TagPolicyConfiguration {
+// TelemetryTagPolicy1AsTagPolicyConfiguration is a convenience function that returns TelemetryTagPolicy1 wrapped in TagPolicyConfiguration
+func TelemetryTagPolicy1AsTagPolicyConfiguration(v *TelemetryTagPolicy1) TagPolicyConfiguration {
 	return TagPolicyConfiguration{
-		CreateTagPolicyRequestConfigurationOneOf1: v,
+		TelemetryTagPolicy1: v,
 	}
 }
 
-// TagPolicyConfigurationOneOfAsTagPolicyConfiguration is a convenience function that returns TagPolicyConfigurationOneOf wrapped in TagPolicyConfiguration
-func TagPolicyConfigurationOneOfAsTagPolicyConfiguration(v *TagPolicyConfigurationOneOf) TagPolicyConfiguration {
+// TsugaAssetTagPolicyAsTagPolicyConfiguration is a convenience function that returns TsugaAssetTagPolicy wrapped in TagPolicyConfiguration
+func TsugaAssetTagPolicyAsTagPolicyConfiguration(v *TsugaAssetTagPolicy) TagPolicyConfiguration {
 	return TagPolicyConfiguration{
-		TagPolicyConfigurationOneOf: v,
+		TsugaAssetTagPolicy: v,
 	}
 }
 
@@ -45,27 +45,27 @@ func (dst *TagPolicyConfiguration) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'TagPolicy_configuration_oneOf'
-	if jsonDict["type"] == "TagPolicy_configuration_oneOf" {
-		// try to unmarshal JSON data into TagPolicyConfigurationOneOf
-		err = json.Unmarshal(data, &dst.TagPolicyConfigurationOneOf)
+	// check if the discriminator value is 'TelemetryTagPolicy_1'
+	if jsonDict["type"] == "TelemetryTagPolicy_1" {
+		// try to unmarshal JSON data into TelemetryTagPolicy1
+		err = json.Unmarshal(data, &dst.TelemetryTagPolicy1)
 		if err == nil {
-			return nil // data stored in dst.TagPolicyConfigurationOneOf, return on the first match
+			return nil // data stored in dst.TelemetryTagPolicy1, return on the first match
 		} else {
-			dst.TagPolicyConfigurationOneOf = nil
-			return fmt.Errorf("failed to unmarshal TagPolicyConfiguration as TagPolicyConfigurationOneOf: %s", err.Error())
+			dst.TelemetryTagPolicy1 = nil
+			return fmt.Errorf("failed to unmarshal TagPolicyConfiguration as TelemetryTagPolicy1: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'createTagPolicy_request_configuration_oneOf_1'
-	if jsonDict["type"] == "createTagPolicy_request_configuration_oneOf_1" {
-		// try to unmarshal JSON data into CreateTagPolicyRequestConfigurationOneOf1
-		err = json.Unmarshal(data, &dst.CreateTagPolicyRequestConfigurationOneOf1)
+	// check if the discriminator value is 'TsugaAssetTagPolicy'
+	if jsonDict["type"] == "TsugaAssetTagPolicy" {
+		// try to unmarshal JSON data into TsugaAssetTagPolicy
+		err = json.Unmarshal(data, &dst.TsugaAssetTagPolicy)
 		if err == nil {
-			return nil // data stored in dst.CreateTagPolicyRequestConfigurationOneOf1, return on the first match
+			return nil // data stored in dst.TsugaAssetTagPolicy, return on the first match
 		} else {
-			dst.CreateTagPolicyRequestConfigurationOneOf1 = nil
-			return fmt.Errorf("failed to unmarshal TagPolicyConfiguration as CreateTagPolicyRequestConfigurationOneOf1: %s", err.Error())
+			dst.TsugaAssetTagPolicy = nil
+			return fmt.Errorf("failed to unmarshal TagPolicyConfiguration as TsugaAssetTagPolicy: %s", err.Error())
 		}
 	}
 
@@ -74,12 +74,12 @@ func (dst *TagPolicyConfiguration) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src TagPolicyConfiguration) MarshalJSON() ([]byte, error) {
-	if src.CreateTagPolicyRequestConfigurationOneOf1 != nil {
-		return json.Marshal(&src.CreateTagPolicyRequestConfigurationOneOf1)
+	if src.TelemetryTagPolicy1 != nil {
+		return json.Marshal(&src.TelemetryTagPolicy1)
 	}
 
-	if src.TagPolicyConfigurationOneOf != nil {
-		return json.Marshal(&src.TagPolicyConfigurationOneOf)
+	if src.TsugaAssetTagPolicy != nil {
+		return json.Marshal(&src.TsugaAssetTagPolicy)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -90,12 +90,12 @@ func (obj *TagPolicyConfiguration) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
-	if obj.CreateTagPolicyRequestConfigurationOneOf1 != nil {
-		return obj.CreateTagPolicyRequestConfigurationOneOf1
+	if obj.TelemetryTagPolicy1 != nil {
+		return obj.TelemetryTagPolicy1
 	}
 
-	if obj.TagPolicyConfigurationOneOf != nil {
-		return obj.TagPolicyConfigurationOneOf
+	if obj.TsugaAssetTagPolicy != nil {
+		return obj.TsugaAssetTagPolicy
 	}
 
 	// all schemas are nil
@@ -104,12 +104,12 @@ func (obj *TagPolicyConfiguration) GetActualInstance() interface{} {
 
 // Get the actual instance value
 func (obj TagPolicyConfiguration) GetActualInstanceValue() interface{} {
-	if obj.CreateTagPolicyRequestConfigurationOneOf1 != nil {
-		return *obj.CreateTagPolicyRequestConfigurationOneOf1
+	if obj.TelemetryTagPolicy1 != nil {
+		return *obj.TelemetryTagPolicy1
 	}
 
-	if obj.TagPolicyConfigurationOneOf != nil {
-		return *obj.TagPolicyConfigurationOneOf
+	if obj.TsugaAssetTagPolicy != nil {
+		return *obj.TsugaAssetTagPolicy
 	}
 
 	// all schemas are nil

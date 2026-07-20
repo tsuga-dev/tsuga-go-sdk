@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -18,12 +18,13 @@ import (
 // checks if the CreateNotificationRuleRequestTargetsInnerRenotifyConfig type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CreateNotificationRuleRequestTargetsInnerRenotifyConfig{}
 
-// CreateNotificationRuleRequestTargetsInnerRenotifyConfig Configuration for repeating notifications over time
+// CreateNotificationRuleRequestTargetsInnerRenotifyConfig Configuration for repeat monitor notifications on this target. If omitted, Tsuga sends only the original notification for each alert transition.
 type CreateNotificationRuleRequestTargetsInnerRenotifyConfig struct {
+	// Renotification mode. `each` sends repeat notifications for each matching monitor alert that remains in a configured state.
 	Mode string `json:"mode"`
-	// Alert states that will trigger a renotification
+	// Monitor alert states that trigger repeat notifications while the target remains configured for renotification.
 	RenotificationStates []string `json:"renotificationStates"`
-	// Minimum number of minutes to wait before renotifying
+	// Minimum number of minutes to wait after the previous notification.
 	RenotifyIntervalMinutes int32 `json:"renotifyIntervalMinutes"`
 	AdditionalProperties    map[string]interface{}
 }

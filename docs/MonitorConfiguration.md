@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
-**Conditions** | [**[]MonitorConfigurationMetricConditionsInner**](MonitorConfigurationMetricConditionsInner.md) |  | 
-**NoDataBehavior** | **string** |  | 
-**Timeframe** | **float32** | Timeframe of the monitor in minutes | 
+**Type** | **string** | Threshold monitor over metric aggregations. | 
+**Conditions** | [**[]MonitorConfigurationMetricConditionsInner**](MonitorConfigurationMetricConditionsInner.md) | Threshold conditions evaluated against query and formula results. All listed conditions must match for a non-grouped threshold monitor to alert. | 
+**NoDataBehavior** | **string** | Certificate expiry monitors resolve when matching certificate data disappears. | 
+**Timeframe** | **float32** | Lookback window, in minutes, that each anomaly monitor evaluation aggregates over. Valid input is 5 through 1440 minutes. | 
 **GroupByFields** | [**[]MonitorConfigurationMetricGroupByFieldsInner**](MonitorConfigurationMetricGroupByFieldsInner.md) | Monitor group by configuration. Warning! Note that the limit setting is currently ignored. | 
-**AggregationAlertLogic** | **string** |  | 
-**ProportionAlertThreshold** | Pointer to **int32** |  | [optional] 
-**Queries** | [**[]MonitorAggregationQuery**](MonitorAggregationQuery.md) |  | 
+**AggregationAlertLogic** | **string** | Certificate expiry monitors alert independently for each certificate. | 
+**ProportionAlertThreshold** | Pointer to **int32** | Percentage threshold used when &#x60;aggregationAlertLogic&#x60; is &#x60;proportion&#x60;. | [optional] 
+**Queries** | [**[]MonitorAggregationQuery**](MonitorAggregationQuery.md) | Aggregation queries used by alerting and SLO evaluation. Each query is referenced from formulas as q1, q2, and so on. | 
 **Condition** | [**MonitorConfigurationAnomalyLogCondition**](MonitorConfigurationAnomalyLogCondition.md) |  | 
 **Filter** | [**MonitorConfigurationLogErrorPatternFilter**](MonitorConfigurationLogErrorPatternFilter.md) |  | 
-**WarnBeforeInDays** | **int32** |  | 
-**CloudAccounts** | Pointer to **[]string** |  | [optional] 
+**WarnBeforeInDays** | **int32** | Number of days before certificate expiry when the monitor should warn. | 
+**CloudAccounts** | Pointer to **[]string** | Cloud account IDs whose certificates are checked. Omitted means certificates from all cloud accounts are checked. | [optional] 
 
 ## Methods
 

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateMonitor
 
-> CreateMonitorResponse CreateMonitor(ctx).UpdateMonitorRequest(updateMonitorRequest).Execute()
+> CreateMonitorResponse CreateMonitor(ctx).CreateMonitorRequest(createMonitorRequest).Execute()
 
 
 
@@ -33,11 +33,11 @@ import (
 )
 
 func main() {
-	updateMonitorRequest := *openapiclient.NewUpdateMonitorRequest("Name_example", openapiclient.updateMonitor_request_configuration{InputMonitorConfigurationAnomalyLog: openapiclient.NewInputMonitorConfigurationAnomalyLog("Type_example", *openapiclient.NewInputMonitorConfigurationAnomalyLogCondition("Formula_example", "ConditionType_example"), "NoDataBehavior_example", float32(123), []openapiclient.InputMonitorConfigurationMetricGroupByFieldsInner{*openapiclient.NewInputMonitorConfigurationMetricGroupByFieldsInner([]string{"Fields_example"}, float32(123))}, []openapiclient.MonitorAggregationQuery1{*openapiclient.NewMonitorAggregationQuery1(openapiclient.InputAggregate{InputAggregateAverage: openapiclient.NewInputAggregateAverage("Type_example", "Field_example")}, "Filter_example")})}, float32(123), "Owner_example", "Permissions_example") // UpdateMonitorRequest | 
+	createMonitorRequest := *openapiclient.NewCreateMonitorRequest("Name_example", openapiclient.updateMonitor_request_configuration{InputMonitorConfigurationAnomalyLog: openapiclient.NewInputMonitorConfigurationAnomalyLog("Type_example", *openapiclient.NewInputMonitorConfigurationAnomalyLogCondition("Formula_example", "ConditionType_example"), "NoDataBehavior_example", float32(123), []openapiclient.InputMonitorConfigurationMetricGroupByFieldsInner{*openapiclient.NewInputMonitorConfigurationMetricGroupByFieldsInner([]string{"Fields_example"}, float32(123))}, []openapiclient.MonitorAggregationQuery1{*openapiclient.NewMonitorAggregationQuery1(openapiclient.InputAggregate{InputAggregateAverage: openapiclient.NewInputAggregateAverage("Type_example", "Field_example")}, "Filter_example")})}, float32(123), "Owner_example", "Permissions_example") // CreateMonitorRequest | Monitor creation request. Provide ownership, data access, alert configuration, priority, tags, and optional dashboard or cluster scope.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MonitorsAPI.CreateMonitor(context.Background()).UpdateMonitorRequest(updateMonitorRequest).Execute()
+	resp, r, err := apiClient.MonitorsAPI.CreateMonitor(context.Background()).CreateMonitorRequest(createMonitorRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MonitorsAPI.CreateMonitor``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -58,7 +58,7 @@ Other parameters are passed through a pointer to a apiCreateMonitorRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **updateMonitorRequest** | [**UpdateMonitorRequest**](UpdateMonitorRequest.md) |  | 
+ **createMonitorRequest** | [**CreateMonitorRequest**](CreateMonitorRequest.md) | Monitor creation request. Provide ownership, data access, alert configuration, priority, tags, and optional dashboard or cluster scope. | 
 
 ### Return type
 
@@ -99,7 +99,7 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The monitor ID to delete
+	id := "id_example" // string | Identifier of the saved monitor to delete. Use the `id` returned by monitor query, create, or update responses.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -119,7 +119,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The monitor ID to delete | 
+**id** | **string** | Identifier of the saved monitor to delete. Use the &#x60;id&#x60; returned by monitor query, create, or update responses. | 
 
 ### Other Parameters
 
@@ -169,7 +169,7 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | Monitor ID returned by monitor query, create, or update operations.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -189,7 +189,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | Monitor ID returned by monitor query, create, or update operations. | 
 
 ### Other Parameters
 
@@ -239,7 +239,7 @@ import (
 )
 
 func main() {
-	queryMonitorsRequest := *openapiclient.NewQueryMonitorsRequest() // QueryMonitorsRequest | 
+	queryMonitorsRequest := *openapiclient.NewQueryMonitorsRequest() // QueryMonitorsRequest | Monitor query request. Use filters, sorting, limit, and offset to page through visible monitors.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -264,7 +264,7 @@ Other parameters are passed through a pointer to a apiQueryMonitorsRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **queryMonitorsRequest** | [**QueryMonitorsRequest**](QueryMonitorsRequest.md) |  | 
+ **queryMonitorsRequest** | [**QueryMonitorsRequest**](QueryMonitorsRequest.md) | Monitor query request. Use filters, sorting, limit, and offset to page through visible monitors. | 
 
 ### Return type
 
@@ -305,8 +305,8 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
-	updateMonitorRequest := *openapiclient.NewUpdateMonitorRequest("Name_example", openapiclient.updateMonitor_request_configuration{InputMonitorConfigurationAnomalyLog: openapiclient.NewInputMonitorConfigurationAnomalyLog("Type_example", *openapiclient.NewInputMonitorConfigurationAnomalyLogCondition("Formula_example", "ConditionType_example"), "NoDataBehavior_example", float32(123), []openapiclient.InputMonitorConfigurationMetricGroupByFieldsInner{*openapiclient.NewInputMonitorConfigurationMetricGroupByFieldsInner([]string{"Fields_example"}, float32(123))}, []openapiclient.MonitorAggregationQuery1{*openapiclient.NewMonitorAggregationQuery1(openapiclient.InputAggregate{InputAggregateAverage: openapiclient.NewInputAggregateAverage("Type_example", "Field_example")}, "Filter_example")})}, float32(123), "Owner_example", "Permissions_example") // UpdateMonitorRequest | 
+	id := "id_example" // string | Identifier of the saved monitor to update. Use the `id` returned by monitor query or create responses.
+	updateMonitorRequest := *openapiclient.NewUpdateMonitorRequest("Name_example", openapiclient.updateMonitor_request_configuration{InputMonitorConfigurationAnomalyLog: openapiclient.NewInputMonitorConfigurationAnomalyLog("Type_example", *openapiclient.NewInputMonitorConfigurationAnomalyLogCondition("Formula_example", "ConditionType_example"), "NoDataBehavior_example", float32(123), []openapiclient.InputMonitorConfigurationMetricGroupByFieldsInner{*openapiclient.NewInputMonitorConfigurationMetricGroupByFieldsInner([]string{"Fields_example"}, float32(123))}, []openapiclient.MonitorAggregationQuery1{*openapiclient.NewMonitorAggregationQuery1(openapiclient.InputAggregate{InputAggregateAverage: openapiclient.NewInputAggregateAverage("Type_example", "Field_example")}, "Filter_example")})}, float32(123), "Owner_example", "Permissions_example") // UpdateMonitorRequest | Monitor update request. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, and `clusterIds` keep their existing values. Omitting `dashboardId` clears the dashboard link.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -326,7 +326,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | Identifier of the saved monitor to update. Use the &#x60;id&#x60; returned by monitor query or create responses. | 
 
 ### Other Parameters
 
@@ -336,7 +336,7 @@ Other parameters are passed through a pointer to a apiUpdateMonitorRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **updateMonitorRequest** | [**UpdateMonitorRequest**](UpdateMonitorRequest.md) |  | 
+ **updateMonitorRequest** | [**UpdateMonitorRequest**](UpdateMonitorRequest.md) | Monitor update request. Required fields and the submitted configuration are overwritten; omitted &#x60;message&#x60;, &#x60;tags&#x60;, and &#x60;clusterIds&#x60; keep their existing values. Omitting &#x60;dashboardId&#x60; clears the dashboard link. | 
 
 ### Return type
 

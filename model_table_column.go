@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -22,13 +22,13 @@ var _ MappedNullable = &TableColumn{}
 type TableColumn struct {
 	// Display name of the table column
 	Name string `json:"name"`
-	// Data source being queried for this aggregation
+	// Telemetry source queried by this aggregation: `logs`, `metrics`, or `traces`.
 	Source string `json:"source"`
-	// Aggregations that may be combined together in the same query
+	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order.
 	Queries []AggregationQuery `json:"queries"`
-	// Formula referencing query outputs (e.g. q1+q2) to compute derived series
-	Formula *string                              `json:"formula,omitempty"`
-	Aliases *GraphVisualizationTimeseriesAliases `json:"aliases,omitempty"`
+	// Formula referencing submitted query outputs, such as `q1 + q2`. References must be within `q1` through `qN` for the submitted queries.
+	Formula *string                                    `json:"formula,omitempty"`
+	Aliases *GraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool      `json:"visibleSeries,omitempty"`
 	Normalizer    *Normalizer `json:"normalizer,omitempty"`
@@ -164,9 +164,9 @@ func (o *TableColumn) SetFormula(v string) {
 }
 
 // GetAliases returns the Aliases field value if set, zero value otherwise.
-func (o *TableColumn) GetAliases() GraphVisualizationTimeseriesAliases {
+func (o *TableColumn) GetAliases() GraphVisualizationTimeseriesPromqlAliases {
 	if o == nil || IsNil(o.Aliases) {
-		var ret GraphVisualizationTimeseriesAliases
+		var ret GraphVisualizationTimeseriesPromqlAliases
 		return ret
 	}
 	return *o.Aliases
@@ -174,7 +174,7 @@ func (o *TableColumn) GetAliases() GraphVisualizationTimeseriesAliases {
 
 // GetAliasesOk returns a tuple with the Aliases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TableColumn) GetAliasesOk() (*GraphVisualizationTimeseriesAliases, bool) {
+func (o *TableColumn) GetAliasesOk() (*GraphVisualizationTimeseriesPromqlAliases, bool) {
 	if o == nil || IsNil(o.Aliases) {
 		return nil, false
 	}
@@ -190,8 +190,8 @@ func (o *TableColumn) HasAliases() bool {
 	return false
 }
 
-// SetAliases gets a reference to the given GraphVisualizationTimeseriesAliases and assigns it to the Aliases field.
-func (o *TableColumn) SetAliases(v GraphVisualizationTimeseriesAliases) {
+// SetAliases gets a reference to the given GraphVisualizationTimeseriesPromqlAliases and assigns it to the Aliases field.
+func (o *TableColumn) SetAliases(v GraphVisualizationTimeseriesPromqlAliases) {
 	o.Aliases = &v
 }
 

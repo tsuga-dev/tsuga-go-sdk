@@ -7,7 +7,6 @@ Method | HTTP request | Description
 [**CreateDashboard**](DashboardsAPI.md#CreateDashboard) | **Post** /v1/dashboards | 
 [**DeleteDashboard**](DashboardsAPI.md#DeleteDashboard) | **Delete** /v1/dashboards/{id} | 
 [**GetDashboard**](DashboardsAPI.md#GetDashboard) | **Get** /v1/dashboards/{id} | 
-[**ListDashboards**](DashboardsAPI.md#ListDashboards) | **Get** /v1/dashboards | 
 [**QueryDashboards**](DashboardsAPI.md#QueryDashboards) | **Post** /v1/dashboards/query | 
 [**UpdateDashboard**](DashboardsAPI.md#UpdateDashboard) | **Put** /v1/dashboards/{id} | 
 [**UpdateDashboardGraph**](DashboardsAPI.md#UpdateDashboardGraph) | **Put** /v1/dashboards/{id}/graphs/{graphId} | 
@@ -35,7 +34,7 @@ import (
 )
 
 func main() {
-	createDashboardRequest := *openapiclient.NewCreateDashboardRequest("Name_example", "Owner_example", []openapiclient.Graph{*openapiclient.NewGraph("Id_example", openapiclient.Graph_visualization{InputGraphVisualizationBar: openapiclient.NewInputGraphVisualizationBar("Type_example", "Source_example", []openapiclient.AggregationQuery1{*openapiclient.NewAggregationQuery1(openapiclient.InputAggregate{InputAggregateAverage: openapiclient.NewInputAggregateAverage("Type_example", "Field_example")})})})}) // CreateDashboardRequest | 
+	createDashboardRequest := *openapiclient.NewCreateDashboardRequest("Name_example", "Owner_example", []openapiclient.Graph{*openapiclient.NewGraph("Id_example", openapiclient.Graph_visualization{InputGraphVisualizationBar: openapiclient.NewInputGraphVisualizationBar("Type_example", "Source_example", []openapiclient.AggregationQuery1{*openapiclient.NewAggregationQuery1(openapiclient.InputAggregate{InputAggregateAverage: openapiclient.NewInputAggregateAverage("Type_example", "Field_example")})})})}) // CreateDashboardRequest | Dashboard create or update request. Provide the dashboard identity, owner team, widgets, filters, tags, and optional time preset.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -60,7 +59,7 @@ Other parameters are passed through a pointer to a apiCreateDashboardRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createDashboardRequest** | [**CreateDashboardRequest**](CreateDashboardRequest.md) |  | 
+ **createDashboardRequest** | [**CreateDashboardRequest**](CreateDashboardRequest.md) | Dashboard create or update request. Provide the dashboard identity, owner team, widgets, filters, tags, and optional time preset. | 
 
 ### Return type
 
@@ -101,7 +100,7 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The dashboard ID to delete
+	id := "id_example" // string | Identifier of the saved dashboard to delete. Use the `id` returned by dashboard query, get, create, or update responses.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -121,7 +120,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The dashboard ID to delete | 
+**id** | **string** | Identifier of the saved dashboard to delete. Use the &#x60;id&#x60; returned by dashboard query, get, create, or update responses. | 
 
 ### Other Parameters
 
@@ -171,7 +170,7 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | Identifier of the saved dashboard to retrieve. Use the `id` returned by dashboard query, create, or update responses.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -191,7 +190,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | Identifier of the saved dashboard to retrieve. Use the &#x60;id&#x60; returned by dashboard query, create, or update responses. | 
 
 ### Other Parameters
 
@@ -205,76 +204,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**GetDashboardResponse**](GetDashboardResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListDashboards
-
-> ListDashboardsResponse ListDashboards(ctx).Limit(limit).Offset(offset).Owners(owners).Execute()
-
-
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/tsuga-dev/tsuga-go-sdk"
-)
-
-func main() {
-	limit := int32(56) // int32 | The maximum number of items to return (optional)
-	offset := int32(56) // int32 | The offset of the first item to return (optional)
-	owners := []string{"Inner_example"} // []string | Filter by owner team IDs (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DashboardsAPI.ListDashboards(context.Background()).Limit(limit).Offset(offset).Owners(owners).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.ListDashboards``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListDashboards`: ListDashboardsResponse
-	fmt.Fprintf(os.Stdout, "Response from `DashboardsAPI.ListDashboards`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListDashboardsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **limit** | **int32** | The maximum number of items to return | 
- **offset** | **int32** | The offset of the first item to return | 
- **owners** | **[]string** | Filter by owner team IDs | 
-
-### Return type
-
-[**ListDashboardsResponse**](ListDashboardsResponse.md)
 
 ### Authorization
 
@@ -311,7 +240,7 @@ import (
 )
 
 func main() {
-	queryDashboardsRequest := *openapiclient.NewQueryDashboardsRequest() // QueryDashboardsRequest | 
+	queryDashboardsRequest := *openapiclient.NewQueryDashboardsRequest() // QueryDashboardsRequest | Dashboard query request. Use filters, sorting, limit, and offset to page through visible dashboards.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -336,7 +265,7 @@ Other parameters are passed through a pointer to a apiQueryDashboardsRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **queryDashboardsRequest** | [**QueryDashboardsRequest**](QueryDashboardsRequest.md) |  | 
+ **queryDashboardsRequest** | [**QueryDashboardsRequest**](QueryDashboardsRequest.md) | Dashboard query request. Use filters, sorting, limit, and offset to page through visible dashboards. | 
 
 ### Return type
 
@@ -377,7 +306,7 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | Identifier of the saved dashboard to update. Use the `id` returned by dashboard query, get, or create responses.
 	updateDashboardRequest := *openapiclient.NewUpdateDashboardRequest() // UpdateDashboardRequest | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -398,7 +327,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | Identifier of the saved dashboard to update. Use the &#x60;id&#x60; returned by dashboard query, get, or create responses. | 
 
 ### Other Parameters
 
@@ -449,9 +378,9 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The dashboard ID containing the graph
-	graphId := "graphId_example" // string | The graph ID to update
-	updateDashboardGraphRequest := *openapiclient.NewUpdateDashboardGraphRequest(openapiclient.Graph_visualization{InputGraphVisualizationBar: openapiclient.NewInputGraphVisualizationBar("Type_example", "Source_example", []openapiclient.AggregationQuery1{*openapiclient.NewAggregationQuery1(openapiclient.InputAggregate{InputAggregateAverage: openapiclient.NewInputAggregateAverage("Type_example", "Field_example")})})}) // UpdateDashboardGraphRequest | 
+	id := "id_example" // string | Identifier of the dashboard that contains the graph to update. Use the `id` returned by dashboard responses.
+	graphId := "graphId_example" // string | Identifier of the graph to update within the dashboard. Use graph IDs from the dashboard response.
+	updateDashboardGraphRequest := *openapiclient.NewUpdateDashboardGraphRequest(openapiclient.Graph_visualization{InputGraphVisualizationBar: openapiclient.NewInputGraphVisualizationBar("Type_example", "Source_example", []openapiclient.AggregationQuery1{*openapiclient.NewAggregationQuery1(openapiclient.InputAggregate{InputAggregateAverage: openapiclient.NewInputAggregateAverage("Type_example", "Field_example")})})}) // UpdateDashboardGraphRequest | Dashboard graph update request. The graph identifier is supplied in the `graphId` path parameter; provide the replacement graph definition without an `id` field.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -471,8 +400,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The dashboard ID containing the graph | 
-**graphId** | **string** | The graph ID to update | 
+**id** | **string** | Identifier of the dashboard that contains the graph to update. Use the &#x60;id&#x60; returned by dashboard responses. | 
+**graphId** | **string** | Identifier of the graph to update within the dashboard. Use graph IDs from the dashboard response. | 
 
 ### Other Parameters
 
@@ -483,7 +412,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **updateDashboardGraphRequest** | [**UpdateDashboardGraphRequest**](UpdateDashboardGraphRequest.md) |  | 
+ **updateDashboardGraphRequest** | [**UpdateDashboardGraphRequest**](UpdateDashboardGraphRequest.md) | Dashboard graph update request. The graph identifier is supplied in the &#x60;graphId&#x60; path parameter; provide the replacement graph definition without an &#x60;id&#x60; field. | 
 
 ### Return type
 

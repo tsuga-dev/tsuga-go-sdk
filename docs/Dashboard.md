@@ -4,13 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | Identifier of the dashboard | 
-**Name** | **string** | Display name of the dashboard | 
-**Owner** | **string** | Team ID that owns and manages the dashboard | 
+**Id** | **string** | Tsuga-generated dashboard ID assigned when the dashboard is created. | 
+**Name** | **string** | Display name of the dashboard. Set by the caller on create or update. | 
+**Owner** | **string** | ID of the team that owns the dashboard. Set by the caller on create or update and used for dashboard access control. | 
 **Graphs** | [**[]Graph1**](Graph1.md) | Ordered widgets that compose the dashboard | 
-**Filters** | Pointer to [**[]DashboardFiltersInner**](DashboardFiltersInner.md) | Filters applied to every widget on the dashboard | [optional] 
-**Tags** | Pointer to [**[]Tag1**](Tag1.md) | List of key/value tags applied to the resource | [optional] 
-**TimePreset** | Pointer to **string** |  | [optional] 
+**Filters** | Pointer to [**[]DashboardFiltersInner**](DashboardFiltersInner.md) | Dashboard-wide filters applied to every widget on the dashboard. | [optional] 
+**Tags** | Pointer to [**[]Tag1**](Tag1.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
+**TimePreset** | Pointer to **string** | Relative time preset used when opening the dashboard. | [optional] 
+**FolderId** | Pointer to **string** | Folder that contains the dashboard. Set from the dashboard’s saved folder relationship. Returned when the dashboard is in a folder; omitted when it is not. | [optional] 
 
 ## Methods
 
@@ -185,6 +186,31 @@ SetTimePreset sets TimePreset field to given value.
 `func (o *Dashboard) HasTimePreset() bool`
 
 HasTimePreset returns a boolean if a field has been set.
+
+### GetFolderId
+
+`func (o *Dashboard) GetFolderId() string`
+
+GetFolderId returns the FolderId field if non-nil, zero value otherwise.
+
+### GetFolderIdOk
+
+`func (o *Dashboard) GetFolderIdOk() (*string, bool)`
+
+GetFolderIdOk returns a tuple with the FolderId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFolderId
+
+`func (o *Dashboard) SetFolderId(v string)`
+
+SetFolderId sets FolderId field to given value.
+
+### HasFolderId
+
+`func (o *Dashboard) HasFolderId() bool`
+
+HasFolderId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

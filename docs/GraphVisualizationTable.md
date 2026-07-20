@@ -6,8 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a table with multi-level grouping | 
 **Columns** | [**[]TableColumn**](TableColumn.md) | Each column defines an independent aggregation displayed as a table column | 
-**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Fields used to group the results | [optional] 
+**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values. | [optional] 
 **DefaultSorting** | Pointer to [**[]TableDefaultSorting**](TableDefaultSorting.md) |  | [optional] 
+**ColumnSizes** | Pointer to **map[string]float32** |  | [optional] 
 
 ## Methods
 
@@ -117,6 +118,31 @@ SetDefaultSorting sets DefaultSorting field to given value.
 `func (o *GraphVisualizationTable) HasDefaultSorting() bool`
 
 HasDefaultSorting returns a boolean if a field has been set.
+
+### GetColumnSizes
+
+`func (o *GraphVisualizationTable) GetColumnSizes() map[string]float32`
+
+GetColumnSizes returns the ColumnSizes field if non-nil, zero value otherwise.
+
+### GetColumnSizesOk
+
+`func (o *GraphVisualizationTable) GetColumnSizesOk() (*map[string]float32, bool)`
+
+GetColumnSizesOk returns a tuple with the ColumnSizes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetColumnSizes
+
+`func (o *GraphVisualizationTable) SetColumnSizes(v map[string]float32)`
+
+SetColumnSizes sets ColumnSizes field to given value.
+
+### HasColumnSizes
+
+`func (o *GraphVisualizationTable) HasColumnSizes() bool`
+
+HasColumnSizes returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

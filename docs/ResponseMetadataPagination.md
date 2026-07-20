@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TotalCount** | **int32** | The total number of items matching the query | 
-**PageCount** | **int32** | The total number of pages available | 
+**TotalCount** | **int32** | Total number of items matching the query before &#x60;limit&#x60; and &#x60;offset&#x60; are applied. | 
+**PageCount** | **int32** | Total number of pages available for the requested &#x60;limit&#x60;. | 
 
 ## Methods
 

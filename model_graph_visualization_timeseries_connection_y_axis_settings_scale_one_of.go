@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -20,7 +20,9 @@ var _ MappedNullable = &GraphVisualizationTimeseriesConnectionYAxisSettingsScale
 
 // GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf struct for GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf
 type GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf struct {
-	Type                 string  `json:"type"`
+	// Power scale
+	Type string `json:"type"`
+	// Exponent used by the power scale
 	Exponent             float32 `json:"exponent"`
 	AdditionalProperties map[string]interface{}
 }

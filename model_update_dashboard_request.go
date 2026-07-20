@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -19,17 +19,19 @@ var _ MappedNullable = &UpdateDashboardRequest{}
 
 // UpdateDashboardRequest struct for UpdateDashboardRequest
 type UpdateDashboardRequest struct {
-	// Display name of the dashboard
+	// Display name of the dashboard. Set by the caller on create or update.
 	Name *string `json:"name,omitempty"`
-	// Team ID that owns and manages the dashboard
+	// ID of the team that owns the dashboard. Set by the caller on create or update. Required and used for dashboard access control.
 	Owner *string `json:"owner,omitempty"`
 	// Ordered widgets that compose the dashboard
 	Graphs []Graph `json:"graphs,omitempty"`
-	// Filters applied to every widget on the dashboard
-	Filters []CreateDashboardRequestFiltersInner `json:"filters,omitempty"`
-	// List of key/value tags applied to the resource
-	Tags                 []Tag   `json:"tags,omitempty"`
-	TimePreset           *string `json:"timePreset,omitempty"`
+	// Dashboard-wide filters applied to every widget on the dashboard. Up to 10 filters are allowed.
+	Filters []UpdateDashboardRequestFiltersInner `json:"filters,omitempty"`
+	// Key/value tags to apply to the resource. Up to 50 tags are accepted and tag policies may require specific keys or values.
+	Tags []Tag `json:"tags,omitempty"`
+	// Relative time preset used when opening the dashboard. Set by the caller or by Tsuga’s default. Optional; create defaults to `past-30-minutes` when omitted, and update omission preserves the current value.
+	TimePreset           *string        `json:"timePreset,omitempty"`
+	FolderId             NullableString `json:"folderId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -149,9 +151,9 @@ func (o *UpdateDashboardRequest) SetGraphs(v []Graph) {
 }
 
 // GetFilters returns the Filters field value if set, zero value otherwise.
-func (o *UpdateDashboardRequest) GetFilters() []CreateDashboardRequestFiltersInner {
+func (o *UpdateDashboardRequest) GetFilters() []UpdateDashboardRequestFiltersInner {
 	if o == nil || IsNil(o.Filters) {
-		var ret []CreateDashboardRequestFiltersInner
+		var ret []UpdateDashboardRequestFiltersInner
 		return ret
 	}
 	return o.Filters
@@ -159,7 +161,7 @@ func (o *UpdateDashboardRequest) GetFilters() []CreateDashboardRequestFiltersInn
 
 // GetFiltersOk returns a tuple with the Filters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateDashboardRequest) GetFiltersOk() ([]CreateDashboardRequestFiltersInner, bool) {
+func (o *UpdateDashboardRequest) GetFiltersOk() ([]UpdateDashboardRequestFiltersInner, bool) {
 	if o == nil || IsNil(o.Filters) {
 		return nil, false
 	}
@@ -175,8 +177,8 @@ func (o *UpdateDashboardRequest) HasFilters() bool {
 	return false
 }
 
-// SetFilters gets a reference to the given []CreateDashboardRequestFiltersInner and assigns it to the Filters field.
-func (o *UpdateDashboardRequest) SetFilters(v []CreateDashboardRequestFiltersInner) {
+// SetFilters gets a reference to the given []UpdateDashboardRequestFiltersInner and assigns it to the Filters field.
+func (o *UpdateDashboardRequest) SetFilters(v []UpdateDashboardRequestFiltersInner) {
 	o.Filters = v
 }
 
@@ -244,6 +246,49 @@ func (o *UpdateDashboardRequest) SetTimePreset(v string) {
 	o.TimePreset = &v
 }
 
+// GetFolderId returns the FolderId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateDashboardRequest) GetFolderId() string {
+	if o == nil || IsNil(o.FolderId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.FolderId.Get()
+}
+
+// GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateDashboardRequest) GetFolderIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.FolderId.Get(), o.FolderId.IsSet()
+}
+
+// HasFolderId returns a boolean if a field has been set.
+func (o *UpdateDashboardRequest) HasFolderId() bool {
+	if o != nil && o.FolderId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetFolderId gets a reference to the given NullableString and assigns it to the FolderId field.
+func (o *UpdateDashboardRequest) SetFolderId(v string) {
+	o.FolderId.Set(&v)
+}
+
+// SetFolderIdNil sets the value for FolderId to be an explicit nil
+func (o *UpdateDashboardRequest) SetFolderIdNil() {
+	o.FolderId.Set(nil)
+}
+
+// UnsetFolderId ensures that no value is present for FolderId, not even an explicit nil
+func (o *UpdateDashboardRequest) UnsetFolderId() {
+	o.FolderId.Unset()
+}
+
 func (o UpdateDashboardRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -271,6 +316,9 @@ func (o UpdateDashboardRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.TimePreset) {
 		toSerialize["timePreset"] = o.TimePreset
+	}
+	if o.FolderId.IsSet() {
+		toSerialize["folderId"] = o.FolderId.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -300,6 +348,7 @@ func (o *UpdateDashboardRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "filters")
 		delete(additionalProperties, "tags")
 		delete(additionalProperties, "timePreset")
+		delete(additionalProperties, "folderId")
 		o.AdditionalProperties = additionalProperties
 	}
 

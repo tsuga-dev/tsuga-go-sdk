@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
+**Type** | **string** | PagerDuty target backed by a configured PagerDuty integration. | 
 **IntegrationId** | **string** | Identifier of the PagerDuty integration to use | 
 **IntegrationName** | **string** | Human readable name of the PagerDuty integration | 
 

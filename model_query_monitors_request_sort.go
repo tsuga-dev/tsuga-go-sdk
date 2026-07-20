@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -18,11 +18,11 @@ import (
 // checks if the QueryMonitorsRequestSort type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &QueryMonitorsRequestSort{}
 
-// QueryMonitorsRequestSort Optional sorting applied to the returned monitors
+// QueryMonitorsRequestSort Optional sorting applied to the returned monitors. Ties are broken by creation time and monitor ID for stable pagination.
 type QueryMonitorsRequestSort struct {
-	// Field to sort the returned monitors by
+	// Field to sort the returned monitors by. For `priority`, `desc` returns highest-priority monitors first because priority 1 is highest.
 	By string `json:"by"`
-	// Sort direction: ascending or descending
+	// Sort direction. For `priority`, `desc` returns priority 1 first and `asc` returns priority 5 first.
 	Direction            string `json:"direction"`
 	AdditionalProperties map[string]interface{}
 }

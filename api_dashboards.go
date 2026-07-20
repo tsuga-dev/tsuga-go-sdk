@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -16,7 +16,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"reflect"
 	"strings"
 )
 
@@ -25,7 +24,7 @@ type DashboardsAPI interface {
 	/*
 		CreateDashboard Method for CreateDashboard
 
-		Create a new dashboard
+		Creates a dashboard owned by the specified team. Use this to provision dashboards from automation or templates. The response returns the saved dashboard definition.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return DashboardsAPICreateDashboardRequest
@@ -39,10 +38,10 @@ type DashboardsAPI interface {
 	/*
 		DeleteDashboard Method for DeleteDashboard
 
-		Delete a dashboard by its id
+		Deletes a dashboard by ID. Use only after confirming no users or automation still rely on the dashboard.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id The dashboard ID to delete
+		@param id Identifier of the saved dashboard to delete. Use the `id` returned by dashboard query, get, create, or update responses.
 		@return DashboardsAPIDeleteDashboardRequest
 	*/
 	DeleteDashboard(ctx context.Context, id string) DashboardsAPIDeleteDashboardRequest
@@ -54,10 +53,10 @@ type DashboardsAPI interface {
 	/*
 		GetDashboard Method for GetDashboard
 
-		Retrieve a dashboard by its id
+		Retrieves one dashboard by ID when the authenticated operation key can read it. Use this before updating or cloning a dashboard definition.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id
+		@param id Identifier of the saved dashboard to retrieve. Use the `id` returned by dashboard query, create, or update responses.
 		@return DashboardsAPIGetDashboardRequest
 	*/
 	GetDashboard(ctx context.Context, id string) DashboardsAPIGetDashboardRequest
@@ -67,23 +66,9 @@ type DashboardsAPI interface {
 	GetDashboardExecute(r DashboardsAPIGetDashboardRequest) (*GetDashboardResponse, *http.Response, error)
 
 	/*
-		ListDashboards Method for ListDashboards
-
-		Retrieve all dashboards
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return DashboardsAPIListDashboardsRequest
-	*/
-	ListDashboards(ctx context.Context) DashboardsAPIListDashboardsRequest
-
-	// ListDashboardsExecute executes the request
-	//  @return ListDashboardsResponse
-	ListDashboardsExecute(r DashboardsAPIListDashboardsRequest) (*ListDashboardsResponse, *http.Response, error)
-
-	/*
 		QueryDashboards Method for QueryDashboards
 
-		Query dashboards with filters, sorting, and pagination
+		Queries dashboards visible to the authenticated operation key. Use this endpoint to build dashboard inventories or synchronize dashboard metadata. Pagination fields limit the returned page; use the response metadata to request additional pages. See [Dashboards](/documentation/visualize/dashboards/index).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return DashboardsAPIQueryDashboardsRequest
@@ -97,10 +82,10 @@ type DashboardsAPI interface {
 	/*
 		UpdateDashboard Method for UpdateDashboard
 
-		Update a dashboard by its id
+		Updates an existing dashboard by ID. Fields are patched from the request body; omitted fields keep their current values.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id
+		@param id Identifier of the saved dashboard to update. Use the `id` returned by dashboard query, get, or create responses.
 		@return DashboardsAPIUpdateDashboardRequest
 	*/
 	UpdateDashboard(ctx context.Context, id string) DashboardsAPIUpdateDashboardRequest
@@ -112,11 +97,11 @@ type DashboardsAPI interface {
 	/*
 		UpdateDashboardGraph Method for UpdateDashboardGraph
 
-		Update a single graph within a dashboard by ID.
+		Updates one graph inside a dashboard without replacing the full dashboard. Use this for targeted widget edits when you already know the dashboard ID and graph ID.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param id The dashboard ID containing the graph
-		@param graphId The graph ID to update
+		@param id Identifier of the dashboard that contains the graph to update. Use the `id` returned by dashboard responses.
+		@param graphId Identifier of the graph to update within the dashboard. Use graph IDs from the dashboard response.
 		@return DashboardsAPIUpdateDashboardGraphRequest
 	*/
 	UpdateDashboardGraph(ctx context.Context, id string, graphId string) DashboardsAPIUpdateDashboardGraphRequest
@@ -135,6 +120,7 @@ type DashboardsAPICreateDashboardRequest struct {
 	createDashboardRequest *CreateDashboardRequest
 }
 
+// Dashboard create or update request. Provide the dashboard identity, owner team, widgets, filters, tags, and optional time preset.
 func (r DashboardsAPICreateDashboardRequest) CreateDashboardRequest(createDashboardRequest CreateDashboardRequest) DashboardsAPICreateDashboardRequest {
 	r.createDashboardRequest = &createDashboardRequest
 	return r
@@ -147,7 +133,7 @@ func (r DashboardsAPICreateDashboardRequest) Execute() (*CreateDashboardResponse
 /*
 CreateDashboard Method for CreateDashboard
 
-Create a new dashboard
+Creates a dashboard owned by the specified team. Use this to provision dashboards from automation or templates. The response returns the saved dashboard definition.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DashboardsAPICreateDashboardRequest
@@ -274,10 +260,10 @@ func (r DashboardsAPIDeleteDashboardRequest) Execute() (*DeleteDashboardResponse
 /*
 DeleteDashboard Method for DeleteDashboard
 
-Delete a dashboard by its id
+Deletes a dashboard by ID. Use only after confirming no users or automation still rely on the dashboard.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The dashboard ID to delete
+	@param id Identifier of the saved dashboard to delete. Use the `id` returned by dashboard query, get, create, or update responses.
 	@return DashboardsAPIDeleteDashboardRequest
 */
 func (a *DashboardsAPIService) DeleteDashboard(ctx context.Context, id string) DashboardsAPIDeleteDashboardRequest {
@@ -405,10 +391,10 @@ func (r DashboardsAPIGetDashboardRequest) Execute() (*GetDashboardResponse, *htt
 /*
 GetDashboard Method for GetDashboard
 
-Retrieve a dashboard by its id
+Retrieves one dashboard by ID when the authenticated operation key can read it. Use this before updating or cloning a dashboard definition.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id Identifier of the saved dashboard to retrieve. Use the `id` returned by dashboard query, create, or update responses.
 	@return DashboardsAPIGetDashboardRequest
 */
 func (a *DashboardsAPIService) GetDashboard(ctx context.Context, id string) DashboardsAPIGetDashboardRequest {
@@ -523,171 +509,13 @@ func (a *DashboardsAPIService) GetDashboardExecute(r DashboardsAPIGetDashboardRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DashboardsAPIListDashboardsRequest struct {
-	ctx        context.Context
-	ApiService DashboardsAPI
-	limit      *int32
-	offset     *int32
-	owners     *[]string
-}
-
-// The maximum number of items to return
-func (r DashboardsAPIListDashboardsRequest) Limit(limit int32) DashboardsAPIListDashboardsRequest {
-	r.limit = &limit
-	return r
-}
-
-// The offset of the first item to return
-func (r DashboardsAPIListDashboardsRequest) Offset(offset int32) DashboardsAPIListDashboardsRequest {
-	r.offset = &offset
-	return r
-}
-
-// Filter by owner team IDs
-func (r DashboardsAPIListDashboardsRequest) Owners(owners []string) DashboardsAPIListDashboardsRequest {
-	r.owners = &owners
-	return r
-}
-
-func (r DashboardsAPIListDashboardsRequest) Execute() (*ListDashboardsResponse, *http.Response, error) {
-	return r.ApiService.ListDashboardsExecute(r)
-}
-
-/*
-ListDashboards Method for ListDashboards
-
-Retrieve all dashboards
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return DashboardsAPIListDashboardsRequest
-*/
-func (a *DashboardsAPIService) ListDashboards(ctx context.Context) DashboardsAPIListDashboardsRequest {
-	return DashboardsAPIListDashboardsRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ListDashboardsResponse
-func (a *DashboardsAPIService) ListDashboardsExecute(r DashboardsAPIListDashboardsRequest) (*ListDashboardsResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ListDashboardsResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DashboardsAPIService.ListDashboards")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/dashboards"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
-	}
-	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
-	}
-	if r.owners != nil {
-		t := *r.owners
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "owners", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "owners", t, "form", "multi")
-		}
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
-			var v ClientErrorEnvelope
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode >= 500 {
-			var v ServerErrorEnvelope
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type DashboardsAPIQueryDashboardsRequest struct {
 	ctx                    context.Context
 	ApiService             DashboardsAPI
 	queryDashboardsRequest *QueryDashboardsRequest
 }
 
+// Dashboard query request. Use filters, sorting, limit, and offset to page through visible dashboards.
 func (r DashboardsAPIQueryDashboardsRequest) QueryDashboardsRequest(queryDashboardsRequest QueryDashboardsRequest) DashboardsAPIQueryDashboardsRequest {
 	r.queryDashboardsRequest = &queryDashboardsRequest
 	return r
@@ -700,7 +528,7 @@ func (r DashboardsAPIQueryDashboardsRequest) Execute() (*QueryDashboardsResponse
 /*
 QueryDashboards Method for QueryDashboards
 
-Query dashboards with filters, sorting, and pagination
+Queries dashboards visible to the authenticated operation key. Use this endpoint to build dashboard inventories or synchronize dashboard metadata. Pagination fields limit the returned page; use the response metadata to request additional pages. See [Dashboards](/documentation/visualize/dashboards/index).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DashboardsAPIQueryDashboardsRequest
@@ -833,10 +661,10 @@ func (r DashboardsAPIUpdateDashboardRequest) Execute() (*UpdateDashboardResponse
 /*
 UpdateDashboard Method for UpdateDashboard
 
-Update a dashboard by its id
+Updates an existing dashboard by ID. Fields are patched from the request body; omitted fields keep their current values.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id Identifier of the saved dashboard to update. Use the `id` returned by dashboard query, get, or create responses.
 	@return DashboardsAPIUpdateDashboardRequest
 */
 func (a *DashboardsAPIService) UpdateDashboard(ctx context.Context, id string) DashboardsAPIUpdateDashboardRequest {
@@ -964,6 +792,7 @@ type DashboardsAPIUpdateDashboardGraphRequest struct {
 	updateDashboardGraphRequest *UpdateDashboardGraphRequest
 }
 
+// Dashboard graph update request. The graph identifier is supplied in the &#x60;graphId&#x60; path parameter; provide the replacement graph definition without an &#x60;id&#x60; field.
 func (r DashboardsAPIUpdateDashboardGraphRequest) UpdateDashboardGraphRequest(updateDashboardGraphRequest UpdateDashboardGraphRequest) DashboardsAPIUpdateDashboardGraphRequest {
 	r.updateDashboardGraphRequest = &updateDashboardGraphRequest
 	return r
@@ -976,11 +805,11 @@ func (r DashboardsAPIUpdateDashboardGraphRequest) Execute() (*UpdateDashboardGra
 /*
 UpdateDashboardGraph Method for UpdateDashboardGraph
 
-Update a single graph within a dashboard by ID.
+Updates one graph inside a dashboard without replacing the full dashboard. Use this for targeted widget edits when you already know the dashboard ID and graph ID.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The dashboard ID containing the graph
-	@param graphId The graph ID to update
+	@param id Identifier of the dashboard that contains the graph to update. Use the `id` returned by dashboard responses.
+	@param graphId Identifier of the graph to update within the dashboard. Use graph IDs from the dashboard response.
 	@return DashboardsAPIUpdateDashboardGraphRequest
 */
 func (a *DashboardsAPIService) UpdateDashboardGraph(ctx context.Context, id string, graphId string) DashboardsAPIUpdateDashboardGraphRequest {

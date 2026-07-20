@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -20,15 +20,19 @@ var _ MappedNullable = &Graph1{}
 
 // Graph1 struct for Graph1
 type Graph1 struct {
-	// Identifier of the graph widget
+	// Unique identifier of the graph widget inside the dashboard. Set by the caller when the graph is created; use it to target the graph in later update requests.
 	Id string `json:"id"`
-	// Display name of the graph widget
+	// Display name of the graph widget.
 	Name *string `json:"name,omitempty"`
-	// Description of the graph widget
-	Description          *string             `json:"description,omitempty"`
-	Visualization        Graph1Visualization `json:"visualization"`
-	Layout               *GraphLayout        `json:"layout,omitempty"`
-	AdditionalProperties map[string]interface{}
+	// Optional text shown with the graph widget.
+	Description *string `json:"description,omitempty"`
+	// Flex alignment keyword used for widget layout
+	DescriptionAlign *string `json:"descriptionAlign,omitempty"`
+	// Flex alignment keyword used for widget layout
+	DescriptionJustifyContent *string             `json:"descriptionJustifyContent,omitempty"`
+	Visualization             Graph1Visualization `json:"visualization"`
+	Layout                    *GraphLayout        `json:"layout,omitempty"`
+	AdditionalProperties      map[string]interface{}
 }
 
 type _Graph1 Graph1
@@ -140,6 +144,70 @@ func (o *Graph1) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetDescriptionAlign returns the DescriptionAlign field value if set, zero value otherwise.
+func (o *Graph1) GetDescriptionAlign() string {
+	if o == nil || IsNil(o.DescriptionAlign) {
+		var ret string
+		return ret
+	}
+	return *o.DescriptionAlign
+}
+
+// GetDescriptionAlignOk returns a tuple with the DescriptionAlign field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Graph1) GetDescriptionAlignOk() (*string, bool) {
+	if o == nil || IsNil(o.DescriptionAlign) {
+		return nil, false
+	}
+	return o.DescriptionAlign, true
+}
+
+// HasDescriptionAlign returns a boolean if a field has been set.
+func (o *Graph1) HasDescriptionAlign() bool {
+	if o != nil && !IsNil(o.DescriptionAlign) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescriptionAlign gets a reference to the given string and assigns it to the DescriptionAlign field.
+func (o *Graph1) SetDescriptionAlign(v string) {
+	o.DescriptionAlign = &v
+}
+
+// GetDescriptionJustifyContent returns the DescriptionJustifyContent field value if set, zero value otherwise.
+func (o *Graph1) GetDescriptionJustifyContent() string {
+	if o == nil || IsNil(o.DescriptionJustifyContent) {
+		var ret string
+		return ret
+	}
+	return *o.DescriptionJustifyContent
+}
+
+// GetDescriptionJustifyContentOk returns a tuple with the DescriptionJustifyContent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Graph1) GetDescriptionJustifyContentOk() (*string, bool) {
+	if o == nil || IsNil(o.DescriptionJustifyContent) {
+		return nil, false
+	}
+	return o.DescriptionJustifyContent, true
+}
+
+// HasDescriptionJustifyContent returns a boolean if a field has been set.
+func (o *Graph1) HasDescriptionJustifyContent() bool {
+	if o != nil && !IsNil(o.DescriptionJustifyContent) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescriptionJustifyContent gets a reference to the given string and assigns it to the DescriptionJustifyContent field.
+func (o *Graph1) SetDescriptionJustifyContent(v string) {
+	o.DescriptionJustifyContent = &v
+}
+
 // GetVisualization returns the Visualization field value
 func (o *Graph1) GetVisualization() Graph1Visualization {
 	if o == nil {
@@ -213,6 +281,12 @@ func (o Graph1) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
+	if !IsNil(o.DescriptionAlign) {
+		toSerialize["descriptionAlign"] = o.DescriptionAlign
+	}
+	if !IsNil(o.DescriptionJustifyContent) {
+		toSerialize["descriptionJustifyContent"] = o.DescriptionJustifyContent
+	}
 	toSerialize["visualization"] = o.Visualization
 	if !IsNil(o.Layout) {
 		toSerialize["layout"] = o.Layout
@@ -264,6 +338,8 @@ func (o *Graph1) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
+		delete(additionalProperties, "descriptionAlign")
+		delete(additionalProperties, "descriptionJustifyContent")
 		delete(additionalProperties, "visualization")
 		delete(additionalProperties, "layout")
 		o.AdditionalProperties = additionalProperties

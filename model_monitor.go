@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -18,25 +18,26 @@ import (
 // checks if the Monitor type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Monitor{}
 
-// Monitor Monitor allowing to send alerts based on telemetry data
+// Monitor Saved alert definition that evaluates telemetry and creates alert transitions. Notification delivery is configured separately with notification rules. See [Monitors](/documentation/alert/monitors/index).
 type Monitor struct {
-	// Identifier of the monitor
+	// Tsuga-generated monitor ID assigned when the monitor is created.
 	Id string `json:"id"`
-	// Display name of the monitor
+	// Display name of the monitor and alert source.
 	Name string `json:"name"`
-	// Team ID that owns and manages the monitor
+	// Team ID that owns and manages the monitor.
 	Owner string `json:"owner"`
-	// Message to be displayed if a notification is triggered
+	// Caller-supplied message included in notifications triggered by this monitor. Omitted when the monitor was created or last updated without one.
 	Message *string `json:"message,omitempty"`
-	// List of key/value tags applied to the resource
+	// Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies.
 	Tags          []Tag1               `json:"tags,omitempty"`
 	Configuration MonitorConfiguration `json:"configuration"`
-	// Priority of the monitor
+	// Monitor priority from 1 through 5, where 1 is highest priority.
 	Priority float32 `json:"priority"`
-	// This controls which data the resource can see
+	// `all` allows the resource to query all permitted telemetry, `owning-team-and-public` limits it to the owning team plus public data, and `owning-team-only` limits it to the owning team.
 	Permissions string `json:"permissions"`
-	// Identifier of a dashboard related to the monitor
-	DashboardId          *string  `json:"dashboardId,omitempty"`
+	// ID of the dashboard linked to this monitor for context when investigating alerts. Caller-supplied. Omitted when no dashboard is linked.
+	DashboardId *string `json:"dashboardId,omitempty"`
+	// Cluster IDs where the monitor is deployed. Empty means all eligible clusters.
 	ClusterIds           []string `json:"clusterIds"`
 	AdditionalProperties map[string]interface{}
 }

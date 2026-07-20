@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | Identifier of the notification target | 
+**Id** | **string** | Identifier of the notification target within this rule. Choose a stable ID that is unique among this rule&#39;s targets; Tsuga uses it with the rule ID for per-target delivery state such as rate limiting. | 
 **RateLimit** | Pointer to [**CreateNotificationRuleRequestTargetsInnerRateLimit**](CreateNotificationRuleRequestTargetsInnerRateLimit.md) |  | [optional] 
 **Config** | [**CreateNotificationRuleRequestTargetsInnerConfig**](CreateNotificationRuleRequestTargetsInnerConfig.md) |  | 
 **RenotifyConfig** | Pointer to [**CreateNotificationRuleRequestTargetsInnerRenotifyConfig**](CreateNotificationRuleRequestTargetsInnerRenotifyConfig.md) |  | [optional] 

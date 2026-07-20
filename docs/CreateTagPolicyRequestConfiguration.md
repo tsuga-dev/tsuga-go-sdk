@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
-**AssetTypes** | **[]string** |  | 
-**ShouldInsertWarning** | **bool** |  | 
-**DropSample** | Pointer to **float32** |  | [optional] 
+**Type** | **string** | Policy applies to telemetry data points during ingestion or evaluation. | 
+**AssetTypes** | **[]string** | Tsuga-managed asset types covered by the policy. An empty array means all supported asset types. | 
+**ShouldInsertWarning** | **bool** | When true, Tsuga annotates non-compliant telemetry with tag policy warnings instead of only measuring violations. | 
+**DropSample** | Pointer to **float32** | Percentage of non-compliant telemetry datapoints to drop. Valid values are 0 through 100. | [optional] 
 
 ## Methods
 

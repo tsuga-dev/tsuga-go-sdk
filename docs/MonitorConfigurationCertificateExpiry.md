@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
-**WarnBeforeInDays** | **int32** |  | 
-**CloudAccounts** | Pointer to **[]string** |  | [optional] 
-**AggregationAlertLogic** | **string** |  | 
-**NoDataBehavior** | **string** |  | 
+**Type** | **string** | Monitor that alerts before discovered certificates expire. | 
+**WarnBeforeInDays** | **int32** | Number of days before certificate expiry when the monitor should warn. | 
+**CloudAccounts** | Pointer to **[]string** | Cloud account IDs whose certificates are checked. Omitted means certificates from all cloud accounts are checked. | [optional] 
+**AggregationAlertLogic** | **string** | Certificate expiry monitors alert independently for each certificate. | 
+**NoDataBehavior** | **string** | Certificate expiry monitors resolve when matching certificate data disappears. | 
 
 ## Methods
 

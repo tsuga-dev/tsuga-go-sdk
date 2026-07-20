@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -20,7 +20,7 @@ var _ MappedNullable = &QueryDashboardsRequestSort{}
 
 // QueryDashboardsRequestSort Optional sorting applied to the returned dashboards
 type QueryDashboardsRequestSort struct {
-	// Field to sort the returned dashboards by
+	// Field to sort the returned dashboards by: `owner` sorts by owning team ID, `tags` sorts by tag key/value pairs, `widgetCount` sorts by the number of graphs on the dashboard, `updatedAt` sorts by last-updated timestamp, and `name` sorts alphabetically by dashboard name.
 	By string `json:"by"`
 	// Sort direction: ascending or descending
 	Direction            string `json:"direction"`

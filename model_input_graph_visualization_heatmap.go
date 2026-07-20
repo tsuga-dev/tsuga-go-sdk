@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -22,16 +22,16 @@ var _ MappedNullable = &InputGraphVisualizationHeatmap{}
 type InputGraphVisualizationHeatmap struct {
 	// Displays the aggregation as a heatmap chart
 	Type string `json:"type"`
-	// Data source being queried for this aggregation
+	// Telemetry source queried by this aggregation: `logs`, `metrics`, `traces`, or `rum`.
 	Source string `json:"source"`
-	// Aggregations that may be combined together in the same query
+	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order. Limited to 15 items. For dataSource \"metrics\", each aggregate's `field` is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"system.cpu.utilization.context.host.name\").
 	Queries []AggregationQuery1 `json:"queries"`
-	// Formula referencing query outputs (e.g. q1+q2) to compute derived series
-	Formula *string                                   `json:"formula,omitempty"`
-	Aliases *InputGraphVisualizationTimeseriesAliases `json:"aliases,omitempty"`
+	// Formula referencing query outputs, such as `q1 + q2`, to compute derived results. Defaults to `q1`. Formulas may reference only submitted queries (`q1` through `qN`); undefined query references return 400.
+	Formula *string                                         `json:"formula,omitempty"`
+	Aliases *InputGraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
-	// Fields used to group the results
+	// Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. Limited to 7 levels.
 	GroupBy []AggregationGroupBy1 `json:"groupBy,omitempty"`
 	// Number of decimal places to display in the value
 	Precision  *float32     `json:"precision,omitempty"`
@@ -168,9 +168,9 @@ func (o *InputGraphVisualizationHeatmap) SetFormula(v string) {
 }
 
 // GetAliases returns the Aliases field value if set, zero value otherwise.
-func (o *InputGraphVisualizationHeatmap) GetAliases() InputGraphVisualizationTimeseriesAliases {
+func (o *InputGraphVisualizationHeatmap) GetAliases() InputGraphVisualizationTimeseriesPromqlAliases {
 	if o == nil || IsNil(o.Aliases) {
-		var ret InputGraphVisualizationTimeseriesAliases
+		var ret InputGraphVisualizationTimeseriesPromqlAliases
 		return ret
 	}
 	return *o.Aliases
@@ -178,7 +178,7 @@ func (o *InputGraphVisualizationHeatmap) GetAliases() InputGraphVisualizationTim
 
 // GetAliasesOk returns a tuple with the Aliases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationHeatmap) GetAliasesOk() (*InputGraphVisualizationTimeseriesAliases, bool) {
+func (o *InputGraphVisualizationHeatmap) GetAliasesOk() (*InputGraphVisualizationTimeseriesPromqlAliases, bool) {
 	if o == nil || IsNil(o.Aliases) {
 		return nil, false
 	}
@@ -194,8 +194,8 @@ func (o *InputGraphVisualizationHeatmap) HasAliases() bool {
 	return false
 }
 
-// SetAliases gets a reference to the given InputGraphVisualizationTimeseriesAliases and assigns it to the Aliases field.
-func (o *InputGraphVisualizationHeatmap) SetAliases(v InputGraphVisualizationTimeseriesAliases) {
+// SetAliases gets a reference to the given InputGraphVisualizationTimeseriesPromqlAliases and assigns it to the Aliases field.
+func (o *InputGraphVisualizationHeatmap) SetAliases(v InputGraphVisualizationTimeseriesPromqlAliases) {
 	o.Aliases = &v
 }
 

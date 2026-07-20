@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
+**Type** | **string** | Email target that sends directly to the listed addresses and does not require an integration. | 
 **Addresses** | **[]string** | Email addresses that will receive the alert | 
 
 ## Methods

@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -20,6 +20,7 @@ var _ MappedNullable = &QueryMonitorsRequestFiltersOwners{}
 
 // QueryMonitorsRequestFiltersOwners Restrict results to monitors owned by any of these team IDs
 type QueryMonitorsRequestFiltersOwners struct {
+	// Values compared by this filter. When `exclude` is omitted or false, rows matching any value are kept; when `exclude` is true, matching rows are removed.
 	Values []string `json:"values"`
 	// If true, exclude rows matching these values instead of including them
 	Exclude              *bool `json:"exclude,omitempty"`

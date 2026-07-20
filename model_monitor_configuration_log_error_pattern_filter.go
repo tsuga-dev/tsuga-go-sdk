@@ -1,7 +1,7 @@
 /*
 Tsuga Public API
 
-HTTP API used by Tsuga customers
+Public HTTP API for Tsuga customers and customer-operated tools. Use these endpoints to query observability data, manage customer-owned Tsuga resources, and retrieve documentation or API-reference content. Public API requests authenticate with Bearer tokens such as operation keys. See [API reference](/documentation/api).
 
 API version: 1.0.0
 */
@@ -18,11 +18,14 @@ import (
 // checks if the MonitorConfigurationLogErrorPatternFilter type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &MonitorConfigurationLogErrorPatternFilter{}
 
-// MonitorConfigurationLogErrorPatternFilter struct for MonitorConfigurationLogErrorPatternFilter
+// MonitorConfigurationLogErrorPatternFilter Log selection used for new error pattern detection. All configured fields must match for logs to be included.
 type MonitorConfigurationLogErrorPatternFilter struct {
-	TeamIds              []string `json:"teamIds"`
-	Env                  string   `json:"env"`
-	Service              *string  `json:"service,omitempty"`
+	// Team IDs whose logs are searched for new error patterns. Tsuga resolves these team IDs to team names when exporting monitor assets.
+	TeamIds []string `json:"teamIds"`
+	// Environment whose logs are searched for new error patterns.
+	Env string `json:"env"`
+	// Optional service name whose logs are searched for new error patterns. If omitted, the monitor searches all services matching the team and environment filter.
+	Service              *string `json:"service,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

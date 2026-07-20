@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**X** | **float32** | Horizontal grid position of the widget | 
-**Y** | **float32** | Vertical grid position of the widget | 
-**W** | **float32** | Width of the widget in grid units | 
-**H** | **float32** | Height of the widget in grid units | 
+**X** | **float32** | Column position of the widget on the 12-column dashboard grid. 0 is the leftmost column; increasing values move right. | 
+**Y** | **float32** | Row position of the widget on the dashboard grid, in row units of 50 pixels each. 0 is the topmost row; increasing values move down. | 
+**W** | **float32** | Width of the widget in grid columns, out of the 12-column grid. | 
+**H** | **float32** | Height of the widget in grid rows, where each row is 50 pixels tall. | 
 
 ## Methods
 

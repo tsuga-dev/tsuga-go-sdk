@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Aggregate** | [**InputAggregate**](InputAggregate.md) |  | 
-**Functions** | Pointer to [**[]InputFunction**](InputFunction.md) | Post-processing functions applied to aggregation results | [optional] 
+**Functions** | Pointer to [**[]InputFunction**](InputFunction.md) | Post-processing functions applied to aggregation results. Defaults to an empty array when omitted. Limited to 10 items. | [optional] 
 **Fill** | Pointer to [**MonitorAggregationQueryFill**](MonitorAggregationQueryFill.md) |  | [optional] 
-**Filter** | **string** |  | 
+**Filter** | **string** | Tsuga query filter applied to this alerting or SLO aggregation query. Required by the API; use the query language for the selected data source. | 
 
 ## Methods
 
