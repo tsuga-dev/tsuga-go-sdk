@@ -42,6 +42,70 @@ func PtrString(v string) *string { return &v }
 // PtrTime is helper routine that returns a pointer to given Time value.
 func PtrTime(v time.Time) *time.Time { return &v }
 
+// BoolValue is a helper routine that returns the bool value of a pointer, or false if nil.
+func BoolValue(v *bool) bool {
+	if v == nil {
+		return false
+	}
+	return *v
+}
+
+// IntValue is a helper routine that returns the int value of a pointer, or 0 if nil.
+func IntValue(v *int) int {
+	if v == nil {
+		return 0
+	}
+	return *v
+}
+
+// Int32Value is a helper routine that returns the int32 value of a pointer, or 0 if nil.
+func Int32Value(v *int32) int32 {
+	if v == nil {
+		return 0
+	}
+	return *v
+}
+
+// Int64Value is a helper routine that returns the int64 value of a pointer, or 0 if nil.
+func Int64Value(v *int64) int64 {
+	if v == nil {
+		return 0
+	}
+	return *v
+}
+
+// Float32Value is a helper routine that returns the float32 value of a pointer, or 0.0 if nil.
+func Float32Value(v *float32) float32 {
+	if v == nil {
+		return 0.0
+	}
+	return *v
+}
+
+// Float64Value is a helper routine that returns the float64 value of a pointer, or 0.0 if nil.
+func Float64Value(v *float64) float64 {
+	if v == nil {
+		return 0.0
+	}
+	return *v
+}
+
+// StringValue is a helper routine that returns the string value of a pointer, or "" if nil.
+func StringValue(v *string) string {
+	if v == nil {
+		return ""
+	}
+	return *v
+}
+
+// TimeValue is a helper routine that returns the time.Time value of a pointer, or zero time if nil.
+func TimeValue(v *time.Time) time.Time {
+	if v == nil {
+		return time.Time{}
+	}
+	return *v
+}
+
 type NullableBool struct {
 	value *bool
 	isSet bool
