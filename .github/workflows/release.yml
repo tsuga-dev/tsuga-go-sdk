@@ -57,6 +57,26 @@ jobs:
           prerelease: false
           draft: false
 
+      - name: Extract release notes
+        id: notes
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          NOTES_FILE="$(mktemp)"
+          awk -v ver="$VERSION" '
+            /^## \[/ {
+              if (found) exit
+              if (index($0, "[" ver "]")) { found = 1; next }
+            }
+            found { print }
+          ' CHANGELOG.md | sed -e '/./,$!d' > "$NOTES_FILE"
+          DELIM="EOF_$(openssl rand -hex 16)"
+          {
+            echo "RELEASE_NOTES<<$DELIM"
+            head -c 2500 "$NOTES_FILE"
+            echo
+            echo "$DELIM"
+          } >> "$GITHUB_ENV"
+
       - name: Send Slack notification
         uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # pin@v2
         continue-on-error: true
@@ -65,6 +85,9 @@ jobs:
           SLACK_COLOR: good
           MSG_MINIMAL: actions url
           SLACK_TITLE: "🚀 Go SDK Released"
-          SLACK_MESSAGE: "A new release has been published: ${{ github.ref_name }}"
+          SLACK_MESSAGE: |
+            A new release has been published: ${{ github.ref_name }}
+
+            ${{ env.RELEASE_NOTES }}
           SLACK_FOOTER: "https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}"
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
