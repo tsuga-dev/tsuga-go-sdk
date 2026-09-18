@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Display name of the monitor and alert source. | 
-**Message** | Pointer to **string** | Message included in notifications triggered by this monitor. Optional on create. On update, omitting it keeps the existing message. | [optional] 
-**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Up to 50 tags are accepted and tag policies may require specific keys or values. | [optional] 
+**Message** | Pointer to **NullableString** |  | [optional] 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **Configuration** | [**UpdateMonitorRequestConfiguration**](UpdateMonitorRequestConfiguration.md) |  | 
 **Priority** | **float32** | Monitor priority from 1 through 5, where 1 is highest priority. | 
 **Owner** | **string** | Team ID that owns and manages the monitor. | 
@@ -78,6 +78,16 @@ SetMessage sets Message field to given value.
 
 HasMessage returns a boolean if a field has been set.
 
+### SetMessageNil
+
+`func (o *UpdateMonitorRequest) SetMessageNil(b bool)`
+
+ SetMessageNil sets the value for Message to be an explicit nil
+
+### UnsetMessage
+`func (o *UpdateMonitorRequest) UnsetMessage()`
+
+UnsetMessage ensures that no value is present for Message, not even an explicit nil
 ### GetTags
 
 `func (o *UpdateMonitorRequest) GetTags() []Tag`

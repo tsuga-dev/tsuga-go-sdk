@@ -18,6 +18,10 @@ tags:
     \ to compute scalar and timeseries results for analytics workflows. See [Analytics\
     \ queries](/documentation/visualize/analytics/queries)."
   name: aggregation
+- description: "Operations for the authenticated caller and for authentication setup.\
+    \ Use these endpoints to inspect the credential a request authenticates with,\
+    \ and for SAML, SSO, and session-related configuration."
+  name: authentication
 - description: "Operations for listing Tsuga clusters that hold observability data.\
     \ Use these endpoints to choose cluster scope for telemetry queries. See [Clusters](/documentation/account-and-settings/clusters)."
   name: clusters
@@ -54,6 +58,14 @@ tags:
 - description: "Operations for searching log events, inspecting log attributes, and\
     \ analyzing recurring log patterns. See [Logs](/documentation/explore/logs)."
   name: logs
+- description: "Operations for discovering which telemetry fields an organization\
+    \ already relies on for a given scope, ranked from its dashboards and monitors.\
+    \ Use these endpoints to pick real field and metric names instead of guessing\
+    \ them."
+  name: interesting-fields
+- description: "Operations for metrics routes and route processors. Use these endpoints\
+    \ to manage ingest-time metrics processing definitions. See [Routes](/documentation/process/routes/index)."
+  name: metric-routes
 - description: "Operations for discovering metric names, retrieving metric metadata,\
     \ and querying metric data across telemetry sources. See [Metrics](/documentation/explore/metrics/index)."
   name: metrics
@@ -61,6 +73,9 @@ tags:
     \ inspect, update, and delete alert evaluation rules, not notification delivery.\
     \ See [Monitors](/documentation/alert/monitors/index)."
   name: monitors
+- description: "Operations for saved notification destinations. Use these endpoints\
+    \ to manage external delivery integrations used by notification rules. See [Notifications](/documentation/alert/notifications/index)."
+  name: notification-integrations
 - description: "Operations for notification routing rules. Use these endpoints to\
     \ match alert transitions and send notifications to configured targets. See [Rules](/documentation/alert/notifications/rules)."
   name: notification-rules
@@ -127,6 +142,7 @@ paths:
                   values:
                   - key: service
                     value: api-gateway
+                folderId: folder-123-abc
               sort:
                 by: name
                 direction: asc
@@ -246,8 +262,7 @@ paths:
       tags:
       - dashboards
     get:
-      description: Retrieves one dashboard by ID when the authenticated operation
-        key can read it. Use this before updating or cloning a dashboard definition.
+      description: Retrieves one dashboard by ID.
       operationId: getDashboard
       parameters:
       - description: "Identifier of the saved dashboard to retrieve. Use the `id`\
@@ -573,6 +588,13 @@ paths:
                   - 4
                   - 5
                   exclude: true
+                types:
+                  values:
+                  - threshold
+                activity: active
+                clusterIds:
+                  values:
+                  - cluster-123-abc
               sort:
                 by: name
                 direction: asc
@@ -692,9 +714,7 @@ paths:
       tags:
       - monitors
     get:
-      description: "Retrieves one monitor definition by ID when the authenticated\
-        \ operation key can read it. Use this before updating, duplicating, or auditing\
-        \ a monitor."
+      description: Retrieves one monitor definition by ID.
       operationId: getMonitor
       parameters:
       - description: "Monitor ID returned by monitor query, create, or update operations."
@@ -868,7 +888,8 @@ paths:
                       teamIds:
                       - team-123-abc
                       env: production
-                      service: api-gateway
+                      services:
+                      - api-gateway
                   priority: 2
                   owner: team-123-abc
                   dashboardId: 789-abc-def
@@ -1026,7 +1047,8 @@ paths:
                       teamIds:
                       - team-123-abc
                       env: production
-                      service: api-gateway
+                      services:
+                      - api-gateway
                   priority: 2
                   owner: team-123-abc
                   dashboardId: 789-abc-def
@@ -1089,13 +1111,14 @@ paths:
         limit the returned page.
       operationId: listNotificationRules
       parameters:
-      - description: Maximum number of items to return in this page. Valid values
-          are 1 through 1000.
+      - description: Maximum number of items to return in this page. Omit to use the
+          public API default of 100.
         explode: true
         in: query
         name: limit
         required: false
         schema:
+          default: 100
           maximum: 1000
           minimum: 1
           type: integer
@@ -1186,15 +1209,15 @@ paths:
                 rateLimit:
                   maxMessages: 10
                   minutes: 5
-                renotifyConfig:
-                  mode: each
-                  renotificationStates:
-                  - alert
-                  renotifyIntervalMinutes: 30
                 config:
                   type: email
                   addresses:
                   - oncall@example.com
+                  renotifyConfig:
+                    mode: each
+                    renotificationStates:
+                    - alert
+                    renotifyIntervalMinutes: 30
             schema:
               $ref: "#/components/schemas/createNotificationRule_request"
         description: "Notification rule create or update request. Provide matching\
@@ -1309,8 +1332,7 @@ paths:
       tags:
       - notification-rules
     get:
-      description: Retrieves one notification rule by ID when the authenticated operation
-        key can read it. Use this before updating routing or target configuration.
+      description: Retrieves one notification rule by ID.
       operationId: getNotificationRule
       parameters:
       - description: Identifier of the notification rule to retrieve. Use the `id`
@@ -1413,15 +1435,15 @@ paths:
                 rateLimit:
                   maxMessages: 10
                   minutes: 5
-                renotifyConfig:
-                  mode: each
-                  renotificationStates:
-                  - alert
-                  renotifyIntervalMinutes: 30
                 config:
                   type: email
                   addresses:
                   - oncall@example.com
+                  renotifyConfig:
+                    mode: each
+                    renotificationStates:
+                    - alert
+                    renotifyIntervalMinutes: 30
             schema:
               $ref: "#/components/schemas/updateNotificationRule_request"
         description: "Notification rule create or update request. Provide matching\
@@ -1685,8 +1707,7 @@ paths:
       tags:
       - tag-policies
     get:
-      description: Retrieves one tag policy by ID when the authenticated operation
-        key can read it. Use this before updating policy scope or enforcement settings.
+      description: Retrieves one tag policy by ID.
       operationId: getTagPolicy
       parameters:
       - description: Identifier of the tag policy to retrieve. Use the `id` returned
@@ -1865,13 +1886,14 @@ paths:
         \ and policies. Pagination fields limit the returned page."
       operationId: listTeams
       parameters:
-      - description: Maximum number of items to return in this page. Valid values
-          are 1 through 1000.
+      - description: Maximum number of items to return in this page. Omit to use the
+          public API default of 100.
         explode: true
         in: query
         name: limit
         required: false
         schema:
+          default: 100
           maximum: 1000
           minimum: 1
           type: integer
@@ -1933,8 +1955,10 @@ paths:
       tags:
       - teams
     post:
-      description: Creates a team for ownership and access control. Use this before
-        assigning resources to a new owner team.
+      description: "Creates a team for ownership and access control. Use this before\
+        \ assigning resources to a new owner team. A new team sits outside every existing\
+        \ team, so the operation key must be scoped to all teams: a key scoped to\
+        \ its owning team cannot create teams, even with write access to teams."
       operationId: createTeam
       requestBody:
         content:
@@ -2060,9 +2084,7 @@ paths:
       tags:
       - teams
     get:
-      description: Retrieves one team by ID when the authenticated operation key can
-        read it. Use this to resolve ownership metadata before creating or updating
-        team-owned resources.
+      description: Retrieves one team by ID.
       operationId: getTeam
       parameters:
       - description: Identifier of the team to retrieve. Use the `id` returned by
@@ -2233,12 +2255,14 @@ components:
           - CLUSTER_DB_QUERY_CONNECTION_FAILED
           - CLUSTER_DB_QUERY_QUERY_EXECUTION_FAILED
           - CLUSTER_DB_QUERY_QUERY_TIMEOUT
+          - CLUSTER_DB_QUERY_CONNECTION_TIMEOUT
           - CLUSTER_AGGREGATION_STRUCTURE
           - ABORT_ERROR
           - BAD_REQUEST
           - DUPLICATE_KEY_VIOLATION
           - FOREIGN_KEY_VIOLATION
           - FST_ERR_VALIDATION
+          - GROK_RULE_VALIDATION_ERROR
           - INVALID_INPUT
           - FORBIDDEN
           - MISSING_PERMISSION
@@ -2259,7 +2283,7 @@ components:
           description: HTTP status code that was returned
           type: number
         details:
-          $ref: "#/components/schemas/TagPolicyViolationDetails"
+          $ref: "#/components/schemas/ClientErrorResponse_details"
       required:
       - message
       - statusCode
@@ -2335,6 +2359,8 @@ components:
       - error
       - requestId
     ResponseMetadata:
+      description: "Metadata accompanying `data` on paginated operations, describing\
+        \ the full result set the page was taken from."
       example:
         pagination:
           pageCount: 6
@@ -2345,6 +2371,7 @@ components:
       required:
       - pagination
     DeleteResponse:
+      description: Confirmation that the targeted resource was deleted.
       example:
         success: true
       properties:
@@ -2434,6 +2461,7 @@ components:
           - past-2-days
           - past-3-days
           - past-7-days
+          - past-15-days
           - past-30-days
           - past-3-months
           - current-day
@@ -2447,7 +2475,7 @@ components:
           - previous-year
           type: string
         folderId:
-          description: Folder that contains the dashboard. Set from the dashboard’s
+          description: Folder that contains the dashboard. Set from the dashboard's
             saved folder relationship. Returned when the dashboard is in a folder;
             omitted when it is not.
           type: string
@@ -2680,6 +2708,10 @@ components:
                 type: pow
                 exponent: 6.027456183070403
               alwaysIncludeZero: true
+            lineStyleOptions:
+              key:
+                lineStyle: regular
+                groupId: groupId
             type: timeseries-connection
             queries:
             - queries
@@ -3028,15 +3060,15 @@ components:
           rateLimit:
             maxMessages: 10
             minutes: 5
-          renotifyConfig:
-            mode: each
-            renotificationStates:
-            - alert
-            renotifyIntervalMinutes: 30
           config:
             type: email
             addresses:
             - oncall@example.com
+            renotifyConfig:
+              mode: each
+              renotificationStates:
+              - alert
+              renotifyIntervalMinutes: 30
       properties:
         id:
           description: Tsuga-generated notification rule ID assigned when the rule
@@ -3142,15 +3174,15 @@ components:
             rateLimit:
               maxMessages: 10
               minutes: 5
-            renotifyConfig:
-              mode: each
-              renotificationStates:
-              - alert
-              renotifyIntervalMinutes: 30
             config:
               type: email
               addresses:
               - oncall@example.com
+              renotifyConfig:
+                mode: each
+                renotificationStates:
+                - alert
+                renotifyIntervalMinutes: 30
         - id: 123-456-abc
           name: Critical Alerts
           queryString: env:prod service:api
@@ -3173,15 +3205,15 @@ components:
             rateLimit:
               maxMessages: 10
               minutes: 5
-            renotifyConfig:
-              mode: each
-              renotificationStates:
-              - alert
-              renotifyIntervalMinutes: 30
             config:
               type: email
               addresses:
               - oncall@example.com
+              renotifyConfig:
+                mode: each
+                renotificationStates:
+                - alert
+                renotifyIntervalMinutes: 30
         requestId: requestId
       properties:
         requestId:
@@ -3221,15 +3253,15 @@ components:
             rateLimit:
               maxMessages: 10
               minutes: 5
-            renotifyConfig:
-              mode: each
-              renotificationStates:
-              - alert
-              renotifyIntervalMinutes: 30
             config:
               type: email
               addresses:
               - oncall@example.com
+              renotifyConfig:
+                mode: each
+                renotificationStates:
+                - alert
+                renotifyIntervalMinutes: 30
         requestId: requestId
       properties:
         requestId:
@@ -3265,15 +3297,15 @@ components:
             rateLimit:
               maxMessages: 10
               minutes: 5
-            renotifyConfig:
-              mode: each
-              renotificationStates:
-              - alert
-              renotifyIntervalMinutes: 30
             config:
               type: email
               addresses:
               - oncall@example.com
+              renotifyConfig:
+                mode: each
+                renotificationStates:
+                - alert
+                renotifyIntervalMinutes: 30
         requestId: requestId
       properties:
         requestId:
@@ -3309,15 +3341,15 @@ components:
             rateLimit:
               maxMessages: 10
               minutes: 5
-            renotifyConfig:
-              mode: each
-              renotificationStates:
-              - alert
-              renotifyIntervalMinutes: 30
             config:
               type: email
               addresses:
               - oncall@example.com
+              renotifyConfig:
+                mode: each
+                renotificationStates:
+                - alert
+                renotifyIntervalMinutes: 30
         requestId: requestId
       properties:
         requestId:
@@ -3592,7 +3624,7 @@ components:
             in team search.
           type: string
         description:
-          description: Optional team description supplied by a user.
+          description: Optional free-text description of the team.
           type: string
         visibility:
           description: '`public` makes team-owned resources discoverable according
@@ -3717,6 +3749,58 @@ components:
       required:
       - data
       - requestId
+    GrokInvalidSyntax:
+      properties:
+        type:
+          description: Discriminator identifying a rule the grok parser could not
+            parse at all.
+          enum:
+          - invalid-syntax
+          type: string
+        error:
+          $ref: "#/components/schemas/GrokInvalidSyntax_error"
+      required:
+      - error
+      - type
+    GrokUnknownPattern:
+      properties:
+        type:
+          description: Discriminator identifying a rule that references a pattern
+            name the grok engine does not provide.
+          enum:
+          - unknown-pattern
+          type: string
+        error:
+          $ref: "#/components/schemas/GrokUnknownPattern_error"
+      required:
+      - error
+      - type
+    GrokInvalidFilter:
+      properties:
+        type:
+          description: Discriminator identifying a rule whose filter is a known filter
+            used incorrectly.
+          enum:
+          - invalid-filter
+          type: string
+        error:
+          $ref: "#/components/schemas/GrokInvalidFilter_error"
+      required:
+      - error
+      - type
+    GrokUnknownFilter:
+      properties:
+        type:
+          description: Discriminator identifying a rule that references a filter name
+            the grok engine does not implement.
+          enum:
+          - unknown-filter
+          type: string
+        error:
+          $ref: "#/components/schemas/GrokUnknownFilter_error"
+      required:
+      - error
+      - type
     TagPolicyViolationDetails:
       example:
         violations:
@@ -3751,6 +3835,23 @@ components:
       required:
       - type
       - violations
+    GrokRuleErrorDetails:
+      properties:
+        type:
+          description: Discriminator identifying grok rule validation details. Set
+            by Tsuga to `grok_rule_error`. Returned when the error code is `GROK_RULE_VALIDATION_ERROR`.
+          enum:
+          - grok_rule_error
+          type: string
+        ruleErrors:
+          description: "Grok rules that failed to compile, with full structured detail.\
+            \ One entry per invalid rule."
+          items:
+            $ref: "#/components/schemas/GrokRuleErrorDetails_ruleErrors_inner"
+          type: array
+      required:
+      - ruleErrors
+      - type
     AggregateCount:
       properties:
         type:
@@ -3845,8 +3946,7 @@ components:
           description: Attribute containing the values to aggregate
           type: string
         percentile:
-          description: "Percentile to compute for the selected field, from 0 through\
-            \ 100."
+          description: Percentile to compute for the selected field.
           type: number
       required:
       - field
@@ -3961,8 +4061,7 @@ components:
           minLength: 0
           type: string
         percentile:
-          description: "Percentile to compute for the selected field, from 0 through\
-            \ 100."
+          description: Percentile to compute for the selected field.
           type: number
       required:
       - field
@@ -4172,12 +4271,13 @@ components:
           - consider_zero
           type: string
         timeframe:
-          description: "Lookback window, in minutes, that each monitor evaluation\
-            \ aggregates over."
+          description: "Lookback window, in minutes, that each query-backed threshold\
+            \ monitor evaluation aggregates over. Always a whole number, at least\
+            \ 1."
           type: number
         groupByFields:
-          description: Monitor group by configuration. Warning! Note that the limit
-            setting is currently ignored.
+          description: Monitor group by configuration. The `limit` setting is currently
+            ignored; evaluation applies a fixed limit of 100 groups per field.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
           type: array
@@ -4234,12 +4334,13 @@ components:
           - consider_zero
           type: string
         timeframe:
-          description: "Lookback window, in minutes, that each monitor evaluation\
-            \ aggregates over."
+          description: "Lookback window, in minutes, that each query-backed threshold\
+            \ monitor evaluation aggregates over. Always a whole number, at least\
+            \ 1."
           type: number
         groupByFields:
-          description: Monitor group by configuration. Warning! Note that the limit
-            setting is currently ignored.
+          description: Monitor group by configuration. The `limit` setting is currently
+            ignored; evaluation applies a fixed limit of 100 groups per field.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
           type: array
@@ -4296,12 +4397,13 @@ components:
           - consider_zero
           type: string
         timeframe:
-          description: "Lookback window, in minutes, that each monitor evaluation\
-            \ aggregates over."
+          description: "Lookback window, in minutes, that each query-backed threshold\
+            \ monitor evaluation aggregates over. Always a whole number, at least\
+            \ 1."
           type: number
         groupByFields:
-          description: Monitor group by configuration. Warning! Note that the limit
-            setting is currently ignored.
+          description: Monitor group by configuration. The `limit` setting is currently
+            ignored; evaluation applies a fixed limit of 100 groups per field.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
           type: array
@@ -4352,11 +4454,11 @@ components:
           type: string
         timeframe:
           description: "Lookback window, in minutes, that each anomaly monitor evaluation\
-            \ aggregates over. Valid input is 5 through 1440 minutes."
+            \ aggregates over. Always a whole number from 5 through 1440."
           type: number
         groupByFields:
-          description: Monitor group by configuration. Warning! Note that the limit
-            setting is currently ignored.
+          description: Monitor group by configuration. The `limit` setting is currently
+            ignored; evaluation applies a fixed limit of 100 groups per field.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
           type: array
@@ -4407,11 +4509,11 @@ components:
           type: string
         timeframe:
           description: "Lookback window, in minutes, that each anomaly monitor evaluation\
-            \ aggregates over. Valid input is 5 through 1440 minutes."
+            \ aggregates over. Always a whole number from 5 through 1440."
           type: number
         groupByFields:
-          description: Monitor group by configuration. Warning! Note that the limit
-            setting is currently ignored.
+          description: Monitor group by configuration. The `limit` setting is currently
+            ignored; evaluation applies a fixed limit of 100 groups per field.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
           type: array
@@ -4446,8 +4548,8 @@ components:
       properties:
         type:
           description: "Monitor that alerts on newly detected log error patterns for\
-            \ the configured team, environment, and optional service. Recovery notifications\
-            \ are not sent for this monitor type."
+            \ the configured environment, scoped by teams, services, or both. Recovery\
+            \ notifications are not sent for this monitor type."
           enum:
           - log-error-pattern
           type: string
@@ -4473,7 +4575,9 @@ components:
     MonitorConfigurationAnomalyTrace:
       properties:
         type:
-          description: Anomaly monitor over trace aggregations.
+          description: Anomaly monitor over trace aggregations. Use this configuration
+            when Tsuga should learn historical trace query behavior and alert on unusual
+            movement in trace-derived values.
           enum:
           - anomaly-trace
           type: string
@@ -4490,11 +4594,11 @@ components:
           type: string
         timeframe:
           description: "Lookback window, in minutes, that each anomaly monitor evaluation\
-            \ aggregates over. Valid input is 5 through 1440 minutes."
+            \ aggregates over. Always a whole number from 5 through 1440."
           type: number
         groupByFields:
-          description: Monitor group by configuration. Warning! Note that the limit
-            setting is currently ignored.
+          description: Monitor group by configuration. The `limit` setting is currently
+            ignored; evaluation applies a fixed limit of 100 groups per field.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
           type: array
@@ -4567,7 +4671,8 @@ components:
           type: string
         conditions:
           description: Threshold conditions evaluated against query and formula results.
-            Provide at least one condition and no more than five conditions.
+            All listed conditions must match for a non-grouped threshold monitor to
+            alert.
           items:
             $ref: "#/components/schemas/InputMonitorConfigurationMetric_conditions_inner"
           maxItems: 5
@@ -4585,12 +4690,13 @@ components:
           - consider_zero
           type: string
         timeframe:
-          description: "Lookback window, in minutes, that each monitor evaluation\
-            \ aggregates over."
-          type: number
+          description: "Lookback window, in minutes, that each query-backed threshold\
+            \ monitor evaluation aggregates over."
+          minimum: 1
+          type: integer
         groupByFields:
-          description: Monitor group by configuration. Warning! Note that the limit
-            setting is currently ignored.
+          description: Monitor group by configuration. The `limit` setting is currently
+            ignored; evaluation applies a fixed limit of 100 groups per field.
           items:
             $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
           maxItems: 1
@@ -4610,13 +4716,12 @@ components:
           type: string
         proportionAlertThreshold:
           description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
-            Valid values are 1 through 99.
           maximum: 99
           minimum: 1
           type: integer
         queries:
-          description: "Aggregation queries used by alerting and SLO evaluation. Each\
-            \ query is referenced from formulas as q1, q2, and so on."
+          description: "Aggregation queries used by alerting. Each query is referenced\
+            \ from formulas as q1, q2, and so on."
           items:
             $ref: "#/components/schemas/MonitorAggregationQuery_1"
           maxItems: 15
@@ -4637,7 +4742,8 @@ components:
           type: string
         conditions:
           description: Threshold conditions evaluated against query and formula results.
-            Provide at least one condition and no more than five conditions.
+            All listed conditions must match for a non-grouped threshold monitor to
+            alert.
           items:
             $ref: "#/components/schemas/InputMonitorConfigurationMetric_conditions_inner"
           maxItems: 5
@@ -4655,12 +4761,13 @@ components:
           - consider_zero
           type: string
         timeframe:
-          description: "Lookback window, in minutes, that each monitor evaluation\
-            \ aggregates over."
-          type: number
+          description: "Lookback window, in minutes, that each query-backed threshold\
+            \ monitor evaluation aggregates over."
+          minimum: 1
+          type: integer
         groupByFields:
-          description: Monitor group by configuration. Warning! Note that the limit
-            setting is currently ignored.
+          description: Monitor group by configuration. The `limit` setting is currently
+            ignored; evaluation applies a fixed limit of 100 groups per field.
           items:
             $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
           maxItems: 1
@@ -4680,13 +4787,12 @@ components:
           type: string
         proportionAlertThreshold:
           description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
-            Valid values are 1 through 99.
           maximum: 99
           minimum: 1
           type: integer
         queries:
-          description: "Aggregation queries used by alerting and SLO evaluation. Each\
-            \ query is referenced from formulas as q1, q2, and so on."
+          description: "Aggregation queries used by alerting. Each query is referenced\
+            \ from formulas as q1, q2, and so on."
           items:
             $ref: "#/components/schemas/MonitorAggregationQuery_1"
           maxItems: 15
@@ -4707,7 +4813,8 @@ components:
           type: string
         conditions:
           description: Threshold conditions evaluated against query and formula results.
-            Provide at least one condition and no more than five conditions.
+            All listed conditions must match for a non-grouped threshold monitor to
+            alert.
           items:
             $ref: "#/components/schemas/InputMonitorConfigurationMetric_conditions_inner"
           maxItems: 5
@@ -4725,12 +4832,13 @@ components:
           - consider_zero
           type: string
         timeframe:
-          description: "Lookback window, in minutes, that each monitor evaluation\
-            \ aggregates over."
-          type: number
+          description: "Lookback window, in minutes, that each query-backed threshold\
+            \ monitor evaluation aggregates over."
+          minimum: 1
+          type: integer
         groupByFields:
-          description: Monitor group by configuration. Warning! Note that the limit
-            setting is currently ignored.
+          description: Monitor group by configuration. The `limit` setting is currently
+            ignored; evaluation applies a fixed limit of 100 groups per field.
           items:
             $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
           maxItems: 1
@@ -4750,13 +4858,12 @@ components:
           type: string
         proportionAlertThreshold:
           description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
-            Valid values are 1 through 99.
           maximum: 99
           minimum: 1
           type: integer
         queries:
-          description: "Aggregation queries used by alerting and SLO evaluation. Each\
-            \ query is referenced from formulas as q1, q2, and so on."
+          description: "Aggregation queries used by alerting. Each query is referenced\
+            \ from formulas as q1, q2, and so on."
           items:
             $ref: "#/components/schemas/MonitorAggregationQuery_1"
           maxItems: 15
@@ -4788,13 +4895,13 @@ components:
           type: string
         timeframe:
           description: "Lookback window, in minutes, that each anomaly monitor evaluation\
-            \ aggregates over. Valid input is 5 through 1440 minutes."
+            \ aggregates over."
           maximum: 1440
           minimum: 5
-          type: number
+          type: integer
         groupByFields:
-          description: Monitor group by configuration. Warning! Note that the limit
-            setting is currently ignored.
+          description: Monitor group by configuration. The `limit` setting is currently
+            ignored; evaluation applies a fixed limit of 100 groups per field.
           items:
             $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
           maxItems: 1
@@ -4814,13 +4921,12 @@ components:
           type: string
         proportionAlertThreshold:
           description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
-            Valid values are 1 through 99.
           maximum: 99
           minimum: 1
           type: integer
         queries:
-          description: "Aggregation queries used by alerting and SLO evaluation. Each\
-            \ query is referenced from formulas as q1, q2, and so on."
+          description: "Aggregation queries used by alerting. Each query is referenced\
+            \ from formulas as q1, q2, and so on."
           items:
             $ref: "#/components/schemas/MonitorAggregationQuery_1"
           maxItems: 15
@@ -4852,13 +4958,13 @@ components:
           type: string
         timeframe:
           description: "Lookback window, in minutes, that each anomaly monitor evaluation\
-            \ aggregates over. Valid input is 5 through 1440 minutes."
+            \ aggregates over."
           maximum: 1440
           minimum: 5
-          type: number
+          type: integer
         groupByFields:
-          description: Monitor group by configuration. Warning! Note that the limit
-            setting is currently ignored.
+          description: Monitor group by configuration. The `limit` setting is currently
+            ignored; evaluation applies a fixed limit of 100 groups per field.
           items:
             $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
           maxItems: 1
@@ -4878,13 +4984,12 @@ components:
           type: string
         proportionAlertThreshold:
           description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
-            Valid values are 1 through 99.
           maximum: 99
           minimum: 1
           type: integer
         queries:
-          description: "Aggregation queries used by alerting and SLO evaluation. Each\
-            \ query is referenced from formulas as q1, q2, and so on."
+          description: "Aggregation queries used by alerting. Each query is referenced\
+            \ from formulas as q1, q2, and so on."
           items:
             $ref: "#/components/schemas/MonitorAggregationQuery_1"
           maxItems: 15
@@ -4899,7 +5004,9 @@ components:
     InputMonitorConfigurationAnomalyTrace:
       properties:
         type:
-          description: Anomaly monitor over trace aggregations.
+          description: Anomaly monitor over trace aggregations. Set this value to
+            create or update an anomaly monitor that learns historical trace query
+            behavior and alerts on unusual movement in trace-derived values.
           enum:
           - anomaly-trace
           type: string
@@ -4916,13 +5023,13 @@ components:
           type: string
         timeframe:
           description: "Lookback window, in minutes, that each anomaly monitor evaluation\
-            \ aggregates over. Valid input is 5 through 1440 minutes."
+            \ aggregates over."
           maximum: 1440
           minimum: 5
-          type: number
+          type: integer
         groupByFields:
-          description: Monitor group by configuration. Warning! Note that the limit
-            setting is currently ignored.
+          description: Monitor group by configuration. The `limit` setting is currently
+            ignored; evaluation applies a fixed limit of 100 groups per field.
           items:
             $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
           maxItems: 1
@@ -4942,13 +5049,12 @@ components:
           type: string
         proportionAlertThreshold:
           description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
-            Valid values are 1 through 99.
           maximum: 99
           minimum: 1
           type: integer
         queries:
-          description: "Aggregation queries used by alerting and SLO evaluation. Each\
-            \ query is referenced from formulas as q1, q2, and so on."
+          description: "Aggregation queries used by alerting. Each query is referenced\
+            \ from formulas as q1, q2, and so on."
           items:
             $ref: "#/components/schemas/MonitorAggregationQuery_1"
           maxItems: 15
@@ -4964,8 +5070,8 @@ components:
       properties:
         type:
           description: "Monitor that alerts on newly detected log error patterns for\
-            \ the configured team, environment, and optional service. Recovery notifications\
-            \ are not sent for this monitor type."
+            \ the configured environment, scoped by teams, services, or both. Recovery\
+            \ notifications are not sent for this monitor type."
           enum:
           - log-error-pattern
           type: string
@@ -5040,6 +5146,8 @@ components:
         integrationName:
           description: Human readable name of the Slack integration
           type: string
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetConfigSlack_renotifyConfig"
       required:
       - channel
       - integrationId
@@ -5058,6 +5166,8 @@ components:
         integrationName:
           description: Human readable name of the incident.io integration
           type: string
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetConfigSlack_renotifyConfig"
       required:
       - integrationId
       - integrationName
@@ -5075,6 +5185,8 @@ components:
           items:
             type: string
           type: array
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetConfigSlack_renotifyConfig"
       required:
       - addresses
       - type
@@ -5091,6 +5203,8 @@ components:
         integrationName:
           description: Human readable name of the Grafana IRM integration
           type: string
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetConfigSlack_renotifyConfig"
       required:
       - integrationId
       - integrationName
@@ -5108,6 +5222,8 @@ components:
         integrationName:
           description: Human readable name of the PagerDuty integration
           type: string
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetConfigSlack_renotifyConfig"
       required:
       - integrationId
       - integrationName
@@ -5126,6 +5242,8 @@ components:
         integrationName:
           description: Human readable name of the Microsoft Teams integration
           type: string
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetConfigSlack_renotifyConfig"
       required:
       - integrationId
       - integrationName
@@ -5143,6 +5261,8 @@ components:
         integrationName:
           description: Human readable name of the webhook integration
           type: string
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetConfigSlack_renotifyConfig"
       required:
       - integrationId
       - integrationName
@@ -5160,6 +5280,8 @@ components:
         integrationName:
           description: Human readable name of the ServiceNow integration
           type: string
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetConfigSlack_renotifyConfig"
       required:
       - integrationId
       - integrationName
@@ -5177,6 +5299,8 @@ components:
         integrationName:
           description: Human readable name of the Google Chat integration
           type: string
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetConfigSlack_renotifyConfig"
       required:
       - integrationId
       - integrationName
@@ -5194,6 +5318,8 @@ components:
         integrationName:
           description: Human readable name of the Squadcast integration
           type: string
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetConfigSlack_renotifyConfig"
       required:
       - integrationId
       - integrationName
@@ -5201,7 +5327,8 @@ components:
     RuleTargetConfigJira:
       properties:
         type:
-          description: Jira target backed by a configured Jira integration.
+          description: Jira target backed by a configured Jira integration. Jira targets
+            file one issue per notification and do not support renotification.
           enum:
           - jira
           type: string
@@ -5218,6 +5345,15 @@ components:
         issueType:
           description: "Name of the Jira issue type created for alerts, like \"Bug\"\
             \ or \"Task\"."
+          type: string
+        openStatus:
+          description: Jira status the alert ticket is moved to right after it is
+            filed for a firing alert. A later transition between two firing states
+            leaves the ticket status alone.
+          type: string
+        closedStatus:
+          description: Jira status the alert ticket is moved to when the alert resolves.
+            Only takes effect when the rule delivers recovery transitions.
           type: string
       required:
       - integrationId
@@ -5242,6 +5378,8 @@ components:
           maxLength: 250
           minLength: 1
           type: string
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetInputSlack_renotifyConfig"
       required:
       - channel
       - integrationId
@@ -5258,6 +5396,8 @@ components:
           maxLength: 250
           minLength: 1
           type: string
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetInputSlack_renotifyConfig"
       required:
       - integrationId
       - type
@@ -5273,6 +5413,8 @@ components:
           maxLength: 250
           minLength: 1
           type: string
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetInputSlack_renotifyConfig"
       required:
       - integrationId
       - type
@@ -5296,6 +5438,8 @@ components:
           maxItems: 20
           minItems: 1
           type: array
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetInputSlack_renotifyConfig"
       required:
       - addresses
       - type
@@ -5311,6 +5455,8 @@ components:
           maxLength: 250
           minLength: 1
           type: string
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetInputSlack_renotifyConfig"
       required:
       - integrationId
       - type
@@ -5327,6 +5473,8 @@ components:
           maxLength: 250
           minLength: 1
           type: string
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetInputSlack_renotifyConfig"
       required:
       - integrationId
       - type
@@ -5342,6 +5490,8 @@ components:
           maxLength: 250
           minLength: 1
           type: string
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetInputSlack_renotifyConfig"
       required:
       - integrationId
       - type
@@ -5357,6 +5507,8 @@ components:
           maxLength: 250
           minLength: 1
           type: string
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetInputSlack_renotifyConfig"
       required:
       - integrationId
       - type
@@ -5372,6 +5524,8 @@ components:
           maxLength: 250
           minLength: 1
           type: string
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetInputSlack_renotifyConfig"
       required:
       - integrationId
       - type
@@ -5387,13 +5541,16 @@ components:
           maxLength: 250
           minLength: 1
           type: string
+        renotifyConfig:
+          $ref: "#/components/schemas/RuleTargetInputSlack_renotifyConfig"
       required:
       - integrationId
       - type
     RuleTargetInputJira:
       properties:
         type:
-          description: Jira target backed by a configured Jira integration.
+          description: Jira target backed by a configured Jira integration. Jira targets
+            file one issue per notification and do not support renotification.
           enum:
           - jira
           type: string
@@ -5411,6 +5568,19 @@ components:
         issueType:
           description: "Name of the Jira issue type created for alerts, like \"Bug\"\
             \ or \"Task\"."
+          maxLength: 250
+          minLength: 1
+          type: string
+        openStatus:
+          description: Jira status the alert ticket is moved to right after it is
+            filed for a firing alert. A later transition between two firing states
+            leaves the ticket status alone.
+          maxLength: 250
+          minLength: 1
+          type: string
+        closedStatus:
+          description: Jira status the alert ticket is moved to when the alert resolves.
+            Only takes effect when the rule delivers recovery transitions.
           maxLength: 250
           minLength: 1
           type: string
@@ -5465,13 +5635,26 @@ components:
     DataNormalizerPercent:
       properties:
         type:
-          description: Format values as percentages
+          description: "Formats numeric values as percentages. Use it when the raw\
+            \ value is already on a 0-100 scale, for example `25` to display `25%`."
           enum:
           - percent
           type: string
       required:
       - type
       title: Percent
+    DataNormalizerPercentFraction:
+      properties:
+        type:
+          description: "Formats numeric values as percentages. Use it when the raw\
+            \ value is a 0-1 fraction; Tsuga multiplies the value by 100 for display,\
+            \ for example `0.2` to display `20%`."
+          enum:
+          - percent-fraction
+          type: string
+      required:
+      - type
+      title: Percent Fraction
     DataNormalizerDate:
       properties:
         type:
@@ -5535,8 +5718,9 @@ components:
           - custom
           type: string
         unit:
-          description: Text label describing the custom unit
+          description: Text label describing the custom unit. Must not be empty.
           maxLength: 20
+          minLength: 1
           type: string
       required:
       - type
@@ -5559,6 +5743,10 @@ components:
             type: pow
             exponent: 6.027456183070403
           alwaysIncludeZero: true
+        lineStyleOptions:
+          key:
+            lineStyle: regular
+            groupId: groupId
         type: timeseries-connection
         queries:
         - queries
@@ -5593,6 +5781,13 @@ components:
           type: array
         yAxisSettings:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings"
+        lineStyleOptions:
+          additionalProperties:
+            $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_lineStyleOptions_value"
+          description: "Line style of each series, keyed by 1-based query index. The\
+            \ last index is the formula when there is one. For widgets with a single\
+            \ query, only the `1` entry is read and it applies to every series. Defaults\
+            \ to regular."
       required:
       - connectionId
       - queries
@@ -5620,11 +5815,20 @@ components:
           additionalProperties:
             description: List column width by column id
             type: number
+          description: "List column widths in pixels, keyed by the `attribute` of\
+            \ the matching `listColumns` entry. Columns without an entry keep their\
+            \ default width."
         isCellWrapped:
           description: Whether list widget cell text wraps instead of truncating.
-            Set by the dashboard author for connection list widgets. Optional on create
-            or update and returned when configured.
+            Applies to connection list widgets.
           type: boolean
+        defaultSorting:
+          description: "Default sorting applied to a list widget. Applies to log,\
+            \ span, or connection list widgets. Users can still change sorting by\
+            \ selecting columns in the rendered list."
+          items:
+            $ref: "#/components/schemas/ListDefaultSorting"
+          type: array
       required:
       - connectionId
       - query
@@ -5742,8 +5946,7 @@ components:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer"
         legendMode:
@@ -5771,8 +5974,8 @@ components:
           description: PromQL expressions configured for this widget. PromQL-backed
             widgets require at least one query.
           items:
-            description: Raw PromQL expression for this widget. Set by the dashboard
-              author and returned as stored.
+            description: "Raw PromQL expression for this widget, returned exactly\
+              \ as stored."
             type: string
           type: array
         aliases:
@@ -5782,8 +5985,7 @@ components:
         normalizer:
           $ref: "#/components/schemas/Normalizer"
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         legendMode:
           description: "Controls whether and how the widget displays legend or series\
             \ details (e.g. table, legend-only, or no legend)"
@@ -5802,6 +6004,13 @@ components:
         smoothing:
           description: Whether to apply automatic smoothing to the rendered timeseries
           type: boolean
+        lineStyleOptions:
+          additionalProperties:
+            $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_lineStyleOptions_value"
+          description: "Line style of each series, keyed by 1-based query index. The\
+            \ last index is the formula when there is one. For widgets with a single\
+            \ query, only the `1` entry is read and it applies to every series. Defaults\
+            \ to regular."
       required:
       - queries
       - type
@@ -5818,8 +6027,8 @@ components:
           description: PromQL expressions configured for this widget. PromQL-backed
             widgets require at least one query.
           items:
-            description: Raw PromQL expression for this widget. Set by the dashboard
-              author and returned as stored.
+            description: "Raw PromQL expression for this widget, returned exactly\
+              \ as stored."
             type: string
           type: array
         aliases:
@@ -5836,8 +6045,7 @@ components:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer"
         legendMode:
@@ -5864,8 +6072,8 @@ components:
           description: PromQL expressions configured for this widget. PromQL-backed
             widgets require at least one query.
           items:
-            description: Raw PromQL expression for this widget. Set by the dashboard
-              author and returned as stored.
+            description: "Raw PromQL expression for this widget, returned exactly\
+              \ as stored."
             type: string
           type: array
         aliases:
@@ -5873,8 +6081,7 @@ components:
         normalizer:
           $ref: "#/components/schemas/Normalizer"
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         conditions:
           description: Conditional formatting rules applied to the displayed value
           items:
@@ -5895,8 +6102,8 @@ components:
           description: PromQL expressions configured for this widget. PromQL-backed
             widgets require at least one query.
           items:
-            description: Raw PromQL expression for this widget. Set by the dashboard
-              author and returned as stored.
+            description: "Raw PromQL expression for this widget, returned exactly\
+              \ as stored."
             type: string
           type: array
         aliases:
@@ -5904,8 +6111,7 @@ components:
         normalizer:
           $ref: "#/components/schemas/Normalizer"
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         legendMode:
           description: "Controls whether and how the widget displays legend or series\
             \ details (e.g. table, legend-only, or no legend)"
@@ -5929,8 +6135,8 @@ components:
           description: PromQL expressions configured for this widget. PromQL-backed
             widgets require at least one query.
           items:
-            description: Raw PromQL expression for this widget. Set by the dashboard
-              author and returned as stored.
+            description: "Raw PromQL expression for this widget, returned exactly\
+              \ as stored."
             type: string
           type: array
         aliases:
@@ -5938,8 +6144,7 @@ components:
         timeBucket:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesPromql_timeBucket"
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer"
         thresholds:
@@ -6003,13 +6208,19 @@ components:
           items:
             $ref: "#/components/schemas/AggregationGroupBy"
           type: array
+        groupByMode:
+          description: '`absolute` keeps each group at its own value; `relative` shows
+            it as a percentage of the ungrouped total (defaults to absolute)'
+          enum:
+          - relative
+          - absolute
+          type: string
         timeBucket:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesPromql_timeBucket"
         normalizer:
           $ref: "#/components/schemas/Normalizer"
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         legendMode:
           description: "Controls whether and how the widget displays legend or series\
             \ details (e.g. table, legend-only, or no legend)"
@@ -6028,6 +6239,13 @@ components:
         smoothing:
           description: Whether to apply automatic smoothing to the rendered timeseries
           type: boolean
+        lineStyleOptions:
+          additionalProperties:
+            $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_lineStyleOptions_value"
+          description: "Line style of each series, keyed by 1-based query index. The\
+            \ last index is the formula when there is one. For widgets with a single\
+            \ query, only the `1` entry is read and it applies to every series. Defaults\
+            \ to regular."
       required:
       - queries
       - source
@@ -6075,16 +6293,28 @@ components:
           items:
             $ref: "#/components/schemas/AggregationGroupBy"
           type: array
+        groupByMode:
+          description: '`absolute` keeps each group at its own value; `relative` shows
+            it as a percentage of the ungrouped total (defaults to absolute)'
+          enum:
+          - relative
+          - absolute
+          type: string
         normalizer:
           $ref: "#/components/schemas/Normalizer"
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         conditions:
           description: Conditional formatting rules applied to the displayed value
           items:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
+        isStacked:
+          description: "Requests stacked rendering for a top-list widget. Tsuga renders\
+            \ stacked rows only for one count or sum query with exactly two grouped\
+            \ fields, no formula, non-negative values, and a single-cluster context;\
+            \ otherwise the widget renders as a normal top list."
+          type: boolean
       required:
       - queries
       - source
@@ -6132,11 +6362,17 @@ components:
           items:
             $ref: "#/components/schemas/AggregationGroupBy"
           type: array
+        groupByMode:
+          description: '`absolute` keeps each group at its own value; `relative` shows
+            it as a percentage of the ungrouped total (defaults to absolute)'
+          enum:
+          - relative
+          - absolute
+          type: string
         normalizer:
           $ref: "#/components/schemas/Normalizer"
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         legendMode:
           description: "Controls whether and how the widget displays legend or series\
             \ details (e.g. table, legend-only, or no legend)"
@@ -6196,8 +6432,7 @@ components:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer"
         legendMode:
@@ -6256,8 +6491,7 @@ components:
             $ref: "#/components/schemas/GaugeColorThreshold"
           type: array
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer"
       required:
@@ -6307,11 +6541,17 @@ components:
           items:
             $ref: "#/components/schemas/AggregationGroupBy"
           type: array
+        groupByMode:
+          description: '`absolute` keeps each group at its own value; `relative` shows
+            it as a percentage of the ungrouped total (defaults to absolute)'
+          enum:
+          - relative
+          - absolute
+          type: string
         timeBucket:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesPromql_timeBucket"
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer"
         thresholds:
@@ -6376,9 +6616,14 @@ components:
           items:
             $ref: "#/components/schemas/AggregationGroupBy"
           type: array
+        group:
+          description: "Attribute that switches the count to \"Groups\" mode: records\
+            \ are grouped by this attribute, the aggregation produces one value per\
+            \ group, and the chart buckets those per-group values. When omitted, individual\
+            \ records are bucketed."
+          type: string
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer"
         percentileMarkers:
@@ -6388,6 +6633,9 @@ components:
             type: integer
           type: array
         boundsScale:
+          description: "Spacing of the bucket boundaries across the distribution range.\
+            \ `linear` splits the range into equal-width buckets; `log` widens each\
+            \ bucket logarithmically, giving finer resolution near the lower bound."
           enum:
           - linear
           - log
@@ -6439,9 +6687,14 @@ components:
           items:
             $ref: "#/components/schemas/AggregationGroupBy"
           type: array
+        group:
+          description: "Attribute that switches the count to \"Groups\" mode: records\
+            \ are grouped by this attribute, the aggregation produces one value per\
+            \ group, and the chart buckets those per-group values. When omitted, individual\
+            \ records are bucketed."
+          type: string
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer"
         palette:
@@ -6482,7 +6735,17 @@ components:
           items:
             $ref: "#/components/schemas/AggregationGroupBy"
           type: array
+        groupByMode:
+          description: '`absolute` keeps each group at its own value; `relative` shows
+            it as a percentage of the ungrouped total (defaults to absolute)'
+          enum:
+          - relative
+          - absolute
+          type: string
         defaultSorting:
+          description: Default sorting applied to a table widget. Column IDs are `label`
+            for the grouping column and `col-<index>` for each entry in `columns`.
+            Users can still change sorting by selecting columns in the rendered table.
           items:
             $ref: "#/components/schemas/TableDefaultSorting"
           type: array
@@ -6490,6 +6753,9 @@ components:
           additionalProperties:
             description: Column width by column id
             type: number
+          description: "Table column widths in pixels, keyed by column id: `label`\
+            \ for the grouping column and `col-<index>` for each entry in `columns`.\
+            \ Columns without an entry keep their default width."
       required:
       - columns
       - type
@@ -6513,11 +6779,20 @@ components:
           additionalProperties:
             description: List column width by column id
             type: number
+          description: "List column widths in pixels, keyed by the `attribute` of\
+            \ the matching `listColumns` entry. Columns without an entry keep their\
+            \ default width."
         isCellWrapped:
           description: Whether list widget cell text wraps instead of truncating.
-            Set by the dashboard author for list widgets. Optional on create or update
-            and returned when configured.
+            Applies to list widgets.
           type: boolean
+        defaultSorting:
+          description: "Default sorting applied to a list widget. Applies to log,\
+            \ span, or connection list widgets. Users can still change sorting by\
+            \ selecting columns in the rendered list."
+          items:
+            $ref: "#/components/schemas/ListDefaultSorting"
+          type: array
       required:
       - query
       - type
@@ -6584,6 +6859,73 @@ components:
       - query
       - type
       title: ListLogPatterns
+    GraphVisualizationListSpans:
+      properties:
+        type:
+          description: Displays matching trace spans in a tabular list
+          enum:
+          - list-spans
+          type: string
+        query:
+          description: Query that selects trace spans for the list
+          type: string
+        listColumns:
+          description: Custom columns to display for each span
+          items:
+            $ref: "#/components/schemas/WidgetListColumn"
+          type: array
+        listColumnsSize:
+          additionalProperties:
+            description: List column width by column id
+            type: number
+          description: "List column widths in pixels, keyed by the `attribute` of\
+            \ the matching `listColumns` entry. Columns without an entry keep their\
+            \ default width."
+        isCellWrapped:
+          description: Whether list widget cell text wraps instead of truncating.
+            Applies to span list widgets.
+          type: boolean
+        defaultSorting:
+          description: "Default sorting applied to a list widget. Applies to log,\
+            \ span, or connection list widgets. Users can still change sorting by\
+            \ selecting columns in the rendered list."
+          items:
+            $ref: "#/components/schemas/ListDefaultSorting"
+          type: array
+      required:
+      - query
+      - type
+      title: ListSpans
+    GraphVisualizationSloUptime:
+      properties:
+        type:
+          description: "Displays the SLI percentage of an SLO computed over the dashboard\
+            \ time range, colored against the SLO target. Experimental."
+          enum:
+          - slo-uptime
+          type: string
+        sloId:
+          description: Id of the SLO to display
+          type: string
+      required:
+      - sloId
+      - type
+      title: SloUptime
+    GraphVisualizationSloOverTime:
+      properties:
+        type:
+          description: "Displays the good and bad events, or the per-slice status,\
+            \ of an SLO over the dashboard time range. Experimental."
+          enum:
+          - slo-over-time
+          type: string
+        sloId:
+          description: Id of the SLO to display
+          type: string
+      required:
+      - sloId
+      - type
+      title: SloOverTime
     InputGraphVisualizationTimeseriesConnection:
       properties:
         type:
@@ -6623,6 +6965,13 @@ components:
           type: array
         yAxisSettings:
           $ref: "#/components/schemas/InputGraphVisualizationTimeseriesConnection_yAxisSettings"
+        lineStyleOptions:
+          additionalProperties:
+            $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_lineStyleOptions_value"
+          description: "Line style of each series, keyed by 1-based query index. The\
+            \ last index is the formula when there is one. For widgets with a single\
+            \ query, only the `1` entry is read and it applies to every series. Defaults\
+            \ to regular."
       required:
       - connectionId
       - queries
@@ -6657,11 +7006,21 @@ components:
           additionalProperties:
             description: List column width by column id
             type: number
+          description: "List column widths in pixels, keyed by the `attribute` of\
+            \ the matching `listColumns` entry. Columns without an entry keep their\
+            \ default width."
         isCellWrapped:
           description: Whether list widget cell text wraps instead of truncating.
-            Set by the dashboard author for connection list widgets. Optional on create
-            or update; omit or set false to use truncated cells.
+            Applies to connection list widgets. Optional; omit or set false to use
+            truncated cells.
           type: boolean
+        defaultSorting:
+          description: "Default sorting applied to a list widget. Optional on create\
+            \ or update for log, span, or connection list widgets. Users can still\
+            \ change sorting by selecting columns in the rendered list."
+          items:
+            $ref: "#/components/schemas/ListDefaultSorting_1"
+          type: array
       required:
       - connectionId
       - query
@@ -6811,8 +7170,7 @@ components:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer_1"
         legendMode:
@@ -6837,11 +7195,9 @@ components:
           - timeseries-promql
           type: string
         queries:
-          description: PromQL expressions configured for this widget. PromQL-backed
-            widgets require at least one query.
+          description: PromQL expressions configured for this widget.
           items:
-            description: Raw PromQL expression for this widget. Set by the dashboard
-              author.
+            description: Raw PromQL expression for this widget.
             maxLength: 50000
             minLength: 1
             type: string
@@ -6854,8 +7210,7 @@ components:
         normalizer:
           $ref: "#/components/schemas/Normalizer_1"
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         legendMode:
           description: "Controls whether and how the widget displays legend or series\
             \ details (e.g. table, legend-only, or no legend)"
@@ -6874,6 +7229,13 @@ components:
         smoothing:
           description: Whether to apply automatic smoothing to the rendered timeseries
           type: boolean
+        lineStyleOptions:
+          additionalProperties:
+            $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_lineStyleOptions_value"
+          description: "Line style of each series, keyed by 1-based query index. The\
+            \ last index is the formula when there is one. For widgets with a single\
+            \ query, only the `1` entry is read and it applies to every series. Defaults\
+            \ to regular."
       required:
       - queries
       - type
@@ -6887,11 +7249,9 @@ components:
           - query-value-promql
           type: string
         queries:
-          description: PromQL expressions configured for this widget. PromQL-backed
-            widgets require at least one query.
+          description: PromQL expressions configured for this widget.
           items:
-            description: Raw PromQL expression for this widget. Set by the dashboard
-              author.
+            description: Raw PromQL expression for this widget.
             maxLength: 50000
             minLength: 1
             type: string
@@ -6911,8 +7271,7 @@ components:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer_1"
         legendMode:
@@ -6936,11 +7295,9 @@ components:
           - top-list-promql
           type: string
         queries:
-          description: PromQL expressions configured for this widget. PromQL-backed
-            widgets require at least one query.
+          description: PromQL expressions configured for this widget.
           items:
-            description: Raw PromQL expression for this widget. Set by the dashboard
-              author.
+            description: Raw PromQL expression for this widget.
             maxLength: 50000
             minLength: 1
             type: string
@@ -6951,8 +7308,7 @@ components:
         normalizer:
           $ref: "#/components/schemas/Normalizer_1"
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         conditions:
           description: Conditional formatting rules applied to the displayed value
           items:
@@ -6970,11 +7326,9 @@ components:
           - pie-promql
           type: string
         queries:
-          description: PromQL expressions configured for this widget. PromQL-backed
-            widgets require at least one query.
+          description: PromQL expressions configured for this widget.
           items:
-            description: Raw PromQL expression for this widget. Set by the dashboard
-              author.
+            description: Raw PromQL expression for this widget.
             maxLength: 50000
             minLength: 1
             type: string
@@ -6985,8 +7339,7 @@ components:
         normalizer:
           $ref: "#/components/schemas/Normalizer_1"
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         legendMode:
           description: "Controls whether and how the widget displays legend or series\
             \ details (e.g. table, legend-only, or no legend)"
@@ -7007,11 +7360,9 @@ components:
           - bar-promql
           type: string
         queries:
-          description: PromQL expressions configured for this widget. PromQL-backed
-            widgets require at least one query.
+          description: PromQL expressions configured for this widget.
           items:
-            description: Raw PromQL expression for this widget. Set by the dashboard
-              author.
+            description: Raw PromQL expression for this widget.
             maxLength: 50000
             minLength: 1
             type: string
@@ -7022,8 +7373,7 @@ components:
         timeBucket:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesPromql_timeBucket"
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer_1"
         thresholds:
@@ -7064,10 +7414,10 @@ components:
         queries:
           description: "Aggregations that may be combined together in the same query.\
             \ Each item is referenced from `formula` as q1, q2, and so on, in submission\
-            \ order. Limited to 15 items. For dataSource \"metrics\", each aggregate's\
-            \ `field` is the metric name, not an attribute; to count distinct values\
-            \ of an attribute use unique-count with field \"<metricName>.context.<attribute>\"\
-            \ (e.g. \"system.cpu.utilization.context.host.name\")."
+            \ order. For dataSource \"metrics\", each aggregate's `field` is the metric\
+            \ name, not an attribute; to count distinct values of an attribute use\
+            \ unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"\
+            system.cpu.utilization.context.host.name\")."
           items:
             $ref: "#/components/schemas/AggregationQuery_1"
           maxItems: 15
@@ -7096,19 +7446,24 @@ components:
             \ first (e.g. group by service, then by level within each service). Each\
             \ level splits results further, so the response contains one result per\
             \ unique combination of group values instead of one aggregated total.\
-            \ Defaults to an empty array (one ungrouped result) when omitted. Limited\
-            \ to 7 levels."
+            \ Defaults to an empty array (one ungrouped result) when omitted."
           items:
             $ref: "#/components/schemas/AggregationGroupBy_1"
           maxItems: 7
           type: array
+        groupByMode:
+          description: '`absolute` keeps each group at its own value; `relative` shows
+            it as a percentage of the ungrouped total (defaults to absolute)'
+          enum:
+          - relative
+          - absolute
+          type: string
         timeBucket:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesPromql_timeBucket"
         normalizer:
           $ref: "#/components/schemas/Normalizer_1"
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         legendMode:
           description: "Controls whether and how the widget displays legend or series\
             \ details (e.g. table, legend-only, or no legend)"
@@ -7127,6 +7482,13 @@ components:
         smoothing:
           description: Whether to apply automatic smoothing to the rendered timeseries
           type: boolean
+        lineStyleOptions:
+          additionalProperties:
+            $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_lineStyleOptions_value"
+          description: "Line style of each series, keyed by 1-based query index. The\
+            \ last index is the formula when there is one. For widgets with a single\
+            \ query, only the `1` entry is read and it applies to every series. Defaults\
+            \ to regular."
       required:
       - queries
       - source
@@ -7151,10 +7513,10 @@ components:
         queries:
           description: "Aggregations that may be combined together in the same query.\
             \ Each item is referenced from `formula` as q1, q2, and so on, in submission\
-            \ order. Limited to 15 items. For dataSource \"metrics\", each aggregate's\
-            \ `field` is the metric name, not an attribute; to count distinct values\
-            \ of an attribute use unique-count with field \"<metricName>.context.<attribute>\"\
-            \ (e.g. \"system.cpu.utilization.context.host.name\")."
+            \ order. For dataSource \"metrics\", each aggregate's `field` is the metric\
+            \ name, not an attribute; to count distinct values of an attribute use\
+            \ unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"\
+            system.cpu.utilization.context.host.name\")."
           items:
             $ref: "#/components/schemas/AggregationQuery_1"
           maxItems: 15
@@ -7183,22 +7545,33 @@ components:
             \ first (e.g. group by service, then by level within each service). Each\
             \ level splits results further, so the response contains one result per\
             \ unique combination of group values instead of one aggregated total.\
-            \ Defaults to an empty array (one ungrouped result) when omitted. Limited\
-            \ to 7 levels."
+            \ Defaults to an empty array (one ungrouped result) when omitted."
           items:
             $ref: "#/components/schemas/AggregationGroupBy_1"
           maxItems: 7
           type: array
+        groupByMode:
+          description: '`absolute` keeps each group at its own value; `relative` shows
+            it as a percentage of the ungrouped total (defaults to absolute)'
+          enum:
+          - relative
+          - absolute
+          type: string
         normalizer:
           $ref: "#/components/schemas/Normalizer_1"
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         conditions:
           description: Conditional formatting rules applied to the displayed value
           items:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
+        isStacked:
+          description: "Requests stacked rendering for a top-list widget. Tsuga renders\
+            \ stacked rows only for one count or sum query with exactly two grouped\
+            \ fields, no formula, non-negative values, and a single-cluster context;\
+            \ otherwise the widget renders as a normal top list."
+          type: boolean
       required:
       - queries
       - source
@@ -7223,10 +7596,10 @@ components:
         queries:
           description: "Aggregations that may be combined together in the same query.\
             \ Each item is referenced from `formula` as q1, q2, and so on, in submission\
-            \ order. Limited to 15 items. For dataSource \"metrics\", each aggregate's\
-            \ `field` is the metric name, not an attribute; to count distinct values\
-            \ of an attribute use unique-count with field \"<metricName>.context.<attribute>\"\
-            \ (e.g. \"system.cpu.utilization.context.host.name\")."
+            \ order. For dataSource \"metrics\", each aggregate's `field` is the metric\
+            \ name, not an attribute; to count distinct values of an attribute use\
+            \ unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"\
+            system.cpu.utilization.context.host.name\")."
           items:
             $ref: "#/components/schemas/AggregationQuery_1"
           maxItems: 15
@@ -7255,17 +7628,22 @@ components:
             \ first (e.g. group by service, then by level within each service). Each\
             \ level splits results further, so the response contains one result per\
             \ unique combination of group values instead of one aggregated total.\
-            \ Defaults to an empty array (one ungrouped result) when omitted. Limited\
-            \ to 7 levels."
+            \ Defaults to an empty array (one ungrouped result) when omitted."
           items:
             $ref: "#/components/schemas/AggregationGroupBy_1"
           maxItems: 7
           type: array
+        groupByMode:
+          description: '`absolute` keeps each group at its own value; `relative` shows
+            it as a percentage of the ungrouped total (defaults to absolute)'
+          enum:
+          - relative
+          - absolute
+          type: string
         normalizer:
           $ref: "#/components/schemas/Normalizer_1"
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         legendMode:
           description: "Controls whether and how the widget displays legend or series\
             \ details (e.g. table, legend-only, or no legend)"
@@ -7298,10 +7676,10 @@ components:
         queries:
           description: "Aggregations that may be combined together in the same query.\
             \ Each item is referenced from `formula` as q1, q2, and so on, in submission\
-            \ order. Limited to 15 items. For dataSource \"metrics\", each aggregate's\
-            \ `field` is the metric name, not an attribute; to count distinct values\
-            \ of an attribute use unique-count with field \"<metricName>.context.<attribute>\"\
-            \ (e.g. \"system.cpu.utilization.context.host.name\")."
+            \ order. For dataSource \"metrics\", each aggregate's `field` is the metric\
+            \ name, not an attribute; to count distinct values of an attribute use\
+            \ unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"\
+            system.cpu.utilization.context.host.name\")."
           items:
             $ref: "#/components/schemas/AggregationQuery_1"
           maxItems: 15
@@ -7337,8 +7715,7 @@ components:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer_1"
         legendMode:
@@ -7373,10 +7750,10 @@ components:
         queries:
           description: "Aggregations that may be combined together in the same query.\
             \ Each item is referenced from `formula` as q1, q2, and so on, in submission\
-            \ order. Limited to 15 items. For dataSource \"metrics\", each aggregate's\
-            \ `field` is the metric name, not an attribute; to count distinct values\
-            \ of an attribute use unique-count with field \"<metricName>.context.<attribute>\"\
-            \ (e.g. \"system.cpu.utilization.context.host.name\")."
+            \ order. For dataSource \"metrics\", each aggregate's `field` is the metric\
+            \ name, not an attribute; to count distinct values of an attribute use\
+            \ unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"\
+            system.cpu.utilization.context.host.name\")."
           items:
             $ref: "#/components/schemas/AggregationQuery_1"
           maxItems: 15
@@ -7409,8 +7786,7 @@ components:
             $ref: "#/components/schemas/GaugeColorThreshold"
           type: array
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer_1"
       required:
@@ -7437,10 +7813,10 @@ components:
         queries:
           description: "Aggregations that may be combined together in the same query.\
             \ Each item is referenced from `formula` as q1, q2, and so on, in submission\
-            \ order. Limited to 15 items. For dataSource \"metrics\", each aggregate's\
-            \ `field` is the metric name, not an attribute; to count distinct values\
-            \ of an attribute use unique-count with field \"<metricName>.context.<attribute>\"\
-            \ (e.g. \"system.cpu.utilization.context.host.name\")."
+            \ order. For dataSource \"metrics\", each aggregate's `field` is the metric\
+            \ name, not an attribute; to count distinct values of an attribute use\
+            \ unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"\
+            system.cpu.utilization.context.host.name\")."
           items:
             $ref: "#/components/schemas/AggregationQuery_1"
           maxItems: 15
@@ -7469,17 +7845,22 @@ components:
             \ first (e.g. group by service, then by level within each service). Each\
             \ level splits results further, so the response contains one result per\
             \ unique combination of group values instead of one aggregated total.\
-            \ Defaults to an empty array (one ungrouped result) when omitted. Limited\
-            \ to 7 levels."
+            \ Defaults to an empty array (one ungrouped result) when omitted."
           items:
             $ref: "#/components/schemas/AggregationGroupBy_1"
           maxItems: 7
           type: array
+        groupByMode:
+          description: '`absolute` keeps each group at its own value; `relative` shows
+            it as a percentage of the ungrouped total (defaults to absolute)'
+          enum:
+          - relative
+          - absolute
+          type: string
         timeBucket:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesPromql_timeBucket"
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer_1"
         thresholds:
@@ -7521,10 +7902,10 @@ components:
         queries:
           description: "Aggregations that may be combined together in the same query.\
             \ Each item is referenced from `formula` as q1, q2, and so on, in submission\
-            \ order. Limited to 15 items. For dataSource \"metrics\", each aggregate's\
-            \ `field` is the metric name, not an attribute; to count distinct values\
-            \ of an attribute use unique-count with field \"<metricName>.context.<attribute>\"\
-            \ (e.g. \"system.cpu.utilization.context.host.name\")."
+            \ order. For dataSource \"metrics\", each aggregate's `field` is the metric\
+            \ name, not an attribute; to count distinct values of an attribute use\
+            \ unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"\
+            system.cpu.utilization.context.host.name\")."
           items:
             $ref: "#/components/schemas/AggregationQuery_1"
           maxItems: 15
@@ -7553,15 +7934,21 @@ components:
             \ first (e.g. group by service, then by level within each service). Each\
             \ level splits results further, so the response contains one result per\
             \ unique combination of group values instead of one aggregated total.\
-            \ Defaults to an empty array (one ungrouped result) when omitted. Limited\
-            \ to 7 levels."
+            \ Defaults to an empty array (one ungrouped result) when omitted."
           items:
             $ref: "#/components/schemas/AggregationGroupBy_1"
           maxItems: 7
           type: array
+        group:
+          description: "Attribute that switches the count to \"Groups\" mode: records\
+            \ are grouped by this attribute, the aggregation produces one value per\
+            \ group, and the chart buckets those per-group values. When omitted, individual\
+            \ records are bucketed."
+          maxLength: 250
+          minLength: 0
+          type: string
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer_1"
         percentileMarkers:
@@ -7573,6 +7960,9 @@ components:
             type: integer
           type: array
         boundsScale:
+          description: "Spacing of the bucket boundaries across the distribution range.\
+            \ `linear` splits the range into equal-width buckets; `log` widens each\
+            \ bucket logarithmically, giving finer resolution near the lower bound."
           enum:
           - linear
           - log
@@ -7601,10 +7991,10 @@ components:
         queries:
           description: "Aggregations that may be combined together in the same query.\
             \ Each item is referenced from `formula` as q1, q2, and so on, in submission\
-            \ order. Limited to 15 items. For dataSource \"metrics\", each aggregate's\
-            \ `field` is the metric name, not an attribute; to count distinct values\
-            \ of an attribute use unique-count with field \"<metricName>.context.<attribute>\"\
-            \ (e.g. \"system.cpu.utilization.context.host.name\")."
+            \ order. For dataSource \"metrics\", each aggregate's `field` is the metric\
+            \ name, not an attribute; to count distinct values of an attribute use\
+            \ unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"\
+            system.cpu.utilization.context.host.name\")."
           items:
             $ref: "#/components/schemas/AggregationQuery_1"
           maxItems: 15
@@ -7633,15 +8023,21 @@ components:
             \ first (e.g. group by service, then by level within each service). Each\
             \ level splits results further, so the response contains one result per\
             \ unique combination of group values instead of one aggregated total.\
-            \ Defaults to an empty array (one ungrouped result) when omitted. Limited\
-            \ to 7 levels."
+            \ Defaults to an empty array (one ungrouped result) when omitted."
           items:
             $ref: "#/components/schemas/AggregationGroupBy_1"
           maxItems: 7
           type: array
+        group:
+          description: "Attribute that switches the count to \"Groups\" mode: records\
+            \ are grouped by this attribute, the aggregation produces one value per\
+            \ group, and the chart buckets those per-group values. When omitted, individual\
+            \ records are bucketed."
+          maxLength: 250
+          minLength: 0
+          type: string
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer_1"
         palette:
@@ -7680,13 +8076,22 @@ components:
             \ first (e.g. group by service, then by level within each service). Each\
             \ level splits results further, so the response contains one result per\
             \ unique combination of group values instead of one aggregated total.\
-            \ Defaults to an empty array (one ungrouped result) when omitted. Limited\
-            \ to 7 levels."
+            \ Defaults to an empty array (one ungrouped result) when omitted."
           items:
             $ref: "#/components/schemas/AggregationGroupBy_1"
           maxItems: 7
           type: array
+        groupByMode:
+          description: '`absolute` keeps each group at its own value; `relative` shows
+            it as a percentage of the ungrouped total (defaults to absolute)'
+          enum:
+          - relative
+          - absolute
+          type: string
         defaultSorting:
+          description: Default sorting applied to a table widget. Column IDs are `label`
+            for the grouping column and `col-<index>` for each entry in `columns`.
+            Users can still change sorting by selecting columns in the rendered table.
           items:
             $ref: "#/components/schemas/TableDefaultSorting_1"
           type: array
@@ -7694,6 +8099,9 @@ components:
           additionalProperties:
             description: Column width by column id
             type: number
+          description: "Table column widths in pixels, keyed by column id: `label`\
+            \ for the grouping column and `col-<index>` for each entry in `columns`.\
+            \ Columns without an entry keep their default width."
       required:
       - columns
       - type
@@ -7720,11 +8128,21 @@ components:
           additionalProperties:
             description: List column width by column id
             type: number
+          description: "List column widths in pixels, keyed by the `attribute` of\
+            \ the matching `listColumns` entry. Columns without an entry keep their\
+            \ default width."
         isCellWrapped:
           description: Whether list widget cell text wraps instead of truncating.
-            Set by the dashboard author for list widgets. Optional on create or update;
-            omit or set false to use truncated cells.
+            Applies to list widgets. Optional; omit or set false to use truncated
+            cells.
           type: boolean
+        defaultSorting:
+          description: "Default sorting applied to a list widget. Optional on create\
+            \ or update for log, span, or connection list widgets. Users can still\
+            \ change sorting by selecting columns in the rendered list."
+          items:
+            $ref: "#/components/schemas/ListDefaultSorting_1"
+          type: array
       required:
       - query
       - type
@@ -7796,6 +8214,81 @@ components:
       - query
       - type
       title: ListLogPatterns
+    InputGraphVisualizationListSpans:
+      properties:
+        type:
+          description: Displays matching trace spans in a tabular list
+          enum:
+          - list-spans
+          type: string
+        query:
+          description: Query that selects trace spans for the list
+          format: tsuga-query
+          maxLength: 10000
+          minLength: 0
+          type: string
+        listColumns:
+          description: Custom columns to display for each span
+          items:
+            $ref: "#/components/schemas/WidgetListColumn_1"
+          type: array
+        listColumnsSize:
+          additionalProperties:
+            description: List column width by column id
+            type: number
+          description: "List column widths in pixels, keyed by the `attribute` of\
+            \ the matching `listColumns` entry. Columns without an entry keep their\
+            \ default width."
+        isCellWrapped:
+          description: Whether list widget cell text wraps instead of truncating.
+            Applies to span list widgets. Optional; omit or set false to use truncated
+            cells.
+          type: boolean
+        defaultSorting:
+          description: "Default sorting applied to a list widget. Optional on create\
+            \ or update for log, span, or connection list widgets. Users can still\
+            \ change sorting by selecting columns in the rendered list."
+          items:
+            $ref: "#/components/schemas/ListDefaultSorting_1"
+          type: array
+      required:
+      - query
+      - type
+      title: ListSpans
+    InputGraphVisualizationSloUptime:
+      properties:
+        type:
+          description: "Displays the SLI percentage of an SLO computed over the dashboard\
+            \ time range, colored against the SLO target. Experimental."
+          enum:
+          - slo-uptime
+          type: string
+        sloId:
+          description: Id of the SLO to display
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - sloId
+      - type
+      title: SloUptime
+    InputGraphVisualizationSloOverTime:
+      properties:
+        type:
+          description: "Displays the good and bad events, or the per-slice status,\
+            \ of an SLO over the dashboard time range. Experimental."
+          enum:
+          - slo-over-time
+          type: string
+        sloId:
+          description: Id of the SLO to display
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - sloId
+      - type
+      title: SloOverTime
     queryDashboards_request_filters_owners:
       description: Restrict results to dashboards owned by any of these team IDs
       properties:
@@ -7816,14 +8309,12 @@ components:
       required:
       - values
     queryDashboards_request_filters_searchQuery:
-      description: "Text filter for dashboard names or IDs. Set by the caller in dashboard\
-        \ query requests. Optional; `exclude: true` returns dashboards whose name\
-        \ and ID do not match the substring."
+      description: "Text filter for dashboard names or IDs. Optional; `exclude: true`\
+        \ returns dashboards whose name and ID do not match the substring."
       properties:
         value:
           description: Substring matched case-insensitively against dashboard names
-            or dashboard IDs. Set by the caller in dashboard query requests. Optional;
-            omit to avoid text filtering.
+            or dashboard IDs. Omit the whole `searchQuery` filter to skip text filtering.
           maxLength: 250
           minLength: 1
           type: string
@@ -7836,12 +8327,12 @@ components:
     Tag:
       properties:
         key:
-          description: Tag key to attach to the resource. Maximum length is 128 characters.
+          description: Tag key to attach to the resource.
           maxLength: 128
           type: string
         value:
-          description: Tag value to attach to the resource. Maximum length is 256
-            characters and leading or trailing whitespace is rejected.
+          description: Tag value to attach to the resource. Leading or trailing whitespace
+            is rejected.
           maxLength: 256
           pattern: ^\S(.*\S)?$
           type: string
@@ -7896,7 +8387,7 @@ components:
           - name
           type: string
         direction:
-          description: "Sort direction: ascending or descending"
+          description: "Sort direction: ascending or descending."
           enum:
           - asc
           - desc
@@ -7909,8 +8400,9 @@ components:
         \ to page through visible dashboards."
       properties:
         limit:
-          description: Maximum number of items to return in this page. Valid values
-            are 1 through 1000.
+          default: 100
+          description: Maximum number of items to return in this page. Omit to use
+            the public API default of 100.
           maximum: 1000
           minimum: 1
           type: integer
@@ -7952,6 +8444,9 @@ components:
           list: "#/components/schemas/InputGraphVisualizationList"
           note: "#/components/schemas/InputGraphVisualizationNote"
           list-log-patterns: "#/components/schemas/InputGraphVisualizationListLogPatterns"
+          list-spans: "#/components/schemas/InputGraphVisualizationListSpans"
+          slo-uptime: "#/components/schemas/InputGraphVisualizationSloUptime"
+          slo-over-time: "#/components/schemas/InputGraphVisualizationSloOverTime"
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/InputGraphVisualizationTimeseriesConnection"
@@ -7977,12 +8472,15 @@ components:
       - $ref: "#/components/schemas/InputGraphVisualizationList"
       - $ref: "#/components/schemas/InputGraphVisualizationNote"
       - $ref: "#/components/schemas/InputGraphVisualizationListLogPatterns"
+      - $ref: "#/components/schemas/InputGraphVisualizationListSpans"
+      - $ref: "#/components/schemas/InputGraphVisualizationSloUptime"
+      - $ref: "#/components/schemas/InputGraphVisualizationSloOverTime"
       required:
       - type
     Graph_layout:
-      description: "Grid position and size of the widget. Set by the dashboard author\
-        \ when arranging widgets. Optional; when provided, width and height must meet\
-        \ the minimum size for the widget type."
+      description: "Grid position and size of the widget. Optional; when provided,\
+        \ the size must be at least 2×2 (width×height) grid units, except note widgets\
+        \ which can go down to 1×1."
       example:
         w: 5.637376656633329
         x: 1.4658129805029452
@@ -7999,11 +8497,13 @@ components:
           type: number
         w:
           description: "Width of the widget in grid columns, out of the 12-column\
-            \ grid."
+            \ grid. Dashboard validation uses this with `h` and the widget type to\
+            \ reject layouts below the widget minimum."
           type: number
         h:
           description: "Height of the widget in grid rows, where each row is 50 pixels\
-            \ tall."
+            \ tall. Dashboard validation uses this with `w` and the widget type to\
+            \ reject layouts below the widget minimum."
           type: number
       required:
       - h
@@ -8011,11 +8511,13 @@ components:
       - x
       - "y"
     Graph:
+      description: "Single dashboard widget, combining its identity, its visualization\
+        \ configuration, and its position on the dashboard grid."
       properties:
         id:
           description: Unique identifier of the graph widget inside the dashboard.
-            Set by the caller when the graph is created; use it to target the graph
-            in later update requests.
+            Assign it when the graph is created; use it to target the graph in later
+            update requests.
           maxLength: 250
           minLength: 0
           type: string
@@ -8025,8 +8527,7 @@ components:
           minLength: 0
           type: string
         description:
-          description: Optional text shown with the graph widget. Maximum length is
-            800 characters.
+          description: Text shown with the graph widget.
           maxLength: 800
           minLength: 1
           type: string
@@ -8060,8 +8561,7 @@ components:
           minLength: 0
           type: string
         values:
-          description: Allowed values for this dashboard-wide filter. Set by the dashboard
-            author.
+          description: Allowed values for this dashboard-wide filter.
           items:
             description: Filter value.
             maxLength: 250
@@ -8078,14 +8578,13 @@ components:
     updateDashboard_request:
       properties:
         name:
-          description: Display name of the dashboard. Set by the caller on create
-            or update.
+          description: Display name of the dashboard.
           maxLength: 250
           minLength: 0
           type: string
         owner:
-          description: ID of the team that owns the dashboard. Set by the caller on
-            create or update. Required and used for dashboard access control.
+          description: ID of the team that owns the dashboard. Required and used for
+            dashboard access control.
           maxLength: 250
           minLength: 1
           type: string
@@ -8102,17 +8601,17 @@ components:
           maxItems: 10
           type: array
         tags:
-          description: Key/value tags to apply to the resource. Up to 50 tags are
-            accepted and tag policies may require specific keys or values.
+          description: Key/value tags to apply to the resource. Tag policies may require
+            specific keys or values.
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
           title: Tags
           type: array
         timePreset:
-          description: "Relative time preset used when opening the dashboard. Set\
-            \ by the caller or by Tsuga’s default. Optional; create defaults to `past-30-minutes`\
-            \ when omitted, and update omission preserves the current value."
+          description: "Relative time preset used when opening the dashboard. Optional;\
+            \ create defaults to `past-30-minutes` when omitted, and update omission\
+            \ preserves the current value."
           enum:
           - past-5-minutes
           - past-15-minutes
@@ -8126,6 +8625,7 @@ components:
           - past-2-days
           - past-3-days
           - past-7-days
+          - past-15-days
           - past-30-days
           - past-3-months
           - current-day
@@ -8148,14 +8648,13 @@ components:
         \ owner team, widgets, filters, tags, and optional time preset."
       properties:
         name:
-          description: Display name of the dashboard. Set by the caller on create
-            or update.
+          description: Display name of the dashboard.
           maxLength: 250
           minLength: 0
           type: string
         owner:
-          description: ID of the team that owns the dashboard. Set by the caller on
-            create or update. Required and used for dashboard access control.
+          description: ID of the team that owns the dashboard. Required and used for
+            dashboard access control.
           maxLength: 250
           minLength: 1
           type: string
@@ -8172,17 +8671,17 @@ components:
           maxItems: 10
           type: array
         tags:
-          description: Key/value tags to apply to the resource. Up to 50 tags are
-            accepted and tag policies may require specific keys or values.
+          description: Key/value tags to apply to the resource. Tag policies may require
+            specific keys or values.
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
           title: Tags
           type: array
         timePreset:
-          description: "Relative time preset used when opening the dashboard. Set\
-            \ by the caller or by Tsuga’s default. Optional; create defaults to `past-30-minutes`\
-            \ when omitted, and update omission preserves the current value."
+          description: "Relative time preset used when opening the dashboard. Optional;\
+            \ create defaults to `past-30-minutes` when omitted, and update omission\
+            \ preserves the current value."
           enum:
           - past-5-minutes
           - past-15-minutes
@@ -8196,6 +8695,7 @@ components:
           - past-2-days
           - past-3-days
           - past-7-days
+          - past-15-days
           - past-30-days
           - past-3-months
           - current-day
@@ -8228,8 +8728,7 @@ components:
           minLength: 0
           type: string
         description:
-          description: Optional text shown with the graph widget. Maximum length is
-            800 characters.
+          description: Text shown with the graph widget.
           maxLength: 800
           minLength: 1
           type: string
@@ -8283,7 +8782,7 @@ components:
           minLength: 1
           type: string
         exclude:
-          description: "If true, exclude monitors matching this value instead of including\
+          description: "If true, exclude rows matching this value instead of including\
             \ them"
           type: boolean
       required:
@@ -8410,8 +8909,7 @@ components:
           - assetUpdatedAt
           type: string
         direction:
-          description: "Sort direction. For `priority`, `desc` returns priority 1\
-            \ first and `asc` returns priority 5 first."
+          description: "Sort direction: ascending or descending."
           enum:
           - asc
           - desc
@@ -8424,8 +8922,9 @@ components:
         \ to page through visible monitors."
       properties:
         limit:
-          description: Maximum number of items to return in this page. Valid values
-            are 1 through 1000.
+          default: 100
+          description: Maximum number of items to return in this page. Omit to use
+            the public API default of 100.
           maximum: 1000
           minimum: 1
           type: integer
@@ -8475,14 +8974,13 @@ components:
           minLength: 0
           type: string
         message:
-          description: "Message included in notifications triggered by this monitor.\
-            \ Optional on create. On update, omitting it keeps the existing message."
           maxLength: 50000
           minLength: 0
+          nullable: true
           type: string
         tags:
-          description: Key/value tags to apply to the resource. Up to 50 tags are
-            accepted and tag policies may require specific keys or values.
+          description: Key/value tags to apply to the resource. Tag policies may require
+            specific keys or values.
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
@@ -8543,14 +9041,13 @@ components:
           minLength: 0
           type: string
         message:
-          description: "Message included in notifications triggered by this monitor.\
-            \ Optional on create. On update, omitting it keeps the existing message."
           maxLength: 50000
           minLength: 0
+          nullable: true
           type: string
         tags:
-          description: Key/value tags to apply to the resource. Up to 50 tags are
-            accepted and tag policies may require specific keys or values.
+          description: Key/value tags to apply to the resource. Tag policies may require
+            specific keys or values.
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
@@ -8613,6 +9110,7 @@ components:
           items:
             maxLength: 250
             minLength: 0
+            nullable: true
             type: string
           maxItems: 100
           minItems: 1
@@ -8708,33 +9206,6 @@ components:
       - $ref: "#/components/schemas/RuleTargetInputJira"
       required:
       - type
-    createNotificationRule_request_targets_inner_renotifyConfig:
-      description: "Configuration for repeat monitor notifications on this target.\
-        \ If omitted, Tsuga sends only the original notification for each alert transition."
-      properties:
-        mode:
-          description: Renotification mode. `each` sends repeat notifications for
-            each matching monitor alert that remains in a configured state.
-          enum:
-          - each
-          type: string
-        renotificationStates:
-          description: Monitor alert states that trigger repeat notifications while
-            the target remains configured for renotification.
-          items:
-            enum:
-            - alert
-            - alert_no_data
-            type: string
-          type: array
-        renotifyIntervalMinutes:
-          description: Minimum number of minutes to wait after the previous notification.
-          minimum: 1
-          type: integer
-      required:
-      - mode
-      - renotificationStates
-      - renotifyIntervalMinutes
     createNotificationRule_request_targets_inner:
       properties:
         id:
@@ -8748,8 +9219,6 @@ components:
           $ref: "#/components/schemas/createNotificationRule_request_targets_inner_rateLimit"
         config:
           $ref: "#/components/schemas/createNotificationRule_request_targets_inner_config"
-        renotifyConfig:
-          $ref: "#/components/schemas/createNotificationRule_request_targets_inner_renotifyConfig"
       required:
       - config
       - id
@@ -8763,13 +9232,10 @@ components:
           minLength: 0
           type: string
         queryString:
-          description: "Optional query that narrows which alert transitions trigger\
-            \ the rule. Matches on the monitor transition group key and the monitor\
-            \ tags, e.g. `env:prod service:api`. Omit or leave empty to match regardless\
-            \ of tags."
           format: tags-query
           maxLength: 10000
           minLength: 0
+          nullable: true
           type: string
           errorMessage:
             format: "Must be a valid tags query: only tag:value searches (no wildcards),\
@@ -8816,8 +9282,8 @@ components:
           minLength: 1
           type: string
         tags:
-          description: Key/value tags to apply to the resource. Up to 50 tags are
-            accepted and tag policies may require specific keys or values.
+          description: Key/value tags to apply to the resource. Tag policies may require
+            specific keys or values.
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
@@ -8829,8 +9295,8 @@ components:
           type: boolean
         targets:
           description: Destinations that receive a notification whenever this rule
-            matches an alert transition. At least one target is required. This list
-            replaces the existing targets on update.
+            matches an alert transition. This list replaces the existing targets on
+            update.
           items:
             $ref: "#/components/schemas/createNotificationRule_request_targets_inner"
           minItems: 1
@@ -8843,6 +9309,38 @@ components:
       - targets
       - teamsFilter
       - transitionTypesFilter
+    SpecificTeams_1:
+      properties:
+        type:
+          description: Match alert transitions associated with the listed teams. The
+            caller must be allowed to access every listed team.
+          enum:
+          - specific-teams
+          type: string
+        teams:
+          description: Team IDs selected by this filter.
+          items:
+            maxLength: 250
+            minLength: 0
+            type: string
+          maxItems: 100
+          minItems: 1
+          type: array
+      required:
+      - teams
+      - type
+      title: SpecificTeams
+    updateNotificationRule_request_teamsFilter:
+      description: Team visibility filter used when matching alert transitions. Tsuga
+        validates create and update requests against the caller permissions.
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/SpecificTeams_1"
+      - $ref: "#/components/schemas/AllTeams"
+      - $ref: "#/components/schemas/AllPublicTeams"
+      required:
+      - type
     updateNotificationRule_request:
       description: "Notification rule create or update request. Provide matching filters,\
         \ owner, tags, active state, and delivery targets."
@@ -8853,20 +9351,17 @@ components:
           minLength: 0
           type: string
         queryString:
-          description: "Optional query that narrows which alert transitions trigger\
-            \ the rule. Matches on the monitor transition group key and the monitor\
-            \ tags, e.g. `env:prod service:api`. Omit or leave empty to match regardless\
-            \ of tags."
           format: tags-query
           maxLength: 10000
           minLength: 0
+          nullable: true
           type: string
           errorMessage:
             format: "Must be a valid tags query: only tag:value searches (no wildcards),\
               \ boolean operators, and parentheses are supported. The query you provided\
               \ is invalid: ${0}"
         teamsFilter:
-          $ref: "#/components/schemas/createNotificationRule_request_teamsFilter"
+          $ref: "#/components/schemas/updateNotificationRule_request_teamsFilter"
         prioritiesFilter:
           description: Monitor priorities that must match for this rule to fire. An
             empty array matches every priority.
@@ -8905,8 +9400,8 @@ components:
           minLength: 1
           type: string
         tags:
-          description: Key/value tags to apply to the resource. Up to 50 tags are
-            accepted and tag policies may require specific keys or values.
+          description: Key/value tags to apply to the resource. Tag policies may require
+            specific keys or values.
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
@@ -8918,8 +9413,8 @@ components:
           type: boolean
         targets:
           description: Destinations that receive a notification whenever this rule
-            matches an alert transition. At least one target is required. This list
-            replaces the existing targets on update.
+            matches an alert transition. This list replaces the existing targets on
+            update.
           items:
             $ref: "#/components/schemas/createNotificationRule_request_targets_inner"
           minItems: 1
@@ -8941,6 +9436,7 @@ components:
           items:
             maxLength: 250
             minLength: 0
+            nullable: true
             type: string
           maxItems: 100
           minItems: 1
@@ -9040,9 +9536,9 @@ components:
           minLength: 0
           type: string
         description:
-          description: Optional policy description.
           maxLength: 250
           minLength: 0
+          nullable: true
           type: string
         isActive:
           description: Set to true for Tsuga to evaluate this policy. Reserved policies
@@ -9087,6 +9583,29 @@ components:
       - name
       - owner
       - tagKey
+    updateTagPolicy_request_teamScope:
+      description: Team scope to store for this policy. Omit this field to apply the
+        policy to all teams.
+      properties:
+        teamIds:
+          description: Team IDs used by this policy scope.
+          items:
+            maxLength: 250
+            minLength: 0
+            type: string
+          maxItems: 100
+          minItems: 1
+          type: array
+        mode:
+          description: '`include` applies the policy only to listed teams. `exclude`
+            applies it to all teams except the listed teams.'
+          enum:
+          - include
+          - exclude
+          type: string
+      required:
+      - mode
+      - teamIds
     updateTagPolicy_request:
       description: "Tag policy create or update request. Provide policy identity,\
         \ owner, enforced tag key, allowed values, team scope, active state, and asset\
@@ -9098,9 +9617,9 @@ components:
           minLength: 0
           type: string
         description:
-          description: Optional policy description.
           maxLength: 250
           minLength: 0
+          nullable: true
           type: string
         isActive:
           description: Set to true for Tsuga to evaluate this policy. Reserved policies
@@ -9128,7 +9647,7 @@ components:
             \ apply when the tag exists. Reserved policies reject a false value."
           type: boolean
         teamScope:
-          $ref: "#/components/schemas/createTagPolicy_request_teamScope"
+          $ref: "#/components/schemas/updateTagPolicy_request_teamScope"
         configuration:
           $ref: "#/components/schemas/createTagPolicy_request_configuration"
         owner:
@@ -9157,8 +9676,8 @@ components:
           minLength: 1
           type: string
         description:
-          description: Optional team description. Maximum length is 250 characters.
           maxLength: 250
+          nullable: true
           type: string
         visibility:
           description: '`public` makes team-owned resources discoverable according
@@ -9169,8 +9688,8 @@ components:
           - private
           type: string
         tags:
-          description: Key/value tags to apply to the resource. Up to 50 tags are
-            accepted and tag policies may require specific keys or values.
+          description: Key/value tags to apply to the resource. Tag policies may require
+            specific keys or values.
           items:
             $ref: "#/components/schemas/Tag"
           maxItems: 50
@@ -9179,7 +9698,23 @@ components:
       required:
       - name
       - visibility
+    ClientErrorResponse_details:
+      description: "Structured details for a client error. Set by Tsuga only for error\
+        \ types with machine-readable remediation data, and omitted for every other\
+        \ client error."
+      discriminator:
+        mapping:
+          tag_policy_violation: "#/components/schemas/TagPolicyViolationDetails"
+          grok_rule_error: "#/components/schemas/GrokRuleErrorDetails"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/TagPolicyViolationDetails"
+      - $ref: "#/components/schemas/GrokRuleErrorDetails"
+      required:
+      - type
     ResponseMetadata_pagination:
+      description: "Counts describing the full result set that the returned page was\
+        \ taken from, for computing how many further pages remain."
       example:
         pageCount: 6
         totalCount: 0
@@ -9222,6 +9757,9 @@ components:
           list: "#/components/schemas/GraphVisualizationList"
           note: "#/components/schemas/GraphVisualizationNote"
           list-log-patterns: "#/components/schemas/GraphVisualizationListLogPatterns"
+          list-spans: "#/components/schemas/GraphVisualizationListSpans"
+          slo-uptime: "#/components/schemas/GraphVisualizationSloUptime"
+          slo-over-time: "#/components/schemas/GraphVisualizationSloOverTime"
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection"
@@ -9247,9 +9785,14 @@ components:
       - $ref: "#/components/schemas/GraphVisualizationList"
       - $ref: "#/components/schemas/GraphVisualizationNote"
       - $ref: "#/components/schemas/GraphVisualizationListLogPatterns"
+      - $ref: "#/components/schemas/GraphVisualizationListSpans"
+      - $ref: "#/components/schemas/GraphVisualizationSloUptime"
+      - $ref: "#/components/schemas/GraphVisualizationSloOverTime"
       required:
       - type
     Graph_1:
+      description: "Single dashboard widget, combining its identity, its visualization\
+        \ configuration, and its position on the dashboard grid."
       example:
         layout:
           w: 5.637376656633329
@@ -9272,6 +9815,10 @@ components:
               type: pow
               exponent: 6.027456183070403
             alwaysIncludeZero: true
+          lineStyleOptions:
+            key:
+              lineStyle: regular
+              groupId: groupId
           type: timeseries-connection
           queries:
           - queries
@@ -9321,8 +9868,7 @@ components:
           description: "Dashboard-wide filter key, usually a telemetry attribute name."
           type: string
         values:
-          description: Allowed values for this dashboard-wide filter. Set by the dashboard
-            author and returned as stored.
+          description: Allowed values for this dashboard-wide filter.
           items:
             description: Filter value.
             type: string
@@ -9373,7 +9919,7 @@ components:
       - $ref: "#/components/schemas/MonitorConfigurationCertificateExpiry"
       required:
       - type
-    SpecificTeams_1:
+    SpecificTeams_2:
       properties:
         type:
           description: Match alert transitions associated with the listed teams. The
@@ -9396,7 +9942,7 @@ components:
       discriminator:
         propertyName: type
       oneOf:
-      - $ref: "#/components/schemas/SpecificTeams_1"
+      - $ref: "#/components/schemas/SpecificTeams_2"
       - $ref: "#/components/schemas/AllTeams"
       - $ref: "#/components/schemas/AllPublicTeams"
       required:
@@ -9415,32 +9961,6 @@ components:
       required:
       - maxMessages
       - minutes
-    Rule_targets_inner_renotifyConfig:
-      description: "Configuration for repeat monitor notifications on this target.\
-        \ If omitted, Tsuga sends only the original notification for each alert transition."
-      properties:
-        mode:
-          description: Renotification mode. `each` sends repeat notifications for
-            each matching monitor alert that remains in a configured state.
-          enum:
-          - each
-          type: string
-        renotificationStates:
-          description: Monitor alert states that trigger repeat notifications while
-            the target remains configured for renotification.
-          items:
-            enum:
-            - alert
-            - alert_no_data
-            type: string
-          type: array
-        renotifyIntervalMinutes:
-          description: Minimum number of minutes to wait after the previous notification.
-          type: integer
-      required:
-      - mode
-      - renotificationStates
-      - renotifyIntervalMinutes
     Rule_targets_inner_config:
       description: "Destination that received the notification. The `type` field discriminates\
         \ the variant: `email` sends directly to the listed addresses, and every other\
@@ -9476,14 +9996,11 @@ components:
     Rule_targets_inner:
       properties:
         id:
-          description: Identifier of the notification target within this rule. Set
-            by the rule author and used with the rule ID for per-target delivery state
-            such as rate limiting.
+          description: "Identifier of the notification target within this rule, used\
+            \ with the rule ID for per-target delivery state such as rate limiting."
           type: string
         rateLimit:
           $ref: "#/components/schemas/Rule_targets_inner_rateLimit"
-        renotifyConfig:
-          $ref: "#/components/schemas/Rule_targets_inner_renotifyConfig"
         config:
           $ref: "#/components/schemas/Rule_targets_inner_config"
       required:
@@ -9550,7 +10067,65 @@ components:
       - $ref: "#/components/schemas/TsugaAssetTagPolicy"
       required:
       - type
+    GrokInvalidSyntax_error:
+      description: Position and parser message for the syntax failure.
+      properties:
+        offset:
+          description: Byte offset in the rule where parsing failed.
+          type: integer
+        detail:
+          description: Parser detail message.
+          type: string
+      required:
+      - detail
+      - offset
+    GrokUnknownPattern_error:
+      description: Position and name of the unsupported pattern.
+      properties:
+        offset:
+          description: Byte offset of the unknown pattern.
+          type: integer
+        unknownPattern:
+          description: The pattern name that is not supported.
+          type: string
+      required:
+      - offset
+      - unknownPattern
+    GrokInvalidFilter_error:
+      description: "Position, text, and reason for the invalid filter."
+      properties:
+        offset:
+          description: Byte offset of the invalid filter.
+          type: integer
+        invalidFilter:
+          description: The filter that is invalid.
+          type: string
+        message:
+          description: Why the filter is invalid.
+          type: string
+      required:
+      - invalidFilter
+      - message
+      - offset
+    GrokUnknownFilter_error:
+      description: Position and name of the unimplemented filter.
+      properties:
+        offset:
+          description: Byte offset of the unknown filter.
+          type: integer
+        unknownFilter:
+          description: The filter name that is not implemented.
+          type: string
+        message:
+          description: Details about the unsupported filter.
+          type: string
+      required:
+      - message
+      - offset
+      - unknownFilter
     TagPolicyViolationDetails_violations_inner:
+      description: "A single tag-policy violation, identifying the offending asset,\
+        \ the policy and tag key involved, and why validation failed."
       example:
         assetId: assetId
         tagPolicyId: tagPolicyId
@@ -9593,7 +10168,7 @@ components:
           type: string
         message:
           description: Human-readable reason this policy failed for the asset. Generated
-            by Tsuga’s tag-policy validator. Returned for every violation.
+            by Tsuga's tag-policy validator. Returned for every violation.
           type: string
       required:
       - assetName
@@ -9601,6 +10176,40 @@ components:
       - message
       - tagKey
       - tagPolicyId
+    GrokRuleErrorDetails_ruleErrors_inner_error:
+      description: "Full structured detail of a grok rule that failed to compile,\
+        \ discriminated by `type`."
+      discriminator:
+        mapping:
+          invalid-syntax: "#/components/schemas/GrokInvalidSyntax"
+          unknown-pattern: "#/components/schemas/GrokUnknownPattern"
+          invalid-filter: "#/components/schemas/GrokInvalidFilter"
+          unknown-filter: "#/components/schemas/GrokUnknownFilter"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/GrokInvalidSyntax"
+      - $ref: "#/components/schemas/GrokUnknownPattern"
+      - $ref: "#/components/schemas/GrokInvalidFilter"
+      - $ref: "#/components/schemas/GrokUnknownFilter"
+      required:
+      - type
+    GrokRuleErrorDetails_ruleErrors_inner:
+      description: "A single grok rule that failed to compile, with its position in\
+        \ the submitted rules and the structured compile error."
+      properties:
+        rule:
+          description: The rule that failed to compile.
+          type: string
+        ruleIndex:
+          description: 0-based index of the failing rule in the submitted `rules`
+            array.
+          type: integer
+        error:
+          $ref: "#/components/schemas/GrokRuleErrorDetails_ruleErrors_inner_error"
+      required:
+      - error
+      - rule
+      - ruleIndex
     MonitorConfigurationMetric_conditions_inner:
       properties:
         formula:
@@ -9618,7 +10227,8 @@ components:
           - less_than_or_equal
           type: string
         threshold:
-          description: Numeric threshold value used by the comparison.
+          description: Numeric threshold value used by the comparison. May be negative
+            when the formula result can be below zero.
           type: number
       required:
       - formula
@@ -9634,12 +10244,11 @@ components:
             type: string
           type: array
         limit:
-          description: Configured limit for this group by. Warning! This setting is
-            currently ignored. Monitor evaluation will instead apply a fixed limit
-            of 100 groups per field.
+          description: Configured limit for this group by. Currently ignored; monitor
+            evaluation applies a fixed limit of 100 groups per field.
           type: number
         sortOrder:
-          description: "Sort direction applied to groups: ascending or descending."
+          description: "Sort direction: ascending or descending."
           enum:
           - asc
           - desc
@@ -9728,6 +10337,7 @@ components:
       required:
       - mode
     MonitorAggregationQuery:
+      description: Single aggregation query evaluated by a monitor or SLO.
       properties:
         aggregate:
           $ref: "#/components/schemas/Aggregate"
@@ -9738,6 +10348,18 @@ components:
           type: array
         fill:
           $ref: "#/components/schemas/MonitorAggregationQuery_fill"
+        timeAggregate:
+          description: "Per-series rollup applied within each time bucket before the\
+            \ cross-series aggregate. Use it on metric queries when `aggregate.type`\
+            \ is `sum` and no `rate`, `increase`, `last`, or `rolling` function is\
+            \ present. When omitted, Tsuga derives the rollup from the metric type."
+          enum:
+          - avg
+          - sum
+          - min
+          - max
+          - last
+          type: string
         filter:
           description: Filter to apply to the aggregation
           type: string
@@ -9746,6 +10368,9 @@ components:
       - filter
       title: MonitorAggregationQuery
     MonitorConfigurationAnomalyLog_condition:
+      description: "Anomaly detection condition evaluated by this monitor. The `formula`\
+        \ result is compared against behavior learned from historical query results,\
+        \ and the monitor alerts on deviations in the direction implied by `conditionType`."
       properties:
         formula:
           description: "Formula result analyzed for anomalous behavior, usually `q1`\
@@ -9769,8 +10394,10 @@ components:
       - conditionType
       - formula
     MonitorConfigurationLogErrorPattern_filter:
-      description: Log selection used for new error pattern detection. All configured
-        fields must match for logs to be included.
+      description: "Log selection used for new error pattern detection. All configured\
+        \ fields must match for logs to be included, so sending both teams and services\
+        \ searches only the listed services owned by the listed teams. Send a non-empty\
+        \ `teamIds`, a non-empty `services`, or both."
       properties:
         teamIds:
           description: Team IDs whose logs are searched for new error patterns. Tsuga
@@ -9781,14 +10408,13 @@ components:
         env:
           description: Environment whose logs are searched for new error patterns.
           type: string
-        service:
-          description: "Optional service name whose logs are searched for new error\
-            \ patterns. If omitted, the monitor searches all services matching the\
-            \ team and environment filter."
-          type: string
+        services:
+          description: Service names whose logs are searched for new error patterns.
+          items:
+            type: string
+          type: array
       required:
       - env
-      - teamIds
     InputMonitorConfigurationMetric_conditions_inner:
       properties:
         formula:
@@ -9813,7 +10439,8 @@ components:
           - less_than_or_equal
           type: string
         threshold:
-          description: Numeric threshold value used by the comparison.
+          description: Numeric threshold value used by the comparison. May be negative
+            when the formula result can be below zero.
           type: number
       required:
       - formula
@@ -9831,12 +10458,11 @@ components:
             type: string
           type: array
         limit:
-          description: Configured limit for this group by. Warning! This setting is
-            currently ignored. Monitor evaluation will instead apply a fixed limit
-            of 100 groups per field.
+          description: Configured limit for this group by. Currently ignored; monitor
+            evaluation applies a fixed limit of 100 groups per field.
           type: number
         sortOrder:
-          description: "Sort direction applied to groups: ascending or descending."
+          description: "Sort direction: ascending or descending."
           enum:
           - asc
           - desc
@@ -9907,18 +10533,31 @@ components:
       - type
       title: InputFunction
     MonitorAggregationQuery_1:
+      description: Single aggregation query evaluated by a monitor.
       properties:
         aggregate:
           $ref: "#/components/schemas/InputAggregate"
         functions:
           description: Post-processing functions applied to aggregation results. Defaults
-            to an empty array when omitted. Limited to 10 items.
+            to an empty array when omitted.
           items:
             $ref: "#/components/schemas/InputFunction"
           maxItems: 10
           type: array
         fill:
           $ref: "#/components/schemas/MonitorAggregationQuery_fill"
+        timeAggregate:
+          description: "Per-series rollup applied within each time bucket before the\
+            \ cross-series aggregate. Use it on metric queries when `aggregate.type`\
+            \ is `sum` and no `rate`, `increase`, `last`, or `rolling` function is\
+            \ present. When omitted, Tsuga derives the rollup from the metric type."
+          enum:
+          - avg
+          - sum
+          - min
+          - max
+          - last
+          type: string
         filter:
           description: Tsuga query filter applied to this alerting or SLO aggregation
             query. Required by the API; use the query language for the selected data
@@ -9932,6 +10571,9 @@ components:
       - filter
       title: MonitorAggregationQuery
     InputMonitorConfigurationAnomalyLog_condition:
+      description: "Anomaly detection condition evaluated by this monitor. The `formula`\
+        \ result is compared against behavior learned from historical query results,\
+        \ and the monitor alerts on deviations in the direction implied by `conditionType`."
       properties:
         formula:
           description: "Formula result analyzed for anomalous behavior, usually `q1`\
@@ -9961,8 +10603,10 @@ components:
       - conditionType
       - formula
     InputMonitorConfigurationLogErrorPattern_filter:
-      description: Log selection used for new error pattern detection. All configured
-        fields must match for logs to be included.
+      description: "Log selection used for new error pattern detection. All configured\
+        \ fields must match for logs to be included, so sending both teams and services\
+        \ searches only the listed services owned by the listed teams. Send a non-empty\
+        \ `teamIds`, a non-empty `services`, or both."
       properties:
         teamIds:
           description: Team IDs whose logs are searched for new error patterns. Tsuga
@@ -9971,23 +10615,79 @@ components:
             maxLength: 250
             minLength: 0
             type: string
+          minItems: 1
           type: array
         env:
           description: Environment whose logs are searched for new error patterns.
           maxLength: 250
           minLength: 0
           type: string
-        service:
-          description: "Optional service name whose logs are searched for new error\
-            \ patterns. If omitted, the monitor searches all services matching the\
-            \ team and environment filter."
-          maxLength: 250
-          minLength: 0
-          type: string
+        services:
+          description: Service names whose logs are searched for new error patterns.
+          items:
+            maxLength: 250
+            minLength: 0
+            type: string
+          minItems: 1
+          type: array
       required:
       - env
-      - teamIds
+    RuleTargetConfigSlack_renotifyConfig:
+      description: "Configuration for repeat monitor notifications on this target.\
+        \ If omitted, Tsuga sends only the original notification for each alert transition."
+      properties:
+        mode:
+          description: Renotification mode. `each` sends repeat notifications for
+            each matching monitor alert that remains in a configured state.
+          enum:
+          - each
+          type: string
+        renotificationStates:
+          description: Monitor alert states that trigger repeat notifications while
+            the target remains configured for renotification.
+          items:
+            enum:
+            - alert
+            - alert_no_data
+            type: string
+          type: array
+        renotifyIntervalMinutes:
+          description: Minimum number of minutes to wait after the previous notification.
+          type: integer
+      required:
+      - mode
+      - renotificationStates
+      - renotifyIntervalMinutes
+    RuleTargetInputSlack_renotifyConfig:
+      description: "Configuration for repeat monitor notifications on this target.\
+        \ If omitted, Tsuga sends only the original notification for each alert transition."
+      properties:
+        mode:
+          description: Renotification mode. `each` sends repeat notifications for
+            each matching monitor alert that remains in a configured state.
+          enum:
+          - each
+          type: string
+        renotificationStates:
+          description: Monitor alert states that trigger repeat notifications while
+            the target remains configured for renotification.
+          items:
+            enum:
+            - alert
+            - alert_no_data
+            type: string
+          type: array
+        renotifyIntervalMinutes:
+          description: Minimum number of minutes to wait after the previous notification.
+          minimum: 1
+          type: integer
+      required:
+      - mode
+      - renotificationStates
+      - renotifyIntervalMinutes
     ThresholdMarker:
+      description: "Marker line drawn across the chart at a fixed value, colored by\
+        \ its level."
       example:
         level: alert
         value: 0.8008281904610115
@@ -10076,8 +10776,7 @@ components:
       required:
       - type
     GraphVisualizationTimeseriesConnection_yAxisSettings:
-      description: Y-axis bounds and scale configuration for chart widgets. Set by
-        the dashboard author and returned when configured.
+      description: Y-axis bounds and scale configuration for chart widgets.
       example:
         min:
           type: auto
@@ -10101,14 +10800,29 @@ components:
       - max
       - min
       - scale
+    GraphVisualizationTimeseriesConnection_lineStyleOptions_value:
+      example:
+        lineStyle: regular
+        groupId: groupId
+      properties:
+        groupId:
+          type: string
+        lineStyle:
+          enum:
+          - regular
+          - dashed
+          type: string
+      required:
+      - groupId
+      - lineStyle
     Normalizer:
       description: Display-value formatter for widget values or list/table columns.
-        Set by the dashboard author and returned when configured.
       discriminator:
         mapping:
           duration: "#/components/schemas/DataNormalizerDuration"
           data: "#/components/schemas/DataNormalizerData"
           percent: "#/components/schemas/DataNormalizerPercent"
+          percent-fraction: "#/components/schemas/DataNormalizerPercentFraction"
           date: "#/components/schemas/DataNormalizerDate"
           level: "#/components/schemas/DataNormalizerLevel"
           cpu: "#/components/schemas/DataNormalizerCpu"
@@ -10119,6 +10833,7 @@ components:
       - $ref: "#/components/schemas/DataNormalizerDuration"
       - $ref: "#/components/schemas/DataNormalizerData"
       - $ref: "#/components/schemas/DataNormalizerPercent"
+      - $ref: "#/components/schemas/DataNormalizerPercentFraction"
       - $ref: "#/components/schemas/DataNormalizerDate"
       - $ref: "#/components/schemas/DataNormalizerLevel"
       - $ref: "#/components/schemas/DataNormalizerCpu"
@@ -10128,6 +10843,8 @@ components:
       - type
       title: Normalizer
     WidgetListColumn:
+      description: List column pairing a displayed attribute with the formatting applied
+        to its values.
       properties:
         attribute:
           description: Attribute (log field or database row column) displayed as a
@@ -10138,7 +10855,24 @@ components:
       required:
       - attribute
       title: WidgetListColumn
+    ListDefaultSorting:
+      properties:
+        id:
+          description: Column attribute used for the default list sort. It matches
+            an attribute in `listColumns` or a built-in list column for the selected
+            list source.
+          type: string
+        desc:
+          description: Sort direction for the default list sort. `true` sorts descending;
+            `false` sorts ascending.
+          type: boolean
+      required:
+      - desc
+      - id
+      title: ListDefaultSorting
     ConditionalFormatting:
+      description: Color rule evaluated against the displayed value. The first matching
+        rule in the array is applied.
       properties:
         operator:
           description: Comparator used to evaluate the metric value
@@ -10165,7 +10899,18 @@ components:
       - operator
       - value
       title: ConditionalFormatting
+    GraphVisualizationQueryValueConnection_precision:
+      anyOf:
+      - type: number
+      - enum:
+        - max
+        type: string
+      description: "Display precision for numeric labels, tooltips, tables, and scalar\
+        \ values. Use a number of decimal places to round displayed values, or `max`\
+        \ to display the full submitted precision."
     GraphVisualizationTimeseriesPromql_aliases:
+      description: Display names used for the formula series and the individual query
+        series instead of auto-generated labels.
       properties:
         formula:
           description: Optional alias for formula (only used for display in the UI)
@@ -10178,10 +10923,11 @@ components:
               \ queries as \"q1\", \"q2\". Omit to fall back to an auto-generated\
               \ label like \"Count on <filter>\"."
             type: string
+          description: "Display names for individual query series, keyed by the zero-based\
+            \ query index as a string."
     GraphVisualizationTimeseriesPromql_timeBucket:
-      description: "Time bucket width for time-based chart widgets. Set by the dashboard\
-        \ author. Optional; when present, `time` and `metric` together define the\
-        \ bucket width."
+      description: "Time bucket width for time-based chart widgets. Optional; when\
+        \ present, `time` and `metric` together define the bucket width."
       properties:
         time:
           description: Numeric count of `metric` units in each bucket. Required when
@@ -10209,6 +10955,18 @@ components:
           type: array
         fill:
           $ref: "#/components/schemas/MonitorAggregationQuery_fill"
+        timeAggregate:
+          description: "Per-series rollup applied within each time bucket before the\
+            \ cross-series aggregate. Use it on metric queries when `aggregate.type`\
+            \ is `sum` and no `rate`, `increase`, `last`, or `rolling` function is\
+            \ present. When omitted, Tsuga derives the rollup from the metric type."
+          enum:
+          - avg
+          - sum
+          - min
+          - max
+          - last
+          type: string
         filter:
           description: Filter to apply to the aggregation
           type: string
@@ -10228,7 +10986,7 @@ components:
             \ are truncated, not merged into an \"other\" group."
           type: number
         sortOrder:
-          description: "Sort direction applied to groups: ascending or descending."
+          description: "Sort direction: ascending or descending."
           enum:
           - asc
           - desc
@@ -10242,6 +11000,8 @@ components:
       - limit
       title: AggregationGroupBy
     GaugeColorThreshold:
+      description: "Color band of the gauge range. Bands are ordered by `from`, so\
+        \ entries may be listed in any order."
       properties:
         from:
           description: Lower bound of the Gauge color threshold; runs up to the next
@@ -10264,17 +11024,21 @@ components:
       - from
       title: GaugeColorThreshold
     TableColumn:
+      description: "Table column backed by its own aggregation. `defaultSorting` and\
+        \ `columnSizes` reference it as `col-<index>`, using its zero-based position\
+        \ in `columns`."
       properties:
         name:
           description: Display name of the table column
           type: string
         source:
           description: "Telemetry source queried by this aggregation: `logs`, `metrics`,\
-            \ or `traces`."
+            \ `traces`, or `rum`."
           enum:
           - logs
           - metrics
           - traces
+          - rum
           type: string
         queries:
           description: "Aggregations that may be combined together in the same query.\
@@ -10297,8 +11061,7 @@ components:
         normalizer:
           $ref: "#/components/schemas/Normalizer"
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
       required:
       - name
       - queries
@@ -10340,8 +11103,8 @@ components:
       required:
       - type
     InputGraphVisualizationTimeseriesConnection_yAxisSettings:
-      description: Y-axis bounds and scale configuration for chart widgets. Set by
-        the dashboard author. Optional on create or update and returned when configured.
+      description: Y-axis bounds and scale configuration for chart widgets. Optional
+        on create or update.
       properties:
         min:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings_min"
@@ -10359,13 +11122,12 @@ components:
       - scale
     Normalizer_1:
       description: Display-value formatter for widget values or list/table columns.
-        Set by the dashboard author. Optional; custom unit labels are limited to 20
-        characters.
       discriminator:
         mapping:
           duration: "#/components/schemas/DataNormalizerDuration"
           data: "#/components/schemas/DataNormalizerData"
           percent: "#/components/schemas/DataNormalizerPercent"
+          percent-fraction: "#/components/schemas/DataNormalizerPercentFraction"
           date: "#/components/schemas/DataNormalizerDate"
           level: "#/components/schemas/DataNormalizerLevel"
           cpu: "#/components/schemas/DataNormalizerCpu"
@@ -10376,6 +11138,7 @@ components:
       - $ref: "#/components/schemas/DataNormalizerDuration"
       - $ref: "#/components/schemas/DataNormalizerData"
       - $ref: "#/components/schemas/DataNormalizerPercent"
+      - $ref: "#/components/schemas/DataNormalizerPercentFraction"
       - $ref: "#/components/schemas/DataNormalizerDate"
       - $ref: "#/components/schemas/DataNormalizerLevel"
       - $ref: "#/components/schemas/DataNormalizerCpu"
@@ -10385,6 +11148,8 @@ components:
       - type
       title: Normalizer
     WidgetListColumn_1:
+      description: List column pairing a displayed attribute with the formatting applied
+        to its values.
       properties:
         attribute:
           description: Attribute (log field or database row column) displayed as a
@@ -10395,7 +11160,26 @@ components:
       required:
       - attribute
       title: WidgetListColumn
+    ListDefaultSorting_1:
+      properties:
+        id:
+          description: Column attribute used for the default list sort. Set this to
+            an attribute in `listColumns` or a built-in list column for the selected
+            list source.
+          maxLength: 250
+          minLength: 0
+          type: string
+        desc:
+          description: Sort direction for the default list sort. Set `true` for descending
+            order or `false` for ascending order.
+          type: boolean
+      required:
+      - desc
+      - id
+      title: ListDefaultSorting
     InputGraphVisualizationTimeseriesPromql_aliases:
+      description: Display names used for the formula series and the individual query
+        series instead of auto-generated labels.
       properties:
         formula:
           description: Optional alias for formula (only used for display in the UI)
@@ -10412,19 +11196,33 @@ components:
             maxLength: 250
             minLength: 0
             type: string
+          description: "Display names for individual query series, keyed by the zero-based\
+            \ query index as a string."
     AggregationQuery_1:
       properties:
         aggregate:
           $ref: "#/components/schemas/InputAggregate"
         functions:
           description: Post-processing functions applied to aggregation results. Defaults
-            to an empty array when omitted. Limited to 10 items.
+            to an empty array when omitted.
           items:
             $ref: "#/components/schemas/InputFunction"
           maxItems: 10
           type: array
         fill:
           $ref: "#/components/schemas/MonitorAggregationQuery_fill"
+        timeAggregate:
+          description: "Per-series rollup applied within each time bucket before the\
+            \ cross-series aggregate. Use it on metric queries when `aggregate.type`\
+            \ is `sum` and no `rate`, `increase`, `last`, or `rolling` function is\
+            \ present. When omitted, Tsuga derives the rollup from the metric type."
+          enum:
+          - avg
+          - sum
+          - min
+          - max
+          - last
+          type: string
         filter:
           description: Tsuga query filter to apply to the aggregation. Defaults to
             an empty string when omitted.
@@ -10452,7 +11250,7 @@ components:
             \ are truncated from the response, not merged into an \"other\" group."
           type: number
         sortOrder:
-          description: "Sort direction applied to groups: ascending or descending."
+          description: "Sort direction: ascending or descending."
           enum:
           - asc
           - desc
@@ -10468,6 +11266,9 @@ components:
       - limit
       title: AggregationGroupBy
     TableColumn_1:
+      description: "Table column backed by its own aggregation. `defaultSorting` and\
+        \ `columnSizes` reference it as `col-<index>`, using its zero-based position\
+        \ in `columns`."
       properties:
         name:
           description: Display name of the table column
@@ -10476,19 +11277,20 @@ components:
           type: string
         source:
           description: "Telemetry source queried by this aggregation: `logs`, `metrics`,\
-            \ or `traces`."
+            \ `traces`, or `rum`."
           enum:
           - logs
           - metrics
           - traces
+          - rum
           type: string
         queries:
           description: "Aggregations that may be combined together in the same query.\
             \ Each item is referenced from `formula` as q1, q2, and so on, in submission\
-            \ order. Limited to 15 items. For dataSource \"metrics\", each aggregate's\
-            \ `field` is the metric name, not an attribute; to count distinct values\
-            \ of an attribute use unique-count with field \"<metricName>.context.<attribute>\"\
-            \ (e.g. \"system.cpu.utilization.context.host.name\")."
+            \ order. For dataSource \"metrics\", each aggregate's `field` is the metric\
+            \ name, not an attribute; to count distinct values of an attribute use\
+            \ unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"\
+            system.cpu.utilization.context.host.name\")."
           items:
             $ref: "#/components/schemas/AggregationQuery_1"
           maxItems: 15
@@ -10515,8 +11317,7 @@ components:
         normalizer:
           $ref: "#/components/schemas/Normalizer_1"
         precision:
-          description: Number of decimal places to display in the value
-          type: number
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
       required:
       - name
       - queries

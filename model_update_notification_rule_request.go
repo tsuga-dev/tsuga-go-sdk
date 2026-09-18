@@ -21,10 +21,9 @@ var _ MappedNullable = &UpdateNotificationRuleRequest{}
 // UpdateNotificationRuleRequest Notification rule create or update request. Provide matching filters, owner, tags, active state, and delivery targets.
 type UpdateNotificationRuleRequest struct {
 	// Display name of the notification rule.
-	Name string `json:"name"`
-	// Optional query that narrows which alert transitions trigger the rule. Matches on the monitor transition group key and the monitor tags, e.g. `env:prod service:api`. Omit or leave empty to match regardless of tags.
-	QueryString *string                                  `json:"queryString,omitempty"`
-	TeamsFilter CreateNotificationRuleRequestTeamsFilter `json:"teamsFilter"`
+	Name        string                                   `json:"name"`
+	QueryString NullableString                           `json:"queryString,omitempty"`
+	TeamsFilter UpdateNotificationRuleRequestTeamsFilter `json:"teamsFilter"`
 	// Monitor priorities that must match for this rule to fire. An empty array matches every priority.
 	PrioritiesFilter []float32 `json:"prioritiesFilter"`
 	// Alert state transitions that must match for this rule to fire. An empty array matches every transition type.
@@ -33,11 +32,11 @@ type UpdateNotificationRuleRequest struct {
 	ClusterIdsFilter []string `json:"clusterIdsFilter,omitempty"`
 	// Team ID that owns and manages the rule
 	Owner string `json:"owner"`
-	// Key/value tags to apply to the resource. Up to 50 tags are accepted and tag policies may require specific keys or values.
+	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
 	Tags []Tag `json:"tags,omitempty"`
 	// Set to true for the rule to send notifications when its filters match.
 	IsActive bool `json:"isActive"`
-	// Destinations that receive a notification whenever this rule matches an alert transition. At least one target is required. This list replaces the existing targets on update.
+	// Destinations that receive a notification whenever this rule matches an alert transition. This list replaces the existing targets on update.
 	Targets              []CreateNotificationRuleRequestTargetsInner `json:"targets"`
 	AdditionalProperties map[string]interface{}
 }
@@ -48,7 +47,7 @@ type _UpdateNotificationRuleRequest UpdateNotificationRuleRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateNotificationRuleRequest(name string, teamsFilter CreateNotificationRuleRequestTeamsFilter, prioritiesFilter []float32, transitionTypesFilter []string, owner string, isActive bool, targets []CreateNotificationRuleRequestTargetsInner) *UpdateNotificationRuleRequest {
+func NewUpdateNotificationRuleRequest(name string, teamsFilter UpdateNotificationRuleRequestTeamsFilter, prioritiesFilter []float32, transitionTypesFilter []string, owner string, isActive bool, targets []CreateNotificationRuleRequestTargetsInner) *UpdateNotificationRuleRequest {
 	this := UpdateNotificationRuleRequest{}
 	this.Name = name
 	this.TeamsFilter = teamsFilter
@@ -92,42 +91,53 @@ func (o *UpdateNotificationRuleRequest) SetName(v string) {
 	o.Name = v
 }
 
-// GetQueryString returns the QueryString field value if set, zero value otherwise.
+// GetQueryString returns the QueryString field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateNotificationRuleRequest) GetQueryString() string {
-	if o == nil || IsNil(o.QueryString) {
+	if o == nil || IsNil(o.QueryString.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.QueryString
+	return *o.QueryString.Get()
 }
 
 // GetQueryStringOk returns a tuple with the QueryString field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UpdateNotificationRuleRequest) GetQueryStringOk() (*string, bool) {
-	if o == nil || IsNil(o.QueryString) {
+	if o == nil {
 		return nil, false
 	}
-	return o.QueryString, true
+	return o.QueryString.Get(), o.QueryString.IsSet()
 }
 
 // HasQueryString returns a boolean if a field has been set.
 func (o *UpdateNotificationRuleRequest) HasQueryString() bool {
-	if o != nil && !IsNil(o.QueryString) {
+	if o != nil && o.QueryString.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetQueryString gets a reference to the given string and assigns it to the QueryString field.
+// SetQueryString gets a reference to the given NullableString and assigns it to the QueryString field.
 func (o *UpdateNotificationRuleRequest) SetQueryString(v string) {
-	o.QueryString = &v
+	o.QueryString.Set(&v)
+}
+
+// SetQueryStringNil sets the value for QueryString to be an explicit nil
+func (o *UpdateNotificationRuleRequest) SetQueryStringNil() {
+	o.QueryString.Set(nil)
+}
+
+// UnsetQueryString ensures that no value is present for QueryString, not even an explicit nil
+func (o *UpdateNotificationRuleRequest) UnsetQueryString() {
+	o.QueryString.Unset()
 }
 
 // GetTeamsFilter returns the TeamsFilter field value
-func (o *UpdateNotificationRuleRequest) GetTeamsFilter() CreateNotificationRuleRequestTeamsFilter {
+func (o *UpdateNotificationRuleRequest) GetTeamsFilter() UpdateNotificationRuleRequestTeamsFilter {
 	if o == nil {
-		var ret CreateNotificationRuleRequestTeamsFilter
+		var ret UpdateNotificationRuleRequestTeamsFilter
 		return ret
 	}
 
@@ -136,7 +146,7 @@ func (o *UpdateNotificationRuleRequest) GetTeamsFilter() CreateNotificationRuleR
 
 // GetTeamsFilterOk returns a tuple with the TeamsFilter field value
 // and a boolean to check if the value has been set.
-func (o *UpdateNotificationRuleRequest) GetTeamsFilterOk() (*CreateNotificationRuleRequestTeamsFilter, bool) {
+func (o *UpdateNotificationRuleRequest) GetTeamsFilterOk() (*UpdateNotificationRuleRequestTeamsFilter, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -144,7 +154,7 @@ func (o *UpdateNotificationRuleRequest) GetTeamsFilterOk() (*CreateNotificationR
 }
 
 // SetTeamsFilter sets field value
-func (o *UpdateNotificationRuleRequest) SetTeamsFilter(v CreateNotificationRuleRequestTeamsFilter) {
+func (o *UpdateNotificationRuleRequest) SetTeamsFilter(v UpdateNotificationRuleRequestTeamsFilter) {
 	o.TeamsFilter = v
 }
 
@@ -343,8 +353,8 @@ func (o UpdateNotificationRuleRequest) MarshalJSON() ([]byte, error) {
 func (o UpdateNotificationRuleRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
-	if !IsNil(o.QueryString) {
-		toSerialize["queryString"] = o.QueryString
+	if o.QueryString.IsSet() {
+		toSerialize["queryString"] = o.QueryString.Get()
 	}
 	toSerialize["teamsFilter"] = o.TeamsFilter
 	toSerialize["prioritiesFilter"] = o.PrioritiesFilter

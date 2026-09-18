@@ -22,7 +22,7 @@ var _ MappedNullable = &QueryMonitorsRequestFiltersSearchQuery{}
 type QueryMonitorsRequestFiltersSearchQuery struct {
 	// Case-insensitive substring matched against monitor ID, monitor name, query filters, and aggregate fields. Wildcard characters are treated literally.
 	Value string `json:"value"`
-	// If true, exclude monitors matching this value instead of including them
+	// If true, exclude rows matching this value instead of including them
 	Exclude              *bool `json:"exclude,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

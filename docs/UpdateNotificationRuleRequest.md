@@ -5,21 +5,21 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Display name of the notification rule. | 
-**QueryString** | Pointer to **string** | Optional query that narrows which alert transitions trigger the rule. Matches on the monitor transition group key and the monitor tags, e.g. &#x60;env:prod service:api&#x60;. Omit or leave empty to match regardless of tags. | [optional] 
-**TeamsFilter** | [**CreateNotificationRuleRequestTeamsFilter**](CreateNotificationRuleRequestTeamsFilter.md) |  | 
+**QueryString** | Pointer to **NullableString** |  | [optional] 
+**TeamsFilter** | [**UpdateNotificationRuleRequestTeamsFilter**](UpdateNotificationRuleRequestTeamsFilter.md) |  | 
 **PrioritiesFilter** | **[]float32** | Monitor priorities that must match for this rule to fire. An empty array matches every priority. | 
 **TransitionTypesFilter** | **[]string** | Alert state transitions that must match for this rule to fire. An empty array matches every transition type. | 
 **ClusterIdsFilter** | Pointer to **[]string** | Cluster IDs that must match for this rule to fire. Omit it, or leave it empty, to match every cluster. | [optional] 
 **Owner** | **string** | Team ID that owns and manages the rule | 
-**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Up to 50 tags are accepted and tag policies may require specific keys or values. | [optional] 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **IsActive** | **bool** | Set to true for the rule to send notifications when its filters match. | 
-**Targets** | [**[]CreateNotificationRuleRequestTargetsInner**](CreateNotificationRuleRequestTargetsInner.md) | Destinations that receive a notification whenever this rule matches an alert transition. At least one target is required. This list replaces the existing targets on update. | 
+**Targets** | [**[]CreateNotificationRuleRequestTargetsInner**](CreateNotificationRuleRequestTargetsInner.md) | Destinations that receive a notification whenever this rule matches an alert transition. This list replaces the existing targets on update. | 
 
 ## Methods
 
 ### NewUpdateNotificationRuleRequest
 
-`func NewUpdateNotificationRuleRequest(name string, teamsFilter CreateNotificationRuleRequestTeamsFilter, prioritiesFilter []float32, transitionTypesFilter []string, owner string, isActive bool, targets []CreateNotificationRuleRequestTargetsInner, ) *UpdateNotificationRuleRequest`
+`func NewUpdateNotificationRuleRequest(name string, teamsFilter UpdateNotificationRuleRequestTeamsFilter, prioritiesFilter []float32, transitionTypesFilter []string, owner string, isActive bool, targets []CreateNotificationRuleRequestTargetsInner, ) *UpdateNotificationRuleRequest`
 
 NewUpdateNotificationRuleRequest instantiates a new UpdateNotificationRuleRequest object
 This constructor will assign default values to properties that have it defined,
@@ -79,22 +79,32 @@ SetQueryString sets QueryString field to given value.
 
 HasQueryString returns a boolean if a field has been set.
 
+### SetQueryStringNil
+
+`func (o *UpdateNotificationRuleRequest) SetQueryStringNil(b bool)`
+
+ SetQueryStringNil sets the value for QueryString to be an explicit nil
+
+### UnsetQueryString
+`func (o *UpdateNotificationRuleRequest) UnsetQueryString()`
+
+UnsetQueryString ensures that no value is present for QueryString, not even an explicit nil
 ### GetTeamsFilter
 
-`func (o *UpdateNotificationRuleRequest) GetTeamsFilter() CreateNotificationRuleRequestTeamsFilter`
+`func (o *UpdateNotificationRuleRequest) GetTeamsFilter() UpdateNotificationRuleRequestTeamsFilter`
 
 GetTeamsFilter returns the TeamsFilter field if non-nil, zero value otherwise.
 
 ### GetTeamsFilterOk
 
-`func (o *UpdateNotificationRuleRequest) GetTeamsFilterOk() (*CreateNotificationRuleRequestTeamsFilter, bool)`
+`func (o *UpdateNotificationRuleRequest) GetTeamsFilterOk() (*UpdateNotificationRuleRequestTeamsFilter, bool)`
 
 GetTeamsFilterOk returns a tuple with the TeamsFilter field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTeamsFilter
 
-`func (o *UpdateNotificationRuleRequest) SetTeamsFilter(v CreateNotificationRuleRequestTeamsFilter)`
+`func (o *UpdateNotificationRuleRequest) SetTeamsFilter(v UpdateNotificationRuleRequestTeamsFilter)`
 
 SetTeamsFilter sets TeamsFilter field to given value.
 

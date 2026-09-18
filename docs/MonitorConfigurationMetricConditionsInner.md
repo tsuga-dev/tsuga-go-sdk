@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Formula** | **string** | Formula result to compare against the threshold, usually &#x60;q1&#x60; or a formula alias. | 
 **Operator** | **string** | Comparison operator used to evaluate the threshold condition. | 
-**Threshold** | **float32** | Numeric threshold value used by the comparison. | 
+**Threshold** | **float32** | Numeric threshold value used by the comparison. May be negative when the formula result can be below zero. | 
 
 ## Methods
 

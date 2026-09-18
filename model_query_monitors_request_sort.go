@@ -22,7 +22,7 @@ var _ MappedNullable = &QueryMonitorsRequestSort{}
 type QueryMonitorsRequestSort struct {
 	// Field to sort the returned monitors by. For `priority`, `desc` returns highest-priority monitors first because priority 1 is highest.
 	By string `json:"by"`
-	// Sort direction. For `priority`, `desc` returns priority 1 first and `asc` returns priority 5 first.
+	// Sort direction: ascending or descending.
 	Direction            string `json:"direction"`
 	AdditionalProperties map[string]interface{}
 }

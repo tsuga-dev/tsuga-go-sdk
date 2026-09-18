@@ -24,7 +24,7 @@ type TeamsAPI interface {
 	/*
 		CreateTeam Method for CreateTeam
 
-		Creates a team for ownership and access control. Use this before assigning resources to a new owner team.
+		Creates a team for ownership and access control. Use this before assigning resources to a new owner team. A new team sits outside every existing team, so the operation key must be scoped to all teams: a key scoped to its owning team cannot create teams, even with write access to teams.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return TeamsAPICreateTeamRequest
@@ -53,7 +53,7 @@ type TeamsAPI interface {
 	/*
 		GetTeam Method for GetTeam
 
-		Retrieves one team by ID when the authenticated operation key can read it. Use this to resolve ownership metadata before creating or updating team-owned resources.
+		Retrieves one team by ID.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Identifier of the team to retrieve. Use the `id` returned by team list or create responses.
@@ -117,7 +117,7 @@ func (r TeamsAPICreateTeamRequest) Execute() (*CreateTeamResponse, *http.Respons
 /*
 CreateTeam Method for CreateTeam
 
-Creates a team for ownership and access control. Use this before assigning resources to a new owner team.
+Creates a team for ownership and access control. Use this before assigning resources to a new owner team. A new team sits outside every existing team, so the operation key must be scoped to all teams: a key scoped to its owning team cannot create teams, even with write access to teams.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TeamsAPICreateTeamRequest
@@ -375,7 +375,7 @@ func (r TeamsAPIGetTeamRequest) Execute() (*GetTeamResponse, *http.Response, err
 /*
 GetTeam Method for GetTeam
 
-Retrieves one team by ID when the authenticated operation key can read it. Use this to resolve ownership metadata before creating or updating team-owned resources.
+Retrieves one team by ID.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Identifier of the team to retrieve. Use the `id` returned by team list or create responses.
@@ -500,7 +500,7 @@ type TeamsAPIListTeamsRequest struct {
 	offset     *int32
 }
 
-// Maximum number of items to return in this page. Valid values are 1 through 1000.
+// Maximum number of items to return in this page. Omit to use the public API default of 100.
 func (r TeamsAPIListTeamsRequest) Limit(limit int32) TeamsAPIListTeamsRequest {
 	r.limit = &limit
 	return r
@@ -555,6 +555,10 @@ func (a *TeamsAPIService) ListTeamsExecute(r TeamsAPIListTeamsRequest) (*ListTea
 
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 100
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
+		r.limit = &defaultValue
 	}
 	if r.offset != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")

@@ -15,11 +15,11 @@ import (
 	"fmt"
 )
 
-// checks if the CreateNotificationRuleRequestTargetsInnerRenotifyConfig type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &CreateNotificationRuleRequestTargetsInnerRenotifyConfig{}
+// checks if the RuleTargetInputSlackRenotifyConfig type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RuleTargetInputSlackRenotifyConfig{}
 
-// CreateNotificationRuleRequestTargetsInnerRenotifyConfig Configuration for repeat monitor notifications on this target. If omitted, Tsuga sends only the original notification for each alert transition.
-type CreateNotificationRuleRequestTargetsInnerRenotifyConfig struct {
+// RuleTargetInputSlackRenotifyConfig Configuration for repeat monitor notifications on this target. If omitted, Tsuga sends only the original notification for each alert transition.
+type RuleTargetInputSlackRenotifyConfig struct {
 	// Renotification mode. `each` sends repeat notifications for each matching monitor alert that remains in a configured state.
 	Mode string `json:"mode"`
 	// Monitor alert states that trigger repeat notifications while the target remains configured for renotification.
@@ -29,30 +29,30 @@ type CreateNotificationRuleRequestTargetsInnerRenotifyConfig struct {
 	AdditionalProperties    map[string]interface{}
 }
 
-type _CreateNotificationRuleRequestTargetsInnerRenotifyConfig CreateNotificationRuleRequestTargetsInnerRenotifyConfig
+type _RuleTargetInputSlackRenotifyConfig RuleTargetInputSlackRenotifyConfig
 
-// NewCreateNotificationRuleRequestTargetsInnerRenotifyConfig instantiates a new CreateNotificationRuleRequestTargetsInnerRenotifyConfig object
+// NewRuleTargetInputSlackRenotifyConfig instantiates a new RuleTargetInputSlackRenotifyConfig object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateNotificationRuleRequestTargetsInnerRenotifyConfig(mode string, renotificationStates []string, renotifyIntervalMinutes int32) *CreateNotificationRuleRequestTargetsInnerRenotifyConfig {
-	this := CreateNotificationRuleRequestTargetsInnerRenotifyConfig{}
+func NewRuleTargetInputSlackRenotifyConfig(mode string, renotificationStates []string, renotifyIntervalMinutes int32) *RuleTargetInputSlackRenotifyConfig {
+	this := RuleTargetInputSlackRenotifyConfig{}
 	this.Mode = mode
 	this.RenotificationStates = renotificationStates
 	this.RenotifyIntervalMinutes = renotifyIntervalMinutes
 	return &this
 }
 
-// NewCreateNotificationRuleRequestTargetsInnerRenotifyConfigWithDefaults instantiates a new CreateNotificationRuleRequestTargetsInnerRenotifyConfig object
+// NewRuleTargetInputSlackRenotifyConfigWithDefaults instantiates a new RuleTargetInputSlackRenotifyConfig object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewCreateNotificationRuleRequestTargetsInnerRenotifyConfigWithDefaults() *CreateNotificationRuleRequestTargetsInnerRenotifyConfig {
-	this := CreateNotificationRuleRequestTargetsInnerRenotifyConfig{}
+func NewRuleTargetInputSlackRenotifyConfigWithDefaults() *RuleTargetInputSlackRenotifyConfig {
+	this := RuleTargetInputSlackRenotifyConfig{}
 	return &this
 }
 
 // GetMode returns the Mode field value
-func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) GetMode() string {
+func (o *RuleTargetInputSlackRenotifyConfig) GetMode() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -63,7 +63,7 @@ func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) GetMode() stri
 
 // GetModeOk returns a tuple with the Mode field value
 // and a boolean to check if the value has been set.
-func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) GetModeOk() (*string, bool) {
+func (o *RuleTargetInputSlackRenotifyConfig) GetModeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -71,12 +71,12 @@ func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) GetModeOk() (*
 }
 
 // SetMode sets field value
-func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) SetMode(v string) {
+func (o *RuleTargetInputSlackRenotifyConfig) SetMode(v string) {
 	o.Mode = v
 }
 
 // GetRenotificationStates returns the RenotificationStates field value
-func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) GetRenotificationStates() []string {
+func (o *RuleTargetInputSlackRenotifyConfig) GetRenotificationStates() []string {
 	if o == nil {
 		var ret []string
 		return ret
@@ -87,7 +87,7 @@ func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) GetRenotificat
 
 // GetRenotificationStatesOk returns a tuple with the RenotificationStates field value
 // and a boolean to check if the value has been set.
-func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) GetRenotificationStatesOk() ([]string, bool) {
+func (o *RuleTargetInputSlackRenotifyConfig) GetRenotificationStatesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -95,12 +95,12 @@ func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) GetRenotificat
 }
 
 // SetRenotificationStates sets field value
-func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) SetRenotificationStates(v []string) {
+func (o *RuleTargetInputSlackRenotifyConfig) SetRenotificationStates(v []string) {
 	o.RenotificationStates = v
 }
 
 // GetRenotifyIntervalMinutes returns the RenotifyIntervalMinutes field value
-func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) GetRenotifyIntervalMinutes() int32 {
+func (o *RuleTargetInputSlackRenotifyConfig) GetRenotifyIntervalMinutes() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -111,7 +111,7 @@ func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) GetRenotifyInt
 
 // GetRenotifyIntervalMinutesOk returns a tuple with the RenotifyIntervalMinutes field value
 // and a boolean to check if the value has been set.
-func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) GetRenotifyIntervalMinutesOk() (*int32, bool) {
+func (o *RuleTargetInputSlackRenotifyConfig) GetRenotifyIntervalMinutesOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -119,11 +119,11 @@ func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) GetRenotifyInt
 }
 
 // SetRenotifyIntervalMinutes sets field value
-func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) SetRenotifyIntervalMinutes(v int32) {
+func (o *RuleTargetInputSlackRenotifyConfig) SetRenotifyIntervalMinutes(v int32) {
 	o.RenotifyIntervalMinutes = v
 }
 
-func (o CreateNotificationRuleRequestTargetsInnerRenotifyConfig) MarshalJSON() ([]byte, error) {
+func (o RuleTargetInputSlackRenotifyConfig) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -131,7 +131,7 @@ func (o CreateNotificationRuleRequestTargetsInnerRenotifyConfig) MarshalJSON() (
 	return json.Marshal(toSerialize)
 }
 
-func (o CreateNotificationRuleRequestTargetsInnerRenotifyConfig) ToMap() (map[string]interface{}, error) {
+func (o RuleTargetInputSlackRenotifyConfig) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["mode"] = o.Mode
 	toSerialize["renotificationStates"] = o.RenotificationStates
@@ -144,7 +144,7 @@ func (o CreateNotificationRuleRequestTargetsInnerRenotifyConfig) ToMap() (map[st
 	return toSerialize, nil
 }
 
-func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) UnmarshalJSON(data []byte) (err error) {
+func (o *RuleTargetInputSlackRenotifyConfig) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -168,15 +168,15 @@ func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) UnmarshalJSON(
 		}
 	}
 
-	varCreateNotificationRuleRequestTargetsInnerRenotifyConfig := _CreateNotificationRuleRequestTargetsInnerRenotifyConfig{}
+	varRuleTargetInputSlackRenotifyConfig := _RuleTargetInputSlackRenotifyConfig{}
 
-	err = json.Unmarshal(data, &varCreateNotificationRuleRequestTargetsInnerRenotifyConfig)
+	err = json.Unmarshal(data, &varRuleTargetInputSlackRenotifyConfig)
 
 	if err != nil {
 		return err
 	}
 
-	*o = CreateNotificationRuleRequestTargetsInnerRenotifyConfig(varCreateNotificationRuleRequestTargetsInnerRenotifyConfig)
+	*o = RuleTargetInputSlackRenotifyConfig(varRuleTargetInputSlackRenotifyConfig)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -190,38 +190,38 @@ func (o *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) UnmarshalJSON(
 	return err
 }
 
-type NullableCreateNotificationRuleRequestTargetsInnerRenotifyConfig struct {
-	value *CreateNotificationRuleRequestTargetsInnerRenotifyConfig
+type NullableRuleTargetInputSlackRenotifyConfig struct {
+	value *RuleTargetInputSlackRenotifyConfig
 	isSet bool
 }
 
-func (v NullableCreateNotificationRuleRequestTargetsInnerRenotifyConfig) Get() *CreateNotificationRuleRequestTargetsInnerRenotifyConfig {
+func (v NullableRuleTargetInputSlackRenotifyConfig) Get() *RuleTargetInputSlackRenotifyConfig {
 	return v.value
 }
 
-func (v *NullableCreateNotificationRuleRequestTargetsInnerRenotifyConfig) Set(val *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) {
+func (v *NullableRuleTargetInputSlackRenotifyConfig) Set(val *RuleTargetInputSlackRenotifyConfig) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableCreateNotificationRuleRequestTargetsInnerRenotifyConfig) IsSet() bool {
+func (v NullableRuleTargetInputSlackRenotifyConfig) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableCreateNotificationRuleRequestTargetsInnerRenotifyConfig) Unset() {
+func (v *NullableRuleTargetInputSlackRenotifyConfig) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableCreateNotificationRuleRequestTargetsInnerRenotifyConfig(val *CreateNotificationRuleRequestTargetsInnerRenotifyConfig) *NullableCreateNotificationRuleRequestTargetsInnerRenotifyConfig {
-	return &NullableCreateNotificationRuleRequestTargetsInnerRenotifyConfig{value: val, isSet: true}
+func NewNullableRuleTargetInputSlackRenotifyConfig(val *RuleTargetInputSlackRenotifyConfig) *NullableRuleTargetInputSlackRenotifyConfig {
+	return &NullableRuleTargetInputSlackRenotifyConfig{value: val, isSet: true}
 }
 
-func (v NullableCreateNotificationRuleRequestTargetsInnerRenotifyConfig) MarshalJSON() ([]byte, error) {
+func (v NullableRuleTargetInputSlackRenotifyConfig) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableCreateNotificationRuleRequestTargetsInnerRenotifyConfig) UnmarshalJSON(src []byte) error {
+func (v *NullableRuleTargetInputSlackRenotifyConfig) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

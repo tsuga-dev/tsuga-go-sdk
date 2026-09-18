@@ -18,7 +18,7 @@ import (
 // checks if the ConditionalFormatting type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ConditionalFormatting{}
 
-// ConditionalFormatting struct for ConditionalFormatting
+// ConditionalFormatting Color rule evaluated against the displayed value. The first matching rule in the array is applied.
 type ConditionalFormatting struct {
 	// Comparator used to evaluate the metric value
 	Operator string `json:"operator"`

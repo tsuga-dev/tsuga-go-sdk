@@ -24,19 +24,20 @@ type InputGraphVisualizationBar struct {
 	Type string `json:"type"`
 	// Telemetry source queried by this aggregation: `logs`, `metrics`, `traces`, or `rum`.
 	Source string `json:"source"`
-	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order. Limited to 15 items. For dataSource \"metrics\", each aggregate's `field` is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"system.cpu.utilization.context.host.name\").
+	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order. For dataSource \"metrics\", each aggregate's `field` is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"system.cpu.utilization.context.host.name\").
 	Queries []AggregationQuery1 `json:"queries"`
 	// Formula referencing query outputs, such as `q1 + q2`, to compute derived results. Defaults to `q1`. Formulas may reference only submitted queries (`q1` through `qN`); undefined query references return 400.
 	Formula *string                                         `json:"formula,omitempty"`
 	Aliases *InputGraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
-	// Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. Limited to 7 levels.
-	GroupBy    []AggregationGroupBy1                         `json:"groupBy,omitempty"`
-	TimeBucket *GraphVisualizationTimeseriesPromqlTimeBucket `json:"timeBucket,omitempty"`
-	// Number of decimal places to display in the value
-	Precision  *float32     `json:"precision,omitempty"`
-	Normalizer *Normalizer1 `json:"normalizer,omitempty"`
+	// Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted.
+	GroupBy []AggregationGroupBy1 `json:"groupBy,omitempty"`
+	// `absolute` keeps each group at its own value; `relative` shows it as a percentage of the ungrouped total (defaults to absolute)
+	GroupByMode *string                                          `json:"groupByMode,omitempty"`
+	TimeBucket  *GraphVisualizationTimeseriesPromqlTimeBucket    `json:"timeBucket,omitempty"`
+	Precision   *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
+	Normalizer  *Normalizer1                                     `json:"normalizer,omitempty"`
 	// Threshold markers displayed on the chart
 	Thresholds []ThresholdMarker `json:"thresholds,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
@@ -267,6 +268,38 @@ func (o *InputGraphVisualizationBar) SetGroupBy(v []AggregationGroupBy1) {
 	o.GroupBy = v
 }
 
+// GetGroupByMode returns the GroupByMode field value if set, zero value otherwise.
+func (o *InputGraphVisualizationBar) GetGroupByMode() string {
+	if o == nil || IsNil(o.GroupByMode) {
+		var ret string
+		return ret
+	}
+	return *o.GroupByMode
+}
+
+// GetGroupByModeOk returns a tuple with the GroupByMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputGraphVisualizationBar) GetGroupByModeOk() (*string, bool) {
+	if o == nil || IsNil(o.GroupByMode) {
+		return nil, false
+	}
+	return o.GroupByMode, true
+}
+
+// HasGroupByMode returns a boolean if a field has been set.
+func (o *InputGraphVisualizationBar) HasGroupByMode() bool {
+	if o != nil && !IsNil(o.GroupByMode) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupByMode gets a reference to the given string and assigns it to the GroupByMode field.
+func (o *InputGraphVisualizationBar) SetGroupByMode(v string) {
+	o.GroupByMode = &v
+}
+
 // GetTimeBucket returns the TimeBucket field value if set, zero value otherwise.
 func (o *InputGraphVisualizationBar) GetTimeBucket() GraphVisualizationTimeseriesPromqlTimeBucket {
 	if o == nil || IsNil(o.TimeBucket) {
@@ -300,9 +333,9 @@ func (o *InputGraphVisualizationBar) SetTimeBucket(v GraphVisualizationTimeserie
 }
 
 // GetPrecision returns the Precision field value if set, zero value otherwise.
-func (o *InputGraphVisualizationBar) GetPrecision() float32 {
+func (o *InputGraphVisualizationBar) GetPrecision() GraphVisualizationQueryValueConnectionPrecision {
 	if o == nil || IsNil(o.Precision) {
-		var ret float32
+		var ret GraphVisualizationQueryValueConnectionPrecision
 		return ret
 	}
 	return *o.Precision
@@ -310,7 +343,7 @@ func (o *InputGraphVisualizationBar) GetPrecision() float32 {
 
 // GetPrecisionOk returns a tuple with the Precision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationBar) GetPrecisionOk() (*float32, bool) {
+func (o *InputGraphVisualizationBar) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool) {
 	if o == nil || IsNil(o.Precision) {
 		return nil, false
 	}
@@ -326,8 +359,8 @@ func (o *InputGraphVisualizationBar) HasPrecision() bool {
 	return false
 }
 
-// SetPrecision gets a reference to the given float32 and assigns it to the Precision field.
-func (o *InputGraphVisualizationBar) SetPrecision(v float32) {
+// SetPrecision gets a reference to the given GraphVisualizationQueryValueConnectionPrecision and assigns it to the Precision field.
+func (o *InputGraphVisualizationBar) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision) {
 	o.Precision = &v
 }
 
@@ -484,6 +517,9 @@ func (o InputGraphVisualizationBar) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.GroupBy) {
 		toSerialize["groupBy"] = o.GroupBy
 	}
+	if !IsNil(o.GroupByMode) {
+		toSerialize["groupByMode"] = o.GroupByMode
+	}
 	if !IsNil(o.TimeBucket) {
 		toSerialize["timeBucket"] = o.TimeBucket
 	}
@@ -554,6 +590,7 @@ func (o *InputGraphVisualizationBar) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "aliases")
 		delete(additionalProperties, "visibleSeries")
 		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "groupByMode")
 		delete(additionalProperties, "timeBucket")
 		delete(additionalProperties, "precision")
 		delete(additionalProperties, "normalizer")

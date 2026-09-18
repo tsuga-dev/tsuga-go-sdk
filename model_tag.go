@@ -20,9 +20,9 @@ var _ MappedNullable = &Tag{}
 
 // Tag struct for Tag
 type Tag struct {
-	// Tag key to attach to the resource. Maximum length is 128 characters.
+	// Tag key to attach to the resource.
 	Key string `json:"key"`
-	// Tag value to attach to the resource. Maximum length is 256 characters and leading or trailing whitespace is rejected.
+	// Tag value to attach to the resource. Leading or trailing whitespace is rejected.
 	Value                string `json:"value" validate:"regexp=^\\\\S(.*\\\\S)?$"`
 	AdditionalProperties map[string]interface{}
 }

@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Type** | **string** | Google Chat target backed by a configured Google Chat integration. | 
 **IntegrationId** | **string** | Identifier of the Google Chat integration to use | 
 **IntegrationName** | **string** | Human readable name of the Google Chat integration | 
+**RenotifyConfig** | Pointer to [**RuleTargetConfigSlackRenotifyConfig**](RuleTargetConfigSlackRenotifyConfig.md) |  | [optional] 
 
 ## Methods
 
@@ -86,6 +87,31 @@ and a boolean to check if the value has been set.
 
 SetIntegrationName sets IntegrationName field to given value.
 
+
+### GetRenotifyConfig
+
+`func (o *RuleTargetConfigGoogleChat) GetRenotifyConfig() RuleTargetConfigSlackRenotifyConfig`
+
+GetRenotifyConfig returns the RenotifyConfig field if non-nil, zero value otherwise.
+
+### GetRenotifyConfigOk
+
+`func (o *RuleTargetConfigGoogleChat) GetRenotifyConfigOk() (*RuleTargetConfigSlackRenotifyConfig, bool)`
+
+GetRenotifyConfigOk returns a tuple with the RenotifyConfig field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRenotifyConfig
+
+`func (o *RuleTargetConfigGoogleChat) SetRenotifyConfig(v RuleTargetConfigSlackRenotifyConfig)`
+
+SetRenotifyConfig sets RenotifyConfig field to given value.
+
+### HasRenotifyConfig
+
+`func (o *RuleTargetConfigGoogleChat) HasRenotifyConfig() bool`
+
+HasRenotifyConfig returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

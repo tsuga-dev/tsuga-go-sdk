@@ -22,20 +22,21 @@ var _ MappedNullable = &InputGraphVisualizationTimeseriesPromql{}
 type InputGraphVisualizationTimeseriesPromql struct {
 	// Displays PromQL metrics query-based aggregation as a time series chart
 	Type string `json:"type"`
-	// PromQL expressions configured for this widget. PromQL-backed widgets require at least one query.
-	Queries    []string                                        `json:"queries"`
-	Aliases    *InputGraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
-	TimeBucket *GraphVisualizationTimeseriesPromqlTimeBucket   `json:"timeBucket,omitempty"`
-	Normalizer *Normalizer1                                    `json:"normalizer,omitempty"`
-	// Number of decimal places to display in the value
-	Precision *float32 `json:"precision,omitempty"`
+	// PromQL expressions configured for this widget.
+	Queries    []string                                         `json:"queries"`
+	Aliases    *InputGraphVisualizationTimeseriesPromqlAliases  `json:"aliases,omitempty"`
+	TimeBucket *GraphVisualizationTimeseriesPromqlTimeBucket    `json:"timeBucket,omitempty"`
+	Normalizer *Normalizer1                                     `json:"normalizer,omitempty"`
+	Precision  *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode *string `json:"legendMode,omitempty"`
 	// Threshold markers displayed on the chart
 	Thresholds    []ThresholdMarker                                         `json:"thresholds,omitempty"`
 	YAxisSettings *InputGraphVisualizationTimeseriesConnectionYAxisSettings `json:"yAxisSettings,omitempty"`
 	// Whether to apply automatic smoothing to the rendered timeseries
-	Smoothing            *bool `json:"smoothing,omitempty"`
+	Smoothing *bool `json:"smoothing,omitempty"`
+	// Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. For widgets with a single query, only the `1` entry is read and it applies to every series. Defaults to regular.
+	LineStyleOptions     map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue `json:"lineStyleOptions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -205,9 +206,9 @@ func (o *InputGraphVisualizationTimeseriesPromql) SetNormalizer(v Normalizer1) {
 }
 
 // GetPrecision returns the Precision field value if set, zero value otherwise.
-func (o *InputGraphVisualizationTimeseriesPromql) GetPrecision() float32 {
+func (o *InputGraphVisualizationTimeseriesPromql) GetPrecision() GraphVisualizationQueryValueConnectionPrecision {
 	if o == nil || IsNil(o.Precision) {
-		var ret float32
+		var ret GraphVisualizationQueryValueConnectionPrecision
 		return ret
 	}
 	return *o.Precision
@@ -215,7 +216,7 @@ func (o *InputGraphVisualizationTimeseriesPromql) GetPrecision() float32 {
 
 // GetPrecisionOk returns a tuple with the Precision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationTimeseriesPromql) GetPrecisionOk() (*float32, bool) {
+func (o *InputGraphVisualizationTimeseriesPromql) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool) {
 	if o == nil || IsNil(o.Precision) {
 		return nil, false
 	}
@@ -231,8 +232,8 @@ func (o *InputGraphVisualizationTimeseriesPromql) HasPrecision() bool {
 	return false
 }
 
-// SetPrecision gets a reference to the given float32 and assigns it to the Precision field.
-func (o *InputGraphVisualizationTimeseriesPromql) SetPrecision(v float32) {
+// SetPrecision gets a reference to the given GraphVisualizationQueryValueConnectionPrecision and assigns it to the Precision field.
+func (o *InputGraphVisualizationTimeseriesPromql) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision) {
 	o.Precision = &v
 }
 
@@ -364,6 +365,38 @@ func (o *InputGraphVisualizationTimeseriesPromql) SetSmoothing(v bool) {
 	o.Smoothing = &v
 }
 
+// GetLineStyleOptions returns the LineStyleOptions field value if set, zero value otherwise.
+func (o *InputGraphVisualizationTimeseriesPromql) GetLineStyleOptions() map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue {
+	if o == nil || IsNil(o.LineStyleOptions) {
+		var ret map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue
+		return ret
+	}
+	return o.LineStyleOptions
+}
+
+// GetLineStyleOptionsOk returns a tuple with the LineStyleOptions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputGraphVisualizationTimeseriesPromql) GetLineStyleOptionsOk() (map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue, bool) {
+	if o == nil || IsNil(o.LineStyleOptions) {
+		return map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue{}, false
+	}
+	return o.LineStyleOptions, true
+}
+
+// HasLineStyleOptions returns a boolean if a field has been set.
+func (o *InputGraphVisualizationTimeseriesPromql) HasLineStyleOptions() bool {
+	if o != nil && !IsNil(o.LineStyleOptions) {
+		return true
+	}
+
+	return false
+}
+
+// SetLineStyleOptions gets a reference to the given map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue and assigns it to the LineStyleOptions field.
+func (o *InputGraphVisualizationTimeseriesPromql) SetLineStyleOptions(v map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue) {
+	o.LineStyleOptions = v
+}
+
 func (o InputGraphVisualizationTimeseriesPromql) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -399,6 +432,9 @@ func (o InputGraphVisualizationTimeseriesPromql) ToMap() (map[string]interface{}
 	}
 	if !IsNil(o.Smoothing) {
 		toSerialize["smoothing"] = o.Smoothing
+	}
+	if !IsNil(o.LineStyleOptions) {
+		toSerialize["lineStyleOptions"] = o.LineStyleOptions
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -454,6 +490,7 @@ func (o *InputGraphVisualizationTimeseriesPromql) UnmarshalJSON(data []byte) (er
 		delete(additionalProperties, "thresholds")
 		delete(additionalProperties, "yAxisSettings")
 		delete(additionalProperties, "smoothing")
+		delete(additionalProperties, "lineStyleOptions")
 		o.AdditionalProperties = additionalProperties
 	}
 

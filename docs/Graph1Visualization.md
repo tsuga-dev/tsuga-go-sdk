@@ -10,13 +10,15 @@ Name | Type | Description | Notes
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 **Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
 **YAxisSettings** | Pointer to [**GraphVisualizationTimeseriesConnectionYAxisSettings**](GraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
-**Query** | **string** | Tsuga query that selects logs to cluster into patterns | 
-**ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each log | [optional] 
-**ListColumnsSize** | Pointer to **map[string]float32** |  | [optional] 
-**IsCellWrapped** | Pointer to **bool** | Whether list widget cell text wraps instead of truncating. Set by the dashboard author for list widgets. Optional on create or update and returned when configured. | [optional] 
+**LineStyleOptions** | Pointer to [**map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue**](GraphVisualizationTimeseriesConnectionLineStyleOptionsValue.md) | Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. For widgets with a single query, only the &#x60;1&#x60; entry is read and it applies to every series. Defaults to regular. | [optional] 
+**Query** | **string** | Query that selects trace spans for the list | 
+**ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each span | [optional] 
+**ListColumnsSize** | Pointer to **map[string]float32** | List column widths in pixels, keyed by the &#x60;attribute&#x60; of the matching &#x60;listColumns&#x60; entry. Columns without an entry keep their default width. | [optional] 
+**IsCellWrapped** | Pointer to **bool** | Whether list widget cell text wraps instead of truncating. Applies to span list widgets. | [optional] 
+**DefaultSorting** | Pointer to [**[]ListDefaultSorting**](ListDefaultSorting.md) | Default sorting applied to a list widget. Applies to log, span, or connection list widgets. Users can still change sorting by selecting columns in the rendered list. | [optional] 
 **BackgroundMode** | Pointer to **string** | Controls whether the widget uses a solid or transparent background | [optional] 
 **Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the displayed value | [optional] 
-**Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
+**Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 **Aliases** | Pointer to [**GraphVisualizationTimeseriesPromqlAliases**](GraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **TimeBucket** | Pointer to [**GraphVisualizationTimeseriesPromqlTimeBucket**](GraphVisualizationTimeseriesPromqlTimeBucket.md) |  | [optional] 
@@ -25,25 +27,28 @@ Name | Type | Description | Notes
 **Formula** | Pointer to **string** | Formula referencing submitted query outputs, such as &#x60;q1 + q2&#x60;. References must be within &#x60;q1&#x60; through &#x60;qN&#x60; for the submitted queries. | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
 **GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values. | [optional] 
+**GroupByMode** | Pointer to **string** | &#x60;absolute&#x60; keeps each group at its own value; &#x60;relative&#x60; shows it as a percentage of the ungrouped total (defaults to absolute) | [optional] 
+**IsStacked** | Pointer to **bool** | Requests stacked rendering for a top-list widget. Tsuga renders stacked rows only for one count or sum query with exactly two grouped fields, no formula, non-negative values, and a single-cluster context; otherwise the widget renders as a normal top list. | [optional] 
 **Max** | Pointer to **float32** | Gauge maximum value | [optional] 
 **ColorThresholds** | Pointer to [**[]GaugeColorThreshold**](GaugeColorThreshold.md) | Color thresholds inside the gauge range | [optional] 
+**Group** | Pointer to **string** | Attribute that switches the count to \&quot;Groups\&quot; mode: records are grouped by this attribute, the aggregation produces one value per group, and the chart buckets those per-group values. When omitted, individual records are bucketed. | [optional] 
 **PercentileMarkers** | Pointer to **[]int32** | Percentile markers displayed on top of the distribution chart | [optional] 
-**BoundsScale** | Pointer to **string** |  | [optional] 
+**BoundsScale** | Pointer to **string** | Spacing of the bucket boundaries across the distribution range. &#x60;linear&#x60; splits the range into equal-width buckets; &#x60;log&#x60; widens each bucket logarithmically, giving finer resolution near the lower bound. | [optional] 
 **Palette** | Pointer to **string** | Color palette used to render the heatmap intensity gradient | [optional] 
 **Columns** | [**[]TableColumn**](TableColumn.md) | Each column defines an independent aggregation displayed as a table column | 
-**DefaultSorting** | Pointer to [**[]TableDefaultSorting**](TableDefaultSorting.md) |  | [optional] 
-**ColumnSizes** | Pointer to **map[string]float32** |  | [optional] 
+**ColumnSizes** | Pointer to **map[string]float32** | Table column widths in pixels, keyed by column id: &#x60;label&#x60; for the grouping column and &#x60;col-&lt;index&gt;&#x60; for each entry in &#x60;columns&#x60;. Columns without an entry keep their default width. | [optional] 
 **Note** | Pointer to **string** | Markdown-compatible text shown in the note | [optional] 
 **NoteColor** | Pointer to **string** | Background color used to render the note | [optional] 
 **NoteAlign** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
 **NoteJustifyContent** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
 **Layout** | Pointer to **string** | Layout used to render log patterns | [optional] 
+**SloId** | **string** | Id of the SLO to display | 
 
 ## Methods
 
 ### NewGraph1Visualization
 
-`func NewGraph1Visualization(type_ string, connectionId string, queries []AggregationQuery, query string, source string, columns []TableColumn, ) *Graph1Visualization`
+`func NewGraph1Visualization(type_ string, connectionId string, queries []AggregationQuery, query string, source string, columns []TableColumn, sloId string, ) *Graph1Visualization`
 
 NewGraph1Visualization instantiates a new Graph1Visualization object
 This constructor will assign default values to properties that have it defined,
@@ -193,6 +198,31 @@ SetYAxisSettings sets YAxisSettings field to given value.
 
 HasYAxisSettings returns a boolean if a field has been set.
 
+### GetLineStyleOptions
+
+`func (o *Graph1Visualization) GetLineStyleOptions() map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue`
+
+GetLineStyleOptions returns the LineStyleOptions field if non-nil, zero value otherwise.
+
+### GetLineStyleOptionsOk
+
+`func (o *Graph1Visualization) GetLineStyleOptionsOk() (*map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue, bool)`
+
+GetLineStyleOptionsOk returns a tuple with the LineStyleOptions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLineStyleOptions
+
+`func (o *Graph1Visualization) SetLineStyleOptions(v map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue)`
+
+SetLineStyleOptions sets LineStyleOptions field to given value.
+
+### HasLineStyleOptions
+
+`func (o *Graph1Visualization) HasLineStyleOptions() bool`
+
+HasLineStyleOptions returns a boolean if a field has been set.
+
 ### GetQuery
 
 `func (o *Graph1Visualization) GetQuery() string`
@@ -288,6 +318,31 @@ SetIsCellWrapped sets IsCellWrapped field to given value.
 
 HasIsCellWrapped returns a boolean if a field has been set.
 
+### GetDefaultSorting
+
+`func (o *Graph1Visualization) GetDefaultSorting() []ListDefaultSorting`
+
+GetDefaultSorting returns the DefaultSorting field if non-nil, zero value otherwise.
+
+### GetDefaultSortingOk
+
+`func (o *Graph1Visualization) GetDefaultSortingOk() (*[]ListDefaultSorting, bool)`
+
+GetDefaultSortingOk returns a tuple with the DefaultSorting field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDefaultSorting
+
+`func (o *Graph1Visualization) SetDefaultSorting(v []ListDefaultSorting)`
+
+SetDefaultSorting sets DefaultSorting field to given value.
+
+### HasDefaultSorting
+
+`func (o *Graph1Visualization) HasDefaultSorting() bool`
+
+HasDefaultSorting returns a boolean if a field has been set.
+
 ### GetBackgroundMode
 
 `func (o *Graph1Visualization) GetBackgroundMode() string`
@@ -340,20 +395,20 @@ HasConditions returns a boolean if a field has been set.
 
 ### GetPrecision
 
-`func (o *Graph1Visualization) GetPrecision() float32`
+`func (o *Graph1Visualization) GetPrecision() GraphVisualizationQueryValueConnectionPrecision`
 
 GetPrecision returns the Precision field if non-nil, zero value otherwise.
 
 ### GetPrecisionOk
 
-`func (o *Graph1Visualization) GetPrecisionOk() (*float32, bool)`
+`func (o *Graph1Visualization) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool)`
 
 GetPrecisionOk returns a tuple with the Precision field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrecision
 
-`func (o *Graph1Visualization) SetPrecision(v float32)`
+`func (o *Graph1Visualization) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision)`
 
 SetPrecision sets Precision field to given value.
 
@@ -558,6 +613,56 @@ SetGroupBy sets GroupBy field to given value.
 
 HasGroupBy returns a boolean if a field has been set.
 
+### GetGroupByMode
+
+`func (o *Graph1Visualization) GetGroupByMode() string`
+
+GetGroupByMode returns the GroupByMode field if non-nil, zero value otherwise.
+
+### GetGroupByModeOk
+
+`func (o *Graph1Visualization) GetGroupByModeOk() (*string, bool)`
+
+GetGroupByModeOk returns a tuple with the GroupByMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGroupByMode
+
+`func (o *Graph1Visualization) SetGroupByMode(v string)`
+
+SetGroupByMode sets GroupByMode field to given value.
+
+### HasGroupByMode
+
+`func (o *Graph1Visualization) HasGroupByMode() bool`
+
+HasGroupByMode returns a boolean if a field has been set.
+
+### GetIsStacked
+
+`func (o *Graph1Visualization) GetIsStacked() bool`
+
+GetIsStacked returns the IsStacked field if non-nil, zero value otherwise.
+
+### GetIsStackedOk
+
+`func (o *Graph1Visualization) GetIsStackedOk() (*bool, bool)`
+
+GetIsStackedOk returns a tuple with the IsStacked field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsStacked
+
+`func (o *Graph1Visualization) SetIsStacked(v bool)`
+
+SetIsStacked sets IsStacked field to given value.
+
+### HasIsStacked
+
+`func (o *Graph1Visualization) HasIsStacked() bool`
+
+HasIsStacked returns a boolean if a field has been set.
+
 ### GetMax
 
 `func (o *Graph1Visualization) GetMax() float32`
@@ -607,6 +712,31 @@ SetColorThresholds sets ColorThresholds field to given value.
 `func (o *Graph1Visualization) HasColorThresholds() bool`
 
 HasColorThresholds returns a boolean if a field has been set.
+
+### GetGroup
+
+`func (o *Graph1Visualization) GetGroup() string`
+
+GetGroup returns the Group field if non-nil, zero value otherwise.
+
+### GetGroupOk
+
+`func (o *Graph1Visualization) GetGroupOk() (*string, bool)`
+
+GetGroupOk returns a tuple with the Group field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGroup
+
+`func (o *Graph1Visualization) SetGroup(v string)`
+
+SetGroup sets Group field to given value.
+
+### HasGroup
+
+`func (o *Graph1Visualization) HasGroup() bool`
+
+HasGroup returns a boolean if a field has been set.
 
 ### GetPercentileMarkers
 
@@ -702,31 +832,6 @@ and a boolean to check if the value has been set.
 
 SetColumns sets Columns field to given value.
 
-
-### GetDefaultSorting
-
-`func (o *Graph1Visualization) GetDefaultSorting() []TableDefaultSorting`
-
-GetDefaultSorting returns the DefaultSorting field if non-nil, zero value otherwise.
-
-### GetDefaultSortingOk
-
-`func (o *Graph1Visualization) GetDefaultSortingOk() (*[]TableDefaultSorting, bool)`
-
-GetDefaultSortingOk returns a tuple with the DefaultSorting field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDefaultSorting
-
-`func (o *Graph1Visualization) SetDefaultSorting(v []TableDefaultSorting)`
-
-SetDefaultSorting sets DefaultSorting field to given value.
-
-### HasDefaultSorting
-
-`func (o *Graph1Visualization) HasDefaultSorting() bool`
-
-HasDefaultSorting returns a boolean if a field has been set.
 
 ### GetColumnSizes
 
@@ -877,6 +982,26 @@ SetLayout sets Layout field to given value.
 `func (o *Graph1Visualization) HasLayout() bool`
 
 HasLayout returns a boolean if a field has been set.
+
+### GetSloId
+
+`func (o *Graph1Visualization) GetSloId() string`
+
+GetSloId returns the SloId field if non-nil, zero value otherwise.
+
+### GetSloIdOk
+
+`func (o *Graph1Visualization) GetSloIdOk() (*string, bool)`
+
+GetSloIdOk returns a tuple with the SloId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSloId
+
+`func (o *Graph1Visualization) SetSloId(v string)`
+
+SetSloId sets SloId field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

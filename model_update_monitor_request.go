@@ -21,10 +21,9 @@ var _ MappedNullable = &UpdateMonitorRequest{}
 // UpdateMonitorRequest Monitor update request. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, and `clusterIds` keep their existing values. Omitting `dashboardId` clears the dashboard link.
 type UpdateMonitorRequest struct {
 	// Display name of the monitor and alert source.
-	Name string `json:"name"`
-	// Message included in notifications triggered by this monitor. Optional on create. On update, omitting it keeps the existing message.
-	Message *string `json:"message,omitempty"`
-	// Key/value tags to apply to the resource. Up to 50 tags are accepted and tag policies may require specific keys or values.
+	Name    string         `json:"name"`
+	Message NullableString `json:"message,omitempty"`
+	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
 	Tags          []Tag                             `json:"tags,omitempty"`
 	Configuration UpdateMonitorRequestConfiguration `json:"configuration"`
 	// Monitor priority from 1 through 5, where 1 is highest priority.
@@ -87,36 +86,47 @@ func (o *UpdateMonitorRequest) SetName(v string) {
 	o.Name = v
 }
 
-// GetMessage returns the Message field value if set, zero value otherwise.
+// GetMessage returns the Message field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateMonitorRequest) GetMessage() string {
-	if o == nil || IsNil(o.Message) {
+	if o == nil || IsNil(o.Message.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Message
+	return *o.Message.Get()
 }
 
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UpdateMonitorRequest) GetMessageOk() (*string, bool) {
-	if o == nil || IsNil(o.Message) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Message, true
+	return o.Message.Get(), o.Message.IsSet()
 }
 
 // HasMessage returns a boolean if a field has been set.
 func (o *UpdateMonitorRequest) HasMessage() bool {
-	if o != nil && !IsNil(o.Message) {
+	if o != nil && o.Message.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetMessage gets a reference to the given string and assigns it to the Message field.
+// SetMessage gets a reference to the given NullableString and assigns it to the Message field.
 func (o *UpdateMonitorRequest) SetMessage(v string) {
-	o.Message = &v
+	o.Message.Set(&v)
+}
+
+// SetMessageNil sets the value for Message to be an explicit nil
+func (o *UpdateMonitorRequest) SetMessageNil() {
+	o.Message.Set(nil)
+}
+
+// UnsetMessage ensures that no value is present for Message, not even an explicit nil
+func (o *UpdateMonitorRequest) UnsetMessage() {
+	o.Message.Unset()
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
@@ -333,8 +343,8 @@ func (o UpdateMonitorRequest) MarshalJSON() ([]byte, error) {
 func (o UpdateMonitorRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
-	if !IsNil(o.Message) {
-		toSerialize["message"] = o.Message
+	if o.Message.IsSet() {
+		toSerialize["message"] = o.Message.Get()
 	}
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags

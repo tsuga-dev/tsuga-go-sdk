@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Fields** | **[]string** | Attribute names the monitor splits results by, evaluating each resulting group independently. Empty or omitted means the monitor evaluates a single ungrouped series. | 
-**Limit** | **float32** | Configured limit for this group by. Warning! This setting is currently ignored. Monitor evaluation will instead apply a fixed limit of 100 groups per field. | 
-**SortOrder** | Pointer to **string** | Sort direction applied to groups: ascending or descending. | [optional] 
+**Limit** | **float32** | Configured limit for this group by. Currently ignored; monitor evaluation applies a fixed limit of 100 groups per field. | 
+**SortOrder** | Pointer to **string** | Sort direction: ascending or descending. | [optional] 
 **ReplaceNullWith** | Pointer to **string** | Value used to group documents that have no value for a grouped field. | [optional] 
 
 ## Methods

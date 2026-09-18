@@ -53,7 +53,7 @@ type MonitorsAPI interface {
 	/*
 		GetMonitor Method for GetMonitor
 
-		Retrieves one monitor definition by ID when the authenticated operation key can read it. Use this before updating, duplicating, or auditing a monitor.
+		Retrieves one monitor definition by ID.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Monitor ID returned by monitor query, create, or update operations.
@@ -375,7 +375,7 @@ func (r MonitorsAPIGetMonitorRequest) Execute() (*GetMonitorResponse, *http.Resp
 /*
 GetMonitor Method for GetMonitor
 
-Retrieves one monitor definition by ID when the authenticated operation key can read it. Use this before updating, duplicating, or auditing a monitor.
+Retrieves one monitor definition by ID.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Monitor ID returned by monitor query, create, or update operations.

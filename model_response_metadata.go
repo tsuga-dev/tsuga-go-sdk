@@ -18,7 +18,7 @@ import (
 // checks if the ResponseMetadata type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ResponseMetadata{}
 
-// ResponseMetadata struct for ResponseMetadata
+// ResponseMetadata Metadata accompanying `data` on paginated operations, describing the full result set the page was taken from.
 type ResponseMetadata struct {
 	Pagination           ResponseMetadataPagination `json:"pagination"`
 	AdditionalProperties map[string]interface{}

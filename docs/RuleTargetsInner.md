@@ -4,9 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | Identifier of the notification target within this rule. Set by the rule author and used with the rule ID for per-target delivery state such as rate limiting. | 
+**Id** | **string** | Identifier of the notification target within this rule, used with the rule ID for per-target delivery state such as rate limiting. | 
 **RateLimit** | Pointer to [**RuleTargetsInnerRateLimit**](RuleTargetsInnerRateLimit.md) |  | [optional] 
-**RenotifyConfig** | Pointer to [**RuleTargetsInnerRenotifyConfig**](RuleTargetsInnerRenotifyConfig.md) |  | [optional] 
 **Config** | [**RuleTargetsInnerConfig**](RuleTargetsInnerConfig.md) |  | 
 
 ## Methods
@@ -72,31 +71,6 @@ SetRateLimit sets RateLimit field to given value.
 `func (o *RuleTargetsInner) HasRateLimit() bool`
 
 HasRateLimit returns a boolean if a field has been set.
-
-### GetRenotifyConfig
-
-`func (o *RuleTargetsInner) GetRenotifyConfig() RuleTargetsInnerRenotifyConfig`
-
-GetRenotifyConfig returns the RenotifyConfig field if non-nil, zero value otherwise.
-
-### GetRenotifyConfigOk
-
-`func (o *RuleTargetsInner) GetRenotifyConfigOk() (*RuleTargetsInnerRenotifyConfig, bool)`
-
-GetRenotifyConfigOk returns a tuple with the RenotifyConfig field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRenotifyConfig
-
-`func (o *RuleTargetsInner) SetRenotifyConfig(v RuleTargetsInnerRenotifyConfig)`
-
-SetRenotifyConfig sets RenotifyConfig field to given value.
-
-### HasRenotifyConfig
-
-`func (o *RuleTargetsInner) HasRenotifyConfig() bool`
-
-HasRenotifyConfig returns a boolean if a field has been set.
 
 ### GetConfig
 

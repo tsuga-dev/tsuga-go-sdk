@@ -19,17 +19,17 @@ var _ MappedNullable = &UpdateDashboardRequest{}
 
 // UpdateDashboardRequest struct for UpdateDashboardRequest
 type UpdateDashboardRequest struct {
-	// Display name of the dashboard. Set by the caller on create or update.
+	// Display name of the dashboard.
 	Name *string `json:"name,omitempty"`
-	// ID of the team that owns the dashboard. Set by the caller on create or update. Required and used for dashboard access control.
+	// ID of the team that owns the dashboard. Required and used for dashboard access control.
 	Owner *string `json:"owner,omitempty"`
 	// Ordered widgets that compose the dashboard
 	Graphs []Graph `json:"graphs,omitempty"`
 	// Dashboard-wide filters applied to every widget on the dashboard. Up to 10 filters are allowed.
 	Filters []UpdateDashboardRequestFiltersInner `json:"filters,omitempty"`
-	// Key/value tags to apply to the resource. Up to 50 tags are accepted and tag policies may require specific keys or values.
+	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
 	Tags []Tag `json:"tags,omitempty"`
-	// Relative time preset used when opening the dashboard. Set by the caller or by Tsuga’s default. Optional; create defaults to `past-30-minutes` when omitted, and update omission preserves the current value.
+	// Relative time preset used when opening the dashboard. Optional; create defaults to `past-30-minutes` when omitted, and update omission preserves the current value.
 	TimePreset           *string        `json:"timePreset,omitempty"`
 	FolderId             NullableString `json:"folderId,omitempty"`
 	AdditionalProperties map[string]interface{}

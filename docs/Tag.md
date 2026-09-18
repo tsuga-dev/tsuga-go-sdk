@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** | Tag key to attach to the resource. Maximum length is 128 characters. | 
-**Value** | **string** | Tag value to attach to the resource. Maximum length is 256 characters and leading or trailing whitespace is rejected. | 
+**Key** | **string** | Tag key to attach to the resource. | 
+**Value** | **string** | Tag value to attach to the resource. Leading or trailing whitespace is rejected. | 
 
 ## Methods
 

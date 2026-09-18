@@ -7,8 +7,9 @@ Name | Type | Description | Notes
 **Type** | **string** | Displays matching logs in a tabular list | 
 **Query** | **string** | Query that selects logs for the list | 
 **ListColumns** | Pointer to [**[]WidgetListColumn1**](WidgetListColumn1.md) | Custom columns to display for each log | [optional] 
-**ListColumnsSize** | Pointer to **map[string]float32** |  | [optional] 
-**IsCellWrapped** | Pointer to **bool** | Whether list widget cell text wraps instead of truncating. Set by the dashboard author for list widgets. Optional on create or update; omit or set false to use truncated cells. | [optional] 
+**ListColumnsSize** | Pointer to **map[string]float32** | List column widths in pixels, keyed by the &#x60;attribute&#x60; of the matching &#x60;listColumns&#x60; entry. Columns without an entry keep their default width. | [optional] 
+**IsCellWrapped** | Pointer to **bool** | Whether list widget cell text wraps instead of truncating. Applies to list widgets. Optional; omit or set false to use truncated cells. | [optional] 
+**DefaultSorting** | Pointer to [**[]ListDefaultSorting1**](ListDefaultSorting1.md) | Default sorting applied to a list widget. Optional on create or update for log, span, or connection list widgets. Users can still change sorting by selecting columns in the rendered list. | [optional] 
 
 ## Methods
 
@@ -143,6 +144,31 @@ SetIsCellWrapped sets IsCellWrapped field to given value.
 `func (o *InputGraphVisualizationList) HasIsCellWrapped() bool`
 
 HasIsCellWrapped returns a boolean if a field has been set.
+
+### GetDefaultSorting
+
+`func (o *InputGraphVisualizationList) GetDefaultSorting() []ListDefaultSorting1`
+
+GetDefaultSorting returns the DefaultSorting field if non-nil, zero value otherwise.
+
+### GetDefaultSortingOk
+
+`func (o *InputGraphVisualizationList) GetDefaultSortingOk() (*[]ListDefaultSorting1, bool)`
+
+GetDefaultSortingOk returns a tuple with the DefaultSorting field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDefaultSorting
+
+`func (o *InputGraphVisualizationList) SetDefaultSorting(v []ListDefaultSorting1)`
+
+SetDefaultSorting sets DefaultSorting field to given value.
+
+### HasDefaultSorting
+
+`func (o *InputGraphVisualizationList) HasDefaultSorting() bool`
+
+HasDefaultSorting returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

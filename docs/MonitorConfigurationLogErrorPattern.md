@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | Monitor that alerts on newly detected log error patterns for the configured team, environment, and optional service. Recovery notifications are not sent for this monitor type. | 
+**Type** | **string** | Monitor that alerts on newly detected log error patterns for the configured environment, scoped by teams, services, or both. Recovery notifications are not sent for this monitor type. | 
 **AggregationAlertLogic** | **string** | Fixed aggregation logic for log error pattern monitors. Each new pattern is evaluated as its own alert group. | 
 **NoDataBehavior** | **string** | Fixed no-data behavior for log error pattern monitors. Pattern state is kept until inactive pattern groups expire. | 
 **Filter** | [**MonitorConfigurationLogErrorPatternFilter**](MonitorConfigurationLogErrorPatternFilter.md) |  | 

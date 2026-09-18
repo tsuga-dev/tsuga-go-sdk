@@ -28,8 +28,10 @@ type InputGraphVisualizationTimeseriesConnection struct {
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode *string `json:"legendMode,omitempty"`
 	// Threshold markers displayed on the chart
-	Thresholds           []ThresholdMarker                                         `json:"thresholds,omitempty"`
-	YAxisSettings        *InputGraphVisualizationTimeseriesConnectionYAxisSettings `json:"yAxisSettings,omitempty"`
+	Thresholds    []ThresholdMarker                                         `json:"thresholds,omitempty"`
+	YAxisSettings *InputGraphVisualizationTimeseriesConnectionYAxisSettings `json:"yAxisSettings,omitempty"`
+	// Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. For widgets with a single query, only the `1` entry is read and it applies to every series. Defaults to regular.
+	LineStyleOptions     map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue `json:"lineStyleOptions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -223,6 +225,38 @@ func (o *InputGraphVisualizationTimeseriesConnection) SetYAxisSettings(v InputGr
 	o.YAxisSettings = &v
 }
 
+// GetLineStyleOptions returns the LineStyleOptions field value if set, zero value otherwise.
+func (o *InputGraphVisualizationTimeseriesConnection) GetLineStyleOptions() map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue {
+	if o == nil || IsNil(o.LineStyleOptions) {
+		var ret map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue
+		return ret
+	}
+	return o.LineStyleOptions
+}
+
+// GetLineStyleOptionsOk returns a tuple with the LineStyleOptions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputGraphVisualizationTimeseriesConnection) GetLineStyleOptionsOk() (map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue, bool) {
+	if o == nil || IsNil(o.LineStyleOptions) {
+		return map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue{}, false
+	}
+	return o.LineStyleOptions, true
+}
+
+// HasLineStyleOptions returns a boolean if a field has been set.
+func (o *InputGraphVisualizationTimeseriesConnection) HasLineStyleOptions() bool {
+	if o != nil && !IsNil(o.LineStyleOptions) {
+		return true
+	}
+
+	return false
+}
+
+// SetLineStyleOptions gets a reference to the given map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue and assigns it to the LineStyleOptions field.
+func (o *InputGraphVisualizationTimeseriesConnection) SetLineStyleOptions(v map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue) {
+	o.LineStyleOptions = v
+}
+
 func (o InputGraphVisualizationTimeseriesConnection) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -244,6 +278,9 @@ func (o InputGraphVisualizationTimeseriesConnection) ToMap() (map[string]interfa
 	}
 	if !IsNil(o.YAxisSettings) {
 		toSerialize["yAxisSettings"] = o.YAxisSettings
+	}
+	if !IsNil(o.LineStyleOptions) {
+		toSerialize["lineStyleOptions"] = o.LineStyleOptions
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -296,6 +333,7 @@ func (o *InputGraphVisualizationTimeseriesConnection) UnmarshalJSON(data []byte)
 		delete(additionalProperties, "legendMode")
 		delete(additionalProperties, "thresholds")
 		delete(additionalProperties, "yAxisSettings")
+		delete(additionalProperties, "lineStyleOptions")
 		o.AdditionalProperties = additionalProperties
 	}
 

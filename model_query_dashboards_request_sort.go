@@ -22,7 +22,7 @@ var _ MappedNullable = &QueryDashboardsRequestSort{}
 type QueryDashboardsRequestSort struct {
 	// Field to sort the returned dashboards by: `owner` sorts by owning team ID, `tags` sorts by tag key/value pairs, `widgetCount` sorts by the number of graphs on the dashboard, `updatedAt` sorts by last-updated timestamp, and `name` sorts alphabetically by dashboard name.
 	By string `json:"by"`
-	// Sort direction: ascending or descending
+	// Sort direction: ascending or descending.
 	Direction            string `json:"direction"`
 	AdditionalProperties map[string]interface{}
 }

@@ -18,7 +18,7 @@ import (
 // checks if the DeleteResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DeleteResponse{}
 
-// DeleteResponse struct for DeleteResponse
+// DeleteResponse Confirmation that the targeted resource was deleted.
 type DeleteResponse struct {
 	// Always `true` when the delete request completed and the resource was removed.
 	Success              bool `json:"success"`

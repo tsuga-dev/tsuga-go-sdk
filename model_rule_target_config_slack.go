@@ -27,7 +27,8 @@ type RuleTargetConfigSlack struct {
 	// Slack workspace ID that receives the notification
 	IntegrationId string `json:"integrationId"`
 	// Human readable name of the Slack integration
-	IntegrationName      string `json:"integrationName"`
+	IntegrationName      string                               `json:"integrationName"`
+	RenotifyConfig       *RuleTargetConfigSlackRenotifyConfig `json:"renotifyConfig,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -150,6 +151,38 @@ func (o *RuleTargetConfigSlack) SetIntegrationName(v string) {
 	o.IntegrationName = v
 }
 
+// GetRenotifyConfig returns the RenotifyConfig field value if set, zero value otherwise.
+func (o *RuleTargetConfigSlack) GetRenotifyConfig() RuleTargetConfigSlackRenotifyConfig {
+	if o == nil || IsNil(o.RenotifyConfig) {
+		var ret RuleTargetConfigSlackRenotifyConfig
+		return ret
+	}
+	return *o.RenotifyConfig
+}
+
+// GetRenotifyConfigOk returns a tuple with the RenotifyConfig field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RuleTargetConfigSlack) GetRenotifyConfigOk() (*RuleTargetConfigSlackRenotifyConfig, bool) {
+	if o == nil || IsNil(o.RenotifyConfig) {
+		return nil, false
+	}
+	return o.RenotifyConfig, true
+}
+
+// HasRenotifyConfig returns a boolean if a field has been set.
+func (o *RuleTargetConfigSlack) HasRenotifyConfig() bool {
+	if o != nil && !IsNil(o.RenotifyConfig) {
+		return true
+	}
+
+	return false
+}
+
+// SetRenotifyConfig gets a reference to the given RuleTargetConfigSlackRenotifyConfig and assigns it to the RenotifyConfig field.
+func (o *RuleTargetConfigSlack) SetRenotifyConfig(v RuleTargetConfigSlackRenotifyConfig) {
+	o.RenotifyConfig = &v
+}
+
 func (o RuleTargetConfigSlack) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -164,6 +197,9 @@ func (o RuleTargetConfigSlack) ToMap() (map[string]interface{}, error) {
 	toSerialize["channel"] = o.Channel
 	toSerialize["integrationId"] = o.IntegrationId
 	toSerialize["integrationName"] = o.IntegrationName
+	if !IsNil(o.RenotifyConfig) {
+		toSerialize["renotifyConfig"] = o.RenotifyConfig
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -214,6 +250,7 @@ func (o *RuleTargetConfigSlack) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "channel")
 		delete(additionalProperties, "integrationId")
 		delete(additionalProperties, "integrationName")
+		delete(additionalProperties, "renotifyConfig")
 		o.AdditionalProperties = additionalProperties
 	}
 

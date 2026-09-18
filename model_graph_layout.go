@@ -18,15 +18,15 @@ import (
 // checks if the GraphLayout type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GraphLayout{}
 
-// GraphLayout Grid position and size of the widget. Set by the dashboard author when arranging widgets. Optional; when provided, width and height must meet the minimum size for the widget type.
+// GraphLayout Grid position and size of the widget. Optional; when provided, the size must be at least 2×2 (width×height) grid units, except note widgets which can go down to 1×1.
 type GraphLayout struct {
 	// Column position of the widget on the 12-column dashboard grid. 0 is the leftmost column; increasing values move right.
 	X float32 `json:"x"`
 	// Row position of the widget on the dashboard grid, in row units of 50 pixels each. 0 is the topmost row; increasing values move down.
 	Y float32 `json:"y"`
-	// Width of the widget in grid columns, out of the 12-column grid.
+	// Width of the widget in grid columns, out of the 12-column grid. Dashboard validation uses this with `h` and the widget type to reject layouts below the widget minimum.
 	W float32 `json:"w"`
-	// Height of the widget in grid rows, where each row is 50 pixels tall.
+	// Height of the widget in grid rows, where each row is 50 pixels tall. Dashboard validation uses this with `w` and the widget type to reject layouts below the widget minimum.
 	H                    float32 `json:"h"`
 	AdditionalProperties map[string]interface{}
 }

@@ -25,7 +25,8 @@ type RuleTargetConfigMicrosoftTeams struct {
 	// Identifier of the Microsoft Teams integration to use
 	IntegrationId string `json:"integrationId"`
 	// Human readable name of the Microsoft Teams integration
-	IntegrationName      string `json:"integrationName"`
+	IntegrationName      string                               `json:"integrationName"`
+	RenotifyConfig       *RuleTargetConfigSlackRenotifyConfig `json:"renotifyConfig,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -123,6 +124,38 @@ func (o *RuleTargetConfigMicrosoftTeams) SetIntegrationName(v string) {
 	o.IntegrationName = v
 }
 
+// GetRenotifyConfig returns the RenotifyConfig field value if set, zero value otherwise.
+func (o *RuleTargetConfigMicrosoftTeams) GetRenotifyConfig() RuleTargetConfigSlackRenotifyConfig {
+	if o == nil || IsNil(o.RenotifyConfig) {
+		var ret RuleTargetConfigSlackRenotifyConfig
+		return ret
+	}
+	return *o.RenotifyConfig
+}
+
+// GetRenotifyConfigOk returns a tuple with the RenotifyConfig field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RuleTargetConfigMicrosoftTeams) GetRenotifyConfigOk() (*RuleTargetConfigSlackRenotifyConfig, bool) {
+	if o == nil || IsNil(o.RenotifyConfig) {
+		return nil, false
+	}
+	return o.RenotifyConfig, true
+}
+
+// HasRenotifyConfig returns a boolean if a field has been set.
+func (o *RuleTargetConfigMicrosoftTeams) HasRenotifyConfig() bool {
+	if o != nil && !IsNil(o.RenotifyConfig) {
+		return true
+	}
+
+	return false
+}
+
+// SetRenotifyConfig gets a reference to the given RuleTargetConfigSlackRenotifyConfig and assigns it to the RenotifyConfig field.
+func (o *RuleTargetConfigMicrosoftTeams) SetRenotifyConfig(v RuleTargetConfigSlackRenotifyConfig) {
+	o.RenotifyConfig = &v
+}
+
 func (o RuleTargetConfigMicrosoftTeams) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -136,6 +169,9 @@ func (o RuleTargetConfigMicrosoftTeams) ToMap() (map[string]interface{}, error) 
 	toSerialize["type"] = o.Type
 	toSerialize["integrationId"] = o.IntegrationId
 	toSerialize["integrationName"] = o.IntegrationName
+	if !IsNil(o.RenotifyConfig) {
+		toSerialize["renotifyConfig"] = o.RenotifyConfig
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -184,6 +220,7 @@ func (o *RuleTargetConfigMicrosoftTeams) UnmarshalJSON(data []byte) (err error) 
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "integrationId")
 		delete(additionalProperties, "integrationName")
+		delete(additionalProperties, "renotifyConfig")
 		o.AdditionalProperties = additionalProperties
 	}
 

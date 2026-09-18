@@ -5,15 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Display name of the notification rule. | 
-**QueryString** | Pointer to **string** | Optional query that narrows which alert transitions trigger the rule. Matches on the monitor transition group key and the monitor tags, e.g. &#x60;env:prod service:api&#x60;. Omit or leave empty to match regardless of tags. | [optional] 
+**QueryString** | Pointer to **NullableString** |  | [optional] 
 **TeamsFilter** | [**CreateNotificationRuleRequestTeamsFilter**](CreateNotificationRuleRequestTeamsFilter.md) |  | 
 **PrioritiesFilter** | **[]float32** | Monitor priorities that must match for this rule to fire. An empty array matches every priority. | 
 **TransitionTypesFilter** | **[]string** | Alert state transitions that must match for this rule to fire. An empty array matches every transition type. | 
 **ClusterIdsFilter** | Pointer to **[]string** | Cluster IDs that must match for this rule to fire. Omit it, or leave it empty, to match every cluster. | [optional] 
 **Owner** | **string** | Team ID that owns and manages the rule | 
-**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Up to 50 tags are accepted and tag policies may require specific keys or values. | [optional] 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **IsActive** | **bool** | Set to true for the rule to send notifications when its filters match. | 
-**Targets** | [**[]CreateNotificationRuleRequestTargetsInner**](CreateNotificationRuleRequestTargetsInner.md) | Destinations that receive a notification whenever this rule matches an alert transition. At least one target is required. This list replaces the existing targets on update. | 
+**Targets** | [**[]CreateNotificationRuleRequestTargetsInner**](CreateNotificationRuleRequestTargetsInner.md) | Destinations that receive a notification whenever this rule matches an alert transition. This list replaces the existing targets on update. | 
 
 ## Methods
 
@@ -79,6 +79,16 @@ SetQueryString sets QueryString field to given value.
 
 HasQueryString returns a boolean if a field has been set.
 
+### SetQueryStringNil
+
+`func (o *CreateNotificationRuleRequest) SetQueryStringNil(b bool)`
+
+ SetQueryStringNil sets the value for QueryString to be an explicit nil
+
+### UnsetQueryString
+`func (o *CreateNotificationRuleRequest) UnsetQueryString()`
+
+UnsetQueryString ensures that no value is present for QueryString, not even an explicit nil
 ### GetTeamsFilter
 
 `func (o *CreateNotificationRuleRequest) GetTeamsFilter() CreateNotificationRuleRequestTeamsFilter`

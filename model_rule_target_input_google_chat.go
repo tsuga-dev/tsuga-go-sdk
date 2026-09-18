@@ -23,7 +23,8 @@ type RuleTargetInputGoogleChat struct {
 	// Google Chat target backed by a configured Google Chat integration.
 	Type string `json:"type"`
 	// Identifier of the Google Chat integration to use
-	IntegrationId        string `json:"integrationId"`
+	IntegrationId        string                              `json:"integrationId"`
+	RenotifyConfig       *RuleTargetInputSlackRenotifyConfig `json:"renotifyConfig,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -96,6 +97,38 @@ func (o *RuleTargetInputGoogleChat) SetIntegrationId(v string) {
 	o.IntegrationId = v
 }
 
+// GetRenotifyConfig returns the RenotifyConfig field value if set, zero value otherwise.
+func (o *RuleTargetInputGoogleChat) GetRenotifyConfig() RuleTargetInputSlackRenotifyConfig {
+	if o == nil || IsNil(o.RenotifyConfig) {
+		var ret RuleTargetInputSlackRenotifyConfig
+		return ret
+	}
+	return *o.RenotifyConfig
+}
+
+// GetRenotifyConfigOk returns a tuple with the RenotifyConfig field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RuleTargetInputGoogleChat) GetRenotifyConfigOk() (*RuleTargetInputSlackRenotifyConfig, bool) {
+	if o == nil || IsNil(o.RenotifyConfig) {
+		return nil, false
+	}
+	return o.RenotifyConfig, true
+}
+
+// HasRenotifyConfig returns a boolean if a field has been set.
+func (o *RuleTargetInputGoogleChat) HasRenotifyConfig() bool {
+	if o != nil && !IsNil(o.RenotifyConfig) {
+		return true
+	}
+
+	return false
+}
+
+// SetRenotifyConfig gets a reference to the given RuleTargetInputSlackRenotifyConfig and assigns it to the RenotifyConfig field.
+func (o *RuleTargetInputGoogleChat) SetRenotifyConfig(v RuleTargetInputSlackRenotifyConfig) {
+	o.RenotifyConfig = &v
+}
+
 func (o RuleTargetInputGoogleChat) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -108,6 +141,9 @@ func (o RuleTargetInputGoogleChat) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
 	toSerialize["integrationId"] = o.IntegrationId
+	if !IsNil(o.RenotifyConfig) {
+		toSerialize["renotifyConfig"] = o.RenotifyConfig
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -154,6 +190,7 @@ func (o *RuleTargetInputGoogleChat) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "integrationId")
+		delete(additionalProperties, "renotifyConfig")
 		o.AdditionalProperties = additionalProperties
 	}
 

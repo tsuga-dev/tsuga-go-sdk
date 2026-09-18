@@ -32,11 +32,12 @@ type GraphVisualizationBar struct {
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values.
-	GroupBy    []AggregationGroupBy                          `json:"groupBy,omitempty"`
-	TimeBucket *GraphVisualizationTimeseriesPromqlTimeBucket `json:"timeBucket,omitempty"`
-	// Number of decimal places to display in the value
-	Precision  *float32    `json:"precision,omitempty"`
-	Normalizer *Normalizer `json:"normalizer,omitempty"`
+	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
+	// `absolute` keeps each group at its own value; `relative` shows it as a percentage of the ungrouped total (defaults to absolute)
+	GroupByMode *string                                          `json:"groupByMode,omitempty"`
+	TimeBucket  *GraphVisualizationTimeseriesPromqlTimeBucket    `json:"timeBucket,omitempty"`
+	Precision   *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
+	Normalizer  *Normalizer                                      `json:"normalizer,omitempty"`
 	// Threshold markers displayed on the chart
 	Thresholds []ThresholdMarker `json:"thresholds,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
@@ -267,6 +268,38 @@ func (o *GraphVisualizationBar) SetGroupBy(v []AggregationGroupBy) {
 	o.GroupBy = v
 }
 
+// GetGroupByMode returns the GroupByMode field value if set, zero value otherwise.
+func (o *GraphVisualizationBar) GetGroupByMode() string {
+	if o == nil || IsNil(o.GroupByMode) {
+		var ret string
+		return ret
+	}
+	return *o.GroupByMode
+}
+
+// GetGroupByModeOk returns a tuple with the GroupByMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationBar) GetGroupByModeOk() (*string, bool) {
+	if o == nil || IsNil(o.GroupByMode) {
+		return nil, false
+	}
+	return o.GroupByMode, true
+}
+
+// HasGroupByMode returns a boolean if a field has been set.
+func (o *GraphVisualizationBar) HasGroupByMode() bool {
+	if o != nil && !IsNil(o.GroupByMode) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupByMode gets a reference to the given string and assigns it to the GroupByMode field.
+func (o *GraphVisualizationBar) SetGroupByMode(v string) {
+	o.GroupByMode = &v
+}
+
 // GetTimeBucket returns the TimeBucket field value if set, zero value otherwise.
 func (o *GraphVisualizationBar) GetTimeBucket() GraphVisualizationTimeseriesPromqlTimeBucket {
 	if o == nil || IsNil(o.TimeBucket) {
@@ -300,9 +333,9 @@ func (o *GraphVisualizationBar) SetTimeBucket(v GraphVisualizationTimeseriesProm
 }
 
 // GetPrecision returns the Precision field value if set, zero value otherwise.
-func (o *GraphVisualizationBar) GetPrecision() float32 {
+func (o *GraphVisualizationBar) GetPrecision() GraphVisualizationQueryValueConnectionPrecision {
 	if o == nil || IsNil(o.Precision) {
-		var ret float32
+		var ret GraphVisualizationQueryValueConnectionPrecision
 		return ret
 	}
 	return *o.Precision
@@ -310,7 +343,7 @@ func (o *GraphVisualizationBar) GetPrecision() float32 {
 
 // GetPrecisionOk returns a tuple with the Precision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationBar) GetPrecisionOk() (*float32, bool) {
+func (o *GraphVisualizationBar) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool) {
 	if o == nil || IsNil(o.Precision) {
 		return nil, false
 	}
@@ -326,8 +359,8 @@ func (o *GraphVisualizationBar) HasPrecision() bool {
 	return false
 }
 
-// SetPrecision gets a reference to the given float32 and assigns it to the Precision field.
-func (o *GraphVisualizationBar) SetPrecision(v float32) {
+// SetPrecision gets a reference to the given GraphVisualizationQueryValueConnectionPrecision and assigns it to the Precision field.
+func (o *GraphVisualizationBar) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision) {
 	o.Precision = &v
 }
 
@@ -484,6 +517,9 @@ func (o GraphVisualizationBar) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.GroupBy) {
 		toSerialize["groupBy"] = o.GroupBy
 	}
+	if !IsNil(o.GroupByMode) {
+		toSerialize["groupByMode"] = o.GroupByMode
+	}
 	if !IsNil(o.TimeBucket) {
 		toSerialize["timeBucket"] = o.TimeBucket
 	}
@@ -554,6 +590,7 @@ func (o *GraphVisualizationBar) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "aliases")
 		delete(additionalProperties, "visibleSeries")
 		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "groupByMode")
 		delete(additionalProperties, "timeBucket")
 		delete(additionalProperties, "precision")
 		delete(additionalProperties, "normalizer")

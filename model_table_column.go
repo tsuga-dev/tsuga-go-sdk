@@ -18,11 +18,11 @@ import (
 // checks if the TableColumn type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &TableColumn{}
 
-// TableColumn struct for TableColumn
+// TableColumn Table column backed by its own aggregation. `defaultSorting` and `columnSizes` reference it as `col-<index>`, using its zero-based position in `columns`.
 type TableColumn struct {
 	// Display name of the table column
 	Name string `json:"name"`
-	// Telemetry source queried by this aggregation: `logs`, `metrics`, or `traces`.
+	// Telemetry source queried by this aggregation: `logs`, `metrics`, `traces`, or `rum`.
 	Source string `json:"source"`
 	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order.
 	Queries []AggregationQuery `json:"queries"`
@@ -30,10 +30,9 @@ type TableColumn struct {
 	Formula *string                                    `json:"formula,omitempty"`
 	Aliases *GraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
 	// Flags indicating whether each query or formula series is visible
-	VisibleSeries []bool      `json:"visibleSeries,omitempty"`
-	Normalizer    *Normalizer `json:"normalizer,omitempty"`
-	// Number of decimal places to display in the value
-	Precision            *float32 `json:"precision,omitempty"`
+	VisibleSeries        []bool                                           `json:"visibleSeries,omitempty"`
+	Normalizer           *Normalizer                                      `json:"normalizer,omitempty"`
+	Precision            *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -260,9 +259,9 @@ func (o *TableColumn) SetNormalizer(v Normalizer) {
 }
 
 // GetPrecision returns the Precision field value if set, zero value otherwise.
-func (o *TableColumn) GetPrecision() float32 {
+func (o *TableColumn) GetPrecision() GraphVisualizationQueryValueConnectionPrecision {
 	if o == nil || IsNil(o.Precision) {
-		var ret float32
+		var ret GraphVisualizationQueryValueConnectionPrecision
 		return ret
 	}
 	return *o.Precision
@@ -270,7 +269,7 @@ func (o *TableColumn) GetPrecision() float32 {
 
 // GetPrecisionOk returns a tuple with the Precision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TableColumn) GetPrecisionOk() (*float32, bool) {
+func (o *TableColumn) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool) {
 	if o == nil || IsNil(o.Precision) {
 		return nil, false
 	}
@@ -286,8 +285,8 @@ func (o *TableColumn) HasPrecision() bool {
 	return false
 }
 
-// SetPrecision gets a reference to the given float32 and assigns it to the Precision field.
-func (o *TableColumn) SetPrecision(v float32) {
+// SetPrecision gets a reference to the given GraphVisualizationQueryValueConnectionPrecision and assigns it to the Precision field.
+func (o *TableColumn) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision) {
 	o.Precision = &v
 }
 

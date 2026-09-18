@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 
 ### NewSpecificTeams
 
-`func NewSpecificTeams(type_ string, teams []string, ) *SpecificTeams`
+`func NewSpecificTeams(type_ string, teams []*string, ) *SpecificTeams`
 
 NewSpecificTeams instantiates a new SpecificTeams object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetType sets Type field to given value.
 
 ### GetTeams
 
-`func (o *SpecificTeams) GetTeams() []string`
+`func (o *SpecificTeams) GetTeams() []*string`
 
 GetTeams returns the Teams field if non-nil, zero value otherwise.
 
 ### GetTeamsOk
 
-`func (o *SpecificTeams) GetTeamsOk() (*[]string, bool)`
+`func (o *SpecificTeams) GetTeamsOk() (*[]*string, bool)`
 
 GetTeamsOk returns a tuple with the Teams field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTeams
 
-`func (o *SpecificTeams) SetTeams(v []string)`
+`func (o *SpecificTeams) SetTeams(v []*string)`
 
 SetTeams sets Teams field to given value.
 

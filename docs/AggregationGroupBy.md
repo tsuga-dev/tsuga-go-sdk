@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Fields** | **[]string** | Telemetry attribute names used to group aggregation results. | 
 **Limit** | **float32** | Maximum number of distinct values of &#x60;fields&#x60; returned for this grouping level, ranked by aggregate value. Groups beyond the limit are truncated, not merged into an \&quot;other\&quot; group. | 
-**SortOrder** | Pointer to **string** | Sort direction applied to groups: ascending or descending. | [optional] 
+**SortOrder** | Pointer to **string** | Sort direction: ascending or descending. | [optional] 
 **ReplaceNullWith** | Pointer to **string** | Value used to group documents that have no value for a grouped field. | [optional] 
 
 ## Methods

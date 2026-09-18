@@ -53,7 +53,7 @@ type NotificationRulesAPI interface {
 	/*
 		GetNotificationRule Method for GetNotificationRule
 
-		Retrieves one notification rule by ID when the authenticated operation key can read it. Use this before updating routing or target configuration.
+		Retrieves one notification rule by ID.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Identifier of the notification rule to retrieve. Use the `id` returned by notification rule list or create responses.
@@ -375,7 +375,7 @@ func (r NotificationRulesAPIGetNotificationRuleRequest) Execute() (*GetNotificat
 /*
 GetNotificationRule Method for GetNotificationRule
 
-Retrieves one notification rule by ID when the authenticated operation key can read it. Use this before updating routing or target configuration.
+Retrieves one notification rule by ID.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Identifier of the notification rule to retrieve. Use the `id` returned by notification rule list or create responses.
@@ -500,7 +500,7 @@ type NotificationRulesAPIListNotificationRulesRequest struct {
 	offset     *int32
 }
 
-// Maximum number of items to return in this page. Valid values are 1 through 1000.
+// Maximum number of items to return in this page. Omit to use the public API default of 100.
 func (r NotificationRulesAPIListNotificationRulesRequest) Limit(limit int32) NotificationRulesAPIListNotificationRulesRequest {
 	r.limit = &limit
 	return r
@@ -555,6 +555,10 @@ func (a *NotificationRulesAPIService) ListNotificationRulesExecute(r Notificatio
 
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 100
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
+		r.limit = &defaultValue
 	}
 	if r.offset != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")

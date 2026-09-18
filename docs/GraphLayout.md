@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **X** | **float32** | Column position of the widget on the 12-column dashboard grid. 0 is the leftmost column; increasing values move right. | 
 **Y** | **float32** | Row position of the widget on the dashboard grid, in row units of 50 pixels each. 0 is the topmost row; increasing values move down. | 
-**W** | **float32** | Width of the widget in grid columns, out of the 12-column grid. | 
-**H** | **float32** | Height of the widget in grid rows, where each row is 50 pixels tall. | 
+**W** | **float32** | Width of the widget in grid columns, out of the 12-column grid. Dashboard validation uses this with &#x60;h&#x60; and the widget type to reject layouts below the widget minimum. | 
+**H** | **float32** | Height of the widget in grid rows, where each row is 50 pixels tall. Dashboard validation uses this with &#x60;w&#x60; and the widget type to reject layouts below the widget minimum. | 
 
 ## Methods
 

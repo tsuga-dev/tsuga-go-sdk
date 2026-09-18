@@ -53,7 +53,7 @@ type DashboardsAPI interface {
 	/*
 		GetDashboard Method for GetDashboard
 
-		Retrieves one dashboard by ID when the authenticated operation key can read it. Use this before updating or cloning a dashboard definition.
+		Retrieves one dashboard by ID.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Identifier of the saved dashboard to retrieve. Use the `id` returned by dashboard query, create, or update responses.
@@ -391,7 +391,7 @@ func (r DashboardsAPIGetDashboardRequest) Execute() (*GetDashboardResponse, *htt
 /*
 GetDashboard Method for GetDashboard
 
-Retrieves one dashboard by ID when the authenticated operation key can read it. Use this before updating or cloning a dashboard definition.
+Retrieves one dashboard by ID.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Identifier of the saved dashboard to retrieve. Use the `id` returned by dashboard query, create, or update responses.

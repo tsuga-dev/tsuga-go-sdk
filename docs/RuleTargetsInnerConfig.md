@@ -8,9 +8,12 @@ Name | Type | Description | Notes
 **Channel** | **string** | Slack channel ID that receives the notification | 
 **IntegrationId** | **string** | Identifier of the Jira integration to use | 
 **IntegrationName** | **string** | Human readable name of the Jira integration | 
+**RenotifyConfig** | Pointer to [**RuleTargetConfigSlackRenotifyConfig**](RuleTargetConfigSlackRenotifyConfig.md) |  | [optional] 
 **Addresses** | **[]string** | Email addresses that will receive the alert | 
 **ProjectKey** | **string** | Key of the Jira project that alert issues are filed into, like \&quot;OPS\&quot;. | 
 **IssueType** | **string** | Name of the Jira issue type created for alerts, like \&quot;Bug\&quot; or \&quot;Task\&quot;. | 
+**OpenStatus** | Pointer to **string** | Jira status the alert ticket is moved to right after it is filed for a firing alert. A later transition between two firing states leaves the ticket status alone. | [optional] 
+**ClosedStatus** | Pointer to **string** | Jira status the alert ticket is moved to when the alert resolves. Only takes effect when the rule delivers recovery transitions. | [optional] 
 
 ## Methods
 
@@ -111,6 +114,31 @@ and a boolean to check if the value has been set.
 SetIntegrationName sets IntegrationName field to given value.
 
 
+### GetRenotifyConfig
+
+`func (o *RuleTargetsInnerConfig) GetRenotifyConfig() RuleTargetConfigSlackRenotifyConfig`
+
+GetRenotifyConfig returns the RenotifyConfig field if non-nil, zero value otherwise.
+
+### GetRenotifyConfigOk
+
+`func (o *RuleTargetsInnerConfig) GetRenotifyConfigOk() (*RuleTargetConfigSlackRenotifyConfig, bool)`
+
+GetRenotifyConfigOk returns a tuple with the RenotifyConfig field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRenotifyConfig
+
+`func (o *RuleTargetsInnerConfig) SetRenotifyConfig(v RuleTargetConfigSlackRenotifyConfig)`
+
+SetRenotifyConfig sets RenotifyConfig field to given value.
+
+### HasRenotifyConfig
+
+`func (o *RuleTargetsInnerConfig) HasRenotifyConfig() bool`
+
+HasRenotifyConfig returns a boolean if a field has been set.
+
 ### GetAddresses
 
 `func (o *RuleTargetsInnerConfig) GetAddresses() []string`
@@ -170,6 +198,56 @@ and a boolean to check if the value has been set.
 
 SetIssueType sets IssueType field to given value.
 
+
+### GetOpenStatus
+
+`func (o *RuleTargetsInnerConfig) GetOpenStatus() string`
+
+GetOpenStatus returns the OpenStatus field if non-nil, zero value otherwise.
+
+### GetOpenStatusOk
+
+`func (o *RuleTargetsInnerConfig) GetOpenStatusOk() (*string, bool)`
+
+GetOpenStatusOk returns a tuple with the OpenStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOpenStatus
+
+`func (o *RuleTargetsInnerConfig) SetOpenStatus(v string)`
+
+SetOpenStatus sets OpenStatus field to given value.
+
+### HasOpenStatus
+
+`func (o *RuleTargetsInnerConfig) HasOpenStatus() bool`
+
+HasOpenStatus returns a boolean if a field has been set.
+
+### GetClosedStatus
+
+`func (o *RuleTargetsInnerConfig) GetClosedStatus() string`
+
+GetClosedStatus returns the ClosedStatus field if non-nil, zero value otherwise.
+
+### GetClosedStatusOk
+
+`func (o *RuleTargetsInnerConfig) GetClosedStatusOk() (*string, bool)`
+
+GetClosedStatusOk returns a tuple with the ClosedStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClosedStatus
+
+`func (o *RuleTargetsInnerConfig) SetClosedStatus(v string)`
+
+SetClosedStatus sets ClosedStatus field to given value.
+
+### HasClosedStatus
+
+`func (o *RuleTargetsInnerConfig) HasClosedStatus() bool`
+
+HasClosedStatus returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TeamIds** | **[]string** | Team IDs whose logs are searched for new error patterns. Tsuga resolves these team IDs to team names when exporting monitor assets. | 
+**TeamIds** | Pointer to **[]string** | Team IDs whose logs are searched for new error patterns. Tsuga resolves these team IDs to team names when exporting monitor assets. | [optional] 
 **Env** | **string** | Environment whose logs are searched for new error patterns. | 
-**Service** | Pointer to **string** | Optional service name whose logs are searched for new error patterns. If omitted, the monitor searches all services matching the team and environment filter. | [optional] 
+**Services** | Pointer to **[]string** | Service names whose logs are searched for new error patterns. | [optional] 
 
 ## Methods
 
 ### NewInputMonitorConfigurationLogErrorPatternFilter
 
-`func NewInputMonitorConfigurationLogErrorPatternFilter(teamIds []string, env string, ) *InputMonitorConfigurationLogErrorPatternFilter`
+`func NewInputMonitorConfigurationLogErrorPatternFilter(env string, ) *InputMonitorConfigurationLogErrorPatternFilter`
 
 NewInputMonitorConfigurationLogErrorPatternFilter instantiates a new InputMonitorConfigurationLogErrorPatternFilter object
 This constructor will assign default values to properties that have it defined,
@@ -46,6 +46,11 @@ and a boolean to check if the value has been set.
 
 SetTeamIds sets TeamIds field to given value.
 
+### HasTeamIds
+
+`func (o *InputMonitorConfigurationLogErrorPatternFilter) HasTeamIds() bool`
+
+HasTeamIds returns a boolean if a field has been set.
 
 ### GetEnv
 
@@ -67,30 +72,30 @@ and a boolean to check if the value has been set.
 SetEnv sets Env field to given value.
 
 
-### GetService
+### GetServices
 
-`func (o *InputMonitorConfigurationLogErrorPatternFilter) GetService() string`
+`func (o *InputMonitorConfigurationLogErrorPatternFilter) GetServices() []string`
 
-GetService returns the Service field if non-nil, zero value otherwise.
+GetServices returns the Services field if non-nil, zero value otherwise.
 
-### GetServiceOk
+### GetServicesOk
 
-`func (o *InputMonitorConfigurationLogErrorPatternFilter) GetServiceOk() (*string, bool)`
+`func (o *InputMonitorConfigurationLogErrorPatternFilter) GetServicesOk() (*[]string, bool)`
 
-GetServiceOk returns a tuple with the Service field if it's non-nil, zero value otherwise
+GetServicesOk returns a tuple with the Services field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetService
+### SetServices
 
-`func (o *InputMonitorConfigurationLogErrorPatternFilter) SetService(v string)`
+`func (o *InputMonitorConfigurationLogErrorPatternFilter) SetServices(v []string)`
 
-SetService sets Service field to given value.
+SetServices sets Services field to given value.
 
-### HasService
+### HasServices
 
-`func (o *InputMonitorConfigurationLogErrorPatternFilter) HasService() bool`
+`func (o *InputMonitorConfigurationLogErrorPatternFilter) HasServices() bool`
 
-HasService returns a boolean if a field has been set.
+HasServices returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

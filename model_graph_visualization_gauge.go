@@ -34,10 +34,9 @@ type GraphVisualizationGauge struct {
 	// Gauge maximum value
 	Max *float32 `json:"max,omitempty"`
 	// Color thresholds inside the gauge range
-	ColorThresholds []GaugeColorThreshold `json:"colorThresholds,omitempty"`
-	// Number of decimal places to display in the value
-	Precision            *float32    `json:"precision,omitempty"`
-	Normalizer           *Normalizer `json:"normalizer,omitempty"`
+	ColorThresholds      []GaugeColorThreshold                            `json:"colorThresholds,omitempty"`
+	Precision            *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
+	Normalizer           *Normalizer                                      `json:"normalizer,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -296,9 +295,9 @@ func (o *GraphVisualizationGauge) SetColorThresholds(v []GaugeColorThreshold) {
 }
 
 // GetPrecision returns the Precision field value if set, zero value otherwise.
-func (o *GraphVisualizationGauge) GetPrecision() float32 {
+func (o *GraphVisualizationGauge) GetPrecision() GraphVisualizationQueryValueConnectionPrecision {
 	if o == nil || IsNil(o.Precision) {
-		var ret float32
+		var ret GraphVisualizationQueryValueConnectionPrecision
 		return ret
 	}
 	return *o.Precision
@@ -306,7 +305,7 @@ func (o *GraphVisualizationGauge) GetPrecision() float32 {
 
 // GetPrecisionOk returns a tuple with the Precision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationGauge) GetPrecisionOk() (*float32, bool) {
+func (o *GraphVisualizationGauge) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool) {
 	if o == nil || IsNil(o.Precision) {
 		return nil, false
 	}
@@ -322,8 +321,8 @@ func (o *GraphVisualizationGauge) HasPrecision() bool {
 	return false
 }
 
-// SetPrecision gets a reference to the given float32 and assigns it to the Precision field.
-func (o *GraphVisualizationGauge) SetPrecision(v float32) {
+// SetPrecision gets a reference to the given GraphVisualizationQueryValueConnectionPrecision and assigns it to the Precision field.
+func (o *GraphVisualizationGauge) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision) {
 	o.Precision = &v
 }
 

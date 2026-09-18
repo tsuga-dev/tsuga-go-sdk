@@ -22,7 +22,7 @@ var _ MappedNullable = &UpdateDashboardGraphRequest{}
 type UpdateDashboardGraphRequest struct {
 	// Display name of the graph widget.
 	Name *string `json:"name,omitempty"`
-	// Optional text shown with the graph widget. Maximum length is 800 characters.
+	// Text shown with the graph widget.
 	Description *string `json:"description,omitempty"`
 	// Flex alignment keyword used for widget layout
 	DescriptionAlign *string `json:"descriptionAlign,omitempty"`

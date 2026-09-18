@@ -18,7 +18,7 @@ import (
 // checks if the WidgetListColumn1 type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &WidgetListColumn1{}
 
-// WidgetListColumn1 struct for WidgetListColumn1
+// WidgetListColumn1 List column pairing a displayed attribute with the formatting applied to its values.
 type WidgetListColumn1 struct {
 	// Attribute (log field or database row column) displayed as a column in the list
 	Attribute            string       `json:"attribute"`

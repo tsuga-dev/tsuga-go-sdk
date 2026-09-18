@@ -15,16 +15,17 @@ import (
 	"fmt"
 )
 
-// Normalizer - Display-value formatter for widget values or list/table columns. Set by the dashboard author and returned when configured.
+// Normalizer - Display-value formatter for widget values or list/table columns.
 type Normalizer struct {
-	DataNormalizerCpu      *DataNormalizerCpu
-	DataNormalizerCustom   *DataNormalizerCustom
-	DataNormalizerData     *DataNormalizerData
-	DataNormalizerDate     *DataNormalizerDate
-	DataNormalizerDuration *DataNormalizerDuration
-	DataNormalizerLevel    *DataNormalizerLevel
-	DataNormalizerNone     *DataNormalizerNone
-	DataNormalizerPercent  *DataNormalizerPercent
+	DataNormalizerCpu             *DataNormalizerCpu
+	DataNormalizerCustom          *DataNormalizerCustom
+	DataNormalizerData            *DataNormalizerData
+	DataNormalizerDate            *DataNormalizerDate
+	DataNormalizerDuration        *DataNormalizerDuration
+	DataNormalizerLevel           *DataNormalizerLevel
+	DataNormalizerNone            *DataNormalizerNone
+	DataNormalizerPercent         *DataNormalizerPercent
+	DataNormalizerPercentFraction *DataNormalizerPercentFraction
 }
 
 // DataNormalizerCpuAsNormalizer is a convenience function that returns DataNormalizerCpu wrapped in Normalizer
@@ -80,6 +81,13 @@ func DataNormalizerNoneAsNormalizer(v *DataNormalizerNone) Normalizer {
 func DataNormalizerPercentAsNormalizer(v *DataNormalizerPercent) Normalizer {
 	return Normalizer{
 		DataNormalizerPercent: v,
+	}
+}
+
+// DataNormalizerPercentFractionAsNormalizer is a convenience function that returns DataNormalizerPercentFraction wrapped in Normalizer
+func DataNormalizerPercentFractionAsNormalizer(v *DataNormalizerPercentFraction) Normalizer {
+	return Normalizer{
+		DataNormalizerPercentFraction: v,
 	}
 }
 
@@ -189,6 +197,18 @@ func (dst *Normalizer) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'percent-fraction'
+	if jsonDict["type"] == "percent-fraction" {
+		// try to unmarshal JSON data into DataNormalizerPercentFraction
+		err = json.Unmarshal(data, &dst.DataNormalizerPercentFraction)
+		if err == nil {
+			return nil // data stored in dst.DataNormalizerPercentFraction, return on the first match
+		} else {
+			dst.DataNormalizerPercentFraction = nil
+			return fmt.Errorf("failed to unmarshal Normalizer as DataNormalizerPercentFraction: %s", err.Error())
+		}
+	}
+
 	return nil
 }
 
@@ -224,6 +244,10 @@ func (src Normalizer) MarshalJSON() ([]byte, error) {
 
 	if src.DataNormalizerPercent != nil {
 		return json.Marshal(&src.DataNormalizerPercent)
+	}
+
+	if src.DataNormalizerPercentFraction != nil {
+		return json.Marshal(&src.DataNormalizerPercentFraction)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -266,6 +290,10 @@ func (obj *Normalizer) GetActualInstance() interface{} {
 		return obj.DataNormalizerPercent
 	}
 
+	if obj.DataNormalizerPercentFraction != nil {
+		return obj.DataNormalizerPercentFraction
+	}
+
 	// all schemas are nil
 	return nil
 }
@@ -302,6 +330,10 @@ func (obj Normalizer) GetActualInstanceValue() interface{} {
 
 	if obj.DataNormalizerPercent != nil {
 		return *obj.DataNormalizerPercent
+	}
+
+	if obj.DataNormalizerPercentFraction != nil {
+		return *obj.DataNormalizerPercentFraction
 	}
 
 	// all schemas are nil

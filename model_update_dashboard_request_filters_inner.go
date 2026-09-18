@@ -22,7 +22,7 @@ var _ MappedNullable = &UpdateDashboardRequestFiltersInner{}
 type UpdateDashboardRequestFiltersInner struct {
 	// Dashboard-wide filter key, usually a telemetry attribute name.
 	Key string `json:"key"`
-	// Allowed values for this dashboard-wide filter. Set by the dashboard author.
+	// Allowed values for this dashboard-wide filter.
 	Values []string `json:"values"`
 	// If true, widgets exclude telemetry whose value matches this filter instead of including it (is-not).
 	Exclude              *bool `json:"exclude,omitempty"`

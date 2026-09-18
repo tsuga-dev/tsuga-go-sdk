@@ -24,7 +24,7 @@ type Team struct {
 	Id string `json:"id"`
 	// Human-readable team name displayed throughout Tsuga and used in team search.
 	Name string `json:"name"`
-	// Optional team description supplied by a user.
+	// Optional free-text description of the team.
 	Description *string `json:"description,omitempty"`
 	// `public` makes team-owned resources discoverable according to access controls. `private` restricts discovery to team members and authorized users.
 	Visibility string `json:"visibility"`

@@ -24,7 +24,7 @@ type AggregationGroupBy1 struct {
 	Fields []string `json:"fields"`
 	// Maximum number of distinct values of `fields` to return for this grouping level, ranked by aggregate value. Groups beyond the limit are truncated from the response, not merged into an \"other\" group.
 	Limit float32 `json:"limit"`
-	// Sort direction applied to groups: ascending or descending.
+	// Sort direction: ascending or descending.
 	SortOrder *string `json:"sortOrder,omitempty"`
 	// Value used to group documents that have no value for a grouped field.
 	ReplaceNullWith      *string `json:"replaceNullWith,omitempty"`

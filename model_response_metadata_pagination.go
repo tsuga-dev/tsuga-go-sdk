@@ -18,7 +18,7 @@ import (
 // checks if the ResponseMetadataPagination type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ResponseMetadataPagination{}
 
-// ResponseMetadataPagination struct for ResponseMetadataPagination
+// ResponseMetadataPagination Counts describing the full result set that the returned page was taken from, for computing how many further pages remain.
 type ResponseMetadataPagination struct {
 	// Total number of items matching the query before `limit` and `offset` are applied.
 	TotalCount int32 `json:"totalCount"`

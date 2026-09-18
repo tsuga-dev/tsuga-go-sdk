@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 **Id** | **string** | Identifier of the notification target within this rule. Choose a stable ID that is unique among this rule&#39;s targets; Tsuga uses it with the rule ID for per-target delivery state such as rate limiting. | 
 **RateLimit** | Pointer to [**CreateNotificationRuleRequestTargetsInnerRateLimit**](CreateNotificationRuleRequestTargetsInnerRateLimit.md) |  | [optional] 
 **Config** | [**CreateNotificationRuleRequestTargetsInnerConfig**](CreateNotificationRuleRequestTargetsInnerConfig.md) |  | 
-**RenotifyConfig** | Pointer to [**CreateNotificationRuleRequestTargetsInnerRenotifyConfig**](CreateNotificationRuleRequestTargetsInnerRenotifyConfig.md) |  | [optional] 
 
 ## Methods
 
@@ -92,31 +91,6 @@ and a boolean to check if the value has been set.
 
 SetConfig sets Config field to given value.
 
-
-### GetRenotifyConfig
-
-`func (o *CreateNotificationRuleRequestTargetsInner) GetRenotifyConfig() CreateNotificationRuleRequestTargetsInnerRenotifyConfig`
-
-GetRenotifyConfig returns the RenotifyConfig field if non-nil, zero value otherwise.
-
-### GetRenotifyConfigOk
-
-`func (o *CreateNotificationRuleRequestTargetsInner) GetRenotifyConfigOk() (*CreateNotificationRuleRequestTargetsInnerRenotifyConfig, bool)`
-
-GetRenotifyConfigOk returns a tuple with the RenotifyConfig field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRenotifyConfig
-
-`func (o *CreateNotificationRuleRequestTargetsInner) SetRenotifyConfig(v CreateNotificationRuleRequestTargetsInnerRenotifyConfig)`
-
-SetRenotifyConfig sets RenotifyConfig field to given value.
-
-### HasRenotifyConfig
-
-`func (o *CreateNotificationRuleRequestTargetsInner) HasRenotifyConfig() bool`
-
-HasRenotifyConfig returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

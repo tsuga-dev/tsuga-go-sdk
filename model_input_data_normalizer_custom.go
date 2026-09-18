@@ -22,7 +22,7 @@ var _ MappedNullable = &InputDataNormalizerCustom{}
 type InputDataNormalizerCustom struct {
 	// Normalizes values using a custom unit label
 	Type string `json:"type"`
-	// Text label describing the custom unit
+	// Text label describing the custom unit. Must not be empty.
 	Unit                 string `json:"unit"`
 	AdditionalProperties map[string]interface{}
 }

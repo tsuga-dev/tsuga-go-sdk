@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Threshold monitor over metric aggregations. | 
-**Conditions** | [**[]InputMonitorConfigurationMetricConditionsInner**](InputMonitorConfigurationMetricConditionsInner.md) | Threshold conditions evaluated against query and formula results. Provide at least one condition and no more than five conditions. | 
+**Conditions** | [**[]InputMonitorConfigurationMetricConditionsInner**](InputMonitorConfigurationMetricConditionsInner.md) | Threshold conditions evaluated against query and formula results. All listed conditions must match for a non-grouped threshold monitor to alert. | 
 **NoDataBehavior** | **string** | Certificate expiry monitors resolve when matching certificate data disappears. | 
-**Timeframe** | **float32** | Lookback window, in minutes, that each anomaly monitor evaluation aggregates over. Valid input is 5 through 1440 minutes. | 
-**GroupByFields** | [**[]InputMonitorConfigurationMetricGroupByFieldsInner**](InputMonitorConfigurationMetricGroupByFieldsInner.md) | Monitor group by configuration. Warning! Note that the limit setting is currently ignored. | 
+**Timeframe** | **int32** | Lookback window, in minutes, that each anomaly monitor evaluation aggregates over. | 
+**GroupByFields** | [**[]InputMonitorConfigurationMetricGroupByFieldsInner**](InputMonitorConfigurationMetricGroupByFieldsInner.md) | Monitor group by configuration. The &#x60;limit&#x60; setting is currently ignored; evaluation applies a fixed limit of 100 groups per field. | 
 **AggregationAlertLogic** | **string** | Certificate expiry monitors alert independently for each certificate. | 
-**ProportionAlertThreshold** | Pointer to **int32** | Percentage threshold used when &#x60;aggregationAlertLogic&#x60; is &#x60;proportion&#x60;. Valid values are 1 through 99. | [optional] 
-**Queries** | [**[]MonitorAggregationQuery1**](MonitorAggregationQuery1.md) | Aggregation queries used by alerting and SLO evaluation. Each query is referenced from formulas as q1, q2, and so on. | 
+**ProportionAlertThreshold** | Pointer to **int32** | Percentage threshold used when &#x60;aggregationAlertLogic&#x60; is &#x60;proportion&#x60;. | [optional] 
+**Queries** | [**[]MonitorAggregationQuery1**](MonitorAggregationQuery1.md) | Aggregation queries used by alerting. Each query is referenced from formulas as q1, q2, and so on. | 
 **Condition** | [**InputMonitorConfigurationAnomalyLogCondition**](InputMonitorConfigurationAnomalyLogCondition.md) |  | 
 **Filter** | [**InputMonitorConfigurationLogErrorPatternFilter**](InputMonitorConfigurationLogErrorPatternFilter.md) |  | 
 **WarnBeforeInDays** | **int32** | Number of days before certificate expiry when the monitor should warn. Valid values are 1 through 365. | 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewUpdateMonitorRequestConfiguration
 
-`func NewUpdateMonitorRequestConfiguration(type_ string, conditions []InputMonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe float32, groupByFields []InputMonitorConfigurationMetricGroupByFieldsInner, aggregationAlertLogic string, queries []MonitorAggregationQuery1, condition InputMonitorConfigurationAnomalyLogCondition, filter InputMonitorConfigurationLogErrorPatternFilter, warnBeforeInDays int32, ) *UpdateMonitorRequestConfiguration`
+`func NewUpdateMonitorRequestConfiguration(type_ string, conditions []InputMonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe int32, groupByFields []InputMonitorConfigurationMetricGroupByFieldsInner, aggregationAlertLogic string, queries []MonitorAggregationQuery1, condition InputMonitorConfigurationAnomalyLogCondition, filter InputMonitorConfigurationLogErrorPatternFilter, warnBeforeInDays int32, ) *UpdateMonitorRequestConfiguration`
 
 NewUpdateMonitorRequestConfiguration instantiates a new UpdateMonitorRequestConfiguration object
 This constructor will assign default values to properties that have it defined,
@@ -98,20 +98,20 @@ SetNoDataBehavior sets NoDataBehavior field to given value.
 
 ### GetTimeframe
 
-`func (o *UpdateMonitorRequestConfiguration) GetTimeframe() float32`
+`func (o *UpdateMonitorRequestConfiguration) GetTimeframe() int32`
 
 GetTimeframe returns the Timeframe field if non-nil, zero value otherwise.
 
 ### GetTimeframeOk
 
-`func (o *UpdateMonitorRequestConfiguration) GetTimeframeOk() (*float32, bool)`
+`func (o *UpdateMonitorRequestConfiguration) GetTimeframeOk() (*int32, bool)`
 
 GetTimeframeOk returns a tuple with the Timeframe field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeframe
 
-`func (o *UpdateMonitorRequestConfiguration) SetTimeframe(v float32)`
+`func (o *UpdateMonitorRequestConfiguration) SetTimeframe(v int32)`
 
 SetTimeframe sets Timeframe field to given value.
 

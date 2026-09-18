@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 **Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
 **YAxisSettings** | Pointer to [**InputGraphVisualizationTimeseriesConnectionYAxisSettings**](InputGraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
+**LineStyleOptions** | Pointer to [**map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue**](GraphVisualizationTimeseriesConnectionLineStyleOptionsValue.md) | Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. For widgets with a single query, only the &#x60;1&#x60; entry is read and it applies to every series. Defaults to regular. | [optional] 
 
 ## Methods
 
@@ -164,6 +165,31 @@ SetYAxisSettings sets YAxisSettings field to given value.
 `func (o *InputGraphVisualizationTimeseriesConnection) HasYAxisSettings() bool`
 
 HasYAxisSettings returns a boolean if a field has been set.
+
+### GetLineStyleOptions
+
+`func (o *InputGraphVisualizationTimeseriesConnection) GetLineStyleOptions() map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue`
+
+GetLineStyleOptions returns the LineStyleOptions field if non-nil, zero value otherwise.
+
+### GetLineStyleOptionsOk
+
+`func (o *InputGraphVisualizationTimeseriesConnection) GetLineStyleOptionsOk() (*map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue, bool)`
+
+GetLineStyleOptionsOk returns a tuple with the LineStyleOptions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLineStyleOptions
+
+`func (o *InputGraphVisualizationTimeseriesConnection) SetLineStyleOptions(v map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue)`
+
+SetLineStyleOptions sets LineStyleOptions field to given value.
+
+### HasLineStyleOptions
+
+`func (o *InputGraphVisualizationTimeseriesConnection) HasLineStyleOptions() bool`
+
+HasLineStyleOptions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

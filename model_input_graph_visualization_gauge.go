@@ -24,7 +24,7 @@ type InputGraphVisualizationGauge struct {
 	Type string `json:"type"`
 	// Telemetry source queried by this aggregation: `logs`, `metrics`, `traces`, or `rum`.
 	Source string `json:"source"`
-	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order. Limited to 15 items. For dataSource \"metrics\", each aggregate's `field` is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"system.cpu.utilization.context.host.name\").
+	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order. For dataSource \"metrics\", each aggregate's `field` is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"system.cpu.utilization.context.host.name\").
 	Queries []AggregationQuery1 `json:"queries"`
 	// Formula referencing query outputs, such as `q1 + q2`, to compute derived results. Defaults to `q1`. Formulas may reference only submitted queries (`q1` through `qN`); undefined query references return 400.
 	Formula *string                                         `json:"formula,omitempty"`
@@ -34,10 +34,9 @@ type InputGraphVisualizationGauge struct {
 	// Gauge maximum value
 	Max *float32 `json:"max,omitempty"`
 	// Color thresholds inside the gauge range
-	ColorThresholds []GaugeColorThreshold `json:"colorThresholds,omitempty"`
-	// Number of decimal places to display in the value
-	Precision            *float32     `json:"precision,omitempty"`
-	Normalizer           *Normalizer1 `json:"normalizer,omitempty"`
+	ColorThresholds      []GaugeColorThreshold                            `json:"colorThresholds,omitempty"`
+	Precision            *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
+	Normalizer           *Normalizer1                                     `json:"normalizer,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -296,9 +295,9 @@ func (o *InputGraphVisualizationGauge) SetColorThresholds(v []GaugeColorThreshol
 }
 
 // GetPrecision returns the Precision field value if set, zero value otherwise.
-func (o *InputGraphVisualizationGauge) GetPrecision() float32 {
+func (o *InputGraphVisualizationGauge) GetPrecision() GraphVisualizationQueryValueConnectionPrecision {
 	if o == nil || IsNil(o.Precision) {
-		var ret float32
+		var ret GraphVisualizationQueryValueConnectionPrecision
 		return ret
 	}
 	return *o.Precision
@@ -306,7 +305,7 @@ func (o *InputGraphVisualizationGauge) GetPrecision() float32 {
 
 // GetPrecisionOk returns a tuple with the Precision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationGauge) GetPrecisionOk() (*float32, bool) {
+func (o *InputGraphVisualizationGauge) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool) {
 	if o == nil || IsNil(o.Precision) {
 		return nil, false
 	}
@@ -322,8 +321,8 @@ func (o *InputGraphVisualizationGauge) HasPrecision() bool {
 	return false
 }
 
-// SetPrecision gets a reference to the given float32 and assigns it to the Precision field.
-func (o *InputGraphVisualizationGauge) SetPrecision(v float32) {
+// SetPrecision gets a reference to the given GraphVisualizationQueryValueConnectionPrecision and assigns it to the Precision field.
+func (o *InputGraphVisualizationGauge) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision) {
 	o.Precision = &v
 }
 

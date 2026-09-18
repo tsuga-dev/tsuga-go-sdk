@@ -20,11 +20,10 @@ var _ MappedNullable = &RuleTargetsInner{}
 
 // RuleTargetsInner struct for RuleTargetsInner
 type RuleTargetsInner struct {
-	// Identifier of the notification target within this rule. Set by the rule author and used with the rule ID for per-target delivery state such as rate limiting.
-	Id                   string                          `json:"id"`
-	RateLimit            *RuleTargetsInnerRateLimit      `json:"rateLimit,omitempty"`
-	RenotifyConfig       *RuleTargetsInnerRenotifyConfig `json:"renotifyConfig,omitempty"`
-	Config               RuleTargetsInnerConfig          `json:"config"`
+	// Identifier of the notification target within this rule, used with the rule ID for per-target delivery state such as rate limiting.
+	Id                   string                     `json:"id"`
+	RateLimit            *RuleTargetsInnerRateLimit `json:"rateLimit,omitempty"`
+	Config               RuleTargetsInnerConfig     `json:"config"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -105,38 +104,6 @@ func (o *RuleTargetsInner) SetRateLimit(v RuleTargetsInnerRateLimit) {
 	o.RateLimit = &v
 }
 
-// GetRenotifyConfig returns the RenotifyConfig field value if set, zero value otherwise.
-func (o *RuleTargetsInner) GetRenotifyConfig() RuleTargetsInnerRenotifyConfig {
-	if o == nil || IsNil(o.RenotifyConfig) {
-		var ret RuleTargetsInnerRenotifyConfig
-		return ret
-	}
-	return *o.RenotifyConfig
-}
-
-// GetRenotifyConfigOk returns a tuple with the RenotifyConfig field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RuleTargetsInner) GetRenotifyConfigOk() (*RuleTargetsInnerRenotifyConfig, bool) {
-	if o == nil || IsNil(o.RenotifyConfig) {
-		return nil, false
-	}
-	return o.RenotifyConfig, true
-}
-
-// HasRenotifyConfig returns a boolean if a field has been set.
-func (o *RuleTargetsInner) HasRenotifyConfig() bool {
-	if o != nil && !IsNil(o.RenotifyConfig) {
-		return true
-	}
-
-	return false
-}
-
-// SetRenotifyConfig gets a reference to the given RuleTargetsInnerRenotifyConfig and assigns it to the RenotifyConfig field.
-func (o *RuleTargetsInner) SetRenotifyConfig(v RuleTargetsInnerRenotifyConfig) {
-	o.RenotifyConfig = &v
-}
-
 // GetConfig returns the Config field value
 func (o *RuleTargetsInner) GetConfig() RuleTargetsInnerConfig {
 	if o == nil {
@@ -174,9 +141,6 @@ func (o RuleTargetsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	if !IsNil(o.RateLimit) {
 		toSerialize["rateLimit"] = o.RateLimit
-	}
-	if !IsNil(o.RenotifyConfig) {
-		toSerialize["renotifyConfig"] = o.RenotifyConfig
 	}
 	toSerialize["config"] = o.Config
 
@@ -225,7 +189,6 @@ func (o *RuleTargetsInner) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "rateLimit")
-		delete(additionalProperties, "renotifyConfig")
 		delete(additionalProperties, "config")
 		o.AdditionalProperties = additionalProperties
 	}

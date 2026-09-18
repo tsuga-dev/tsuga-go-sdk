@@ -18,9 +18,9 @@ import (
 // checks if the QueryDashboardsRequestFiltersSearchQuery type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &QueryDashboardsRequestFiltersSearchQuery{}
 
-// QueryDashboardsRequestFiltersSearchQuery Text filter for dashboard names or IDs. Set by the caller in dashboard query requests. Optional; `exclude: true` returns dashboards whose name and ID do not match the substring.
+// QueryDashboardsRequestFiltersSearchQuery Text filter for dashboard names or IDs. Optional; `exclude: true` returns dashboards whose name and ID do not match the substring.
 type QueryDashboardsRequestFiltersSearchQuery struct {
-	// Substring matched case-insensitively against dashboard names or dashboard IDs. Set by the caller in dashboard query requests. Optional; omit to avoid text filtering.
+	// Substring matched case-insensitively against dashboard names or dashboard IDs. Omit the whole `searchQuery` filter to skip text filtering.
 	Value string `json:"value"`
 	// If true, exclude dashboards matching this value instead of including them
 	Exclude              *bool `json:"exclude,omitempty"`

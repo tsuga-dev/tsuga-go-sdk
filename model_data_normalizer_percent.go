@@ -20,7 +20,7 @@ var _ MappedNullable = &DataNormalizerPercent{}
 
 // DataNormalizerPercent struct for DataNormalizerPercent
 type DataNormalizerPercent struct {
-	// Format values as percentages
+	// Formats numeric values as percentages. Use it when the raw value is already on a 0-100 scale, for example `25` to display `25%`.
 	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }

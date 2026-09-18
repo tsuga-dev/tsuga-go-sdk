@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | Display name of the dashboard. Set by the caller on create or update. | [optional] 
-**Owner** | Pointer to **string** | ID of the team that owns the dashboard. Set by the caller on create or update. Required and used for dashboard access control. | [optional] 
+**Name** | Pointer to **string** | Display name of the dashboard. | [optional] 
+**Owner** | Pointer to **string** | ID of the team that owns the dashboard. Required and used for dashboard access control. | [optional] 
 **Graphs** | Pointer to [**[]Graph**](Graph.md) | Ordered widgets that compose the dashboard | [optional] 
 **Filters** | Pointer to [**[]UpdateDashboardRequestFiltersInner**](UpdateDashboardRequestFiltersInner.md) | Dashboard-wide filters applied to every widget on the dashboard. Up to 10 filters are allowed. | [optional] 
-**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Up to 50 tags are accepted and tag policies may require specific keys or values. | [optional] 
-**TimePreset** | Pointer to **string** | Relative time preset used when opening the dashboard. Set by the caller or by Tsuga’s default. Optional; create defaults to &#x60;past-30-minutes&#x60; when omitted, and update omission preserves the current value. | [optional] 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
+**TimePreset** | Pointer to **string** | Relative time preset used when opening the dashboard. Optional; create defaults to &#x60;past-30-minutes&#x60; when omitted, and update omission preserves the current value. | [optional] 
 **FolderId** | Pointer to **NullableString** |  | [optional] 
 
 ## Methods

@@ -24,26 +24,29 @@ type InputGraphVisualizationTimeseries struct {
 	Type string `json:"type"`
 	// Telemetry source queried by this aggregation: `logs`, `metrics`, `traces`, or `rum`.
 	Source string `json:"source"`
-	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order. Limited to 15 items. For dataSource \"metrics\", each aggregate's `field` is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"system.cpu.utilization.context.host.name\").
+	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order. For dataSource \"metrics\", each aggregate's `field` is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"system.cpu.utilization.context.host.name\").
 	Queries []AggregationQuery1 `json:"queries"`
 	// Formula referencing query outputs, such as `q1 + q2`, to compute derived results. Defaults to `q1`. Formulas may reference only submitted queries (`q1` through `qN`); undefined query references return 400.
 	Formula *string                                         `json:"formula,omitempty"`
 	Aliases *InputGraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
-	// Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. Limited to 7 levels.
-	GroupBy    []AggregationGroupBy1                         `json:"groupBy,omitempty"`
-	TimeBucket *GraphVisualizationTimeseriesPromqlTimeBucket `json:"timeBucket,omitempty"`
-	Normalizer *Normalizer1                                  `json:"normalizer,omitempty"`
-	// Number of decimal places to display in the value
-	Precision *float32 `json:"precision,omitempty"`
+	// Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted.
+	GroupBy []AggregationGroupBy1 `json:"groupBy,omitempty"`
+	// `absolute` keeps each group at its own value; `relative` shows it as a percentage of the ungrouped total (defaults to absolute)
+	GroupByMode *string                                          `json:"groupByMode,omitempty"`
+	TimeBucket  *GraphVisualizationTimeseriesPromqlTimeBucket    `json:"timeBucket,omitempty"`
+	Normalizer  *Normalizer1                                     `json:"normalizer,omitempty"`
+	Precision   *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode *string `json:"legendMode,omitempty"`
 	// Threshold markers displayed on the chart
 	Thresholds    []ThresholdMarker                                         `json:"thresholds,omitempty"`
 	YAxisSettings *InputGraphVisualizationTimeseriesConnectionYAxisSettings `json:"yAxisSettings,omitempty"`
 	// Whether to apply automatic smoothing to the rendered timeseries
-	Smoothing            *bool `json:"smoothing,omitempty"`
+	Smoothing *bool `json:"smoothing,omitempty"`
+	// Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. For widgets with a single query, only the `1` entry is read and it applies to every series. Defaults to regular.
+	LineStyleOptions     map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue `json:"lineStyleOptions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -269,6 +272,38 @@ func (o *InputGraphVisualizationTimeseries) SetGroupBy(v []AggregationGroupBy1) 
 	o.GroupBy = v
 }
 
+// GetGroupByMode returns the GroupByMode field value if set, zero value otherwise.
+func (o *InputGraphVisualizationTimeseries) GetGroupByMode() string {
+	if o == nil || IsNil(o.GroupByMode) {
+		var ret string
+		return ret
+	}
+	return *o.GroupByMode
+}
+
+// GetGroupByModeOk returns a tuple with the GroupByMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputGraphVisualizationTimeseries) GetGroupByModeOk() (*string, bool) {
+	if o == nil || IsNil(o.GroupByMode) {
+		return nil, false
+	}
+	return o.GroupByMode, true
+}
+
+// HasGroupByMode returns a boolean if a field has been set.
+func (o *InputGraphVisualizationTimeseries) HasGroupByMode() bool {
+	if o != nil && !IsNil(o.GroupByMode) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupByMode gets a reference to the given string and assigns it to the GroupByMode field.
+func (o *InputGraphVisualizationTimeseries) SetGroupByMode(v string) {
+	o.GroupByMode = &v
+}
+
 // GetTimeBucket returns the TimeBucket field value if set, zero value otherwise.
 func (o *InputGraphVisualizationTimeseries) GetTimeBucket() GraphVisualizationTimeseriesPromqlTimeBucket {
 	if o == nil || IsNil(o.TimeBucket) {
@@ -334,9 +369,9 @@ func (o *InputGraphVisualizationTimeseries) SetNormalizer(v Normalizer1) {
 }
 
 // GetPrecision returns the Precision field value if set, zero value otherwise.
-func (o *InputGraphVisualizationTimeseries) GetPrecision() float32 {
+func (o *InputGraphVisualizationTimeseries) GetPrecision() GraphVisualizationQueryValueConnectionPrecision {
 	if o == nil || IsNil(o.Precision) {
-		var ret float32
+		var ret GraphVisualizationQueryValueConnectionPrecision
 		return ret
 	}
 	return *o.Precision
@@ -344,7 +379,7 @@ func (o *InputGraphVisualizationTimeseries) GetPrecision() float32 {
 
 // GetPrecisionOk returns a tuple with the Precision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationTimeseries) GetPrecisionOk() (*float32, bool) {
+func (o *InputGraphVisualizationTimeseries) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool) {
 	if o == nil || IsNil(o.Precision) {
 		return nil, false
 	}
@@ -360,8 +395,8 @@ func (o *InputGraphVisualizationTimeseries) HasPrecision() bool {
 	return false
 }
 
-// SetPrecision gets a reference to the given float32 and assigns it to the Precision field.
-func (o *InputGraphVisualizationTimeseries) SetPrecision(v float32) {
+// SetPrecision gets a reference to the given GraphVisualizationQueryValueConnectionPrecision and assigns it to the Precision field.
+func (o *InputGraphVisualizationTimeseries) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision) {
 	o.Precision = &v
 }
 
@@ -493,6 +528,38 @@ func (o *InputGraphVisualizationTimeseries) SetSmoothing(v bool) {
 	o.Smoothing = &v
 }
 
+// GetLineStyleOptions returns the LineStyleOptions field value if set, zero value otherwise.
+func (o *InputGraphVisualizationTimeseries) GetLineStyleOptions() map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue {
+	if o == nil || IsNil(o.LineStyleOptions) {
+		var ret map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue
+		return ret
+	}
+	return o.LineStyleOptions
+}
+
+// GetLineStyleOptionsOk returns a tuple with the LineStyleOptions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputGraphVisualizationTimeseries) GetLineStyleOptionsOk() (map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue, bool) {
+	if o == nil || IsNil(o.LineStyleOptions) {
+		return map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue{}, false
+	}
+	return o.LineStyleOptions, true
+}
+
+// HasLineStyleOptions returns a boolean if a field has been set.
+func (o *InputGraphVisualizationTimeseries) HasLineStyleOptions() bool {
+	if o != nil && !IsNil(o.LineStyleOptions) {
+		return true
+	}
+
+	return false
+}
+
+// SetLineStyleOptions gets a reference to the given map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue and assigns it to the LineStyleOptions field.
+func (o *InputGraphVisualizationTimeseries) SetLineStyleOptions(v map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue) {
+	o.LineStyleOptions = v
+}
+
 func (o InputGraphVisualizationTimeseries) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -518,6 +585,9 @@ func (o InputGraphVisualizationTimeseries) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.GroupBy) {
 		toSerialize["groupBy"] = o.GroupBy
 	}
+	if !IsNil(o.GroupByMode) {
+		toSerialize["groupByMode"] = o.GroupByMode
+	}
 	if !IsNil(o.TimeBucket) {
 		toSerialize["timeBucket"] = o.TimeBucket
 	}
@@ -538,6 +608,9 @@ func (o InputGraphVisualizationTimeseries) ToMap() (map[string]interface{}, erro
 	}
 	if !IsNil(o.Smoothing) {
 		toSerialize["smoothing"] = o.Smoothing
+	}
+	if !IsNil(o.LineStyleOptions) {
+		toSerialize["lineStyleOptions"] = o.LineStyleOptions
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -591,6 +664,7 @@ func (o *InputGraphVisualizationTimeseries) UnmarshalJSON(data []byte) (err erro
 		delete(additionalProperties, "aliases")
 		delete(additionalProperties, "visibleSeries")
 		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "groupByMode")
 		delete(additionalProperties, "timeBucket")
 		delete(additionalProperties, "normalizer")
 		delete(additionalProperties, "precision")
@@ -598,6 +672,7 @@ func (o *InputGraphVisualizationTimeseries) UnmarshalJSON(data []byte) (err erro
 		delete(additionalProperties, "thresholds")
 		delete(additionalProperties, "yAxisSettings")
 		delete(additionalProperties, "smoothing")
+		delete(additionalProperties, "lineStyleOptions")
 		o.AdditionalProperties = additionalProperties
 	}
 

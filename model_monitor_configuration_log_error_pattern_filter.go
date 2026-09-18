@@ -18,14 +18,14 @@ import (
 // checks if the MonitorConfigurationLogErrorPatternFilter type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &MonitorConfigurationLogErrorPatternFilter{}
 
-// MonitorConfigurationLogErrorPatternFilter Log selection used for new error pattern detection. All configured fields must match for logs to be included.
+// MonitorConfigurationLogErrorPatternFilter Log selection used for new error pattern detection. All configured fields must match for logs to be included, so sending both teams and services searches only the listed services owned by the listed teams. Send a non-empty `teamIds`, a non-empty `services`, or both.
 type MonitorConfigurationLogErrorPatternFilter struct {
 	// Team IDs whose logs are searched for new error patterns. Tsuga resolves these team IDs to team names when exporting monitor assets.
-	TeamIds []string `json:"teamIds"`
+	TeamIds []string `json:"teamIds,omitempty"`
 	// Environment whose logs are searched for new error patterns.
 	Env string `json:"env"`
-	// Optional service name whose logs are searched for new error patterns. If omitted, the monitor searches all services matching the team and environment filter.
-	Service              *string `json:"service,omitempty"`
+	// Service names whose logs are searched for new error patterns.
+	Services             []string `json:"services,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -35,9 +35,8 @@ type _MonitorConfigurationLogErrorPatternFilter MonitorConfigurationLogErrorPatt
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMonitorConfigurationLogErrorPatternFilter(teamIds []string, env string) *MonitorConfigurationLogErrorPatternFilter {
+func NewMonitorConfigurationLogErrorPatternFilter(env string) *MonitorConfigurationLogErrorPatternFilter {
 	this := MonitorConfigurationLogErrorPatternFilter{}
-	this.TeamIds = teamIds
 	this.Env = env
 	return &this
 }
@@ -50,26 +49,34 @@ func NewMonitorConfigurationLogErrorPatternFilterWithDefaults() *MonitorConfigur
 	return &this
 }
 
-// GetTeamIds returns the TeamIds field value
+// GetTeamIds returns the TeamIds field value if set, zero value otherwise.
 func (o *MonitorConfigurationLogErrorPatternFilter) GetTeamIds() []string {
-	if o == nil {
+	if o == nil || IsNil(o.TeamIds) {
 		var ret []string
 		return ret
 	}
-
 	return o.TeamIds
 }
 
-// GetTeamIdsOk returns a tuple with the TeamIds field value
+// GetTeamIdsOk returns a tuple with the TeamIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MonitorConfigurationLogErrorPatternFilter) GetTeamIdsOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.TeamIds) {
 		return nil, false
 	}
 	return o.TeamIds, true
 }
 
-// SetTeamIds sets field value
+// HasTeamIds returns a boolean if a field has been set.
+func (o *MonitorConfigurationLogErrorPatternFilter) HasTeamIds() bool {
+	if o != nil && !IsNil(o.TeamIds) {
+		return true
+	}
+
+	return false
+}
+
+// SetTeamIds gets a reference to the given []string and assigns it to the TeamIds field.
 func (o *MonitorConfigurationLogErrorPatternFilter) SetTeamIds(v []string) {
 	o.TeamIds = v
 }
@@ -98,36 +105,36 @@ func (o *MonitorConfigurationLogErrorPatternFilter) SetEnv(v string) {
 	o.Env = v
 }
 
-// GetService returns the Service field value if set, zero value otherwise.
-func (o *MonitorConfigurationLogErrorPatternFilter) GetService() string {
-	if o == nil || IsNil(o.Service) {
-		var ret string
+// GetServices returns the Services field value if set, zero value otherwise.
+func (o *MonitorConfigurationLogErrorPatternFilter) GetServices() []string {
+	if o == nil || IsNil(o.Services) {
+		var ret []string
 		return ret
 	}
-	return *o.Service
+	return o.Services
 }
 
-// GetServiceOk returns a tuple with the Service field value if set, nil otherwise
+// GetServicesOk returns a tuple with the Services field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MonitorConfigurationLogErrorPatternFilter) GetServiceOk() (*string, bool) {
-	if o == nil || IsNil(o.Service) {
+func (o *MonitorConfigurationLogErrorPatternFilter) GetServicesOk() ([]string, bool) {
+	if o == nil || IsNil(o.Services) {
 		return nil, false
 	}
-	return o.Service, true
+	return o.Services, true
 }
 
-// HasService returns a boolean if a field has been set.
-func (o *MonitorConfigurationLogErrorPatternFilter) HasService() bool {
-	if o != nil && !IsNil(o.Service) {
+// HasServices returns a boolean if a field has been set.
+func (o *MonitorConfigurationLogErrorPatternFilter) HasServices() bool {
+	if o != nil && !IsNil(o.Services) {
 		return true
 	}
 
 	return false
 }
 
-// SetService gets a reference to the given string and assigns it to the Service field.
-func (o *MonitorConfigurationLogErrorPatternFilter) SetService(v string) {
-	o.Service = &v
+// SetServices gets a reference to the given []string and assigns it to the Services field.
+func (o *MonitorConfigurationLogErrorPatternFilter) SetServices(v []string) {
+	o.Services = v
 }
 
 func (o MonitorConfigurationLogErrorPatternFilter) MarshalJSON() ([]byte, error) {
@@ -140,10 +147,12 @@ func (o MonitorConfigurationLogErrorPatternFilter) MarshalJSON() ([]byte, error)
 
 func (o MonitorConfigurationLogErrorPatternFilter) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["teamIds"] = o.TeamIds
+	if !IsNil(o.TeamIds) {
+		toSerialize["teamIds"] = o.TeamIds
+	}
 	toSerialize["env"] = o.Env
-	if !IsNil(o.Service) {
-		toSerialize["service"] = o.Service
+	if !IsNil(o.Services) {
+		toSerialize["services"] = o.Services
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -158,7 +167,6 @@ func (o *MonitorConfigurationLogErrorPatternFilter) UnmarshalJSON(data []byte) (
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"teamIds",
 		"env",
 	}
 
@@ -191,7 +199,7 @@ func (o *MonitorConfigurationLogErrorPatternFilter) UnmarshalJSON(data []byte) (
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "teamIds")
 		delete(additionalProperties, "env")
-		delete(additionalProperties, "service")
+		delete(additionalProperties, "services")
 		o.AdditionalProperties = additionalProperties
 	}
 

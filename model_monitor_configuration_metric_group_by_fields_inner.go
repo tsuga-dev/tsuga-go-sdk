@@ -22,9 +22,9 @@ var _ MappedNullable = &MonitorConfigurationMetricGroupByFieldsInner{}
 type MonitorConfigurationMetricGroupByFieldsInner struct {
 	// Attribute names the monitor splits results by, evaluating each resulting group independently. Empty means the monitor evaluates a single ungrouped series.
 	Fields []string `json:"fields"`
-	// Configured limit for this group by. Warning! This setting is currently ignored. Monitor evaluation will instead apply a fixed limit of 100 groups per field.
+	// Configured limit for this group by. Currently ignored; monitor evaluation applies a fixed limit of 100 groups per field.
 	Limit float32 `json:"limit"`
-	// Sort direction applied to groups: ascending or descending.
+	// Sort direction: ascending or descending.
 	SortOrder *string `json:"sortOrder,omitempty"`
 	// Value used to group documents that have no value for a grouped field.
 	ReplaceNullWith      *string `json:"replaceNullWith,omitempty"`
