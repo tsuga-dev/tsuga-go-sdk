@@ -26,6 +26,7 @@ type Graph1Visualization struct {
 	GraphVisualizationList                 *GraphVisualizationList
 	GraphVisualizationListConnection       *GraphVisualizationListConnection
 	GraphVisualizationListLogPatterns      *GraphVisualizationListLogPatterns
+	GraphVisualizationListSpans            *GraphVisualizationListSpans
 	GraphVisualizationNote                 *GraphVisualizationNote
 	GraphVisualizationPie                  *GraphVisualizationPie
 	GraphVisualizationPieConnection        *GraphVisualizationPieConnection
@@ -33,6 +34,8 @@ type Graph1Visualization struct {
 	GraphVisualizationQueryValue           *GraphVisualizationQueryValue
 	GraphVisualizationQueryValueConnection *GraphVisualizationQueryValueConnection
 	GraphVisualizationQueryValuePromql     *GraphVisualizationQueryValuePromql
+	GraphVisualizationSloOverTime          *GraphVisualizationSloOverTime
+	GraphVisualizationSloUptime            *GraphVisualizationSloUptime
 	GraphVisualizationTable                *GraphVisualizationTable
 	GraphVisualizationTimeseries           *GraphVisualizationTimeseries
 	GraphVisualizationTimeseriesConnection *GraphVisualizationTimeseriesConnection
@@ -105,6 +108,13 @@ func GraphVisualizationListLogPatternsAsGraph1Visualization(v *GraphVisualizatio
 	}
 }
 
+// GraphVisualizationListSpansAsGraph1Visualization is a convenience function that returns GraphVisualizationListSpans wrapped in Graph1Visualization
+func GraphVisualizationListSpansAsGraph1Visualization(v *GraphVisualizationListSpans) Graph1Visualization {
+	return Graph1Visualization{
+		GraphVisualizationListSpans: v,
+	}
+}
+
 // GraphVisualizationNoteAsGraph1Visualization is a convenience function that returns GraphVisualizationNote wrapped in Graph1Visualization
 func GraphVisualizationNoteAsGraph1Visualization(v *GraphVisualizationNote) Graph1Visualization {
 	return Graph1Visualization{
@@ -151,6 +161,20 @@ func GraphVisualizationQueryValueConnectionAsGraph1Visualization(v *GraphVisuali
 func GraphVisualizationQueryValuePromqlAsGraph1Visualization(v *GraphVisualizationQueryValuePromql) Graph1Visualization {
 	return Graph1Visualization{
 		GraphVisualizationQueryValuePromql: v,
+	}
+}
+
+// GraphVisualizationSloOverTimeAsGraph1Visualization is a convenience function that returns GraphVisualizationSloOverTime wrapped in Graph1Visualization
+func GraphVisualizationSloOverTimeAsGraph1Visualization(v *GraphVisualizationSloOverTime) Graph1Visualization {
+	return Graph1Visualization{
+		GraphVisualizationSloOverTime: v,
+	}
+}
+
+// GraphVisualizationSloUptimeAsGraph1Visualization is a convenience function that returns GraphVisualizationSloUptime wrapped in Graph1Visualization
+func GraphVisualizationSloUptimeAsGraph1Visualization(v *GraphVisualizationSloUptime) Graph1Visualization {
+	return Graph1Visualization{
+		GraphVisualizationSloUptime: v,
 	}
 }
 
@@ -321,6 +345,18 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'list-spans'
+	if jsonDict["type"] == "list-spans" {
+		// try to unmarshal JSON data into GraphVisualizationListSpans
+		err = json.Unmarshal(data, &dst.GraphVisualizationListSpans)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationListSpans, return on the first match
+		} else {
+			dst.GraphVisualizationListSpans = nil
+			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationListSpans: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'note'
 	if jsonDict["type"] == "note" {
 		// try to unmarshal JSON data into GraphVisualizationNote
@@ -402,6 +438,30 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.GraphVisualizationQueryValuePromql = nil
 			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationQueryValuePromql: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'slo-over-time'
+	if jsonDict["type"] == "slo-over-time" {
+		// try to unmarshal JSON data into GraphVisualizationSloOverTime
+		err = json.Unmarshal(data, &dst.GraphVisualizationSloOverTime)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationSloOverTime, return on the first match
+		} else {
+			dst.GraphVisualizationSloOverTime = nil
+			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationSloOverTime: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'slo-uptime'
+	if jsonDict["type"] == "slo-uptime" {
+		// try to unmarshal JSON data into GraphVisualizationSloUptime
+		err = json.Unmarshal(data, &dst.GraphVisualizationSloUptime)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationSloUptime, return on the first match
+		} else {
+			dst.GraphVisualizationSloUptime = nil
+			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationSloUptime: %s", err.Error())
 		}
 	}
 
@@ -530,6 +590,10 @@ func (src Graph1Visualization) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.GraphVisualizationListLogPatterns)
 	}
 
+	if src.GraphVisualizationListSpans != nil {
+		return json.Marshal(&src.GraphVisualizationListSpans)
+	}
+
 	if src.GraphVisualizationNote != nil {
 		return json.Marshal(&src.GraphVisualizationNote)
 	}
@@ -556,6 +620,14 @@ func (src Graph1Visualization) MarshalJSON() ([]byte, error) {
 
 	if src.GraphVisualizationQueryValuePromql != nil {
 		return json.Marshal(&src.GraphVisualizationQueryValuePromql)
+	}
+
+	if src.GraphVisualizationSloOverTime != nil {
+		return json.Marshal(&src.GraphVisualizationSloOverTime)
+	}
+
+	if src.GraphVisualizationSloUptime != nil {
+		return json.Marshal(&src.GraphVisualizationSloUptime)
 	}
 
 	if src.GraphVisualizationTable != nil {
@@ -630,6 +702,10 @@ func (obj *Graph1Visualization) GetActualInstance() interface{} {
 		return obj.GraphVisualizationListLogPatterns
 	}
 
+	if obj.GraphVisualizationListSpans != nil {
+		return obj.GraphVisualizationListSpans
+	}
+
 	if obj.GraphVisualizationNote != nil {
 		return obj.GraphVisualizationNote
 	}
@@ -656,6 +732,14 @@ func (obj *Graph1Visualization) GetActualInstance() interface{} {
 
 	if obj.GraphVisualizationQueryValuePromql != nil {
 		return obj.GraphVisualizationQueryValuePromql
+	}
+
+	if obj.GraphVisualizationSloOverTime != nil {
+		return obj.GraphVisualizationSloOverTime
+	}
+
+	if obj.GraphVisualizationSloUptime != nil {
+		return obj.GraphVisualizationSloUptime
 	}
 
 	if obj.GraphVisualizationTable != nil {
@@ -728,6 +812,10 @@ func (obj Graph1Visualization) GetActualInstanceValue() interface{} {
 		return *obj.GraphVisualizationListLogPatterns
 	}
 
+	if obj.GraphVisualizationListSpans != nil {
+		return *obj.GraphVisualizationListSpans
+	}
+
 	if obj.GraphVisualizationNote != nil {
 		return *obj.GraphVisualizationNote
 	}
@@ -754,6 +842,14 @@ func (obj Graph1Visualization) GetActualInstanceValue() interface{} {
 
 	if obj.GraphVisualizationQueryValuePromql != nil {
 		return *obj.GraphVisualizationQueryValuePromql
+	}
+
+	if obj.GraphVisualizationSloOverTime != nil {
+		return *obj.GraphVisualizationSloOverTime
+	}
+
+	if obj.GraphVisualizationSloUptime != nil {
+		return *obj.GraphVisualizationSloUptime
 	}
 
 	if obj.GraphVisualizationTable != nil {

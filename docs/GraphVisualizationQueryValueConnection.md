@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Queries** | **[]string** |  | 
 **BackgroundMode** | Pointer to **string** | Controls whether the widget uses a solid or transparent background | [optional] 
 **Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the displayed value | [optional] 
-**Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
+**Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 
@@ -144,20 +144,20 @@ HasConditions returns a boolean if a field has been set.
 
 ### GetPrecision
 
-`func (o *GraphVisualizationQueryValueConnection) GetPrecision() float32`
+`func (o *GraphVisualizationQueryValueConnection) GetPrecision() GraphVisualizationQueryValueConnectionPrecision`
 
 GetPrecision returns the Precision field if non-nil, zero value otherwise.
 
 ### GetPrecisionOk
 
-`func (o *GraphVisualizationQueryValueConnection) GetPrecisionOk() (*float32, bool)`
+`func (o *GraphVisualizationQueryValueConnection) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool)`
 
 GetPrecisionOk returns a tuple with the Precision field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrecision
 
-`func (o *GraphVisualizationQueryValueConnection) SetPrecision(v float32)`
+`func (o *GraphVisualizationQueryValueConnection) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision)`
 
 SetPrecision sets Precision field to given value.
 

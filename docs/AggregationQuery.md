@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Aggregate** | [**Aggregate**](Aggregate.md) |  | 
 **Functions** | Pointer to [**[]Function**](Function.md) | Post-processing functions applied to aggregation results | [optional] 
 **Fill** | Pointer to [**MonitorAggregationQueryFill**](MonitorAggregationQueryFill.md) |  | [optional] 
+**TimeAggregate** | Pointer to **string** | Per-series rollup applied within each time bucket before the cross-series aggregate. Use it on metric queries when &#x60;aggregate.type&#x60; is &#x60;sum&#x60; and no &#x60;rate&#x60;, &#x60;increase&#x60;, &#x60;last&#x60;, or &#x60;rolling&#x60; function is present. When omitted, Tsuga derives the rollup from the metric type. | [optional] 
 **Filter** | Pointer to **string** | Filter to apply to the aggregation | [optional] 
 
 ## Methods
@@ -97,6 +98,31 @@ SetFill sets Fill field to given value.
 `func (o *AggregationQuery) HasFill() bool`
 
 HasFill returns a boolean if a field has been set.
+
+### GetTimeAggregate
+
+`func (o *AggregationQuery) GetTimeAggregate() string`
+
+GetTimeAggregate returns the TimeAggregate field if non-nil, zero value otherwise.
+
+### GetTimeAggregateOk
+
+`func (o *AggregationQuery) GetTimeAggregateOk() (*string, bool)`
+
+GetTimeAggregateOk returns a tuple with the TimeAggregate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTimeAggregate
+
+`func (o *AggregationQuery) SetTimeAggregate(v string)`
+
+SetTimeAggregate sets TimeAggregate field to given value.
+
+### HasTimeAggregate
+
+`func (o *AggregationQuery) HasTimeAggregate() bool`
+
+HasTimeAggregate returns a boolean if a field has been set.
 
 ### GetFilter
 

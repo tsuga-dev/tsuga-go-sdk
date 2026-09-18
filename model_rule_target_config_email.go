@@ -23,7 +23,8 @@ type RuleTargetConfigEmail struct {
 	// Email target that sends directly to the listed addresses and does not require an integration.
 	Type string `json:"type"`
 	// Email addresses that will receive the alert
-	Addresses            []string `json:"addresses"`
+	Addresses            []string                             `json:"addresses"`
+	RenotifyConfig       *RuleTargetConfigSlackRenotifyConfig `json:"renotifyConfig,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -96,6 +97,38 @@ func (o *RuleTargetConfigEmail) SetAddresses(v []string) {
 	o.Addresses = v
 }
 
+// GetRenotifyConfig returns the RenotifyConfig field value if set, zero value otherwise.
+func (o *RuleTargetConfigEmail) GetRenotifyConfig() RuleTargetConfigSlackRenotifyConfig {
+	if o == nil || IsNil(o.RenotifyConfig) {
+		var ret RuleTargetConfigSlackRenotifyConfig
+		return ret
+	}
+	return *o.RenotifyConfig
+}
+
+// GetRenotifyConfigOk returns a tuple with the RenotifyConfig field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RuleTargetConfigEmail) GetRenotifyConfigOk() (*RuleTargetConfigSlackRenotifyConfig, bool) {
+	if o == nil || IsNil(o.RenotifyConfig) {
+		return nil, false
+	}
+	return o.RenotifyConfig, true
+}
+
+// HasRenotifyConfig returns a boolean if a field has been set.
+func (o *RuleTargetConfigEmail) HasRenotifyConfig() bool {
+	if o != nil && !IsNil(o.RenotifyConfig) {
+		return true
+	}
+
+	return false
+}
+
+// SetRenotifyConfig gets a reference to the given RuleTargetConfigSlackRenotifyConfig and assigns it to the RenotifyConfig field.
+func (o *RuleTargetConfigEmail) SetRenotifyConfig(v RuleTargetConfigSlackRenotifyConfig) {
+	o.RenotifyConfig = &v
+}
+
 func (o RuleTargetConfigEmail) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -108,6 +141,9 @@ func (o RuleTargetConfigEmail) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
 	toSerialize["addresses"] = o.Addresses
+	if !IsNil(o.RenotifyConfig) {
+		toSerialize["renotifyConfig"] = o.RenotifyConfig
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -154,6 +190,7 @@ func (o *RuleTargetConfigEmail) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "addresses")
+		delete(additionalProperties, "renotifyConfig")
 		o.AdditionalProperties = additionalProperties
 	}
 

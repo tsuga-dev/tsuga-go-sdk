@@ -21,12 +21,11 @@ var _ MappedNullable = &CreateTeamRequest{}
 // CreateTeamRequest Team create or update request. Provide the team name, optional description, visibility, and tags.
 type CreateTeamRequest struct {
 	// Name to assign to the team. Must be kebab-case (lowercase letters, numbers, and dashes only) and unique in the organization. Maximum length is 100 characters.
-	Name string `json:"name"`
-	// Optional team description. Maximum length is 250 characters.
-	Description *string `json:"description,omitempty"`
+	Name        string         `json:"name"`
+	Description NullableString `json:"description,omitempty"`
 	// `public` makes team-owned resources discoverable according to access controls. `private` restricts discovery to team members and authorized users.
 	Visibility string `json:"visibility"`
-	// Key/value tags to apply to the resource. Up to 50 tags are accepted and tag policies may require specific keys or values.
+	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
 	Tags                 []Tag `json:"tags,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -76,36 +75,47 @@ func (o *CreateTeamRequest) SetName(v string) {
 	o.Name = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateTeamRequest) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil || IsNil(o.Description.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Description
+	return *o.Description.Get()
 }
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateTeamRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return o.Description.Get(), o.Description.IsSet()
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *CreateTeamRequest) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
+	if o != nil && o.Description.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
 func (o *CreateTeamRequest) SetDescription(v string) {
-	o.Description = &v
+	o.Description.Set(&v)
+}
+
+// SetDescriptionNil sets the value for Description to be an explicit nil
+func (o *CreateTeamRequest) SetDescriptionNil() {
+	o.Description.Set(nil)
+}
+
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil
+func (o *CreateTeamRequest) UnsetDescription() {
+	o.Description.Unset()
 }
 
 // GetVisibility returns the Visibility field value
@@ -175,8 +185,8 @@ func (o CreateTeamRequest) MarshalJSON() ([]byte, error) {
 func (o CreateTeamRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
 	}
 	toSerialize["visibility"] = o.Visibility
 	if !IsNil(o.Tags) {

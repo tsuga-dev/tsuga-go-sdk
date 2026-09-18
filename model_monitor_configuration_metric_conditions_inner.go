@@ -24,7 +24,7 @@ type MonitorConfigurationMetricConditionsInner struct {
 	Formula string `json:"formula"`
 	// Comparison operator used to evaluate the threshold condition.
 	Operator string `json:"operator"`
-	// Numeric threshold value used by the comparison.
+	// Numeric threshold value used by the comparison. May be negative when the formula result can be below zero.
 	Threshold            float32 `json:"threshold"`
 	AdditionalProperties map[string]interface{}
 }

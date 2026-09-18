@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Value** | **string** | Case-insensitive substring matched against monitor ID, monitor name, query filters, and aggregate fields. Wildcard characters are treated literally. | 
-**Exclude** | Pointer to **bool** | If true, exclude monitors matching this value instead of including them | [optional] 
+**Exclude** | Pointer to **bool** | If true, exclude rows matching this value instead of including them | [optional] 
 
 ## Methods
 

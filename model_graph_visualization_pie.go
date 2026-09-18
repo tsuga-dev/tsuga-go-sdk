@@ -32,10 +32,11 @@ type GraphVisualizationPie struct {
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values.
-	GroupBy    []AggregationGroupBy `json:"groupBy,omitempty"`
-	Normalizer *Normalizer          `json:"normalizer,omitempty"`
-	// Number of decimal places to display in the value
-	Precision *float32 `json:"precision,omitempty"`
+	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
+	// `absolute` keeps each group at its own value; `relative` shows it as a percentage of the ungrouped total (defaults to absolute)
+	GroupByMode *string                                          `json:"groupByMode,omitempty"`
+	Normalizer  *Normalizer                                      `json:"normalizer,omitempty"`
+	Precision   *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode           *string `json:"legendMode,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -263,6 +264,38 @@ func (o *GraphVisualizationPie) SetGroupBy(v []AggregationGroupBy) {
 	o.GroupBy = v
 }
 
+// GetGroupByMode returns the GroupByMode field value if set, zero value otherwise.
+func (o *GraphVisualizationPie) GetGroupByMode() string {
+	if o == nil || IsNil(o.GroupByMode) {
+		var ret string
+		return ret
+	}
+	return *o.GroupByMode
+}
+
+// GetGroupByModeOk returns a tuple with the GroupByMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationPie) GetGroupByModeOk() (*string, bool) {
+	if o == nil || IsNil(o.GroupByMode) {
+		return nil, false
+	}
+	return o.GroupByMode, true
+}
+
+// HasGroupByMode returns a boolean if a field has been set.
+func (o *GraphVisualizationPie) HasGroupByMode() bool {
+	if o != nil && !IsNil(o.GroupByMode) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupByMode gets a reference to the given string and assigns it to the GroupByMode field.
+func (o *GraphVisualizationPie) SetGroupByMode(v string) {
+	o.GroupByMode = &v
+}
+
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
 func (o *GraphVisualizationPie) GetNormalizer() Normalizer {
 	if o == nil || IsNil(o.Normalizer) {
@@ -296,9 +329,9 @@ func (o *GraphVisualizationPie) SetNormalizer(v Normalizer) {
 }
 
 // GetPrecision returns the Precision field value if set, zero value otherwise.
-func (o *GraphVisualizationPie) GetPrecision() float32 {
+func (o *GraphVisualizationPie) GetPrecision() GraphVisualizationQueryValueConnectionPrecision {
 	if o == nil || IsNil(o.Precision) {
-		var ret float32
+		var ret GraphVisualizationQueryValueConnectionPrecision
 		return ret
 	}
 	return *o.Precision
@@ -306,7 +339,7 @@ func (o *GraphVisualizationPie) GetPrecision() float32 {
 
 // GetPrecisionOk returns a tuple with the Precision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationPie) GetPrecisionOk() (*float32, bool) {
+func (o *GraphVisualizationPie) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool) {
 	if o == nil || IsNil(o.Precision) {
 		return nil, false
 	}
@@ -322,8 +355,8 @@ func (o *GraphVisualizationPie) HasPrecision() bool {
 	return false
 }
 
-// SetPrecision gets a reference to the given float32 and assigns it to the Precision field.
-func (o *GraphVisualizationPie) SetPrecision(v float32) {
+// SetPrecision gets a reference to the given GraphVisualizationQueryValueConnectionPrecision and assigns it to the Precision field.
+func (o *GraphVisualizationPie) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision) {
 	o.Precision = &v
 }
 
@@ -383,6 +416,9 @@ func (o GraphVisualizationPie) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.GroupBy) {
 		toSerialize["groupBy"] = o.GroupBy
+	}
+	if !IsNil(o.GroupByMode) {
+		toSerialize["groupByMode"] = o.GroupByMode
 	}
 	if !IsNil(o.Normalizer) {
 		toSerialize["normalizer"] = o.Normalizer
@@ -445,6 +481,7 @@ func (o *GraphVisualizationPie) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "aliases")
 		delete(additionalProperties, "visibleSeries")
 		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "groupByMode")
 		delete(additionalProperties, "normalizer")
 		delete(additionalProperties, "precision")
 		delete(additionalProperties, "legendMode")

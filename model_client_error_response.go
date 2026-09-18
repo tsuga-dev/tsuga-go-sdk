@@ -25,8 +25,8 @@ type ClientErrorResponse struct {
 	// Human readable explanation of the error
 	Message string `json:"message"`
 	// HTTP status code that was returned
-	StatusCode           float32                    `json:"statusCode"`
-	Details              *TagPolicyViolationDetails `json:"details,omitempty"`
+	StatusCode           float32                     `json:"statusCode"`
+	Details              *ClientErrorResponseDetails `json:"details,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -132,9 +132,9 @@ func (o *ClientErrorResponse) SetStatusCode(v float32) {
 }
 
 // GetDetails returns the Details field value if set, zero value otherwise.
-func (o *ClientErrorResponse) GetDetails() TagPolicyViolationDetails {
+func (o *ClientErrorResponse) GetDetails() ClientErrorResponseDetails {
 	if o == nil || IsNil(o.Details) {
-		var ret TagPolicyViolationDetails
+		var ret ClientErrorResponseDetails
 		return ret
 	}
 	return *o.Details
@@ -142,7 +142,7 @@ func (o *ClientErrorResponse) GetDetails() TagPolicyViolationDetails {
 
 // GetDetailsOk returns a tuple with the Details field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ClientErrorResponse) GetDetailsOk() (*TagPolicyViolationDetails, bool) {
+func (o *ClientErrorResponse) GetDetailsOk() (*ClientErrorResponseDetails, bool) {
 	if o == nil || IsNil(o.Details) {
 		return nil, false
 	}
@@ -158,8 +158,8 @@ func (o *ClientErrorResponse) HasDetails() bool {
 	return false
 }
 
-// SetDetails gets a reference to the given TagPolicyViolationDetails and assigns it to the Details field.
-func (o *ClientErrorResponse) SetDetails(v TagPolicyViolationDetails) {
+// SetDetails gets a reference to the given ClientErrorResponseDetails and assigns it to the Details field.
+func (o *ClientErrorResponse) SetDetails(v ClientErrorResponseDetails) {
 	o.Details = &v
 }
 

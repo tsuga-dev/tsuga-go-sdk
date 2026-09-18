@@ -17,10 +17,11 @@ import (
 // checks if the InputGraphVisualizationTimeseriesPromqlAliases type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &InputGraphVisualizationTimeseriesPromqlAliases{}
 
-// InputGraphVisualizationTimeseriesPromqlAliases struct for InputGraphVisualizationTimeseriesPromqlAliases
+// InputGraphVisualizationTimeseriesPromqlAliases Display names used for the formula series and the individual query series instead of auto-generated labels.
 type InputGraphVisualizationTimeseriesPromqlAliases struct {
 	// Optional alias for formula (only used for display in the UI)
-	Formula              *string           `json:"formula,omitempty"`
+	Formula *string `json:"formula,omitempty"`
+	// Display names for individual query series, keyed by the zero-based query index as a string.
 	Queries              map[string]string `json:"queries,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

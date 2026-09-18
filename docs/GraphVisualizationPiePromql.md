@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Queries** | **[]string** | PromQL expressions configured for this widget. PromQL-backed widgets require at least one query. | 
 **Aliases** | Pointer to [**GraphVisualizationTimeseriesPromqlAliases**](GraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
-**Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
+**Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 
 ## Methods
@@ -122,20 +122,20 @@ HasNormalizer returns a boolean if a field has been set.
 
 ### GetPrecision
 
-`func (o *GraphVisualizationPiePromql) GetPrecision() float32`
+`func (o *GraphVisualizationPiePromql) GetPrecision() GraphVisualizationQueryValueConnectionPrecision`
 
 GetPrecision returns the Precision field if non-nil, zero value otherwise.
 
 ### GetPrecisionOk
 
-`func (o *GraphVisualizationPiePromql) GetPrecisionOk() (*float32, bool)`
+`func (o *GraphVisualizationPiePromql) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool)`
 
 GetPrecisionOk returns a tuple with the Precision field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrecision
 
-`func (o *GraphVisualizationPiePromql) SetPrecision(v float32)`
+`func (o *GraphVisualizationPiePromql) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision)`
 
 SetPrecision sets Precision field to given value.
 

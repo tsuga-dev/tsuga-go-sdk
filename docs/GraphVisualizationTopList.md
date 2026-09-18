@@ -11,9 +11,11 @@ Name | Type | Description | Notes
 **Aliases** | Pointer to [**GraphVisualizationTimeseriesPromqlAliases**](GraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
 **GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values. | [optional] 
+**GroupByMode** | Pointer to **string** | &#x60;absolute&#x60; keeps each group at its own value; &#x60;relative&#x60; shows it as a percentage of the ungrouped total (defaults to absolute) | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
-**Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
+**Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
 **Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the displayed value | [optional] 
+**IsStacked** | Pointer to **bool** | Requests stacked rendering for a top-list widget. Tsuga renders stacked rows only for one count or sum query with exactly two grouped fields, no formula, non-negative values, and a single-cluster context; otherwise the widget renders as a normal top list. | [optional] 
 
 ## Methods
 
@@ -194,6 +196,31 @@ SetGroupBy sets GroupBy field to given value.
 
 HasGroupBy returns a boolean if a field has been set.
 
+### GetGroupByMode
+
+`func (o *GraphVisualizationTopList) GetGroupByMode() string`
+
+GetGroupByMode returns the GroupByMode field if non-nil, zero value otherwise.
+
+### GetGroupByModeOk
+
+`func (o *GraphVisualizationTopList) GetGroupByModeOk() (*string, bool)`
+
+GetGroupByModeOk returns a tuple with the GroupByMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGroupByMode
+
+`func (o *GraphVisualizationTopList) SetGroupByMode(v string)`
+
+SetGroupByMode sets GroupByMode field to given value.
+
+### HasGroupByMode
+
+`func (o *GraphVisualizationTopList) HasGroupByMode() bool`
+
+HasGroupByMode returns a boolean if a field has been set.
+
 ### GetNormalizer
 
 `func (o *GraphVisualizationTopList) GetNormalizer() Normalizer`
@@ -221,20 +248,20 @@ HasNormalizer returns a boolean if a field has been set.
 
 ### GetPrecision
 
-`func (o *GraphVisualizationTopList) GetPrecision() float32`
+`func (o *GraphVisualizationTopList) GetPrecision() GraphVisualizationQueryValueConnectionPrecision`
 
 GetPrecision returns the Precision field if non-nil, zero value otherwise.
 
 ### GetPrecisionOk
 
-`func (o *GraphVisualizationTopList) GetPrecisionOk() (*float32, bool)`
+`func (o *GraphVisualizationTopList) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool)`
 
 GetPrecisionOk returns a tuple with the Precision field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrecision
 
-`func (o *GraphVisualizationTopList) SetPrecision(v float32)`
+`func (o *GraphVisualizationTopList) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision)`
 
 SetPrecision sets Precision field to given value.
 
@@ -268,6 +295,31 @@ SetConditions sets Conditions field to given value.
 `func (o *GraphVisualizationTopList) HasConditions() bool`
 
 HasConditions returns a boolean if a field has been set.
+
+### GetIsStacked
+
+`func (o *GraphVisualizationTopList) GetIsStacked() bool`
+
+GetIsStacked returns the IsStacked field if non-nil, zero value otherwise.
+
+### GetIsStackedOk
+
+`func (o *GraphVisualizationTopList) GetIsStackedOk() (*bool, bool)`
+
+GetIsStackedOk returns a tuple with the IsStacked field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsStacked
+
+`func (o *GraphVisualizationTopList) SetIsStacked(v bool)`
+
+SetIsStacked sets IsStacked field to given value.
+
+### HasIsStacked
+
+`func (o *GraphVisualizationTopList) HasIsStacked() bool`
+
+HasIsStacked returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

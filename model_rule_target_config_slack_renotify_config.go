@@ -15,11 +15,11 @@ import (
 	"fmt"
 )
 
-// checks if the RuleTargetsInnerRenotifyConfig type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &RuleTargetsInnerRenotifyConfig{}
+// checks if the RuleTargetConfigSlackRenotifyConfig type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RuleTargetConfigSlackRenotifyConfig{}
 
-// RuleTargetsInnerRenotifyConfig Configuration for repeat monitor notifications on this target. If omitted, Tsuga sends only the original notification for each alert transition.
-type RuleTargetsInnerRenotifyConfig struct {
+// RuleTargetConfigSlackRenotifyConfig Configuration for repeat monitor notifications on this target. If omitted, Tsuga sends only the original notification for each alert transition.
+type RuleTargetConfigSlackRenotifyConfig struct {
 	// Renotification mode. `each` sends repeat notifications for each matching monitor alert that remains in a configured state.
 	Mode string `json:"mode"`
 	// Monitor alert states that trigger repeat notifications while the target remains configured for renotification.
@@ -29,30 +29,30 @@ type RuleTargetsInnerRenotifyConfig struct {
 	AdditionalProperties    map[string]interface{}
 }
 
-type _RuleTargetsInnerRenotifyConfig RuleTargetsInnerRenotifyConfig
+type _RuleTargetConfigSlackRenotifyConfig RuleTargetConfigSlackRenotifyConfig
 
-// NewRuleTargetsInnerRenotifyConfig instantiates a new RuleTargetsInnerRenotifyConfig object
+// NewRuleTargetConfigSlackRenotifyConfig instantiates a new RuleTargetConfigSlackRenotifyConfig object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRuleTargetsInnerRenotifyConfig(mode string, renotificationStates []string, renotifyIntervalMinutes int32) *RuleTargetsInnerRenotifyConfig {
-	this := RuleTargetsInnerRenotifyConfig{}
+func NewRuleTargetConfigSlackRenotifyConfig(mode string, renotificationStates []string, renotifyIntervalMinutes int32) *RuleTargetConfigSlackRenotifyConfig {
+	this := RuleTargetConfigSlackRenotifyConfig{}
 	this.Mode = mode
 	this.RenotificationStates = renotificationStates
 	this.RenotifyIntervalMinutes = renotifyIntervalMinutes
 	return &this
 }
 
-// NewRuleTargetsInnerRenotifyConfigWithDefaults instantiates a new RuleTargetsInnerRenotifyConfig object
+// NewRuleTargetConfigSlackRenotifyConfigWithDefaults instantiates a new RuleTargetConfigSlackRenotifyConfig object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewRuleTargetsInnerRenotifyConfigWithDefaults() *RuleTargetsInnerRenotifyConfig {
-	this := RuleTargetsInnerRenotifyConfig{}
+func NewRuleTargetConfigSlackRenotifyConfigWithDefaults() *RuleTargetConfigSlackRenotifyConfig {
+	this := RuleTargetConfigSlackRenotifyConfig{}
 	return &this
 }
 
 // GetMode returns the Mode field value
-func (o *RuleTargetsInnerRenotifyConfig) GetMode() string {
+func (o *RuleTargetConfigSlackRenotifyConfig) GetMode() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -63,7 +63,7 @@ func (o *RuleTargetsInnerRenotifyConfig) GetMode() string {
 
 // GetModeOk returns a tuple with the Mode field value
 // and a boolean to check if the value has been set.
-func (o *RuleTargetsInnerRenotifyConfig) GetModeOk() (*string, bool) {
+func (o *RuleTargetConfigSlackRenotifyConfig) GetModeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -71,12 +71,12 @@ func (o *RuleTargetsInnerRenotifyConfig) GetModeOk() (*string, bool) {
 }
 
 // SetMode sets field value
-func (o *RuleTargetsInnerRenotifyConfig) SetMode(v string) {
+func (o *RuleTargetConfigSlackRenotifyConfig) SetMode(v string) {
 	o.Mode = v
 }
 
 // GetRenotificationStates returns the RenotificationStates field value
-func (o *RuleTargetsInnerRenotifyConfig) GetRenotificationStates() []string {
+func (o *RuleTargetConfigSlackRenotifyConfig) GetRenotificationStates() []string {
 	if o == nil {
 		var ret []string
 		return ret
@@ -87,7 +87,7 @@ func (o *RuleTargetsInnerRenotifyConfig) GetRenotificationStates() []string {
 
 // GetRenotificationStatesOk returns a tuple with the RenotificationStates field value
 // and a boolean to check if the value has been set.
-func (o *RuleTargetsInnerRenotifyConfig) GetRenotificationStatesOk() ([]string, bool) {
+func (o *RuleTargetConfigSlackRenotifyConfig) GetRenotificationStatesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -95,12 +95,12 @@ func (o *RuleTargetsInnerRenotifyConfig) GetRenotificationStatesOk() ([]string, 
 }
 
 // SetRenotificationStates sets field value
-func (o *RuleTargetsInnerRenotifyConfig) SetRenotificationStates(v []string) {
+func (o *RuleTargetConfigSlackRenotifyConfig) SetRenotificationStates(v []string) {
 	o.RenotificationStates = v
 }
 
 // GetRenotifyIntervalMinutes returns the RenotifyIntervalMinutes field value
-func (o *RuleTargetsInnerRenotifyConfig) GetRenotifyIntervalMinutes() int32 {
+func (o *RuleTargetConfigSlackRenotifyConfig) GetRenotifyIntervalMinutes() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -111,7 +111,7 @@ func (o *RuleTargetsInnerRenotifyConfig) GetRenotifyIntervalMinutes() int32 {
 
 // GetRenotifyIntervalMinutesOk returns a tuple with the RenotifyIntervalMinutes field value
 // and a boolean to check if the value has been set.
-func (o *RuleTargetsInnerRenotifyConfig) GetRenotifyIntervalMinutesOk() (*int32, bool) {
+func (o *RuleTargetConfigSlackRenotifyConfig) GetRenotifyIntervalMinutesOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -119,11 +119,11 @@ func (o *RuleTargetsInnerRenotifyConfig) GetRenotifyIntervalMinutesOk() (*int32,
 }
 
 // SetRenotifyIntervalMinutes sets field value
-func (o *RuleTargetsInnerRenotifyConfig) SetRenotifyIntervalMinutes(v int32) {
+func (o *RuleTargetConfigSlackRenotifyConfig) SetRenotifyIntervalMinutes(v int32) {
 	o.RenotifyIntervalMinutes = v
 }
 
-func (o RuleTargetsInnerRenotifyConfig) MarshalJSON() ([]byte, error) {
+func (o RuleTargetConfigSlackRenotifyConfig) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -131,7 +131,7 @@ func (o RuleTargetsInnerRenotifyConfig) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o RuleTargetsInnerRenotifyConfig) ToMap() (map[string]interface{}, error) {
+func (o RuleTargetConfigSlackRenotifyConfig) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["mode"] = o.Mode
 	toSerialize["renotificationStates"] = o.RenotificationStates
@@ -144,7 +144,7 @@ func (o RuleTargetsInnerRenotifyConfig) ToMap() (map[string]interface{}, error) 
 	return toSerialize, nil
 }
 
-func (o *RuleTargetsInnerRenotifyConfig) UnmarshalJSON(data []byte) (err error) {
+func (o *RuleTargetConfigSlackRenotifyConfig) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -168,15 +168,15 @@ func (o *RuleTargetsInnerRenotifyConfig) UnmarshalJSON(data []byte) (err error) 
 		}
 	}
 
-	varRuleTargetsInnerRenotifyConfig := _RuleTargetsInnerRenotifyConfig{}
+	varRuleTargetConfigSlackRenotifyConfig := _RuleTargetConfigSlackRenotifyConfig{}
 
-	err = json.Unmarshal(data, &varRuleTargetsInnerRenotifyConfig)
+	err = json.Unmarshal(data, &varRuleTargetConfigSlackRenotifyConfig)
 
 	if err != nil {
 		return err
 	}
 
-	*o = RuleTargetsInnerRenotifyConfig(varRuleTargetsInnerRenotifyConfig)
+	*o = RuleTargetConfigSlackRenotifyConfig(varRuleTargetConfigSlackRenotifyConfig)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -190,38 +190,38 @@ func (o *RuleTargetsInnerRenotifyConfig) UnmarshalJSON(data []byte) (err error) 
 	return err
 }
 
-type NullableRuleTargetsInnerRenotifyConfig struct {
-	value *RuleTargetsInnerRenotifyConfig
+type NullableRuleTargetConfigSlackRenotifyConfig struct {
+	value *RuleTargetConfigSlackRenotifyConfig
 	isSet bool
 }
 
-func (v NullableRuleTargetsInnerRenotifyConfig) Get() *RuleTargetsInnerRenotifyConfig {
+func (v NullableRuleTargetConfigSlackRenotifyConfig) Get() *RuleTargetConfigSlackRenotifyConfig {
 	return v.value
 }
 
-func (v *NullableRuleTargetsInnerRenotifyConfig) Set(val *RuleTargetsInnerRenotifyConfig) {
+func (v *NullableRuleTargetConfigSlackRenotifyConfig) Set(val *RuleTargetConfigSlackRenotifyConfig) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableRuleTargetsInnerRenotifyConfig) IsSet() bool {
+func (v NullableRuleTargetConfigSlackRenotifyConfig) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableRuleTargetsInnerRenotifyConfig) Unset() {
+func (v *NullableRuleTargetConfigSlackRenotifyConfig) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableRuleTargetsInnerRenotifyConfig(val *RuleTargetsInnerRenotifyConfig) *NullableRuleTargetsInnerRenotifyConfig {
-	return &NullableRuleTargetsInnerRenotifyConfig{value: val, isSet: true}
+func NewNullableRuleTargetConfigSlackRenotifyConfig(val *RuleTargetConfigSlackRenotifyConfig) *NullableRuleTargetConfigSlackRenotifyConfig {
+	return &NullableRuleTargetConfigSlackRenotifyConfig{value: val, isSet: true}
 }
 
-func (v NullableRuleTargetsInnerRenotifyConfig) MarshalJSON() ([]byte, error) {
+func (v NullableRuleTargetConfigSlackRenotifyConfig) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableRuleTargetsInnerRenotifyConfig) UnmarshalJSON(src []byte) error {
+func (v *NullableRuleTargetConfigSlackRenotifyConfig) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

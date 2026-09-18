@@ -24,7 +24,7 @@ type AggregatePercentile struct {
 	Type string `json:"type"`
 	// Attribute containing the values to aggregate
 	Field string `json:"field"`
-	// Percentile to compute for the selected field, from 0 through 100.
+	// Percentile to compute for the selected field.
 	Percentile           float32 `json:"percentile"`
 	AdditionalProperties map[string]interface{}
 }

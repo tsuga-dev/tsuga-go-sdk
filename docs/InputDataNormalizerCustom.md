@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Normalizes values using a custom unit label | 
-**Unit** | **string** | Text label describing the custom unit | 
+**Unit** | **string** | Text label describing the custom unit. Must not be empty. | 
 
 ## Methods
 

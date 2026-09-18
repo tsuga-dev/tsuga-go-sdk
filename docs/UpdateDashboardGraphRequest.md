@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | Display name of the graph widget. | [optional] 
-**Description** | Pointer to **string** | Optional text shown with the graph widget. Maximum length is 800 characters. | [optional] 
+**Description** | Pointer to **string** | Text shown with the graph widget. | [optional] 
 **DescriptionAlign** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
 **DescriptionJustifyContent** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
 **Visualization** | [**GraphVisualization**](GraphVisualization.md) |  | 

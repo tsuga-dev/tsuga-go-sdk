@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Name to assign to the team. Must be kebab-case (lowercase letters, numbers, and dashes only) and unique in the organization. Maximum length is 100 characters. | 
-**Description** | Pointer to **string** | Optional team description. Maximum length is 250 characters. | [optional] 
+**Description** | Pointer to **NullableString** |  | [optional] 
 **Visibility** | **string** | &#x60;public&#x60; makes team-owned resources discoverable according to access controls. &#x60;private&#x60; restricts discovery to team members and authorized users. | 
-**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Up to 50 tags are accepted and tag policies may require specific keys or values. | [optional] 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 
 ## Methods
 
@@ -73,6 +73,16 @@ SetDescription sets Description field to given value.
 
 HasDescription returns a boolean if a field has been set.
 
+### SetDescriptionNil
+
+`func (o *CreateTeamRequest) SetDescriptionNil(b bool)`
+
+ SetDescriptionNil sets the value for Description to be an explicit nil
+
+### UnsetDescription
+`func (o *CreateTeamRequest) UnsetDescription()`
+
+UnsetDescription ensures that no value is present for Description, not even an explicit nil
 ### GetVisibility
 
 `func (o *CreateTeamRequest) GetVisibility() string`

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | **string** | Dashboard-wide filter key, usually a telemetry attribute name. | 
-**Values** | **[]string** | Allowed values for this dashboard-wide filter. Set by the dashboard author and returned as stored. | 
+**Values** | **[]string** | Allowed values for this dashboard-wide filter. | 
 **Exclude** | Pointer to **bool** | If true, widgets exclude telemetry whose value matches this filter instead of including it (is-not). | [optional] 
 
 ## Methods

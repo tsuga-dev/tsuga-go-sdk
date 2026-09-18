@@ -18,7 +18,7 @@ import (
 // checks if the Graph1 type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Graph1{}
 
-// Graph1 struct for Graph1
+// Graph1 Single dashboard widget, combining its identity, its visualization configuration, and its position on the dashboard grid.
 type Graph1 struct {
 	// Unique identifier of the graph widget inside the dashboard. Set by the caller when the graph is created; use it to target the graph in later update requests.
 	Id string `json:"id"`

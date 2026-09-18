@@ -33,11 +33,13 @@ type GraphVisualizationDistribution struct {
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values.
 	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
-	// Number of decimal places to display in the value
-	Precision  *float32    `json:"precision,omitempty"`
-	Normalizer *Normalizer `json:"normalizer,omitempty"`
+	// Attribute that switches the count to \"Groups\" mode: records are grouped by this attribute, the aggregation produces one value per group, and the chart buckets those per-group values. When omitted, individual records are bucketed.
+	Group      *string                                          `json:"group,omitempty"`
+	Precision  *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
+	Normalizer *Normalizer                                      `json:"normalizer,omitempty"`
 	// Percentile markers displayed on top of the distribution chart
-	PercentileMarkers    []int32 `json:"percentileMarkers,omitempty"`
+	PercentileMarkers []int32 `json:"percentileMarkers,omitempty"`
+	// Spacing of the bucket boundaries across the distribution range. `linear` splits the range into equal-width buckets; `log` widens each bucket logarithmically, giving finer resolution near the lower bound.
 	BoundsScale          *string `json:"boundsScale,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -264,10 +266,42 @@ func (o *GraphVisualizationDistribution) SetGroupBy(v []AggregationGroupBy) {
 	o.GroupBy = v
 }
 
+// GetGroup returns the Group field value if set, zero value otherwise.
+func (o *GraphVisualizationDistribution) GetGroup() string {
+	if o == nil || IsNil(o.Group) {
+		var ret string
+		return ret
+	}
+	return *o.Group
+}
+
+// GetGroupOk returns a tuple with the Group field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationDistribution) GetGroupOk() (*string, bool) {
+	if o == nil || IsNil(o.Group) {
+		return nil, false
+	}
+	return o.Group, true
+}
+
+// HasGroup returns a boolean if a field has been set.
+func (o *GraphVisualizationDistribution) HasGroup() bool {
+	if o != nil && !IsNil(o.Group) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroup gets a reference to the given string and assigns it to the Group field.
+func (o *GraphVisualizationDistribution) SetGroup(v string) {
+	o.Group = &v
+}
+
 // GetPrecision returns the Precision field value if set, zero value otherwise.
-func (o *GraphVisualizationDistribution) GetPrecision() float32 {
+func (o *GraphVisualizationDistribution) GetPrecision() GraphVisualizationQueryValueConnectionPrecision {
 	if o == nil || IsNil(o.Precision) {
-		var ret float32
+		var ret GraphVisualizationQueryValueConnectionPrecision
 		return ret
 	}
 	return *o.Precision
@@ -275,7 +309,7 @@ func (o *GraphVisualizationDistribution) GetPrecision() float32 {
 
 // GetPrecisionOk returns a tuple with the Precision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationDistribution) GetPrecisionOk() (*float32, bool) {
+func (o *GraphVisualizationDistribution) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool) {
 	if o == nil || IsNil(o.Precision) {
 		return nil, false
 	}
@@ -291,8 +325,8 @@ func (o *GraphVisualizationDistribution) HasPrecision() bool {
 	return false
 }
 
-// SetPrecision gets a reference to the given float32 and assigns it to the Precision field.
-func (o *GraphVisualizationDistribution) SetPrecision(v float32) {
+// SetPrecision gets a reference to the given GraphVisualizationQueryValueConnectionPrecision and assigns it to the Precision field.
+func (o *GraphVisualizationDistribution) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision) {
 	o.Precision = &v
 }
 
@@ -417,6 +451,9 @@ func (o GraphVisualizationDistribution) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.GroupBy) {
 		toSerialize["groupBy"] = o.GroupBy
 	}
+	if !IsNil(o.Group) {
+		toSerialize["group"] = o.Group
+	}
 	if !IsNil(o.Precision) {
 		toSerialize["precision"] = o.Precision
 	}
@@ -481,6 +518,7 @@ func (o *GraphVisualizationDistribution) UnmarshalJSON(data []byte) (err error) 
 		delete(additionalProperties, "aliases")
 		delete(additionalProperties, "visibleSeries")
 		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "group")
 		delete(additionalProperties, "precision")
 		delete(additionalProperties, "normalizer")
 		delete(additionalProperties, "percentileMarkers")

@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Display name of the table column | 
-**Source** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, or &#x60;traces&#x60;. | 
+**Source** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, &#x60;traces&#x60;, or &#x60;rum&#x60;. | 
 **Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. | 
 **Formula** | Pointer to **string** | Formula referencing submitted query outputs, such as &#x60;q1 + q2&#x60;. References must be within &#x60;q1&#x60; through &#x60;qN&#x60; for the submitted queries. | [optional] 
 **Aliases** | Pointer to [**GraphVisualizationTimeseriesPromqlAliases**](GraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
-**Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
+**Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
 
 ## Methods
 
@@ -194,20 +194,20 @@ HasNormalizer returns a boolean if a field has been set.
 
 ### GetPrecision
 
-`func (o *TableColumn) GetPrecision() float32`
+`func (o *TableColumn) GetPrecision() GraphVisualizationQueryValueConnectionPrecision`
 
 GetPrecision returns the Precision field if non-nil, zero value otherwise.
 
 ### GetPrecisionOk
 
-`func (o *TableColumn) GetPrecisionOk() (*float32, bool)`
+`func (o *TableColumn) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool)`
 
 GetPrecisionOk returns a tuple with the Precision field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrecision
 
-`func (o *TableColumn) SetPrecision(v float32)`
+`func (o *TableColumn) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision)`
 
 SetPrecision sets Precision field to given value.
 

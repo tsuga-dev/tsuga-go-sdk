@@ -25,9 +25,13 @@ type GraphVisualizationTable struct {
 	// Each column defines an independent aggregation displayed as a table column
 	Columns []TableColumn `json:"columns"`
 	// Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values.
-	GroupBy              []AggregationGroupBy  `json:"groupBy,omitempty"`
-	DefaultSorting       []TableDefaultSorting `json:"defaultSorting,omitempty"`
-	ColumnSizes          map[string]float32    `json:"columnSizes,omitempty"`
+	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
+	// `absolute` keeps each group at its own value; `relative` shows it as a percentage of the ungrouped total (defaults to absolute)
+	GroupByMode *string `json:"groupByMode,omitempty"`
+	// Default sorting applied to a table widget. Column IDs are `label` for the grouping column and `col-<index>` for each entry in `columns`. Users can still change sorting by selecting columns in the rendered table.
+	DefaultSorting []TableDefaultSorting `json:"defaultSorting,omitempty"`
+	// Table column widths in pixels, keyed by column id: `label` for the grouping column and `col-<index>` for each entry in `columns`. Columns without an entry keep their default width.
+	ColumnSizes          map[string]float32 `json:"columnSizes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -132,6 +136,38 @@ func (o *GraphVisualizationTable) SetGroupBy(v []AggregationGroupBy) {
 	o.GroupBy = v
 }
 
+// GetGroupByMode returns the GroupByMode field value if set, zero value otherwise.
+func (o *GraphVisualizationTable) GetGroupByMode() string {
+	if o == nil || IsNil(o.GroupByMode) {
+		var ret string
+		return ret
+	}
+	return *o.GroupByMode
+}
+
+// GetGroupByModeOk returns a tuple with the GroupByMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationTable) GetGroupByModeOk() (*string, bool) {
+	if o == nil || IsNil(o.GroupByMode) {
+		return nil, false
+	}
+	return o.GroupByMode, true
+}
+
+// HasGroupByMode returns a boolean if a field has been set.
+func (o *GraphVisualizationTable) HasGroupByMode() bool {
+	if o != nil && !IsNil(o.GroupByMode) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupByMode gets a reference to the given string and assigns it to the GroupByMode field.
+func (o *GraphVisualizationTable) SetGroupByMode(v string) {
+	o.GroupByMode = &v
+}
+
 // GetDefaultSorting returns the DefaultSorting field value if set, zero value otherwise.
 func (o *GraphVisualizationTable) GetDefaultSorting() []TableDefaultSorting {
 	if o == nil || IsNil(o.DefaultSorting) {
@@ -211,6 +247,9 @@ func (o GraphVisualizationTable) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.GroupBy) {
 		toSerialize["groupBy"] = o.GroupBy
 	}
+	if !IsNil(o.GroupByMode) {
+		toSerialize["groupByMode"] = o.GroupByMode
+	}
 	if !IsNil(o.DefaultSorting) {
 		toSerialize["defaultSorting"] = o.DefaultSorting
 	}
@@ -264,6 +303,7 @@ func (o *GraphVisualizationTable) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "columns")
 		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "groupByMode")
 		delete(additionalProperties, "defaultSorting")
 		delete(additionalProperties, "columnSizes")
 		o.AdditionalProperties = additionalProperties

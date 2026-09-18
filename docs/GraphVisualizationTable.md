@@ -7,8 +7,9 @@ Name | Type | Description | Notes
 **Type** | **string** | Displays the aggregation as a table with multi-level grouping | 
 **Columns** | [**[]TableColumn**](TableColumn.md) | Each column defines an independent aggregation displayed as a table column | 
 **GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values. | [optional] 
-**DefaultSorting** | Pointer to [**[]TableDefaultSorting**](TableDefaultSorting.md) |  | [optional] 
-**ColumnSizes** | Pointer to **map[string]float32** |  | [optional] 
+**GroupByMode** | Pointer to **string** | &#x60;absolute&#x60; keeps each group at its own value; &#x60;relative&#x60; shows it as a percentage of the ungrouped total (defaults to absolute) | [optional] 
+**DefaultSorting** | Pointer to [**[]TableDefaultSorting**](TableDefaultSorting.md) | Default sorting applied to a table widget. Column IDs are &#x60;label&#x60; for the grouping column and &#x60;col-&lt;index&gt;&#x60; for each entry in &#x60;columns&#x60;. Users can still change sorting by selecting columns in the rendered table. | [optional] 
+**ColumnSizes** | Pointer to **map[string]float32** | Table column widths in pixels, keyed by column id: &#x60;label&#x60; for the grouping column and &#x60;col-&lt;index&gt;&#x60; for each entry in &#x60;columns&#x60;. Columns without an entry keep their default width. | [optional] 
 
 ## Methods
 
@@ -93,6 +94,31 @@ SetGroupBy sets GroupBy field to given value.
 `func (o *GraphVisualizationTable) HasGroupBy() bool`
 
 HasGroupBy returns a boolean if a field has been set.
+
+### GetGroupByMode
+
+`func (o *GraphVisualizationTable) GetGroupByMode() string`
+
+GetGroupByMode returns the GroupByMode field if non-nil, zero value otherwise.
+
+### GetGroupByModeOk
+
+`func (o *GraphVisualizationTable) GetGroupByModeOk() (*string, bool)`
+
+GetGroupByModeOk returns a tuple with the GroupByMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGroupByMode
+
+`func (o *GraphVisualizationTable) SetGroupByMode(v string)`
+
+SetGroupByMode sets GroupByMode field to given value.
+
+### HasGroupByMode
+
+`func (o *GraphVisualizationTable) HasGroupByMode() bool`
+
+HasGroupByMode returns a boolean if a field has been set.
 
 ### GetDefaultSorting
 

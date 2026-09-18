@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Type** | **string** | Slack target backed by a configured Slack integration. | 
 **Channel** | **string** | Slack channel ID that receives the notification | 
 **IntegrationId** | **string** | Slack workspace ID that receives the notification | 
+**RenotifyConfig** | Pointer to [**RuleTargetInputSlackRenotifyConfig**](RuleTargetInputSlackRenotifyConfig.md) |  | [optional] 
 
 ## Methods
 
@@ -86,6 +87,31 @@ and a boolean to check if the value has been set.
 
 SetIntegrationId sets IntegrationId field to given value.
 
+
+### GetRenotifyConfig
+
+`func (o *RuleTargetInputSlack) GetRenotifyConfig() RuleTargetInputSlackRenotifyConfig`
+
+GetRenotifyConfig returns the RenotifyConfig field if non-nil, zero value otherwise.
+
+### GetRenotifyConfigOk
+
+`func (o *RuleTargetInputSlack) GetRenotifyConfigOk() (*RuleTargetInputSlackRenotifyConfig, bool)`
+
+GetRenotifyConfigOk returns a tuple with the RenotifyConfig field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRenotifyConfig
+
+`func (o *RuleTargetInputSlack) SetRenotifyConfig(v RuleTargetInputSlackRenotifyConfig)`
+
+SetRenotifyConfig sets RenotifyConfig field to given value.
+
+### HasRenotifyConfig
+
+`func (o *RuleTargetInputSlack) HasRenotifyConfig() bool`
+
+HasRenotifyConfig returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

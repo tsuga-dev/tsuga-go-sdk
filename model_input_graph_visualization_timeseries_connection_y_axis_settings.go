@@ -18,7 +18,7 @@ import (
 // checks if the InputGraphVisualizationTimeseriesConnectionYAxisSettings type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &InputGraphVisualizationTimeseriesConnectionYAxisSettings{}
 
-// InputGraphVisualizationTimeseriesConnectionYAxisSettings Y-axis bounds and scale configuration for chart widgets. Set by the dashboard author. Optional on create or update and returned when configured.
+// InputGraphVisualizationTimeseriesConnectionYAxisSettings Y-axis bounds and scale configuration for chart widgets. Optional on create or update.
 type InputGraphVisualizationTimeseriesConnectionYAxisSettings struct {
 	Min   GraphVisualizationTimeseriesConnectionYAxisSettingsMin        `json:"min"`
 	Max   GraphVisualizationTimeseriesConnectionYAxisSettingsMin        `json:"max"`

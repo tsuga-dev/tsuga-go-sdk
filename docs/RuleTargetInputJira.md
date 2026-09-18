@@ -4,10 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | Jira target backed by a configured Jira integration. | 
+**Type** | **string** | Jira target backed by a configured Jira integration. Jira targets file one issue per notification and do not support renotification. | 
 **IntegrationId** | **string** | Identifier of the Jira integration to use | 
 **ProjectKey** | **string** | Key of the Jira project that alert issues are filed into, like \&quot;OPS\&quot;. | 
 **IssueType** | **string** | Name of the Jira issue type created for alerts, like \&quot;Bug\&quot; or \&quot;Task\&quot;. | 
+**OpenStatus** | Pointer to **string** | Jira status the alert ticket is moved to right after it is filed for a firing alert. A later transition between two firing states leaves the ticket status alone. | [optional] 
+**ClosedStatus** | Pointer to **string** | Jira status the alert ticket is moved to when the alert resolves. Only takes effect when the rule delivers recovery transitions. | [optional] 
 
 ## Methods
 
@@ -107,6 +109,56 @@ and a boolean to check if the value has been set.
 
 SetIssueType sets IssueType field to given value.
 
+
+### GetOpenStatus
+
+`func (o *RuleTargetInputJira) GetOpenStatus() string`
+
+GetOpenStatus returns the OpenStatus field if non-nil, zero value otherwise.
+
+### GetOpenStatusOk
+
+`func (o *RuleTargetInputJira) GetOpenStatusOk() (*string, bool)`
+
+GetOpenStatusOk returns a tuple with the OpenStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOpenStatus
+
+`func (o *RuleTargetInputJira) SetOpenStatus(v string)`
+
+SetOpenStatus sets OpenStatus field to given value.
+
+### HasOpenStatus
+
+`func (o *RuleTargetInputJira) HasOpenStatus() bool`
+
+HasOpenStatus returns a boolean if a field has been set.
+
+### GetClosedStatus
+
+`func (o *RuleTargetInputJira) GetClosedStatus() string`
+
+GetClosedStatus returns the ClosedStatus field if non-nil, zero value otherwise.
+
+### GetClosedStatusOk
+
+`func (o *RuleTargetInputJira) GetClosedStatusOk() (*string, bool)`
+
+GetClosedStatusOk returns a tuple with the ClosedStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClosedStatus
+
+`func (o *RuleTargetInputJira) SetClosedStatus(v string)`
+
+SetClosedStatus sets ClosedStatus field to given value.
+
+### HasClosedStatus
+
+`func (o *RuleTargetInputJira) HasClosedStatus() bool`
+
+HasClosedStatus returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

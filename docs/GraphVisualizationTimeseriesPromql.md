@@ -9,11 +9,12 @@ Name | Type | Description | Notes
 **Aliases** | Pointer to [**GraphVisualizationTimeseriesPromqlAliases**](GraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **TimeBucket** | Pointer to [**GraphVisualizationTimeseriesPromqlTimeBucket**](GraphVisualizationTimeseriesPromqlTimeBucket.md) |  | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
-**Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
+**Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 **Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
 **YAxisSettings** | Pointer to [**GraphVisualizationTimeseriesConnectionYAxisSettings**](GraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
 **Smoothing** | Pointer to **bool** | Whether to apply automatic smoothing to the rendered timeseries | [optional] 
+**LineStyleOptions** | Pointer to [**map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue**](GraphVisualizationTimeseriesConnectionLineStyleOptionsValue.md) | Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. For widgets with a single query, only the &#x60;1&#x60; entry is read and it applies to every series. Defaults to regular. | [optional] 
 
 ## Methods
 
@@ -151,20 +152,20 @@ HasNormalizer returns a boolean if a field has been set.
 
 ### GetPrecision
 
-`func (o *GraphVisualizationTimeseriesPromql) GetPrecision() float32`
+`func (o *GraphVisualizationTimeseriesPromql) GetPrecision() GraphVisualizationQueryValueConnectionPrecision`
 
 GetPrecision returns the Precision field if non-nil, zero value otherwise.
 
 ### GetPrecisionOk
 
-`func (o *GraphVisualizationTimeseriesPromql) GetPrecisionOk() (*float32, bool)`
+`func (o *GraphVisualizationTimeseriesPromql) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool)`
 
 GetPrecisionOk returns a tuple with the Precision field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrecision
 
-`func (o *GraphVisualizationTimeseriesPromql) SetPrecision(v float32)`
+`func (o *GraphVisualizationTimeseriesPromql) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision)`
 
 SetPrecision sets Precision field to given value.
 
@@ -273,6 +274,31 @@ SetSmoothing sets Smoothing field to given value.
 `func (o *GraphVisualizationTimeseriesPromql) HasSmoothing() bool`
 
 HasSmoothing returns a boolean if a field has been set.
+
+### GetLineStyleOptions
+
+`func (o *GraphVisualizationTimeseriesPromql) GetLineStyleOptions() map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue`
+
+GetLineStyleOptions returns the LineStyleOptions field if non-nil, zero value otherwise.
+
+### GetLineStyleOptionsOk
+
+`func (o *GraphVisualizationTimeseriesPromql) GetLineStyleOptionsOk() (*map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue, bool)`
+
+GetLineStyleOptionsOk returns a tuple with the LineStyleOptions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLineStyleOptions
+
+`func (o *GraphVisualizationTimeseriesPromql) SetLineStyleOptions(v map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue)`
+
+SetLineStyleOptions sets LineStyleOptions field to given value.
+
+### HasLineStyleOptions
+
+`func (o *GraphVisualizationTimeseriesPromql) HasLineStyleOptions() bool`
+
+HasLineStyleOptions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

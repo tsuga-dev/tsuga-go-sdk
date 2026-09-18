@@ -21,10 +21,9 @@ var _ MappedNullable = &CreateNotificationRuleRequestTargetsInner{}
 // CreateNotificationRuleRequestTargetsInner struct for CreateNotificationRuleRequestTargetsInner
 type CreateNotificationRuleRequestTargetsInner struct {
 	// Identifier of the notification target within this rule. Choose a stable ID that is unique among this rule's targets; Tsuga uses it with the rule ID for per-target delivery state such as rate limiting.
-	Id                   string                                                   `json:"id"`
-	RateLimit            *CreateNotificationRuleRequestTargetsInnerRateLimit      `json:"rateLimit,omitempty"`
-	Config               CreateNotificationRuleRequestTargetsInnerConfig          `json:"config"`
-	RenotifyConfig       *CreateNotificationRuleRequestTargetsInnerRenotifyConfig `json:"renotifyConfig,omitempty"`
+	Id                   string                                              `json:"id"`
+	RateLimit            *CreateNotificationRuleRequestTargetsInnerRateLimit `json:"rateLimit,omitempty"`
+	Config               CreateNotificationRuleRequestTargetsInnerConfig     `json:"config"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -129,38 +128,6 @@ func (o *CreateNotificationRuleRequestTargetsInner) SetConfig(v CreateNotificati
 	o.Config = v
 }
 
-// GetRenotifyConfig returns the RenotifyConfig field value if set, zero value otherwise.
-func (o *CreateNotificationRuleRequestTargetsInner) GetRenotifyConfig() CreateNotificationRuleRequestTargetsInnerRenotifyConfig {
-	if o == nil || IsNil(o.RenotifyConfig) {
-		var ret CreateNotificationRuleRequestTargetsInnerRenotifyConfig
-		return ret
-	}
-	return *o.RenotifyConfig
-}
-
-// GetRenotifyConfigOk returns a tuple with the RenotifyConfig field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateNotificationRuleRequestTargetsInner) GetRenotifyConfigOk() (*CreateNotificationRuleRequestTargetsInnerRenotifyConfig, bool) {
-	if o == nil || IsNil(o.RenotifyConfig) {
-		return nil, false
-	}
-	return o.RenotifyConfig, true
-}
-
-// HasRenotifyConfig returns a boolean if a field has been set.
-func (o *CreateNotificationRuleRequestTargetsInner) HasRenotifyConfig() bool {
-	if o != nil && !IsNil(o.RenotifyConfig) {
-		return true
-	}
-
-	return false
-}
-
-// SetRenotifyConfig gets a reference to the given CreateNotificationRuleRequestTargetsInnerRenotifyConfig and assigns it to the RenotifyConfig field.
-func (o *CreateNotificationRuleRequestTargetsInner) SetRenotifyConfig(v CreateNotificationRuleRequestTargetsInnerRenotifyConfig) {
-	o.RenotifyConfig = &v
-}
-
 func (o CreateNotificationRuleRequestTargetsInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -176,9 +143,6 @@ func (o CreateNotificationRuleRequestTargetsInner) ToMap() (map[string]interface
 		toSerialize["rateLimit"] = o.RateLimit
 	}
 	toSerialize["config"] = o.Config
-	if !IsNil(o.RenotifyConfig) {
-		toSerialize["renotifyConfig"] = o.RenotifyConfig
-	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -226,7 +190,6 @@ func (o *CreateNotificationRuleRequestTargetsInner) UnmarshalJSON(data []byte) (
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "rateLimit")
 		delete(additionalProperties, "config")
-		delete(additionalProperties, "renotifyConfig")
 		o.AdditionalProperties = additionalProperties
 	}
 

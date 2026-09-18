@@ -18,7 +18,7 @@ import (
 // checks if the ThresholdMarker type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ThresholdMarker{}
 
-// ThresholdMarker struct for ThresholdMarker
+// ThresholdMarker Marker line drawn across the chart at a fixed value, colored by its level.
 type ThresholdMarker struct {
 	// Y-axis value where the threshold marker is placed
 	Value float32 `json:"value"`

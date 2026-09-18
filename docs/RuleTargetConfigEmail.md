@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Email target that sends directly to the listed addresses and does not require an integration. | 
 **Addresses** | **[]string** | Email addresses that will receive the alert | 
+**RenotifyConfig** | Pointer to [**RuleTargetConfigSlackRenotifyConfig**](RuleTargetConfigSlackRenotifyConfig.md) |  | [optional] 
 
 ## Methods
 
@@ -65,6 +66,31 @@ and a boolean to check if the value has been set.
 
 SetAddresses sets Addresses field to given value.
 
+
+### GetRenotifyConfig
+
+`func (o *RuleTargetConfigEmail) GetRenotifyConfig() RuleTargetConfigSlackRenotifyConfig`
+
+GetRenotifyConfig returns the RenotifyConfig field if non-nil, zero value otherwise.
+
+### GetRenotifyConfigOk
+
+`func (o *RuleTargetConfigEmail) GetRenotifyConfigOk() (*RuleTargetConfigSlackRenotifyConfig, bool)`
+
+GetRenotifyConfigOk returns a tuple with the RenotifyConfig field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRenotifyConfig
+
+`func (o *RuleTargetConfigEmail) SetRenotifyConfig(v RuleTargetConfigSlackRenotifyConfig)`
+
+SetRenotifyConfig sets RenotifyConfig field to given value.
+
+### HasRenotifyConfig
+
+`func (o *RuleTargetConfigEmail) HasRenotifyConfig() bool`
+
+HasRenotifyConfig returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

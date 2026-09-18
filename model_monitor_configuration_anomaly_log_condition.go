@@ -18,7 +18,7 @@ import (
 // checks if the MonitorConfigurationAnomalyLogCondition type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &MonitorConfigurationAnomalyLogCondition{}
 
-// MonitorConfigurationAnomalyLogCondition struct for MonitorConfigurationAnomalyLogCondition
+// MonitorConfigurationAnomalyLogCondition Anomaly detection condition evaluated by this monitor. The `formula` result is compared against behavior learned from historical query results, and the monitor alerts on deviations in the direction implied by `conditionType`.
 type MonitorConfigurationAnomalyLogCondition struct {
 	// Formula result analyzed for anomalous behavior, usually `q1` or a formula alias.
 	Formula string `json:"formula"`

@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | incident.io target backed by a configured incident.io integration. | 
 **IntegrationId** | **string** | Identifier of the incident.io integration to use | 
+**RenotifyConfig** | Pointer to [**RuleTargetInputSlackRenotifyConfig**](RuleTargetInputSlackRenotifyConfig.md) |  | [optional] 
 
 ## Methods
 
@@ -65,6 +66,31 @@ and a boolean to check if the value has been set.
 
 SetIntegrationId sets IntegrationId field to given value.
 
+
+### GetRenotifyConfig
+
+`func (o *RuleTargetInputIncidentIo) GetRenotifyConfig() RuleTargetInputSlackRenotifyConfig`
+
+GetRenotifyConfig returns the RenotifyConfig field if non-nil, zero value otherwise.
+
+### GetRenotifyConfigOk
+
+`func (o *RuleTargetInputIncidentIo) GetRenotifyConfigOk() (*RuleTargetInputSlackRenotifyConfig, bool)`
+
+GetRenotifyConfigOk returns a tuple with the RenotifyConfig field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRenotifyConfig
+
+`func (o *RuleTargetInputIncidentIo) SetRenotifyConfig(v RuleTargetInputSlackRenotifyConfig)`
+
+SetRenotifyConfig sets RenotifyConfig field to given value.
+
+### HasRenotifyConfig
+
+`func (o *RuleTargetInputIncidentIo) HasRenotifyConfig() bool`
+
+HasRenotifyConfig returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

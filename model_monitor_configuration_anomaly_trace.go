@@ -20,14 +20,14 @@ var _ MappedNullable = &MonitorConfigurationAnomalyTrace{}
 
 // MonitorConfigurationAnomalyTrace struct for MonitorConfigurationAnomalyTrace
 type MonitorConfigurationAnomalyTrace struct {
-	// Anomaly monitor over trace aggregations.
+	// Anomaly monitor over trace aggregations. Use this configuration when Tsuga should learn historical trace query behavior and alert on unusual movement in trace-derived values.
 	Type      string                                  `json:"type"`
 	Condition MonitorConfigurationAnomalyLogCondition `json:"condition"`
 	// How the anomaly monitor updates state when no data is returned. `alert` enters no-data alert state, `resolve` resolves, and `keep_last_status` preserves the previous state.
 	NoDataBehavior string `json:"noDataBehavior"`
-	// Lookback window, in minutes, that each anomaly monitor evaluation aggregates over. Valid input is 5 through 1440 minutes.
+	// Lookback window, in minutes, that each anomaly monitor evaluation aggregates over. Always a whole number from 5 through 1440.
 	Timeframe float32 `json:"timeframe"`
-	// Monitor group by configuration. Warning! Note that the limit setting is currently ignored.
+	// Monitor group by configuration. The `limit` setting is currently ignored; evaluation applies a fixed limit of 100 groups per field.
 	GroupByFields []MonitorConfigurationMetricGroupByFieldsInner `json:"groupByFields"`
 	// How grouped results are combined into alert state. Use `no_aggregation` only when `groupByFields` is empty; use `all`, `any`, `each`, or `proportion` with non-empty `groupByFields`. `proportion` also requires `proportionAlertThreshold`.
 	AggregationAlertLogic *string `json:"aggregationAlertLogic,omitempty"`

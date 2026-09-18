@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | Format values as percentages | 
+**Type** | **string** | Formats numeric values as percentages. Use it when the raw value is already on a 0-100 scale, for example &#x60;25&#x60; to display &#x60;25%&#x60;. | 
 
 ## Methods
 

@@ -25,10 +25,13 @@ type GraphVisualizationList struct {
 	// Query that selects logs for the list
 	Query string `json:"query"`
 	// Custom columns to display for each log
-	ListColumns     []WidgetListColumn `json:"listColumns,omitempty"`
+	ListColumns []WidgetListColumn `json:"listColumns,omitempty"`
+	// List column widths in pixels, keyed by the `attribute` of the matching `listColumns` entry. Columns without an entry keep their default width.
 	ListColumnsSize map[string]float32 `json:"listColumnsSize,omitempty"`
-	// Whether list widget cell text wraps instead of truncating. Set by the dashboard author for list widgets. Optional on create or update and returned when configured.
-	IsCellWrapped        *bool `json:"isCellWrapped,omitempty"`
+	// Whether list widget cell text wraps instead of truncating. Applies to list widgets.
+	IsCellWrapped *bool `json:"isCellWrapped,omitempty"`
+	// Default sorting applied to a list widget. Applies to log, span, or connection list widgets. Users can still change sorting by selecting columns in the rendered list.
+	DefaultSorting       []ListDefaultSorting `json:"defaultSorting,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -197,6 +200,38 @@ func (o *GraphVisualizationList) SetIsCellWrapped(v bool) {
 	o.IsCellWrapped = &v
 }
 
+// GetDefaultSorting returns the DefaultSorting field value if set, zero value otherwise.
+func (o *GraphVisualizationList) GetDefaultSorting() []ListDefaultSorting {
+	if o == nil || IsNil(o.DefaultSorting) {
+		var ret []ListDefaultSorting
+		return ret
+	}
+	return o.DefaultSorting
+}
+
+// GetDefaultSortingOk returns a tuple with the DefaultSorting field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationList) GetDefaultSortingOk() ([]ListDefaultSorting, bool) {
+	if o == nil || IsNil(o.DefaultSorting) {
+		return nil, false
+	}
+	return o.DefaultSorting, true
+}
+
+// HasDefaultSorting returns a boolean if a field has been set.
+func (o *GraphVisualizationList) HasDefaultSorting() bool {
+	if o != nil && !IsNil(o.DefaultSorting) {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaultSorting gets a reference to the given []ListDefaultSorting and assigns it to the DefaultSorting field.
+func (o *GraphVisualizationList) SetDefaultSorting(v []ListDefaultSorting) {
+	o.DefaultSorting = v
+}
+
 func (o GraphVisualizationList) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -217,6 +252,9 @@ func (o GraphVisualizationList) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.IsCellWrapped) {
 		toSerialize["isCellWrapped"] = o.IsCellWrapped
+	}
+	if !IsNil(o.DefaultSorting) {
+		toSerialize["defaultSorting"] = o.DefaultSorting
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -267,6 +305,7 @@ func (o *GraphVisualizationList) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "listColumns")
 		delete(additionalProperties, "listColumnsSize")
 		delete(additionalProperties, "isCellWrapped")
+		delete(additionalProperties, "defaultSorting")
 		o.AdditionalProperties = additionalProperties
 	}
 

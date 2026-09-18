@@ -23,11 +23,10 @@ type GraphVisualizationPiePromql struct {
 	// Displays PromQL metrics query-based aggregation as a pie chart
 	Type string `json:"type"`
 	// PromQL expressions configured for this widget. PromQL-backed widgets require at least one query.
-	Queries    []string                                   `json:"queries"`
-	Aliases    *GraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
-	Normalizer *Normalizer                                `json:"normalizer,omitempty"`
-	// Number of decimal places to display in the value
-	Precision *float32 `json:"precision,omitempty"`
+	Queries    []string                                         `json:"queries"`
+	Aliases    *GraphVisualizationTimeseriesPromqlAliases       `json:"aliases,omitempty"`
+	Normalizer *Normalizer                                      `json:"normalizer,omitempty"`
+	Precision  *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode           *string `json:"legendMode,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -167,9 +166,9 @@ func (o *GraphVisualizationPiePromql) SetNormalizer(v Normalizer) {
 }
 
 // GetPrecision returns the Precision field value if set, zero value otherwise.
-func (o *GraphVisualizationPiePromql) GetPrecision() float32 {
+func (o *GraphVisualizationPiePromql) GetPrecision() GraphVisualizationQueryValueConnectionPrecision {
 	if o == nil || IsNil(o.Precision) {
-		var ret float32
+		var ret GraphVisualizationQueryValueConnectionPrecision
 		return ret
 	}
 	return *o.Precision
@@ -177,7 +176,7 @@ func (o *GraphVisualizationPiePromql) GetPrecision() float32 {
 
 // GetPrecisionOk returns a tuple with the Precision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationPiePromql) GetPrecisionOk() (*float32, bool) {
+func (o *GraphVisualizationPiePromql) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool) {
 	if o == nil || IsNil(o.Precision) {
 		return nil, false
 	}
@@ -193,8 +192,8 @@ func (o *GraphVisualizationPiePromql) HasPrecision() bool {
 	return false
 }
 
-// SetPrecision gets a reference to the given float32 and assigns it to the Precision field.
-func (o *GraphVisualizationPiePromql) SetPrecision(v float32) {
+// SetPrecision gets a reference to the given GraphVisualizationQueryValueConnectionPrecision and assigns it to the Precision field.
+func (o *GraphVisualizationPiePromql) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision) {
 	o.Precision = &v
 }
 

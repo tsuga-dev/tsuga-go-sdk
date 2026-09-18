@@ -6,15 +6,16 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a distribution chart | 
 **Source** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, &#x60;traces&#x60;, or &#x60;rum&#x60;. | 
-**Queries** | [**[]AggregationQuery1**](AggregationQuery1.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. Limited to 15 items. For dataSource \&quot;metrics\&quot;, each aggregate&#39;s &#x60;field&#x60; is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \&quot;&lt;metricName&gt;.context.&lt;attribute&gt;\&quot; (e.g. \&quot;system.cpu.utilization.context.host.name\&quot;). | 
+**Queries** | [**[]AggregationQuery1**](AggregationQuery1.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. For dataSource \&quot;metrics\&quot;, each aggregate&#39;s &#x60;field&#x60; is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \&quot;&lt;metricName&gt;.context.&lt;attribute&gt;\&quot; (e.g. \&quot;system.cpu.utilization.context.host.name\&quot;). | 
 **Formula** | Pointer to **string** | Formula referencing query outputs, such as &#x60;q1 + q2&#x60;, to compute derived results. Defaults to &#x60;q1&#x60;. Formulas may reference only submitted queries (&#x60;q1&#x60; through &#x60;qN&#x60;); undefined query references return 400. | [optional] 
 **Aliases** | Pointer to [**InputGraphVisualizationTimeseriesPromqlAliases**](InputGraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
-**GroupBy** | Pointer to [**[]AggregationGroupBy1**](AggregationGroupBy1.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. Limited to 7 levels. | [optional] 
-**Precision** | Pointer to **float32** | Number of decimal places to display in the value | [optional] 
+**GroupBy** | Pointer to [**[]AggregationGroupBy1**](AggregationGroupBy1.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
+**Group** | Pointer to **string** | Attribute that switches the count to \&quot;Groups\&quot; mode: records are grouped by this attribute, the aggregation produces one value per group, and the chart buckets those per-group values. When omitted, individual records are bucketed. | [optional] 
+**Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
 **Normalizer** | Pointer to [**Normalizer1**](Normalizer1.md) |  | [optional] 
 **PercentileMarkers** | Pointer to **[]int32** | Percentile markers displayed on top of the distribution chart | [optional] 
-**BoundsScale** | Pointer to **string** |  | [optional] 
+**BoundsScale** | Pointer to **string** | Spacing of the bucket boundaries across the distribution range. &#x60;linear&#x60; splits the range into equal-width buckets; &#x60;log&#x60; widens each bucket logarithmically, giving finer resolution near the lower bound. | [optional] 
 
 ## Methods
 
@@ -195,22 +196,47 @@ SetGroupBy sets GroupBy field to given value.
 
 HasGroupBy returns a boolean if a field has been set.
 
+### GetGroup
+
+`func (o *InputGraphVisualizationDistribution) GetGroup() string`
+
+GetGroup returns the Group field if non-nil, zero value otherwise.
+
+### GetGroupOk
+
+`func (o *InputGraphVisualizationDistribution) GetGroupOk() (*string, bool)`
+
+GetGroupOk returns a tuple with the Group field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGroup
+
+`func (o *InputGraphVisualizationDistribution) SetGroup(v string)`
+
+SetGroup sets Group field to given value.
+
+### HasGroup
+
+`func (o *InputGraphVisualizationDistribution) HasGroup() bool`
+
+HasGroup returns a boolean if a field has been set.
+
 ### GetPrecision
 
-`func (o *InputGraphVisualizationDistribution) GetPrecision() float32`
+`func (o *InputGraphVisualizationDistribution) GetPrecision() GraphVisualizationQueryValueConnectionPrecision`
 
 GetPrecision returns the Precision field if non-nil, zero value otherwise.
 
 ### GetPrecisionOk
 
-`func (o *InputGraphVisualizationDistribution) GetPrecisionOk() (*float32, bool)`
+`func (o *InputGraphVisualizationDistribution) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool)`
 
 GetPrecisionOk returns a tuple with the Precision field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrecision
 
-`func (o *InputGraphVisualizationDistribution) SetPrecision(v float32)`
+`func (o *InputGraphVisualizationDistribution) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision)`
 
 SetPrecision sets Precision field to given value.
 

@@ -23,7 +23,7 @@ type SpecificTeams struct {
 	// Match alert transitions associated with the listed teams. The caller must be allowed to access every listed team.
 	Type string `json:"type"`
 	// Team IDs selected by this filter.
-	Teams                []string `json:"teams"`
+	Teams                []*string `json:"teams"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,7 +33,7 @@ type _SpecificTeams SpecificTeams
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSpecificTeams(type_ string, teams []string) *SpecificTeams {
+func NewSpecificTeams(type_ string, teams []*string) *SpecificTeams {
 	this := SpecificTeams{}
 	this.Type = type_
 	this.Teams = teams
@@ -73,9 +73,9 @@ func (o *SpecificTeams) SetType(v string) {
 }
 
 // GetTeams returns the Teams field value
-func (o *SpecificTeams) GetTeams() []string {
+func (o *SpecificTeams) GetTeams() []*string {
 	if o == nil {
-		var ret []string
+		var ret []*string
 		return ret
 	}
 
@@ -84,7 +84,7 @@ func (o *SpecificTeams) GetTeams() []string {
 
 // GetTeamsOk returns a tuple with the Teams field value
 // and a boolean to check if the value has been set.
-func (o *SpecificTeams) GetTeamsOk() ([]string, bool) {
+func (o *SpecificTeams) GetTeamsOk() ([]*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -92,7 +92,7 @@ func (o *SpecificTeams) GetTeamsOk() ([]string, bool) {
 }
 
 // SetTeams sets field value
-func (o *SpecificTeams) SetTeams(v []string) {
+func (o *SpecificTeams) SetTeams(v []*string) {
 	o.Teams = v
 }
 

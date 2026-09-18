@@ -21,7 +21,7 @@ var _ MappedNullable = &CreateTagPolicyRequestTeamScope{}
 // CreateTagPolicyRequestTeamScope Team scope to store for this policy. Omit this field to apply the policy to all teams.
 type CreateTagPolicyRequestTeamScope struct {
 	// Team IDs used by this policy scope.
-	TeamIds []string `json:"teamIds"`
+	TeamIds []*string `json:"teamIds"`
 	// `include` applies the policy only to listed teams. `exclude` applies it to all teams except the listed teams.
 	Mode                 string `json:"mode"`
 	AdditionalProperties map[string]interface{}
@@ -33,7 +33,7 @@ type _CreateTagPolicyRequestTeamScope CreateTagPolicyRequestTeamScope
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateTagPolicyRequestTeamScope(teamIds []string, mode string) *CreateTagPolicyRequestTeamScope {
+func NewCreateTagPolicyRequestTeamScope(teamIds []*string, mode string) *CreateTagPolicyRequestTeamScope {
 	this := CreateTagPolicyRequestTeamScope{}
 	this.TeamIds = teamIds
 	this.Mode = mode
@@ -49,9 +49,9 @@ func NewCreateTagPolicyRequestTeamScopeWithDefaults() *CreateTagPolicyRequestTea
 }
 
 // GetTeamIds returns the TeamIds field value
-func (o *CreateTagPolicyRequestTeamScope) GetTeamIds() []string {
+func (o *CreateTagPolicyRequestTeamScope) GetTeamIds() []*string {
 	if o == nil {
-		var ret []string
+		var ret []*string
 		return ret
 	}
 
@@ -60,7 +60,7 @@ func (o *CreateTagPolicyRequestTeamScope) GetTeamIds() []string {
 
 // GetTeamIdsOk returns a tuple with the TeamIds field value
 // and a boolean to check if the value has been set.
-func (o *CreateTagPolicyRequestTeamScope) GetTeamIdsOk() ([]string, bool) {
+func (o *CreateTagPolicyRequestTeamScope) GetTeamIdsOk() ([]*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -68,7 +68,7 @@ func (o *CreateTagPolicyRequestTeamScope) GetTeamIdsOk() ([]string, bool) {
 }
 
 // SetTeamIds sets field value
-func (o *CreateTagPolicyRequestTeamScope) SetTeamIds(v []string) {
+func (o *CreateTagPolicyRequestTeamScope) SetTeamIds(v []*string) {
 	o.TeamIds = v
 }
 

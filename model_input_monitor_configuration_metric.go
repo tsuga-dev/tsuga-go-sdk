@@ -22,19 +22,19 @@ var _ MappedNullable = &InputMonitorConfigurationMetric{}
 type InputMonitorConfigurationMetric struct {
 	// Threshold monitor over metric aggregations.
 	Type string `json:"type"`
-	// Threshold conditions evaluated against query and formula results. Provide at least one condition and no more than five conditions.
+	// Threshold conditions evaluated against query and formula results. All listed conditions must match for a non-grouped threshold monitor to alert.
 	Conditions []InputMonitorConfigurationMetricConditionsInner `json:"conditions"`
 	// How the monitor updates state when no data is returned. `alert` enters no-data alert state, `resolve` resolves, `keep_last_status` preserves the previous state, and `consider_zero` evaluates missing values as zero.
 	NoDataBehavior string `json:"noDataBehavior"`
-	// Lookback window, in minutes, that each monitor evaluation aggregates over.
-	Timeframe float32 `json:"timeframe"`
-	// Monitor group by configuration. Warning! Note that the limit setting is currently ignored.
+	// Lookback window, in minutes, that each query-backed threshold monitor evaluation aggregates over.
+	Timeframe int32 `json:"timeframe"`
+	// Monitor group by configuration. The `limit` setting is currently ignored; evaluation applies a fixed limit of 100 groups per field.
 	GroupByFields []InputMonitorConfigurationMetricGroupByFieldsInner `json:"groupByFields"`
 	// How grouped results are combined into alert state. Use `no_aggregation` only when `groupByFields` is empty; use `all`, `any`, `each`, or `proportion` with non-empty `groupByFields`. `proportion` also requires `proportionAlertThreshold`. On create, omitted query-monitor values default to `no_aggregation`; on update, omitted values keep the existing aggregation logic.
 	AggregationAlertLogic *string `json:"aggregationAlertLogic,omitempty"`
-	// Percentage threshold used when `aggregationAlertLogic` is `proportion`. Valid values are 1 through 99.
+	// Percentage threshold used when `aggregationAlertLogic` is `proportion`.
 	ProportionAlertThreshold *int32 `json:"proportionAlertThreshold,omitempty"`
-	// Aggregation queries used by alerting and SLO evaluation. Each query is referenced from formulas as q1, q2, and so on.
+	// Aggregation queries used by alerting. Each query is referenced from formulas as q1, q2, and so on.
 	Queries              []MonitorAggregationQuery1 `json:"queries"`
 	AdditionalProperties map[string]interface{}
 }
@@ -45,7 +45,7 @@ type _InputMonitorConfigurationMetric InputMonitorConfigurationMetric
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInputMonitorConfigurationMetric(type_ string, conditions []InputMonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe float32, groupByFields []InputMonitorConfigurationMetricGroupByFieldsInner, queries []MonitorAggregationQuery1) *InputMonitorConfigurationMetric {
+func NewInputMonitorConfigurationMetric(type_ string, conditions []InputMonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe int32, groupByFields []InputMonitorConfigurationMetricGroupByFieldsInner, queries []MonitorAggregationQuery1) *InputMonitorConfigurationMetric {
 	this := InputMonitorConfigurationMetric{}
 	this.Type = type_
 	this.Conditions = conditions
@@ -137,9 +137,9 @@ func (o *InputMonitorConfigurationMetric) SetNoDataBehavior(v string) {
 }
 
 // GetTimeframe returns the Timeframe field value
-func (o *InputMonitorConfigurationMetric) GetTimeframe() float32 {
+func (o *InputMonitorConfigurationMetric) GetTimeframe() int32 {
 	if o == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 
@@ -148,7 +148,7 @@ func (o *InputMonitorConfigurationMetric) GetTimeframe() float32 {
 
 // GetTimeframeOk returns a tuple with the Timeframe field value
 // and a boolean to check if the value has been set.
-func (o *InputMonitorConfigurationMetric) GetTimeframeOk() (*float32, bool) {
+func (o *InputMonitorConfigurationMetric) GetTimeframeOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -156,7 +156,7 @@ func (o *InputMonitorConfigurationMetric) GetTimeframeOk() (*float32, bool) {
 }
 
 // SetTimeframe sets field value
-func (o *InputMonitorConfigurationMetric) SetTimeframe(v float32) {
+func (o *InputMonitorConfigurationMetric) SetTimeframe(v int32) {
 	o.Timeframe = v
 }
 

@@ -24,10 +24,14 @@ type InputGraphVisualizationTable struct {
 	Type string `json:"type"`
 	// Each column defines an independent aggregation displayed as a table column
 	Columns []TableColumn1 `json:"columns"`
-	// Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. Limited to 7 levels.
-	GroupBy              []AggregationGroupBy1  `json:"groupBy,omitempty"`
-	DefaultSorting       []TableDefaultSorting1 `json:"defaultSorting,omitempty"`
-	ColumnSizes          map[string]float32     `json:"columnSizes,omitempty"`
+	// Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted.
+	GroupBy []AggregationGroupBy1 `json:"groupBy,omitempty"`
+	// `absolute` keeps each group at its own value; `relative` shows it as a percentage of the ungrouped total (defaults to absolute)
+	GroupByMode *string `json:"groupByMode,omitempty"`
+	// Default sorting applied to a table widget. Column IDs are `label` for the grouping column and `col-<index>` for each entry in `columns`. Users can still change sorting by selecting columns in the rendered table.
+	DefaultSorting []TableDefaultSorting1 `json:"defaultSorting,omitempty"`
+	// Table column widths in pixels, keyed by column id: `label` for the grouping column and `col-<index>` for each entry in `columns`. Columns without an entry keep their default width.
+	ColumnSizes          map[string]float32 `json:"columnSizes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -132,6 +136,38 @@ func (o *InputGraphVisualizationTable) SetGroupBy(v []AggregationGroupBy1) {
 	o.GroupBy = v
 }
 
+// GetGroupByMode returns the GroupByMode field value if set, zero value otherwise.
+func (o *InputGraphVisualizationTable) GetGroupByMode() string {
+	if o == nil || IsNil(o.GroupByMode) {
+		var ret string
+		return ret
+	}
+	return *o.GroupByMode
+}
+
+// GetGroupByModeOk returns a tuple with the GroupByMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputGraphVisualizationTable) GetGroupByModeOk() (*string, bool) {
+	if o == nil || IsNil(o.GroupByMode) {
+		return nil, false
+	}
+	return o.GroupByMode, true
+}
+
+// HasGroupByMode returns a boolean if a field has been set.
+func (o *InputGraphVisualizationTable) HasGroupByMode() bool {
+	if o != nil && !IsNil(o.GroupByMode) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupByMode gets a reference to the given string and assigns it to the GroupByMode field.
+func (o *InputGraphVisualizationTable) SetGroupByMode(v string) {
+	o.GroupByMode = &v
+}
+
 // GetDefaultSorting returns the DefaultSorting field value if set, zero value otherwise.
 func (o *InputGraphVisualizationTable) GetDefaultSorting() []TableDefaultSorting1 {
 	if o == nil || IsNil(o.DefaultSorting) {
@@ -211,6 +247,9 @@ func (o InputGraphVisualizationTable) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.GroupBy) {
 		toSerialize["groupBy"] = o.GroupBy
 	}
+	if !IsNil(o.GroupByMode) {
+		toSerialize["groupByMode"] = o.GroupByMode
+	}
 	if !IsNil(o.DefaultSorting) {
 		toSerialize["defaultSorting"] = o.DefaultSorting
 	}
@@ -264,6 +303,7 @@ func (o *InputGraphVisualizationTable) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "columns")
 		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "groupByMode")
 		delete(additionalProperties, "defaultSorting")
 		delete(additionalProperties, "columnSizes")
 		o.AdditionalProperties = additionalProperties

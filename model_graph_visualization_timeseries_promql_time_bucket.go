@@ -18,7 +18,7 @@ import (
 // checks if the GraphVisualizationTimeseriesPromqlTimeBucket type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GraphVisualizationTimeseriesPromqlTimeBucket{}
 
-// GraphVisualizationTimeseriesPromqlTimeBucket Time bucket width for time-based chart widgets. Set by the dashboard author. Optional; when present, `time` and `metric` together define the bucket width.
+// GraphVisualizationTimeseriesPromqlTimeBucket Time bucket width for time-based chart widgets. Optional; when present, `time` and `metric` together define the bucket width.
 type GraphVisualizationTimeseriesPromqlTimeBucket struct {
 	// Numeric count of `metric` units in each bucket. Required when `timeBucket` is present.
 	Time float32 `json:"time"`

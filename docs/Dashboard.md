@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Filters** | Pointer to [**[]DashboardFiltersInner**](DashboardFiltersInner.md) | Dashboard-wide filters applied to every widget on the dashboard. | [optional] 
 **Tags** | Pointer to [**[]Tag1**](Tag1.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
 **TimePreset** | Pointer to **string** | Relative time preset used when opening the dashboard. | [optional] 
-**FolderId** | Pointer to **string** | Folder that contains the dashboard. Set from the dashboard’s saved folder relationship. Returned when the dashboard is in a folder; omitted when it is not. | [optional] 
+**FolderId** | Pointer to **string** | Folder that contains the dashboard. Set from the dashboard&#39;s saved folder relationship. Returned when the dashboard is in a folder; omitted when it is not. | [optional] 
 
 ## Methods
 

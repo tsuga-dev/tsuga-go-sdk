@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Formula** | Pointer to **string** | Optional alias for formula (only used for display in the UI) | [optional] 
-**Queries** | Pointer to **map[string]string** |  | [optional] 
+**Queries** | Pointer to **map[string]string** | Display names for individual query series, keyed by the zero-based query index as a string. | [optional] 
 
 ## Methods
 

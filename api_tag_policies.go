@@ -53,7 +53,7 @@ type TagPoliciesAPI interface {
 	/*
 		GetTagPolicy Method for GetTagPolicy
 
-		Retrieves one tag policy by ID when the authenticated operation key can read it. Use this before updating policy scope or enforcement settings.
+		Retrieves one tag policy by ID.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Identifier of the tag policy to retrieve. Use the `id` returned by tag policy list or create responses.
@@ -375,7 +375,7 @@ func (r TagPoliciesAPIGetTagPolicyRequest) Execute() (*GetTagPolicyResponse, *ht
 /*
 GetTagPolicy Method for GetTagPolicy
 
-Retrieves one tag policy by ID when the authenticated operation key can read it. Use this before updating policy scope or enforcement settings.
+Retrieves one tag policy by ID.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Identifier of the tag policy to retrieve. Use the `id` returned by tag policy list or create responses.

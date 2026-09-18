@@ -34,7 +34,7 @@ type Dashboard struct {
 	Tags []Tag1 `json:"tags,omitempty"`
 	// Relative time preset used when opening the dashboard.
 	TimePreset *string `json:"timePreset,omitempty"`
-	// Folder that contains the dashboard. Set from the dashboard’s saved folder relationship. Returned when the dashboard is in a folder; omitted when it is not.
+	// Folder that contains the dashboard. Set from the dashboard's saved folder relationship. Returned when the dashboard is in a folder; omitted when it is not.
 	FolderId             *string `json:"folderId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

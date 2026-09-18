@@ -32,12 +32,15 @@ type GraphVisualizationTopList struct {
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values.
-	GroupBy    []AggregationGroupBy `json:"groupBy,omitempty"`
-	Normalizer *Normalizer          `json:"normalizer,omitempty"`
-	// Number of decimal places to display in the value
-	Precision *float32 `json:"precision,omitempty"`
+	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
+	// `absolute` keeps each group at its own value; `relative` shows it as a percentage of the ungrouped total (defaults to absolute)
+	GroupByMode *string                                          `json:"groupByMode,omitempty"`
+	Normalizer  *Normalizer                                      `json:"normalizer,omitempty"`
+	Precision   *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
 	// Conditional formatting rules applied to the displayed value
-	Conditions           []ConditionalFormatting `json:"conditions,omitempty"`
+	Conditions []ConditionalFormatting `json:"conditions,omitempty"`
+	// Requests stacked rendering for a top-list widget. Tsuga renders stacked rows only for one count or sum query with exactly two grouped fields, no formula, non-negative values, and a single-cluster context; otherwise the widget renders as a normal top list.
+	IsStacked            *bool `json:"isStacked,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -263,6 +266,38 @@ func (o *GraphVisualizationTopList) SetGroupBy(v []AggregationGroupBy) {
 	o.GroupBy = v
 }
 
+// GetGroupByMode returns the GroupByMode field value if set, zero value otherwise.
+func (o *GraphVisualizationTopList) GetGroupByMode() string {
+	if o == nil || IsNil(o.GroupByMode) {
+		var ret string
+		return ret
+	}
+	return *o.GroupByMode
+}
+
+// GetGroupByModeOk returns a tuple with the GroupByMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationTopList) GetGroupByModeOk() (*string, bool) {
+	if o == nil || IsNil(o.GroupByMode) {
+		return nil, false
+	}
+	return o.GroupByMode, true
+}
+
+// HasGroupByMode returns a boolean if a field has been set.
+func (o *GraphVisualizationTopList) HasGroupByMode() bool {
+	if o != nil && !IsNil(o.GroupByMode) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupByMode gets a reference to the given string and assigns it to the GroupByMode field.
+func (o *GraphVisualizationTopList) SetGroupByMode(v string) {
+	o.GroupByMode = &v
+}
+
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
 func (o *GraphVisualizationTopList) GetNormalizer() Normalizer {
 	if o == nil || IsNil(o.Normalizer) {
@@ -296,9 +331,9 @@ func (o *GraphVisualizationTopList) SetNormalizer(v Normalizer) {
 }
 
 // GetPrecision returns the Precision field value if set, zero value otherwise.
-func (o *GraphVisualizationTopList) GetPrecision() float32 {
+func (o *GraphVisualizationTopList) GetPrecision() GraphVisualizationQueryValueConnectionPrecision {
 	if o == nil || IsNil(o.Precision) {
-		var ret float32
+		var ret GraphVisualizationQueryValueConnectionPrecision
 		return ret
 	}
 	return *o.Precision
@@ -306,7 +341,7 @@ func (o *GraphVisualizationTopList) GetPrecision() float32 {
 
 // GetPrecisionOk returns a tuple with the Precision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationTopList) GetPrecisionOk() (*float32, bool) {
+func (o *GraphVisualizationTopList) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool) {
 	if o == nil || IsNil(o.Precision) {
 		return nil, false
 	}
@@ -322,8 +357,8 @@ func (o *GraphVisualizationTopList) HasPrecision() bool {
 	return false
 }
 
-// SetPrecision gets a reference to the given float32 and assigns it to the Precision field.
-func (o *GraphVisualizationTopList) SetPrecision(v float32) {
+// SetPrecision gets a reference to the given GraphVisualizationQueryValueConnectionPrecision and assigns it to the Precision field.
+func (o *GraphVisualizationTopList) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision) {
 	o.Precision = &v
 }
 
@@ -359,6 +394,38 @@ func (o *GraphVisualizationTopList) SetConditions(v []ConditionalFormatting) {
 	o.Conditions = v
 }
 
+// GetIsStacked returns the IsStacked field value if set, zero value otherwise.
+func (o *GraphVisualizationTopList) GetIsStacked() bool {
+	if o == nil || IsNil(o.IsStacked) {
+		var ret bool
+		return ret
+	}
+	return *o.IsStacked
+}
+
+// GetIsStackedOk returns a tuple with the IsStacked field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationTopList) GetIsStackedOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsStacked) {
+		return nil, false
+	}
+	return o.IsStacked, true
+}
+
+// HasIsStacked returns a boolean if a field has been set.
+func (o *GraphVisualizationTopList) HasIsStacked() bool {
+	if o != nil && !IsNil(o.IsStacked) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsStacked gets a reference to the given bool and assigns it to the IsStacked field.
+func (o *GraphVisualizationTopList) SetIsStacked(v bool) {
+	o.IsStacked = &v
+}
+
 func (o GraphVisualizationTopList) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -384,6 +451,9 @@ func (o GraphVisualizationTopList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.GroupBy) {
 		toSerialize["groupBy"] = o.GroupBy
 	}
+	if !IsNil(o.GroupByMode) {
+		toSerialize["groupByMode"] = o.GroupByMode
+	}
 	if !IsNil(o.Normalizer) {
 		toSerialize["normalizer"] = o.Normalizer
 	}
@@ -392,6 +462,9 @@ func (o GraphVisualizationTopList) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Conditions) {
 		toSerialize["conditions"] = o.Conditions
+	}
+	if !IsNil(o.IsStacked) {
+		toSerialize["isStacked"] = o.IsStacked
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -445,9 +518,11 @@ func (o *GraphVisualizationTopList) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "aliases")
 		delete(additionalProperties, "visibleSeries")
 		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "groupByMode")
 		delete(additionalProperties, "normalizer")
 		delete(additionalProperties, "precision")
 		delete(additionalProperties, "conditions")
+		delete(additionalProperties, "isStacked")
 		o.AdditionalProperties = additionalProperties
 	}
 

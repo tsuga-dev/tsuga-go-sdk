@@ -239,7 +239,7 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 | Maximum number of items to return in this page. Valid values are 1 through 1000. (optional)
+	limit := int32(56) // int32 | Maximum number of items to return in this page. Omit to use the public API default of 100. (optional) (default to 100)
 	offset := int32(56) // int32 | Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -265,7 +265,7 @@ Other parameters are passed through a pointer to a apiListNotificationRulesReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Maximum number of items to return in this page. Valid values are 1 through 1000. | 
+ **limit** | **int32** | Maximum number of items to return in this page. Omit to use the public API default of 100. | [default to 100]
  **offset** | **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | 
 
 ### Return type
@@ -308,7 +308,7 @@ import (
 
 func main() {
 	id := "id_example" // string | Identifier of the notification rule to update. Use the `id` returned by notification rule list, get, or create responses.
-	updateNotificationRuleRequest := *openapiclient.NewUpdateNotificationRuleRequest("Name_example", openapiclient.createNotificationRule_request_teamsFilter{AllPublicTeams: openapiclient.NewAllPublicTeams("Type_example")}, []float32{float32(123)}, []string{"TransitionTypesFilter_example"}, "Owner_example", false, []openapiclient.CreateNotificationRuleRequestTargetsInner{*openapiclient.NewCreateNotificationRuleRequestTargetsInner("Id_example", openapiclient.createNotificationRule_request_targets_inner_config{RuleTargetInputEmail: openapiclient.NewRuleTargetInputEmail("Type_example", []string{"Addresses_example"})})}) // UpdateNotificationRuleRequest | Notification rule create or update request. Provide matching filters, owner, tags, active state, and delivery targets.
+	updateNotificationRuleRequest := *openapiclient.NewUpdateNotificationRuleRequest("Name_example", openapiclient.updateNotificationRule_request_teamsFilter{AllPublicTeams: openapiclient.NewAllPublicTeams("Type_example")}, []float32{float32(123)}, []string{"TransitionTypesFilter_example"}, "Owner_example", false, []openapiclient.CreateNotificationRuleRequestTargetsInner{*openapiclient.NewCreateNotificationRuleRequestTargetsInner("Id_example", openapiclient.createNotificationRule_request_targets_inner_config{RuleTargetInputEmail: openapiclient.NewRuleTargetInputEmail("Type_example", []string{"Addresses_example"})})}) // UpdateNotificationRuleRequest | Notification rule create or update request. Provide matching filters, owner, tags, active state, and delivery targets.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

@@ -20,7 +20,7 @@ var _ MappedNullable = &MonitorConfigurationLogErrorPattern{}
 
 // MonitorConfigurationLogErrorPattern struct for MonitorConfigurationLogErrorPattern
 type MonitorConfigurationLogErrorPattern struct {
-	// Monitor that alerts on newly detected log error patterns for the configured team, environment, and optional service. Recovery notifications are not sent for this monitor type.
+	// Monitor that alerts on newly detected log error patterns for the configured environment, scoped by teams, services, or both. Recovery notifications are not sent for this monitor type.
 	Type string `json:"type"`
 	// Fixed aggregation logic for log error pattern monitors. Each new pattern is evaluated as its own alert group.
 	AggregationAlertLogic string `json:"aggregationAlertLogic"`

@@ -19,7 +19,7 @@ var _ MappedNullable = &QueryDashboardsRequest{}
 
 // QueryDashboardsRequest Dashboard query request. Use filters, sorting, limit, and offset to page through visible dashboards.
 type QueryDashboardsRequest struct {
-	// Maximum number of items to return in this page. Valid values are 1 through 1000.
+	// Maximum number of items to return in this page. Omit to use the public API default of 100.
 	Limit *int32 `json:"limit,omitempty"`
 	// Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0.
 	Offset               *int32                         `json:"offset,omitempty"`
@@ -36,6 +36,8 @@ type _QueryDashboardsRequest QueryDashboardsRequest
 // will change when the set of required properties is changed
 func NewQueryDashboardsRequest() *QueryDashboardsRequest {
 	this := QueryDashboardsRequest{}
+	var limit int32 = 100
+	this.Limit = &limit
 	return &this
 }
 
@@ -44,6 +46,8 @@ func NewQueryDashboardsRequest() *QueryDashboardsRequest {
 // but it doesn't guarantee that properties required by API are set
 func NewQueryDashboardsRequestWithDefaults() *QueryDashboardsRequest {
 	this := QueryDashboardsRequest{}
+	var limit int32 = 100
+	this.Limit = &limit
 	return &this
 }
 

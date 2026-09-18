@@ -28,10 +28,9 @@ type GraphVisualizationQueryValueConnection struct {
 	// Controls whether the widget uses a solid or transparent background
 	BackgroundMode *string `json:"backgroundMode,omitempty"`
 	// Conditional formatting rules applied to the displayed value
-	Conditions []ConditionalFormatting `json:"conditions,omitempty"`
-	// Number of decimal places to display in the value
-	Precision  *float32    `json:"precision,omitempty"`
-	Normalizer *Normalizer `json:"normalizer,omitempty"`
+	Conditions []ConditionalFormatting                          `json:"conditions,omitempty"`
+	Precision  *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
+	Normalizer *Normalizer                                      `json:"normalizer,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode           *string `json:"legendMode,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -196,9 +195,9 @@ func (o *GraphVisualizationQueryValueConnection) SetConditions(v []ConditionalFo
 }
 
 // GetPrecision returns the Precision field value if set, zero value otherwise.
-func (o *GraphVisualizationQueryValueConnection) GetPrecision() float32 {
+func (o *GraphVisualizationQueryValueConnection) GetPrecision() GraphVisualizationQueryValueConnectionPrecision {
 	if o == nil || IsNil(o.Precision) {
-		var ret float32
+		var ret GraphVisualizationQueryValueConnectionPrecision
 		return ret
 	}
 	return *o.Precision
@@ -206,7 +205,7 @@ func (o *GraphVisualizationQueryValueConnection) GetPrecision() float32 {
 
 // GetPrecisionOk returns a tuple with the Precision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationQueryValueConnection) GetPrecisionOk() (*float32, bool) {
+func (o *GraphVisualizationQueryValueConnection) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool) {
 	if o == nil || IsNil(o.Precision) {
 		return nil, false
 	}
@@ -222,8 +221,8 @@ func (o *GraphVisualizationQueryValueConnection) HasPrecision() bool {
 	return false
 }
 
-// SetPrecision gets a reference to the given float32 and assigns it to the Precision field.
-func (o *GraphVisualizationQueryValueConnection) SetPrecision(v float32) {
+// SetPrecision gets a reference to the given GraphVisualizationQueryValueConnectionPrecision and assigns it to the Precision field.
+func (o *GraphVisualizationQueryValueConnection) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision) {
 	o.Precision = &v
 }
 

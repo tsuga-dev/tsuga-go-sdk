@@ -5,19 +5,19 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Threshold monitor over trace aggregations. | 
-**Conditions** | [**[]InputMonitorConfigurationMetricConditionsInner**](InputMonitorConfigurationMetricConditionsInner.md) | Threshold conditions evaluated against query and formula results. Provide at least one condition and no more than five conditions. | 
+**Conditions** | [**[]InputMonitorConfigurationMetricConditionsInner**](InputMonitorConfigurationMetricConditionsInner.md) | Threshold conditions evaluated against query and formula results. All listed conditions must match for a non-grouped threshold monitor to alert. | 
 **NoDataBehavior** | **string** | How the monitor updates state when no data is returned. &#x60;alert&#x60; enters no-data alert state, &#x60;resolve&#x60; resolves, &#x60;keep_last_status&#x60; preserves the previous state, and &#x60;consider_zero&#x60; evaluates missing values as zero. | 
-**Timeframe** | **float32** | Lookback window, in minutes, that each monitor evaluation aggregates over. | 
-**GroupByFields** | [**[]InputMonitorConfigurationMetricGroupByFieldsInner**](InputMonitorConfigurationMetricGroupByFieldsInner.md) | Monitor group by configuration. Warning! Note that the limit setting is currently ignored. | 
+**Timeframe** | **int32** | Lookback window, in minutes, that each query-backed threshold monitor evaluation aggregates over. | 
+**GroupByFields** | [**[]InputMonitorConfigurationMetricGroupByFieldsInner**](InputMonitorConfigurationMetricGroupByFieldsInner.md) | Monitor group by configuration. The &#x60;limit&#x60; setting is currently ignored; evaluation applies a fixed limit of 100 groups per field. | 
 **AggregationAlertLogic** | Pointer to **string** | How grouped results are combined into alert state. Use &#x60;no_aggregation&#x60; only when &#x60;groupByFields&#x60; is empty; use &#x60;all&#x60;, &#x60;any&#x60;, &#x60;each&#x60;, or &#x60;proportion&#x60; with non-empty &#x60;groupByFields&#x60;. &#x60;proportion&#x60; also requires &#x60;proportionAlertThreshold&#x60;. On create, omitted query-monitor values default to &#x60;no_aggregation&#x60;; on update, omitted values keep the existing aggregation logic. | [optional] 
-**ProportionAlertThreshold** | Pointer to **int32** | Percentage threshold used when &#x60;aggregationAlertLogic&#x60; is &#x60;proportion&#x60;. Valid values are 1 through 99. | [optional] 
-**Queries** | [**[]MonitorAggregationQuery1**](MonitorAggregationQuery1.md) | Aggregation queries used by alerting and SLO evaluation. Each query is referenced from formulas as q1, q2, and so on. | 
+**ProportionAlertThreshold** | Pointer to **int32** | Percentage threshold used when &#x60;aggregationAlertLogic&#x60; is &#x60;proportion&#x60;. | [optional] 
+**Queries** | [**[]MonitorAggregationQuery1**](MonitorAggregationQuery1.md) | Aggregation queries used by alerting. Each query is referenced from formulas as q1, q2, and so on. | 
 
 ## Methods
 
 ### NewInputMonitorConfigurationTrace
 
-`func NewInputMonitorConfigurationTrace(type_ string, conditions []InputMonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe float32, groupByFields []InputMonitorConfigurationMetricGroupByFieldsInner, queries []MonitorAggregationQuery1, ) *InputMonitorConfigurationTrace`
+`func NewInputMonitorConfigurationTrace(type_ string, conditions []InputMonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe int32, groupByFields []InputMonitorConfigurationMetricGroupByFieldsInner, queries []MonitorAggregationQuery1, ) *InputMonitorConfigurationTrace`
 
 NewInputMonitorConfigurationTrace instantiates a new InputMonitorConfigurationTrace object
 This constructor will assign default values to properties that have it defined,
@@ -94,20 +94,20 @@ SetNoDataBehavior sets NoDataBehavior field to given value.
 
 ### GetTimeframe
 
-`func (o *InputMonitorConfigurationTrace) GetTimeframe() float32`
+`func (o *InputMonitorConfigurationTrace) GetTimeframe() int32`
 
 GetTimeframe returns the Timeframe field if non-nil, zero value otherwise.
 
 ### GetTimeframeOk
 
-`func (o *InputMonitorConfigurationTrace) GetTimeframeOk() (*float32, bool)`
+`func (o *InputMonitorConfigurationTrace) GetTimeframeOk() (*int32, bool)`
 
 GetTimeframeOk returns a tuple with the Timeframe field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeframe
 
-`func (o *InputMonitorConfigurationTrace) SetTimeframe(v float32)`
+`func (o *InputMonitorConfigurationTrace) SetTimeframe(v int32)`
 
 SetTimeframe sets Timeframe field to given value.
 

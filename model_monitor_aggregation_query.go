@@ -18,12 +18,14 @@ import (
 // checks if the MonitorAggregationQuery type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &MonitorAggregationQuery{}
 
-// MonitorAggregationQuery struct for MonitorAggregationQuery
+// MonitorAggregationQuery Single aggregation query evaluated by a monitor or SLO.
 type MonitorAggregationQuery struct {
 	Aggregate Aggregate `json:"aggregate"`
 	// Post-processing functions applied to aggregation results
 	Functions []Function                   `json:"functions,omitempty"`
 	Fill      *MonitorAggregationQueryFill `json:"fill,omitempty"`
+	// Per-series rollup applied within each time bucket before the cross-series aggregate. Use it on metric queries when `aggregate.type` is `sum` and no `rate`, `increase`, `last`, or `rolling` function is present. When omitted, Tsuga derives the rollup from the metric type.
+	TimeAggregate *string `json:"timeAggregate,omitempty"`
 	// Filter to apply to the aggregation
 	Filter               string `json:"filter"`
 	AdditionalProperties map[string]interface{}
@@ -138,6 +140,38 @@ func (o *MonitorAggregationQuery) SetFill(v MonitorAggregationQueryFill) {
 	o.Fill = &v
 }
 
+// GetTimeAggregate returns the TimeAggregate field value if set, zero value otherwise.
+func (o *MonitorAggregationQuery) GetTimeAggregate() string {
+	if o == nil || IsNil(o.TimeAggregate) {
+		var ret string
+		return ret
+	}
+	return *o.TimeAggregate
+}
+
+// GetTimeAggregateOk returns a tuple with the TimeAggregate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MonitorAggregationQuery) GetTimeAggregateOk() (*string, bool) {
+	if o == nil || IsNil(o.TimeAggregate) {
+		return nil, false
+	}
+	return o.TimeAggregate, true
+}
+
+// HasTimeAggregate returns a boolean if a field has been set.
+func (o *MonitorAggregationQuery) HasTimeAggregate() bool {
+	if o != nil && !IsNil(o.TimeAggregate) {
+		return true
+	}
+
+	return false
+}
+
+// SetTimeAggregate gets a reference to the given string and assigns it to the TimeAggregate field.
+func (o *MonitorAggregationQuery) SetTimeAggregate(v string) {
+	o.TimeAggregate = &v
+}
+
 // GetFilter returns the Filter field value
 func (o *MonitorAggregationQuery) GetFilter() string {
 	if o == nil {
@@ -178,6 +212,9 @@ func (o MonitorAggregationQuery) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Fill) {
 		toSerialize["fill"] = o.Fill
+	}
+	if !IsNil(o.TimeAggregate) {
+		toSerialize["timeAggregate"] = o.TimeAggregate
 	}
 	toSerialize["filter"] = o.Filter
 
@@ -227,6 +264,7 @@ func (o *MonitorAggregationQuery) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "aggregate")
 		delete(additionalProperties, "functions")
 		delete(additionalProperties, "fill")
+		delete(additionalProperties, "timeAggregate")
 		delete(additionalProperties, "filter")
 		o.AdditionalProperties = additionalProperties
 	}

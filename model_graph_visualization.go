@@ -26,6 +26,7 @@ type GraphVisualization struct {
 	InputGraphVisualizationList                 *InputGraphVisualizationList
 	InputGraphVisualizationListConnection       *InputGraphVisualizationListConnection
 	InputGraphVisualizationListLogPatterns      *InputGraphVisualizationListLogPatterns
+	InputGraphVisualizationListSpans            *InputGraphVisualizationListSpans
 	InputGraphVisualizationNote                 *InputGraphVisualizationNote
 	InputGraphVisualizationPie                  *InputGraphVisualizationPie
 	InputGraphVisualizationPieConnection        *InputGraphVisualizationPieConnection
@@ -33,6 +34,8 @@ type GraphVisualization struct {
 	InputGraphVisualizationQueryValue           *InputGraphVisualizationQueryValue
 	InputGraphVisualizationQueryValueConnection *InputGraphVisualizationQueryValueConnection
 	InputGraphVisualizationQueryValuePromql     *InputGraphVisualizationQueryValuePromql
+	InputGraphVisualizationSloOverTime          *InputGraphVisualizationSloOverTime
+	InputGraphVisualizationSloUptime            *InputGraphVisualizationSloUptime
 	InputGraphVisualizationTable                *InputGraphVisualizationTable
 	InputGraphVisualizationTimeseries           *InputGraphVisualizationTimeseries
 	InputGraphVisualizationTimeseriesConnection *InputGraphVisualizationTimeseriesConnection
@@ -105,6 +108,13 @@ func InputGraphVisualizationListLogPatternsAsGraphVisualization(v *InputGraphVis
 	}
 }
 
+// InputGraphVisualizationListSpansAsGraphVisualization is a convenience function that returns InputGraphVisualizationListSpans wrapped in GraphVisualization
+func InputGraphVisualizationListSpansAsGraphVisualization(v *InputGraphVisualizationListSpans) GraphVisualization {
+	return GraphVisualization{
+		InputGraphVisualizationListSpans: v,
+	}
+}
+
 // InputGraphVisualizationNoteAsGraphVisualization is a convenience function that returns InputGraphVisualizationNote wrapped in GraphVisualization
 func InputGraphVisualizationNoteAsGraphVisualization(v *InputGraphVisualizationNote) GraphVisualization {
 	return GraphVisualization{
@@ -151,6 +161,20 @@ func InputGraphVisualizationQueryValueConnectionAsGraphVisualization(v *InputGra
 func InputGraphVisualizationQueryValuePromqlAsGraphVisualization(v *InputGraphVisualizationQueryValuePromql) GraphVisualization {
 	return GraphVisualization{
 		InputGraphVisualizationQueryValuePromql: v,
+	}
+}
+
+// InputGraphVisualizationSloOverTimeAsGraphVisualization is a convenience function that returns InputGraphVisualizationSloOverTime wrapped in GraphVisualization
+func InputGraphVisualizationSloOverTimeAsGraphVisualization(v *InputGraphVisualizationSloOverTime) GraphVisualization {
+	return GraphVisualization{
+		InputGraphVisualizationSloOverTime: v,
+	}
+}
+
+// InputGraphVisualizationSloUptimeAsGraphVisualization is a convenience function that returns InputGraphVisualizationSloUptime wrapped in GraphVisualization
+func InputGraphVisualizationSloUptimeAsGraphVisualization(v *InputGraphVisualizationSloUptime) GraphVisualization {
+	return GraphVisualization{
+		InputGraphVisualizationSloUptime: v,
 	}
 }
 
@@ -321,6 +345,18 @@ func (dst *GraphVisualization) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'list-spans'
+	if jsonDict["type"] == "list-spans" {
+		// try to unmarshal JSON data into InputGraphVisualizationListSpans
+		err = json.Unmarshal(data, &dst.InputGraphVisualizationListSpans)
+		if err == nil {
+			return nil // data stored in dst.InputGraphVisualizationListSpans, return on the first match
+		} else {
+			dst.InputGraphVisualizationListSpans = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationListSpans: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'note'
 	if jsonDict["type"] == "note" {
 		// try to unmarshal JSON data into InputGraphVisualizationNote
@@ -402,6 +438,30 @@ func (dst *GraphVisualization) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.InputGraphVisualizationQueryValuePromql = nil
 			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationQueryValuePromql: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'slo-over-time'
+	if jsonDict["type"] == "slo-over-time" {
+		// try to unmarshal JSON data into InputGraphVisualizationSloOverTime
+		err = json.Unmarshal(data, &dst.InputGraphVisualizationSloOverTime)
+		if err == nil {
+			return nil // data stored in dst.InputGraphVisualizationSloOverTime, return on the first match
+		} else {
+			dst.InputGraphVisualizationSloOverTime = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationSloOverTime: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'slo-uptime'
+	if jsonDict["type"] == "slo-uptime" {
+		// try to unmarshal JSON data into InputGraphVisualizationSloUptime
+		err = json.Unmarshal(data, &dst.InputGraphVisualizationSloUptime)
+		if err == nil {
+			return nil // data stored in dst.InputGraphVisualizationSloUptime, return on the first match
+		} else {
+			dst.InputGraphVisualizationSloUptime = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationSloUptime: %s", err.Error())
 		}
 	}
 
@@ -530,6 +590,10 @@ func (src GraphVisualization) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.InputGraphVisualizationListLogPatterns)
 	}
 
+	if src.InputGraphVisualizationListSpans != nil {
+		return json.Marshal(&src.InputGraphVisualizationListSpans)
+	}
+
 	if src.InputGraphVisualizationNote != nil {
 		return json.Marshal(&src.InputGraphVisualizationNote)
 	}
@@ -556,6 +620,14 @@ func (src GraphVisualization) MarshalJSON() ([]byte, error) {
 
 	if src.InputGraphVisualizationQueryValuePromql != nil {
 		return json.Marshal(&src.InputGraphVisualizationQueryValuePromql)
+	}
+
+	if src.InputGraphVisualizationSloOverTime != nil {
+		return json.Marshal(&src.InputGraphVisualizationSloOverTime)
+	}
+
+	if src.InputGraphVisualizationSloUptime != nil {
+		return json.Marshal(&src.InputGraphVisualizationSloUptime)
 	}
 
 	if src.InputGraphVisualizationTable != nil {
@@ -630,6 +702,10 @@ func (obj *GraphVisualization) GetActualInstance() interface{} {
 		return obj.InputGraphVisualizationListLogPatterns
 	}
 
+	if obj.InputGraphVisualizationListSpans != nil {
+		return obj.InputGraphVisualizationListSpans
+	}
+
 	if obj.InputGraphVisualizationNote != nil {
 		return obj.InputGraphVisualizationNote
 	}
@@ -656,6 +732,14 @@ func (obj *GraphVisualization) GetActualInstance() interface{} {
 
 	if obj.InputGraphVisualizationQueryValuePromql != nil {
 		return obj.InputGraphVisualizationQueryValuePromql
+	}
+
+	if obj.InputGraphVisualizationSloOverTime != nil {
+		return obj.InputGraphVisualizationSloOverTime
+	}
+
+	if obj.InputGraphVisualizationSloUptime != nil {
+		return obj.InputGraphVisualizationSloUptime
 	}
 
 	if obj.InputGraphVisualizationTable != nil {
@@ -728,6 +812,10 @@ func (obj GraphVisualization) GetActualInstanceValue() interface{} {
 		return *obj.InputGraphVisualizationListLogPatterns
 	}
 
+	if obj.InputGraphVisualizationListSpans != nil {
+		return *obj.InputGraphVisualizationListSpans
+	}
+
 	if obj.InputGraphVisualizationNote != nil {
 		return *obj.InputGraphVisualizationNote
 	}
@@ -754,6 +842,14 @@ func (obj GraphVisualization) GetActualInstanceValue() interface{} {
 
 	if obj.InputGraphVisualizationQueryValuePromql != nil {
 		return *obj.InputGraphVisualizationQueryValuePromql
+	}
+
+	if obj.InputGraphVisualizationSloOverTime != nil {
+		return *obj.InputGraphVisualizationSloOverTime
+	}
+
+	if obj.InputGraphVisualizationSloUptime != nil {
+		return *obj.InputGraphVisualizationSloUptime
 	}
 
 	if obj.InputGraphVisualizationTable != nil {

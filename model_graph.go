@@ -18,13 +18,13 @@ import (
 // checks if the Graph type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Graph{}
 
-// Graph struct for Graph
+// Graph Single dashboard widget, combining its identity, its visualization configuration, and its position on the dashboard grid.
 type Graph struct {
-	// Unique identifier of the graph widget inside the dashboard. Set by the caller when the graph is created; use it to target the graph in later update requests.
+	// Unique identifier of the graph widget inside the dashboard. Assign it when the graph is created; use it to target the graph in later update requests.
 	Id string `json:"id"`
 	// Display name of the graph widget.
 	Name *string `json:"name,omitempty"`
-	// Optional text shown with the graph widget. Maximum length is 800 characters.
+	// Text shown with the graph widget.
 	Description *string `json:"description,omitempty"`
 	// Flex alignment keyword used for widget layout
 	DescriptionAlign *string `json:"descriptionAlign,omitempty"`

@@ -20,14 +20,18 @@ var _ MappedNullable = &RuleTargetInputJira{}
 
 // RuleTargetInputJira struct for RuleTargetInputJira
 type RuleTargetInputJira struct {
-	// Jira target backed by a configured Jira integration.
+	// Jira target backed by a configured Jira integration. Jira targets file one issue per notification and do not support renotification.
 	Type string `json:"type"`
 	// Identifier of the Jira integration to use
 	IntegrationId string `json:"integrationId"`
 	// Key of the Jira project that alert issues are filed into, like \"OPS\".
 	ProjectKey string `json:"projectKey"`
 	// Name of the Jira issue type created for alerts, like \"Bug\" or \"Task\".
-	IssueType            string `json:"issueType"`
+	IssueType string `json:"issueType"`
+	// Jira status the alert ticket is moved to right after it is filed for a firing alert. A later transition between two firing states leaves the ticket status alone.
+	OpenStatus *string `json:"openStatus,omitempty"`
+	// Jira status the alert ticket is moved to when the alert resolves. Only takes effect when the rule delivers recovery transitions.
+	ClosedStatus         *string `json:"closedStatus,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -150,6 +154,70 @@ func (o *RuleTargetInputJira) SetIssueType(v string) {
 	o.IssueType = v
 }
 
+// GetOpenStatus returns the OpenStatus field value if set, zero value otherwise.
+func (o *RuleTargetInputJira) GetOpenStatus() string {
+	if o == nil || IsNil(o.OpenStatus) {
+		var ret string
+		return ret
+	}
+	return *o.OpenStatus
+}
+
+// GetOpenStatusOk returns a tuple with the OpenStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RuleTargetInputJira) GetOpenStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.OpenStatus) {
+		return nil, false
+	}
+	return o.OpenStatus, true
+}
+
+// HasOpenStatus returns a boolean if a field has been set.
+func (o *RuleTargetInputJira) HasOpenStatus() bool {
+	if o != nil && !IsNil(o.OpenStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetOpenStatus gets a reference to the given string and assigns it to the OpenStatus field.
+func (o *RuleTargetInputJira) SetOpenStatus(v string) {
+	o.OpenStatus = &v
+}
+
+// GetClosedStatus returns the ClosedStatus field value if set, zero value otherwise.
+func (o *RuleTargetInputJira) GetClosedStatus() string {
+	if o == nil || IsNil(o.ClosedStatus) {
+		var ret string
+		return ret
+	}
+	return *o.ClosedStatus
+}
+
+// GetClosedStatusOk returns a tuple with the ClosedStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RuleTargetInputJira) GetClosedStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.ClosedStatus) {
+		return nil, false
+	}
+	return o.ClosedStatus, true
+}
+
+// HasClosedStatus returns a boolean if a field has been set.
+func (o *RuleTargetInputJira) HasClosedStatus() bool {
+	if o != nil && !IsNil(o.ClosedStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetClosedStatus gets a reference to the given string and assigns it to the ClosedStatus field.
+func (o *RuleTargetInputJira) SetClosedStatus(v string) {
+	o.ClosedStatus = &v
+}
+
 func (o RuleTargetInputJira) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -164,6 +232,12 @@ func (o RuleTargetInputJira) ToMap() (map[string]interface{}, error) {
 	toSerialize["integrationId"] = o.IntegrationId
 	toSerialize["projectKey"] = o.ProjectKey
 	toSerialize["issueType"] = o.IssueType
+	if !IsNil(o.OpenStatus) {
+		toSerialize["openStatus"] = o.OpenStatus
+	}
+	if !IsNil(o.ClosedStatus) {
+		toSerialize["closedStatus"] = o.ClosedStatus
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -214,6 +288,8 @@ func (o *RuleTargetInputJira) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "integrationId")
 		delete(additionalProperties, "projectKey")
 		delete(additionalProperties, "issueType")
+		delete(additionalProperties, "openStatus")
+		delete(additionalProperties, "closedStatus")
 		o.AdditionalProperties = additionalProperties
 	}
 

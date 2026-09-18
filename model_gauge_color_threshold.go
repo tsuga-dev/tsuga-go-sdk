@@ -18,7 +18,7 @@ import (
 // checks if the GaugeColorThreshold type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GaugeColorThreshold{}
 
-// GaugeColorThreshold struct for GaugeColorThreshold
+// GaugeColorThreshold Color band of the gauge range. Bands are ordered by `from`, so entries may be listed in any order.
 type GaugeColorThreshold struct {
 	// Lower bound of the Gauge color threshold; runs up to the next threshold or the max
 	From float32 `json:"from"`

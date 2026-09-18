@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Human-readable tag policy name. | 
-**Description** | Pointer to **string** | Optional policy description. | [optional] 
+**Description** | Pointer to **NullableString** |  | [optional] 
 **IsActive** | **bool** | Set to true for Tsuga to evaluate this policy. Reserved policies (for example the built-in &#x60;env&#x60; policy on ingestion API keys) reject a false value. | 
 **TagKey** | **string** | Tag key enforced by this policy. Tsuga trims surrounding whitespace before storing the policy. | 
 **AllowedTagValues** | **[]string** | Allowed values for &#x60;tagKey&#x60;. Leave empty to allow any value when the tag exists. Tsuga trims each submitted value before storing the policy. | 
 **IsRequired** | **bool** | Set to true to require the tag. If false, allowed values still apply when the tag exists. Reserved policies reject a false value. | 
-**TeamScope** | Pointer to [**CreateTagPolicyRequestTeamScope**](CreateTagPolicyRequestTeamScope.md) |  | [optional] 
+**TeamScope** | Pointer to [**UpdateTagPolicyRequestTeamScope**](UpdateTagPolicyRequestTeamScope.md) |  | [optional] 
 **Configuration** | [**CreateTagPolicyRequestConfiguration**](CreateTagPolicyRequestConfiguration.md) |  | 
 **Owner** | **string** | Team ID that will own and manage the policy. | 
 
@@ -78,6 +78,16 @@ SetDescription sets Description field to given value.
 
 HasDescription returns a boolean if a field has been set.
 
+### SetDescriptionNil
+
+`func (o *UpdateTagPolicyRequest) SetDescriptionNil(b bool)`
+
+ SetDescriptionNil sets the value for Description to be an explicit nil
+
+### UnsetDescription
+`func (o *UpdateTagPolicyRequest) UnsetDescription()`
+
+UnsetDescription ensures that no value is present for Description, not even an explicit nil
 ### GetIsActive
 
 `func (o *UpdateTagPolicyRequest) GetIsActive() bool`
@@ -160,20 +170,20 @@ SetIsRequired sets IsRequired field to given value.
 
 ### GetTeamScope
 
-`func (o *UpdateTagPolicyRequest) GetTeamScope() CreateTagPolicyRequestTeamScope`
+`func (o *UpdateTagPolicyRequest) GetTeamScope() UpdateTagPolicyRequestTeamScope`
 
 GetTeamScope returns the TeamScope field if non-nil, zero value otherwise.
 
 ### GetTeamScopeOk
 
-`func (o *UpdateTagPolicyRequest) GetTeamScopeOk() (*CreateTagPolicyRequestTeamScope, bool)`
+`func (o *UpdateTagPolicyRequest) GetTeamScopeOk() (*UpdateTagPolicyRequestTeamScope, bool)`
 
 GetTeamScopeOk returns a tuple with the TeamScope field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTeamScope
 
-`func (o *UpdateTagPolicyRequest) SetTeamScope(v CreateTagPolicyRequestTeamScope)`
+`func (o *UpdateTagPolicyRequest) SetTeamScope(v UpdateTagPolicyRequestTeamScope)`
 
 SetTeamScope sets TeamScope field to given value.
 

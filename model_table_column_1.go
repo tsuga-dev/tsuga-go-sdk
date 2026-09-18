@@ -18,22 +18,21 @@ import (
 // checks if the TableColumn1 type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &TableColumn1{}
 
-// TableColumn1 struct for TableColumn1
+// TableColumn1 Table column backed by its own aggregation. `defaultSorting` and `columnSizes` reference it as `col-<index>`, using its zero-based position in `columns`.
 type TableColumn1 struct {
 	// Display name of the table column
 	Name string `json:"name"`
-	// Telemetry source queried by this aggregation: `logs`, `metrics`, or `traces`.
+	// Telemetry source queried by this aggregation: `logs`, `metrics`, `traces`, or `rum`.
 	Source string `json:"source"`
-	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order. Limited to 15 items. For dataSource \"metrics\", each aggregate's `field` is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"system.cpu.utilization.context.host.name\").
+	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order. For dataSource \"metrics\", each aggregate's `field` is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"system.cpu.utilization.context.host.name\").
 	Queries []AggregationQuery1 `json:"queries"`
 	// Formula referencing query outputs, such as `q1 + q2`, to compute derived results. Defaults to `q1`. Formulas may reference only submitted queries (`q1` through `qN`); undefined query references return 400.
 	Formula *string                                         `json:"formula,omitempty"`
 	Aliases *InputGraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
 	// Flags indicating whether each query or formula series is visible
-	VisibleSeries []bool       `json:"visibleSeries,omitempty"`
-	Normalizer    *Normalizer1 `json:"normalizer,omitempty"`
-	// Number of decimal places to display in the value
-	Precision            *float32 `json:"precision,omitempty"`
+	VisibleSeries        []bool                                           `json:"visibleSeries,omitempty"`
+	Normalizer           *Normalizer1                                     `json:"normalizer,omitempty"`
+	Precision            *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -260,9 +259,9 @@ func (o *TableColumn1) SetNormalizer(v Normalizer1) {
 }
 
 // GetPrecision returns the Precision field value if set, zero value otherwise.
-func (o *TableColumn1) GetPrecision() float32 {
+func (o *TableColumn1) GetPrecision() GraphVisualizationQueryValueConnectionPrecision {
 	if o == nil || IsNil(o.Precision) {
-		var ret float32
+		var ret GraphVisualizationQueryValueConnectionPrecision
 		return ret
 	}
 	return *o.Precision
@@ -270,7 +269,7 @@ func (o *TableColumn1) GetPrecision() float32 {
 
 // GetPrecisionOk returns a tuple with the Precision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TableColumn1) GetPrecisionOk() (*float32, bool) {
+func (o *TableColumn1) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool) {
 	if o == nil || IsNil(o.Precision) {
 		return nil, false
 	}
@@ -286,8 +285,8 @@ func (o *TableColumn1) HasPrecision() bool {
 	return false
 }
 
-// SetPrecision gets a reference to the given float32 and assigns it to the Precision field.
-func (o *TableColumn1) SetPrecision(v float32) {
+// SetPrecision gets a reference to the given GraphVisualizationQueryValueConnectionPrecision and assigns it to the Precision field.
+func (o *TableColumn1) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision) {
 	o.Precision = &v
 }
 
