@@ -27,7 +27,7 @@ jobs:
       - name: Go Lint
         uses: golangci/golangci-lint-action@e7fa5ac41e1cf5b7d48e45e42232ce7ada589601 # pin@v9
         with:
-          version: v2.6
+          version: v2.13
 
       - name: Download dependencies
         run: go mod download
