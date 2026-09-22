@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 **Source** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, &#x60;traces&#x60;, or &#x60;rum&#x60;. | 
 **Formula** | Pointer to **string** | Formula referencing query outputs, such as &#x60;q1 + q2&#x60;, to compute derived results. Defaults to &#x60;q1&#x60;. Formulas may reference only submitted queries (&#x60;q1&#x60; through &#x60;qN&#x60;); undefined query references return 400. | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
-**GroupBy** | Pointer to [**[]AggregationGroupBy1**](AggregationGroupBy1.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
+**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
 **GroupByMode** | Pointer to **string** | &#x60;absolute&#x60; keeps each group at its own value; &#x60;relative&#x60; shows it as a percentage of the ungrouped total (defaults to absolute) | [optional] 
 **IsStacked** | Pointer to **bool** | Requests stacked rendering for a top-list widget. Tsuga renders stacked rows only for one count or sum query with exactly two grouped fields, no formula, non-negative values, and a single-cluster context; otherwise the widget renders as a normal top list. | [optional] 
 **Max** | Pointer to **float32** | Gauge maximum value | [optional] 
@@ -590,20 +590,20 @@ HasVisibleSeries returns a boolean if a field has been set.
 
 ### GetGroupBy
 
-`func (o *GraphVisualization) GetGroupBy() []AggregationGroupBy1`
+`func (o *GraphVisualization) GetGroupBy() []AggregationGroupBy`
 
 GetGroupBy returns the GroupBy field if non-nil, zero value otherwise.
 
 ### GetGroupByOk
 
-`func (o *GraphVisualization) GetGroupByOk() (*[]AggregationGroupBy1, bool)`
+`func (o *GraphVisualization) GetGroupByOk() (*[]AggregationGroupBy, bool)`
 
 GetGroupByOk returns a tuple with the GroupBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroupBy
 
-`func (o *GraphVisualization) SetGroupBy(v []AggregationGroupBy1)`
+`func (o *GraphVisualization) SetGroupBy(v []AggregationGroupBy)`
 
 SetGroupBy sets GroupBy field to given value.
 

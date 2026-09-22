@@ -32,7 +32,7 @@ type InputGraphVisualizationPie struct {
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted.
-	GroupBy []AggregationGroupBy1 `json:"groupBy,omitempty"`
+	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
 	// `absolute` keeps each group at its own value; `relative` shows it as a percentage of the ungrouped total (defaults to absolute)
 	GroupByMode *string                                          `json:"groupByMode,omitempty"`
 	Normalizer  *Normalizer1                                     `json:"normalizer,omitempty"`
@@ -233,9 +233,9 @@ func (o *InputGraphVisualizationPie) SetVisibleSeries(v []bool) {
 }
 
 // GetGroupBy returns the GroupBy field value if set, zero value otherwise.
-func (o *InputGraphVisualizationPie) GetGroupBy() []AggregationGroupBy1 {
+func (o *InputGraphVisualizationPie) GetGroupBy() []AggregationGroupBy {
 	if o == nil || IsNil(o.GroupBy) {
-		var ret []AggregationGroupBy1
+		var ret []AggregationGroupBy
 		return ret
 	}
 	return o.GroupBy
@@ -243,7 +243,7 @@ func (o *InputGraphVisualizationPie) GetGroupBy() []AggregationGroupBy1 {
 
 // GetGroupByOk returns a tuple with the GroupBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationPie) GetGroupByOk() ([]AggregationGroupBy1, bool) {
+func (o *InputGraphVisualizationPie) GetGroupByOk() ([]AggregationGroupBy, bool) {
 	if o == nil || IsNil(o.GroupBy) {
 		return nil, false
 	}
@@ -259,8 +259,8 @@ func (o *InputGraphVisualizationPie) HasGroupBy() bool {
 	return false
 }
 
-// SetGroupBy gets a reference to the given []AggregationGroupBy1 and assigns it to the GroupBy field.
-func (o *InputGraphVisualizationPie) SetGroupBy(v []AggregationGroupBy1) {
+// SetGroupBy gets a reference to the given []AggregationGroupBy and assigns it to the GroupBy field.
+func (o *InputGraphVisualizationPie) SetGroupBy(v []AggregationGroupBy) {
 	o.GroupBy = v
 }
 

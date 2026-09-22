@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a table with multi-level grouping | 
 **Columns** | [**[]TableColumn1**](TableColumn1.md) | Each column defines an independent aggregation displayed as a table column | 
-**GroupBy** | Pointer to [**[]AggregationGroupBy1**](AggregationGroupBy1.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
+**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
 **GroupByMode** | Pointer to **string** | &#x60;absolute&#x60; keeps each group at its own value; &#x60;relative&#x60; shows it as a percentage of the ungrouped total (defaults to absolute) | [optional] 
 **DefaultSorting** | Pointer to [**[]TableDefaultSorting1**](TableDefaultSorting1.md) | Default sorting applied to a table widget. Column IDs are &#x60;label&#x60; for the grouping column and &#x60;col-&lt;index&gt;&#x60; for each entry in &#x60;columns&#x60;. Users can still change sorting by selecting columns in the rendered table. | [optional] 
 **ColumnSizes** | Pointer to **map[string]float32** | Table column widths in pixels, keyed by column id: &#x60;label&#x60; for the grouping column and &#x60;col-&lt;index&gt;&#x60; for each entry in &#x60;columns&#x60;. Columns without an entry keep their default width. | [optional] 
@@ -72,20 +72,20 @@ SetColumns sets Columns field to given value.
 
 ### GetGroupBy
 
-`func (o *InputGraphVisualizationTable) GetGroupBy() []AggregationGroupBy1`
+`func (o *InputGraphVisualizationTable) GetGroupBy() []AggregationGroupBy`
 
 GetGroupBy returns the GroupBy field if non-nil, zero value otherwise.
 
 ### GetGroupByOk
 
-`func (o *InputGraphVisualizationTable) GetGroupByOk() (*[]AggregationGroupBy1, bool)`
+`func (o *InputGraphVisualizationTable) GetGroupByOk() (*[]AggregationGroupBy, bool)`
 
 GetGroupByOk returns a tuple with the GroupBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroupBy
 
-`func (o *InputGraphVisualizationTable) SetGroupBy(v []AggregationGroupBy1)`
+`func (o *InputGraphVisualizationTable) SetGroupBy(v []AggregationGroupBy)`
 
 SetGroupBy sets GroupBy field to given value.
 

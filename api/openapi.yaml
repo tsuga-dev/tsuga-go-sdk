@@ -1494,6 +1494,409 @@ paths:
               style: simple
       tags:
       - notification-rules
+  /v1/slos/query:
+    post:
+      description: "Queries SLOs visible to the authenticated operation key. Use this\
+        \ endpoint to inventory SLO definitions, filter by owner, tag, status, or\
+        \ cluster, and page through results."
+      operationId: querySlos
+      requestBody:
+        content:
+          application/json:
+            example:
+              filters:
+                owners:
+                  values:
+                  - team-123-abc
+                searchQuery:
+                  value: availability
+                tags:
+                  values:
+                  - key: team
+                    value: platform
+                statuses:
+                  values:
+                  - breached
+                clusterIds:
+                  values:
+                  - cluster-123-abc
+              sort:
+                by: name
+                direction: asc
+              limit: 10
+              offset: 0
+            schema:
+              $ref: "#/components/schemas/querySlos_request"
+        description: "SLO query request. Use filters, sorting, limit, and offset to\
+          \ page through visible SLOs."
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuerySlosResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - slos
+  /v1/slos/{id}:
+    delete:
+      description: Deletes an SLO by ID. Deleting an SLO stops future evaluations
+        and removes its attached alerts.
+      operationId: deleteSlo
+      parameters:
+      - description: Identifier of the SLO to delete. Use the `id` returned by SLO
+          query or create.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteSloResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - slos
+    get:
+      description: Retrieves one SLO definition by ID.
+      operationId: getSlo
+      parameters:
+      - description: "SLO ID returned by SLO query, create, or update operations."
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetSloResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - slos
+    put:
+      description: "Replaces an existing SLO definition by ID. Send the full SLO input\
+        \ shape, including configuration, ownership, permissions, cluster scope, and\
+        \ the reconciled alert list. Changing configuration, target, timeframe, permissions,\
+        \ or cluster scope resets evaluated SLO state, so returned status and error\
+        \ budget are based on data evaluated after the update."
+      operationId: updateSlo
+      parameters:
+      - description: Identifier of the SLO to update. Use the `id` returned by SLO
+          query or create.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              name: API availability 99.9%
+              description: Overall API gateway availability over the last 30 days
+              tags:
+              - key: team
+                value: platform
+              configuration:
+                type: event
+                dataSource: logs
+                goodQuery:
+                  queries:
+                  - filter: status:ok
+                    aggregate:
+                      type: count
+                  formula: q1
+                totalQuery:
+                  queries:
+                  - filter: '*'
+                    aggregate:
+                      type: count
+                  formula: q1
+                noDataBehavior: good
+              target: 99.9
+              timeframeDays: 30
+              owner: team-123-abc
+              permissions: all
+              clusterIds: []
+              alerts:
+              - priority: 1
+                configuration:
+                  type: burn-rate
+                  burnRate: 14.4
+            schema:
+              $ref: "#/components/schemas/updateSlo_request"
+        description: "SLO update request. Send all required SLO fields and the full\
+          \ alert list. Alerts are reconciled to exactly the provided list: alerts\
+          \ with a known id are updated, alerts without an id are created, and existing\
+          \ alerts absent from the list are deleted. Omit `clusterIds` to preserve\
+          \ the current cluster scope; send an empty array to run on all clusters."
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateSloResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - slos
+  /v1/slos:
+    post:
+      description: Creates an SLO owned by the specified team. The SLO can be event-based
+        (good/total queries) or time-based (a thresholded query over evaluation slices)
+        depending on its configuration.
+      operationId: createSlo
+      requestBody:
+        content:
+          application/json:
+            example:
+              name: API availability 99.9%
+              description: Overall API gateway availability over the last 30 days
+              tags:
+              - key: team
+                value: platform
+              configuration:
+                type: event
+                dataSource: logs
+                goodQuery:
+                  queries:
+                  - filter: status:ok
+                    aggregate:
+                      type: count
+                  formula: q1
+                totalQuery:
+                  queries:
+                  - filter: '*'
+                    aggregate:
+                      type: count
+                  formula: q1
+                noDataBehavior: good
+              target: 99.9
+              timeframeDays: 30
+              owner: team-123-abc
+              permissions: all
+              clusterIds: []
+              alerts:
+              - priority: 1
+                configuration:
+                  type: burn-rate
+                  burnRate: 14.4
+            schema:
+              $ref: "#/components/schemas/createSlo_request"
+        description: "SLO creation request. Provide ownership, data access, SLI configuration,\
+          \ target, timeframe, optional cluster scope, and the alerts to create."
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateSloResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - slos
   /v1/tag-policies:
     get:
       description: "Lists tag policies visible to the authenticated operation key.\
@@ -3363,6 +3766,354 @@ components:
       - data
       - requestId
     DeleteNotificationRuleResponse:
+      example:
+        data:
+          success: true
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/DeleteResponse"
+      required:
+      - data
+      - requestId
+    Slo:
+      description: "Service Level Objective definition: its SLI configuration, target\
+        \ percentage, rolling timeframe, cluster scope, and attached alerts"
+      example:
+        id: 123-456-abc
+        name: API availability 99.9%
+        description: Overall API gateway availability over the last 30 days
+        tags:
+        - key: team
+          value: platform
+        configuration:
+          type: event
+          dataSource: logs
+          goodQuery:
+            queries:
+            - filter: status:ok
+              aggregate:
+                type: count
+            formula: q1
+          totalQuery:
+            queries:
+            - filter: '*'
+              aggregate:
+                type: count
+            formula: q1
+          noDataBehavior: good
+        target: 99.9
+        timeframeDays: 30
+        owner: team-123-abc
+        permissions: all
+        clusterIds: []
+        alerts:
+        - id: alert-123-abc
+          sloId: 123-456-abc
+          priority: 1
+          configuration:
+            type: burn-rate
+            burnRate: 14.4
+      properties:
+        id:
+          description: Tsuga-generated SLO ID assigned when the SLO is created.
+          type: string
+        name:
+          description: "Display name of the SLO, set by the caller."
+          type: string
+        description:
+          description: "Free-form, caller-provided description of what the SLO measures.\
+            \ Absent when not set."
+          type: string
+        tags:
+          description: Key/value tags applied to the resource. Use them to organize
+            resources and to satisfy tag policies.
+          items:
+            $ref: "#/components/schemas/Tag_1"
+          title: Tags
+          type: array
+        configuration:
+          $ref: "#/components/schemas/Slo_configuration"
+        target:
+          description: "Target percentage (0 < target < 100, e.g. 99.9)"
+          type: number
+        timeframeDays:
+          description: "Rolling SLO evaluation window in days. Set by the caller on\
+            \ create or update and returned on read and list responses. Allowed values\
+            \ are 7, 30, and 90."
+          enum:
+          - 7
+          - 30
+          - 90
+          type: integer
+        owner:
+          description: Team ID that owns the SLO
+          type: string
+        permissions:
+          description: "`all` allows the resource to query all permitted telemetry,\
+            \ `owning-team-and-public` limits it to the owning team plus public data,\
+            \ and `owning-team-only` limits it to the owning team."
+          enum:
+          - all
+          - owning-team-and-public
+          - owning-team-only
+          type: string
+        clusterIds:
+          description: Cluster IDs this SLO is evaluated on. Omit or send an empty
+            array on input to run on all clusters; responses use an empty array to
+            mean all clusters. Non-empty input values must reference existing clusters.
+          items:
+            type: string
+          type: array
+        alerts:
+          description: Alerts attached to this SLO
+          items:
+            $ref: "#/components/schemas/Slo_alerts_inner"
+          type: array
+      required:
+      - alerts
+      - clusterIds
+      - configuration
+      - id
+      - name
+      - owner
+      - permissions
+      - target
+      - timeframeDays
+    QuerySlosResponse:
+      example:
+        metadata:
+          pagination:
+            pageCount: 6
+            totalCount: 0
+        data:
+        - id: 123-456-abc
+          name: API availability 99.9%
+          description: Overall API gateway availability over the last 30 days
+          tags:
+          - key: team
+            value: platform
+          configuration:
+            type: event
+            dataSource: logs
+            goodQuery:
+              queries:
+              - filter: status:ok
+                aggregate:
+                  type: count
+              formula: q1
+            totalQuery:
+              queries:
+              - filter: '*'
+                aggregate:
+                  type: count
+              formula: q1
+            noDataBehavior: good
+          target: 99.9
+          timeframeDays: 30
+          owner: team-123-abc
+          permissions: all
+          clusterIds: []
+          alerts:
+          - id: alert-123-abc
+            sloId: 123-456-abc
+            priority: 1
+            configuration:
+              type: burn-rate
+              burnRate: 14.4
+        - id: 123-456-abc
+          name: API availability 99.9%
+          description: Overall API gateway availability over the last 30 days
+          tags:
+          - key: team
+            value: platform
+          configuration:
+            type: event
+            dataSource: logs
+            goodQuery:
+              queries:
+              - filter: status:ok
+                aggregate:
+                  type: count
+              formula: q1
+            totalQuery:
+              queries:
+              - filter: '*'
+                aggregate:
+                  type: count
+              formula: q1
+            noDataBehavior: good
+          target: 99.9
+          timeframeDays: 30
+          owner: team-123-abc
+          permissions: all
+          clusterIds: []
+          alerts:
+          - id: alert-123-abc
+            sloId: 123-456-abc
+            priority: 1
+            configuration:
+              type: burn-rate
+              burnRate: 14.4
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/Slo"
+          type: array
+        metadata:
+          $ref: "#/components/schemas/ResponseMetadata"
+      required:
+      - data
+      - requestId
+    GetSloResponse:
+      example:
+        data:
+          id: 123-456-abc
+          name: API availability 99.9%
+          description: Overall API gateway availability over the last 30 days
+          tags:
+          - key: team
+            value: platform
+          configuration:
+            type: event
+            dataSource: logs
+            goodQuery:
+              queries:
+              - filter: status:ok
+                aggregate:
+                  type: count
+              formula: q1
+            totalQuery:
+              queries:
+              - filter: '*'
+                aggregate:
+                  type: count
+              formula: q1
+            noDataBehavior: good
+          target: 99.9
+          timeframeDays: 30
+          owner: team-123-abc
+          permissions: all
+          clusterIds: []
+          alerts:
+          - id: alert-123-abc
+            sloId: 123-456-abc
+            priority: 1
+            configuration:
+              type: burn-rate
+              burnRate: 14.4
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Slo"
+      required:
+      - data
+      - requestId
+    CreateSloResponse:
+      example:
+        data:
+          id: 123-456-abc
+          name: API availability 99.9%
+          description: Overall API gateway availability over the last 30 days
+          tags:
+          - key: team
+            value: platform
+          configuration:
+            type: event
+            dataSource: logs
+            goodQuery:
+              queries:
+              - filter: status:ok
+                aggregate:
+                  type: count
+              formula: q1
+            totalQuery:
+              queries:
+              - filter: '*'
+                aggregate:
+                  type: count
+              formula: q1
+            noDataBehavior: good
+          target: 99.9
+          timeframeDays: 30
+          owner: team-123-abc
+          permissions: all
+          clusterIds: []
+          alerts:
+          - id: alert-123-abc
+            sloId: 123-456-abc
+            priority: 1
+            configuration:
+              type: burn-rate
+              burnRate: 14.4
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Slo"
+      required:
+      - data
+      - requestId
+    UpdateSloResponse:
+      example:
+        data:
+          id: 123-456-abc
+          name: API availability 99.9%
+          description: Overall API gateway availability over the last 30 days
+          tags:
+          - key: team
+            value: platform
+          configuration:
+            type: event
+            dataSource: logs
+            goodQuery:
+              queries:
+              - filter: status:ok
+                aggregate:
+                  type: count
+              formula: q1
+            totalQuery:
+              queries:
+              - filter: '*'
+                aggregate:
+                  type: count
+              formula: q1
+            noDataBehavior: good
+          target: 99.9
+          timeframeDays: 30
+          owner: team-123-abc
+          permissions: all
+          clusterIds: []
+          alerts:
+          - id: alert-123-abc
+            sloId: 123-456-abc
+            priority: 1
+            configuration:
+              type: burn-rate
+              burnRate: 14.4
+        requestId: requestId
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/Slo"
+      required:
+      - data
+      - requestId
+    DeleteSloResponse:
       example:
         data:
           success: true
@@ -6208,7 +6959,7 @@ components:
             \ splits results further, so the response contains one result per unique\
             \ combination of group values."
           items:
-            $ref: "#/components/schemas/AggregationGroupBy"
+            $ref: "#/components/schemas/AggregationGroupBy_1"
           type: array
         groupByMode:
           description: '`absolute` keeps each group at its own value; `relative` shows
@@ -6293,7 +7044,7 @@ components:
             \ splits results further, so the response contains one result per unique\
             \ combination of group values."
           items:
-            $ref: "#/components/schemas/AggregationGroupBy"
+            $ref: "#/components/schemas/AggregationGroupBy_1"
           type: array
         groupByMode:
           description: '`absolute` keeps each group at its own value; `relative` shows
@@ -6362,7 +7113,7 @@ components:
             \ splits results further, so the response contains one result per unique\
             \ combination of group values."
           items:
-            $ref: "#/components/schemas/AggregationGroupBy"
+            $ref: "#/components/schemas/AggregationGroupBy_1"
           type: array
         groupByMode:
           description: '`absolute` keeps each group at its own value; `relative` shows
@@ -6541,7 +7292,7 @@ components:
             \ splits results further, so the response contains one result per unique\
             \ combination of group values."
           items:
-            $ref: "#/components/schemas/AggregationGroupBy"
+            $ref: "#/components/schemas/AggregationGroupBy_1"
           type: array
         groupByMode:
           description: '`absolute` keeps each group at its own value; `relative` shows
@@ -6616,7 +7367,7 @@ components:
             \ splits results further, so the response contains one result per unique\
             \ combination of group values."
           items:
-            $ref: "#/components/schemas/AggregationGroupBy"
+            $ref: "#/components/schemas/AggregationGroupBy_1"
           type: array
         group:
           description: "Attribute that switches the count to \"Groups\" mode: records\
@@ -6687,7 +7438,7 @@ components:
             \ splits results further, so the response contains one result per unique\
             \ combination of group values."
           items:
-            $ref: "#/components/schemas/AggregationGroupBy"
+            $ref: "#/components/schemas/AggregationGroupBy_1"
           type: array
         group:
           description: "Attribute that switches the count to \"Groups\" mode: records\
@@ -6735,7 +7486,7 @@ components:
             \ splits results further, so the response contains one result per unique\
             \ combination of group values."
           items:
-            $ref: "#/components/schemas/AggregationGroupBy"
+            $ref: "#/components/schemas/AggregationGroupBy_1"
           type: array
         groupByMode:
           description: '`absolute` keeps each group at its own value; `relative` shows
@@ -7450,7 +8201,7 @@ components:
             \ unique combination of group values instead of one aggregated total.\
             \ Defaults to an empty array (one ungrouped result) when omitted."
           items:
-            $ref: "#/components/schemas/AggregationGroupBy_1"
+            $ref: "#/components/schemas/AggregationGroupBy"
           maxItems: 7
           type: array
         groupByMode:
@@ -7549,7 +8300,7 @@ components:
             \ unique combination of group values instead of one aggregated total.\
             \ Defaults to an empty array (one ungrouped result) when omitted."
           items:
-            $ref: "#/components/schemas/AggregationGroupBy_1"
+            $ref: "#/components/schemas/AggregationGroupBy"
           maxItems: 7
           type: array
         groupByMode:
@@ -7632,7 +8383,7 @@ components:
             \ unique combination of group values instead of one aggregated total.\
             \ Defaults to an empty array (one ungrouped result) when omitted."
           items:
-            $ref: "#/components/schemas/AggregationGroupBy_1"
+            $ref: "#/components/schemas/AggregationGroupBy"
           maxItems: 7
           type: array
         groupByMode:
@@ -7849,7 +8600,7 @@ components:
             \ unique combination of group values instead of one aggregated total.\
             \ Defaults to an empty array (one ungrouped result) when omitted."
           items:
-            $ref: "#/components/schemas/AggregationGroupBy_1"
+            $ref: "#/components/schemas/AggregationGroupBy"
           maxItems: 7
           type: array
         groupByMode:
@@ -7938,7 +8689,7 @@ components:
             \ unique combination of group values instead of one aggregated total.\
             \ Defaults to an empty array (one ungrouped result) when omitted."
           items:
-            $ref: "#/components/schemas/AggregationGroupBy_1"
+            $ref: "#/components/schemas/AggregationGroupBy"
           maxItems: 7
           type: array
         group:
@@ -8027,7 +8778,7 @@ components:
             \ unique combination of group values instead of one aggregated total.\
             \ Defaults to an empty array (one ungrouped result) when omitted."
           items:
-            $ref: "#/components/schemas/AggregationGroupBy_1"
+            $ref: "#/components/schemas/AggregationGroupBy"
           maxItems: 7
           type: array
         group:
@@ -8080,7 +8831,7 @@ components:
             \ unique combination of group values instead of one aggregated total.\
             \ Defaults to an empty array (one ungrouped result) when omitted."
           items:
-            $ref: "#/components/schemas/AggregationGroupBy_1"
+            $ref: "#/components/schemas/AggregationGroupBy"
           maxItems: 7
           type: array
         groupByMode:
@@ -9429,6 +10180,685 @@ components:
       - targets
       - teamsFilter
       - transitionTypesFilter
+    querySlos_request_filters_owners:
+      description: Restrict results to SLOs owned by any of these team IDs
+      properties:
+        values:
+          description: "Values compared by this filter. When `exclude` is omitted\
+            \ or false, rows matching any value are kept; when `exclude` is true,\
+            \ matching rows are removed."
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 50
+          type: array
+        exclude:
+          description: "If true, exclude rows matching these values instead of including\
+            \ them"
+          type: boolean
+      required:
+      - values
+    querySlos_request_filters_searchQuery:
+      description: "Text filter for SLO names or IDs. Optional; `exclude: true` removes\
+        \ matching SLOs."
+      properties:
+        value:
+          description: Substring matched case-insensitively against the SLO name or
+            SLO ID.
+          maxLength: 250
+          minLength: 1
+          type: string
+        exclude:
+          description: "If true, exclude rows matching this value instead of including\
+            \ them"
+          type: boolean
+      required:
+      - value
+    querySlos_request_filters_tags:
+      description: Restrict results to SLOs that have at least one of the listed key/value
+        tags
+      properties:
+        values:
+          description: "Values compared by this filter. When `exclude` is omitted\
+            \ or false, rows matching any value are kept; when `exclude` is true,\
+            \ matching rows are removed."
+          items:
+            $ref: "#/components/schemas/Tag"
+          maxItems: 50
+          type: array
+        exclude:
+          description: "If true, exclude rows matching these values instead of including\
+            \ them"
+          type: boolean
+      required:
+      - values
+    querySlos_request_filters_clusterIds:
+      description: Restrict results to SLOs that run against any of these cluster
+        IDs (SLOs with no cluster restriction are always included)
+      properties:
+        values:
+          description: "Values compared by this filter. When `exclude` is omitted\
+            \ or false, rows matching any value are kept; when `exclude` is true,\
+            \ matching rows are removed."
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 50
+          type: array
+        exclude:
+          description: "If true, exclude rows matching these values instead of including\
+            \ them"
+          type: boolean
+      required:
+      - values
+    querySlos_request_filters_statuses:
+      description: Restrict results to SLOs whose status is one of these values
+      properties:
+        values:
+          description: "Values compared by this filter. When `exclude` is omitted\
+            \ or false, rows matching any value are kept; when `exclude` is true,\
+            \ matching rows are removed."
+          items:
+            description: "SLO status: healthy (meeting the target), breached (breaching\
+              \ it), or no_data (not evaluated yet)"
+            enum:
+            - healthy
+            - breached
+            - no_data
+            type: string
+          maxItems: 3
+          type: array
+        exclude:
+          description: "If true, exclude rows matching these values instead of including\
+            \ them"
+          type: boolean
+      required:
+      - values
+    querySlos_request_filters:
+      properties:
+        owners:
+          $ref: "#/components/schemas/querySlos_request_filters_owners"
+        searchQuery:
+          $ref: "#/components/schemas/querySlos_request_filters_searchQuery"
+        tags:
+          $ref: "#/components/schemas/querySlos_request_filters_tags"
+        clusterIds:
+          $ref: "#/components/schemas/querySlos_request_filters_clusterIds"
+        statuses:
+          $ref: "#/components/schemas/querySlos_request_filters_statuses"
+    querySlos_request_sort:
+      description: Optional sorting applied to the returned SLOs
+      properties:
+        by:
+          description: Field to sort by
+          enum:
+          - name
+          - owner
+          - tags
+          - updatedAt
+          - sli
+          - errorBudget
+          - status
+          type: string
+        direction:
+          description: "Sort direction: ascending or descending."
+          enum:
+          - asc
+          - desc
+          type: string
+      required:
+      - by
+      - direction
+    querySlos_request:
+      description: "SLO query request. Use filters, sorting, limit, and offset to\
+        \ page through visible SLOs."
+      properties:
+        limit:
+          default: 100
+          description: Maximum number of items to return in this page. Omit to use
+            the public API default of 100.
+          maximum: 1000
+          minimum: 1
+          type: integer
+        offset:
+          description: "Zero-based index of the first matching item to return. Increase\
+            \ it with `limit` to request later pages. If `limit` is provided without\
+            \ `offset`, the offset defaults to 0."
+          minimum: 0
+          type: integer
+        filters:
+          $ref: "#/components/schemas/querySlos_request_filters"
+        sort:
+          $ref: "#/components/schemas/querySlos_request_sort"
+    InputAggregate:
+      description: Aggregation operation for this query. Required for every query;
+        `field` is required by all aggregate types except `count`.
+      discriminator:
+        mapping:
+          count: "#/components/schemas/InputAggregateCount"
+          unique-count: "#/components/schemas/InputAggregateUniqueCount"
+          average: "#/components/schemas/InputAggregateAverage"
+          max: "#/components/schemas/InputAggregateMax"
+          min: "#/components/schemas/InputAggregateMin"
+          sum: "#/components/schemas/InputAggregateSum"
+          percentile: "#/components/schemas/InputAggregatePercentile"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/InputAggregateCount"
+      - $ref: "#/components/schemas/InputAggregateUniqueCount"
+      - $ref: "#/components/schemas/InputAggregateAverage"
+      - $ref: "#/components/schemas/InputAggregateMax"
+      - $ref: "#/components/schemas/InputAggregateMin"
+      - $ref: "#/components/schemas/InputAggregateSum"
+      - $ref: "#/components/schemas/InputAggregatePercentile"
+      required:
+      - type
+      title: InputAggregate
+    InputFunction:
+      description: "Post-processing function applied to an aggregation query result\
+        \ after the aggregate is computed, selected by `type`."
+      discriminator:
+        mapping:
+          per-second: "#/components/schemas/FunctionPerSecond"
+          per-minute: "#/components/schemas/FunctionPerMinute"
+          per-hour: "#/components/schemas/FunctionPerHour"
+          rate: "#/components/schemas/FunctionRate"
+          increase: "#/components/schemas/FunctionIncrease"
+          rolling: "#/components/schemas/InputFunctionRolling"
+          log: "#/components/schemas/InputFunctionLog"
+          power: "#/components/schemas/FunctionPower"
+          sqrt: "#/components/schemas/FunctionSqrt"
+          last: "#/components/schemas/FunctionLast"
+          time-offset: "#/components/schemas/InputFunctionTimeOffset"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/FunctionPerSecond"
+      - $ref: "#/components/schemas/FunctionPerMinute"
+      - $ref: "#/components/schemas/FunctionPerHour"
+      - $ref: "#/components/schemas/FunctionRate"
+      - $ref: "#/components/schemas/FunctionIncrease"
+      - $ref: "#/components/schemas/InputFunctionRolling"
+      - $ref: "#/components/schemas/InputFunctionLog"
+      - $ref: "#/components/schemas/FunctionPower"
+      - $ref: "#/components/schemas/FunctionSqrt"
+      - $ref: "#/components/schemas/FunctionLast"
+      - $ref: "#/components/schemas/InputFunctionTimeOffset"
+      required:
+      - type
+      title: InputFunction
+    SloAggregationQuery:
+      description: Single aggregation query evaluated by an SLO.
+      properties:
+        aggregate:
+          $ref: "#/components/schemas/InputAggregate"
+        functions:
+          description: Post-processing functions applied to aggregation results. Defaults
+            to an empty array when omitted.
+          items:
+            $ref: "#/components/schemas/InputFunction"
+          maxItems: 10
+          type: array
+        timeAggregate:
+          description: "Per-series rollup applied within each time bucket before the\
+            \ cross-series aggregate. Use it on metric queries when `aggregate.type`\
+            \ is `sum` and no `rate`, `increase`, `last`, or `rolling` function is\
+            \ present. When omitted, Tsuga derives the rollup from the metric type."
+          enum:
+          - avg
+          - sum
+          - min
+          - max
+          - last
+          type: string
+        filter:
+          description: Tsuga query filter applied to this alerting or SLO aggregation
+            query. Required by the API; use the query language for the selected data
+            source.
+          format: tsuga-query
+          maxLength: 10000
+          minLength: 0
+          type: string
+      required:
+      - aggregate
+      - filter
+      title: SloAggregationQuery
+    SloQueryFormula:
+      description: "Aggregation queries combined by a formula to produce the SLO signal.\
+        \ Formulas reference queries as q1, q2, and so on. Do not send per-query fill;\
+        \ Tsuga derives the fill behavior from the SLO type."
+      properties:
+        queries:
+          description: "Aggregation queries used by SLO evaluation. Each query is\
+            \ referenced from formulas as q1, q2, and so on."
+          items:
+            $ref: "#/components/schemas/SloAggregationQuery"
+          maxItems: 15
+          minItems: 1
+          type: array
+        formula:
+          description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
+            \ derived results. Defaults to `q1`. Formulas may reference only submitted\
+            \ queries (`q1` through `qN`); undefined query references return 400."
+          format: tsuga-formula
+          maxLength: 250
+          minLength: 0
+          type: string
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
+      required:
+      - formula
+      - queries
+      title: SloQueryFormula
+    AggregationGroupBy:
+      properties:
+        fields:
+          description: Telemetry attribute name to group aggregation results by. Currently
+            limited to one field per grouping level.
+          items:
+            maxLength: 250
+            minLength: 0
+            type: string
+          maxItems: 1
+          type: array
+        limit:
+          description: "Maximum number of distinct values of `fields` to return for\
+            \ this grouping level, ranked by aggregate value. Groups beyond the limit\
+            \ are truncated from the response, not merged into an \"other\" group."
+          type: number
+        sortOrder:
+          description: "Sort direction: ascending or descending."
+          enum:
+          - asc
+          - desc
+          type: string
+        replaceNullWith:
+          description: Value used to group documents that have no value for a grouped
+            field.
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - fields
+      - limit
+      title: AggregationGroupBy
+    EventSloConfiguration:
+      properties:
+        type:
+          description: Configuration kind. Set to `event` for SLOs that compute SLI
+            from good and total query formulas over the rolling timeframe.
+          enum:
+          - event
+          type: string
+        dataSource:
+          description: "Telemetry source queried by this aggregation: `logs`, `metrics`,\
+            \ `traces`, or `rum`."
+          enum:
+          - logs
+          - metrics
+          - traces
+          - rum
+          type: string
+        goodQuery:
+          $ref: "#/components/schemas/SloQueryFormula"
+        totalQuery:
+          $ref: "#/components/schemas/SloQueryFormula"
+        groupByFields:
+          description: "Nested grouping levels applied to aggregation results, outermost\
+            \ first (e.g. group by service, then by level within each service). Each\
+            \ level splits results further, so the response contains one result per\
+            \ unique combination of group values instead of one aggregated total.\
+            \ Defaults to an empty array (one ungrouped result) when omitted."
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy"
+          maxItems: 7
+          type: array
+        noDataBehavior:
+          description: "How to treat SLO with no data: good (count as meeting the\
+            \ SLO), bad (count as breaching it)"
+          enum:
+          - good
+          - bad
+          type: string
+      required:
+      - dataSource
+      - goodQuery
+      - noDataBehavior
+      - totalQuery
+      - type
+      title: EventSloConfiguration
+    TimeSliceSloConfiguration_threshold:
+      description: Threshold comparison applied to each time-SLO evaluation slice
+      properties:
+        operator:
+          description: Comparison operator between the query value and the threshold
+          enum:
+          - greater_than
+          - less_than
+          - greater_than_or_equal
+          - less_than_or_equal
+          type: string
+        value:
+          description: Threshold value compared against the query signal
+          type: number
+      required:
+      - operator
+      - value
+    TimeSliceSloConfiguration:
+      properties:
+        type:
+          description: Configuration kind. Set to `time` for SLOs that evaluate a
+            query against a threshold in fixed-size time slices.
+          enum:
+          - time
+          type: string
+        dataSource:
+          description: "Telemetry source queried by this aggregation: `logs`, `metrics`,\
+            \ `traces`, or `rum`."
+          enum:
+          - logs
+          - metrics
+          - traces
+          - rum
+          type: string
+        query:
+          $ref: "#/components/schemas/SloQueryFormula"
+        sliceSizeMinutes:
+          description: "Length of each time-SLO evaluation slice in minutes. Required\
+            \ for `type: time`. Valid input is 30 through 1440."
+          maximum: 1440
+          minimum: 30
+          type: integer
+        threshold:
+          $ref: "#/components/schemas/TimeSliceSloConfiguration_threshold"
+        groupByFields:
+          description: "Nested grouping levels applied to aggregation results, outermost\
+            \ first (e.g. group by service, then by level within each service). Each\
+            \ level splits results further, so the response contains one result per\
+            \ unique combination of group values instead of one aggregated total.\
+            \ Defaults to an empty array (one ungrouped result) when omitted."
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy"
+          maxItems: 7
+          type: array
+        noDataBehavior:
+          description: "How to treat time buckets with no data: good (count as meeting\
+            \ the SLO), bad (count as breaching it), or ignore (exclude from the error\
+            \ budget)"
+          enum:
+          - good
+          - bad
+          - ignore
+          type: string
+      required:
+      - dataSource
+      - noDataBehavior
+      - query
+      - sliceSizeMinutes
+      - threshold
+      - type
+      title: TimeSliceSloConfiguration
+    updateSlo_request_configuration:
+      description: SLI configuration for this SLO. Use `event` for good/total event-ratio
+        SLOs or `time` for thresholded time-slice SLOs.
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/EventSloConfiguration"
+      - $ref: "#/components/schemas/TimeSliceSloConfiguration"
+      required:
+      - type
+    BurnRateAlert:
+      properties:
+        type:
+          description: Alert configuration kind. Set to `burn-rate` for alerts that
+            fire when the SLO consumes error budget faster than the configured multiplier.
+          enum:
+          - burn-rate
+          type: string
+        burnRate:
+          description: Burn-rate multiplier that triggers this alert. Required for
+            burn-rate alerts; valid input is 1 through 100. Non-template values are
+            accepted; short and long evaluation windows are derived from the predefined
+            template with the closest burn rate.
+          maximum: 100
+          minimum: 1
+          type: number
+      required:
+      - burnRate
+      - type
+      title: BurnRateAlert
+    ThresholdAlert:
+      properties:
+        type:
+          description: Alert configuration kind. Set to `threshold` for alerts that
+            fire when the SLO indicator falls below a percentage threshold.
+          enum:
+          - threshold
+          type: string
+        threshold:
+          description: SLI percentage threshold for this alert. Required for threshold
+            alerts; valid input is greater than 0 and less than 100. The alert passes
+            when SLI is at or above this value and fires when SLI is strictly below
+            it.
+          exclusiveMaximum: true
+          exclusiveMinimum: true
+          maximum: 100
+          minimum: 0
+          type: number
+      required:
+      - threshold
+      - type
+      title: ThresholdAlert
+    updateSlo_request_alerts_inner_configuration:
+      description: "Alert trigger configuration: burn-rate or threshold"
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/BurnRateAlert"
+      - $ref: "#/components/schemas/ThresholdAlert"
+      required:
+      - type
+    updateSlo_request_alerts_inner:
+      properties:
+        id:
+          description: Identifier of an existing alert to update. Omit to create a
+            new alert on this SLO.
+          maxLength: 250
+          minLength: 1
+          type: string
+        priority:
+          description: "Alert priority (1 is highest, 5 is lowest)"
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          type: number
+        configuration:
+          $ref: "#/components/schemas/updateSlo_request_alerts_inner_configuration"
+      required:
+      - configuration
+      - priority
+    updateSlo_request:
+      description: "SLO update request. Send all required SLO fields and the full\
+        \ alert list. Alerts are reconciled to exactly the provided list: alerts with\
+        \ a known id are updated, alerts without an id are created, and existing alerts\
+        \ absent from the list are deleted. Omit `clusterIds` to preserve the current\
+        \ cluster scope; send an empty array to run on all clusters."
+      properties:
+        name:
+          description: Display name of the SLO.
+          maxLength: 250
+          minLength: 1
+          type: string
+        description:
+          maxLength: 50000
+          minLength: 0
+          nullable: true
+          type: string
+        tags:
+          description: Key/value tags to apply to the resource. Tag policies may require
+            specific keys or values.
+          items:
+            $ref: "#/components/schemas/Tag"
+          maxItems: 50
+          title: Tags
+          type: array
+        configuration:
+          $ref: "#/components/schemas/updateSlo_request_configuration"
+        target:
+          description: "Target percentage (0 < target < 100, e.g. 99.9)"
+          exclusiveMaximum: true
+          exclusiveMinimum: true
+          maximum: 100
+          minimum: 0
+          type: number
+        timeframeDays:
+          description: "Rolling SLO evaluation window in days. Set by the caller on\
+            \ create or update and returned on read and list responses. Allowed values\
+            \ are 7, 30, and 90."
+          enum:
+          - 7
+          - 30
+          - 90
+          type: integer
+        owner:
+          description: Team ID that owns the SLO
+          maxLength: 250
+          minLength: 1
+          type: string
+        permissions:
+          description: "`all` allows the resource to query all permitted telemetry,\
+            \ `owning-team-and-public` limits it to the owning team plus public data,\
+            \ and `owning-team-only` limits it to the owning team."
+          enum:
+          - all
+          - owning-team-and-public
+          - owning-team-only
+          type: string
+        clusterIds:
+          description: Cluster IDs this SLO is evaluated on. Omit or send an empty
+            array on input to run on all clusters; responses use an empty array to
+            mean all clusters. Non-empty input values must reference existing clusters.
+          items:
+            maxLength: 250
+            minLength: 1
+            nullable: true
+            type: string
+          type: array
+        alerts:
+          description: "Alerts attached to this SLO. The SLO owns its alerts: the\
+            \ set is reconciled to exactly this list — existing alerts are matched\
+            \ by id, alerts without an id are created, and existing alerts absent\
+            \ from the list are deleted. Send an empty array to clear all alerts."
+          items:
+            $ref: "#/components/schemas/updateSlo_request_alerts_inner"
+          type: array
+      required:
+      - alerts
+      - configuration
+      - name
+      - owner
+      - permissions
+      - target
+      - timeframeDays
+    createSlo_request_alerts_inner:
+      properties:
+        priority:
+          description: "Alert priority (1 is highest, 5 is lowest)"
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          type: number
+        configuration:
+          $ref: "#/components/schemas/updateSlo_request_alerts_inner_configuration"
+      required:
+      - configuration
+      - priority
+    createSlo_request:
+      description: "SLO creation request. Provide ownership, data access, SLI configuration,\
+        \ target, timeframe, optional cluster scope, and the alerts to create."
+      properties:
+        name:
+          description: Display name of the SLO.
+          maxLength: 250
+          minLength: 1
+          type: string
+        description:
+          maxLength: 50000
+          minLength: 0
+          nullable: true
+          type: string
+        tags:
+          description: Key/value tags to apply to the resource. Tag policies may require
+            specific keys or values.
+          items:
+            $ref: "#/components/schemas/Tag"
+          maxItems: 50
+          title: Tags
+          type: array
+        configuration:
+          $ref: "#/components/schemas/updateSlo_request_configuration"
+        target:
+          description: "Target percentage (0 < target < 100, e.g. 99.9)"
+          exclusiveMaximum: true
+          exclusiveMinimum: true
+          maximum: 100
+          minimum: 0
+          type: number
+        timeframeDays:
+          description: "Rolling SLO evaluation window in days. Set by the caller on\
+            \ create or update and returned on read and list responses. Allowed values\
+            \ are 7, 30, and 90."
+          enum:
+          - 7
+          - 30
+          - 90
+          type: integer
+        owner:
+          description: Team ID that owns the SLO
+          maxLength: 250
+          minLength: 1
+          type: string
+        permissions:
+          description: "`all` allows the resource to query all permitted telemetry,\
+            \ `owning-team-and-public` limits it to the owning team plus public data,\
+            \ and `owning-team-only` limits it to the owning team."
+          enum:
+          - all
+          - owning-team-and-public
+          - owning-team-only
+          type: string
+        clusterIds:
+          description: Cluster IDs this SLO is evaluated on. Omit or send an empty
+            array on input to run on all clusters; responses use an empty array to
+            mean all clusters. Non-empty input values must reference existing clusters.
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          type: array
+        alerts:
+          description: Alerts to create on this SLO. Send an empty array for none.
+          items:
+            $ref: "#/components/schemas/createSlo_request_alerts_inner"
+          type: array
+      required:
+      - alerts
+      - configuration
+      - name
+      - owner
+      - permissions
+      - target
+      - timeframeDays
     createTagPolicy_request_teamScope:
       description: Team scope to store for this policy. Omit this field to apply the
         policy to all teams.
@@ -10008,6 +11438,331 @@ components:
       required:
       - config
       - id
+    Aggregate:
+      description: Aggregation operation for this query. Required for every query;
+        `field` is required by all aggregate types except `count`.
+      discriminator:
+        mapping:
+          count: "#/components/schemas/AggregateCount"
+          unique-count: "#/components/schemas/AggregateUniqueCount"
+          average: "#/components/schemas/AggregateAverage"
+          max: "#/components/schemas/AggregateMax"
+          min: "#/components/schemas/AggregateMin"
+          sum: "#/components/schemas/AggregateSum"
+          percentile: "#/components/schemas/AggregatePercentile"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/AggregateCount"
+      - $ref: "#/components/schemas/AggregateUniqueCount"
+      - $ref: "#/components/schemas/AggregateAverage"
+      - $ref: "#/components/schemas/AggregateMax"
+      - $ref: "#/components/schemas/AggregateMin"
+      - $ref: "#/components/schemas/AggregateSum"
+      - $ref: "#/components/schemas/AggregatePercentile"
+      required:
+      - type
+      title: Aggregate
+    Function:
+      description: "Post-processing function applied to an aggregation query result\
+        \ after the aggregate is computed, selected by `type`."
+      discriminator:
+        mapping:
+          per-second: "#/components/schemas/FunctionPerSecond"
+          per-minute: "#/components/schemas/FunctionPerMinute"
+          per-hour: "#/components/schemas/FunctionPerHour"
+          rate: "#/components/schemas/FunctionRate"
+          increase: "#/components/schemas/FunctionIncrease"
+          rolling: "#/components/schemas/FunctionRolling"
+          log: "#/components/schemas/FunctionLog"
+          power: "#/components/schemas/FunctionPower"
+          sqrt: "#/components/schemas/FunctionSqrt"
+          last: "#/components/schemas/FunctionLast"
+          time-offset: "#/components/schemas/FunctionTimeOffset"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/FunctionPerSecond"
+      - $ref: "#/components/schemas/FunctionPerMinute"
+      - $ref: "#/components/schemas/FunctionPerHour"
+      - $ref: "#/components/schemas/FunctionRate"
+      - $ref: "#/components/schemas/FunctionIncrease"
+      - $ref: "#/components/schemas/FunctionRolling"
+      - $ref: "#/components/schemas/FunctionLog"
+      - $ref: "#/components/schemas/FunctionPower"
+      - $ref: "#/components/schemas/FunctionSqrt"
+      - $ref: "#/components/schemas/FunctionLast"
+      - $ref: "#/components/schemas/FunctionTimeOffset"
+      required:
+      - type
+      title: Function
+    MonitorAggregationQuery_fill_mode:
+      description: How missing aggregation points should be filled.
+      properties:
+        type:
+          description: '`zero` fills missing points with zero. `null` keeps missing
+            points null.'
+          enum:
+          - zero
+          - "null"
+          type: string
+      required:
+      - type
+    MonitorAggregationQuery_fill:
+      description: Missing-point fill behavior for aggregation results. Optional;
+        omit to keep missing points null.
+      properties:
+        mode:
+          $ref: "#/components/schemas/MonitorAggregationQuery_fill_mode"
+      required:
+      - mode
+    MonitorAggregationQuery:
+      description: Single aggregation query evaluated by a monitor or SLO.
+      properties:
+        aggregate:
+          $ref: "#/components/schemas/Aggregate"
+        functions:
+          description: Post-processing functions applied to aggregation results
+          items:
+            $ref: "#/components/schemas/Function"
+          type: array
+        fill:
+          $ref: "#/components/schemas/MonitorAggregationQuery_fill"
+        timeAggregate:
+          description: "Per-series rollup applied within each time bucket before the\
+            \ cross-series aggregate. Use it on metric queries when `aggregate.type`\
+            \ is `sum` and no `rate`, `increase`, `last`, or `rolling` function is\
+            \ present. When omitted, Tsuga derives the rollup from the metric type."
+          enum:
+          - avg
+          - sum
+          - min
+          - max
+          - last
+          type: string
+        filter:
+          description: Filter to apply to the aggregation
+          type: string
+      required:
+      - aggregate
+      - filter
+      title: MonitorAggregationQuery
+    SloQueryFormula_1:
+      description: "Aggregation queries combined by a formula to produce the SLO signal.\
+        \ Tsuga evaluates this query formula during SLO evaluation and returns it\
+        \ as part of the saved SLO configuration. Returned queries include Tsuga-derived\
+        \ missing-point fill: event SLO queries use zero fill, and time SLO queries\
+        \ keep missing points null."
+      properties:
+        queries:
+          description: "Aggregation queries used by alerting and SLO evaluation. Each\
+            \ query is referenced from formulas as q1, q2, and so on."
+          items:
+            $ref: "#/components/schemas/MonitorAggregationQuery"
+          type: array
+        formula:
+          description: "Formula referencing submitted query outputs, such as `q1 +\
+            \ q2`. References must be within `q1` through `qN` for the submitted queries."
+          type: string
+      required:
+      - formula
+      - queries
+      title: SloQueryFormula
+    AggregationGroupBy_1:
+      properties:
+        fields:
+          description: Telemetry attribute names used to group aggregation results.
+          items:
+            type: string
+          type: array
+        limit:
+          description: "Maximum number of distinct values of `fields` returned for\
+            \ this grouping level, ranked by aggregate value. Groups beyond the limit\
+            \ are truncated, not merged into an \"other\" group."
+          type: number
+        sortOrder:
+          description: "Sort direction: ascending or descending."
+          enum:
+          - asc
+          - desc
+          type: string
+        replaceNullWith:
+          description: Value used to group documents that have no value for a grouped
+            field.
+          type: string
+      required:
+      - fields
+      - limit
+      title: AggregationGroupBy
+    EventSloConfiguration_1:
+      properties:
+        type:
+          description: Configuration kind. Set to `event` for SLOs that compute SLI
+            from good and total query formulas over the rolling timeframe.
+          enum:
+          - event
+          type: string
+        dataSource:
+          description: "Telemetry source queried by this aggregation: `logs`, `metrics`,\
+            \ `traces`, or `rum`."
+          enum:
+          - logs
+          - metrics
+          - traces
+          - rum
+          type: string
+        goodQuery:
+          $ref: "#/components/schemas/SloQueryFormula_1"
+        totalQuery:
+          $ref: "#/components/schemas/SloQueryFormula_1"
+        groupByFields:
+          description: "Nested grouping levels applied to the results, outermost first\
+            \ (e.g. group by service, then by level within each service). Each level\
+            \ splits results further, so the response contains one result per unique\
+            \ combination of group values."
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy_1"
+          type: array
+        noDataBehavior:
+          description: "How to treat SLO with no data: good (count as meeting the\
+            \ SLO), bad (count as breaching it)"
+          enum:
+          - good
+          - bad
+          type: string
+      required:
+      - dataSource
+      - goodQuery
+      - noDataBehavior
+      - totalQuery
+      - type
+      title: EventSloConfiguration
+    TimeSliceSloConfiguration_1:
+      properties:
+        type:
+          description: Configuration kind. Set to `time` for SLOs that evaluate a
+            query against a threshold in fixed-size time slices.
+          enum:
+          - time
+          type: string
+        dataSource:
+          description: "Telemetry source queried by this aggregation: `logs`, `metrics`,\
+            \ `traces`, or `rum`."
+          enum:
+          - logs
+          - metrics
+          - traces
+          - rum
+          type: string
+        query:
+          $ref: "#/components/schemas/SloQueryFormula_1"
+        sliceSizeMinutes:
+          description: "Length of each time-SLO evaluation slice in minutes. Required\
+            \ for `type: time`."
+          type: integer
+        threshold:
+          $ref: "#/components/schemas/TimeSliceSloConfiguration_threshold"
+        groupByFields:
+          description: "Nested grouping levels applied to the results, outermost first\
+            \ (e.g. group by service, then by level within each service). Each level\
+            \ splits results further, so the response contains one result per unique\
+            \ combination of group values."
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy_1"
+          type: array
+        noDataBehavior:
+          description: "How to treat time buckets with no data: good (count as meeting\
+            \ the SLO), bad (count as breaching it), or ignore (exclude from the error\
+            \ budget)"
+          enum:
+          - good
+          - bad
+          - ignore
+          type: string
+      required:
+      - dataSource
+      - noDataBehavior
+      - query
+      - sliceSizeMinutes
+      - threshold
+      - type
+      title: TimeSliceSloConfiguration
+    Slo_configuration:
+      description: SLI configuration for this SLO. Use `event` for good/total event-ratio
+        SLOs or `time` for thresholded time-slice SLOs.
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/EventSloConfiguration_1"
+      - $ref: "#/components/schemas/TimeSliceSloConfiguration_1"
+      required:
+      - type
+    BurnRateAlert_1:
+      properties:
+        type:
+          description: Alert configuration kind. Set to `burn-rate` for alerts that
+            fire when the SLO consumes error budget faster than the configured multiplier.
+          enum:
+          - burn-rate
+          type: string
+        burnRate:
+          description: Burn-rate multiplier that triggers this alert. The short and
+            long evaluation windows are derived from the predefined template with
+            the closest burn rate.
+          type: number
+      required:
+      - burnRate
+      - type
+      title: BurnRateAlert
+    ThresholdAlert_1:
+      properties:
+        type:
+          description: Alert configuration kind. Set to `threshold` for alerts that
+            fire when the SLO indicator falls below a percentage threshold.
+          enum:
+          - threshold
+          type: string
+        threshold:
+          description: SLI percentage threshold for this alert. The alert passes when
+            SLI is at or above this value and fires when SLI is strictly below it.
+          type: number
+      required:
+      - threshold
+      - type
+      title: ThresholdAlert
+    Slo_alerts_inner_configuration:
+      description: "Alert trigger configuration: burn-rate or threshold"
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/BurnRateAlert_1"
+      - $ref: "#/components/schemas/ThresholdAlert_1"
+      required:
+      - type
+    Slo_alerts_inner:
+      description: "Alert attached to an SLO, triggered on a burn-rate multiplier\
+        \ or an SLO target threshold"
+      properties:
+        id:
+          description: Tsuga-generated SLO alert ID assigned when the alert is created.
+          type: string
+        sloId:
+          description: Parent SLO ID for this alert.
+          type: string
+        priority:
+          description: "Alert priority (1 is highest, 5 is lowest)"
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          type: number
+        configuration:
+          $ref: "#/components/schemas/Slo_alerts_inner_configuration"
+      required:
+      - configuration
+      - id
+      - priority
+      - sloId
     TagPolicy_teamScope:
       description: Team scope that limits where this policy applies. Omitted means
         the policy applies to all teams.
@@ -10262,113 +12017,6 @@ components:
       required:
       - fields
       - limit
-    Aggregate:
-      description: Aggregation operation for this query. Required for every query;
-        `field` is required by all aggregate types except `count`.
-      discriminator:
-        mapping:
-          count: "#/components/schemas/AggregateCount"
-          unique-count: "#/components/schemas/AggregateUniqueCount"
-          average: "#/components/schemas/AggregateAverage"
-          max: "#/components/schemas/AggregateMax"
-          min: "#/components/schemas/AggregateMin"
-          sum: "#/components/schemas/AggregateSum"
-          percentile: "#/components/schemas/AggregatePercentile"
-        propertyName: type
-      oneOf:
-      - $ref: "#/components/schemas/AggregateCount"
-      - $ref: "#/components/schemas/AggregateUniqueCount"
-      - $ref: "#/components/schemas/AggregateAverage"
-      - $ref: "#/components/schemas/AggregateMax"
-      - $ref: "#/components/schemas/AggregateMin"
-      - $ref: "#/components/schemas/AggregateSum"
-      - $ref: "#/components/schemas/AggregatePercentile"
-      required:
-      - type
-      title: Aggregate
-    Function:
-      description: "Post-processing function applied to an aggregation query result\
-        \ after the aggregate is computed, selected by `type`."
-      discriminator:
-        mapping:
-          per-second: "#/components/schemas/FunctionPerSecond"
-          per-minute: "#/components/schemas/FunctionPerMinute"
-          per-hour: "#/components/schemas/FunctionPerHour"
-          rate: "#/components/schemas/FunctionRate"
-          increase: "#/components/schemas/FunctionIncrease"
-          rolling: "#/components/schemas/FunctionRolling"
-          log: "#/components/schemas/FunctionLog"
-          power: "#/components/schemas/FunctionPower"
-          sqrt: "#/components/schemas/FunctionSqrt"
-          last: "#/components/schemas/FunctionLast"
-          time-offset: "#/components/schemas/FunctionTimeOffset"
-        propertyName: type
-      oneOf:
-      - $ref: "#/components/schemas/FunctionPerSecond"
-      - $ref: "#/components/schemas/FunctionPerMinute"
-      - $ref: "#/components/schemas/FunctionPerHour"
-      - $ref: "#/components/schemas/FunctionRate"
-      - $ref: "#/components/schemas/FunctionIncrease"
-      - $ref: "#/components/schemas/FunctionRolling"
-      - $ref: "#/components/schemas/FunctionLog"
-      - $ref: "#/components/schemas/FunctionPower"
-      - $ref: "#/components/schemas/FunctionSqrt"
-      - $ref: "#/components/schemas/FunctionLast"
-      - $ref: "#/components/schemas/FunctionTimeOffset"
-      required:
-      - type
-      title: Function
-    MonitorAggregationQuery_fill_mode:
-      description: How missing aggregation points should be filled.
-      properties:
-        type:
-          description: '`zero` fills missing points with zero. `null` keeps missing
-            points null.'
-          enum:
-          - zero
-          - "null"
-          type: string
-      required:
-      - type
-    MonitorAggregationQuery_fill:
-      description: Missing-point fill behavior for aggregation results. Optional;
-        omit to keep missing points null.
-      properties:
-        mode:
-          $ref: "#/components/schemas/MonitorAggregationQuery_fill_mode"
-      required:
-      - mode
-    MonitorAggregationQuery:
-      description: Single aggregation query evaluated by a monitor or SLO.
-      properties:
-        aggregate:
-          $ref: "#/components/schemas/Aggregate"
-        functions:
-          description: Post-processing functions applied to aggregation results
-          items:
-            $ref: "#/components/schemas/Function"
-          type: array
-        fill:
-          $ref: "#/components/schemas/MonitorAggregationQuery_fill"
-        timeAggregate:
-          description: "Per-series rollup applied within each time bucket before the\
-            \ cross-series aggregate. Use it on metric queries when `aggregate.type`\
-            \ is `sum` and no `rate`, `increase`, `last`, or `rolling` function is\
-            \ present. When omitted, Tsuga derives the rollup from the metric type."
-          enum:
-          - avg
-          - sum
-          - min
-          - max
-          - last
-          type: string
-        filter:
-          description: Filter to apply to the aggregation
-          type: string
-      required:
-      - aggregate
-      - filter
-      title: MonitorAggregationQuery
     MonitorConfigurationAnomalyLog_condition:
       description: "Anomaly detection condition evaluated by this monitor. The `formula`\
         \ result is compared against behavior learned from historical query results,\
@@ -10478,62 +12126,6 @@ components:
       required:
       - fields
       - limit
-    InputAggregate:
-      description: Aggregation operation for this query. Required for every query;
-        `field` is required by all aggregate types except `count`.
-      discriminator:
-        mapping:
-          count: "#/components/schemas/InputAggregateCount"
-          unique-count: "#/components/schemas/InputAggregateUniqueCount"
-          average: "#/components/schemas/InputAggregateAverage"
-          max: "#/components/schemas/InputAggregateMax"
-          min: "#/components/schemas/InputAggregateMin"
-          sum: "#/components/schemas/InputAggregateSum"
-          percentile: "#/components/schemas/InputAggregatePercentile"
-        propertyName: type
-      oneOf:
-      - $ref: "#/components/schemas/InputAggregateCount"
-      - $ref: "#/components/schemas/InputAggregateUniqueCount"
-      - $ref: "#/components/schemas/InputAggregateAverage"
-      - $ref: "#/components/schemas/InputAggregateMax"
-      - $ref: "#/components/schemas/InputAggregateMin"
-      - $ref: "#/components/schemas/InputAggregateSum"
-      - $ref: "#/components/schemas/InputAggregatePercentile"
-      required:
-      - type
-      title: InputAggregate
-    InputFunction:
-      description: "Post-processing function applied to an aggregation query result\
-        \ after the aggregate is computed, selected by `type`."
-      discriminator:
-        mapping:
-          per-second: "#/components/schemas/FunctionPerSecond"
-          per-minute: "#/components/schemas/FunctionPerMinute"
-          per-hour: "#/components/schemas/FunctionPerHour"
-          rate: "#/components/schemas/FunctionRate"
-          increase: "#/components/schemas/FunctionIncrease"
-          rolling: "#/components/schemas/InputFunctionRolling"
-          log: "#/components/schemas/InputFunctionLog"
-          power: "#/components/schemas/FunctionPower"
-          sqrt: "#/components/schemas/FunctionSqrt"
-          last: "#/components/schemas/FunctionLast"
-          time-offset: "#/components/schemas/InputFunctionTimeOffset"
-        propertyName: type
-      oneOf:
-      - $ref: "#/components/schemas/FunctionPerSecond"
-      - $ref: "#/components/schemas/FunctionPerMinute"
-      - $ref: "#/components/schemas/FunctionPerHour"
-      - $ref: "#/components/schemas/FunctionRate"
-      - $ref: "#/components/schemas/FunctionIncrease"
-      - $ref: "#/components/schemas/InputFunctionRolling"
-      - $ref: "#/components/schemas/InputFunctionLog"
-      - $ref: "#/components/schemas/FunctionPower"
-      - $ref: "#/components/schemas/FunctionSqrt"
-      - $ref: "#/components/schemas/FunctionLast"
-      - $ref: "#/components/schemas/InputFunctionTimeOffset"
-      required:
-      - type
-      title: InputFunction
     MonitorAggregationQuery_1:
       description: Single aggregation query evaluated by a monitor.
       properties:
@@ -10975,32 +12567,6 @@ components:
       required:
       - aggregate
       title: AggregationQuery
-    AggregationGroupBy:
-      properties:
-        fields:
-          description: Telemetry attribute names used to group aggregation results.
-          items:
-            type: string
-          type: array
-        limit:
-          description: "Maximum number of distinct values of `fields` returned for\
-            \ this grouping level, ranked by aggregate value. Groups beyond the limit\
-            \ are truncated, not merged into an \"other\" group."
-          type: number
-        sortOrder:
-          description: "Sort direction: ascending or descending."
-          enum:
-          - asc
-          - desc
-          type: string
-        replaceNullWith:
-          description: Value used to group documents that have no value for a grouped
-            field.
-          type: string
-      required:
-      - fields
-      - limit
-      title: AggregationGroupBy
     GaugeColorThreshold:
       description: "Color band of the gauge range. Bands are ordered by `from`, so\
         \ entries may be listed in any order."
@@ -11235,38 +12801,6 @@ components:
       required:
       - aggregate
       title: AggregationQuery
-    AggregationGroupBy_1:
-      properties:
-        fields:
-          description: Telemetry attribute name to group aggregation results by. Currently
-            limited to one field per grouping level.
-          items:
-            maxLength: 250
-            minLength: 0
-            type: string
-          maxItems: 1
-          type: array
-        limit:
-          description: "Maximum number of distinct values of `fields` to return for\
-            \ this grouping level, ranked by aggregate value. Groups beyond the limit\
-            \ are truncated from the response, not merged into an \"other\" group."
-          type: number
-        sortOrder:
-          description: "Sort direction: ascending or descending."
-          enum:
-          - asc
-          - desc
-          type: string
-        replaceNullWith:
-          description: Value used to group documents that have no value for a grouped
-            field.
-          maxLength: 250
-          minLength: 1
-          type: string
-      required:
-      - fields
-      - limit
-      title: AggregationGroupBy
     TableColumn_1:
       description: "Table column backed by its own aggregation. `defaultSorting` and\
         \ `columnSizes` reference it as `col-<index>`, using its zero-based position\

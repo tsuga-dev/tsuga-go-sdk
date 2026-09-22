@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Formula** | Pointer to **string** | Formula referencing query outputs, such as &#x60;q1 + q2&#x60;, to compute derived results. Defaults to &#x60;q1&#x60;. Formulas may reference only submitted queries (&#x60;q1&#x60; through &#x60;qN&#x60;); undefined query references return 400. | [optional] 
 **Aliases** | Pointer to [**InputGraphVisualizationTimeseriesPromqlAliases**](InputGraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
-**GroupBy** | Pointer to [**[]AggregationGroupBy1**](AggregationGroupBy1.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
+**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
 **GroupByMode** | Pointer to **string** | &#x60;absolute&#x60; keeps each group at its own value; &#x60;relative&#x60; shows it as a percentage of the ungrouped total (defaults to absolute) | [optional] 
 **Normalizer** | Pointer to [**Normalizer1**](Normalizer1.md) |  | [optional] 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
@@ -172,20 +172,20 @@ HasVisibleSeries returns a boolean if a field has been set.
 
 ### GetGroupBy
 
-`func (o *InputGraphVisualizationPie) GetGroupBy() []AggregationGroupBy1`
+`func (o *InputGraphVisualizationPie) GetGroupBy() []AggregationGroupBy`
 
 GetGroupBy returns the GroupBy field if non-nil, zero value otherwise.
 
 ### GetGroupByOk
 
-`func (o *InputGraphVisualizationPie) GetGroupByOk() (*[]AggregationGroupBy1, bool)`
+`func (o *InputGraphVisualizationPie) GetGroupByOk() (*[]AggregationGroupBy, bool)`
 
 GetGroupByOk returns a tuple with the GroupBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroupBy
 
-`func (o *InputGraphVisualizationPie) SetGroupBy(v []AggregationGroupBy1)`
+`func (o *InputGraphVisualizationPie) SetGroupBy(v []AggregationGroupBy)`
 
 SetGroupBy sets GroupBy field to given value.
 

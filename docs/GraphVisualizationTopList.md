@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Formula** | Pointer to **string** | Formula referencing submitted query outputs, such as &#x60;q1 + q2&#x60;. References must be within &#x60;q1&#x60; through &#x60;qN&#x60; for the submitted queries. | [optional] 
 **Aliases** | Pointer to [**GraphVisualizationTimeseriesPromqlAliases**](GraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
-**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values. | [optional] 
+**GroupBy** | Pointer to [**[]AggregationGroupBy1**](AggregationGroupBy1.md) | Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values. | [optional] 
 **GroupByMode** | Pointer to **string** | &#x60;absolute&#x60; keeps each group at its own value; &#x60;relative&#x60; shows it as a percentage of the ungrouped total (defaults to absolute) | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
@@ -173,20 +173,20 @@ HasVisibleSeries returns a boolean if a field has been set.
 
 ### GetGroupBy
 
-`func (o *GraphVisualizationTopList) GetGroupBy() []AggregationGroupBy`
+`func (o *GraphVisualizationTopList) GetGroupBy() []AggregationGroupBy1`
 
 GetGroupBy returns the GroupBy field if non-nil, zero value otherwise.
 
 ### GetGroupByOk
 
-`func (o *GraphVisualizationTopList) GetGroupByOk() (*[]AggregationGroupBy, bool)`
+`func (o *GraphVisualizationTopList) GetGroupByOk() (*[]AggregationGroupBy1, bool)`
 
 GetGroupByOk returns a tuple with the GroupBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroupBy
 
-`func (o *GraphVisualizationTopList) SetGroupBy(v []AggregationGroupBy)`
+`func (o *GraphVisualizationTopList) SetGroupBy(v []AggregationGroupBy1)`
 
 SetGroupBy sets GroupBy field to given value.
 

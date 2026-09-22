@@ -7,10 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.8.0] - 2026-09-21
+## [1.9.0] - 2026-09-22
 
 - Added:
   - SLOs
+
+## [1.8.0] - 2026-09-21
+
+- Added:
   - Dashboards: Percentage (0-1) normalizer
   - Dashboards: new SLO and span list types
   - Dashboards: Relative group by mode

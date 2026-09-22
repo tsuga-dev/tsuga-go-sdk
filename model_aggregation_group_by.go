@@ -20,9 +20,9 @@ var _ MappedNullable = &AggregationGroupBy{}
 
 // AggregationGroupBy struct for AggregationGroupBy
 type AggregationGroupBy struct {
-	// Telemetry attribute names used to group aggregation results.
+	// Telemetry attribute name to group aggregation results by. Currently limited to one field per grouping level.
 	Fields []string `json:"fields"`
-	// Maximum number of distinct values of `fields` returned for this grouping level, ranked by aggregate value. Groups beyond the limit are truncated, not merged into an \"other\" group.
+	// Maximum number of distinct values of `fields` to return for this grouping level, ranked by aggregate value. Groups beyond the limit are truncated from the response, not merged into an \"other\" group.
 	Limit float32 `json:"limit"`
 	// Sort direction: ascending or descending.
 	SortOrder *string `json:"sortOrder,omitempty"`

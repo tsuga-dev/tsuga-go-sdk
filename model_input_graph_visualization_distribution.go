@@ -32,7 +32,7 @@ type InputGraphVisualizationDistribution struct {
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted.
-	GroupBy []AggregationGroupBy1 `json:"groupBy,omitempty"`
+	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
 	// Attribute that switches the count to \"Groups\" mode: records are grouped by this attribute, the aggregation produces one value per group, and the chart buckets those per-group values. When omitted, individual records are bucketed.
 	Group      *string                                          `json:"group,omitempty"`
 	Precision  *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
@@ -235,9 +235,9 @@ func (o *InputGraphVisualizationDistribution) SetVisibleSeries(v []bool) {
 }
 
 // GetGroupBy returns the GroupBy field value if set, zero value otherwise.
-func (o *InputGraphVisualizationDistribution) GetGroupBy() []AggregationGroupBy1 {
+func (o *InputGraphVisualizationDistribution) GetGroupBy() []AggregationGroupBy {
 	if o == nil || IsNil(o.GroupBy) {
-		var ret []AggregationGroupBy1
+		var ret []AggregationGroupBy
 		return ret
 	}
 	return o.GroupBy
@@ -245,7 +245,7 @@ func (o *InputGraphVisualizationDistribution) GetGroupBy() []AggregationGroupBy1
 
 // GetGroupByOk returns a tuple with the GroupBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationDistribution) GetGroupByOk() ([]AggregationGroupBy1, bool) {
+func (o *InputGraphVisualizationDistribution) GetGroupByOk() ([]AggregationGroupBy, bool) {
 	if o == nil || IsNil(o.GroupBy) {
 		return nil, false
 	}
@@ -261,8 +261,8 @@ func (o *InputGraphVisualizationDistribution) HasGroupBy() bool {
 	return false
 }
 
-// SetGroupBy gets a reference to the given []AggregationGroupBy1 and assigns it to the GroupBy field.
-func (o *InputGraphVisualizationDistribution) SetGroupBy(v []AggregationGroupBy1) {
+// SetGroupBy gets a reference to the given []AggregationGroupBy and assigns it to the GroupBy field.
+func (o *InputGraphVisualizationDistribution) SetGroupBy(v []AggregationGroupBy) {
 	o.GroupBy = v
 }
 

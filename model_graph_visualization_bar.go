@@ -32,7 +32,7 @@ type GraphVisualizationBar struct {
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values.
-	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
+	GroupBy []AggregationGroupBy1 `json:"groupBy,omitempty"`
 	// `absolute` keeps each group at its own value; `relative` shows it as a percentage of the ungrouped total (defaults to absolute)
 	GroupByMode *string                                          `json:"groupByMode,omitempty"`
 	TimeBucket  *GraphVisualizationTimeseriesPromqlTimeBucket    `json:"timeBucket,omitempty"`
@@ -237,9 +237,9 @@ func (o *GraphVisualizationBar) SetVisibleSeries(v []bool) {
 }
 
 // GetGroupBy returns the GroupBy field value if set, zero value otherwise.
-func (o *GraphVisualizationBar) GetGroupBy() []AggregationGroupBy {
+func (o *GraphVisualizationBar) GetGroupBy() []AggregationGroupBy1 {
 	if o == nil || IsNil(o.GroupBy) {
-		var ret []AggregationGroupBy
+		var ret []AggregationGroupBy1
 		return ret
 	}
 	return o.GroupBy
@@ -247,7 +247,7 @@ func (o *GraphVisualizationBar) GetGroupBy() []AggregationGroupBy {
 
 // GetGroupByOk returns a tuple with the GroupBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationBar) GetGroupByOk() ([]AggregationGroupBy, bool) {
+func (o *GraphVisualizationBar) GetGroupByOk() ([]AggregationGroupBy1, bool) {
 	if o == nil || IsNil(o.GroupBy) {
 		return nil, false
 	}
@@ -263,8 +263,8 @@ func (o *GraphVisualizationBar) HasGroupBy() bool {
 	return false
 }
 
-// SetGroupBy gets a reference to the given []AggregationGroupBy and assigns it to the GroupBy field.
-func (o *GraphVisualizationBar) SetGroupBy(v []AggregationGroupBy) {
+// SetGroupBy gets a reference to the given []AggregationGroupBy1 and assigns it to the GroupBy field.
+func (o *GraphVisualizationBar) SetGroupBy(v []AggregationGroupBy1) {
 	o.GroupBy = v
 }
 

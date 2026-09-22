@@ -54,6 +54,8 @@ type APIClient struct {
 
 	NotificationRulesAPI NotificationRulesAPI
 
+	SlosAPI SlosAPI
+
 	TagPoliciesAPI TagPoliciesAPI
 
 	TeamsAPI TeamsAPI
@@ -78,6 +80,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.DashboardsAPI = (*DashboardsAPIService)(&c.common)
 	c.MonitorsAPI = (*MonitorsAPIService)(&c.common)
 	c.NotificationRulesAPI = (*NotificationRulesAPIService)(&c.common)
+	c.SlosAPI = (*SlosAPIService)(&c.common)
 	c.TagPoliciesAPI = (*TagPoliciesAPIService)(&c.common)
 	c.TeamsAPI = (*TeamsAPIService)(&c.common)
 

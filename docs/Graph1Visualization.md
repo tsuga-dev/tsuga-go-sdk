@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 **Source** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, &#x60;traces&#x60;, or &#x60;rum&#x60;. | 
 **Formula** | Pointer to **string** | Formula referencing submitted query outputs, such as &#x60;q1 + q2&#x60;. References must be within &#x60;q1&#x60; through &#x60;qN&#x60; for the submitted queries. | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
-**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values. | [optional] 
+**GroupBy** | Pointer to [**[]AggregationGroupBy1**](AggregationGroupBy1.md) | Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values. | [optional] 
 **GroupByMode** | Pointer to **string** | &#x60;absolute&#x60; keeps each group at its own value; &#x60;relative&#x60; shows it as a percentage of the ungrouped total (defaults to absolute) | [optional] 
 **IsStacked** | Pointer to **bool** | Requests stacked rendering for a top-list widget. Tsuga renders stacked rows only for one count or sum query with exactly two grouped fields, no formula, non-negative values, and a single-cluster context; otherwise the widget renders as a normal top list. | [optional] 
 **Max** | Pointer to **float32** | Gauge maximum value | [optional] 
@@ -590,20 +590,20 @@ HasVisibleSeries returns a boolean if a field has been set.
 
 ### GetGroupBy
 
-`func (o *Graph1Visualization) GetGroupBy() []AggregationGroupBy`
+`func (o *Graph1Visualization) GetGroupBy() []AggregationGroupBy1`
 
 GetGroupBy returns the GroupBy field if non-nil, zero value otherwise.
 
 ### GetGroupByOk
 
-`func (o *Graph1Visualization) GetGroupByOk() (*[]AggregationGroupBy, bool)`
+`func (o *Graph1Visualization) GetGroupByOk() (*[]AggregationGroupBy1, bool)`
 
 GetGroupByOk returns a tuple with the GroupBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroupBy
 
-`func (o *Graph1Visualization) SetGroupBy(v []AggregationGroupBy)`
+`func (o *Graph1Visualization) SetGroupBy(v []AggregationGroupBy1)`
 
 SetGroupBy sets GroupBy field to given value.
 
