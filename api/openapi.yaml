@@ -2259,6 +2259,8 @@ components:
           - CLUSTER_AGGREGATION_STRUCTURE
           - ABORT_ERROR
           - BAD_REQUEST
+          - CUSTOM_ROLE_IN_USE
+          - CUSTOM_ROLE_NAME_CONFLICT
           - DUPLICATE_KEY_VIOLATION
           - FOREIGN_KEY_VIOLATION
           - FST_ERR_VALIDATION
