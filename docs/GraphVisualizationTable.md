@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **GroupByMode** | Pointer to **string** | &#x60;absolute&#x60; keeps each group at its own value; &#x60;relative&#x60; shows it as a percentage of the ungrouped total (defaults to absolute) | [optional] 
 **DefaultSorting** | Pointer to [**[]TableDefaultSorting**](TableDefaultSorting.md) | Default sorting applied to a table widget. Column IDs are &#x60;label&#x60; for the grouping column and &#x60;col-&lt;index&gt;&#x60; for each entry in &#x60;columns&#x60;. Users can still change sorting by selecting columns in the rendered table. | [optional] 
 **ColumnSizes** | Pointer to **map[string]float32** | Table column widths in pixels, keyed by column id: &#x60;label&#x60; for the grouping column and &#x60;col-&lt;index&gt;&#x60; for each entry in &#x60;columns&#x60;. Columns without an entry keep their default width. | [optional] 
+**CustomLink** | Pointer to [**CustomLink**](CustomLink.md) |  | [optional] 
 
 ## Methods
 
@@ -169,6 +170,31 @@ SetColumnSizes sets ColumnSizes field to given value.
 `func (o *GraphVisualizationTable) HasColumnSizes() bool`
 
 HasColumnSizes returns a boolean if a field has been set.
+
+### GetCustomLink
+
+`func (o *GraphVisualizationTable) GetCustomLink() CustomLink`
+
+GetCustomLink returns the CustomLink field if non-nil, zero value otherwise.
+
+### GetCustomLinkOk
+
+`func (o *GraphVisualizationTable) GetCustomLinkOk() (*CustomLink, bool)`
+
+GetCustomLinkOk returns a tuple with the CustomLink field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustomLink
+
+`func (o *GraphVisualizationTable) SetCustomLink(v CustomLink)`
+
+SetCustomLink sets CustomLink field to given value.
+
+### HasCustomLink
+
+`func (o *GraphVisualizationTable) HasCustomLink() bool`
+
+HasCustomLink returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

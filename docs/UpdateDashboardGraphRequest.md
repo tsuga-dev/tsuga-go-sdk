@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | Display name of the graph widget. | [optional] 
-**Description** | Pointer to **string** | Text shown with the graph widget. | [optional] 
-**DescriptionAlign** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
-**DescriptionJustifyContent** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
-**Visualization** | [**GraphVisualization**](GraphVisualization.md) |  | 
-**Layout** | Pointer to [**GraphLayout**](GraphLayout.md) |  | [optional] 
+**Name** | Pointer to **NullableString** |  | [optional] 
+**Description** | Pointer to **NullableString** |  | [optional] 
+**DescriptionAlign** | Pointer to **NullableString** | Flex alignment keyword used for widget layout | [optional] 
+**DescriptionJustifyContent** | Pointer to **NullableString** | Flex alignment keyword used for widget layout | [optional] 
+**Visualization** | Pointer to [**GraphVisualization**](GraphVisualization.md) |  | [optional] 
+**Layout** | Pointer to [**NullableGraphLayout**](GraphLayout.md) |  | [optional] 
 
 ## Methods
 
 ### NewUpdateDashboardGraphRequest
 
-`func NewUpdateDashboardGraphRequest(visualization GraphVisualization, ) *UpdateDashboardGraphRequest`
+`func NewUpdateDashboardGraphRequest() *UpdateDashboardGraphRequest`
 
 NewUpdateDashboardGraphRequest instantiates a new UpdateDashboardGraphRequest object
 This constructor will assign default values to properties that have it defined,
@@ -55,6 +55,16 @@ SetName sets Name field to given value.
 
 HasName returns a boolean if a field has been set.
 
+### SetNameNil
+
+`func (o *UpdateDashboardGraphRequest) SetNameNil(b bool)`
+
+ SetNameNil sets the value for Name to be an explicit nil
+
+### UnsetName
+`func (o *UpdateDashboardGraphRequest) UnsetName()`
+
+UnsetName ensures that no value is present for Name, not even an explicit nil
 ### GetDescription
 
 `func (o *UpdateDashboardGraphRequest) GetDescription() string`
@@ -80,6 +90,16 @@ SetDescription sets Description field to given value.
 
 HasDescription returns a boolean if a field has been set.
 
+### SetDescriptionNil
+
+`func (o *UpdateDashboardGraphRequest) SetDescriptionNil(b bool)`
+
+ SetDescriptionNil sets the value for Description to be an explicit nil
+
+### UnsetDescription
+`func (o *UpdateDashboardGraphRequest) UnsetDescription()`
+
+UnsetDescription ensures that no value is present for Description, not even an explicit nil
 ### GetDescriptionAlign
 
 `func (o *UpdateDashboardGraphRequest) GetDescriptionAlign() string`
@@ -105,6 +125,16 @@ SetDescriptionAlign sets DescriptionAlign field to given value.
 
 HasDescriptionAlign returns a boolean if a field has been set.
 
+### SetDescriptionAlignNil
+
+`func (o *UpdateDashboardGraphRequest) SetDescriptionAlignNil(b bool)`
+
+ SetDescriptionAlignNil sets the value for DescriptionAlign to be an explicit nil
+
+### UnsetDescriptionAlign
+`func (o *UpdateDashboardGraphRequest) UnsetDescriptionAlign()`
+
+UnsetDescriptionAlign ensures that no value is present for DescriptionAlign, not even an explicit nil
 ### GetDescriptionJustifyContent
 
 `func (o *UpdateDashboardGraphRequest) GetDescriptionJustifyContent() string`
@@ -130,6 +160,16 @@ SetDescriptionJustifyContent sets DescriptionJustifyContent field to given value
 
 HasDescriptionJustifyContent returns a boolean if a field has been set.
 
+### SetDescriptionJustifyContentNil
+
+`func (o *UpdateDashboardGraphRequest) SetDescriptionJustifyContentNil(b bool)`
+
+ SetDescriptionJustifyContentNil sets the value for DescriptionJustifyContent to be an explicit nil
+
+### UnsetDescriptionJustifyContent
+`func (o *UpdateDashboardGraphRequest) UnsetDescriptionJustifyContent()`
+
+UnsetDescriptionJustifyContent ensures that no value is present for DescriptionJustifyContent, not even an explicit nil
 ### GetVisualization
 
 `func (o *UpdateDashboardGraphRequest) GetVisualization() GraphVisualization`
@@ -149,6 +189,11 @@ and a boolean to check if the value has been set.
 
 SetVisualization sets Visualization field to given value.
 
+### HasVisualization
+
+`func (o *UpdateDashboardGraphRequest) HasVisualization() bool`
+
+HasVisualization returns a boolean if a field has been set.
 
 ### GetLayout
 
@@ -175,6 +220,16 @@ SetLayout sets Layout field to given value.
 
 HasLayout returns a boolean if a field has been set.
 
+### SetLayoutNil
+
+`func (o *UpdateDashboardGraphRequest) SetLayoutNil(b bool)`
+
+ SetLayoutNil sets the value for Layout to be an explicit nil
+
+### UnsetLayout
+`func (o *UpdateDashboardGraphRequest) UnsetLayout()`
+
+UnsetLayout ensures that no value is present for Layout, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

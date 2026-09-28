@@ -25,7 +25,7 @@ type CreateDashboardRequest struct {
 	// ID of the team that owns the dashboard. Required and used for dashboard access control.
 	Owner string `json:"owner"`
 	// Ordered widgets that compose the dashboard
-	Graphs []Graph `json:"graphs"`
+	Graphs []Graph1 `json:"graphs"`
 	// Dashboard-wide filters applied to every widget on the dashboard. Up to 10 filters are allowed.
 	Filters []UpdateDashboardRequestFiltersInner `json:"filters,omitempty"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
@@ -42,7 +42,7 @@ type _CreateDashboardRequest CreateDashboardRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateDashboardRequest(name string, owner string, graphs []Graph) *CreateDashboardRequest {
+func NewCreateDashboardRequest(name string, owner string, graphs []Graph1) *CreateDashboardRequest {
 	this := CreateDashboardRequest{}
 	this.Name = name
 	this.Owner = owner
@@ -107,9 +107,9 @@ func (o *CreateDashboardRequest) SetOwner(v string) {
 }
 
 // GetGraphs returns the Graphs field value
-func (o *CreateDashboardRequest) GetGraphs() []Graph {
+func (o *CreateDashboardRequest) GetGraphs() []Graph1 {
 	if o == nil {
-		var ret []Graph
+		var ret []Graph1
 		return ret
 	}
 
@@ -118,7 +118,7 @@ func (o *CreateDashboardRequest) GetGraphs() []Graph {
 
 // GetGraphsOk returns a tuple with the Graphs field value
 // and a boolean to check if the value has been set.
-func (o *CreateDashboardRequest) GetGraphsOk() ([]Graph, bool) {
+func (o *CreateDashboardRequest) GetGraphsOk() ([]Graph1, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -126,7 +126,7 @@ func (o *CreateDashboardRequest) GetGraphsOk() ([]Graph, bool) {
 }
 
 // SetGraphs sets field value
-func (o *CreateDashboardRequest) SetGraphs(v []Graph) {
+func (o *CreateDashboardRequest) SetGraphs(v []Graph1) {
 	o.Graphs = v
 }
 

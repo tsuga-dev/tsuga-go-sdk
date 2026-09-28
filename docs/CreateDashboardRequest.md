@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Display name of the dashboard. | 
 **Owner** | **string** | ID of the team that owns the dashboard. Required and used for dashboard access control. | 
-**Graphs** | [**[]Graph**](Graph.md) | Ordered widgets that compose the dashboard | 
+**Graphs** | [**[]Graph1**](Graph1.md) | Ordered widgets that compose the dashboard | 
 **Filters** | Pointer to [**[]UpdateDashboardRequestFiltersInner**](UpdateDashboardRequestFiltersInner.md) | Dashboard-wide filters applied to every widget on the dashboard. Up to 10 filters are allowed. | [optional] 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **TimePreset** | Pointer to **string** | Relative time preset used when opening the dashboard. Optional; create defaults to &#x60;past-30-minutes&#x60; when omitted, and update omission preserves the current value. | [optional] 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewCreateDashboardRequest
 
-`func NewCreateDashboardRequest(name string, owner string, graphs []Graph, ) *CreateDashboardRequest`
+`func NewCreateDashboardRequest(name string, owner string, graphs []Graph1, ) *CreateDashboardRequest`
 
 NewCreateDashboardRequest instantiates a new CreateDashboardRequest object
 This constructor will assign default values to properties that have it defined,
@@ -73,20 +73,20 @@ SetOwner sets Owner field to given value.
 
 ### GetGraphs
 
-`func (o *CreateDashboardRequest) GetGraphs() []Graph`
+`func (o *CreateDashboardRequest) GetGraphs() []Graph1`
 
 GetGraphs returns the Graphs field if non-nil, zero value otherwise.
 
 ### GetGraphsOk
 
-`func (o *CreateDashboardRequest) GetGraphsOk() (*[]Graph, bool)`
+`func (o *CreateDashboardRequest) GetGraphsOk() (*[]Graph1, bool)`
 
 GetGraphsOk returns a tuple with the Graphs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGraphs
 
-`func (o *CreateDashboardRequest) SetGraphs(v []Graph)`
+`func (o *CreateDashboardRequest) SetGraphs(v []Graph1)`
 
 SetGraphs sets Graphs field to given value.
 

@@ -34,7 +34,7 @@ import (
 )
 
 func main() {
-	createDashboardRequest := *openapiclient.NewCreateDashboardRequest("Name_example", "Owner_example", []openapiclient.Graph{*openapiclient.NewGraph("Id_example", openapiclient.Graph_visualization{InputGraphVisualizationBar: openapiclient.NewInputGraphVisualizationBar("Type_example", "Source_example", []openapiclient.AggregationQuery1{*openapiclient.NewAggregationQuery1(openapiclient.InputAggregate{InputAggregateAverage: openapiclient.NewInputAggregateAverage("Type_example", "Field_example")})})})}) // CreateDashboardRequest | Dashboard create or update request. Provide the dashboard identity, owner team, widgets, filters, tags, and optional time preset.
+	createDashboardRequest := *openapiclient.NewCreateDashboardRequest("Name_example", "Owner_example", []openapiclient.Graph1{*openapiclient.NewGraph1("Id_example", openapiclient.Graph_visualization{InputGraphVisualizationBar: openapiclient.NewInputGraphVisualizationBar("Type_example", "Source_example", []openapiclient.AggregationQuery1{*openapiclient.NewAggregationQuery1(openapiclient.InputAggregate{InputAggregateAverage: openapiclient.NewInputAggregateAverage("Type_example", "Field_example")})})})}) // CreateDashboardRequest | Dashboard create or update request. Provide the dashboard identity, owner team, widgets, filters, tags, and optional time preset.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -380,7 +380,7 @@ import (
 func main() {
 	id := "id_example" // string | Identifier of the dashboard that contains the graph to update. Use the `id` returned by dashboard responses.
 	graphId := "graphId_example" // string | Identifier of the graph to update within the dashboard. Use graph IDs from the dashboard response.
-	updateDashboardGraphRequest := *openapiclient.NewUpdateDashboardGraphRequest(openapiclient.Graph_visualization{InputGraphVisualizationBar: openapiclient.NewInputGraphVisualizationBar("Type_example", "Source_example", []openapiclient.AggregationQuery1{*openapiclient.NewAggregationQuery1(openapiclient.InputAggregate{InputAggregateAverage: openapiclient.NewInputAggregateAverage("Type_example", "Field_example")})})}) // UpdateDashboardGraphRequest | Dashboard graph update request. The graph identifier is supplied in the `graphId` path parameter; provide the replacement graph definition without an `id` field.
+	updateDashboardGraphRequest := *openapiclient.NewUpdateDashboardGraphRequest() // UpdateDashboardGraphRequest | Dashboard graph update request. The graph identifier is supplied in the `graphId` path parameter; every body field is optional and omitted fields keep their current values.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -412,7 +412,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **updateDashboardGraphRequest** | [**UpdateDashboardGraphRequest**](UpdateDashboardGraphRequest.md) | Dashboard graph update request. The graph identifier is supplied in the &#x60;graphId&#x60; path parameter; provide the replacement graph definition without an &#x60;id&#x60; field. | 
+ **updateDashboardGraphRequest** | [**UpdateDashboardGraphRequest**](UpdateDashboardGraphRequest.md) | Dashboard graph update request. The graph identifier is supplied in the &#x60;graphId&#x60; path parameter; every body field is optional and omitted fields keep their current values. | 
 
 ### Return type
 

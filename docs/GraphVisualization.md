@@ -28,6 +28,7 @@ Name | Type | Description | Notes
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
 **GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
 **GroupByMode** | Pointer to **string** | &#x60;absolute&#x60; keeps each group at its own value; &#x60;relative&#x60; shows it as a percentage of the ungrouped total (defaults to absolute) | [optional] 
+**CustomLink** | Pointer to [**CustomLink1**](CustomLink1.md) |  | [optional] 
 **IsStacked** | Pointer to **bool** | Requests stacked rendering for a top-list widget. Tsuga renders stacked rows only for one count or sum query with exactly two grouped fields, no formula, non-negative values, and a single-cluster context; otherwise the widget renders as a normal top list. | [optional] 
 **Max** | Pointer to **float32** | Gauge maximum value | [optional] 
 **ColorThresholds** | Pointer to [**[]GaugeColorThreshold**](GaugeColorThreshold.md) | Color thresholds inside the gauge range | [optional] 
@@ -637,6 +638,31 @@ SetGroupByMode sets GroupByMode field to given value.
 `func (o *GraphVisualization) HasGroupByMode() bool`
 
 HasGroupByMode returns a boolean if a field has been set.
+
+### GetCustomLink
+
+`func (o *GraphVisualization) GetCustomLink() CustomLink1`
+
+GetCustomLink returns the CustomLink field if non-nil, zero value otherwise.
+
+### GetCustomLinkOk
+
+`func (o *GraphVisualization) GetCustomLinkOk() (*CustomLink1, bool)`
+
+GetCustomLinkOk returns a tuple with the CustomLink field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustomLink
+
+`func (o *GraphVisualization) SetCustomLink(v CustomLink1)`
+
+SetCustomLink sets CustomLink field to given value.
+
+### HasCustomLink
+
+`func (o *GraphVisualization) HasCustomLink() bool`
+
+HasCustomLink returns a boolean if a field has been set.
 
 ### GetIsStacked
 

@@ -47,6 +47,8 @@ docs/CreateTagPolicyRequestTeamScope.md
 docs/CreateTagPolicyResponse.md
 docs/CreateTeamRequest.md
 docs/CreateTeamResponse.md
+docs/CustomLink.md
+docs/CustomLink1.md
 docs/Dashboard.md
 docs/DashboardFiltersInner.md
 docs/DashboardsAPI.md
@@ -89,7 +91,9 @@ docs/GetTagPolicyResponse.md
 docs/GetTeamResponse.md
 docs/Graph.md
 docs/Graph1.md
-docs/Graph1Visualization.md
+docs/Graph1Layout.md
+docs/Graph2.md
+docs/Graph2Visualization.md
 docs/GraphLayout.md
 docs/GraphVisualization.md
 docs/GraphVisualizationBar.md
@@ -378,6 +382,8 @@ model_create_tag_policy_request_team_scope.go
 model_create_tag_policy_response.go
 model_create_team_request.go
 model_create_team_response.go
+model_custom_link.go
+model_custom_link_1.go
 model_dashboard.go
 model_dashboard_filters_inner.go
 model_data_normalizer_cpu.go
@@ -419,7 +425,9 @@ model_get_tag_policy_response.go
 model_get_team_response.go
 model_graph.go
 model_graph_1.go
-model_graph_1_visualization.go
+model_graph_1_layout.go
+model_graph_2.go
+model_graph_2_visualization.go
 model_graph_layout.go
 model_graph_visualization.go
 model_graph_visualization_bar.go

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** | Tsuga-generated dashboard ID assigned when the dashboard is created. | 
 **Name** | **string** | Display name of the dashboard. Set by the caller on create or update. | 
 **Owner** | **string** | ID of the team that owns the dashboard. Set by the caller on create or update and used for dashboard access control. | 
-**Graphs** | [**[]Graph1**](Graph1.md) | Ordered widgets that compose the dashboard | 
+**Graphs** | [**[]Graph2**](Graph2.md) | Ordered widgets that compose the dashboard | 
 **Filters** | Pointer to [**[]DashboardFiltersInner**](DashboardFiltersInner.md) | Dashboard-wide filters applied to every widget on the dashboard. | [optional] 
 **Tags** | Pointer to [**[]Tag1**](Tag1.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
 **TimePreset** | Pointer to **string** | Relative time preset used when opening the dashboard. | [optional] 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewDashboard
 
-`func NewDashboard(id string, name string, owner string, graphs []Graph1, ) *Dashboard`
+`func NewDashboard(id string, name string, owner string, graphs []Graph2, ) *Dashboard`
 
 NewDashboard instantiates a new Dashboard object
 This constructor will assign default values to properties that have it defined,
@@ -94,20 +94,20 @@ SetOwner sets Owner field to given value.
 
 ### GetGraphs
 
-`func (o *Dashboard) GetGraphs() []Graph1`
+`func (o *Dashboard) GetGraphs() []Graph2`
 
 GetGraphs returns the Graphs field if non-nil, zero value otherwise.
 
 ### GetGraphsOk
 
-`func (o *Dashboard) GetGraphsOk() (*[]Graph1, bool)`
+`func (o *Dashboard) GetGraphsOk() (*[]Graph2, bool)`
 
 GetGraphsOk returns a tuple with the Graphs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGraphs
 
-`func (o *Dashboard) SetGraphs(v []Graph1)`
+`func (o *Dashboard) SetGraphs(v []Graph2)`
 
 SetGraphs sets Graphs field to given value.
 

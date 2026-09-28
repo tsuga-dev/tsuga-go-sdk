@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RequestId** | **string** | Identifier used to trace the lifecycle of this API request | 
-**Data** | [**Graph1**](Graph1.md) |  | 
+**Data** | [**Graph2**](Graph2.md) |  | 
 
 ## Methods
 
 ### NewUpdateDashboardGraphResponse
 
-`func NewUpdateDashboardGraphResponse(requestId string, data Graph1, ) *UpdateDashboardGraphResponse`
+`func NewUpdateDashboardGraphResponse(requestId string, data Graph2, ) *UpdateDashboardGraphResponse`
 
 NewUpdateDashboardGraphResponse instantiates a new UpdateDashboardGraphResponse object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetRequestId sets RequestId field to given value.
 
 ### GetData
 
-`func (o *UpdateDashboardGraphResponse) GetData() Graph1`
+`func (o *UpdateDashboardGraphResponse) GetData() Graph2`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *UpdateDashboardGraphResponse) GetDataOk() (*Graph1, bool)`
+`func (o *UpdateDashboardGraphResponse) GetDataOk() (*Graph2, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *UpdateDashboardGraphResponse) SetData(v Graph1)`
+`func (o *UpdateDashboardGraphResponse) SetData(v Graph2)`
 
 SetData sets Data field to given value.
 

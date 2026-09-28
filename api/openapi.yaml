@@ -18,6 +18,8 @@ tags:
     \ to compute scalar and timeseries results for analytics workflows. See [Analytics\
     \ queries](/documentation/visualize/analytics/queries)."
   name: aggregation
+- description: Operations for the ingested data volume billed to the organization.
+  name: billing
 - description: "Operations for the authenticated caller and for authentication setup.\
     \ Use these endpoints to inspect the credential a request authenticates with,\
     \ and for SAML, SSO, and session-related configuration."
@@ -89,6 +91,10 @@ tags:
 - description: Operations for PromQL metric queries. Use these endpoints when a client
     needs PromQL query syntax against Tsuga metric data.
   name: promql
+- description: "Operations for RUM public tokens. Use these endpoints to create, inspect,\
+    \ update, and delete the tokens configured in the RUM browser and mobile SDKs.\
+    \ See [API keys](/documentation/account-and-settings/api-keys)."
+  name: public-tokens
 - description: "Operations for telemetry quality report rows. Use these endpoints\
     \ to inspect rule outcomes and recommendations for teams or clusters. See [Quality\
     \ reports](/documentation/account-and-settings/quality-reports)."
@@ -482,7 +488,8 @@ paths:
     put:
       description: Updates one graph inside a dashboard without replacing the full
         dashboard. Use this for targeted widget edits when you already know the dashboard
-        ID and graph ID.
+        ID and graph ID. Fields are patched from the request body; omitted fields
+        keep their current values and null clears them.
       operationId: updateDashboardGraph
       parameters:
       - description: Identifier of the dashboard that contains the graph to update.
@@ -515,8 +522,8 @@ paths:
             schema:
               $ref: "#/components/schemas/updateDashboardGraph_request"
         description: Dashboard graph update request. The graph identifier is supplied
-          in the `graphId` path parameter; provide the replacement graph definition
-          without an `id` field.
+          in the `graphId` path parameter; every body field is optional and omitted
+          fields keep their current values.
         required: true
       responses:
         "200":
@@ -2837,7 +2844,7 @@ components:
         graphs:
           description: Ordered widgets that compose the dashboard
           items:
-            $ref: "#/components/schemas/Graph_1"
+            $ref: "#/components/schemas/Graph_2"
           type: array
         filters:
           description: Dashboard-wide filters applied to every widget on the dashboard.
@@ -3132,7 +3139,7 @@ components:
           description: Identifier used to trace the lifecycle of this API request
           type: string
         data:
-          $ref: "#/components/schemas/Graph_1"
+          $ref: "#/components/schemas/Graph_2"
       required:
       - data
       - requestId
@@ -6999,6 +7006,8 @@ components:
             \ last index is the formula when there is one. For widgets with a single\
             \ query, only the `1` entry is read and it applies to every series. Defaults\
             \ to regular."
+        customLink:
+          $ref: "#/components/schemas/CustomLink"
       required:
       - queries
       - source
@@ -7068,6 +7077,8 @@ components:
             \ fields, no formula, non-negative values, and a single-cluster context;\
             \ otherwise the widget renders as a normal top list."
           type: boolean
+        customLink:
+          $ref: "#/components/schemas/CustomLink"
       required:
       - queries
       - source
@@ -7134,6 +7145,8 @@ components:
           - legend-only
           - no-legend
           type: string
+        customLink:
+          $ref: "#/components/schemas/CustomLink"
       required:
       - queries
       - source
@@ -7322,6 +7335,8 @@ components:
           type: string
         yAxisSettings:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings"
+        customLink:
+          $ref: "#/components/schemas/CustomLink"
       required:
       - queries
       - source
@@ -7509,6 +7524,8 @@ components:
           description: "Table column widths in pixels, keyed by column id: `label`\
             \ for the grouping column and `col-<index>` for each entry in `columns`.\
             \ Columns without an entry keep their default width."
+        customLink:
+          $ref: "#/components/schemas/CustomLink"
       required:
       - columns
       - type
@@ -8242,6 +8259,8 @@ components:
             \ last index is the formula when there is one. For widgets with a single\
             \ query, only the `1` entry is read and it applies to every series. Defaults\
             \ to regular."
+        customLink:
+          $ref: "#/components/schemas/CustomLink_1"
       required:
       - queries
       - source
@@ -8325,6 +8344,8 @@ components:
             \ fields, no formula, non-negative values, and a single-cluster context;\
             \ otherwise the widget renders as a normal top list."
           type: boolean
+        customLink:
+          $ref: "#/components/schemas/CustomLink_1"
       required:
       - queries
       - source
@@ -8405,6 +8426,8 @@ components:
           - legend-only
           - no-legend
           type: string
+        customLink:
+          $ref: "#/components/schemas/CustomLink_1"
       required:
       - queries
       - source
@@ -8631,6 +8654,8 @@ components:
           type: string
         yAxisSettings:
           $ref: "#/components/schemas/InputGraphVisualizationTimeseriesConnection_yAxisSettings"
+        customLink:
+          $ref: "#/components/schemas/CustomLink_1"
       required:
       - queries
       - source
@@ -8855,6 +8880,8 @@ components:
           description: "Table column widths in pixels, keyed by column id: `label`\
             \ for the grouping column and `col-<index>` for each entry in `columns`.\
             \ Columns without an entry keep their default width."
+        customLink:
+          $ref: "#/components/schemas/CustomLink_1"
       required:
       - columns
       - type
@@ -9234,11 +9261,7 @@ components:
       description: "Grid position and size of the widget. Optional; when provided,\
         \ the size must be at least 2×2 (width×height) grid units, except note widgets\
         \ which can go down to 1×1."
-      example:
-        w: 5.637376656633329
-        x: 1.4658129805029452
-        h: 2.3021358869347655
-        "y": 5.962133916683182
+      nullable: true
       properties:
         x:
           description: Column position of the widget on the 12-column dashboard grid.
@@ -9290,6 +9313,7 @@ components:
           - flex-start
           - center
           - flex-end
+          nullable: true
           type: string
         descriptionJustifyContent:
           description: Flex alignment keyword used for widget layout
@@ -9297,6 +9321,7 @@ components:
           - flex-start
           - center
           - flex-end
+          nullable: true
           type: string
         visualization:
           $ref: "#/components/schemas/Graph_visualization"
@@ -9396,6 +9421,82 @@ components:
           minLength: 1
           nullable: true
           type: string
+    Graph_1_layout:
+      description: "Grid position and size of the widget. Optional; when provided,\
+        \ the size must be at least 2×2 (width×height) grid units, except note widgets\
+        \ which can go down to 1×1."
+      example:
+        w: 5.637376656633329
+        x: 1.4658129805029452
+        h: 2.3021358869347655
+        "y": 5.962133916683182
+      properties:
+        x:
+          description: Column position of the widget on the 12-column dashboard grid.
+            0 is the leftmost column; increasing values move right.
+          type: number
+        "y":
+          description: "Row position of the widget on the dashboard grid, in row units\
+            \ of 50 pixels each. 0 is the topmost row; increasing values move down."
+          type: number
+        w:
+          description: "Width of the widget in grid columns, out of the 12-column\
+            \ grid. Dashboard validation uses this with `h` and the widget type to\
+            \ reject layouts below the widget minimum."
+          type: number
+        h:
+          description: "Height of the widget in grid rows, where each row is 50 pixels\
+            \ tall. Dashboard validation uses this with `w` and the widget type to\
+            \ reject layouts below the widget minimum."
+          type: number
+      required:
+      - h
+      - w
+      - x
+      - "y"
+    Graph_1:
+      description: "Single dashboard widget, combining its identity, its visualization\
+        \ configuration, and its position on the dashboard grid."
+      properties:
+        id:
+          description: Unique identifier of the graph widget inside the dashboard.
+            Assign it when the graph is created; use it to target the graph in later
+            update requests.
+          maxLength: 250
+          minLength: 0
+          type: string
+        name:
+          description: Display name of the graph widget.
+          maxLength: 250
+          minLength: 0
+          type: string
+        description:
+          description: Text shown with the graph widget.
+          maxLength: 800
+          minLength: 1
+          type: string
+        descriptionAlign:
+          description: Flex alignment keyword used for widget layout
+          enum:
+          - flex-start
+          - center
+          - flex-end
+          type: string
+        descriptionJustifyContent:
+          description: Flex alignment keyword used for widget layout
+          enum:
+          - flex-start
+          - center
+          - flex-end
+          type: string
+        visualization:
+          $ref: "#/components/schemas/Graph_visualization"
+        layout:
+          $ref: "#/components/schemas/Graph_1_layout"
+      required:
+      - id
+      - visualization
+      title: Graph
     createDashboard_request:
       description: "Dashboard create or update request. Provide the dashboard identity,\
         \ owner team, widgets, filters, tags, and optional time preset."
@@ -9414,7 +9515,7 @@ components:
         graphs:
           description: Ordered widgets that compose the dashboard
           items:
-            $ref: "#/components/schemas/Graph"
+            $ref: "#/components/schemas/Graph_1"
           type: array
         filters:
           description: Dashboard-wide filters applied to every widget on the dashboard.
@@ -9472,18 +9573,18 @@ components:
       - owner
     updateDashboardGraph_request:
       description: Dashboard graph update request. The graph identifier is supplied
-        in the `graphId` path parameter; provide the replacement graph definition
-        without an `id` field.
+        in the `graphId` path parameter; every body field is optional and omitted
+        fields keep their current values.
       properties:
         name:
-          description: Display name of the graph widget.
           maxLength: 250
           minLength: 0
+          nullable: true
           type: string
         description:
-          description: Text shown with the graph widget.
           maxLength: 800
           minLength: 1
+          nullable: true
           type: string
         descriptionAlign:
           description: Flex alignment keyword used for widget layout
@@ -9491,6 +9592,7 @@ components:
           - flex-start
           - center
           - flex-end
+          nullable: true
           type: string
         descriptionJustifyContent:
           description: Flex alignment keyword used for widget layout
@@ -9498,13 +9600,12 @@ components:
           - flex-start
           - center
           - flex-end
+          nullable: true
           type: string
         visualization:
           $ref: "#/components/schemas/Graph_visualization"
         layout:
           $ref: "#/components/schemas/Graph_layout"
-      required:
-      - visualization
     queryMonitors_request_filters_owners:
       description: Restrict results to monitors owned by any of these team IDs
       properties:
@@ -11161,7 +11262,7 @@ components:
       required:
       - pageCount
       - totalCount
-    Graph_1_visualization:
+    Graph_2_visualization:
       description: Widget visualization configuration. The `type` discriminator selects
         the widget kind and its required fields.
       discriminator:
@@ -11222,7 +11323,7 @@ components:
       - $ref: "#/components/schemas/GraphVisualizationSloOverTime"
       required:
       - type
-    Graph_1:
+    Graph_2:
       description: "Single dashboard widget, combining its identity, its visualization\
         \ configuration, and its position on the dashboard grid."
       example:
@@ -11287,9 +11388,9 @@ components:
           - flex-end
           type: string
         visualization:
-          $ref: "#/components/schemas/Graph_1_visualization"
+          $ref: "#/components/schemas/Graph_2_visualization"
         layout:
-          $ref: "#/components/schemas/Graph_layout"
+          $ref: "#/components/schemas/Graph_1_layout"
       required:
       - id
       - visualization
@@ -12567,6 +12668,23 @@ components:
       required:
       - aggregate
       title: AggregationQuery
+    CustomLink:
+      properties:
+        label:
+          description: Text of the entry added to the widget context menu. Defaults
+            to "Open custom link" when omitted.
+          type: string
+        url:
+          description: "URL opened in a new tab by the context menu entry. Every `{{group.<field>}}`\
+            \ placeholder is replaced by the URL-encoded value the clicked series\
+            \ has for that group-by field; without placeholders, every series opens\
+            \ the same URL. `{` and `}` are only allowed as part of a placeholder.\
+            \ Tsuga omits the menu entry when the clicked series has no value for\
+            \ one of the referenced fields."
+          type: string
+      required:
+      - url
+      title: CustomLink
     GaugeColorThreshold:
       description: "Color band of the gauge range. Bands are ordered by `from`, so\
         \ entries may be listed in any order."
@@ -12801,6 +12919,27 @@ components:
       required:
       - aggregate
       title: AggregationQuery
+    CustomLink_1:
+      properties:
+        label:
+          description: Text of the entry added to the widget context menu. Defaults
+            to "Open custom link" when omitted.
+          maxLength: 250
+          minLength: 1
+          type: string
+        url:
+          description: "URL opened in a new tab by the context menu entry. Every `{{group.<field>}}`\
+            \ placeholder is replaced by the URL-encoded value the clicked series\
+            \ has for that group-by field; without placeholders, every series opens\
+            \ the same URL. `{` and `}` are only allowed as part of a placeholder.\
+            \ Tsuga omits the menu entry when the clicked series has no value for\
+            \ one of the referenced fields."
+          maxLength: 250
+          pattern: "^https?:\\/\\/(?:[^\\s{}]|\\{\\{group\\.[^}\\s]+\\}\\})+$"
+          type: string
+      required:
+      - url
+      title: CustomLink
     TableColumn_1:
       description: "Table column backed by its own aggregation. `defaultSorting` and\
         \ `columnSizes` reference it as `col-<index>`, using its zero-based position\

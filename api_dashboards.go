@@ -97,7 +97,7 @@ type DashboardsAPI interface {
 	/*
 		UpdateDashboardGraph Method for UpdateDashboardGraph
 
-		Updates one graph inside a dashboard without replacing the full dashboard. Use this for targeted widget edits when you already know the dashboard ID and graph ID.
+		Updates one graph inside a dashboard without replacing the full dashboard. Use this for targeted widget edits when you already know the dashboard ID and graph ID. Fields are patched from the request body; omitted fields keep their current values and null clears them.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Identifier of the dashboard that contains the graph to update. Use the `id` returned by dashboard responses.
@@ -792,7 +792,7 @@ type DashboardsAPIUpdateDashboardGraphRequest struct {
 	updateDashboardGraphRequest *UpdateDashboardGraphRequest
 }
 
-// Dashboard graph update request. The graph identifier is supplied in the &#x60;graphId&#x60; path parameter; provide the replacement graph definition without an &#x60;id&#x60; field.
+// Dashboard graph update request. The graph identifier is supplied in the &#x60;graphId&#x60; path parameter; every body field is optional and omitted fields keep their current values.
 func (r DashboardsAPIUpdateDashboardGraphRequest) UpdateDashboardGraphRequest(updateDashboardGraphRequest UpdateDashboardGraphRequest) DashboardsAPIUpdateDashboardGraphRequest {
 	r.updateDashboardGraphRequest = &updateDashboardGraphRequest
 	return r
@@ -805,7 +805,7 @@ func (r DashboardsAPIUpdateDashboardGraphRequest) Execute() (*UpdateDashboardGra
 /*
 UpdateDashboardGraph Method for UpdateDashboardGraph
 
-Updates one graph inside a dashboard without replacing the full dashboard. Use this for targeted widget edits when you already know the dashboard ID and graph ID.
+Updates one graph inside a dashboard without replacing the full dashboard. Use this for targeted widget edits when you already know the dashboard ID and graph ID. Fields are patched from the request body; omitted fields keep their current values and null clears them.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Identifier of the dashboard that contains the graph to update. Use the `id` returned by dashboard responses.

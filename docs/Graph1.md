@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | Unique identifier of the graph widget inside the dashboard. Set by the caller when the graph is created; use it to target the graph in later update requests. | 
+**Id** | **string** | Unique identifier of the graph widget inside the dashboard. Assign it when the graph is created; use it to target the graph in later update requests. | 
 **Name** | Pointer to **string** | Display name of the graph widget. | [optional] 
-**Description** | Pointer to **string** | Optional text shown with the graph widget. | [optional] 
+**Description** | Pointer to **string** | Text shown with the graph widget. | [optional] 
 **DescriptionAlign** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
 **DescriptionJustifyContent** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
-**Visualization** | [**Graph1Visualization**](Graph1Visualization.md) |  | 
-**Layout** | Pointer to [**GraphLayout**](GraphLayout.md) |  | [optional] 
+**Visualization** | [**GraphVisualization**](GraphVisualization.md) |  | 
+**Layout** | Pointer to [**Graph1Layout**](Graph1Layout.md) |  | [optional] 
 
 ## Methods
 
 ### NewGraph1
 
-`func NewGraph1(id string, visualization Graph1Visualization, ) *Graph1`
+`func NewGraph1(id string, visualization GraphVisualization, ) *Graph1`
 
 NewGraph1 instantiates a new Graph1 object
 This constructor will assign default values to properties that have it defined,
@@ -153,40 +153,40 @@ HasDescriptionJustifyContent returns a boolean if a field has been set.
 
 ### GetVisualization
 
-`func (o *Graph1) GetVisualization() Graph1Visualization`
+`func (o *Graph1) GetVisualization() GraphVisualization`
 
 GetVisualization returns the Visualization field if non-nil, zero value otherwise.
 
 ### GetVisualizationOk
 
-`func (o *Graph1) GetVisualizationOk() (*Graph1Visualization, bool)`
+`func (o *Graph1) GetVisualizationOk() (*GraphVisualization, bool)`
 
 GetVisualizationOk returns a tuple with the Visualization field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVisualization
 
-`func (o *Graph1) SetVisualization(v Graph1Visualization)`
+`func (o *Graph1) SetVisualization(v GraphVisualization)`
 
 SetVisualization sets Visualization field to given value.
 
 
 ### GetLayout
 
-`func (o *Graph1) GetLayout() GraphLayout`
+`func (o *Graph1) GetLayout() Graph1Layout`
 
 GetLayout returns the Layout field if non-nil, zero value otherwise.
 
 ### GetLayoutOk
 
-`func (o *Graph1) GetLayoutOk() (*GraphLayout, bool)`
+`func (o *Graph1) GetLayoutOk() (*Graph1Layout, bool)`
 
 GetLayoutOk returns a tuple with the Layout field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLayout
 
-`func (o *Graph1) SetLayout(v GraphLayout)`
+`func (o *Graph1) SetLayout(v Graph1Layout)`
 
 SetLayout sets Layout field to given value.
 

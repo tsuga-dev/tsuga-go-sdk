@@ -15,49 +15,49 @@ import (
 	"fmt"
 )
 
-// checks if the Graph1 type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Graph1{}
+// checks if the Graph2 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Graph2{}
 
-// Graph1 Single dashboard widget, combining its identity, its visualization configuration, and its position on the dashboard grid.
-type Graph1 struct {
-	// Unique identifier of the graph widget inside the dashboard. Assign it when the graph is created; use it to target the graph in later update requests.
+// Graph2 Single dashboard widget, combining its identity, its visualization configuration, and its position on the dashboard grid.
+type Graph2 struct {
+	// Unique identifier of the graph widget inside the dashboard. Set by the caller when the graph is created; use it to target the graph in later update requests.
 	Id string `json:"id"`
 	// Display name of the graph widget.
 	Name *string `json:"name,omitempty"`
-	// Text shown with the graph widget.
+	// Optional text shown with the graph widget.
 	Description *string `json:"description,omitempty"`
 	// Flex alignment keyword used for widget layout
 	DescriptionAlign *string `json:"descriptionAlign,omitempty"`
 	// Flex alignment keyword used for widget layout
-	DescriptionJustifyContent *string            `json:"descriptionJustifyContent,omitempty"`
-	Visualization             GraphVisualization `json:"visualization"`
-	Layout                    *Graph1Layout      `json:"layout,omitempty"`
+	DescriptionJustifyContent *string             `json:"descriptionJustifyContent,omitempty"`
+	Visualization             Graph2Visualization `json:"visualization"`
+	Layout                    *Graph1Layout       `json:"layout,omitempty"`
 	AdditionalProperties      map[string]interface{}
 }
 
-type _Graph1 Graph1
+type _Graph2 Graph2
 
-// NewGraph1 instantiates a new Graph1 object
+// NewGraph2 instantiates a new Graph2 object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGraph1(id string, visualization GraphVisualization) *Graph1 {
-	this := Graph1{}
+func NewGraph2(id string, visualization Graph2Visualization) *Graph2 {
+	this := Graph2{}
 	this.Id = id
 	this.Visualization = visualization
 	return &this
 }
 
-// NewGraph1WithDefaults instantiates a new Graph1 object
+// NewGraph2WithDefaults instantiates a new Graph2 object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewGraph1WithDefaults() *Graph1 {
-	this := Graph1{}
+func NewGraph2WithDefaults() *Graph2 {
+	this := Graph2{}
 	return &this
 }
 
 // GetId returns the Id field value
-func (o *Graph1) GetId() string {
+func (o *Graph2) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -68,7 +68,7 @@ func (o *Graph1) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *Graph1) GetIdOk() (*string, bool) {
+func (o *Graph2) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -76,12 +76,12 @@ func (o *Graph1) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value
-func (o *Graph1) SetId(v string) {
+func (o *Graph2) SetId(v string) {
 	o.Id = v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
-func (o *Graph1) GetName() string {
+func (o *Graph2) GetName() string {
 	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
@@ -91,7 +91,7 @@ func (o *Graph1) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Graph1) GetNameOk() (*string, bool) {
+func (o *Graph2) GetNameOk() (*string, bool) {
 	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
@@ -99,7 +99,7 @@ func (o *Graph1) GetNameOk() (*string, bool) {
 }
 
 // HasName returns a boolean if a field has been set.
-func (o *Graph1) HasName() bool {
+func (o *Graph2) HasName() bool {
 	if o != nil && !IsNil(o.Name) {
 		return true
 	}
@@ -108,12 +108,12 @@ func (o *Graph1) HasName() bool {
 }
 
 // SetName gets a reference to the given string and assigns it to the Name field.
-func (o *Graph1) SetName(v string) {
+func (o *Graph2) SetName(v string) {
 	o.Name = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
-func (o *Graph1) GetDescription() string {
+func (o *Graph2) GetDescription() string {
 	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
@@ -123,7 +123,7 @@ func (o *Graph1) GetDescription() string {
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Graph1) GetDescriptionOk() (*string, bool) {
+func (o *Graph2) GetDescriptionOk() (*string, bool) {
 	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
@@ -131,7 +131,7 @@ func (o *Graph1) GetDescriptionOk() (*string, bool) {
 }
 
 // HasDescription returns a boolean if a field has been set.
-func (o *Graph1) HasDescription() bool {
+func (o *Graph2) HasDescription() bool {
 	if o != nil && !IsNil(o.Description) {
 		return true
 	}
@@ -140,12 +140,12 @@ func (o *Graph1) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *Graph1) SetDescription(v string) {
+func (o *Graph2) SetDescription(v string) {
 	o.Description = &v
 }
 
 // GetDescriptionAlign returns the DescriptionAlign field value if set, zero value otherwise.
-func (o *Graph1) GetDescriptionAlign() string {
+func (o *Graph2) GetDescriptionAlign() string {
 	if o == nil || IsNil(o.DescriptionAlign) {
 		var ret string
 		return ret
@@ -155,7 +155,7 @@ func (o *Graph1) GetDescriptionAlign() string {
 
 // GetDescriptionAlignOk returns a tuple with the DescriptionAlign field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Graph1) GetDescriptionAlignOk() (*string, bool) {
+func (o *Graph2) GetDescriptionAlignOk() (*string, bool) {
 	if o == nil || IsNil(o.DescriptionAlign) {
 		return nil, false
 	}
@@ -163,7 +163,7 @@ func (o *Graph1) GetDescriptionAlignOk() (*string, bool) {
 }
 
 // HasDescriptionAlign returns a boolean if a field has been set.
-func (o *Graph1) HasDescriptionAlign() bool {
+func (o *Graph2) HasDescriptionAlign() bool {
 	if o != nil && !IsNil(o.DescriptionAlign) {
 		return true
 	}
@@ -172,12 +172,12 @@ func (o *Graph1) HasDescriptionAlign() bool {
 }
 
 // SetDescriptionAlign gets a reference to the given string and assigns it to the DescriptionAlign field.
-func (o *Graph1) SetDescriptionAlign(v string) {
+func (o *Graph2) SetDescriptionAlign(v string) {
 	o.DescriptionAlign = &v
 }
 
 // GetDescriptionJustifyContent returns the DescriptionJustifyContent field value if set, zero value otherwise.
-func (o *Graph1) GetDescriptionJustifyContent() string {
+func (o *Graph2) GetDescriptionJustifyContent() string {
 	if o == nil || IsNil(o.DescriptionJustifyContent) {
 		var ret string
 		return ret
@@ -187,7 +187,7 @@ func (o *Graph1) GetDescriptionJustifyContent() string {
 
 // GetDescriptionJustifyContentOk returns a tuple with the DescriptionJustifyContent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Graph1) GetDescriptionJustifyContentOk() (*string, bool) {
+func (o *Graph2) GetDescriptionJustifyContentOk() (*string, bool) {
 	if o == nil || IsNil(o.DescriptionJustifyContent) {
 		return nil, false
 	}
@@ -195,7 +195,7 @@ func (o *Graph1) GetDescriptionJustifyContentOk() (*string, bool) {
 }
 
 // HasDescriptionJustifyContent returns a boolean if a field has been set.
-func (o *Graph1) HasDescriptionJustifyContent() bool {
+func (o *Graph2) HasDescriptionJustifyContent() bool {
 	if o != nil && !IsNil(o.DescriptionJustifyContent) {
 		return true
 	}
@@ -204,14 +204,14 @@ func (o *Graph1) HasDescriptionJustifyContent() bool {
 }
 
 // SetDescriptionJustifyContent gets a reference to the given string and assigns it to the DescriptionJustifyContent field.
-func (o *Graph1) SetDescriptionJustifyContent(v string) {
+func (o *Graph2) SetDescriptionJustifyContent(v string) {
 	o.DescriptionJustifyContent = &v
 }
 
 // GetVisualization returns the Visualization field value
-func (o *Graph1) GetVisualization() GraphVisualization {
+func (o *Graph2) GetVisualization() Graph2Visualization {
 	if o == nil {
-		var ret GraphVisualization
+		var ret Graph2Visualization
 		return ret
 	}
 
@@ -220,7 +220,7 @@ func (o *Graph1) GetVisualization() GraphVisualization {
 
 // GetVisualizationOk returns a tuple with the Visualization field value
 // and a boolean to check if the value has been set.
-func (o *Graph1) GetVisualizationOk() (*GraphVisualization, bool) {
+func (o *Graph2) GetVisualizationOk() (*Graph2Visualization, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -228,12 +228,12 @@ func (o *Graph1) GetVisualizationOk() (*GraphVisualization, bool) {
 }
 
 // SetVisualization sets field value
-func (o *Graph1) SetVisualization(v GraphVisualization) {
+func (o *Graph2) SetVisualization(v Graph2Visualization) {
 	o.Visualization = v
 }
 
 // GetLayout returns the Layout field value if set, zero value otherwise.
-func (o *Graph1) GetLayout() Graph1Layout {
+func (o *Graph2) GetLayout() Graph1Layout {
 	if o == nil || IsNil(o.Layout) {
 		var ret Graph1Layout
 		return ret
@@ -243,7 +243,7 @@ func (o *Graph1) GetLayout() Graph1Layout {
 
 // GetLayoutOk returns a tuple with the Layout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Graph1) GetLayoutOk() (*Graph1Layout, bool) {
+func (o *Graph2) GetLayoutOk() (*Graph1Layout, bool) {
 	if o == nil || IsNil(o.Layout) {
 		return nil, false
 	}
@@ -251,7 +251,7 @@ func (o *Graph1) GetLayoutOk() (*Graph1Layout, bool) {
 }
 
 // HasLayout returns a boolean if a field has been set.
-func (o *Graph1) HasLayout() bool {
+func (o *Graph2) HasLayout() bool {
 	if o != nil && !IsNil(o.Layout) {
 		return true
 	}
@@ -260,11 +260,11 @@ func (o *Graph1) HasLayout() bool {
 }
 
 // SetLayout gets a reference to the given Graph1Layout and assigns it to the Layout field.
-func (o *Graph1) SetLayout(v Graph1Layout) {
+func (o *Graph2) SetLayout(v Graph1Layout) {
 	o.Layout = &v
 }
 
-func (o Graph1) MarshalJSON() ([]byte, error) {
+func (o Graph2) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -272,7 +272,7 @@ func (o Graph1) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o Graph1) ToMap() (map[string]interface{}, error) {
+func (o Graph2) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	if !IsNil(o.Name) {
@@ -299,7 +299,7 @@ func (o Graph1) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *Graph1) UnmarshalJSON(data []byte) (err error) {
+func (o *Graph2) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -322,15 +322,15 @@ func (o *Graph1) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varGraph1 := _Graph1{}
+	varGraph2 := _Graph2{}
 
-	err = json.Unmarshal(data, &varGraph1)
+	err = json.Unmarshal(data, &varGraph2)
 
 	if err != nil {
 		return err
 	}
 
-	*o = Graph1(varGraph1)
+	*o = Graph2(varGraph2)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -348,38 +348,38 @@ func (o *Graph1) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableGraph1 struct {
-	value *Graph1
+type NullableGraph2 struct {
+	value *Graph2
 	isSet bool
 }
 
-func (v NullableGraph1) Get() *Graph1 {
+func (v NullableGraph2) Get() *Graph2 {
 	return v.value
 }
 
-func (v *NullableGraph1) Set(val *Graph1) {
+func (v *NullableGraph2) Set(val *Graph2) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableGraph1) IsSet() bool {
+func (v NullableGraph2) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableGraph1) Unset() {
+func (v *NullableGraph2) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableGraph1(val *Graph1) *NullableGraph1 {
-	return &NullableGraph1{value: val, isSet: true}
+func NewNullableGraph2(val *Graph2) *NullableGraph2 {
+	return &NullableGraph2{value: val, isSet: true}
 }
 
-func (v NullableGraph1) MarshalJSON() ([]byte, error) {
+func (v NullableGraph2) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableGraph1) UnmarshalJSON(src []byte) error {
+func (v *NullableGraph2) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

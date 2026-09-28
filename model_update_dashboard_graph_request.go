@@ -12,24 +12,21 @@ package tsuga
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the UpdateDashboardGraphRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &UpdateDashboardGraphRequest{}
 
-// UpdateDashboardGraphRequest Dashboard graph update request. The graph identifier is supplied in the `graphId` path parameter; provide the replacement graph definition without an `id` field.
+// UpdateDashboardGraphRequest Dashboard graph update request. The graph identifier is supplied in the `graphId` path parameter; every body field is optional and omitted fields keep their current values.
 type UpdateDashboardGraphRequest struct {
-	// Display name of the graph widget.
-	Name *string `json:"name,omitempty"`
-	// Text shown with the graph widget.
-	Description *string `json:"description,omitempty"`
+	Name        NullableString `json:"name,omitempty"`
+	Description NullableString `json:"description,omitempty"`
 	// Flex alignment keyword used for widget layout
-	DescriptionAlign *string `json:"descriptionAlign,omitempty"`
+	DescriptionAlign NullableString `json:"descriptionAlign,omitempty"`
 	// Flex alignment keyword used for widget layout
-	DescriptionJustifyContent *string            `json:"descriptionJustifyContent,omitempty"`
-	Visualization             GraphVisualization `json:"visualization"`
-	Layout                    *GraphLayout       `json:"layout,omitempty"`
+	DescriptionJustifyContent NullableString      `json:"descriptionJustifyContent,omitempty"`
+	Visualization             *GraphVisualization `json:"visualization,omitempty"`
+	Layout                    NullableGraphLayout `json:"layout,omitempty"`
 	AdditionalProperties      map[string]interface{}
 }
 
@@ -39,9 +36,8 @@ type _UpdateDashboardGraphRequest UpdateDashboardGraphRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateDashboardGraphRequest(visualization GraphVisualization) *UpdateDashboardGraphRequest {
+func NewUpdateDashboardGraphRequest() *UpdateDashboardGraphRequest {
 	this := UpdateDashboardGraphRequest{}
-	this.Visualization = visualization
 	return &this
 }
 
@@ -53,188 +49,251 @@ func NewUpdateDashboardGraphRequestWithDefaults() *UpdateDashboardGraphRequest {
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateDashboardGraphRequest) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil || IsNil(o.Name.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Name
+	return *o.Name.Get()
 }
 
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UpdateDashboardGraphRequest) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return o.Name.Get(), o.Name.IsSet()
 }
 
 // HasName returns a boolean if a field has been set.
 func (o *UpdateDashboardGraphRequest) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
+	if o != nil && o.Name.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName gets a reference to the given NullableString and assigns it to the Name field.
 func (o *UpdateDashboardGraphRequest) SetName(v string) {
-	o.Name = &v
+	o.Name.Set(&v)
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// SetNameNil sets the value for Name to be an explicit nil
+func (o *UpdateDashboardGraphRequest) SetNameNil() {
+	o.Name.Set(nil)
+}
+
+// UnsetName ensures that no value is present for Name, not even an explicit nil
+func (o *UpdateDashboardGraphRequest) UnsetName() {
+	o.Name.Unset()
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateDashboardGraphRequest) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil || IsNil(o.Description.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Description
+	return *o.Description.Get()
 }
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UpdateDashboardGraphRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return o.Description.Get(), o.Description.IsSet()
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *UpdateDashboardGraphRequest) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
+	if o != nil && o.Description.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
 func (o *UpdateDashboardGraphRequest) SetDescription(v string) {
-	o.Description = &v
+	o.Description.Set(&v)
 }
 
-// GetDescriptionAlign returns the DescriptionAlign field value if set, zero value otherwise.
+// SetDescriptionNil sets the value for Description to be an explicit nil
+func (o *UpdateDashboardGraphRequest) SetDescriptionNil() {
+	o.Description.Set(nil)
+}
+
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil
+func (o *UpdateDashboardGraphRequest) UnsetDescription() {
+	o.Description.Unset()
+}
+
+// GetDescriptionAlign returns the DescriptionAlign field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateDashboardGraphRequest) GetDescriptionAlign() string {
-	if o == nil || IsNil(o.DescriptionAlign) {
+	if o == nil || IsNil(o.DescriptionAlign.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.DescriptionAlign
+	return *o.DescriptionAlign.Get()
 }
 
 // GetDescriptionAlignOk returns a tuple with the DescriptionAlign field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UpdateDashboardGraphRequest) GetDescriptionAlignOk() (*string, bool) {
-	if o == nil || IsNil(o.DescriptionAlign) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DescriptionAlign, true
+	return o.DescriptionAlign.Get(), o.DescriptionAlign.IsSet()
 }
 
 // HasDescriptionAlign returns a boolean if a field has been set.
 func (o *UpdateDashboardGraphRequest) HasDescriptionAlign() bool {
-	if o != nil && !IsNil(o.DescriptionAlign) {
+	if o != nil && o.DescriptionAlign.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDescriptionAlign gets a reference to the given string and assigns it to the DescriptionAlign field.
+// SetDescriptionAlign gets a reference to the given NullableString and assigns it to the DescriptionAlign field.
 func (o *UpdateDashboardGraphRequest) SetDescriptionAlign(v string) {
-	o.DescriptionAlign = &v
+	o.DescriptionAlign.Set(&v)
 }
 
-// GetDescriptionJustifyContent returns the DescriptionJustifyContent field value if set, zero value otherwise.
+// SetDescriptionAlignNil sets the value for DescriptionAlign to be an explicit nil
+func (o *UpdateDashboardGraphRequest) SetDescriptionAlignNil() {
+	o.DescriptionAlign.Set(nil)
+}
+
+// UnsetDescriptionAlign ensures that no value is present for DescriptionAlign, not even an explicit nil
+func (o *UpdateDashboardGraphRequest) UnsetDescriptionAlign() {
+	o.DescriptionAlign.Unset()
+}
+
+// GetDescriptionJustifyContent returns the DescriptionJustifyContent field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateDashboardGraphRequest) GetDescriptionJustifyContent() string {
-	if o == nil || IsNil(o.DescriptionJustifyContent) {
+	if o == nil || IsNil(o.DescriptionJustifyContent.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.DescriptionJustifyContent
+	return *o.DescriptionJustifyContent.Get()
 }
 
 // GetDescriptionJustifyContentOk returns a tuple with the DescriptionJustifyContent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UpdateDashboardGraphRequest) GetDescriptionJustifyContentOk() (*string, bool) {
-	if o == nil || IsNil(o.DescriptionJustifyContent) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DescriptionJustifyContent, true
+	return o.DescriptionJustifyContent.Get(), o.DescriptionJustifyContent.IsSet()
 }
 
 // HasDescriptionJustifyContent returns a boolean if a field has been set.
 func (o *UpdateDashboardGraphRequest) HasDescriptionJustifyContent() bool {
-	if o != nil && !IsNil(o.DescriptionJustifyContent) {
+	if o != nil && o.DescriptionJustifyContent.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDescriptionJustifyContent gets a reference to the given string and assigns it to the DescriptionJustifyContent field.
+// SetDescriptionJustifyContent gets a reference to the given NullableString and assigns it to the DescriptionJustifyContent field.
 func (o *UpdateDashboardGraphRequest) SetDescriptionJustifyContent(v string) {
-	o.DescriptionJustifyContent = &v
+	o.DescriptionJustifyContent.Set(&v)
 }
 
-// GetVisualization returns the Visualization field value
+// SetDescriptionJustifyContentNil sets the value for DescriptionJustifyContent to be an explicit nil
+func (o *UpdateDashboardGraphRequest) SetDescriptionJustifyContentNil() {
+	o.DescriptionJustifyContent.Set(nil)
+}
+
+// UnsetDescriptionJustifyContent ensures that no value is present for DescriptionJustifyContent, not even an explicit nil
+func (o *UpdateDashboardGraphRequest) UnsetDescriptionJustifyContent() {
+	o.DescriptionJustifyContent.Unset()
+}
+
+// GetVisualization returns the Visualization field value if set, zero value otherwise.
 func (o *UpdateDashboardGraphRequest) GetVisualization() GraphVisualization {
-	if o == nil {
+	if o == nil || IsNil(o.Visualization) {
 		var ret GraphVisualization
 		return ret
 	}
-
-	return o.Visualization
+	return *o.Visualization
 }
 
-// GetVisualizationOk returns a tuple with the Visualization field value
+// GetVisualizationOk returns a tuple with the Visualization field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateDashboardGraphRequest) GetVisualizationOk() (*GraphVisualization, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Visualization) {
 		return nil, false
 	}
-	return &o.Visualization, true
+	return o.Visualization, true
 }
 
-// SetVisualization sets field value
+// HasVisualization returns a boolean if a field has been set.
+func (o *UpdateDashboardGraphRequest) HasVisualization() bool {
+	if o != nil && !IsNil(o.Visualization) {
+		return true
+	}
+
+	return false
+}
+
+// SetVisualization gets a reference to the given GraphVisualization and assigns it to the Visualization field.
 func (o *UpdateDashboardGraphRequest) SetVisualization(v GraphVisualization) {
-	o.Visualization = v
+	o.Visualization = &v
 }
 
-// GetLayout returns the Layout field value if set, zero value otherwise.
+// GetLayout returns the Layout field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateDashboardGraphRequest) GetLayout() GraphLayout {
-	if o == nil || IsNil(o.Layout) {
+	if o == nil || IsNil(o.Layout.Get()) {
 		var ret GraphLayout
 		return ret
 	}
-	return *o.Layout
+	return *o.Layout.Get()
 }
 
 // GetLayoutOk returns a tuple with the Layout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UpdateDashboardGraphRequest) GetLayoutOk() (*GraphLayout, bool) {
-	if o == nil || IsNil(o.Layout) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Layout, true
+	return o.Layout.Get(), o.Layout.IsSet()
 }
 
 // HasLayout returns a boolean if a field has been set.
 func (o *UpdateDashboardGraphRequest) HasLayout() bool {
-	if o != nil && !IsNil(o.Layout) {
+	if o != nil && o.Layout.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetLayout gets a reference to the given GraphLayout and assigns it to the Layout field.
+// SetLayout gets a reference to the given NullableGraphLayout and assigns it to the Layout field.
 func (o *UpdateDashboardGraphRequest) SetLayout(v GraphLayout) {
-	o.Layout = &v
+	o.Layout.Set(&v)
+}
+
+// SetLayoutNil sets the value for Layout to be an explicit nil
+func (o *UpdateDashboardGraphRequest) SetLayoutNil() {
+	o.Layout.Set(nil)
+}
+
+// UnsetLayout ensures that no value is present for Layout, not even an explicit nil
+func (o *UpdateDashboardGraphRequest) UnsetLayout() {
+	o.Layout.Unset()
 }
 
 func (o UpdateDashboardGraphRequest) MarshalJSON() ([]byte, error) {
@@ -247,21 +306,23 @@ func (o UpdateDashboardGraphRequest) MarshalJSON() ([]byte, error) {
 
 func (o UpdateDashboardGraphRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
+	if o.Name.IsSet() {
+		toSerialize["name"] = o.Name.Get()
 	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
 	}
-	if !IsNil(o.DescriptionAlign) {
-		toSerialize["descriptionAlign"] = o.DescriptionAlign
+	if o.DescriptionAlign.IsSet() {
+		toSerialize["descriptionAlign"] = o.DescriptionAlign.Get()
 	}
-	if !IsNil(o.DescriptionJustifyContent) {
-		toSerialize["descriptionJustifyContent"] = o.DescriptionJustifyContent
+	if o.DescriptionJustifyContent.IsSet() {
+		toSerialize["descriptionJustifyContent"] = o.DescriptionJustifyContent.Get()
 	}
-	toSerialize["visualization"] = o.Visualization
-	if !IsNil(o.Layout) {
-		toSerialize["layout"] = o.Layout
+	if !IsNil(o.Visualization) {
+		toSerialize["visualization"] = o.Visualization
+	}
+	if o.Layout.IsSet() {
+		toSerialize["layout"] = o.Layout.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -272,27 +333,6 @@ func (o UpdateDashboardGraphRequest) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *UpdateDashboardGraphRequest) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"visualization",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varUpdateDashboardGraphRequest := _UpdateDashboardGraphRequest{}
 
 	err = json.Unmarshal(data, &varUpdateDashboardGraphRequest)

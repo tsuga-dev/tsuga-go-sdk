@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **Normalizer** | Pointer to [**Normalizer1**](Normalizer1.md) |  | [optional] 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
+**CustomLink** | Pointer to [**CustomLink1**](CustomLink1.md) |  | [optional] 
 
 ## Methods
 
@@ -294,6 +295,31 @@ SetLegendMode sets LegendMode field to given value.
 `func (o *InputGraphVisualizationPie) HasLegendMode() bool`
 
 HasLegendMode returns a boolean if a field has been set.
+
+### GetCustomLink
+
+`func (o *InputGraphVisualizationPie) GetCustomLink() CustomLink1`
+
+GetCustomLink returns the CustomLink field if non-nil, zero value otherwise.
+
+### GetCustomLinkOk
+
+`func (o *InputGraphVisualizationPie) GetCustomLinkOk() (*CustomLink1, bool)`
+
+GetCustomLinkOk returns a tuple with the CustomLink field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustomLink
+
+`func (o *InputGraphVisualizationPie) SetCustomLink(v CustomLink1)`
+
+SetCustomLink sets CustomLink field to given value.
+
+### HasCustomLink
+
+`func (o *InputGraphVisualizationPie) HasCustomLink() bool`
+
+HasCustomLink returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

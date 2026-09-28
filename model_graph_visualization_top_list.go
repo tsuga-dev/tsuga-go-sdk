@@ -40,7 +40,8 @@ type GraphVisualizationTopList struct {
 	// Conditional formatting rules applied to the displayed value
 	Conditions []ConditionalFormatting `json:"conditions,omitempty"`
 	// Requests stacked rendering for a top-list widget. Tsuga renders stacked rows only for one count or sum query with exactly two grouped fields, no formula, non-negative values, and a single-cluster context; otherwise the widget renders as a normal top list.
-	IsStacked            *bool `json:"isStacked,omitempty"`
+	IsStacked            *bool       `json:"isStacked,omitempty"`
+	CustomLink           *CustomLink `json:"customLink,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -426,6 +427,38 @@ func (o *GraphVisualizationTopList) SetIsStacked(v bool) {
 	o.IsStacked = &v
 }
 
+// GetCustomLink returns the CustomLink field value if set, zero value otherwise.
+func (o *GraphVisualizationTopList) GetCustomLink() CustomLink {
+	if o == nil || IsNil(o.CustomLink) {
+		var ret CustomLink
+		return ret
+	}
+	return *o.CustomLink
+}
+
+// GetCustomLinkOk returns a tuple with the CustomLink field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationTopList) GetCustomLinkOk() (*CustomLink, bool) {
+	if o == nil || IsNil(o.CustomLink) {
+		return nil, false
+	}
+	return o.CustomLink, true
+}
+
+// HasCustomLink returns a boolean if a field has been set.
+func (o *GraphVisualizationTopList) HasCustomLink() bool {
+	if o != nil && !IsNil(o.CustomLink) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomLink gets a reference to the given CustomLink and assigns it to the CustomLink field.
+func (o *GraphVisualizationTopList) SetCustomLink(v CustomLink) {
+	o.CustomLink = &v
+}
+
 func (o GraphVisualizationTopList) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -465,6 +498,9 @@ func (o GraphVisualizationTopList) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.IsStacked) {
 		toSerialize["isStacked"] = o.IsStacked
+	}
+	if !IsNil(o.CustomLink) {
+		toSerialize["customLink"] = o.CustomLink
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -523,6 +559,7 @@ func (o *GraphVisualizationTopList) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "precision")
 		delete(additionalProperties, "conditions")
 		delete(additionalProperties, "isStacked")
+		delete(additionalProperties, "customLink")
 		o.AdditionalProperties = additionalProperties
 	}
 

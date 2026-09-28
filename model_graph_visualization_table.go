@@ -32,6 +32,7 @@ type GraphVisualizationTable struct {
 	DefaultSorting []TableDefaultSorting `json:"defaultSorting,omitempty"`
 	// Table column widths in pixels, keyed by column id: `label` for the grouping column and `col-<index>` for each entry in `columns`. Columns without an entry keep their default width.
 	ColumnSizes          map[string]float32 `json:"columnSizes,omitempty"`
+	CustomLink           *CustomLink        `json:"customLink,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -232,6 +233,38 @@ func (o *GraphVisualizationTable) SetColumnSizes(v map[string]float32) {
 	o.ColumnSizes = v
 }
 
+// GetCustomLink returns the CustomLink field value if set, zero value otherwise.
+func (o *GraphVisualizationTable) GetCustomLink() CustomLink {
+	if o == nil || IsNil(o.CustomLink) {
+		var ret CustomLink
+		return ret
+	}
+	return *o.CustomLink
+}
+
+// GetCustomLinkOk returns a tuple with the CustomLink field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationTable) GetCustomLinkOk() (*CustomLink, bool) {
+	if o == nil || IsNil(o.CustomLink) {
+		return nil, false
+	}
+	return o.CustomLink, true
+}
+
+// HasCustomLink returns a boolean if a field has been set.
+func (o *GraphVisualizationTable) HasCustomLink() bool {
+	if o != nil && !IsNil(o.CustomLink) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomLink gets a reference to the given CustomLink and assigns it to the CustomLink field.
+func (o *GraphVisualizationTable) SetCustomLink(v CustomLink) {
+	o.CustomLink = &v
+}
+
 func (o GraphVisualizationTable) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -255,6 +288,9 @@ func (o GraphVisualizationTable) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ColumnSizes) {
 		toSerialize["columnSizes"] = o.ColumnSizes
+	}
+	if !IsNil(o.CustomLink) {
+		toSerialize["customLink"] = o.CustomLink
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -306,6 +342,7 @@ func (o *GraphVisualizationTable) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "groupByMode")
 		delete(additionalProperties, "defaultSorting")
 		delete(additionalProperties, "columnSizes")
+		delete(additionalProperties, "customLink")
 		o.AdditionalProperties = additionalProperties
 	}
 

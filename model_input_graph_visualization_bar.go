@@ -43,6 +43,7 @@ type InputGraphVisualizationBar struct {
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode           *string                                                   `json:"legendMode,omitempty"`
 	YAxisSettings        *InputGraphVisualizationTimeseriesConnectionYAxisSettings `json:"yAxisSettings,omitempty"`
+	CustomLink           *CustomLink1                                              `json:"customLink,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -492,6 +493,38 @@ func (o *InputGraphVisualizationBar) SetYAxisSettings(v InputGraphVisualizationT
 	o.YAxisSettings = &v
 }
 
+// GetCustomLink returns the CustomLink field value if set, zero value otherwise.
+func (o *InputGraphVisualizationBar) GetCustomLink() CustomLink1 {
+	if o == nil || IsNil(o.CustomLink) {
+		var ret CustomLink1
+		return ret
+	}
+	return *o.CustomLink
+}
+
+// GetCustomLinkOk returns a tuple with the CustomLink field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputGraphVisualizationBar) GetCustomLinkOk() (*CustomLink1, bool) {
+	if o == nil || IsNil(o.CustomLink) {
+		return nil, false
+	}
+	return o.CustomLink, true
+}
+
+// HasCustomLink returns a boolean if a field has been set.
+func (o *InputGraphVisualizationBar) HasCustomLink() bool {
+	if o != nil && !IsNil(o.CustomLink) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomLink gets a reference to the given CustomLink1 and assigns it to the CustomLink field.
+func (o *InputGraphVisualizationBar) SetCustomLink(v CustomLink1) {
+	o.CustomLink = &v
+}
+
 func (o InputGraphVisualizationBar) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -537,6 +570,9 @@ func (o InputGraphVisualizationBar) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.YAxisSettings) {
 		toSerialize["yAxisSettings"] = o.YAxisSettings
+	}
+	if !IsNil(o.CustomLink) {
+		toSerialize["customLink"] = o.CustomLink
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -597,6 +633,7 @@ func (o *InputGraphVisualizationBar) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "thresholds")
 		delete(additionalProperties, "legendMode")
 		delete(additionalProperties, "yAxisSettings")
+		delete(additionalProperties, "customLink")
 		o.AdditionalProperties = additionalProperties
 	}
 

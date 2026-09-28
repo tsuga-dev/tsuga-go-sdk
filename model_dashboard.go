@@ -27,7 +27,7 @@ type Dashboard struct {
 	// ID of the team that owns the dashboard. Set by the caller on create or update and used for dashboard access control.
 	Owner string `json:"owner"`
 	// Ordered widgets that compose the dashboard
-	Graphs []Graph1 `json:"graphs"`
+	Graphs []Graph2 `json:"graphs"`
 	// Dashboard-wide filters applied to every widget on the dashboard.
 	Filters []DashboardFiltersInner `json:"filters,omitempty"`
 	// Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies.
@@ -45,7 +45,7 @@ type _Dashboard Dashboard
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDashboard(id string, name string, owner string, graphs []Graph1) *Dashboard {
+func NewDashboard(id string, name string, owner string, graphs []Graph2) *Dashboard {
 	this := Dashboard{}
 	this.Id = id
 	this.Name = name
@@ -135,9 +135,9 @@ func (o *Dashboard) SetOwner(v string) {
 }
 
 // GetGraphs returns the Graphs field value
-func (o *Dashboard) GetGraphs() []Graph1 {
+func (o *Dashboard) GetGraphs() []Graph2 {
 	if o == nil {
-		var ret []Graph1
+		var ret []Graph2
 		return ret
 	}
 
@@ -146,7 +146,7 @@ func (o *Dashboard) GetGraphs() []Graph1 {
 
 // GetGraphsOk returns a tuple with the Graphs field value
 // and a boolean to check if the value has been set.
-func (o *Dashboard) GetGraphsOk() ([]Graph1, bool) {
+func (o *Dashboard) GetGraphsOk() ([]Graph2, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -154,7 +154,7 @@ func (o *Dashboard) GetGraphsOk() ([]Graph1, bool) {
 }
 
 // SetGraphs sets field value
-func (o *Dashboard) SetGraphs(v []Graph1) {
+func (o *Dashboard) SetGraphs(v []Graph2) {
 	o.Graphs = v
 }
 

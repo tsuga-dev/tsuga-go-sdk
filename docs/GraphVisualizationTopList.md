@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
 **Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the displayed value | [optional] 
 **IsStacked** | Pointer to **bool** | Requests stacked rendering for a top-list widget. Tsuga renders stacked rows only for one count or sum query with exactly two grouped fields, no formula, non-negative values, and a single-cluster context; otherwise the widget renders as a normal top list. | [optional] 
+**CustomLink** | Pointer to [**CustomLink**](CustomLink.md) |  | [optional] 
 
 ## Methods
 
@@ -320,6 +321,31 @@ SetIsStacked sets IsStacked field to given value.
 `func (o *GraphVisualizationTopList) HasIsStacked() bool`
 
 HasIsStacked returns a boolean if a field has been set.
+
+### GetCustomLink
+
+`func (o *GraphVisualizationTopList) GetCustomLink() CustomLink`
+
+GetCustomLink returns the CustomLink field if non-nil, zero value otherwise.
+
+### GetCustomLinkOk
+
+`func (o *GraphVisualizationTopList) GetCustomLinkOk() (*CustomLink, bool)`
+
+GetCustomLinkOk returns a tuple with the CustomLink field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustomLink
+
+`func (o *GraphVisualizationTopList) SetCustomLink(v CustomLink)`
+
+SetCustomLink sets CustomLink field to given value.
+
+### HasCustomLink
+
+`func (o *GraphVisualizationTopList) HasCustomLink() bool`
+
+HasCustomLink returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -1,0 +1,114 @@
+# Graph1Layout
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**X** | **float32** | Column position of the widget on the 12-column dashboard grid. 0 is the leftmost column; increasing values move right. | 
+**Y** | **float32** | Row position of the widget on the dashboard grid, in row units of 50 pixels each. 0 is the topmost row; increasing values move down. | 
+**W** | **float32** | Width of the widget in grid columns, out of the 12-column grid. Dashboard validation uses this with &#x60;h&#x60; and the widget type to reject layouts below the widget minimum. | 
+**H** | **float32** | Height of the widget in grid rows, where each row is 50 pixels tall. Dashboard validation uses this with &#x60;w&#x60; and the widget type to reject layouts below the widget minimum. | 
+
+## Methods
+
+### NewGraph1Layout
+
+`func NewGraph1Layout(x float32, y float32, w float32, h float32, ) *Graph1Layout`
+
+NewGraph1Layout instantiates a new Graph1Layout object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewGraph1LayoutWithDefaults
+
+`func NewGraph1LayoutWithDefaults() *Graph1Layout`
+
+NewGraph1LayoutWithDefaults instantiates a new Graph1Layout object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetX
+
+`func (o *Graph1Layout) GetX() float32`
+
+GetX returns the X field if non-nil, zero value otherwise.
+
+### GetXOk
+
+`func (o *Graph1Layout) GetXOk() (*float32, bool)`
+
+GetXOk returns a tuple with the X field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetX
+
+`func (o *Graph1Layout) SetX(v float32)`
+
+SetX sets X field to given value.
+
+
+### GetY
+
+`func (o *Graph1Layout) GetY() float32`
+
+GetY returns the Y field if non-nil, zero value otherwise.
+
+### GetYOk
+
+`func (o *Graph1Layout) GetYOk() (*float32, bool)`
+
+GetYOk returns a tuple with the Y field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetY
+
+`func (o *Graph1Layout) SetY(v float32)`
+
+SetY sets Y field to given value.
+
+
+### GetW
+
+`func (o *Graph1Layout) GetW() float32`
+
+GetW returns the W field if non-nil, zero value otherwise.
+
+### GetWOk
+
+`func (o *Graph1Layout) GetWOk() (*float32, bool)`
+
+GetWOk returns a tuple with the W field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetW
+
+`func (o *Graph1Layout) SetW(v float32)`
+
+SetW sets W field to given value.
+
+
+### GetH
+
+`func (o *Graph1Layout) GetH() float32`
+
+GetH returns the H field if non-nil, zero value otherwise.
+
+### GetHOk
+
+`func (o *Graph1Layout) GetHOk() (*float32, bool)`
+
+GetHOk returns a tuple with the H field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetH
+
+`func (o *Graph1Layout) SetH(v float32)`
+
+SetH sets H field to given value.
+
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

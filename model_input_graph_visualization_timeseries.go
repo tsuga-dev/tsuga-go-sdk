@@ -47,6 +47,7 @@ type InputGraphVisualizationTimeseries struct {
 	Smoothing *bool `json:"smoothing,omitempty"`
 	// Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. For widgets with a single query, only the `1` entry is read and it applies to every series. Defaults to regular.
 	LineStyleOptions     map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue `json:"lineStyleOptions,omitempty"`
+	CustomLink           *CustomLink1                                                           `json:"customLink,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -560,6 +561,38 @@ func (o *InputGraphVisualizationTimeseries) SetLineStyleOptions(v map[string]Gra
 	o.LineStyleOptions = v
 }
 
+// GetCustomLink returns the CustomLink field value if set, zero value otherwise.
+func (o *InputGraphVisualizationTimeseries) GetCustomLink() CustomLink1 {
+	if o == nil || IsNil(o.CustomLink) {
+		var ret CustomLink1
+		return ret
+	}
+	return *o.CustomLink
+}
+
+// GetCustomLinkOk returns a tuple with the CustomLink field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputGraphVisualizationTimeseries) GetCustomLinkOk() (*CustomLink1, bool) {
+	if o == nil || IsNil(o.CustomLink) {
+		return nil, false
+	}
+	return o.CustomLink, true
+}
+
+// HasCustomLink returns a boolean if a field has been set.
+func (o *InputGraphVisualizationTimeseries) HasCustomLink() bool {
+	if o != nil && !IsNil(o.CustomLink) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomLink gets a reference to the given CustomLink1 and assigns it to the CustomLink field.
+func (o *InputGraphVisualizationTimeseries) SetCustomLink(v CustomLink1) {
+	o.CustomLink = &v
+}
+
 func (o InputGraphVisualizationTimeseries) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -611,6 +644,9 @@ func (o InputGraphVisualizationTimeseries) ToMap() (map[string]interface{}, erro
 	}
 	if !IsNil(o.LineStyleOptions) {
 		toSerialize["lineStyleOptions"] = o.LineStyleOptions
+	}
+	if !IsNil(o.CustomLink) {
+		toSerialize["customLink"] = o.CustomLink
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -673,6 +709,7 @@ func (o *InputGraphVisualizationTimeseries) UnmarshalJSON(data []byte) (err erro
 		delete(additionalProperties, "yAxisSettings")
 		delete(additionalProperties, "smoothing")
 		delete(additionalProperties, "lineStyleOptions")
+		delete(additionalProperties, "customLink")
 		o.AdditionalProperties = additionalProperties
 	}
 

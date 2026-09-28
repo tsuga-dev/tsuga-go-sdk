@@ -15,8 +15,8 @@ import (
 	"fmt"
 )
 
-// Graph1Visualization - Widget visualization configuration. The `type` discriminator selects the widget kind and its required fields.
-type Graph1Visualization struct {
+// Graph2Visualization - Widget visualization configuration. The `type` discriminator selects the widget kind and its required fields.
+type Graph2Visualization struct {
 	GraphVisualizationBar                  *GraphVisualizationBar
 	GraphVisualizationBarConnection        *GraphVisualizationBarConnection
 	GraphVisualizationBarPromql            *GraphVisualizationBarPromql
@@ -45,190 +45,190 @@ type Graph1Visualization struct {
 	GraphVisualizationTopListPromql        *GraphVisualizationTopListPromql
 }
 
-// GraphVisualizationBarAsGraph1Visualization is a convenience function that returns GraphVisualizationBar wrapped in Graph1Visualization
-func GraphVisualizationBarAsGraph1Visualization(v *GraphVisualizationBar) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationBarAsGraph2Visualization is a convenience function that returns GraphVisualizationBar wrapped in Graph2Visualization
+func GraphVisualizationBarAsGraph2Visualization(v *GraphVisualizationBar) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationBar: v,
 	}
 }
 
-// GraphVisualizationBarConnectionAsGraph1Visualization is a convenience function that returns GraphVisualizationBarConnection wrapped in Graph1Visualization
-func GraphVisualizationBarConnectionAsGraph1Visualization(v *GraphVisualizationBarConnection) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationBarConnectionAsGraph2Visualization is a convenience function that returns GraphVisualizationBarConnection wrapped in Graph2Visualization
+func GraphVisualizationBarConnectionAsGraph2Visualization(v *GraphVisualizationBarConnection) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationBarConnection: v,
 	}
 }
 
-// GraphVisualizationBarPromqlAsGraph1Visualization is a convenience function that returns GraphVisualizationBarPromql wrapped in Graph1Visualization
-func GraphVisualizationBarPromqlAsGraph1Visualization(v *GraphVisualizationBarPromql) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationBarPromqlAsGraph2Visualization is a convenience function that returns GraphVisualizationBarPromql wrapped in Graph2Visualization
+func GraphVisualizationBarPromqlAsGraph2Visualization(v *GraphVisualizationBarPromql) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationBarPromql: v,
 	}
 }
 
-// GraphVisualizationDistributionAsGraph1Visualization is a convenience function that returns GraphVisualizationDistribution wrapped in Graph1Visualization
-func GraphVisualizationDistributionAsGraph1Visualization(v *GraphVisualizationDistribution) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationDistributionAsGraph2Visualization is a convenience function that returns GraphVisualizationDistribution wrapped in Graph2Visualization
+func GraphVisualizationDistributionAsGraph2Visualization(v *GraphVisualizationDistribution) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationDistribution: v,
 	}
 }
 
-// GraphVisualizationGaugeAsGraph1Visualization is a convenience function that returns GraphVisualizationGauge wrapped in Graph1Visualization
-func GraphVisualizationGaugeAsGraph1Visualization(v *GraphVisualizationGauge) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationGaugeAsGraph2Visualization is a convenience function that returns GraphVisualizationGauge wrapped in Graph2Visualization
+func GraphVisualizationGaugeAsGraph2Visualization(v *GraphVisualizationGauge) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationGauge: v,
 	}
 }
 
-// GraphVisualizationHeatmapAsGraph1Visualization is a convenience function that returns GraphVisualizationHeatmap wrapped in Graph1Visualization
-func GraphVisualizationHeatmapAsGraph1Visualization(v *GraphVisualizationHeatmap) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationHeatmapAsGraph2Visualization is a convenience function that returns GraphVisualizationHeatmap wrapped in Graph2Visualization
+func GraphVisualizationHeatmapAsGraph2Visualization(v *GraphVisualizationHeatmap) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationHeatmap: v,
 	}
 }
 
-// GraphVisualizationListAsGraph1Visualization is a convenience function that returns GraphVisualizationList wrapped in Graph1Visualization
-func GraphVisualizationListAsGraph1Visualization(v *GraphVisualizationList) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationListAsGraph2Visualization is a convenience function that returns GraphVisualizationList wrapped in Graph2Visualization
+func GraphVisualizationListAsGraph2Visualization(v *GraphVisualizationList) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationList: v,
 	}
 }
 
-// GraphVisualizationListConnectionAsGraph1Visualization is a convenience function that returns GraphVisualizationListConnection wrapped in Graph1Visualization
-func GraphVisualizationListConnectionAsGraph1Visualization(v *GraphVisualizationListConnection) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationListConnectionAsGraph2Visualization is a convenience function that returns GraphVisualizationListConnection wrapped in Graph2Visualization
+func GraphVisualizationListConnectionAsGraph2Visualization(v *GraphVisualizationListConnection) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationListConnection: v,
 	}
 }
 
-// GraphVisualizationListLogPatternsAsGraph1Visualization is a convenience function that returns GraphVisualizationListLogPatterns wrapped in Graph1Visualization
-func GraphVisualizationListLogPatternsAsGraph1Visualization(v *GraphVisualizationListLogPatterns) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationListLogPatternsAsGraph2Visualization is a convenience function that returns GraphVisualizationListLogPatterns wrapped in Graph2Visualization
+func GraphVisualizationListLogPatternsAsGraph2Visualization(v *GraphVisualizationListLogPatterns) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationListLogPatterns: v,
 	}
 }
 
-// GraphVisualizationListSpansAsGraph1Visualization is a convenience function that returns GraphVisualizationListSpans wrapped in Graph1Visualization
-func GraphVisualizationListSpansAsGraph1Visualization(v *GraphVisualizationListSpans) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationListSpansAsGraph2Visualization is a convenience function that returns GraphVisualizationListSpans wrapped in Graph2Visualization
+func GraphVisualizationListSpansAsGraph2Visualization(v *GraphVisualizationListSpans) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationListSpans: v,
 	}
 }
 
-// GraphVisualizationNoteAsGraph1Visualization is a convenience function that returns GraphVisualizationNote wrapped in Graph1Visualization
-func GraphVisualizationNoteAsGraph1Visualization(v *GraphVisualizationNote) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationNoteAsGraph2Visualization is a convenience function that returns GraphVisualizationNote wrapped in Graph2Visualization
+func GraphVisualizationNoteAsGraph2Visualization(v *GraphVisualizationNote) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationNote: v,
 	}
 }
 
-// GraphVisualizationPieAsGraph1Visualization is a convenience function that returns GraphVisualizationPie wrapped in Graph1Visualization
-func GraphVisualizationPieAsGraph1Visualization(v *GraphVisualizationPie) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationPieAsGraph2Visualization is a convenience function that returns GraphVisualizationPie wrapped in Graph2Visualization
+func GraphVisualizationPieAsGraph2Visualization(v *GraphVisualizationPie) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationPie: v,
 	}
 }
 
-// GraphVisualizationPieConnectionAsGraph1Visualization is a convenience function that returns GraphVisualizationPieConnection wrapped in Graph1Visualization
-func GraphVisualizationPieConnectionAsGraph1Visualization(v *GraphVisualizationPieConnection) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationPieConnectionAsGraph2Visualization is a convenience function that returns GraphVisualizationPieConnection wrapped in Graph2Visualization
+func GraphVisualizationPieConnectionAsGraph2Visualization(v *GraphVisualizationPieConnection) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationPieConnection: v,
 	}
 }
 
-// GraphVisualizationPiePromqlAsGraph1Visualization is a convenience function that returns GraphVisualizationPiePromql wrapped in Graph1Visualization
-func GraphVisualizationPiePromqlAsGraph1Visualization(v *GraphVisualizationPiePromql) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationPiePromqlAsGraph2Visualization is a convenience function that returns GraphVisualizationPiePromql wrapped in Graph2Visualization
+func GraphVisualizationPiePromqlAsGraph2Visualization(v *GraphVisualizationPiePromql) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationPiePromql: v,
 	}
 }
 
-// GraphVisualizationQueryValueAsGraph1Visualization is a convenience function that returns GraphVisualizationQueryValue wrapped in Graph1Visualization
-func GraphVisualizationQueryValueAsGraph1Visualization(v *GraphVisualizationQueryValue) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationQueryValueAsGraph2Visualization is a convenience function that returns GraphVisualizationQueryValue wrapped in Graph2Visualization
+func GraphVisualizationQueryValueAsGraph2Visualization(v *GraphVisualizationQueryValue) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationQueryValue: v,
 	}
 }
 
-// GraphVisualizationQueryValueConnectionAsGraph1Visualization is a convenience function that returns GraphVisualizationQueryValueConnection wrapped in Graph1Visualization
-func GraphVisualizationQueryValueConnectionAsGraph1Visualization(v *GraphVisualizationQueryValueConnection) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationQueryValueConnectionAsGraph2Visualization is a convenience function that returns GraphVisualizationQueryValueConnection wrapped in Graph2Visualization
+func GraphVisualizationQueryValueConnectionAsGraph2Visualization(v *GraphVisualizationQueryValueConnection) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationQueryValueConnection: v,
 	}
 }
 
-// GraphVisualizationQueryValuePromqlAsGraph1Visualization is a convenience function that returns GraphVisualizationQueryValuePromql wrapped in Graph1Visualization
-func GraphVisualizationQueryValuePromqlAsGraph1Visualization(v *GraphVisualizationQueryValuePromql) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationQueryValuePromqlAsGraph2Visualization is a convenience function that returns GraphVisualizationQueryValuePromql wrapped in Graph2Visualization
+func GraphVisualizationQueryValuePromqlAsGraph2Visualization(v *GraphVisualizationQueryValuePromql) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationQueryValuePromql: v,
 	}
 }
 
-// GraphVisualizationSloOverTimeAsGraph1Visualization is a convenience function that returns GraphVisualizationSloOverTime wrapped in Graph1Visualization
-func GraphVisualizationSloOverTimeAsGraph1Visualization(v *GraphVisualizationSloOverTime) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationSloOverTimeAsGraph2Visualization is a convenience function that returns GraphVisualizationSloOverTime wrapped in Graph2Visualization
+func GraphVisualizationSloOverTimeAsGraph2Visualization(v *GraphVisualizationSloOverTime) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationSloOverTime: v,
 	}
 }
 
-// GraphVisualizationSloUptimeAsGraph1Visualization is a convenience function that returns GraphVisualizationSloUptime wrapped in Graph1Visualization
-func GraphVisualizationSloUptimeAsGraph1Visualization(v *GraphVisualizationSloUptime) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationSloUptimeAsGraph2Visualization is a convenience function that returns GraphVisualizationSloUptime wrapped in Graph2Visualization
+func GraphVisualizationSloUptimeAsGraph2Visualization(v *GraphVisualizationSloUptime) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationSloUptime: v,
 	}
 }
 
-// GraphVisualizationTableAsGraph1Visualization is a convenience function that returns GraphVisualizationTable wrapped in Graph1Visualization
-func GraphVisualizationTableAsGraph1Visualization(v *GraphVisualizationTable) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationTableAsGraph2Visualization is a convenience function that returns GraphVisualizationTable wrapped in Graph2Visualization
+func GraphVisualizationTableAsGraph2Visualization(v *GraphVisualizationTable) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationTable: v,
 	}
 }
 
-// GraphVisualizationTimeseriesAsGraph1Visualization is a convenience function that returns GraphVisualizationTimeseries wrapped in Graph1Visualization
-func GraphVisualizationTimeseriesAsGraph1Visualization(v *GraphVisualizationTimeseries) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationTimeseriesAsGraph2Visualization is a convenience function that returns GraphVisualizationTimeseries wrapped in Graph2Visualization
+func GraphVisualizationTimeseriesAsGraph2Visualization(v *GraphVisualizationTimeseries) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationTimeseries: v,
 	}
 }
 
-// GraphVisualizationTimeseriesConnectionAsGraph1Visualization is a convenience function that returns GraphVisualizationTimeseriesConnection wrapped in Graph1Visualization
-func GraphVisualizationTimeseriesConnectionAsGraph1Visualization(v *GraphVisualizationTimeseriesConnection) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationTimeseriesConnectionAsGraph2Visualization is a convenience function that returns GraphVisualizationTimeseriesConnection wrapped in Graph2Visualization
+func GraphVisualizationTimeseriesConnectionAsGraph2Visualization(v *GraphVisualizationTimeseriesConnection) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationTimeseriesConnection: v,
 	}
 }
 
-// GraphVisualizationTimeseriesPromqlAsGraph1Visualization is a convenience function that returns GraphVisualizationTimeseriesPromql wrapped in Graph1Visualization
-func GraphVisualizationTimeseriesPromqlAsGraph1Visualization(v *GraphVisualizationTimeseriesPromql) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationTimeseriesPromqlAsGraph2Visualization is a convenience function that returns GraphVisualizationTimeseriesPromql wrapped in Graph2Visualization
+func GraphVisualizationTimeseriesPromqlAsGraph2Visualization(v *GraphVisualizationTimeseriesPromql) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationTimeseriesPromql: v,
 	}
 }
 
-// GraphVisualizationTopListAsGraph1Visualization is a convenience function that returns GraphVisualizationTopList wrapped in Graph1Visualization
-func GraphVisualizationTopListAsGraph1Visualization(v *GraphVisualizationTopList) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationTopListAsGraph2Visualization is a convenience function that returns GraphVisualizationTopList wrapped in Graph2Visualization
+func GraphVisualizationTopListAsGraph2Visualization(v *GraphVisualizationTopList) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationTopList: v,
 	}
 }
 
-// GraphVisualizationTopListConnectionAsGraph1Visualization is a convenience function that returns GraphVisualizationTopListConnection wrapped in Graph1Visualization
-func GraphVisualizationTopListConnectionAsGraph1Visualization(v *GraphVisualizationTopListConnection) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationTopListConnectionAsGraph2Visualization is a convenience function that returns GraphVisualizationTopListConnection wrapped in Graph2Visualization
+func GraphVisualizationTopListConnectionAsGraph2Visualization(v *GraphVisualizationTopListConnection) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationTopListConnection: v,
 	}
 }
 
-// GraphVisualizationTopListPromqlAsGraph1Visualization is a convenience function that returns GraphVisualizationTopListPromql wrapped in Graph1Visualization
-func GraphVisualizationTopListPromqlAsGraph1Visualization(v *GraphVisualizationTopListPromql) Graph1Visualization {
-	return Graph1Visualization{
+// GraphVisualizationTopListPromqlAsGraph2Visualization is a convenience function that returns GraphVisualizationTopListPromql wrapped in Graph2Visualization
+func GraphVisualizationTopListPromqlAsGraph2Visualization(v *GraphVisualizationTopListPromql) Graph2Visualization {
+	return Graph2Visualization{
 		GraphVisualizationTopListPromql: v,
 	}
 }
 
 // Unmarshal JSON data into one of the pointers in the struct
-func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
+func (dst *Graph2Visualization) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
@@ -245,7 +245,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationBar, return on the first match
 		} else {
 			dst.GraphVisualizationBar = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationBar: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationBar: %s", err.Error())
 		}
 	}
 
@@ -257,7 +257,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationBarConnection, return on the first match
 		} else {
 			dst.GraphVisualizationBarConnection = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationBarConnection: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationBarConnection: %s", err.Error())
 		}
 	}
 
@@ -269,7 +269,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationBarPromql, return on the first match
 		} else {
 			dst.GraphVisualizationBarPromql = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationBarPromql: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationBarPromql: %s", err.Error())
 		}
 	}
 
@@ -281,7 +281,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationDistribution, return on the first match
 		} else {
 			dst.GraphVisualizationDistribution = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationDistribution: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationDistribution: %s", err.Error())
 		}
 	}
 
@@ -293,7 +293,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationGauge, return on the first match
 		} else {
 			dst.GraphVisualizationGauge = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationGauge: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationGauge: %s", err.Error())
 		}
 	}
 
@@ -305,7 +305,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationHeatmap, return on the first match
 		} else {
 			dst.GraphVisualizationHeatmap = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationHeatmap: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationHeatmap: %s", err.Error())
 		}
 	}
 
@@ -317,7 +317,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationList, return on the first match
 		} else {
 			dst.GraphVisualizationList = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationList: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationList: %s", err.Error())
 		}
 	}
 
@@ -329,7 +329,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationListConnection, return on the first match
 		} else {
 			dst.GraphVisualizationListConnection = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationListConnection: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationListConnection: %s", err.Error())
 		}
 	}
 
@@ -341,7 +341,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationListLogPatterns, return on the first match
 		} else {
 			dst.GraphVisualizationListLogPatterns = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationListLogPatterns: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationListLogPatterns: %s", err.Error())
 		}
 	}
 
@@ -353,7 +353,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationListSpans, return on the first match
 		} else {
 			dst.GraphVisualizationListSpans = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationListSpans: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationListSpans: %s", err.Error())
 		}
 	}
 
@@ -365,7 +365,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationNote, return on the first match
 		} else {
 			dst.GraphVisualizationNote = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationNote: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationNote: %s", err.Error())
 		}
 	}
 
@@ -377,7 +377,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationPie, return on the first match
 		} else {
 			dst.GraphVisualizationPie = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationPie: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationPie: %s", err.Error())
 		}
 	}
 
@@ -389,7 +389,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationPieConnection, return on the first match
 		} else {
 			dst.GraphVisualizationPieConnection = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationPieConnection: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationPieConnection: %s", err.Error())
 		}
 	}
 
@@ -401,7 +401,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationPiePromql, return on the first match
 		} else {
 			dst.GraphVisualizationPiePromql = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationPiePromql: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationPiePromql: %s", err.Error())
 		}
 	}
 
@@ -413,7 +413,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationQueryValue, return on the first match
 		} else {
 			dst.GraphVisualizationQueryValue = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationQueryValue: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationQueryValue: %s", err.Error())
 		}
 	}
 
@@ -425,7 +425,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationQueryValueConnection, return on the first match
 		} else {
 			dst.GraphVisualizationQueryValueConnection = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationQueryValueConnection: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationQueryValueConnection: %s", err.Error())
 		}
 	}
 
@@ -437,7 +437,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationQueryValuePromql, return on the first match
 		} else {
 			dst.GraphVisualizationQueryValuePromql = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationQueryValuePromql: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationQueryValuePromql: %s", err.Error())
 		}
 	}
 
@@ -449,7 +449,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationSloOverTime, return on the first match
 		} else {
 			dst.GraphVisualizationSloOverTime = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationSloOverTime: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationSloOverTime: %s", err.Error())
 		}
 	}
 
@@ -461,7 +461,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationSloUptime, return on the first match
 		} else {
 			dst.GraphVisualizationSloUptime = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationSloUptime: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationSloUptime: %s", err.Error())
 		}
 	}
 
@@ -473,7 +473,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationTable, return on the first match
 		} else {
 			dst.GraphVisualizationTable = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationTable: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationTable: %s", err.Error())
 		}
 	}
 
@@ -485,7 +485,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationTimeseries, return on the first match
 		} else {
 			dst.GraphVisualizationTimeseries = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationTimeseries: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationTimeseries: %s", err.Error())
 		}
 	}
 
@@ -497,7 +497,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationTimeseriesConnection, return on the first match
 		} else {
 			dst.GraphVisualizationTimeseriesConnection = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationTimeseriesConnection: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationTimeseriesConnection: %s", err.Error())
 		}
 	}
 
@@ -509,7 +509,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationTimeseriesPromql, return on the first match
 		} else {
 			dst.GraphVisualizationTimeseriesPromql = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationTimeseriesPromql: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationTimeseriesPromql: %s", err.Error())
 		}
 	}
 
@@ -521,7 +521,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationTopList, return on the first match
 		} else {
 			dst.GraphVisualizationTopList = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationTopList: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationTopList: %s", err.Error())
 		}
 	}
 
@@ -533,7 +533,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationTopListConnection, return on the first match
 		} else {
 			dst.GraphVisualizationTopListConnection = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationTopListConnection: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationTopListConnection: %s", err.Error())
 		}
 	}
 
@@ -545,7 +545,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GraphVisualizationTopListPromql, return on the first match
 		} else {
 			dst.GraphVisualizationTopListPromql = nil
-			return fmt.Errorf("failed to unmarshal Graph1Visualization as GraphVisualizationTopListPromql: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationTopListPromql: %s", err.Error())
 		}
 	}
 
@@ -553,7 +553,7 @@ func (dst *Graph1Visualization) UnmarshalJSON(data []byte) error {
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src Graph1Visualization) MarshalJSON() ([]byte, error) {
+func (src Graph2Visualization) MarshalJSON() ([]byte, error) {
 	if src.GraphVisualizationBar != nil {
 		return json.Marshal(&src.GraphVisualizationBar)
 	}
@@ -662,7 +662,7 @@ func (src Graph1Visualization) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *Graph1Visualization) GetActualInstance() interface{} {
+func (obj *Graph2Visualization) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -775,7 +775,7 @@ func (obj *Graph1Visualization) GetActualInstance() interface{} {
 }
 
 // Get the actual instance value
-func (obj Graph1Visualization) GetActualInstanceValue() interface{} {
+func (obj Graph2Visualization) GetActualInstanceValue() interface{} {
 	if obj.GraphVisualizationBar != nil {
 		return *obj.GraphVisualizationBar
 	}
@@ -884,38 +884,38 @@ func (obj Graph1Visualization) GetActualInstanceValue() interface{} {
 	return nil
 }
 
-type NullableGraph1Visualization struct {
-	value *Graph1Visualization
+type NullableGraph2Visualization struct {
+	value *Graph2Visualization
 	isSet bool
 }
 
-func (v NullableGraph1Visualization) Get() *Graph1Visualization {
+func (v NullableGraph2Visualization) Get() *Graph2Visualization {
 	return v.value
 }
 
-func (v *NullableGraph1Visualization) Set(val *Graph1Visualization) {
+func (v *NullableGraph2Visualization) Set(val *Graph2Visualization) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableGraph1Visualization) IsSet() bool {
+func (v NullableGraph2Visualization) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableGraph1Visualization) Unset() {
+func (v *NullableGraph2Visualization) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableGraph1Visualization(val *Graph1Visualization) *NullableGraph1Visualization {
-	return &NullableGraph1Visualization{value: val, isSet: true}
+func NewNullableGraph2Visualization(val *Graph2Visualization) *NullableGraph2Visualization {
+	return &NullableGraph2Visualization{value: val, isSet: true}
 }
 
-func (v NullableGraph1Visualization) MarshalJSON() ([]byte, error) {
+func (v NullableGraph2Visualization) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableGraph1Visualization) UnmarshalJSON(src []byte) error {
+func (v *NullableGraph2Visualization) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

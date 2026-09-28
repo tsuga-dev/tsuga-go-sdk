@@ -1,4 +1,4 @@
-# Graph1Visualization
+# Graph2Visualization
 
 ## Properties
 
@@ -28,6 +28,7 @@ Name | Type | Description | Notes
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
 **GroupBy** | Pointer to [**[]AggregationGroupBy1**](AggregationGroupBy1.md) | Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values. | [optional] 
 **GroupByMode** | Pointer to **string** | &#x60;absolute&#x60; keeps each group at its own value; &#x60;relative&#x60; shows it as a percentage of the ungrouped total (defaults to absolute) | [optional] 
+**CustomLink** | Pointer to [**CustomLink**](CustomLink.md) |  | [optional] 
 **IsStacked** | Pointer to **bool** | Requests stacked rendering for a top-list widget. Tsuga renders stacked rows only for one count or sum query with exactly two grouped fields, no formula, non-negative values, and a single-cluster context; otherwise the widget renders as a normal top list. | [optional] 
 **Max** | Pointer to **float32** | Gauge maximum value | [optional] 
 **ColorThresholds** | Pointer to [**[]GaugeColorThreshold**](GaugeColorThreshold.md) | Color thresholds inside the gauge range | [optional] 
@@ -46,959 +47,984 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewGraph1Visualization
+### NewGraph2Visualization
 
-`func NewGraph1Visualization(type_ string, connectionId string, queries []AggregationQuery, query string, source string, columns []TableColumn, sloId string, ) *Graph1Visualization`
+`func NewGraph2Visualization(type_ string, connectionId string, queries []AggregationQuery, query string, source string, columns []TableColumn, sloId string, ) *Graph2Visualization`
 
-NewGraph1Visualization instantiates a new Graph1Visualization object
+NewGraph2Visualization instantiates a new Graph2Visualization object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewGraph1VisualizationWithDefaults
+### NewGraph2VisualizationWithDefaults
 
-`func NewGraph1VisualizationWithDefaults() *Graph1Visualization`
+`func NewGraph2VisualizationWithDefaults() *Graph2Visualization`
 
-NewGraph1VisualizationWithDefaults instantiates a new Graph1Visualization object
+NewGraph2VisualizationWithDefaults instantiates a new Graph2Visualization object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetType
 
-`func (o *Graph1Visualization) GetType() string`
+`func (o *Graph2Visualization) GetType() string`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *Graph1Visualization) GetTypeOk() (*string, bool)`
+`func (o *Graph2Visualization) GetTypeOk() (*string, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *Graph1Visualization) SetType(v string)`
+`func (o *Graph2Visualization) SetType(v string)`
 
 SetType sets Type field to given value.
 
 
 ### GetConnectionId
 
-`func (o *Graph1Visualization) GetConnectionId() string`
+`func (o *Graph2Visualization) GetConnectionId() string`
 
 GetConnectionId returns the ConnectionId field if non-nil, zero value otherwise.
 
 ### GetConnectionIdOk
 
-`func (o *Graph1Visualization) GetConnectionIdOk() (*string, bool)`
+`func (o *Graph2Visualization) GetConnectionIdOk() (*string, bool)`
 
 GetConnectionIdOk returns a tuple with the ConnectionId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConnectionId
 
-`func (o *Graph1Visualization) SetConnectionId(v string)`
+`func (o *Graph2Visualization) SetConnectionId(v string)`
 
 SetConnectionId sets ConnectionId field to given value.
 
 
 ### GetQueries
 
-`func (o *Graph1Visualization) GetQueries() []AggregationQuery`
+`func (o *Graph2Visualization) GetQueries() []AggregationQuery`
 
 GetQueries returns the Queries field if non-nil, zero value otherwise.
 
 ### GetQueriesOk
 
-`func (o *Graph1Visualization) GetQueriesOk() (*[]AggregationQuery, bool)`
+`func (o *Graph2Visualization) GetQueriesOk() (*[]AggregationQuery, bool)`
 
 GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueries
 
-`func (o *Graph1Visualization) SetQueries(v []AggregationQuery)`
+`func (o *Graph2Visualization) SetQueries(v []AggregationQuery)`
 
 SetQueries sets Queries field to given value.
 
 
 ### GetLegendMode
 
-`func (o *Graph1Visualization) GetLegendMode() string`
+`func (o *Graph2Visualization) GetLegendMode() string`
 
 GetLegendMode returns the LegendMode field if non-nil, zero value otherwise.
 
 ### GetLegendModeOk
 
-`func (o *Graph1Visualization) GetLegendModeOk() (*string, bool)`
+`func (o *Graph2Visualization) GetLegendModeOk() (*string, bool)`
 
 GetLegendModeOk returns a tuple with the LegendMode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLegendMode
 
-`func (o *Graph1Visualization) SetLegendMode(v string)`
+`func (o *Graph2Visualization) SetLegendMode(v string)`
 
 SetLegendMode sets LegendMode field to given value.
 
 ### HasLegendMode
 
-`func (o *Graph1Visualization) HasLegendMode() bool`
+`func (o *Graph2Visualization) HasLegendMode() bool`
 
 HasLegendMode returns a boolean if a field has been set.
 
 ### GetThresholds
 
-`func (o *Graph1Visualization) GetThresholds() []ThresholdMarker`
+`func (o *Graph2Visualization) GetThresholds() []ThresholdMarker`
 
 GetThresholds returns the Thresholds field if non-nil, zero value otherwise.
 
 ### GetThresholdsOk
 
-`func (o *Graph1Visualization) GetThresholdsOk() (*[]ThresholdMarker, bool)`
+`func (o *Graph2Visualization) GetThresholdsOk() (*[]ThresholdMarker, bool)`
 
 GetThresholdsOk returns a tuple with the Thresholds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetThresholds
 
-`func (o *Graph1Visualization) SetThresholds(v []ThresholdMarker)`
+`func (o *Graph2Visualization) SetThresholds(v []ThresholdMarker)`
 
 SetThresholds sets Thresholds field to given value.
 
 ### HasThresholds
 
-`func (o *Graph1Visualization) HasThresholds() bool`
+`func (o *Graph2Visualization) HasThresholds() bool`
 
 HasThresholds returns a boolean if a field has been set.
 
 ### GetYAxisSettings
 
-`func (o *Graph1Visualization) GetYAxisSettings() GraphVisualizationTimeseriesConnectionYAxisSettings`
+`func (o *Graph2Visualization) GetYAxisSettings() GraphVisualizationTimeseriesConnectionYAxisSettings`
 
 GetYAxisSettings returns the YAxisSettings field if non-nil, zero value otherwise.
 
 ### GetYAxisSettingsOk
 
-`func (o *Graph1Visualization) GetYAxisSettingsOk() (*GraphVisualizationTimeseriesConnectionYAxisSettings, bool)`
+`func (o *Graph2Visualization) GetYAxisSettingsOk() (*GraphVisualizationTimeseriesConnectionYAxisSettings, bool)`
 
 GetYAxisSettingsOk returns a tuple with the YAxisSettings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetYAxisSettings
 
-`func (o *Graph1Visualization) SetYAxisSettings(v GraphVisualizationTimeseriesConnectionYAxisSettings)`
+`func (o *Graph2Visualization) SetYAxisSettings(v GraphVisualizationTimeseriesConnectionYAxisSettings)`
 
 SetYAxisSettings sets YAxisSettings field to given value.
 
 ### HasYAxisSettings
 
-`func (o *Graph1Visualization) HasYAxisSettings() bool`
+`func (o *Graph2Visualization) HasYAxisSettings() bool`
 
 HasYAxisSettings returns a boolean if a field has been set.
 
 ### GetLineStyleOptions
 
-`func (o *Graph1Visualization) GetLineStyleOptions() map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue`
+`func (o *Graph2Visualization) GetLineStyleOptions() map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue`
 
 GetLineStyleOptions returns the LineStyleOptions field if non-nil, zero value otherwise.
 
 ### GetLineStyleOptionsOk
 
-`func (o *Graph1Visualization) GetLineStyleOptionsOk() (*map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue, bool)`
+`func (o *Graph2Visualization) GetLineStyleOptionsOk() (*map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue, bool)`
 
 GetLineStyleOptionsOk returns a tuple with the LineStyleOptions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLineStyleOptions
 
-`func (o *Graph1Visualization) SetLineStyleOptions(v map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue)`
+`func (o *Graph2Visualization) SetLineStyleOptions(v map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue)`
 
 SetLineStyleOptions sets LineStyleOptions field to given value.
 
 ### HasLineStyleOptions
 
-`func (o *Graph1Visualization) HasLineStyleOptions() bool`
+`func (o *Graph2Visualization) HasLineStyleOptions() bool`
 
 HasLineStyleOptions returns a boolean if a field has been set.
 
 ### GetQuery
 
-`func (o *Graph1Visualization) GetQuery() string`
+`func (o *Graph2Visualization) GetQuery() string`
 
 GetQuery returns the Query field if non-nil, zero value otherwise.
 
 ### GetQueryOk
 
-`func (o *Graph1Visualization) GetQueryOk() (*string, bool)`
+`func (o *Graph2Visualization) GetQueryOk() (*string, bool)`
 
 GetQueryOk returns a tuple with the Query field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQuery
 
-`func (o *Graph1Visualization) SetQuery(v string)`
+`func (o *Graph2Visualization) SetQuery(v string)`
 
 SetQuery sets Query field to given value.
 
 
 ### GetListColumns
 
-`func (o *Graph1Visualization) GetListColumns() []WidgetListColumn`
+`func (o *Graph2Visualization) GetListColumns() []WidgetListColumn`
 
 GetListColumns returns the ListColumns field if non-nil, zero value otherwise.
 
 ### GetListColumnsOk
 
-`func (o *Graph1Visualization) GetListColumnsOk() (*[]WidgetListColumn, bool)`
+`func (o *Graph2Visualization) GetListColumnsOk() (*[]WidgetListColumn, bool)`
 
 GetListColumnsOk returns a tuple with the ListColumns field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetListColumns
 
-`func (o *Graph1Visualization) SetListColumns(v []WidgetListColumn)`
+`func (o *Graph2Visualization) SetListColumns(v []WidgetListColumn)`
 
 SetListColumns sets ListColumns field to given value.
 
 ### HasListColumns
 
-`func (o *Graph1Visualization) HasListColumns() bool`
+`func (o *Graph2Visualization) HasListColumns() bool`
 
 HasListColumns returns a boolean if a field has been set.
 
 ### GetListColumnsSize
 
-`func (o *Graph1Visualization) GetListColumnsSize() map[string]float32`
+`func (o *Graph2Visualization) GetListColumnsSize() map[string]float32`
 
 GetListColumnsSize returns the ListColumnsSize field if non-nil, zero value otherwise.
 
 ### GetListColumnsSizeOk
 
-`func (o *Graph1Visualization) GetListColumnsSizeOk() (*map[string]float32, bool)`
+`func (o *Graph2Visualization) GetListColumnsSizeOk() (*map[string]float32, bool)`
 
 GetListColumnsSizeOk returns a tuple with the ListColumnsSize field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetListColumnsSize
 
-`func (o *Graph1Visualization) SetListColumnsSize(v map[string]float32)`
+`func (o *Graph2Visualization) SetListColumnsSize(v map[string]float32)`
 
 SetListColumnsSize sets ListColumnsSize field to given value.
 
 ### HasListColumnsSize
 
-`func (o *Graph1Visualization) HasListColumnsSize() bool`
+`func (o *Graph2Visualization) HasListColumnsSize() bool`
 
 HasListColumnsSize returns a boolean if a field has been set.
 
 ### GetIsCellWrapped
 
-`func (o *Graph1Visualization) GetIsCellWrapped() bool`
+`func (o *Graph2Visualization) GetIsCellWrapped() bool`
 
 GetIsCellWrapped returns the IsCellWrapped field if non-nil, zero value otherwise.
 
 ### GetIsCellWrappedOk
 
-`func (o *Graph1Visualization) GetIsCellWrappedOk() (*bool, bool)`
+`func (o *Graph2Visualization) GetIsCellWrappedOk() (*bool, bool)`
 
 GetIsCellWrappedOk returns a tuple with the IsCellWrapped field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIsCellWrapped
 
-`func (o *Graph1Visualization) SetIsCellWrapped(v bool)`
+`func (o *Graph2Visualization) SetIsCellWrapped(v bool)`
 
 SetIsCellWrapped sets IsCellWrapped field to given value.
 
 ### HasIsCellWrapped
 
-`func (o *Graph1Visualization) HasIsCellWrapped() bool`
+`func (o *Graph2Visualization) HasIsCellWrapped() bool`
 
 HasIsCellWrapped returns a boolean if a field has been set.
 
 ### GetDefaultSorting
 
-`func (o *Graph1Visualization) GetDefaultSorting() []ListDefaultSorting`
+`func (o *Graph2Visualization) GetDefaultSorting() []ListDefaultSorting`
 
 GetDefaultSorting returns the DefaultSorting field if non-nil, zero value otherwise.
 
 ### GetDefaultSortingOk
 
-`func (o *Graph1Visualization) GetDefaultSortingOk() (*[]ListDefaultSorting, bool)`
+`func (o *Graph2Visualization) GetDefaultSortingOk() (*[]ListDefaultSorting, bool)`
 
 GetDefaultSortingOk returns a tuple with the DefaultSorting field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDefaultSorting
 
-`func (o *Graph1Visualization) SetDefaultSorting(v []ListDefaultSorting)`
+`func (o *Graph2Visualization) SetDefaultSorting(v []ListDefaultSorting)`
 
 SetDefaultSorting sets DefaultSorting field to given value.
 
 ### HasDefaultSorting
 
-`func (o *Graph1Visualization) HasDefaultSorting() bool`
+`func (o *Graph2Visualization) HasDefaultSorting() bool`
 
 HasDefaultSorting returns a boolean if a field has been set.
 
 ### GetBackgroundMode
 
-`func (o *Graph1Visualization) GetBackgroundMode() string`
+`func (o *Graph2Visualization) GetBackgroundMode() string`
 
 GetBackgroundMode returns the BackgroundMode field if non-nil, zero value otherwise.
 
 ### GetBackgroundModeOk
 
-`func (o *Graph1Visualization) GetBackgroundModeOk() (*string, bool)`
+`func (o *Graph2Visualization) GetBackgroundModeOk() (*string, bool)`
 
 GetBackgroundModeOk returns a tuple with the BackgroundMode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBackgroundMode
 
-`func (o *Graph1Visualization) SetBackgroundMode(v string)`
+`func (o *Graph2Visualization) SetBackgroundMode(v string)`
 
 SetBackgroundMode sets BackgroundMode field to given value.
 
 ### HasBackgroundMode
 
-`func (o *Graph1Visualization) HasBackgroundMode() bool`
+`func (o *Graph2Visualization) HasBackgroundMode() bool`
 
 HasBackgroundMode returns a boolean if a field has been set.
 
 ### GetConditions
 
-`func (o *Graph1Visualization) GetConditions() []ConditionalFormatting`
+`func (o *Graph2Visualization) GetConditions() []ConditionalFormatting`
 
 GetConditions returns the Conditions field if non-nil, zero value otherwise.
 
 ### GetConditionsOk
 
-`func (o *Graph1Visualization) GetConditionsOk() (*[]ConditionalFormatting, bool)`
+`func (o *Graph2Visualization) GetConditionsOk() (*[]ConditionalFormatting, bool)`
 
 GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConditions
 
-`func (o *Graph1Visualization) SetConditions(v []ConditionalFormatting)`
+`func (o *Graph2Visualization) SetConditions(v []ConditionalFormatting)`
 
 SetConditions sets Conditions field to given value.
 
 ### HasConditions
 
-`func (o *Graph1Visualization) HasConditions() bool`
+`func (o *Graph2Visualization) HasConditions() bool`
 
 HasConditions returns a boolean if a field has been set.
 
 ### GetPrecision
 
-`func (o *Graph1Visualization) GetPrecision() GraphVisualizationQueryValueConnectionPrecision`
+`func (o *Graph2Visualization) GetPrecision() GraphVisualizationQueryValueConnectionPrecision`
 
 GetPrecision returns the Precision field if non-nil, zero value otherwise.
 
 ### GetPrecisionOk
 
-`func (o *Graph1Visualization) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool)`
+`func (o *Graph2Visualization) GetPrecisionOk() (*GraphVisualizationQueryValueConnectionPrecision, bool)`
 
 GetPrecisionOk returns a tuple with the Precision field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrecision
 
-`func (o *Graph1Visualization) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision)`
+`func (o *Graph2Visualization) SetPrecision(v GraphVisualizationQueryValueConnectionPrecision)`
 
 SetPrecision sets Precision field to given value.
 
 ### HasPrecision
 
-`func (o *Graph1Visualization) HasPrecision() bool`
+`func (o *Graph2Visualization) HasPrecision() bool`
 
 HasPrecision returns a boolean if a field has been set.
 
 ### GetNormalizer
 
-`func (o *Graph1Visualization) GetNormalizer() Normalizer`
+`func (o *Graph2Visualization) GetNormalizer() Normalizer`
 
 GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
 
 ### GetNormalizerOk
 
-`func (o *Graph1Visualization) GetNormalizerOk() (*Normalizer, bool)`
+`func (o *Graph2Visualization) GetNormalizerOk() (*Normalizer, bool)`
 
 GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNormalizer
 
-`func (o *Graph1Visualization) SetNormalizer(v Normalizer)`
+`func (o *Graph2Visualization) SetNormalizer(v Normalizer)`
 
 SetNormalizer sets Normalizer field to given value.
 
 ### HasNormalizer
 
-`func (o *Graph1Visualization) HasNormalizer() bool`
+`func (o *Graph2Visualization) HasNormalizer() bool`
 
 HasNormalizer returns a boolean if a field has been set.
 
 ### GetAliases
 
-`func (o *Graph1Visualization) GetAliases() GraphVisualizationTimeseriesPromqlAliases`
+`func (o *Graph2Visualization) GetAliases() GraphVisualizationTimeseriesPromqlAliases`
 
 GetAliases returns the Aliases field if non-nil, zero value otherwise.
 
 ### GetAliasesOk
 
-`func (o *Graph1Visualization) GetAliasesOk() (*GraphVisualizationTimeseriesPromqlAliases, bool)`
+`func (o *Graph2Visualization) GetAliasesOk() (*GraphVisualizationTimeseriesPromqlAliases, bool)`
 
 GetAliasesOk returns a tuple with the Aliases field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAliases
 
-`func (o *Graph1Visualization) SetAliases(v GraphVisualizationTimeseriesPromqlAliases)`
+`func (o *Graph2Visualization) SetAliases(v GraphVisualizationTimeseriesPromqlAliases)`
 
 SetAliases sets Aliases field to given value.
 
 ### HasAliases
 
-`func (o *Graph1Visualization) HasAliases() bool`
+`func (o *Graph2Visualization) HasAliases() bool`
 
 HasAliases returns a boolean if a field has been set.
 
 ### GetTimeBucket
 
-`func (o *Graph1Visualization) GetTimeBucket() GraphVisualizationTimeseriesPromqlTimeBucket`
+`func (o *Graph2Visualization) GetTimeBucket() GraphVisualizationTimeseriesPromqlTimeBucket`
 
 GetTimeBucket returns the TimeBucket field if non-nil, zero value otherwise.
 
 ### GetTimeBucketOk
 
-`func (o *Graph1Visualization) GetTimeBucketOk() (*GraphVisualizationTimeseriesPromqlTimeBucket, bool)`
+`func (o *Graph2Visualization) GetTimeBucketOk() (*GraphVisualizationTimeseriesPromqlTimeBucket, bool)`
 
 GetTimeBucketOk returns a tuple with the TimeBucket field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeBucket
 
-`func (o *Graph1Visualization) SetTimeBucket(v GraphVisualizationTimeseriesPromqlTimeBucket)`
+`func (o *Graph2Visualization) SetTimeBucket(v GraphVisualizationTimeseriesPromqlTimeBucket)`
 
 SetTimeBucket sets TimeBucket field to given value.
 
 ### HasTimeBucket
 
-`func (o *Graph1Visualization) HasTimeBucket() bool`
+`func (o *Graph2Visualization) HasTimeBucket() bool`
 
 HasTimeBucket returns a boolean if a field has been set.
 
 ### GetSmoothing
 
-`func (o *Graph1Visualization) GetSmoothing() bool`
+`func (o *Graph2Visualization) GetSmoothing() bool`
 
 GetSmoothing returns the Smoothing field if non-nil, zero value otherwise.
 
 ### GetSmoothingOk
 
-`func (o *Graph1Visualization) GetSmoothingOk() (*bool, bool)`
+`func (o *Graph2Visualization) GetSmoothingOk() (*bool, bool)`
 
 GetSmoothingOk returns a tuple with the Smoothing field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSmoothing
 
-`func (o *Graph1Visualization) SetSmoothing(v bool)`
+`func (o *Graph2Visualization) SetSmoothing(v bool)`
 
 SetSmoothing sets Smoothing field to given value.
 
 ### HasSmoothing
 
-`func (o *Graph1Visualization) HasSmoothing() bool`
+`func (o *Graph2Visualization) HasSmoothing() bool`
 
 HasSmoothing returns a boolean if a field has been set.
 
 ### GetSource
 
-`func (o *Graph1Visualization) GetSource() string`
+`func (o *Graph2Visualization) GetSource() string`
 
 GetSource returns the Source field if non-nil, zero value otherwise.
 
 ### GetSourceOk
 
-`func (o *Graph1Visualization) GetSourceOk() (*string, bool)`
+`func (o *Graph2Visualization) GetSourceOk() (*string, bool)`
 
 GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSource
 
-`func (o *Graph1Visualization) SetSource(v string)`
+`func (o *Graph2Visualization) SetSource(v string)`
 
 SetSource sets Source field to given value.
 
 
 ### GetFormula
 
-`func (o *Graph1Visualization) GetFormula() string`
+`func (o *Graph2Visualization) GetFormula() string`
 
 GetFormula returns the Formula field if non-nil, zero value otherwise.
 
 ### GetFormulaOk
 
-`func (o *Graph1Visualization) GetFormulaOk() (*string, bool)`
+`func (o *Graph2Visualization) GetFormulaOk() (*string, bool)`
 
 GetFormulaOk returns a tuple with the Formula field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFormula
 
-`func (o *Graph1Visualization) SetFormula(v string)`
+`func (o *Graph2Visualization) SetFormula(v string)`
 
 SetFormula sets Formula field to given value.
 
 ### HasFormula
 
-`func (o *Graph1Visualization) HasFormula() bool`
+`func (o *Graph2Visualization) HasFormula() bool`
 
 HasFormula returns a boolean if a field has been set.
 
 ### GetVisibleSeries
 
-`func (o *Graph1Visualization) GetVisibleSeries() []bool`
+`func (o *Graph2Visualization) GetVisibleSeries() []bool`
 
 GetVisibleSeries returns the VisibleSeries field if non-nil, zero value otherwise.
 
 ### GetVisibleSeriesOk
 
-`func (o *Graph1Visualization) GetVisibleSeriesOk() (*[]bool, bool)`
+`func (o *Graph2Visualization) GetVisibleSeriesOk() (*[]bool, bool)`
 
 GetVisibleSeriesOk returns a tuple with the VisibleSeries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVisibleSeries
 
-`func (o *Graph1Visualization) SetVisibleSeries(v []bool)`
+`func (o *Graph2Visualization) SetVisibleSeries(v []bool)`
 
 SetVisibleSeries sets VisibleSeries field to given value.
 
 ### HasVisibleSeries
 
-`func (o *Graph1Visualization) HasVisibleSeries() bool`
+`func (o *Graph2Visualization) HasVisibleSeries() bool`
 
 HasVisibleSeries returns a boolean if a field has been set.
 
 ### GetGroupBy
 
-`func (o *Graph1Visualization) GetGroupBy() []AggregationGroupBy1`
+`func (o *Graph2Visualization) GetGroupBy() []AggregationGroupBy1`
 
 GetGroupBy returns the GroupBy field if non-nil, zero value otherwise.
 
 ### GetGroupByOk
 
-`func (o *Graph1Visualization) GetGroupByOk() (*[]AggregationGroupBy1, bool)`
+`func (o *Graph2Visualization) GetGroupByOk() (*[]AggregationGroupBy1, bool)`
 
 GetGroupByOk returns a tuple with the GroupBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroupBy
 
-`func (o *Graph1Visualization) SetGroupBy(v []AggregationGroupBy1)`
+`func (o *Graph2Visualization) SetGroupBy(v []AggregationGroupBy1)`
 
 SetGroupBy sets GroupBy field to given value.
 
 ### HasGroupBy
 
-`func (o *Graph1Visualization) HasGroupBy() bool`
+`func (o *Graph2Visualization) HasGroupBy() bool`
 
 HasGroupBy returns a boolean if a field has been set.
 
 ### GetGroupByMode
 
-`func (o *Graph1Visualization) GetGroupByMode() string`
+`func (o *Graph2Visualization) GetGroupByMode() string`
 
 GetGroupByMode returns the GroupByMode field if non-nil, zero value otherwise.
 
 ### GetGroupByModeOk
 
-`func (o *Graph1Visualization) GetGroupByModeOk() (*string, bool)`
+`func (o *Graph2Visualization) GetGroupByModeOk() (*string, bool)`
 
 GetGroupByModeOk returns a tuple with the GroupByMode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroupByMode
 
-`func (o *Graph1Visualization) SetGroupByMode(v string)`
+`func (o *Graph2Visualization) SetGroupByMode(v string)`
 
 SetGroupByMode sets GroupByMode field to given value.
 
 ### HasGroupByMode
 
-`func (o *Graph1Visualization) HasGroupByMode() bool`
+`func (o *Graph2Visualization) HasGroupByMode() bool`
 
 HasGroupByMode returns a boolean if a field has been set.
 
+### GetCustomLink
+
+`func (o *Graph2Visualization) GetCustomLink() CustomLink`
+
+GetCustomLink returns the CustomLink field if non-nil, zero value otherwise.
+
+### GetCustomLinkOk
+
+`func (o *Graph2Visualization) GetCustomLinkOk() (*CustomLink, bool)`
+
+GetCustomLinkOk returns a tuple with the CustomLink field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustomLink
+
+`func (o *Graph2Visualization) SetCustomLink(v CustomLink)`
+
+SetCustomLink sets CustomLink field to given value.
+
+### HasCustomLink
+
+`func (o *Graph2Visualization) HasCustomLink() bool`
+
+HasCustomLink returns a boolean if a field has been set.
+
 ### GetIsStacked
 
-`func (o *Graph1Visualization) GetIsStacked() bool`
+`func (o *Graph2Visualization) GetIsStacked() bool`
 
 GetIsStacked returns the IsStacked field if non-nil, zero value otherwise.
 
 ### GetIsStackedOk
 
-`func (o *Graph1Visualization) GetIsStackedOk() (*bool, bool)`
+`func (o *Graph2Visualization) GetIsStackedOk() (*bool, bool)`
 
 GetIsStackedOk returns a tuple with the IsStacked field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIsStacked
 
-`func (o *Graph1Visualization) SetIsStacked(v bool)`
+`func (o *Graph2Visualization) SetIsStacked(v bool)`
 
 SetIsStacked sets IsStacked field to given value.
 
 ### HasIsStacked
 
-`func (o *Graph1Visualization) HasIsStacked() bool`
+`func (o *Graph2Visualization) HasIsStacked() bool`
 
 HasIsStacked returns a boolean if a field has been set.
 
 ### GetMax
 
-`func (o *Graph1Visualization) GetMax() float32`
+`func (o *Graph2Visualization) GetMax() float32`
 
 GetMax returns the Max field if non-nil, zero value otherwise.
 
 ### GetMaxOk
 
-`func (o *Graph1Visualization) GetMaxOk() (*float32, bool)`
+`func (o *Graph2Visualization) GetMaxOk() (*float32, bool)`
 
 GetMaxOk returns a tuple with the Max field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMax
 
-`func (o *Graph1Visualization) SetMax(v float32)`
+`func (o *Graph2Visualization) SetMax(v float32)`
 
 SetMax sets Max field to given value.
 
 ### HasMax
 
-`func (o *Graph1Visualization) HasMax() bool`
+`func (o *Graph2Visualization) HasMax() bool`
 
 HasMax returns a boolean if a field has been set.
 
 ### GetColorThresholds
 
-`func (o *Graph1Visualization) GetColorThresholds() []GaugeColorThreshold`
+`func (o *Graph2Visualization) GetColorThresholds() []GaugeColorThreshold`
 
 GetColorThresholds returns the ColorThresholds field if non-nil, zero value otherwise.
 
 ### GetColorThresholdsOk
 
-`func (o *Graph1Visualization) GetColorThresholdsOk() (*[]GaugeColorThreshold, bool)`
+`func (o *Graph2Visualization) GetColorThresholdsOk() (*[]GaugeColorThreshold, bool)`
 
 GetColorThresholdsOk returns a tuple with the ColorThresholds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetColorThresholds
 
-`func (o *Graph1Visualization) SetColorThresholds(v []GaugeColorThreshold)`
+`func (o *Graph2Visualization) SetColorThresholds(v []GaugeColorThreshold)`
 
 SetColorThresholds sets ColorThresholds field to given value.
 
 ### HasColorThresholds
 
-`func (o *Graph1Visualization) HasColorThresholds() bool`
+`func (o *Graph2Visualization) HasColorThresholds() bool`
 
 HasColorThresholds returns a boolean if a field has been set.
 
 ### GetGroup
 
-`func (o *Graph1Visualization) GetGroup() string`
+`func (o *Graph2Visualization) GetGroup() string`
 
 GetGroup returns the Group field if non-nil, zero value otherwise.
 
 ### GetGroupOk
 
-`func (o *Graph1Visualization) GetGroupOk() (*string, bool)`
+`func (o *Graph2Visualization) GetGroupOk() (*string, bool)`
 
 GetGroupOk returns a tuple with the Group field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroup
 
-`func (o *Graph1Visualization) SetGroup(v string)`
+`func (o *Graph2Visualization) SetGroup(v string)`
 
 SetGroup sets Group field to given value.
 
 ### HasGroup
 
-`func (o *Graph1Visualization) HasGroup() bool`
+`func (o *Graph2Visualization) HasGroup() bool`
 
 HasGroup returns a boolean if a field has been set.
 
 ### GetPercentileMarkers
 
-`func (o *Graph1Visualization) GetPercentileMarkers() []int32`
+`func (o *Graph2Visualization) GetPercentileMarkers() []int32`
 
 GetPercentileMarkers returns the PercentileMarkers field if non-nil, zero value otherwise.
 
 ### GetPercentileMarkersOk
 
-`func (o *Graph1Visualization) GetPercentileMarkersOk() (*[]int32, bool)`
+`func (o *Graph2Visualization) GetPercentileMarkersOk() (*[]int32, bool)`
 
 GetPercentileMarkersOk returns a tuple with the PercentileMarkers field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPercentileMarkers
 
-`func (o *Graph1Visualization) SetPercentileMarkers(v []int32)`
+`func (o *Graph2Visualization) SetPercentileMarkers(v []int32)`
 
 SetPercentileMarkers sets PercentileMarkers field to given value.
 
 ### HasPercentileMarkers
 
-`func (o *Graph1Visualization) HasPercentileMarkers() bool`
+`func (o *Graph2Visualization) HasPercentileMarkers() bool`
 
 HasPercentileMarkers returns a boolean if a field has been set.
 
 ### GetBoundsScale
 
-`func (o *Graph1Visualization) GetBoundsScale() string`
+`func (o *Graph2Visualization) GetBoundsScale() string`
 
 GetBoundsScale returns the BoundsScale field if non-nil, zero value otherwise.
 
 ### GetBoundsScaleOk
 
-`func (o *Graph1Visualization) GetBoundsScaleOk() (*string, bool)`
+`func (o *Graph2Visualization) GetBoundsScaleOk() (*string, bool)`
 
 GetBoundsScaleOk returns a tuple with the BoundsScale field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBoundsScale
 
-`func (o *Graph1Visualization) SetBoundsScale(v string)`
+`func (o *Graph2Visualization) SetBoundsScale(v string)`
 
 SetBoundsScale sets BoundsScale field to given value.
 
 ### HasBoundsScale
 
-`func (o *Graph1Visualization) HasBoundsScale() bool`
+`func (o *Graph2Visualization) HasBoundsScale() bool`
 
 HasBoundsScale returns a boolean if a field has been set.
 
 ### GetPalette
 
-`func (o *Graph1Visualization) GetPalette() string`
+`func (o *Graph2Visualization) GetPalette() string`
 
 GetPalette returns the Palette field if non-nil, zero value otherwise.
 
 ### GetPaletteOk
 
-`func (o *Graph1Visualization) GetPaletteOk() (*string, bool)`
+`func (o *Graph2Visualization) GetPaletteOk() (*string, bool)`
 
 GetPaletteOk returns a tuple with the Palette field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPalette
 
-`func (o *Graph1Visualization) SetPalette(v string)`
+`func (o *Graph2Visualization) SetPalette(v string)`
 
 SetPalette sets Palette field to given value.
 
 ### HasPalette
 
-`func (o *Graph1Visualization) HasPalette() bool`
+`func (o *Graph2Visualization) HasPalette() bool`
 
 HasPalette returns a boolean if a field has been set.
 
 ### GetColumns
 
-`func (o *Graph1Visualization) GetColumns() []TableColumn`
+`func (o *Graph2Visualization) GetColumns() []TableColumn`
 
 GetColumns returns the Columns field if non-nil, zero value otherwise.
 
 ### GetColumnsOk
 
-`func (o *Graph1Visualization) GetColumnsOk() (*[]TableColumn, bool)`
+`func (o *Graph2Visualization) GetColumnsOk() (*[]TableColumn, bool)`
 
 GetColumnsOk returns a tuple with the Columns field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetColumns
 
-`func (o *Graph1Visualization) SetColumns(v []TableColumn)`
+`func (o *Graph2Visualization) SetColumns(v []TableColumn)`
 
 SetColumns sets Columns field to given value.
 
 
 ### GetColumnSizes
 
-`func (o *Graph1Visualization) GetColumnSizes() map[string]float32`
+`func (o *Graph2Visualization) GetColumnSizes() map[string]float32`
 
 GetColumnSizes returns the ColumnSizes field if non-nil, zero value otherwise.
 
 ### GetColumnSizesOk
 
-`func (o *Graph1Visualization) GetColumnSizesOk() (*map[string]float32, bool)`
+`func (o *Graph2Visualization) GetColumnSizesOk() (*map[string]float32, bool)`
 
 GetColumnSizesOk returns a tuple with the ColumnSizes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetColumnSizes
 
-`func (o *Graph1Visualization) SetColumnSizes(v map[string]float32)`
+`func (o *Graph2Visualization) SetColumnSizes(v map[string]float32)`
 
 SetColumnSizes sets ColumnSizes field to given value.
 
 ### HasColumnSizes
 
-`func (o *Graph1Visualization) HasColumnSizes() bool`
+`func (o *Graph2Visualization) HasColumnSizes() bool`
 
 HasColumnSizes returns a boolean if a field has been set.
 
 ### GetNote
 
-`func (o *Graph1Visualization) GetNote() string`
+`func (o *Graph2Visualization) GetNote() string`
 
 GetNote returns the Note field if non-nil, zero value otherwise.
 
 ### GetNoteOk
 
-`func (o *Graph1Visualization) GetNoteOk() (*string, bool)`
+`func (o *Graph2Visualization) GetNoteOk() (*string, bool)`
 
 GetNoteOk returns a tuple with the Note field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNote
 
-`func (o *Graph1Visualization) SetNote(v string)`
+`func (o *Graph2Visualization) SetNote(v string)`
 
 SetNote sets Note field to given value.
 
 ### HasNote
 
-`func (o *Graph1Visualization) HasNote() bool`
+`func (o *Graph2Visualization) HasNote() bool`
 
 HasNote returns a boolean if a field has been set.
 
 ### GetNoteColor
 
-`func (o *Graph1Visualization) GetNoteColor() string`
+`func (o *Graph2Visualization) GetNoteColor() string`
 
 GetNoteColor returns the NoteColor field if non-nil, zero value otherwise.
 
 ### GetNoteColorOk
 
-`func (o *Graph1Visualization) GetNoteColorOk() (*string, bool)`
+`func (o *Graph2Visualization) GetNoteColorOk() (*string, bool)`
 
 GetNoteColorOk returns a tuple with the NoteColor field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNoteColor
 
-`func (o *Graph1Visualization) SetNoteColor(v string)`
+`func (o *Graph2Visualization) SetNoteColor(v string)`
 
 SetNoteColor sets NoteColor field to given value.
 
 ### HasNoteColor
 
-`func (o *Graph1Visualization) HasNoteColor() bool`
+`func (o *Graph2Visualization) HasNoteColor() bool`
 
 HasNoteColor returns a boolean if a field has been set.
 
 ### GetNoteAlign
 
-`func (o *Graph1Visualization) GetNoteAlign() string`
+`func (o *Graph2Visualization) GetNoteAlign() string`
 
 GetNoteAlign returns the NoteAlign field if non-nil, zero value otherwise.
 
 ### GetNoteAlignOk
 
-`func (o *Graph1Visualization) GetNoteAlignOk() (*string, bool)`
+`func (o *Graph2Visualization) GetNoteAlignOk() (*string, bool)`
 
 GetNoteAlignOk returns a tuple with the NoteAlign field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNoteAlign
 
-`func (o *Graph1Visualization) SetNoteAlign(v string)`
+`func (o *Graph2Visualization) SetNoteAlign(v string)`
 
 SetNoteAlign sets NoteAlign field to given value.
 
 ### HasNoteAlign
 
-`func (o *Graph1Visualization) HasNoteAlign() bool`
+`func (o *Graph2Visualization) HasNoteAlign() bool`
 
 HasNoteAlign returns a boolean if a field has been set.
 
 ### GetNoteJustifyContent
 
-`func (o *Graph1Visualization) GetNoteJustifyContent() string`
+`func (o *Graph2Visualization) GetNoteJustifyContent() string`
 
 GetNoteJustifyContent returns the NoteJustifyContent field if non-nil, zero value otherwise.
 
 ### GetNoteJustifyContentOk
 
-`func (o *Graph1Visualization) GetNoteJustifyContentOk() (*string, bool)`
+`func (o *Graph2Visualization) GetNoteJustifyContentOk() (*string, bool)`
 
 GetNoteJustifyContentOk returns a tuple with the NoteJustifyContent field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNoteJustifyContent
 
-`func (o *Graph1Visualization) SetNoteJustifyContent(v string)`
+`func (o *Graph2Visualization) SetNoteJustifyContent(v string)`
 
 SetNoteJustifyContent sets NoteJustifyContent field to given value.
 
 ### HasNoteJustifyContent
 
-`func (o *Graph1Visualization) HasNoteJustifyContent() bool`
+`func (o *Graph2Visualization) HasNoteJustifyContent() bool`
 
 HasNoteJustifyContent returns a boolean if a field has been set.
 
 ### GetLayout
 
-`func (o *Graph1Visualization) GetLayout() string`
+`func (o *Graph2Visualization) GetLayout() string`
 
 GetLayout returns the Layout field if non-nil, zero value otherwise.
 
 ### GetLayoutOk
 
-`func (o *Graph1Visualization) GetLayoutOk() (*string, bool)`
+`func (o *Graph2Visualization) GetLayoutOk() (*string, bool)`
 
 GetLayoutOk returns a tuple with the Layout field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLayout
 
-`func (o *Graph1Visualization) SetLayout(v string)`
+`func (o *Graph2Visualization) SetLayout(v string)`
 
 SetLayout sets Layout field to given value.
 
 ### HasLayout
 
-`func (o *Graph1Visualization) HasLayout() bool`
+`func (o *Graph2Visualization) HasLayout() bool`
 
 HasLayout returns a boolean if a field has been set.
 
 ### GetSloId
 
-`func (o *Graph1Visualization) GetSloId() string`
+`func (o *Graph2Visualization) GetSloId() string`
 
 GetSloId returns the SloId field if non-nil, zero value otherwise.
 
 ### GetSloIdOk
 
-`func (o *Graph1Visualization) GetSloIdOk() (*string, bool)`
+`func (o *Graph2Visualization) GetSloIdOk() (*string, bool)`
 
 GetSloIdOk returns a tuple with the SloId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSloId
 
-`func (o *Graph1Visualization) SetSloId(v string)`
+`func (o *Graph2Visualization) SetSloId(v string)`
 
 SetSloId sets SloId field to given value.
 

@@ -38,7 +38,8 @@ type InputGraphVisualizationPie struct {
 	Normalizer  *Normalizer1                                     `json:"normalizer,omitempty"`
 	Precision   *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
-	LegendMode           *string `json:"legendMode,omitempty"`
+	LegendMode           *string      `json:"legendMode,omitempty"`
+	CustomLink           *CustomLink1 `json:"customLink,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -392,6 +393,38 @@ func (o *InputGraphVisualizationPie) SetLegendMode(v string) {
 	o.LegendMode = &v
 }
 
+// GetCustomLink returns the CustomLink field value if set, zero value otherwise.
+func (o *InputGraphVisualizationPie) GetCustomLink() CustomLink1 {
+	if o == nil || IsNil(o.CustomLink) {
+		var ret CustomLink1
+		return ret
+	}
+	return *o.CustomLink
+}
+
+// GetCustomLinkOk returns a tuple with the CustomLink field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputGraphVisualizationPie) GetCustomLinkOk() (*CustomLink1, bool) {
+	if o == nil || IsNil(o.CustomLink) {
+		return nil, false
+	}
+	return o.CustomLink, true
+}
+
+// HasCustomLink returns a boolean if a field has been set.
+func (o *InputGraphVisualizationPie) HasCustomLink() bool {
+	if o != nil && !IsNil(o.CustomLink) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomLink gets a reference to the given CustomLink1 and assigns it to the CustomLink field.
+func (o *InputGraphVisualizationPie) SetCustomLink(v CustomLink1) {
+	o.CustomLink = &v
+}
+
 func (o InputGraphVisualizationPie) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -428,6 +461,9 @@ func (o InputGraphVisualizationPie) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.LegendMode) {
 		toSerialize["legendMode"] = o.LegendMode
+	}
+	if !IsNil(o.CustomLink) {
+		toSerialize["customLink"] = o.CustomLink
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -485,6 +521,7 @@ func (o *InputGraphVisualizationPie) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "normalizer")
 		delete(additionalProperties, "precision")
 		delete(additionalProperties, "legendMode")
+		delete(additionalProperties, "customLink")
 		o.AdditionalProperties = additionalProperties
 	}
 

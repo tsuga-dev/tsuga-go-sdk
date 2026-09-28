@@ -32,6 +32,7 @@ type InputGraphVisualizationTable struct {
 	DefaultSorting []TableDefaultSorting1 `json:"defaultSorting,omitempty"`
 	// Table column widths in pixels, keyed by column id: `label` for the grouping column and `col-<index>` for each entry in `columns`. Columns without an entry keep their default width.
 	ColumnSizes          map[string]float32 `json:"columnSizes,omitempty"`
+	CustomLink           *CustomLink1       `json:"customLink,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -232,6 +233,38 @@ func (o *InputGraphVisualizationTable) SetColumnSizes(v map[string]float32) {
 	o.ColumnSizes = v
 }
 
+// GetCustomLink returns the CustomLink field value if set, zero value otherwise.
+func (o *InputGraphVisualizationTable) GetCustomLink() CustomLink1 {
+	if o == nil || IsNil(o.CustomLink) {
+		var ret CustomLink1
+		return ret
+	}
+	return *o.CustomLink
+}
+
+// GetCustomLinkOk returns a tuple with the CustomLink field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputGraphVisualizationTable) GetCustomLinkOk() (*CustomLink1, bool) {
+	if o == nil || IsNil(o.CustomLink) {
+		return nil, false
+	}
+	return o.CustomLink, true
+}
+
+// HasCustomLink returns a boolean if a field has been set.
+func (o *InputGraphVisualizationTable) HasCustomLink() bool {
+	if o != nil && !IsNil(o.CustomLink) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomLink gets a reference to the given CustomLink1 and assigns it to the CustomLink field.
+func (o *InputGraphVisualizationTable) SetCustomLink(v CustomLink1) {
+	o.CustomLink = &v
+}
+
 func (o InputGraphVisualizationTable) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -255,6 +288,9 @@ func (o InputGraphVisualizationTable) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ColumnSizes) {
 		toSerialize["columnSizes"] = o.ColumnSizes
+	}
+	if !IsNil(o.CustomLink) {
+		toSerialize["customLink"] = o.CustomLink
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -306,6 +342,7 @@ func (o *InputGraphVisualizationTable) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "groupByMode")
 		delete(additionalProperties, "defaultSorting")
 		delete(additionalProperties, "columnSizes")
+		delete(additionalProperties, "customLink")
 		o.AdditionalProperties = additionalProperties
 	}
 

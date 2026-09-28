@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **YAxisSettings** | Pointer to [**InputGraphVisualizationTimeseriesConnectionYAxisSettings**](InputGraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
 **Smoothing** | Pointer to **bool** | Whether to apply automatic smoothing to the rendered timeseries | [optional] 
 **LineStyleOptions** | Pointer to [**map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue**](GraphVisualizationTimeseriesConnectionLineStyleOptionsValue.md) | Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. For widgets with a single query, only the &#x60;1&#x60; entry is read and it applies to every series. Defaults to regular. | [optional] 
+**CustomLink** | Pointer to [**CustomLink1**](CustomLink1.md) |  | [optional] 
 
 ## Methods
 
@@ -424,6 +425,31 @@ SetLineStyleOptions sets LineStyleOptions field to given value.
 `func (o *InputGraphVisualizationTimeseries) HasLineStyleOptions() bool`
 
 HasLineStyleOptions returns a boolean if a field has been set.
+
+### GetCustomLink
+
+`func (o *InputGraphVisualizationTimeseries) GetCustomLink() CustomLink1`
+
+GetCustomLink returns the CustomLink field if non-nil, zero value otherwise.
+
+### GetCustomLinkOk
+
+`func (o *InputGraphVisualizationTimeseries) GetCustomLinkOk() (*CustomLink1, bool)`
+
+GetCustomLinkOk returns a tuple with the CustomLink field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustomLink
+
+`func (o *InputGraphVisualizationTimeseries) SetCustomLink(v CustomLink1)`
+
+SetCustomLink sets CustomLink field to given value.
+
+### HasCustomLink
+
+`func (o *InputGraphVisualizationTimeseries) HasCustomLink() bool`
+
+HasCustomLink returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

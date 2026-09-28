@@ -27,11 +27,11 @@ type Graph struct {
 	// Text shown with the graph widget.
 	Description *string `json:"description,omitempty"`
 	// Flex alignment keyword used for widget layout
-	DescriptionAlign *string `json:"descriptionAlign,omitempty"`
+	DescriptionAlign NullableString `json:"descriptionAlign,omitempty"`
 	// Flex alignment keyword used for widget layout
-	DescriptionJustifyContent *string            `json:"descriptionJustifyContent,omitempty"`
-	Visualization             GraphVisualization `json:"visualization"`
-	Layout                    *GraphLayout       `json:"layout,omitempty"`
+	DescriptionJustifyContent NullableString      `json:"descriptionJustifyContent,omitempty"`
+	Visualization             GraphVisualization  `json:"visualization"`
+	Layout                    NullableGraphLayout `json:"layout,omitempty"`
 	AdditionalProperties      map[string]interface{}
 }
 
@@ -144,68 +144,90 @@ func (o *Graph) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetDescriptionAlign returns the DescriptionAlign field value if set, zero value otherwise.
+// GetDescriptionAlign returns the DescriptionAlign field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Graph) GetDescriptionAlign() string {
-	if o == nil || IsNil(o.DescriptionAlign) {
+	if o == nil || IsNil(o.DescriptionAlign.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.DescriptionAlign
+	return *o.DescriptionAlign.Get()
 }
 
 // GetDescriptionAlignOk returns a tuple with the DescriptionAlign field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Graph) GetDescriptionAlignOk() (*string, bool) {
-	if o == nil || IsNil(o.DescriptionAlign) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DescriptionAlign, true
+	return o.DescriptionAlign.Get(), o.DescriptionAlign.IsSet()
 }
 
 // HasDescriptionAlign returns a boolean if a field has been set.
 func (o *Graph) HasDescriptionAlign() bool {
-	if o != nil && !IsNil(o.DescriptionAlign) {
+	if o != nil && o.DescriptionAlign.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDescriptionAlign gets a reference to the given string and assigns it to the DescriptionAlign field.
+// SetDescriptionAlign gets a reference to the given NullableString and assigns it to the DescriptionAlign field.
 func (o *Graph) SetDescriptionAlign(v string) {
-	o.DescriptionAlign = &v
+	o.DescriptionAlign.Set(&v)
 }
 
-// GetDescriptionJustifyContent returns the DescriptionJustifyContent field value if set, zero value otherwise.
+// SetDescriptionAlignNil sets the value for DescriptionAlign to be an explicit nil
+func (o *Graph) SetDescriptionAlignNil() {
+	o.DescriptionAlign.Set(nil)
+}
+
+// UnsetDescriptionAlign ensures that no value is present for DescriptionAlign, not even an explicit nil
+func (o *Graph) UnsetDescriptionAlign() {
+	o.DescriptionAlign.Unset()
+}
+
+// GetDescriptionJustifyContent returns the DescriptionJustifyContent field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Graph) GetDescriptionJustifyContent() string {
-	if o == nil || IsNil(o.DescriptionJustifyContent) {
+	if o == nil || IsNil(o.DescriptionJustifyContent.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.DescriptionJustifyContent
+	return *o.DescriptionJustifyContent.Get()
 }
 
 // GetDescriptionJustifyContentOk returns a tuple with the DescriptionJustifyContent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Graph) GetDescriptionJustifyContentOk() (*string, bool) {
-	if o == nil || IsNil(o.DescriptionJustifyContent) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DescriptionJustifyContent, true
+	return o.DescriptionJustifyContent.Get(), o.DescriptionJustifyContent.IsSet()
 }
 
 // HasDescriptionJustifyContent returns a boolean if a field has been set.
 func (o *Graph) HasDescriptionJustifyContent() bool {
-	if o != nil && !IsNil(o.DescriptionJustifyContent) {
+	if o != nil && o.DescriptionJustifyContent.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDescriptionJustifyContent gets a reference to the given string and assigns it to the DescriptionJustifyContent field.
+// SetDescriptionJustifyContent gets a reference to the given NullableString and assigns it to the DescriptionJustifyContent field.
 func (o *Graph) SetDescriptionJustifyContent(v string) {
-	o.DescriptionJustifyContent = &v
+	o.DescriptionJustifyContent.Set(&v)
+}
+
+// SetDescriptionJustifyContentNil sets the value for DescriptionJustifyContent to be an explicit nil
+func (o *Graph) SetDescriptionJustifyContentNil() {
+	o.DescriptionJustifyContent.Set(nil)
+}
+
+// UnsetDescriptionJustifyContent ensures that no value is present for DescriptionJustifyContent, not even an explicit nil
+func (o *Graph) UnsetDescriptionJustifyContent() {
+	o.DescriptionJustifyContent.Unset()
 }
 
 // GetVisualization returns the Visualization field value
@@ -232,36 +254,47 @@ func (o *Graph) SetVisualization(v GraphVisualization) {
 	o.Visualization = v
 }
 
-// GetLayout returns the Layout field value if set, zero value otherwise.
+// GetLayout returns the Layout field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Graph) GetLayout() GraphLayout {
-	if o == nil || IsNil(o.Layout) {
+	if o == nil || IsNil(o.Layout.Get()) {
 		var ret GraphLayout
 		return ret
 	}
-	return *o.Layout
+	return *o.Layout.Get()
 }
 
 // GetLayoutOk returns a tuple with the Layout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Graph) GetLayoutOk() (*GraphLayout, bool) {
-	if o == nil || IsNil(o.Layout) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Layout, true
+	return o.Layout.Get(), o.Layout.IsSet()
 }
 
 // HasLayout returns a boolean if a field has been set.
 func (o *Graph) HasLayout() bool {
-	if o != nil && !IsNil(o.Layout) {
+	if o != nil && o.Layout.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetLayout gets a reference to the given GraphLayout and assigns it to the Layout field.
+// SetLayout gets a reference to the given NullableGraphLayout and assigns it to the Layout field.
 func (o *Graph) SetLayout(v GraphLayout) {
-	o.Layout = &v
+	o.Layout.Set(&v)
+}
+
+// SetLayoutNil sets the value for Layout to be an explicit nil
+func (o *Graph) SetLayoutNil() {
+	o.Layout.Set(nil)
+}
+
+// UnsetLayout ensures that no value is present for Layout, not even an explicit nil
+func (o *Graph) UnsetLayout() {
+	o.Layout.Unset()
 }
 
 func (o Graph) MarshalJSON() ([]byte, error) {
@@ -281,15 +314,15 @@ func (o Graph) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !IsNil(o.DescriptionAlign) {
-		toSerialize["descriptionAlign"] = o.DescriptionAlign
+	if o.DescriptionAlign.IsSet() {
+		toSerialize["descriptionAlign"] = o.DescriptionAlign.Get()
 	}
-	if !IsNil(o.DescriptionJustifyContent) {
-		toSerialize["descriptionJustifyContent"] = o.DescriptionJustifyContent
+	if o.DescriptionJustifyContent.IsSet() {
+		toSerialize["descriptionJustifyContent"] = o.DescriptionJustifyContent.Get()
 	}
 	toSerialize["visualization"] = o.Visualization
-	if !IsNil(o.Layout) {
-		toSerialize["layout"] = o.Layout
+	if o.Layout.IsSet() {
+		toSerialize["layout"] = o.Layout.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {
