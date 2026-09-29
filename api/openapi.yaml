@@ -107,6 +107,9 @@ tags:
 - description: "Operations for log routes and route processors. Use these endpoints\
     \ to manage ingest-time log processing definitions. See [Routes](/documentation/process/routes/index)."
   name: routes
+- description: "Operations for searching Real User Monitoring (RUM) events recorded\
+    \ by the browser and mobile SDKs. See [Browser views](/documentation/categorize/browser-views/index)."
+  name: rum
 - description: "Operations for services inferred from telemetry. Use these endpoints\
     \ to inspect service metadata, activity, and dependency graphs. See [Services](/documentation/categorize/services/index)."
   name: services
