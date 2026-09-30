@@ -351,6 +351,35 @@ paths:
       requestBody:
         content:
           application/json:
+            example:
+              name: API Performance Overview
+              owner: team-123-abc
+              graphs:
+              - id: 789-abc-def
+                name: Request Latency P99
+                visualization:
+                  type: timeseries
+                  source: metrics
+                  queries:
+                  - aggregate:
+                      type: percentile
+                      field: duration
+                      percentile: 99
+                    filter: service:api-gateway
+                layout:
+                  x: 0
+                  "y": 0
+                  w: 6
+                  h: 4
+              filters:
+              - key: env
+                values:
+                - production
+              tags:
+              - key: team
+                value: platform
+              timePreset: past-1-hour
+              folderId: null
             schema:
               $ref: "#/components/schemas/updateDashboard_request"
         required: true
@@ -522,6 +551,23 @@ paths:
       requestBody:
         content:
           application/json:
+            example:
+              name: Request Latency P99
+              description: p99 request latency for the API gateway.
+              visualization:
+                type: timeseries
+                source: metrics
+                queries:
+                - aggregate:
+                    type: percentile
+                    field: duration
+                    percentile: 99
+                  filter: service:api-gateway
+              layout:
+                x: 0
+                "y": 0
+                w: 6
+                h: 4
             schema:
               $ref: "#/components/schemas/updateDashboardGraph_request"
         description: Dashboard graph update request. The graph identifier is supplied
@@ -905,6 +951,28 @@ paths:
                   dashboardId: 789-abc-def
                   permissions: all
                   clusterIds: []
+              example5:
+                value:
+                  name: Error Pattern Increase Detector
+                  message: An existing error pattern is spiking.
+                  tags:
+                  - key: team
+                    value: platform
+                  configuration:
+                    type: log-error-pattern-increase
+                    aggregationAlertLogic: each
+                    noDataBehavior: resolve
+                    filter:
+                      teamIds:
+                      - team-123-abc
+                      env: production
+                      services:
+                      - api-gateway
+                  priority: 2
+                  owner: team-123-abc
+                  dashboardId: 789-abc-def
+                  permissions: all
+                  clusterIds: []
             schema:
               $ref: "#/components/schemas/updateMonitor_request"
         description: "Monitor update request. Required fields and the submitted configuration\
@@ -959,8 +1027,8 @@ paths:
   /v1/monitors:
     post:
       description: "Creates a monitor owned by the specified team. The monitor can\
-        \ evaluate logs, metrics, traces, anomaly behavior, certificate expiry, or\
-        \ new error patterns depending on its configuration."
+        \ evaluate logs, metrics, traces, anomaly behavior, certificate expiry, new\
+        \ error patterns, or error pattern increases depending on its configuration."
       operationId: createMonitor
       requestBody:
         content:
@@ -1053,6 +1121,28 @@ paths:
                     type: log-error-pattern
                     aggregationAlertLogic: each
                     noDataBehavior: keep_last_status
+                    filter:
+                      teamIds:
+                      - team-123-abc
+                      env: production
+                      services:
+                      - api-gateway
+                  priority: 2
+                  owner: team-123-abc
+                  dashboardId: 789-abc-def
+                  permissions: all
+                  clusterIds: []
+              example5:
+                value:
+                  name: Error Pattern Increase Detector
+                  message: An existing error pattern is spiking.
+                  tags:
+                  - key: team
+                    value: platform
+                  configuration:
+                    type: log-error-pattern-increase
+                    aggregationAlertLogic: each
+                    noDataBehavior: resolve
                     filter:
                       teamIds:
                       - team-123-abc
@@ -5335,6 +5425,33 @@ components:
       - filter
       - noDataBehavior
       - type
+    MonitorConfigurationLogErrorPatternIncrease:
+      properties:
+        type:
+          description: Monitor that alerts when the volume of an existing log error
+            pattern increases sharply for the configured teams and environment.
+          enum:
+          - log-error-pattern-increase
+          type: string
+        aggregationAlertLogic:
+          description: Fixed aggregation logic for log error pattern increase monitors.
+            Each pattern whose volume increased is evaluated as its own alert group.
+          enum:
+          - each
+          type: string
+        noDataBehavior:
+          description: Fixed no-data behavior for log error pattern increase monitors.
+            A pattern group resolves once its volume stops increasing.
+          enum:
+          - resolve
+          type: string
+        filter:
+          $ref: "#/components/schemas/MonitorConfigurationLogErrorPatternIncrease_filter"
+      required:
+      - aggregationAlertLogic
+      - filter
+      - noDataBehavior
+      - type
     MonitorConfigurationAnomalyTrace:
       properties:
         type:
@@ -5852,6 +5969,33 @@ components:
           type: string
         filter:
           $ref: "#/components/schemas/InputMonitorConfigurationLogErrorPattern_filter"
+      required:
+      - aggregationAlertLogic
+      - filter
+      - noDataBehavior
+      - type
+    InputMonitorConfigurationLogErrorPatternIncrease:
+      properties:
+        type:
+          description: Monitor that alerts when the volume of an existing log error
+            pattern increases sharply for the configured teams and environment.
+          enum:
+          - log-error-pattern-increase
+          type: string
+        aggregationAlertLogic:
+          description: Fixed aggregation logic for log error pattern increase monitors.
+            Each pattern whose volume increased is evaluated as its own alert group.
+          enum:
+          - each
+          type: string
+        noDataBehavior:
+          description: Fixed no-data behavior for log error pattern increase monitors.
+            A pattern group resolves once its volume stops increasing.
+          enum:
+          - resolve
+          type: string
+        filter:
+          $ref: "#/components/schemas/InputMonitorConfigurationLogErrorPatternIncrease_filter"
       required:
       - aggregationAlertLogic
       - filter
@@ -9698,8 +9842,9 @@ components:
             - certificate-expiry
             - anomaly-detection
             - log-error-pattern
+            - log-error-pattern-increase
             type: string
-          maxItems: 4
+          maxItems: 5
           type: array
         exclude:
           description: "If true, exclude rows matching these values instead of including\
@@ -9807,6 +9952,7 @@ components:
           anomaly-metric: "#/components/schemas/InputMonitorConfigurationAnomalyMetric"
           anomaly-trace: "#/components/schemas/InputMonitorConfigurationAnomalyTrace"
           log-error-pattern: "#/components/schemas/InputMonitorConfigurationLogErrorPattern"
+          log-error-pattern-increase: "#/components/schemas/InputMonitorConfigurationLogErrorPatternIncrease"
           certificate-expiry: "#/components/schemas/InputMonitorConfigurationCertificateExpiry"
         propertyName: type
       oneOf:
@@ -9817,6 +9963,7 @@ components:
       - $ref: "#/components/schemas/InputMonitorConfigurationAnomalyMetric"
       - $ref: "#/components/schemas/InputMonitorConfigurationAnomalyTrace"
       - $ref: "#/components/schemas/InputMonitorConfigurationLogErrorPattern"
+      - $ref: "#/components/schemas/InputMonitorConfigurationLogErrorPatternIncrease"
       - $ref: "#/components/schemas/InputMonitorConfigurationCertificateExpiry"
       required:
       - type
@@ -11441,6 +11588,7 @@ components:
           anomaly-log: "#/components/schemas/MonitorConfigurationAnomalyLog"
           anomaly-metric: "#/components/schemas/MonitorConfigurationAnomalyMetric"
           log-error-pattern: "#/components/schemas/MonitorConfigurationLogErrorPattern"
+          log-error-pattern-increase: "#/components/schemas/MonitorConfigurationLogErrorPatternIncrease"
           anomaly-trace: "#/components/schemas/MonitorConfigurationAnomalyTrace"
           certificate-expiry: "#/components/schemas/MonitorConfigurationCertificateExpiry"
         propertyName: type
@@ -11451,6 +11599,7 @@ components:
       - $ref: "#/components/schemas/MonitorConfigurationAnomalyLog"
       - $ref: "#/components/schemas/MonitorConfigurationAnomalyMetric"
       - $ref: "#/components/schemas/MonitorConfigurationLogErrorPattern"
+      - $ref: "#/components/schemas/MonitorConfigurationLogErrorPatternIncrease"
       - $ref: "#/components/schemas/MonitorConfigurationAnomalyTrace"
       - $ref: "#/components/schemas/MonitorConfigurationCertificateExpiry"
       required:
@@ -12169,6 +12318,28 @@ components:
           type: array
       required:
       - env
+    MonitorConfigurationLogErrorPatternIncrease_filter:
+      description: Log selection used for error pattern increase detection. All configured
+        fields must match for logs to be included.
+      properties:
+        teamIds:
+          description: "Team IDs whose error logs are watched for volume increases.\
+            \ Tsuga resolves these team IDs to team names when exporting monitor assets.\
+            \ Omit to watch every team, in which case a service scope is required."
+          items:
+            type: string
+          type: array
+        env:
+          description: Environment whose error logs are watched for volume increases.
+          type: string
+        services:
+          description: Service names whose error logs are watched for volume increases.
+            Omit to watch every service matching the team and environment scope.
+          items:
+            type: string
+          type: array
+      required:
+      - env
     InputMonitorConfigurationMetric_conditions_inner:
       properties:
         formula:
@@ -12311,20 +12482,50 @@ components:
             resolves these team IDs to team names when exporting monitor assets.
           items:
             maxLength: 250
-            minLength: 0
+            minLength: 1
             type: string
           minItems: 1
           type: array
         env:
           description: Environment whose logs are searched for new error patterns.
           maxLength: 250
-          minLength: 0
+          minLength: 1
           type: string
         services:
           description: Service names whose logs are searched for new error patterns.
           items:
             maxLength: 250
-            minLength: 0
+            minLength: 1
+            type: string
+          minItems: 1
+          type: array
+      required:
+      - env
+    InputMonitorConfigurationLogErrorPatternIncrease_filter:
+      description: Log selection used for error pattern increase detection. All configured
+        fields must match for logs to be included.
+      properties:
+        teamIds:
+          description: "Team IDs whose error logs are watched for volume increases.\
+            \ Tsuga resolves these team IDs to team names when exporting monitor assets.\
+            \ Omit to watch every team, in which case `services` is required."
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          minItems: 1
+          type: array
+        env:
+          description: Environment whose error logs are watched for volume increases.
+          maxLength: 250
+          minLength: 1
+          type: string
+        services:
+          description: Service names whose error logs are watched for volume increases.
+            Omit to watch every service matching the team and environment scope.
+          items:
+            maxLength: 250
+            minLength: 1
             type: string
           minItems: 1
           type: array

@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **ProportionAlertThreshold** | Pointer to **int32** | Percentage threshold used when &#x60;aggregationAlertLogic&#x60; is &#x60;proportion&#x60;. | [optional] 
 **Queries** | [**[]MonitorAggregationQuery**](MonitorAggregationQuery.md) | Aggregation queries used by alerting and SLO evaluation. Each query is referenced from formulas as q1, q2, and so on. | 
 **Condition** | [**MonitorConfigurationAnomalyLogCondition**](MonitorConfigurationAnomalyLogCondition.md) |  | 
-**Filter** | [**MonitorConfigurationLogErrorPatternFilter**](MonitorConfigurationLogErrorPatternFilter.md) |  | 
+**Filter** | [**MonitorConfigurationLogErrorPatternIncreaseFilter**](MonitorConfigurationLogErrorPatternIncreaseFilter.md) |  | 
 **WarnBeforeInDays** | **int32** | Number of days before certificate expiry when the monitor should warn. | 
 **CloudAccounts** | Pointer to **[]string** | Cloud account IDs whose certificates are checked. Omitted means certificates from all cloud accounts are checked. | [optional] 
 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewMonitorConfiguration
 
-`func NewMonitorConfiguration(type_ string, conditions []MonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, aggregationAlertLogic string, queries []MonitorAggregationQuery, condition MonitorConfigurationAnomalyLogCondition, filter MonitorConfigurationLogErrorPatternFilter, warnBeforeInDays int32, ) *MonitorConfiguration`
+`func NewMonitorConfiguration(type_ string, conditions []MonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, aggregationAlertLogic string, queries []MonitorAggregationQuery, condition MonitorConfigurationAnomalyLogCondition, filter MonitorConfigurationLogErrorPatternIncreaseFilter, warnBeforeInDays int32, ) *MonitorConfiguration`
 
 NewMonitorConfiguration instantiates a new MonitorConfiguration object
 This constructor will assign default values to properties that have it defined,
@@ -223,20 +223,20 @@ SetCondition sets Condition field to given value.
 
 ### GetFilter
 
-`func (o *MonitorConfiguration) GetFilter() MonitorConfigurationLogErrorPatternFilter`
+`func (o *MonitorConfiguration) GetFilter() MonitorConfigurationLogErrorPatternIncreaseFilter`
 
 GetFilter returns the Filter field if non-nil, zero value otherwise.
 
 ### GetFilterOk
 
-`func (o *MonitorConfiguration) GetFilterOk() (*MonitorConfigurationLogErrorPatternFilter, bool)`
+`func (o *MonitorConfiguration) GetFilterOk() (*MonitorConfigurationLogErrorPatternIncreaseFilter, bool)`
 
 GetFilterOk returns a tuple with the Filter field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFilter
 
-`func (o *MonitorConfiguration) SetFilter(v MonitorConfigurationLogErrorPatternFilter)`
+`func (o *MonitorConfiguration) SetFilter(v MonitorConfigurationLogErrorPatternIncreaseFilter)`
 
 SetFilter sets Filter field to given value.
 

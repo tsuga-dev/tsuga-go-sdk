@@ -17,14 +17,15 @@ import (
 
 // MonitorConfiguration - Monitor evaluation configuration. The `type` discriminator determines which telemetry source, condition shape, and evaluation rules Tsuga uses.
 type MonitorConfiguration struct {
-	MonitorConfigurationAnomalyLog        *MonitorConfigurationAnomalyLog
-	MonitorConfigurationAnomalyMetric     *MonitorConfigurationAnomalyMetric
-	MonitorConfigurationAnomalyTrace      *MonitorConfigurationAnomalyTrace
-	MonitorConfigurationCertificateExpiry *MonitorConfigurationCertificateExpiry
-	MonitorConfigurationLog               *MonitorConfigurationLog
-	MonitorConfigurationLogErrorPattern   *MonitorConfigurationLogErrorPattern
-	MonitorConfigurationMetric            *MonitorConfigurationMetric
-	MonitorConfigurationTrace             *MonitorConfigurationTrace
+	MonitorConfigurationAnomalyLog              *MonitorConfigurationAnomalyLog
+	MonitorConfigurationAnomalyMetric           *MonitorConfigurationAnomalyMetric
+	MonitorConfigurationAnomalyTrace            *MonitorConfigurationAnomalyTrace
+	MonitorConfigurationCertificateExpiry       *MonitorConfigurationCertificateExpiry
+	MonitorConfigurationLog                     *MonitorConfigurationLog
+	MonitorConfigurationLogErrorPattern         *MonitorConfigurationLogErrorPattern
+	MonitorConfigurationLogErrorPatternIncrease *MonitorConfigurationLogErrorPatternIncrease
+	MonitorConfigurationMetric                  *MonitorConfigurationMetric
+	MonitorConfigurationTrace                   *MonitorConfigurationTrace
 }
 
 // MonitorConfigurationAnomalyLogAsMonitorConfiguration is a convenience function that returns MonitorConfigurationAnomalyLog wrapped in MonitorConfiguration
@@ -66,6 +67,13 @@ func MonitorConfigurationLogAsMonitorConfiguration(v *MonitorConfigurationLog) M
 func MonitorConfigurationLogErrorPatternAsMonitorConfiguration(v *MonitorConfigurationLogErrorPattern) MonitorConfiguration {
 	return MonitorConfiguration{
 		MonitorConfigurationLogErrorPattern: v,
+	}
+}
+
+// MonitorConfigurationLogErrorPatternIncreaseAsMonitorConfiguration is a convenience function that returns MonitorConfigurationLogErrorPatternIncrease wrapped in MonitorConfiguration
+func MonitorConfigurationLogErrorPatternIncreaseAsMonitorConfiguration(v *MonitorConfigurationLogErrorPatternIncrease) MonitorConfiguration {
+	return MonitorConfiguration{
+		MonitorConfigurationLogErrorPatternIncrease: v,
 	}
 }
 
@@ -165,6 +173,18 @@ func (dst *MonitorConfiguration) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'log-error-pattern-increase'
+	if jsonDict["type"] == "log-error-pattern-increase" {
+		// try to unmarshal JSON data into MonitorConfigurationLogErrorPatternIncrease
+		err = json.Unmarshal(data, &dst.MonitorConfigurationLogErrorPatternIncrease)
+		if err == nil {
+			return nil // data stored in dst.MonitorConfigurationLogErrorPatternIncrease, return on the first match
+		} else {
+			dst.MonitorConfigurationLogErrorPatternIncrease = nil
+			return fmt.Errorf("failed to unmarshal MonitorConfiguration as MonitorConfigurationLogErrorPatternIncrease: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'metric'
 	if jsonDict["type"] == "metric" {
 		// try to unmarshal JSON data into MonitorConfigurationMetric
@@ -218,6 +238,10 @@ func (src MonitorConfiguration) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.MonitorConfigurationLogErrorPattern)
 	}
 
+	if src.MonitorConfigurationLogErrorPatternIncrease != nil {
+		return json.Marshal(&src.MonitorConfigurationLogErrorPatternIncrease)
+	}
+
 	if src.MonitorConfigurationMetric != nil {
 		return json.Marshal(&src.MonitorConfigurationMetric)
 	}
@@ -258,6 +282,10 @@ func (obj *MonitorConfiguration) GetActualInstance() interface{} {
 		return obj.MonitorConfigurationLogErrorPattern
 	}
 
+	if obj.MonitorConfigurationLogErrorPatternIncrease != nil {
+		return obj.MonitorConfigurationLogErrorPatternIncrease
+	}
+
 	if obj.MonitorConfigurationMetric != nil {
 		return obj.MonitorConfigurationMetric
 	}
@@ -294,6 +322,10 @@ func (obj MonitorConfiguration) GetActualInstanceValue() interface{} {
 
 	if obj.MonitorConfigurationLogErrorPattern != nil {
 		return *obj.MonitorConfigurationLogErrorPattern
+	}
+
+	if obj.MonitorConfigurationLogErrorPatternIncrease != nil {
+		return *obj.MonitorConfigurationLogErrorPatternIncrease
 	}
 
 	if obj.MonitorConfigurationMetric != nil {

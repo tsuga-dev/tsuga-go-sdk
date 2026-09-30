@@ -24,7 +24,7 @@ type MonitorsAPI interface {
 	/*
 		CreateMonitor Method for CreateMonitor
 
-		Creates a monitor owned by the specified team. The monitor can evaluate logs, metrics, traces, anomaly behavior, certificate expiry, or new error patterns depending on its configuration.
+		Creates a monitor owned by the specified team. The monitor can evaluate logs, metrics, traces, anomaly behavior, certificate expiry, new error patterns, or error pattern increases depending on its configuration.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return MonitorsAPICreateMonitorRequest
@@ -117,7 +117,7 @@ func (r MonitorsAPICreateMonitorRequest) Execute() (*CreateMonitorResponse, *htt
 /*
 CreateMonitor Method for CreateMonitor
 
-Creates a monitor owned by the specified team. The monitor can evaluate logs, metrics, traces, anomaly behavior, certificate expiry, or new error patterns depending on its configuration.
+Creates a monitor owned by the specified team. The monitor can evaluate logs, metrics, traces, anomaly behavior, certificate expiry, new error patterns, or error pattern increases depending on its configuration.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MonitorsAPICreateMonitorRequest

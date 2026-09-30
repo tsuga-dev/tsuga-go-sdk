@@ -17,14 +17,15 @@ import (
 
 // UpdateMonitorRequestConfiguration - Monitor evaluation configuration. The `type` discriminator determines which telemetry source, condition shape, and evaluation rules Tsuga uses.
 type UpdateMonitorRequestConfiguration struct {
-	InputMonitorConfigurationAnomalyLog        *InputMonitorConfigurationAnomalyLog
-	InputMonitorConfigurationAnomalyMetric     *InputMonitorConfigurationAnomalyMetric
-	InputMonitorConfigurationAnomalyTrace      *InputMonitorConfigurationAnomalyTrace
-	InputMonitorConfigurationCertificateExpiry *InputMonitorConfigurationCertificateExpiry
-	InputMonitorConfigurationLog               *InputMonitorConfigurationLog
-	InputMonitorConfigurationLogErrorPattern   *InputMonitorConfigurationLogErrorPattern
-	InputMonitorConfigurationMetric            *InputMonitorConfigurationMetric
-	InputMonitorConfigurationTrace             *InputMonitorConfigurationTrace
+	InputMonitorConfigurationAnomalyLog              *InputMonitorConfigurationAnomalyLog
+	InputMonitorConfigurationAnomalyMetric           *InputMonitorConfigurationAnomalyMetric
+	InputMonitorConfigurationAnomalyTrace            *InputMonitorConfigurationAnomalyTrace
+	InputMonitorConfigurationCertificateExpiry       *InputMonitorConfigurationCertificateExpiry
+	InputMonitorConfigurationLog                     *InputMonitorConfigurationLog
+	InputMonitorConfigurationLogErrorPattern         *InputMonitorConfigurationLogErrorPattern
+	InputMonitorConfigurationLogErrorPatternIncrease *InputMonitorConfigurationLogErrorPatternIncrease
+	InputMonitorConfigurationMetric                  *InputMonitorConfigurationMetric
+	InputMonitorConfigurationTrace                   *InputMonitorConfigurationTrace
 }
 
 // InputMonitorConfigurationAnomalyLogAsUpdateMonitorRequestConfiguration is a convenience function that returns InputMonitorConfigurationAnomalyLog wrapped in UpdateMonitorRequestConfiguration
@@ -66,6 +67,13 @@ func InputMonitorConfigurationLogAsUpdateMonitorRequestConfiguration(v *InputMon
 func InputMonitorConfigurationLogErrorPatternAsUpdateMonitorRequestConfiguration(v *InputMonitorConfigurationLogErrorPattern) UpdateMonitorRequestConfiguration {
 	return UpdateMonitorRequestConfiguration{
 		InputMonitorConfigurationLogErrorPattern: v,
+	}
+}
+
+// InputMonitorConfigurationLogErrorPatternIncreaseAsUpdateMonitorRequestConfiguration is a convenience function that returns InputMonitorConfigurationLogErrorPatternIncrease wrapped in UpdateMonitorRequestConfiguration
+func InputMonitorConfigurationLogErrorPatternIncreaseAsUpdateMonitorRequestConfiguration(v *InputMonitorConfigurationLogErrorPatternIncrease) UpdateMonitorRequestConfiguration {
+	return UpdateMonitorRequestConfiguration{
+		InputMonitorConfigurationLogErrorPatternIncrease: v,
 	}
 }
 
@@ -165,6 +173,18 @@ func (dst *UpdateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'log-error-pattern-increase'
+	if jsonDict["type"] == "log-error-pattern-increase" {
+		// try to unmarshal JSON data into InputMonitorConfigurationLogErrorPatternIncrease
+		err = json.Unmarshal(data, &dst.InputMonitorConfigurationLogErrorPatternIncrease)
+		if err == nil {
+			return nil // data stored in dst.InputMonitorConfigurationLogErrorPatternIncrease, return on the first match
+		} else {
+			dst.InputMonitorConfigurationLogErrorPatternIncrease = nil
+			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as InputMonitorConfigurationLogErrorPatternIncrease: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'metric'
 	if jsonDict["type"] == "metric" {
 		// try to unmarshal JSON data into InputMonitorConfigurationMetric
@@ -218,6 +238,10 @@ func (src UpdateMonitorRequestConfiguration) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.InputMonitorConfigurationLogErrorPattern)
 	}
 
+	if src.InputMonitorConfigurationLogErrorPatternIncrease != nil {
+		return json.Marshal(&src.InputMonitorConfigurationLogErrorPatternIncrease)
+	}
+
 	if src.InputMonitorConfigurationMetric != nil {
 		return json.Marshal(&src.InputMonitorConfigurationMetric)
 	}
@@ -258,6 +282,10 @@ func (obj *UpdateMonitorRequestConfiguration) GetActualInstance() interface{} {
 		return obj.InputMonitorConfigurationLogErrorPattern
 	}
 
+	if obj.InputMonitorConfigurationLogErrorPatternIncrease != nil {
+		return obj.InputMonitorConfigurationLogErrorPatternIncrease
+	}
+
 	if obj.InputMonitorConfigurationMetric != nil {
 		return obj.InputMonitorConfigurationMetric
 	}
@@ -294,6 +322,10 @@ func (obj UpdateMonitorRequestConfiguration) GetActualInstanceValue() interface{
 
 	if obj.InputMonitorConfigurationLogErrorPattern != nil {
 		return *obj.InputMonitorConfigurationLogErrorPattern
+	}
+
+	if obj.InputMonitorConfigurationLogErrorPatternIncrease != nil {
+		return *obj.InputMonitorConfigurationLogErrorPatternIncrease
 	}
 
 	if obj.InputMonitorConfigurationMetric != nil {

@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **ProportionAlertThreshold** | Pointer to **int32** | Percentage threshold used when &#x60;aggregationAlertLogic&#x60; is &#x60;proportion&#x60;. | [optional] 
 **Queries** | [**[]MonitorAggregationQuery1**](MonitorAggregationQuery1.md) | Aggregation queries used by alerting. Each query is referenced from formulas as q1, q2, and so on. | 
 **Condition** | [**InputMonitorConfigurationAnomalyLogCondition**](InputMonitorConfigurationAnomalyLogCondition.md) |  | 
-**Filter** | [**InputMonitorConfigurationLogErrorPatternFilter**](InputMonitorConfigurationLogErrorPatternFilter.md) |  | 
+**Filter** | [**InputMonitorConfigurationLogErrorPatternIncreaseFilter**](InputMonitorConfigurationLogErrorPatternIncreaseFilter.md) |  | 
 **WarnBeforeInDays** | **int32** | Number of days before certificate expiry when the monitor should warn. Valid values are 1 through 365. | 
 **CloudAccounts** | Pointer to **[]string** | Cloud account IDs whose certificates are checked. Omit to check certificates from all cloud accounts. | [optional] 
 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewUpdateMonitorRequestConfiguration
 
-`func NewUpdateMonitorRequestConfiguration(type_ string, conditions []InputMonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe int32, groupByFields []InputMonitorConfigurationMetricGroupByFieldsInner, aggregationAlertLogic string, queries []MonitorAggregationQuery1, condition InputMonitorConfigurationAnomalyLogCondition, filter InputMonitorConfigurationLogErrorPatternFilter, warnBeforeInDays int32, ) *UpdateMonitorRequestConfiguration`
+`func NewUpdateMonitorRequestConfiguration(type_ string, conditions []InputMonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe int32, groupByFields []InputMonitorConfigurationMetricGroupByFieldsInner, aggregationAlertLogic string, queries []MonitorAggregationQuery1, condition InputMonitorConfigurationAnomalyLogCondition, filter InputMonitorConfigurationLogErrorPatternIncreaseFilter, warnBeforeInDays int32, ) *UpdateMonitorRequestConfiguration`
 
 NewUpdateMonitorRequestConfiguration instantiates a new UpdateMonitorRequestConfiguration object
 This constructor will assign default values to properties that have it defined,
@@ -223,20 +223,20 @@ SetCondition sets Condition field to given value.
 
 ### GetFilter
 
-`func (o *UpdateMonitorRequestConfiguration) GetFilter() InputMonitorConfigurationLogErrorPatternFilter`
+`func (o *UpdateMonitorRequestConfiguration) GetFilter() InputMonitorConfigurationLogErrorPatternIncreaseFilter`
 
 GetFilter returns the Filter field if non-nil, zero value otherwise.
 
 ### GetFilterOk
 
-`func (o *UpdateMonitorRequestConfiguration) GetFilterOk() (*InputMonitorConfigurationLogErrorPatternFilter, bool)`
+`func (o *UpdateMonitorRequestConfiguration) GetFilterOk() (*InputMonitorConfigurationLogErrorPatternIncreaseFilter, bool)`
 
 GetFilterOk returns a tuple with the Filter field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFilter
 
-`func (o *UpdateMonitorRequestConfiguration) SetFilter(v InputMonitorConfigurationLogErrorPatternFilter)`
+`func (o *UpdateMonitorRequestConfiguration) SetFilter(v InputMonitorConfigurationLogErrorPatternIncreaseFilter)`
 
 SetFilter sets Filter field to given value.
 
