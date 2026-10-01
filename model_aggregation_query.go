@@ -26,6 +26,8 @@ type AggregationQuery struct {
 	Fill      *MonitorAggregationQueryFill `json:"fill,omitempty"`
 	// Per-series rollup applied within each time bucket before the cross-series aggregate. Use it on metric queries when `aggregate.type` is `sum` and no `rate`, `increase`, `last`, or `rolling` function is present. When omitted, Tsuga derives the rollup from the metric type.
 	TimeAggregate *string `json:"timeAggregate,omitempty"`
+	// Variant of the metric in `aggregate.field` to query, for metric names reported under several kinds (for instance both cumulative and delta). When omitted, Tsuga picks one variant by type and temporality precedence.
+	MetricKind *string `json:"metricKind,omitempty"`
 	// Filter to apply to the aggregation
 	Filter               *string `json:"filter,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -171,6 +173,38 @@ func (o *AggregationQuery) SetTimeAggregate(v string) {
 	o.TimeAggregate = &v
 }
 
+// GetMetricKind returns the MetricKind field value if set, zero value otherwise.
+func (o *AggregationQuery) GetMetricKind() string {
+	if o == nil || IsNil(o.MetricKind) {
+		var ret string
+		return ret
+	}
+	return *o.MetricKind
+}
+
+// GetMetricKindOk returns a tuple with the MetricKind field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AggregationQuery) GetMetricKindOk() (*string, bool) {
+	if o == nil || IsNil(o.MetricKind) {
+		return nil, false
+	}
+	return o.MetricKind, true
+}
+
+// HasMetricKind returns a boolean if a field has been set.
+func (o *AggregationQuery) HasMetricKind() bool {
+	if o != nil && !IsNil(o.MetricKind) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetricKind gets a reference to the given string and assigns it to the MetricKind field.
+func (o *AggregationQuery) SetMetricKind(v string) {
+	o.MetricKind = &v
+}
+
 // GetFilter returns the Filter field value if set, zero value otherwise.
 func (o *AggregationQuery) GetFilter() string {
 	if o == nil || IsNil(o.Filter) {
@@ -223,6 +257,9 @@ func (o AggregationQuery) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TimeAggregate) {
 		toSerialize["timeAggregate"] = o.TimeAggregate
 	}
+	if !IsNil(o.MetricKind) {
+		toSerialize["metricKind"] = o.MetricKind
+	}
 	if !IsNil(o.Filter) {
 		toSerialize["filter"] = o.Filter
 	}
@@ -273,6 +310,7 @@ func (o *AggregationQuery) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "functions")
 		delete(additionalProperties, "fill")
 		delete(additionalProperties, "timeAggregate")
+		delete(additionalProperties, "metricKind")
 		delete(additionalProperties, "filter")
 		o.AdditionalProperties = additionalProperties
 	}

@@ -27,7 +27,7 @@ type InputGraphVisualizationQueryValueConnection struct {
 	Queries      []string `json:"queries"`
 	// Controls whether the widget uses a solid or transparent background
 	BackgroundMode *string `json:"backgroundMode,omitempty"`
-	// Conditional formatting rules applied to the displayed value
+	// Conditional formatting rules applied to the raw query value, before the unit is applied
 	Conditions []ConditionalFormatting                          `json:"conditions,omitempty"`
 	Precision  *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
 	Normalizer *Normalizer1                                     `json:"normalizer,omitempty"`

@@ -37,7 +37,7 @@ type InputGraphVisualizationTopList struct {
 	GroupByMode *string                                          `json:"groupByMode,omitempty"`
 	Normalizer  *Normalizer1                                     `json:"normalizer,omitempty"`
 	Precision   *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
-	// Conditional formatting rules applied to the displayed value
+	// Conditional formatting rules applied to the raw query value, before the unit is applied
 	Conditions []ConditionalFormatting `json:"conditions,omitempty"`
 	// Requests stacked rendering for a top-list widget. Tsuga renders stacked rows only for one count or sum query with exactly two grouped fields, no formula, non-negative values, and a single-cluster context; otherwise the widget renders as a normal top list.
 	IsStacked            *bool        `json:"isStacked,omitempty"`

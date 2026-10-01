@@ -82,7 +82,7 @@ type SlosAPI interface {
 	/*
 		UpdateSlo Method for UpdateSlo
 
-		Replaces an existing SLO definition by ID. Send the full SLO input shape, including configuration, ownership, permissions, cluster scope, and the reconciled alert list. Changing configuration, target, timeframe, permissions, or cluster scope resets evaluated SLO state, so returned status and error budget are based on data evaluated after the update.
+		Replaces an existing SLO definition by ID. Send the full SLO input shape, including configuration, ownership, permissions, cluster scope, and the reconciled alert list. Changing configuration, target, timeframe, permissions, or cluster scope resets the evaluation state of every alert on the SLO, so each alert ignores the transitions it recorded before the update. The SLO status and error budget are recomputed from the telemetry in the rolling window and are not cleared by an update.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Identifier of the SLO to update. Use the `id` returned by SLO query or create.
@@ -646,7 +646,7 @@ func (r SlosAPIUpdateSloRequest) Execute() (*UpdateSloResponse, *http.Response, 
 /*
 UpdateSlo Method for UpdateSlo
 
-Replaces an existing SLO definition by ID. Send the full SLO input shape, including configuration, ownership, permissions, cluster scope, and the reconciled alert list. Changing configuration, target, timeframe, permissions, or cluster scope resets evaluated SLO state, so returned status and error budget are based on data evaluated after the update.
+Replaces an existing SLO definition by ID. Send the full SLO input shape, including configuration, ownership, permissions, cluster scope, and the reconciled alert list. Changing configuration, target, timeframe, permissions, or cluster scope resets the evaluation state of every alert on the SLO, so each alert ignores the transitions it recorded before the update. The SLO status and error budget are recomputed from the telemetry in the rolling window and are not cleared by an update.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Identifier of the SLO to update. Use the `id` returned by SLO query or create.

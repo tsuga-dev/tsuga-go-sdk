@@ -31,9 +31,9 @@ type GraphVisualizationGauge struct {
 	Aliases *GraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
-	// Gauge maximum value
+	// Gauge maximum value, on the raw query value before the unit is applied
 	Max *float32 `json:"max,omitempty"`
-	// Color thresholds inside the gauge range
+	// Color thresholds inside the gauge range, on the raw query value before the unit is applied
 	ColorThresholds      []GaugeColorThreshold                            `json:"colorThresholds,omitempty"`
 	Precision            *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
 	Normalizer           *Normalizer                                      `json:"normalizer,omitempty"`

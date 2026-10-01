@@ -26,6 +26,8 @@ type MonitorAggregationQuery1 struct {
 	Fill      *MonitorAggregationQueryFill `json:"fill,omitempty"`
 	// Per-series rollup applied within each time bucket before the cross-series aggregate. Use it on metric queries when `aggregate.type` is `sum` and no `rate`, `increase`, `last`, or `rolling` function is present. When omitted, Tsuga derives the rollup from the metric type.
 	TimeAggregate *string `json:"timeAggregate,omitempty"`
+	// Variant of the metric in `aggregate.field` to query, for metric names reported under several kinds (for instance both cumulative and delta). When omitted, Tsuga picks one variant by type and temporality precedence.
+	MetricKind *string `json:"metricKind,omitempty"`
 	// Tsuga query filter applied to this alerting or SLO aggregation query. Required by the API; use the query language for the selected data source.
 	Filter               string `json:"filter"`
 	AdditionalProperties map[string]interface{}
@@ -172,6 +174,38 @@ func (o *MonitorAggregationQuery1) SetTimeAggregate(v string) {
 	o.TimeAggregate = &v
 }
 
+// GetMetricKind returns the MetricKind field value if set, zero value otherwise.
+func (o *MonitorAggregationQuery1) GetMetricKind() string {
+	if o == nil || IsNil(o.MetricKind) {
+		var ret string
+		return ret
+	}
+	return *o.MetricKind
+}
+
+// GetMetricKindOk returns a tuple with the MetricKind field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MonitorAggregationQuery1) GetMetricKindOk() (*string, bool) {
+	if o == nil || IsNil(o.MetricKind) {
+		return nil, false
+	}
+	return o.MetricKind, true
+}
+
+// HasMetricKind returns a boolean if a field has been set.
+func (o *MonitorAggregationQuery1) HasMetricKind() bool {
+	if o != nil && !IsNil(o.MetricKind) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetricKind gets a reference to the given string and assigns it to the MetricKind field.
+func (o *MonitorAggregationQuery1) SetMetricKind(v string) {
+	o.MetricKind = &v
+}
+
 // GetFilter returns the Filter field value
 func (o *MonitorAggregationQuery1) GetFilter() string {
 	if o == nil {
@@ -215,6 +249,9 @@ func (o MonitorAggregationQuery1) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.TimeAggregate) {
 		toSerialize["timeAggregate"] = o.TimeAggregate
+	}
+	if !IsNil(o.MetricKind) {
+		toSerialize["metricKind"] = o.MetricKind
 	}
 	toSerialize["filter"] = o.Filter
 
@@ -265,6 +302,7 @@ func (o *MonitorAggregationQuery1) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "functions")
 		delete(additionalProperties, "fill")
 		delete(additionalProperties, "timeAggregate")
+		delete(additionalProperties, "metricKind")
 		delete(additionalProperties, "filter")
 		o.AdditionalProperties = additionalProperties
 	}

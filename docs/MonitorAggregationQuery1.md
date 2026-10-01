@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Functions** | Pointer to [**[]InputFunction**](InputFunction.md) | Post-processing functions applied to aggregation results. Defaults to an empty array when omitted. | [optional] 
 **Fill** | Pointer to [**MonitorAggregationQueryFill**](MonitorAggregationQueryFill.md) |  | [optional] 
 **TimeAggregate** | Pointer to **string** | Per-series rollup applied within each time bucket before the cross-series aggregate. Use it on metric queries when &#x60;aggregate.type&#x60; is &#x60;sum&#x60; and no &#x60;rate&#x60;, &#x60;increase&#x60;, &#x60;last&#x60;, or &#x60;rolling&#x60; function is present. When omitted, Tsuga derives the rollup from the metric type. | [optional] 
+**MetricKind** | Pointer to **string** | Variant of the metric in &#x60;aggregate.field&#x60; to query, for metric names reported under several kinds (for instance both cumulative and delta). When omitted, Tsuga picks one variant by type and temporality precedence. | [optional] 
 **Filter** | **string** | Tsuga query filter applied to this alerting or SLO aggregation query. Required by the API; use the query language for the selected data source. | 
 
 ## Methods
@@ -123,6 +124,31 @@ SetTimeAggregate sets TimeAggregate field to given value.
 `func (o *MonitorAggregationQuery1) HasTimeAggregate() bool`
 
 HasTimeAggregate returns a boolean if a field has been set.
+
+### GetMetricKind
+
+`func (o *MonitorAggregationQuery1) GetMetricKind() string`
+
+GetMetricKind returns the MetricKind field if non-nil, zero value otherwise.
+
+### GetMetricKindOk
+
+`func (o *MonitorAggregationQuery1) GetMetricKindOk() (*string, bool)`
+
+GetMetricKindOk returns a tuple with the MetricKind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMetricKind
+
+`func (o *MonitorAggregationQuery1) SetMetricKind(v string)`
+
+SetMetricKind sets MetricKind field to given value.
+
+### HasMetricKind
+
+`func (o *MonitorAggregationQuery1) HasMetricKind() bool`
+
+HasMetricKind returns a boolean if a field has been set.
 
 ### GetFilter
 

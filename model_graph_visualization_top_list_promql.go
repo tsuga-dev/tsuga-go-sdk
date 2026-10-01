@@ -27,7 +27,7 @@ type GraphVisualizationTopListPromql struct {
 	Aliases    *GraphVisualizationTimeseriesPromqlAliases       `json:"aliases,omitempty"`
 	Normalizer *Normalizer                                      `json:"normalizer,omitempty"`
 	Precision  *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
-	// Conditional formatting rules applied to the displayed value
+	// Conditional formatting rules applied to the raw query value, before the unit is applied
 	Conditions           []ConditionalFormatting `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

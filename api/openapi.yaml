@@ -1802,8 +1802,10 @@ paths:
       description: "Replaces an existing SLO definition by ID. Send the full SLO input\
         \ shape, including configuration, ownership, permissions, cluster scope, and\
         \ the reconciled alert list. Changing configuration, target, timeframe, permissions,\
-        \ or cluster scope resets evaluated SLO state, so returned status and error\
-        \ budget are based on data evaluated after the update."
+        \ or cluster scope resets the evaluation state of every alert on the SLO,\
+        \ so each alert ignores the transitions it recorded before the update. The\
+        \ SLO status and error budget are recomputed from the telemetry in the rolling\
+        \ window and are not cleared by an update."
       operationId: updateSlo
       parameters:
       - description: Identifier of the SLO to update. Use the `id` returned by SLO
@@ -6848,7 +6850,8 @@ components:
           - no-background
           type: string
         conditions:
-          description: Conditional formatting rules applied to the displayed value
+          description: "Conditional formatting rules applied to the raw query value,\
+            \ before the unit is applied"
           items:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
@@ -6947,7 +6950,8 @@ components:
           - no-background
           type: string
         conditions:
-          description: Conditional formatting rules applied to the displayed value
+          description: "Conditional formatting rules applied to the raw query value,\
+            \ before the unit is applied"
           items:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
@@ -6990,7 +6994,8 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         conditions:
-          description: Conditional formatting rules applied to the displayed value
+          description: "Conditional formatting rules applied to the raw query value,\
+            \ before the unit is applied"
           items:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
@@ -7214,7 +7219,8 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         conditions:
-          description: Conditional formatting rules applied to the displayed value
+          description: "Conditional formatting rules applied to the raw query value,\
+            \ before the unit is applied"
           items:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
@@ -7340,7 +7346,8 @@ components:
           - no-background
           type: string
         conditions:
-          description: Conditional formatting rules applied to the displayed value
+          description: "Conditional formatting rules applied to the raw query value,\
+            \ before the unit is applied"
           items:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
@@ -7396,10 +7403,12 @@ components:
             type: boolean
           type: array
         max:
-          description: Gauge maximum value
+          description: "Gauge maximum value, on the raw query value before the unit\
+            \ is applied"
           type: number
         colorThresholds:
-          description: Color thresholds inside the gauge range
+          description: "Color thresholds inside the gauge range, on the raw query\
+            \ value before the unit is applied"
           items:
             $ref: "#/components/schemas/GaugeColorThreshold"
           type: array
@@ -8082,7 +8091,8 @@ components:
           - no-background
           type: string
         conditions:
-          description: Conditional formatting rules applied to the displayed value
+          description: "Conditional formatting rules applied to the raw query value,\
+            \ before the unit is applied"
           items:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
@@ -8183,7 +8193,8 @@ components:
           - no-background
           type: string
         conditions:
-          description: Conditional formatting rules applied to the displayed value
+          description: "Conditional formatting rules applied to the raw query value,\
+            \ before the unit is applied"
           items:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
@@ -8227,7 +8238,8 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         conditions:
-          description: Conditional formatting rules applied to the displayed value
+          description: "Conditional formatting rules applied to the raw query value,\
+            \ before the unit is applied"
           items:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
@@ -8481,7 +8493,8 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         conditions:
-          description: Conditional formatting rules applied to the displayed value
+          description: "Conditional formatting rules applied to the raw query value,\
+            \ before the unit is applied"
           items:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
@@ -8633,7 +8646,8 @@ components:
           - no-background
           type: string
         conditions:
-          description: Conditional formatting rules applied to the displayed value
+          description: "Conditional formatting rules applied to the raw query value,\
+            \ before the unit is applied"
           items:
             $ref: "#/components/schemas/ConditionalFormatting"
           type: array
@@ -8701,10 +8715,12 @@ components:
             type: boolean
           type: array
         max:
-          description: Gauge maximum value
+          description: "Gauge maximum value, on the raw query value before the unit\
+            \ is applied"
           type: number
         colorThresholds:
-          description: Color thresholds inside the gauge range
+          description: "Color thresholds inside the gauge range, on the raw query\
+            \ value before the unit is applied"
           items:
             $ref: "#/components/schemas/GaugeColorThreshold"
           type: array
@@ -10663,6 +10679,19 @@ components:
           - max
           - last
           type: string
+        metricKind:
+          description: "Variant of the metric in `aggregate.field` to query, for metric\
+            \ names reported under several kinds (for instance both cumulative and\
+            \ delta). When omitted, Tsuga picks one variant by type and temporality\
+            \ precedence."
+          enum:
+          - gauge
+          - cumulative-counter
+          - delta-counter
+          - cumulative-histogram
+          - delta-histogram
+          - summary
+          type: string
         filter:
           description: Tsuga query filter applied to this alerting or SLO aggregation
             query. Required by the API; use the query language for the selected data
@@ -11791,6 +11820,19 @@ components:
           - max
           - last
           type: string
+        metricKind:
+          description: "Variant of the metric in `aggregate.field` to query, for metric\
+            \ names reported under several kinds (for instance both cumulative and\
+            \ delta). When omitted, Tsuga picks one variant by type and temporality\
+            \ precedence."
+          enum:
+          - gauge
+          - cumulative-counter
+          - delta-counter
+          - cumulative-histogram
+          - delta-histogram
+          - summary
+          type: string
         filter:
           description: Filter to apply to the aggregation
           type: string
@@ -12427,6 +12469,19 @@ components:
           - max
           - last
           type: string
+        metricKind:
+          description: "Variant of the metric in `aggregate.field` to query, for metric\
+            \ names reported under several kinds (for instance both cumulative and\
+            \ delta). When omitted, Tsuga picks one variant by type and temporality\
+            \ precedence."
+          enum:
+          - gauge
+          - cumulative-counter
+          - delta-counter
+          - cumulative-histogram
+          - delta-histogram
+          - summary
+          type: string
         filter:
           description: Tsuga query filter applied to this alerting or SLO aggregation
             query. Required by the API; use the query language for the selected data
@@ -12770,8 +12825,8 @@ components:
       - id
       title: ListDefaultSorting
     ConditionalFormatting:
-      description: Color rule evaluated against the displayed value. The first matching
-        rule in the array is applied.
+      description: "Color rule evaluated against the raw query value, before the unit\
+        \ is applied. The first matching rule in the array is applied."
       properties:
         operator:
           description: Comparator used to evaluate the metric value
@@ -12865,6 +12920,19 @@ components:
           - min
           - max
           - last
+          type: string
+        metricKind:
+          description: "Variant of the metric in `aggregate.field` to query, for metric\
+            \ names reported under several kinds (for instance both cumulative and\
+            \ delta). When omitted, Tsuga picks one variant by type and temporality\
+            \ precedence."
+          enum:
+          - gauge
+          - cumulative-counter
+          - delta-counter
+          - cumulative-histogram
+          - delta-histogram
+          - summary
           type: string
         filter:
           description: Filter to apply to the aggregation
@@ -13112,6 +13180,19 @@ components:
           - min
           - max
           - last
+          type: string
+        metricKind:
+          description: "Variant of the metric in `aggregate.field` to query, for metric\
+            \ names reported under several kinds (for instance both cumulative and\
+            \ delta). When omitted, Tsuga picks one variant by type and temporality\
+            \ precedence."
+          enum:
+          - gauge
+          - cumulative-counter
+          - delta-counter
+          - cumulative-histogram
+          - delta-histogram
+          - summary
           type: string
         filter:
           description: Tsuga query filter to apply to the aggregation. Defaults to
