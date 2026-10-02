@@ -5607,6 +5607,7 @@ components:
           items:
             $ref: "#/components/schemas/MonitorAggregationQuery_1"
           maxItems: 15
+          minItems: 1
           type: array
       required:
       - conditions
@@ -5678,6 +5679,7 @@ components:
           items:
             $ref: "#/components/schemas/MonitorAggregationQuery_1"
           maxItems: 15
+          minItems: 1
           type: array
       required:
       - conditions
@@ -5749,6 +5751,7 @@ components:
           items:
             $ref: "#/components/schemas/MonitorAggregationQuery_1"
           maxItems: 15
+          minItems: 1
           type: array
       required:
       - conditions
@@ -5812,6 +5815,7 @@ components:
           items:
             $ref: "#/components/schemas/MonitorAggregationQuery_1"
           maxItems: 15
+          minItems: 1
           type: array
       required:
       - condition
@@ -5875,6 +5879,7 @@ components:
           items:
             $ref: "#/components/schemas/MonitorAggregationQuery_1"
           maxItems: 15
+          minItems: 1
           type: array
       required:
       - condition
@@ -5940,6 +5945,7 @@ components:
           items:
             $ref: "#/components/schemas/MonitorAggregationQuery_1"
           maxItems: 15
+          minItems: 1
           type: array
       required:
       - condition
@@ -8350,6 +8356,7 @@ components:
           items:
             $ref: "#/components/schemas/AggregationQuery_1"
           maxItems: 15
+          minItems: 1
           type: array
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
@@ -8451,6 +8458,7 @@ components:
           items:
             $ref: "#/components/schemas/AggregationQuery_1"
           maxItems: 15
+          minItems: 1
           type: array
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
@@ -8537,6 +8545,7 @@ components:
           items:
             $ref: "#/components/schemas/AggregationQuery_1"
           maxItems: 15
+          minItems: 1
           type: array
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
@@ -8619,6 +8628,7 @@ components:
           items:
             $ref: "#/components/schemas/AggregationQuery_1"
           maxItems: 15
+          minItems: 1
           type: array
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
@@ -8694,6 +8704,7 @@ components:
           items:
             $ref: "#/components/schemas/AggregationQuery_1"
           maxItems: 15
+          minItems: 1
           type: array
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
@@ -8759,6 +8770,7 @@ components:
           items:
             $ref: "#/components/schemas/AggregationQuery_1"
           maxItems: 15
+          minItems: 1
           type: array
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
@@ -8850,6 +8862,7 @@ components:
           items:
             $ref: "#/components/schemas/AggregationQuery_1"
           maxItems: 15
+          minItems: 1
           type: array
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
@@ -8939,6 +8952,7 @@ components:
           items:
             $ref: "#/components/schemas/AggregationQuery_1"
           maxItems: 15
+          minItems: 1
           type: array
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
@@ -13254,6 +13268,7 @@ components:
           items:
             $ref: "#/components/schemas/AggregationQuery_1"
           maxItems: 15
+          minItems: 1
           type: array
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
