@@ -105,6 +105,7 @@ docs/GraphVisualizationHeatmap.md
 docs/GraphVisualizationList.md
 docs/GraphVisualizationListConnection.md
 docs/GraphVisualizationListLogPatterns.md
+docs/GraphVisualizationListRum.md
 docs/GraphVisualizationListSpans.md
 docs/GraphVisualizationNote.md
 docs/GraphVisualizationPie.md
@@ -166,6 +167,7 @@ docs/InputGraphVisualizationHeatmap.md
 docs/InputGraphVisualizationList.md
 docs/InputGraphVisualizationListConnection.md
 docs/InputGraphVisualizationListLogPatterns.md
+docs/InputGraphVisualizationListRum.md
 docs/InputGraphVisualizationListSpans.md
 docs/InputGraphVisualizationNote.md
 docs/InputGraphVisualizationPie.md
@@ -443,6 +445,7 @@ model_graph_visualization_heatmap.go
 model_graph_visualization_list.go
 model_graph_visualization_list_connection.go
 model_graph_visualization_list_log_patterns.go
+model_graph_visualization_list_rum.go
 model_graph_visualization_list_spans.go
 model_graph_visualization_note.go
 model_graph_visualization_pie.go
@@ -504,6 +507,7 @@ model_input_graph_visualization_heatmap.go
 model_input_graph_visualization_list.go
 model_input_graph_visualization_list_connection.go
 model_input_graph_visualization_list_log_patterns.go
+model_input_graph_visualization_list_rum.go
 model_input_graph_visualization_list_spans.go
 model_input_graph_visualization_note.go
 model_input_graph_visualization_pie.go

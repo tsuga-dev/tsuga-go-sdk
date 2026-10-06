@@ -26,6 +26,7 @@ type Graph2Visualization struct {
 	GraphVisualizationList                 *GraphVisualizationList
 	GraphVisualizationListConnection       *GraphVisualizationListConnection
 	GraphVisualizationListLogPatterns      *GraphVisualizationListLogPatterns
+	GraphVisualizationListRum              *GraphVisualizationListRum
 	GraphVisualizationListSpans            *GraphVisualizationListSpans
 	GraphVisualizationNote                 *GraphVisualizationNote
 	GraphVisualizationPie                  *GraphVisualizationPie
@@ -105,6 +106,13 @@ func GraphVisualizationListConnectionAsGraph2Visualization(v *GraphVisualization
 func GraphVisualizationListLogPatternsAsGraph2Visualization(v *GraphVisualizationListLogPatterns) Graph2Visualization {
 	return Graph2Visualization{
 		GraphVisualizationListLogPatterns: v,
+	}
+}
+
+// GraphVisualizationListRumAsGraph2Visualization is a convenience function that returns GraphVisualizationListRum wrapped in Graph2Visualization
+func GraphVisualizationListRumAsGraph2Visualization(v *GraphVisualizationListRum) Graph2Visualization {
+	return Graph2Visualization{
+		GraphVisualizationListRum: v,
 	}
 }
 
@@ -342,6 +350,18 @@ func (dst *Graph2Visualization) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.GraphVisualizationListLogPatterns = nil
 			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationListLogPatterns: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'list-rum'
+	if jsonDict["type"] == "list-rum" {
+		// try to unmarshal JSON data into GraphVisualizationListRum
+		err = json.Unmarshal(data, &dst.GraphVisualizationListRum)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationListRum, return on the first match
+		} else {
+			dst.GraphVisualizationListRum = nil
+			return fmt.Errorf("failed to unmarshal Graph2Visualization as GraphVisualizationListRum: %s", err.Error())
 		}
 	}
 
@@ -590,6 +610,10 @@ func (src Graph2Visualization) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.GraphVisualizationListLogPatterns)
 	}
 
+	if src.GraphVisualizationListRum != nil {
+		return json.Marshal(&src.GraphVisualizationListRum)
+	}
+
 	if src.GraphVisualizationListSpans != nil {
 		return json.Marshal(&src.GraphVisualizationListSpans)
 	}
@@ -702,6 +726,10 @@ func (obj *Graph2Visualization) GetActualInstance() interface{} {
 		return obj.GraphVisualizationListLogPatterns
 	}
 
+	if obj.GraphVisualizationListRum != nil {
+		return obj.GraphVisualizationListRum
+	}
+
 	if obj.GraphVisualizationListSpans != nil {
 		return obj.GraphVisualizationListSpans
 	}
@@ -810,6 +838,10 @@ func (obj Graph2Visualization) GetActualInstanceValue() interface{} {
 
 	if obj.GraphVisualizationListLogPatterns != nil {
 		return *obj.GraphVisualizationListLogPatterns
+	}
+
+	if obj.GraphVisualizationListRum != nil {
+		return *obj.GraphVisualizationListRum
 	}
 
 	if obj.GraphVisualizationListSpans != nil {

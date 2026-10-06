@@ -108,7 +108,7 @@ tags:
     \ to manage ingest-time log processing definitions. See [Routes](/documentation/process/routes/index)."
   name: routes
 - description: "Operations for searching Real User Monitoring (RUM) events recorded\
-    \ by the browser and mobile SDKs. See [Browser views](/documentation/categorize/browser-views/index)."
+    \ by the browser and mobile SDKs. See [RUM views](/documentation/categorize/rum-views/index)."
   name: rum
 - description: "Operations for services inferred from telemetry. Use these endpoints\
     \ to inspect service metadata, activity, and dependency graphs. See [Services](/documentation/categorize/services/index)."
@@ -6739,8 +6739,8 @@ components:
           type: boolean
         defaultSorting:
           description: "Default sorting applied to a list widget. Applies to log,\
-            \ span, or connection list widgets. Users can still change sorting by\
-            \ selecting columns in the rendered list."
+            \ span, RUM event, or connection list widgets. Users can still change\
+            \ sorting by selecting columns in the rendered list."
           items:
             $ref: "#/components/schemas/ListDefaultSorting"
           type: array
@@ -7720,8 +7720,8 @@ components:
           type: boolean
         defaultSorting:
           description: "Default sorting applied to a list widget. Applies to log,\
-            \ span, or connection list widgets. Users can still change sorting by\
-            \ selecting columns in the rendered list."
+            \ span, RUM event, or connection list widgets. Users can still change\
+            \ sorting by selecting columns in the rendered list."
           items:
             $ref: "#/components/schemas/ListDefaultSorting"
           type: array
@@ -7819,8 +7819,8 @@ components:
           type: boolean
         defaultSorting:
           description: "Default sorting applied to a list widget. Applies to log,\
-            \ span, or connection list widgets. Users can still change sorting by\
-            \ selecting columns in the rendered list."
+            \ span, RUM event, or connection list widgets. Users can still change\
+            \ sorting by selecting columns in the rendered list."
           items:
             $ref: "#/components/schemas/ListDefaultSorting"
           type: array
@@ -7828,6 +7828,44 @@ components:
       - query
       - type
       title: ListSpans
+    GraphVisualizationListRum:
+      properties:
+        type:
+          description: Displays matching RUM events in a tabular list
+          enum:
+          - list-rum
+          type: string
+        query:
+          description: Query that selects RUM events for the list
+          type: string
+        listColumns:
+          description: "Custom columns to display for each RUM event. Attributes are\
+            \ read without their stream prefix, e.g. `view.name` rather than `events.view.name`."
+          items:
+            $ref: "#/components/schemas/WidgetListColumn"
+          type: array
+        listColumnsSize:
+          additionalProperties:
+            description: List column width by column id
+            type: number
+          description: "List column widths in pixels, keyed by the `attribute` of\
+            \ the matching `listColumns` entry. Columns without an entry keep their\
+            \ default width."
+        isCellWrapped:
+          description: Whether list widget cell text wraps instead of truncating.
+            Applies to RUM event list widgets.
+          type: boolean
+        defaultSorting:
+          description: "Default sorting applied to a list widget. Applies to log,\
+            \ span, RUM event, or connection list widgets. Users can still change\
+            \ sorting by selecting columns in the rendered list."
+          items:
+            $ref: "#/components/schemas/ListDefaultSorting"
+          type: array
+      required:
+      - query
+      - type
+      title: ListRum
     GraphVisualizationSloUptime:
       properties:
         type:
@@ -7948,8 +7986,8 @@ components:
           type: boolean
         defaultSorting:
           description: "Default sorting applied to a list widget. Optional on create\
-            \ or update for log, span, or connection list widgets. Users can still\
-            \ change sorting by selecting columns in the rendered list."
+            \ or update for log, span, RUM event, or connection list widgets. Users\
+            \ can still change sorting by selecting columns in the rendered list."
           items:
             $ref: "#/components/schemas/ListDefaultSorting_1"
           type: array
@@ -9095,8 +9133,8 @@ components:
           type: boolean
         defaultSorting:
           description: "Default sorting applied to a list widget. Optional on create\
-            \ or update for log, span, or connection list widgets. Users can still\
-            \ change sorting by selecting columns in the rendered list."
+            \ or update for log, span, RUM event, or connection list widgets. Users\
+            \ can still change sorting by selecting columns in the rendered list."
           items:
             $ref: "#/components/schemas/ListDefaultSorting_1"
           type: array
@@ -9203,8 +9241,8 @@ components:
           type: boolean
         defaultSorting:
           description: "Default sorting applied to a list widget. Optional on create\
-            \ or update for log, span, or connection list widgets. Users can still\
-            \ change sorting by selecting columns in the rendered list."
+            \ or update for log, span, RUM event, or connection list widgets. Users\
+            \ can still change sorting by selecting columns in the rendered list."
           items:
             $ref: "#/components/schemas/ListDefaultSorting_1"
           type: array
@@ -9212,6 +9250,51 @@ components:
       - query
       - type
       title: ListSpans
+    InputGraphVisualizationListRum:
+      properties:
+        type:
+          description: Displays matching RUM events in a tabular list
+          enum:
+          - list-rum
+          type: string
+        query:
+          description: "Query that selects RUM events for the list. Prefix every field\
+            \ with the stream it belongs to (`measurements.`, `events.`, or `exceptions.`)\
+            \ and filter on a single stream per query. A query without stream-prefixed\
+            \ fields searches the `events` stream."
+          format: tsuga-query
+          maxLength: 10000
+          minLength: 0
+          type: string
+        listColumns:
+          description: "Custom columns to display for each RUM event. Set attributes\
+            \ without their stream prefix, e.g. `view.name` rather than `events.view.name`."
+          items:
+            $ref: "#/components/schemas/WidgetListColumn_1"
+          type: array
+        listColumnsSize:
+          additionalProperties:
+            description: List column width by column id
+            type: number
+          description: "List column widths in pixels, keyed by the `attribute` of\
+            \ the matching `listColumns` entry. Columns without an entry keep their\
+            \ default width."
+        isCellWrapped:
+          description: Whether list widget cell text wraps instead of truncating.
+            Applies to RUM event list widgets. Optional; omit or set false to use
+            truncated cells.
+          type: boolean
+        defaultSorting:
+          description: "Default sorting applied to a list widget. Optional on create\
+            \ or update for log, span, RUM event, or connection list widgets. Users\
+            \ can still change sorting by selecting columns in the rendered list."
+          items:
+            $ref: "#/components/schemas/ListDefaultSorting_1"
+          type: array
+      required:
+      - query
+      - type
+      title: ListRum
     InputGraphVisualizationSloUptime:
       properties:
         type:
@@ -9402,6 +9485,7 @@ components:
           note: "#/components/schemas/InputGraphVisualizationNote"
           list-log-patterns: "#/components/schemas/InputGraphVisualizationListLogPatterns"
           list-spans: "#/components/schemas/InputGraphVisualizationListSpans"
+          list-rum: "#/components/schemas/InputGraphVisualizationListRum"
           slo-uptime: "#/components/schemas/InputGraphVisualizationSloUptime"
           slo-over-time: "#/components/schemas/InputGraphVisualizationSloOverTime"
         propertyName: type
@@ -9430,6 +9514,7 @@ components:
       - $ref: "#/components/schemas/InputGraphVisualizationNote"
       - $ref: "#/components/schemas/InputGraphVisualizationListLogPatterns"
       - $ref: "#/components/schemas/InputGraphVisualizationListSpans"
+      - $ref: "#/components/schemas/InputGraphVisualizationListRum"
       - $ref: "#/components/schemas/InputGraphVisualizationSloUptime"
       - $ref: "#/components/schemas/InputGraphVisualizationSloOverTime"
       required:
@@ -11484,6 +11569,7 @@ components:
           note: "#/components/schemas/GraphVisualizationNote"
           list-log-patterns: "#/components/schemas/GraphVisualizationListLogPatterns"
           list-spans: "#/components/schemas/GraphVisualizationListSpans"
+          list-rum: "#/components/schemas/GraphVisualizationListRum"
           slo-uptime: "#/components/schemas/GraphVisualizationSloUptime"
           slo-over-time: "#/components/schemas/GraphVisualizationSloOverTime"
         propertyName: type
@@ -11512,6 +11598,7 @@ components:
       - $ref: "#/components/schemas/GraphVisualizationNote"
       - $ref: "#/components/schemas/GraphVisualizationListLogPatterns"
       - $ref: "#/components/schemas/GraphVisualizationListSpans"
+      - $ref: "#/components/schemas/GraphVisualizationListRum"
       - $ref: "#/components/schemas/GraphVisualizationSloUptime"
       - $ref: "#/components/schemas/GraphVisualizationSloOverTime"
       required:

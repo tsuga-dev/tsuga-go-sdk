@@ -11,11 +11,11 @@ Name | Type | Description | Notes
 **Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
 **YAxisSettings** | Pointer to [**GraphVisualizationTimeseriesConnectionYAxisSettings**](GraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
 **LineStyleOptions** | Pointer to [**map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue**](GraphVisualizationTimeseriesConnectionLineStyleOptionsValue.md) | Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. For widgets with a single query, only the &#x60;1&#x60; entry is read and it applies to every series. Defaults to regular. | [optional] 
-**Query** | **string** | Query that selects trace spans for the list | 
-**ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each span | [optional] 
+**Query** | **string** | Query that selects RUM events for the list | 
+**ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each RUM event. Attributes are read without their stream prefix, e.g. &#x60;view.name&#x60; rather than &#x60;events.view.name&#x60;. | [optional] 
 **ListColumnsSize** | Pointer to **map[string]float32** | List column widths in pixels, keyed by the &#x60;attribute&#x60; of the matching &#x60;listColumns&#x60; entry. Columns without an entry keep their default width. | [optional] 
-**IsCellWrapped** | Pointer to **bool** | Whether list widget cell text wraps instead of truncating. Applies to span list widgets. | [optional] 
-**DefaultSorting** | Pointer to [**[]ListDefaultSorting**](ListDefaultSorting.md) | Default sorting applied to a list widget. Applies to log, span, or connection list widgets. Users can still change sorting by selecting columns in the rendered list. | [optional] 
+**IsCellWrapped** | Pointer to **bool** | Whether list widget cell text wraps instead of truncating. Applies to RUM event list widgets. | [optional] 
+**DefaultSorting** | Pointer to [**[]ListDefaultSorting**](ListDefaultSorting.md) | Default sorting applied to a list widget. Applies to log, span, RUM event, or connection list widgets. Users can still change sorting by selecting columns in the rendered list. | [optional] 
 **BackgroundMode** | Pointer to **string** | Controls whether the widget uses a solid or transparent background | [optional] 
 **Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the raw query value, before the unit is applied | [optional] 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 

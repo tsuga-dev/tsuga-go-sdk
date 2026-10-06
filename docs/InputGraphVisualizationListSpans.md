@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **ListColumns** | Pointer to [**[]WidgetListColumn1**](WidgetListColumn1.md) | Custom columns to display for each span | [optional] 
 **ListColumnsSize** | Pointer to **map[string]float32** | List column widths in pixels, keyed by the &#x60;attribute&#x60; of the matching &#x60;listColumns&#x60; entry. Columns without an entry keep their default width. | [optional] 
 **IsCellWrapped** | Pointer to **bool** | Whether list widget cell text wraps instead of truncating. Applies to span list widgets. Optional; omit or set false to use truncated cells. | [optional] 
-**DefaultSorting** | Pointer to [**[]ListDefaultSorting1**](ListDefaultSorting1.md) | Default sorting applied to a list widget. Optional on create or update for log, span, or connection list widgets. Users can still change sorting by selecting columns in the rendered list. | [optional] 
+**DefaultSorting** | Pointer to [**[]ListDefaultSorting1**](ListDefaultSorting1.md) | Default sorting applied to a list widget. Optional on create or update for log, span, RUM event, or connection list widgets. Users can still change sorting by selecting columns in the rendered list. | [optional] 
 
 ## Methods
 

@@ -30,7 +30,7 @@ type GraphVisualizationList struct {
 	ListColumnsSize map[string]float32 `json:"listColumnsSize,omitempty"`
 	// Whether list widget cell text wraps instead of truncating. Applies to list widgets.
 	IsCellWrapped *bool `json:"isCellWrapped,omitempty"`
-	// Default sorting applied to a list widget. Applies to log, span, or connection list widgets. Users can still change sorting by selecting columns in the rendered list.
+	// Default sorting applied to a list widget. Applies to log, span, RUM event, or connection list widgets. Users can still change sorting by selecting columns in the rendered list.
 	DefaultSorting       []ListDefaultSorting `json:"defaultSorting,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
