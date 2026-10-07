@@ -36,7 +36,7 @@ type GraphVisualizationDistribution struct {
 	// Attribute that switches the count to \"Groups\" mode: records are grouped by this attribute, the aggregation produces one value per group, and the chart buckets those per-group values. When omitted, individual records are bucketed.
 	Group      *string                                          `json:"group,omitempty"`
 	Precision  *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
-	Normalizer *Normalizer                                      `json:"normalizer,omitempty"`
+	Normalizer *Normalizer1                                     `json:"normalizer,omitempty"`
 	// Percentile markers displayed on top of the distribution chart
 	PercentileMarkers []int32 `json:"percentileMarkers,omitempty"`
 	// Spacing of the bucket boundaries across the distribution range. `linear` splits the range into equal-width buckets; `log` widens each bucket logarithmically, giving finer resolution near the lower bound.
@@ -331,9 +331,9 @@ func (o *GraphVisualizationDistribution) SetPrecision(v GraphVisualizationQueryV
 }
 
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
-func (o *GraphVisualizationDistribution) GetNormalizer() Normalizer {
+func (o *GraphVisualizationDistribution) GetNormalizer() Normalizer1 {
 	if o == nil || IsNil(o.Normalizer) {
-		var ret Normalizer
+		var ret Normalizer1
 		return ret
 	}
 	return *o.Normalizer
@@ -341,7 +341,7 @@ func (o *GraphVisualizationDistribution) GetNormalizer() Normalizer {
 
 // GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationDistribution) GetNormalizerOk() (*Normalizer, bool) {
+func (o *GraphVisualizationDistribution) GetNormalizerOk() (*Normalizer1, bool) {
 	if o == nil || IsNil(o.Normalizer) {
 		return nil, false
 	}
@@ -357,8 +357,8 @@ func (o *GraphVisualizationDistribution) HasNormalizer() bool {
 	return false
 }
 
-// SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
-func (o *GraphVisualizationDistribution) SetNormalizer(v Normalizer) {
+// SetNormalizer gets a reference to the given Normalizer1 and assigns it to the Normalizer field.
+func (o *GraphVisualizationDistribution) SetNormalizer(v Normalizer1) {
 	o.Normalizer = &v
 }
 

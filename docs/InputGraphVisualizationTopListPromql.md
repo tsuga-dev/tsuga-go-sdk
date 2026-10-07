@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Type** | **string** | Displays PromQL metrics query-based aggregation as a ranked top list | 
 **Queries** | **[]string** | PromQL expressions configured for this widget. | 
 **Aliases** | Pointer to [**InputGraphVisualizationTimeseriesPromqlAliases**](InputGraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
-**Normalizer** | Pointer to [**Normalizer1**](Normalizer1.md) |  | [optional] 
+**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
 **Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the raw query value, before the unit is applied | [optional] 
 
@@ -97,20 +97,20 @@ HasAliases returns a boolean if a field has been set.
 
 ### GetNormalizer
 
-`func (o *InputGraphVisualizationTopListPromql) GetNormalizer() Normalizer1`
+`func (o *InputGraphVisualizationTopListPromql) GetNormalizer() Normalizer`
 
 GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
 
 ### GetNormalizerOk
 
-`func (o *InputGraphVisualizationTopListPromql) GetNormalizerOk() (*Normalizer1, bool)`
+`func (o *InputGraphVisualizationTopListPromql) GetNormalizerOk() (*Normalizer, bool)`
 
 GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNormalizer
 
-`func (o *InputGraphVisualizationTopListPromql) SetNormalizer(v Normalizer1)`
+`func (o *InputGraphVisualizationTopListPromql) SetNormalizer(v Normalizer)`
 
 SetNormalizer sets Normalizer field to given value.
 

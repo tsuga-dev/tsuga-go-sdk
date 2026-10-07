@@ -18,6 +18,7 @@ import (
 // Normalizer1 - Display-value formatter for widget values or list/table columns.
 type Normalizer1 struct {
 	DataNormalizerCpu             *DataNormalizerCpu
+	DataNormalizerCustom          *DataNormalizerCustom
 	DataNormalizerData            *DataNormalizerData
 	DataNormalizerDate            *DataNormalizerDate
 	DataNormalizerDuration        *DataNormalizerDuration
@@ -25,13 +26,19 @@ type Normalizer1 struct {
 	DataNormalizerNone            *DataNormalizerNone
 	DataNormalizerPercent         *DataNormalizerPercent
 	DataNormalizerPercentFraction *DataNormalizerPercentFraction
-	InputDataNormalizerCustom     *InputDataNormalizerCustom
 }
 
 // DataNormalizerCpuAsNormalizer1 is a convenience function that returns DataNormalizerCpu wrapped in Normalizer1
 func DataNormalizerCpuAsNormalizer1(v *DataNormalizerCpu) Normalizer1 {
 	return Normalizer1{
 		DataNormalizerCpu: v,
+	}
+}
+
+// DataNormalizerCustomAsNormalizer1 is a convenience function that returns DataNormalizerCustom wrapped in Normalizer1
+func DataNormalizerCustomAsNormalizer1(v *DataNormalizerCustom) Normalizer1 {
+	return Normalizer1{
+		DataNormalizerCustom: v,
 	}
 }
 
@@ -84,13 +91,6 @@ func DataNormalizerPercentFractionAsNormalizer1(v *DataNormalizerPercentFraction
 	}
 }
 
-// InputDataNormalizerCustomAsNormalizer1 is a convenience function that returns InputDataNormalizerCustom wrapped in Normalizer1
-func InputDataNormalizerCustomAsNormalizer1(v *InputDataNormalizerCustom) Normalizer1 {
-	return Normalizer1{
-		InputDataNormalizerCustom: v,
-	}
-}
-
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *Normalizer1) UnmarshalJSON(data []byte) error {
 	var err error
@@ -115,13 +115,13 @@ func (dst *Normalizer1) UnmarshalJSON(data []byte) error {
 
 	// check if the discriminator value is 'custom'
 	if jsonDict["type"] == "custom" {
-		// try to unmarshal JSON data into InputDataNormalizerCustom
-		err = json.Unmarshal(data, &dst.InputDataNormalizerCustom)
+		// try to unmarshal JSON data into DataNormalizerCustom
+		err = json.Unmarshal(data, &dst.DataNormalizerCustom)
 		if err == nil {
-			return nil // data stored in dst.InputDataNormalizerCustom, return on the first match
+			return nil // data stored in dst.DataNormalizerCustom, return on the first match
 		} else {
-			dst.InputDataNormalizerCustom = nil
-			return fmt.Errorf("failed to unmarshal Normalizer1 as InputDataNormalizerCustom: %s", err.Error())
+			dst.DataNormalizerCustom = nil
+			return fmt.Errorf("failed to unmarshal Normalizer1 as DataNormalizerCustom: %s", err.Error())
 		}
 	}
 
@@ -218,6 +218,10 @@ func (src Normalizer1) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.DataNormalizerCpu)
 	}
 
+	if src.DataNormalizerCustom != nil {
+		return json.Marshal(&src.DataNormalizerCustom)
+	}
+
 	if src.DataNormalizerData != nil {
 		return json.Marshal(&src.DataNormalizerData)
 	}
@@ -246,10 +250,6 @@ func (src Normalizer1) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.DataNormalizerPercentFraction)
 	}
 
-	if src.InputDataNormalizerCustom != nil {
-		return json.Marshal(&src.InputDataNormalizerCustom)
-	}
-
 	return nil, nil // no data in oneOf schemas
 }
 
@@ -260,6 +260,10 @@ func (obj *Normalizer1) GetActualInstance() interface{} {
 	}
 	if obj.DataNormalizerCpu != nil {
 		return obj.DataNormalizerCpu
+	}
+
+	if obj.DataNormalizerCustom != nil {
+		return obj.DataNormalizerCustom
 	}
 
 	if obj.DataNormalizerData != nil {
@@ -290,10 +294,6 @@ func (obj *Normalizer1) GetActualInstance() interface{} {
 		return obj.DataNormalizerPercentFraction
 	}
 
-	if obj.InputDataNormalizerCustom != nil {
-		return obj.InputDataNormalizerCustom
-	}
-
 	// all schemas are nil
 	return nil
 }
@@ -302,6 +302,10 @@ func (obj *Normalizer1) GetActualInstance() interface{} {
 func (obj Normalizer1) GetActualInstanceValue() interface{} {
 	if obj.DataNormalizerCpu != nil {
 		return *obj.DataNormalizerCpu
+	}
+
+	if obj.DataNormalizerCustom != nil {
+		return *obj.DataNormalizerCustom
 	}
 
 	if obj.DataNormalizerData != nil {
@@ -330,10 +334,6 @@ func (obj Normalizer1) GetActualInstanceValue() interface{} {
 
 	if obj.DataNormalizerPercentFraction != nil {
 		return *obj.DataNormalizerPercentFraction
-	}
-
-	if obj.InputDataNormalizerCustom != nil {
-		return *obj.InputDataNormalizerCustom
 	}
 
 	// all schemas are nil

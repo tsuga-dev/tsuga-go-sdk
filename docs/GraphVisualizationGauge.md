@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Max** | Pointer to **float32** | Gauge maximum value, on the raw query value before the unit is applied | [optional] 
 **ColorThresholds** | Pointer to [**[]GaugeColorThreshold**](GaugeColorThreshold.md) | Color thresholds inside the gauge range, on the raw query value before the unit is applied | [optional] 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
-**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
+**Normalizer** | Pointer to [**Normalizer1**](Normalizer1.md) |  | [optional] 
 
 ## Methods
 
@@ -246,20 +246,20 @@ HasPrecision returns a boolean if a field has been set.
 
 ### GetNormalizer
 
-`func (o *GraphVisualizationGauge) GetNormalizer() Normalizer`
+`func (o *GraphVisualizationGauge) GetNormalizer() Normalizer1`
 
 GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
 
 ### GetNormalizerOk
 
-`func (o *GraphVisualizationGauge) GetNormalizerOk() (*Normalizer, bool)`
+`func (o *GraphVisualizationGauge) GetNormalizerOk() (*Normalizer1, bool)`
 
 GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNormalizer
 
-`func (o *GraphVisualizationGauge) SetNormalizer(v Normalizer)`
+`func (o *GraphVisualizationGauge) SetNormalizer(v Normalizer1)`
 
 SetNormalizer sets Normalizer field to given value.
 

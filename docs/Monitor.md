@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Priority** | **float32** | Monitor priority from 1 through 5, where 1 is highest priority. | 
 **Permissions** | **string** | &#x60;all&#x60; allows the resource to query all permitted telemetry, &#x60;owning-team-and-public&#x60; limits it to the owning team plus public data, and &#x60;owning-team-only&#x60; limits it to the owning team. | 
 **DashboardId** | Pointer to **string** | ID of the dashboard linked to this monitor for context when investigating alerts. Caller-supplied. Omitted when no dashboard is linked. | [optional] 
+**PauseUntil** | Pointer to **string** | Timestamp until which the monitor is snoozed. Omitted when the monitor is not snoozed. | [optional] 
 **ClusterIds** | **[]string** | Cluster IDs where the monitor is deployed. Empty means all eligible clusters. | 
 
 ## Methods
@@ -228,6 +229,31 @@ SetDashboardId sets DashboardId field to given value.
 `func (o *Monitor) HasDashboardId() bool`
 
 HasDashboardId returns a boolean if a field has been set.
+
+### GetPauseUntil
+
+`func (o *Monitor) GetPauseUntil() string`
+
+GetPauseUntil returns the PauseUntil field if non-nil, zero value otherwise.
+
+### GetPauseUntilOk
+
+`func (o *Monitor) GetPauseUntilOk() (*string, bool)`
+
+GetPauseUntilOk returns a tuple with the PauseUntil field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPauseUntil
+
+`func (o *Monitor) SetPauseUntil(v string)`
+
+SetPauseUntil sets PauseUntil field to given value.
+
+### HasPauseUntil
+
+`func (o *Monitor) HasPauseUntil() bool`
+
+HasPauseUntil returns a boolean if a field has been set.
 
 ### GetClusterIds
 

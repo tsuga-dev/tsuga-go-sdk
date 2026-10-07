@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **Priority** | **float32** | Monitor priority from 1 through 5, where 1 is highest priority. | 
 **Owner** | **string** | Team ID that owns and manages the monitor. | 
 **DashboardId** | Pointer to **NullableString** |  | [optional] 
+**PauseUntil** | Pointer to **NullableTime** |  | [optional] 
 **Permissions** | **string** | &#x60;all&#x60; allows the resource to query all permitted telemetry, &#x60;owning-team-and-public&#x60; limits it to the owning team plus public data, and &#x60;owning-team-only&#x60; limits it to the owning team. | 
 **ClusterIds** | Pointer to **[]string** | Cluster IDs where the monitor should be deployed. Empty or omitted means all eligible clusters for cluster-deployed monitor types. | [optional] 
 
@@ -208,6 +209,41 @@ HasDashboardId returns a boolean if a field has been set.
 `func (o *CreateMonitorRequest) UnsetDashboardId()`
 
 UnsetDashboardId ensures that no value is present for DashboardId, not even an explicit nil
+### GetPauseUntil
+
+`func (o *CreateMonitorRequest) GetPauseUntil() time.Time`
+
+GetPauseUntil returns the PauseUntil field if non-nil, zero value otherwise.
+
+### GetPauseUntilOk
+
+`func (o *CreateMonitorRequest) GetPauseUntilOk() (*time.Time, bool)`
+
+GetPauseUntilOk returns a tuple with the PauseUntil field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPauseUntil
+
+`func (o *CreateMonitorRequest) SetPauseUntil(v time.Time)`
+
+SetPauseUntil sets PauseUntil field to given value.
+
+### HasPauseUntil
+
+`func (o *CreateMonitorRequest) HasPauseUntil() bool`
+
+HasPauseUntil returns a boolean if a field has been set.
+
+### SetPauseUntilNil
+
+`func (o *CreateMonitorRequest) SetPauseUntilNil(b bool)`
+
+ SetPauseUntilNil sets the value for PauseUntil to be an explicit nil
+
+### UnsetPauseUntil
+`func (o *CreateMonitorRequest) UnsetPauseUntil()`
+
+UnsetPauseUntil ensures that no value is present for PauseUntil, not even an explicit nil
 ### GetPermissions
 
 `func (o *CreateMonitorRequest) GetPermissions() string`

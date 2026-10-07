@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Normalizes values as durations using standard time units | 
-**Unit** | **string** | Text label describing the custom unit | 
+**Unit** | **string** | Text label describing the custom unit. Must not be empty. | 
 
 ## Methods
 

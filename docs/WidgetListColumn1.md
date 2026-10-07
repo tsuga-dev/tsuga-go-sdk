@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Attribute** | **string** | Attribute (log field or database row column) displayed as a column in the list | 
-**Normalizer** | Pointer to [**Normalizer1**](Normalizer1.md) |  | [optional] 
+**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 
 ## Methods
 
@@ -48,20 +48,20 @@ SetAttribute sets Attribute field to given value.
 
 ### GetNormalizer
 
-`func (o *WidgetListColumn1) GetNormalizer() Normalizer1`
+`func (o *WidgetListColumn1) GetNormalizer() Normalizer`
 
 GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
 
 ### GetNormalizerOk
 
-`func (o *WidgetListColumn1) GetNormalizerOk() (*Normalizer1, bool)`
+`func (o *WidgetListColumn1) GetNormalizerOk() (*Normalizer, bool)`
 
 GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNormalizer
 
-`func (o *WidgetListColumn1) SetNormalizer(v Normalizer1)`
+`func (o *WidgetListColumn1) SetNormalizer(v Normalizer)`
 
 SetNormalizer sets Normalizer field to given value.
 

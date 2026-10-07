@@ -37,6 +37,8 @@ type Monitor struct {
 	Permissions string `json:"permissions"`
 	// ID of the dashboard linked to this monitor for context when investigating alerts. Caller-supplied. Omitted when no dashboard is linked.
 	DashboardId *string `json:"dashboardId,omitempty"`
+	// Timestamp until which the monitor is snoozed. Omitted when the monitor is not snoozed.
+	PauseUntil *string `json:"pauseUntil,omitempty"`
 	// Cluster IDs where the monitor is deployed. Empty means all eligible clusters.
 	ClusterIds           []string `json:"clusterIds"`
 	AdditionalProperties map[string]interface{}
@@ -308,6 +310,38 @@ func (o *Monitor) SetDashboardId(v string) {
 	o.DashboardId = &v
 }
 
+// GetPauseUntil returns the PauseUntil field value if set, zero value otherwise.
+func (o *Monitor) GetPauseUntil() string {
+	if o == nil || IsNil(o.PauseUntil) {
+		var ret string
+		return ret
+	}
+	return *o.PauseUntil
+}
+
+// GetPauseUntilOk returns a tuple with the PauseUntil field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Monitor) GetPauseUntilOk() (*string, bool) {
+	if o == nil || IsNil(o.PauseUntil) {
+		return nil, false
+	}
+	return o.PauseUntil, true
+}
+
+// HasPauseUntil returns a boolean if a field has been set.
+func (o *Monitor) HasPauseUntil() bool {
+	if o != nil && !IsNil(o.PauseUntil) {
+		return true
+	}
+
+	return false
+}
+
+// SetPauseUntil gets a reference to the given string and assigns it to the PauseUntil field.
+func (o *Monitor) SetPauseUntil(v string) {
+	o.PauseUntil = &v
+}
+
 // GetClusterIds returns the ClusterIds field value
 func (o *Monitor) GetClusterIds() []string {
 	if o == nil {
@@ -356,6 +390,9 @@ func (o Monitor) ToMap() (map[string]interface{}, error) {
 	toSerialize["permissions"] = o.Permissions
 	if !IsNil(o.DashboardId) {
 		toSerialize["dashboardId"] = o.DashboardId
+	}
+	if !IsNil(o.PauseUntil) {
+		toSerialize["pauseUntil"] = o.PauseUntil
 	}
 	toSerialize["clusterIds"] = o.ClusterIds
 
@@ -416,6 +453,7 @@ func (o *Monitor) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "priority")
 		delete(additionalProperties, "permissions")
 		delete(additionalProperties, "dashboardId")
+		delete(additionalProperties, "pauseUntil")
 		delete(additionalProperties, "clusterIds")
 		o.AdditionalProperties = additionalProperties
 	}

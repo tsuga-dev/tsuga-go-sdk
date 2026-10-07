@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Query** | [**SloQueryFormula**](SloQueryFormula.md) |  | 
 **SliceSizeMinutes** | **int32** | Length of each time-SLO evaluation slice in minutes. Required for &#x60;type: time&#x60;. Valid input is 30 through 1440. | 
 **Threshold** | [**TimeSliceSloConfigurationThreshold**](TimeSliceSloConfigurationThreshold.md) |  | 
+**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 **GroupByFields** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
 **NoDataBehavior** | **string** | How to treat time buckets with no data: good (count as meeting the SLO), bad (count as breaching it), or ignore (exclude from the error budget) | 
 
@@ -130,6 +131,31 @@ and a boolean to check if the value has been set.
 
 SetThreshold sets Threshold field to given value.
 
+
+### GetNormalizer
+
+`func (o *TimeSliceSloConfiguration) GetNormalizer() Normalizer`
+
+GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
+
+### GetNormalizerOk
+
+`func (o *TimeSliceSloConfiguration) GetNormalizerOk() (*Normalizer, bool)`
+
+GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNormalizer
+
+`func (o *TimeSliceSloConfiguration) SetNormalizer(v Normalizer)`
+
+SetNormalizer sets Normalizer field to given value.
+
+### HasNormalizer
+
+`func (o *TimeSliceSloConfiguration) HasNormalizer() bool`
+
+HasNormalizer returns a boolean if a field has been set.
 
 ### GetGroupByFields
 

@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Query** | [**SloQueryFormula**](SloQueryFormula.md) |  | 
 **SliceSizeMinutes** | **int32** | Length of each time-SLO evaluation slice in minutes. Required for &#x60;type: time&#x60;. Valid input is 30 through 1440. | 
 **Threshold** | [**TimeSliceSloConfigurationThreshold**](TimeSliceSloConfigurationThreshold.md) |  | 
+**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 
 ## Methods
 
@@ -217,6 +218,31 @@ and a boolean to check if the value has been set.
 
 SetThreshold sets Threshold field to given value.
 
+
+### GetNormalizer
+
+`func (o *UpdateSloRequestConfiguration) GetNormalizer() Normalizer`
+
+GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
+
+### GetNormalizerOk
+
+`func (o *UpdateSloRequestConfiguration) GetNormalizerOk() (*Normalizer, bool)`
+
+GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNormalizer
+
+`func (o *UpdateSloRequestConfiguration) SetNormalizer(v Normalizer)`
+
+SetNormalizer sets Normalizer field to given value.
+
+### HasNormalizer
+
+`func (o *UpdateSloRequestConfiguration) HasNormalizer() bool`
+
+HasNormalizer returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

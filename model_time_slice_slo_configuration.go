@@ -28,6 +28,7 @@ type TimeSliceSloConfiguration struct {
 	// Length of each time-SLO evaluation slice in minutes. Required for `type: time`. Valid input is 30 through 1440.
 	SliceSizeMinutes int32                              `json:"sliceSizeMinutes"`
 	Threshold        TimeSliceSloConfigurationThreshold `json:"threshold"`
+	Normalizer       *Normalizer                        `json:"normalizer,omitempty"`
 	// Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted.
 	GroupByFields []AggregationGroupBy `json:"groupByFields,omitempty"`
 	// How to treat time buckets with no data: good (count as meeting the SLO), bad (count as breaching it), or ignore (exclude from the error budget)
@@ -180,6 +181,38 @@ func (o *TimeSliceSloConfiguration) SetThreshold(v TimeSliceSloConfigurationThre
 	o.Threshold = v
 }
 
+// GetNormalizer returns the Normalizer field value if set, zero value otherwise.
+func (o *TimeSliceSloConfiguration) GetNormalizer() Normalizer {
+	if o == nil || IsNil(o.Normalizer) {
+		var ret Normalizer
+		return ret
+	}
+	return *o.Normalizer
+}
+
+// GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TimeSliceSloConfiguration) GetNormalizerOk() (*Normalizer, bool) {
+	if o == nil || IsNil(o.Normalizer) {
+		return nil, false
+	}
+	return o.Normalizer, true
+}
+
+// HasNormalizer returns a boolean if a field has been set.
+func (o *TimeSliceSloConfiguration) HasNormalizer() bool {
+	if o != nil && !IsNil(o.Normalizer) {
+		return true
+	}
+
+	return false
+}
+
+// SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
+func (o *TimeSliceSloConfiguration) SetNormalizer(v Normalizer) {
+	o.Normalizer = &v
+}
+
 // GetGroupByFields returns the GroupByFields field value if set, zero value otherwise.
 func (o *TimeSliceSloConfiguration) GetGroupByFields() []AggregationGroupBy {
 	if o == nil || IsNil(o.GroupByFields) {
@@ -251,6 +284,9 @@ func (o TimeSliceSloConfiguration) ToMap() (map[string]interface{}, error) {
 	toSerialize["query"] = o.Query
 	toSerialize["sliceSizeMinutes"] = o.SliceSizeMinutes
 	toSerialize["threshold"] = o.Threshold
+	if !IsNil(o.Normalizer) {
+		toSerialize["normalizer"] = o.Normalizer
+	}
 	if !IsNil(o.GroupByFields) {
 		toSerialize["groupByFields"] = o.GroupByFields
 	}
@@ -308,6 +344,7 @@ func (o *TimeSliceSloConfiguration) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "query")
 		delete(additionalProperties, "sliceSizeMinutes")
 		delete(additionalProperties, "threshold")
+		delete(additionalProperties, "normalizer")
 		delete(additionalProperties, "groupByFields")
 		delete(additionalProperties, "noDataBehavior")
 		o.AdditionalProperties = additionalProperties

@@ -36,7 +36,7 @@ type GraphVisualizationHeatmap struct {
 	// Attribute that switches the count to \"Groups\" mode: records are grouped by this attribute, the aggregation produces one value per group, and the chart buckets those per-group values. When omitted, individual records are bucketed.
 	Group      *string                                          `json:"group,omitempty"`
 	Precision  *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
-	Normalizer *Normalizer                                      `json:"normalizer,omitempty"`
+	Normalizer *Normalizer1                                     `json:"normalizer,omitempty"`
 	// Color palette used to render the heatmap intensity gradient
 	Palette              *string `json:"palette,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -329,9 +329,9 @@ func (o *GraphVisualizationHeatmap) SetPrecision(v GraphVisualizationQueryValueC
 }
 
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
-func (o *GraphVisualizationHeatmap) GetNormalizer() Normalizer {
+func (o *GraphVisualizationHeatmap) GetNormalizer() Normalizer1 {
 	if o == nil || IsNil(o.Normalizer) {
-		var ret Normalizer
+		var ret Normalizer1
 		return ret
 	}
 	return *o.Normalizer
@@ -339,7 +339,7 @@ func (o *GraphVisualizationHeatmap) GetNormalizer() Normalizer {
 
 // GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationHeatmap) GetNormalizerOk() (*Normalizer, bool) {
+func (o *GraphVisualizationHeatmap) GetNormalizerOk() (*Normalizer1, bool) {
 	if o == nil || IsNil(o.Normalizer) {
 		return nil, false
 	}
@@ -355,8 +355,8 @@ func (o *GraphVisualizationHeatmap) HasNormalizer() bool {
 	return false
 }
 
-// SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
-func (o *GraphVisualizationHeatmap) SetNormalizer(v Normalizer) {
+// SetNormalizer gets a reference to the given Normalizer1 and assigns it to the Normalizer field.
+func (o *GraphVisualizationHeatmap) SetNormalizer(v Normalizer1) {
 	o.Normalizer = &v
 }
 

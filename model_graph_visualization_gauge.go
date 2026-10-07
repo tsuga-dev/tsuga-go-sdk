@@ -36,7 +36,7 @@ type GraphVisualizationGauge struct {
 	// Color thresholds inside the gauge range, on the raw query value before the unit is applied
 	ColorThresholds      []GaugeColorThreshold                            `json:"colorThresholds,omitempty"`
 	Precision            *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
-	Normalizer           *Normalizer                                      `json:"normalizer,omitempty"`
+	Normalizer           *Normalizer1                                     `json:"normalizer,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -327,9 +327,9 @@ func (o *GraphVisualizationGauge) SetPrecision(v GraphVisualizationQueryValueCon
 }
 
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
-func (o *GraphVisualizationGauge) GetNormalizer() Normalizer {
+func (o *GraphVisualizationGauge) GetNormalizer() Normalizer1 {
 	if o == nil || IsNil(o.Normalizer) {
-		var ret Normalizer
+		var ret Normalizer1
 		return ret
 	}
 	return *o.Normalizer
@@ -337,7 +337,7 @@ func (o *GraphVisualizationGauge) GetNormalizer() Normalizer {
 
 // GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationGauge) GetNormalizerOk() (*Normalizer, bool) {
+func (o *GraphVisualizationGauge) GetNormalizerOk() (*Normalizer1, bool) {
 	if o == nil || IsNil(o.Normalizer) {
 		return nil, false
 	}
@@ -353,8 +353,8 @@ func (o *GraphVisualizationGauge) HasNormalizer() bool {
 	return false
 }
 
-// SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
-func (o *GraphVisualizationGauge) SetNormalizer(v Normalizer) {
+// SetNormalizer gets a reference to the given Normalizer1 and assigns it to the Normalizer field.
+func (o *GraphVisualizationGauge) SetNormalizer(v Normalizer1) {
 	o.Normalizer = &v
 }
 

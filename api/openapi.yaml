@@ -832,9 +832,8 @@ paths:
     put:
       description: "Updates an existing monitor definition by ID. Required fields\
         \ and the submitted configuration are overwritten; omitted `message`, `tags`,\
-        \ and `clusterIds` keep their existing values. Omitting `dashboardId` clears\
-        \ the dashboard link, and public updates clear any existing snooze because\
-        \ `pauseUntil` is not part of the public schema."
+        \ `clusterIds`, and `pauseUntil` keep their existing values. Omitting `dashboardId`\
+        \ clears the dashboard link."
       operationId: updateMonitor
       parameters:
       - description: Identifier of the saved monitor to update. Use the `id` returned
@@ -976,8 +975,9 @@ paths:
             schema:
               $ref: "#/components/schemas/updateMonitor_request"
         description: "Monitor update request. Required fields and the submitted configuration\
-          \ are overwritten; omitted `message`, `tags`, and `clusterIds` keep their\
-          \ existing values. Omitting `dashboardId` clears the dashboard link."
+          \ are overwritten; omitted `message`, `tags`, `clusterIds`, and `pauseUntil`\
+          \ keep their existing values. Omitting `dashboardId` clears the dashboard\
+          \ link."
         required: true
       responses:
         "200":
@@ -3327,6 +3327,10 @@ components:
         dashboardId:
           description: ID of the dashboard linked to this monitor for context when
             investigating alerts. Caller-supplied. Omitted when no dashboard is linked.
+          type: string
+        pauseUntil:
+          description: Timestamp until which the monitor is snoozed. Omitted when
+            the monitor is not snoozed.
           type: string
         clusterIds:
           description: Cluster IDs where the monitor is deployed. Empty means all
@@ -6864,7 +6868,7 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
-          $ref: "#/components/schemas/Normalizer"
+          $ref: "#/components/schemas/Normalizer_1"
         legendMode:
           description: "Controls whether and how the widget displays legend or series\
             \ details (e.g. table, legend-only, or no legend)"
@@ -6899,7 +6903,7 @@ components:
         timeBucket:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesPromql_timeBucket"
         normalizer:
-          $ref: "#/components/schemas/Normalizer"
+          $ref: "#/components/schemas/Normalizer_1"
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         legendMode:
@@ -6964,7 +6968,7 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
-          $ref: "#/components/schemas/Normalizer"
+          $ref: "#/components/schemas/Normalizer_1"
         legendMode:
           description: "Controls whether and how the widget displays legend or series\
             \ details (e.g. table, legend-only, or no legend)"
@@ -6996,7 +7000,7 @@ components:
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesPromql_aliases"
         normalizer:
-          $ref: "#/components/schemas/Normalizer"
+          $ref: "#/components/schemas/Normalizer_1"
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         conditions:
@@ -7027,7 +7031,7 @@ components:
         aliases:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesPromql_aliases"
         normalizer:
-          $ref: "#/components/schemas/Normalizer"
+          $ref: "#/components/schemas/Normalizer_1"
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         legendMode:
@@ -7064,7 +7068,7 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
-          $ref: "#/components/schemas/Normalizer"
+          $ref: "#/components/schemas/Normalizer_1"
         thresholds:
           description: Threshold markers displayed on the chart
           items:
@@ -7136,7 +7140,7 @@ components:
         timeBucket:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesPromql_timeBucket"
         normalizer:
-          $ref: "#/components/schemas/Normalizer"
+          $ref: "#/components/schemas/Normalizer_1"
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         legendMode:
@@ -7221,7 +7225,7 @@ components:
           - absolute
           type: string
         normalizer:
-          $ref: "#/components/schemas/Normalizer"
+          $ref: "#/components/schemas/Normalizer_1"
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         conditions:
@@ -7293,7 +7297,7 @@ components:
           - absolute
           type: string
         normalizer:
-          $ref: "#/components/schemas/Normalizer"
+          $ref: "#/components/schemas/Normalizer_1"
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         legendMode:
@@ -7360,7 +7364,7 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
-          $ref: "#/components/schemas/Normalizer"
+          $ref: "#/components/schemas/Normalizer_1"
         legendMode:
           description: "Controls whether and how the widget displays legend or series\
             \ details (e.g. table, legend-only, or no legend)"
@@ -7421,7 +7425,7 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
-          $ref: "#/components/schemas/Normalizer"
+          $ref: "#/components/schemas/Normalizer_1"
       required:
       - queries
       - source
@@ -7481,7 +7485,7 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
-          $ref: "#/components/schemas/Normalizer"
+          $ref: "#/components/schemas/Normalizer_1"
         thresholds:
           description: Threshold markers displayed on the chart
           items:
@@ -7555,7 +7559,7 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
-          $ref: "#/components/schemas/Normalizer"
+          $ref: "#/components/schemas/Normalizer_1"
         percentileMarkers:
           description: Percentile markers displayed on top of the distribution chart
           items:
@@ -7626,7 +7630,7 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
-          $ref: "#/components/schemas/Normalizer"
+          $ref: "#/components/schemas/Normalizer_1"
         palette:
           description: Color palette used to render the heatmap intensity gradient
           enum:
@@ -8143,7 +8147,7 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
-          $ref: "#/components/schemas/Normalizer_1"
+          $ref: "#/components/schemas/Normalizer"
         legendMode:
           description: "Controls whether and how the widget displays legend or series\
             \ details (e.g. table, legend-only, or no legend)"
@@ -8179,7 +8183,7 @@ components:
         timeBucket:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesPromql_timeBucket"
         normalizer:
-          $ref: "#/components/schemas/Normalizer_1"
+          $ref: "#/components/schemas/Normalizer"
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         legendMode:
@@ -8245,7 +8249,7 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
-          $ref: "#/components/schemas/Normalizer_1"
+          $ref: "#/components/schemas/Normalizer"
         legendMode:
           description: "Controls whether and how the widget displays legend or series\
             \ details (e.g. table, legend-only, or no legend)"
@@ -8278,7 +8282,7 @@ components:
         aliases:
           $ref: "#/components/schemas/InputGraphVisualizationTimeseriesPromql_aliases"
         normalizer:
-          $ref: "#/components/schemas/Normalizer_1"
+          $ref: "#/components/schemas/Normalizer"
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         conditions:
@@ -8310,7 +8314,7 @@ components:
         aliases:
           $ref: "#/components/schemas/InputGraphVisualizationTimeseriesPromql_aliases"
         normalizer:
-          $ref: "#/components/schemas/Normalizer_1"
+          $ref: "#/components/schemas/Normalizer"
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         legendMode:
@@ -8348,7 +8352,7 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
-          $ref: "#/components/schemas/Normalizer_1"
+          $ref: "#/components/schemas/Normalizer"
         thresholds:
           description: Threshold markers displayed on the chart
           items:
@@ -8435,7 +8439,7 @@ components:
         timeBucket:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesPromql_timeBucket"
         normalizer:
-          $ref: "#/components/schemas/Normalizer_1"
+          $ref: "#/components/schemas/Normalizer"
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         legendMode:
@@ -8535,7 +8539,7 @@ components:
           - absolute
           type: string
         normalizer:
-          $ref: "#/components/schemas/Normalizer_1"
+          $ref: "#/components/schemas/Normalizer"
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         conditions:
@@ -8622,7 +8626,7 @@ components:
           - absolute
           type: string
         normalizer:
-          $ref: "#/components/schemas/Normalizer_1"
+          $ref: "#/components/schemas/Normalizer"
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         legendMode:
@@ -8702,7 +8706,7 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
-          $ref: "#/components/schemas/Normalizer_1"
+          $ref: "#/components/schemas/Normalizer"
         legendMode:
           description: "Controls whether and how the widget displays legend or series\
             \ details (e.g. table, legend-only, or no legend)"
@@ -8776,7 +8780,7 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
-          $ref: "#/components/schemas/Normalizer_1"
+          $ref: "#/components/schemas/Normalizer"
       required:
       - queries
       - source
@@ -8851,7 +8855,7 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
-          $ref: "#/components/schemas/Normalizer_1"
+          $ref: "#/components/schemas/Normalizer"
         thresholds:
           description: Threshold markers displayed on the chart
           items:
@@ -8942,7 +8946,7 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
-          $ref: "#/components/schemas/Normalizer_1"
+          $ref: "#/components/schemas/Normalizer"
         percentileMarkers:
           description: Percentile markers displayed on top of the distribution chart
           items:
@@ -9032,7 +9036,7 @@ components:
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
-          $ref: "#/components/schemas/Normalizer_1"
+          $ref: "#/components/schemas/Normalizer"
         palette:
           description: Color palette used to render the heatmap intensity gradient
           enum:
@@ -10084,8 +10088,9 @@ components:
       - type
     updateMonitor_request:
       description: "Monitor update request. Required fields and the submitted configuration\
-        \ are overwritten; omitted `message`, `tags`, and `clusterIds` keep their\
-        \ existing values. Omitting `dashboardId` clears the dashboard link."
+        \ are overwritten; omitted `message`, `tags`, `clusterIds`, and `pauseUntil`\
+        \ keep their existing values. Omitting `dashboardId` clears the dashboard\
+        \ link."
       properties:
         name:
           description: Display name of the monitor and alert source.
@@ -10124,6 +10129,10 @@ components:
         dashboardId:
           maxLength: 250
           minLength: 1
+          nullable: true
+          type: string
+        pauseUntil:
+          format: date-time
           nullable: true
           type: string
         permissions:
@@ -10191,6 +10200,10 @@ components:
         dashboardId:
           maxLength: 250
           minLength: 1
+          nullable: true
+          type: string
+        pauseUntil:
+          format: date-time
           nullable: true
           type: string
         permissions:
@@ -10926,6 +10939,33 @@ components:
       required:
       - operator
       - value
+    Normalizer:
+      description: Display-value formatter for widget values or list/table columns.
+      discriminator:
+        mapping:
+          duration: "#/components/schemas/DataNormalizerDuration"
+          data: "#/components/schemas/DataNormalizerData"
+          percent: "#/components/schemas/DataNormalizerPercent"
+          percent-fraction: "#/components/schemas/DataNormalizerPercentFraction"
+          date: "#/components/schemas/DataNormalizerDate"
+          level: "#/components/schemas/DataNormalizerLevel"
+          cpu: "#/components/schemas/DataNormalizerCpu"
+          none: "#/components/schemas/DataNormalizerNone"
+          custom: "#/components/schemas/InputDataNormalizerCustom"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/DataNormalizerDuration"
+      - $ref: "#/components/schemas/DataNormalizerData"
+      - $ref: "#/components/schemas/DataNormalizerPercent"
+      - $ref: "#/components/schemas/DataNormalizerPercentFraction"
+      - $ref: "#/components/schemas/DataNormalizerDate"
+      - $ref: "#/components/schemas/DataNormalizerLevel"
+      - $ref: "#/components/schemas/DataNormalizerCpu"
+      - $ref: "#/components/schemas/DataNormalizerNone"
+      - $ref: "#/components/schemas/InputDataNormalizerCustom"
+      required:
+      - type
+      title: Normalizer
     TimeSliceSloConfiguration:
       properties:
         type:
@@ -10953,6 +10993,8 @@ components:
           type: integer
         threshold:
           $ref: "#/components/schemas/TimeSliceSloConfiguration_threshold"
+        normalizer:
+          $ref: "#/components/schemas/Normalizer"
         groupByFields:
           description: "Nested grouping levels applied to aggregation results, outermost\
             \ first (e.g. group by service, then by level within each service). Each\
@@ -12031,6 +12073,33 @@ components:
       - totalQuery
       - type
       title: EventSloConfiguration
+    Normalizer_1:
+      description: Display-value formatter for widget values or list/table columns.
+      discriminator:
+        mapping:
+          duration: "#/components/schemas/DataNormalizerDuration"
+          data: "#/components/schemas/DataNormalizerData"
+          percent: "#/components/schemas/DataNormalizerPercent"
+          percent-fraction: "#/components/schemas/DataNormalizerPercentFraction"
+          date: "#/components/schemas/DataNormalizerDate"
+          level: "#/components/schemas/DataNormalizerLevel"
+          cpu: "#/components/schemas/DataNormalizerCpu"
+          none: "#/components/schemas/DataNormalizerNone"
+          custom: "#/components/schemas/DataNormalizerCustom"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/DataNormalizerDuration"
+      - $ref: "#/components/schemas/DataNormalizerData"
+      - $ref: "#/components/schemas/DataNormalizerPercent"
+      - $ref: "#/components/schemas/DataNormalizerPercentFraction"
+      - $ref: "#/components/schemas/DataNormalizerDate"
+      - $ref: "#/components/schemas/DataNormalizerLevel"
+      - $ref: "#/components/schemas/DataNormalizerCpu"
+      - $ref: "#/components/schemas/DataNormalizerNone"
+      - $ref: "#/components/schemas/DataNormalizerCustom"
+      required:
+      - type
+      title: Normalizer
     TimeSliceSloConfiguration_1:
       properties:
         type:
@@ -12056,6 +12125,8 @@ components:
           type: integer
         threshold:
           $ref: "#/components/schemas/TimeSliceSloConfiguration_threshold"
+        normalizer:
+          $ref: "#/components/schemas/Normalizer_1"
         groupByFields:
           description: "Nested grouping levels applied to the results, outermost first\
             \ (e.g. group by service, then by level within each service). Each level\
@@ -12870,33 +12941,6 @@ components:
       required:
       - groupId
       - lineStyle
-    Normalizer:
-      description: Display-value formatter for widget values or list/table columns.
-      discriminator:
-        mapping:
-          duration: "#/components/schemas/DataNormalizerDuration"
-          data: "#/components/schemas/DataNormalizerData"
-          percent: "#/components/schemas/DataNormalizerPercent"
-          percent-fraction: "#/components/schemas/DataNormalizerPercentFraction"
-          date: "#/components/schemas/DataNormalizerDate"
-          level: "#/components/schemas/DataNormalizerLevel"
-          cpu: "#/components/schemas/DataNormalizerCpu"
-          none: "#/components/schemas/DataNormalizerNone"
-          custom: "#/components/schemas/DataNormalizerCustom"
-        propertyName: type
-      oneOf:
-      - $ref: "#/components/schemas/DataNormalizerDuration"
-      - $ref: "#/components/schemas/DataNormalizerData"
-      - $ref: "#/components/schemas/DataNormalizerPercent"
-      - $ref: "#/components/schemas/DataNormalizerPercentFraction"
-      - $ref: "#/components/schemas/DataNormalizerDate"
-      - $ref: "#/components/schemas/DataNormalizerLevel"
-      - $ref: "#/components/schemas/DataNormalizerCpu"
-      - $ref: "#/components/schemas/DataNormalizerNone"
-      - $ref: "#/components/schemas/DataNormalizerCustom"
-      required:
-      - type
-      title: Normalizer
     WidgetListColumn:
       description: List column pairing a displayed attribute with the formatting applied
         to its values.
@@ -12906,7 +12950,7 @@ components:
             column in the list
           type: string
         normalizer:
-          $ref: "#/components/schemas/Normalizer"
+          $ref: "#/components/schemas/Normalizer_1"
       required:
       - attribute
       title: WidgetListColumn
@@ -13118,7 +13162,7 @@ components:
             type: boolean
           type: array
         normalizer:
-          $ref: "#/components/schemas/Normalizer"
+          $ref: "#/components/schemas/Normalizer_1"
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
       required:
@@ -13179,33 +13223,6 @@ components:
       - max
       - min
       - scale
-    Normalizer_1:
-      description: Display-value formatter for widget values or list/table columns.
-      discriminator:
-        mapping:
-          duration: "#/components/schemas/DataNormalizerDuration"
-          data: "#/components/schemas/DataNormalizerData"
-          percent: "#/components/schemas/DataNormalizerPercent"
-          percent-fraction: "#/components/schemas/DataNormalizerPercentFraction"
-          date: "#/components/schemas/DataNormalizerDate"
-          level: "#/components/schemas/DataNormalizerLevel"
-          cpu: "#/components/schemas/DataNormalizerCpu"
-          none: "#/components/schemas/DataNormalizerNone"
-          custom: "#/components/schemas/InputDataNormalizerCustom"
-        propertyName: type
-      oneOf:
-      - $ref: "#/components/schemas/DataNormalizerDuration"
-      - $ref: "#/components/schemas/DataNormalizerData"
-      - $ref: "#/components/schemas/DataNormalizerPercent"
-      - $ref: "#/components/schemas/DataNormalizerPercentFraction"
-      - $ref: "#/components/schemas/DataNormalizerDate"
-      - $ref: "#/components/schemas/DataNormalizerLevel"
-      - $ref: "#/components/schemas/DataNormalizerCpu"
-      - $ref: "#/components/schemas/DataNormalizerNone"
-      - $ref: "#/components/schemas/InputDataNormalizerCustom"
-      required:
-      - type
-      title: Normalizer
     WidgetListColumn_1:
       description: List column pairing a displayed attribute with the formatting applied
         to its values.
@@ -13215,7 +13232,7 @@ components:
             column in the list
           type: string
         normalizer:
-          $ref: "#/components/schemas/Normalizer_1"
+          $ref: "#/components/schemas/Normalizer"
       required:
       - attribute
       title: WidgetListColumn
@@ -13377,7 +13394,7 @@ components:
             type: boolean
           type: array
         normalizer:
-          $ref: "#/components/schemas/Normalizer_1"
+          $ref: "#/components/schemas/Normalizer"
         precision:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
       required:

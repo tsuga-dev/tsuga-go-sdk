@@ -13,12 +13,13 @@ package tsuga
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 )
 
 // checks if the UpdateMonitorRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &UpdateMonitorRequest{}
 
-// UpdateMonitorRequest Monitor update request. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, and `clusterIds` keep their existing values. Omitting `dashboardId` clears the dashboard link.
+// UpdateMonitorRequest Monitor update request. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, `clusterIds`, and `pauseUntil` keep their existing values. Omitting `dashboardId` clears the dashboard link.
 type UpdateMonitorRequest struct {
 	// Display name of the monitor and alert source.
 	Name    string         `json:"name"`
@@ -31,6 +32,7 @@ type UpdateMonitorRequest struct {
 	// Team ID that owns and manages the monitor.
 	Owner       string         `json:"owner"`
 	DashboardId NullableString `json:"dashboardId,omitempty"`
+	PauseUntil  NullableTime   `json:"pauseUntil,omitempty"`
 	// `all` allows the resource to query all permitted telemetry, `owning-team-and-public` limits it to the owning team plus public data, and `owning-team-only` limits it to the owning team.
 	Permissions string `json:"permissions"`
 	// Cluster IDs where the monitor should be deployed. Empty or omitted means all eligible clusters for cluster-deployed monitor types.
@@ -276,6 +278,49 @@ func (o *UpdateMonitorRequest) UnsetDashboardId() {
 	o.DashboardId.Unset()
 }
 
+// GetPauseUntil returns the PauseUntil field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateMonitorRequest) GetPauseUntil() time.Time {
+	if o == nil || IsNil(o.PauseUntil.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.PauseUntil.Get()
+}
+
+// GetPauseUntilOk returns a tuple with the PauseUntil field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateMonitorRequest) GetPauseUntilOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PauseUntil.Get(), o.PauseUntil.IsSet()
+}
+
+// HasPauseUntil returns a boolean if a field has been set.
+func (o *UpdateMonitorRequest) HasPauseUntil() bool {
+	if o != nil && o.PauseUntil.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPauseUntil gets a reference to the given NullableTime and assigns it to the PauseUntil field.
+func (o *UpdateMonitorRequest) SetPauseUntil(v time.Time) {
+	o.PauseUntil.Set(&v)
+}
+
+// SetPauseUntilNil sets the value for PauseUntil to be an explicit nil
+func (o *UpdateMonitorRequest) SetPauseUntilNil() {
+	o.PauseUntil.Set(nil)
+}
+
+// UnsetPauseUntil ensures that no value is present for PauseUntil, not even an explicit nil
+func (o *UpdateMonitorRequest) UnsetPauseUntil() {
+	o.PauseUntil.Unset()
+}
+
 // GetPermissions returns the Permissions field value
 func (o *UpdateMonitorRequest) GetPermissions() string {
 	if o == nil {
@@ -355,6 +400,9 @@ func (o UpdateMonitorRequest) ToMap() (map[string]interface{}, error) {
 	if o.DashboardId.IsSet() {
 		toSerialize["dashboardId"] = o.DashboardId.Get()
 	}
+	if o.PauseUntil.IsSet() {
+		toSerialize["pauseUntil"] = o.PauseUntil.Get()
+	}
 	toSerialize["permissions"] = o.Permissions
 	if !IsNil(o.ClusterIds) {
 		toSerialize["clusterIds"] = o.ClusterIds
@@ -413,6 +461,7 @@ func (o *UpdateMonitorRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "priority")
 		delete(additionalProperties, "owner")
 		delete(additionalProperties, "dashboardId")
+		delete(additionalProperties, "pauseUntil")
 		delete(additionalProperties, "permissions")
 		delete(additionalProperties, "clusterIds")
 		o.AdditionalProperties = additionalProperties
