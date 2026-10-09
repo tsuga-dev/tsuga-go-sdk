@@ -1,3 +1,3 @@
 module github.com/tsuga-dev/tsuga-go-sdk
 
-go 1.25.8
+go 1.26.8
