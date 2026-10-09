@@ -30,7 +30,8 @@ type UpdateDashboardRequest struct {
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
 	Tags []Tag `json:"tags,omitempty"`
 	// Relative time preset used when opening the dashboard. Optional; create defaults to `past-30-minutes` when omitted, and update omission preserves the current value.
-	TimePreset           *string        `json:"timePreset,omitempty"`
+	TimePreset *string `json:"timePreset,omitempty"`
+	// Folder that should contain the dashboard. Optional; omit on update to keep the current folder, pass null to clear the folder, or pass a readable dashboard-folder ID to move it.
 	FolderId             NullableString `json:"folderId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

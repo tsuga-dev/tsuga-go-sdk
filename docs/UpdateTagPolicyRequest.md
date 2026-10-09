@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Human-readable tag policy name. | 
-**Description** | Pointer to **NullableString** |  | [optional] 
+**Description** | Pointer to **NullableString** | Optional policy description. | [optional] 
 **IsActive** | **bool** | Set to true for Tsuga to evaluate this policy. Reserved policies (for example the built-in &#x60;env&#x60; policy on ingestion API keys) reject a false value. | 
 **TagKey** | **string** | Tag key enforced by this policy. Tsuga trims surrounding whitespace before storing the policy. | 
 **AllowedTagValues** | **[]string** | Allowed values for &#x60;tagKey&#x60;. Leave empty to allow any value when the tag exists. Tsuga trims each submitted value before storing the policy. | 

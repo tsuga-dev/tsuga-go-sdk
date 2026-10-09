@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Owners** | Pointer to [**QueryDashboardsRequestFiltersOwners**](QueryDashboardsRequestFiltersOwners.md) |  | [optional] 
 **SearchQuery** | Pointer to [**QueryDashboardsRequestFiltersSearchQuery**](QueryDashboardsRequestFiltersSearchQuery.md) |  | [optional] 
 **Tags** | Pointer to [**QueryDashboardsRequestFiltersTags**](QueryDashboardsRequestFiltersTags.md) |  | [optional] 
-**FolderId** | Pointer to **NullableString** |  | [optional] 
+**FolderId** | Pointer to **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
 
 ## Methods
 

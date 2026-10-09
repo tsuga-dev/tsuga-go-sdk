@@ -23,7 +23,7 @@ type Tag struct {
 	// Tag key to attach to the resource.
 	Key string `json:"key"`
 	// Tag value to attach to the resource. Leading or trailing whitespace is rejected.
-	Value                string `json:"value" validate:"regexp=^\\\\S(.*\\\\S)?$"`
+	Value                string `json:"value" validate:"regexp=^\\S(.*\\S)?$"`
 	AdditionalProperties map[string]interface{}
 }
 

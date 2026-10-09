@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Filters** | Pointer to [**[]UpdateDashboardRequestFiltersInner**](UpdateDashboardRequestFiltersInner.md) | Dashboard-wide filters applied to every widget on the dashboard. Up to 10 filters are allowed. | [optional] 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **TimePreset** | Pointer to **string** | Relative time preset used when opening the dashboard. Optional; create defaults to &#x60;past-30-minutes&#x60; when omitted, and update omission preserves the current value. | [optional] 
-**FolderId** | Pointer to **NullableString** |  | [optional] 
+**FolderId** | Pointer to **NullableString** | Folder that should contain the dashboard. Optional; omit on update to keep the current folder, pass null to clear the folder, or pass a readable dashboard-folder ID to move it. | [optional] 
 
 ## Methods
 

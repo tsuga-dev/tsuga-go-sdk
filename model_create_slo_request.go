@@ -21,7 +21,8 @@ var _ MappedNullable = &CreateSloRequest{}
 // CreateSloRequest SLO creation request. Provide ownership, data access, SLI configuration, target, timeframe, optional cluster scope, and the alerts to create.
 type CreateSloRequest struct {
 	// Display name of the SLO.
-	Name        string         `json:"name"`
+	Name string `json:"name"`
+	// Free-form, caller-provided description of what the SLO measures. Optional.
 	Description NullableString `json:"description,omitempty"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
 	Tags          []Tag                         `json:"tags,omitempty"`

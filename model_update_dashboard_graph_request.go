@@ -19,7 +19,9 @@ var _ MappedNullable = &UpdateDashboardGraphRequest{}
 
 // UpdateDashboardGraphRequest Dashboard graph update request. The graph identifier is supplied in the `graphId` path parameter; every body field is optional and omitted fields keep their current values.
 type UpdateDashboardGraphRequest struct {
-	Name        NullableString `json:"name,omitempty"`
+	// Display name of the graph widget. Pass null to remove it.
+	Name NullableString `json:"name,omitempty"`
+	// Text shown with the graph widget. Pass null to remove it.
 	Description NullableString `json:"description,omitempty"`
 	// Flex alignment keyword used for widget layout
 	DescriptionAlign NullableString `json:"descriptionAlign,omitempty"`

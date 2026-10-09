@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Name to assign to the team. Must be kebab-case (lowercase letters, numbers, and dashes only) and unique in the organization. Maximum length is 100 characters. | 
-**Description** | Pointer to **NullableString** |  | [optional] 
+**Description** | Pointer to **NullableString** | Optional team description. Maximum length is 250 characters. | [optional] 
 **Visibility** | **string** | &#x60;public&#x60; makes team-owned resources discoverable according to access controls. &#x60;private&#x60; restricts discovery to team members and authorized users. | 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 

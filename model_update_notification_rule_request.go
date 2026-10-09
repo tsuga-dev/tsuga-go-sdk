@@ -21,7 +21,8 @@ var _ MappedNullable = &UpdateNotificationRuleRequest{}
 // UpdateNotificationRuleRequest Notification rule create or update request. Provide matching filters, owner, tags, active state, and delivery targets.
 type UpdateNotificationRuleRequest struct {
 	// Display name of the notification rule.
-	Name        string                                   `json:"name"`
+	Name string `json:"name"`
+	// Optional query that narrows which alert transitions trigger the rule. Matches on the monitor transition group key and the monitor tags, e.g. `env:prod service:api`. Omit or leave empty to match regardless of tags.
 	QueryString NullableString                           `json:"queryString,omitempty"`
 	TeamsFilter UpdateNotificationRuleRequestTeamsFilter `json:"teamsFilter"`
 	// Monitor priorities that must match for this rule to fire. An empty array matches every priority.

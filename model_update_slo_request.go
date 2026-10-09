@@ -21,7 +21,8 @@ var _ MappedNullable = &UpdateSloRequest{}
 // UpdateSloRequest SLO update request. Send all required SLO fields and the full alert list. Alerts are reconciled to exactly the provided list: alerts with a known id are updated, alerts without an id are created, and existing alerts absent from the list are deleted. Omit `clusterIds` to preserve the current cluster scope; send an empty array to run on all clusters.
 type UpdateSloRequest struct {
 	// Display name of the SLO.
-	Name        string         `json:"name"`
+	Name string `json:"name"`
+	// Free-form, caller-provided description of what the SLO measures. Optional.
 	Description NullableString `json:"description,omitempty"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
 	Tags          []Tag                         `json:"tags,omitempty"`

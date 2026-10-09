@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **NullableString** |  | [optional] 
-**Description** | Pointer to **NullableString** |  | [optional] 
+**Name** | Pointer to **NullableString** | Display name of the graph widget. Pass null to remove it. | [optional] 
+**Description** | Pointer to **NullableString** | Text shown with the graph widget. Pass null to remove it. | [optional] 
 **DescriptionAlign** | Pointer to **NullableString** | Flex alignment keyword used for widget layout | [optional] 
 **DescriptionJustifyContent** | Pointer to **NullableString** | Flex alignment keyword used for widget layout | [optional] 
 **Visualization** | Pointer to [**GraphVisualization**](GraphVisualization.md) |  | [optional] 

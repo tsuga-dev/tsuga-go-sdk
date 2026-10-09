@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Display name of the monitor and alert source. | 
-**Message** | Pointer to **NullableString** |  | [optional] 
+**Message** | Pointer to **NullableString** | Message included in notifications triggered by this monitor. Optional on create. | [optional] 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **Configuration** | [**UpdateMonitorRequestConfiguration**](UpdateMonitorRequestConfiguration.md) |  | 
 **Priority** | **float32** | Monitor priority from 1 through 5, where 1 is highest priority. | 
 **Owner** | **string** | Team ID that owns and manages the monitor. | 
-**DashboardId** | Pointer to **NullableString** |  | [optional] 
-**PauseUntil** | Pointer to **NullableTime** |  | [optional] 
+**DashboardId** | Pointer to **NullableString** | ID of the dashboard to link to this monitor for context when investigating alerts. On create: omit or send &#x60;null&#x60; to leave the monitor unlinked. On update: omit to skip updating this field, send &#x60;null&#x60; to clear an existing link. | [optional] 
+**PauseUntil** | Pointer to **NullableTime** | ISO timestamp until which the monitor is snoozed. Must be in the future and at most one month from now. On create: omit or send &#x60;null&#x60; to leave the monitor active. On update: omit to keep the current snooze, send &#x60;null&#x60; to clear it. | [optional] 
 **Permissions** | **string** | &#x60;all&#x60; allows the resource to query all permitted telemetry, &#x60;owning-team-and-public&#x60; limits it to the owning team plus public data, and &#x60;owning-team-only&#x60; limits it to the owning team. | 
 **ClusterIds** | Pointer to **[]string** | Cluster IDs where the monitor should be deployed. Empty or omitted means all eligible clusters for cluster-deployed monitor types. | [optional] 
 

@@ -21,7 +21,8 @@ var _ MappedNullable = &CreateTagPolicyRequest{}
 // CreateTagPolicyRequest Tag policy create or update request. Provide policy identity, owner, enforced tag key, allowed values, team scope, active state, and asset or telemetry configuration.
 type CreateTagPolicyRequest struct {
 	// Human-readable tag policy name.
-	Name        string         `json:"name"`
+	Name string `json:"name"`
+	// Display name of the graph widget. Pass null to remove it.
 	Description NullableString `json:"description,omitempty"`
 	// Set to true for Tsuga to evaluate this policy. Reserved policies (for example the built-in `env` policy on ingestion API keys) reject a false value.
 	IsActive bool `json:"isActive"`

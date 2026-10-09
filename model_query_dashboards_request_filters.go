@@ -19,10 +19,11 @@ var _ MappedNullable = &QueryDashboardsRequestFilters{}
 
 // QueryDashboardsRequestFilters struct for QueryDashboardsRequestFilters
 type QueryDashboardsRequestFilters struct {
-	Owners               *QueryDashboardsRequestFiltersOwners      `json:"owners,omitempty"`
-	SearchQuery          *QueryDashboardsRequestFiltersSearchQuery `json:"searchQuery,omitempty"`
-	Tags                 *QueryDashboardsRequestFiltersTags        `json:"tags,omitempty"`
-	FolderId             NullableString                            `json:"folderId,omitempty"`
+	Owners      *QueryDashboardsRequestFiltersOwners      `json:"owners,omitempty"`
+	SearchQuery *QueryDashboardsRequestFiltersSearchQuery `json:"searchQuery,omitempty"`
+	Tags        *QueryDashboardsRequestFiltersTags        `json:"tags,omitempty"`
+	// Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder.
+	FolderId             NullableString `json:"folderId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

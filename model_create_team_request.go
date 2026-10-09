@@ -21,7 +21,8 @@ var _ MappedNullable = &CreateTeamRequest{}
 // CreateTeamRequest Team create or update request. Provide the team name, optional description, visibility, and tags.
 type CreateTeamRequest struct {
 	// Name to assign to the team. Must be kebab-case (lowercase letters, numbers, and dashes only) and unique in the organization. Maximum length is 100 characters.
-	Name        string         `json:"name"`
+	Name string `json:"name"`
+	// Optional team description. Maximum length is 250 characters.
 	Description NullableString `json:"description,omitempty"`
 	// `public` makes team-owned resources discoverable according to access controls. `private` restricts discovery to team members and authorized users.
 	Visibility string `json:"visibility"`

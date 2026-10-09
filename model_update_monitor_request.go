@@ -22,7 +22,8 @@ var _ MappedNullable = &UpdateMonitorRequest{}
 // UpdateMonitorRequest Monitor update request. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, `clusterIds`, and `pauseUntil` keep their existing values. Omitting `dashboardId` clears the dashboard link.
 type UpdateMonitorRequest struct {
 	// Display name of the monitor and alert source.
-	Name    string         `json:"name"`
+	Name string `json:"name"`
+	// Message included in notifications triggered by this monitor. Optional on create.
 	Message NullableString `json:"message,omitempty"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
 	Tags          []Tag                             `json:"tags,omitempty"`
@@ -30,9 +31,11 @@ type UpdateMonitorRequest struct {
 	// Monitor priority from 1 through 5, where 1 is highest priority.
 	Priority float32 `json:"priority"`
 	// Team ID that owns and manages the monitor.
-	Owner       string         `json:"owner"`
+	Owner string `json:"owner"`
+	// Folder that should contain the dashboard. Optional; omit on update to keep the current folder, pass null to clear the folder, or pass a readable dashboard-folder ID to move it.
 	DashboardId NullableString `json:"dashboardId,omitempty"`
-	PauseUntil  NullableTime   `json:"pauseUntil,omitempty"`
+	// ISO timestamp until which the monitor is snoozed. Must be in the future and at most one month from now. On create: omit or send `null` to leave the monitor active. On update: omit to keep the current snooze, send `null` to clear it.
+	PauseUntil NullableTime `json:"pauseUntil,omitempty"`
 	// `all` allows the resource to query all permitted telemetry, `owning-team-and-public` limits it to the owning team plus public data, and `owning-team-only` limits it to the owning team.
 	Permissions string `json:"permissions"`
 	// Cluster IDs where the monitor should be deployed. Empty or omitted means all eligible clusters for cluster-deployed monitor types.

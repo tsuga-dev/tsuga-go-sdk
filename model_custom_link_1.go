@@ -23,7 +23,7 @@ type CustomLink1 struct {
 	// Text of the entry added to the widget context menu. Defaults to \"Open custom link\" when omitted.
 	Label *string `json:"label,omitempty"`
 	// URL opened in a new tab by the context menu entry. Every `{{group.<field>}}` placeholder is replaced by the URL-encoded value the clicked series has for that group-by field; without placeholders, every series opens the same URL. `{` and `}` are only allowed as part of a placeholder. Tsuga omits the menu entry when the clicked series has no value for one of the referenced fields.
-	Url                  string `json:"url" validate:"regexp=^https?:\\/\\/(?:[^\\\\s{}]|\\\\{\\\\{group\\\\.[^}\\\\s]+\\\\}\\\\})+$"`
+	Url                  string `json:"url" validate:"regexp=^https?://(?:[^\\s{}]|\\{\\{group\\.[^}\\s]+\\}\\})+$"`
 	AdditionalProperties map[string]interface{}
 }
 
