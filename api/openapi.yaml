@@ -2761,6 +2761,7 @@ components:
           - CLUSTER_DB_QUERY_QUERY_EXECUTION_FAILED
           - CLUSTER_DB_QUERY_QUERY_TIMEOUT
           - CLUSTER_DB_QUERY_CONNECTION_TIMEOUT
+          - CLUSTER_DB_QUERY_CONNECTION_POOL_TIMEOUT
           - CLUSTER_AGGREGATION_STRUCTURE
           - ABORT_ERROR
           - BAD_REQUEST
@@ -7240,6 +7241,14 @@ components:
             \ fields, no formula, non-negative values, and a single-cluster context;\
             \ otherwise the widget renders as a normal top list."
           type: boolean
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
         customLink:
           $ref: "#/components/schemas/CustomLink"
       required:
@@ -7643,6 +7652,8 @@ components:
           - yellow
           - orange
           type: string
+        yAxisSettings:
+          $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings"
       required:
       - queries
       - source
@@ -8554,6 +8565,14 @@ components:
             \ fields, no formula, non-negative values, and a single-cluster context;\
             \ otherwise the widget renders as a normal top list."
           type: boolean
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
         customLink:
           $ref: "#/components/schemas/CustomLink_1"
       required:
@@ -9049,6 +9068,8 @@ components:
           - yellow
           - orange
           type: string
+        yAxisSettings:
+          $ref: "#/components/schemas/InputGraphVisualizationTimeseriesConnection_yAxisSettings"
       required:
       - queries
       - source

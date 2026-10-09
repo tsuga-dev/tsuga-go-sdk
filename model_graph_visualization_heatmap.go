@@ -38,7 +38,8 @@ type GraphVisualizationHeatmap struct {
 	Precision  *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
 	Normalizer *Normalizer1                                     `json:"normalizer,omitempty"`
 	// Color palette used to render the heatmap intensity gradient
-	Palette              *string `json:"palette,omitempty"`
+	Palette              *string                                              `json:"palette,omitempty"`
+	YAxisSettings        *GraphVisualizationTimeseriesConnectionYAxisSettings `json:"yAxisSettings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -392,6 +393,38 @@ func (o *GraphVisualizationHeatmap) SetPalette(v string) {
 	o.Palette = &v
 }
 
+// GetYAxisSettings returns the YAxisSettings field value if set, zero value otherwise.
+func (o *GraphVisualizationHeatmap) GetYAxisSettings() GraphVisualizationTimeseriesConnectionYAxisSettings {
+	if o == nil || IsNil(o.YAxisSettings) {
+		var ret GraphVisualizationTimeseriesConnectionYAxisSettings
+		return ret
+	}
+	return *o.YAxisSettings
+}
+
+// GetYAxisSettingsOk returns a tuple with the YAxisSettings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationHeatmap) GetYAxisSettingsOk() (*GraphVisualizationTimeseriesConnectionYAxisSettings, bool) {
+	if o == nil || IsNil(o.YAxisSettings) {
+		return nil, false
+	}
+	return o.YAxisSettings, true
+}
+
+// HasYAxisSettings returns a boolean if a field has been set.
+func (o *GraphVisualizationHeatmap) HasYAxisSettings() bool {
+	if o != nil && !IsNil(o.YAxisSettings) {
+		return true
+	}
+
+	return false
+}
+
+// SetYAxisSettings gets a reference to the given GraphVisualizationTimeseriesConnectionYAxisSettings and assigns it to the YAxisSettings field.
+func (o *GraphVisualizationHeatmap) SetYAxisSettings(v GraphVisualizationTimeseriesConnectionYAxisSettings) {
+	o.YAxisSettings = &v
+}
+
 func (o GraphVisualizationHeatmap) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -428,6 +461,9 @@ func (o GraphVisualizationHeatmap) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Palette) {
 		toSerialize["palette"] = o.Palette
+	}
+	if !IsNil(o.YAxisSettings) {
+		toSerialize["yAxisSettings"] = o.YAxisSettings
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -485,6 +521,7 @@ func (o *GraphVisualizationHeatmap) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "precision")
 		delete(additionalProperties, "normalizer")
 		delete(additionalProperties, "palette")
+		delete(additionalProperties, "yAxisSettings")
 		o.AdditionalProperties = additionalProperties
 	}
 

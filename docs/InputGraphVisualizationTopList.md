@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
 **Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the raw query value, before the unit is applied | [optional] 
 **IsStacked** | Pointer to **bool** | Requests stacked rendering for a top-list widget. Tsuga renders stacked rows only for one count or sum query with exactly two grouped fields, no formula, non-negative values, and a single-cluster context; otherwise the widget renders as a normal top list. | [optional] 
+**LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 **CustomLink** | Pointer to [**CustomLink1**](CustomLink1.md) |  | [optional] 
 
 ## Methods
@@ -321,6 +322,31 @@ SetIsStacked sets IsStacked field to given value.
 `func (o *InputGraphVisualizationTopList) HasIsStacked() bool`
 
 HasIsStacked returns a boolean if a field has been set.
+
+### GetLegendMode
+
+`func (o *InputGraphVisualizationTopList) GetLegendMode() string`
+
+GetLegendMode returns the LegendMode field if non-nil, zero value otherwise.
+
+### GetLegendModeOk
+
+`func (o *InputGraphVisualizationTopList) GetLegendModeOk() (*string, bool)`
+
+GetLegendModeOk returns a tuple with the LegendMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLegendMode
+
+`func (o *InputGraphVisualizationTopList) SetLegendMode(v string)`
+
+SetLegendMode sets LegendMode field to given value.
+
+### HasLegendMode
+
+`func (o *InputGraphVisualizationTopList) HasLegendMode() bool`
+
+HasLegendMode returns a boolean if a field has been set.
 
 ### GetCustomLink
 

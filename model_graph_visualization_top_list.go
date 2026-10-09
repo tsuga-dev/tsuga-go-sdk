@@ -40,7 +40,9 @@ type GraphVisualizationTopList struct {
 	// Conditional formatting rules applied to the raw query value, before the unit is applied
 	Conditions []ConditionalFormatting `json:"conditions,omitempty"`
 	// Requests stacked rendering for a top-list widget. Tsuga renders stacked rows only for one count or sum query with exactly two grouped fields, no formula, non-negative values, and a single-cluster context; otherwise the widget renders as a normal top list.
-	IsStacked            *bool       `json:"isStacked,omitempty"`
+	IsStacked *bool `json:"isStacked,omitempty"`
+	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
+	LegendMode           *string     `json:"legendMode,omitempty"`
 	CustomLink           *CustomLink `json:"customLink,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -427,6 +429,38 @@ func (o *GraphVisualizationTopList) SetIsStacked(v bool) {
 	o.IsStacked = &v
 }
 
+// GetLegendMode returns the LegendMode field value if set, zero value otherwise.
+func (o *GraphVisualizationTopList) GetLegendMode() string {
+	if o == nil || IsNil(o.LegendMode) {
+		var ret string
+		return ret
+	}
+	return *o.LegendMode
+}
+
+// GetLegendModeOk returns a tuple with the LegendMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationTopList) GetLegendModeOk() (*string, bool) {
+	if o == nil || IsNil(o.LegendMode) {
+		return nil, false
+	}
+	return o.LegendMode, true
+}
+
+// HasLegendMode returns a boolean if a field has been set.
+func (o *GraphVisualizationTopList) HasLegendMode() bool {
+	if o != nil && !IsNil(o.LegendMode) {
+		return true
+	}
+
+	return false
+}
+
+// SetLegendMode gets a reference to the given string and assigns it to the LegendMode field.
+func (o *GraphVisualizationTopList) SetLegendMode(v string) {
+	o.LegendMode = &v
+}
+
 // GetCustomLink returns the CustomLink field value if set, zero value otherwise.
 func (o *GraphVisualizationTopList) GetCustomLink() CustomLink {
 	if o == nil || IsNil(o.CustomLink) {
@@ -499,6 +533,9 @@ func (o GraphVisualizationTopList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IsStacked) {
 		toSerialize["isStacked"] = o.IsStacked
 	}
+	if !IsNil(o.LegendMode) {
+		toSerialize["legendMode"] = o.LegendMode
+	}
 	if !IsNil(o.CustomLink) {
 		toSerialize["customLink"] = o.CustomLink
 	}
@@ -559,6 +596,7 @@ func (o *GraphVisualizationTopList) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "precision")
 		delete(additionalProperties, "conditions")
 		delete(additionalProperties, "isStacked")
+		delete(additionalProperties, "legendMode")
 		delete(additionalProperties, "customLink")
 		o.AdditionalProperties = additionalProperties
 	}
