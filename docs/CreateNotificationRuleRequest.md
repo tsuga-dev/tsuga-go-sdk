@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **TransitionTypesFilter** | **[]string** | Alert state transitions that must match for this rule to fire. An empty array matches every transition type. | 
 **ClusterIdsFilter** | Pointer to **[]string** | Cluster IDs that must match for this rule to fire. Omit it, or leave it empty, to match every cluster. | [optional] 
 **Owner** | **string** | Team ID that owns and manages the rule | 
-**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
+**Tags** | Pointer to [**[]InputTag**](InputTag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **IsActive** | **bool** | Set to true for the rule to send notifications when its filters match. | 
 **Targets** | [**[]CreateNotificationRuleRequestTargetsInner**](CreateNotificationRuleRequestTargetsInner.md) | Destinations that receive a notification whenever this rule matches an alert transition. This list replaces the existing targets on update. | 
 
@@ -196,20 +196,20 @@ SetOwner sets Owner field to given value.
 
 ### GetTags
 
-`func (o *CreateNotificationRuleRequest) GetTags() []Tag`
+`func (o *CreateNotificationRuleRequest) GetTags() []InputTag`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *CreateNotificationRuleRequest) GetTagsOk() (*[]Tag, bool)`
+`func (o *CreateNotificationRuleRequest) GetTagsOk() (*[]InputTag, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *CreateNotificationRuleRequest) SetTags(v []Tag)`
+`func (o *CreateNotificationRuleRequest) SetTags(v []InputTag)`
 
 SetTags sets Tags field to given value.
 

@@ -7,9 +7,9 @@ Name | Type | Description | Notes
 **Type** | **string** | Displays PromQL metrics query-based aggregation as a ranked top list | 
 **Queries** | **[]string** | PromQL expressions configured for this widget. | 
 **Aliases** | Pointer to [**InputGraphVisualizationTimeseriesPromqlAliases**](InputGraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
-**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
+**Normalizer** | Pointer to [**InputNormalizer**](InputNormalizer.md) |  | [optional] 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
-**Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the raw query value, before the unit is applied | [optional] 
+**Conditions** | Pointer to [**[]InputConditionalFormatting**](InputConditionalFormatting.md) | Conditional formatting rules applied to the raw query value, before the unit is applied | [optional] 
 
 ## Methods
 
@@ -97,20 +97,20 @@ HasAliases returns a boolean if a field has been set.
 
 ### GetNormalizer
 
-`func (o *InputGraphVisualizationTopListPromql) GetNormalizer() Normalizer`
+`func (o *InputGraphVisualizationTopListPromql) GetNormalizer() InputNormalizer`
 
 GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
 
 ### GetNormalizerOk
 
-`func (o *InputGraphVisualizationTopListPromql) GetNormalizerOk() (*Normalizer, bool)`
+`func (o *InputGraphVisualizationTopListPromql) GetNormalizerOk() (*InputNormalizer, bool)`
 
 GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNormalizer
 
-`func (o *InputGraphVisualizationTopListPromql) SetNormalizer(v Normalizer)`
+`func (o *InputGraphVisualizationTopListPromql) SetNormalizer(v InputNormalizer)`
 
 SetNormalizer sets Normalizer field to given value.
 
@@ -147,20 +147,20 @@ HasPrecision returns a boolean if a field has been set.
 
 ### GetConditions
 
-`func (o *InputGraphVisualizationTopListPromql) GetConditions() []ConditionalFormatting`
+`func (o *InputGraphVisualizationTopListPromql) GetConditions() []InputConditionalFormatting`
 
 GetConditions returns the Conditions field if non-nil, zero value otherwise.
 
 ### GetConditionsOk
 
-`func (o *InputGraphVisualizationTopListPromql) GetConditionsOk() (*[]ConditionalFormatting, bool)`
+`func (o *InputGraphVisualizationTopListPromql) GetConditionsOk() (*[]InputConditionalFormatting, bool)`
 
 GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConditions
 
-`func (o *InputGraphVisualizationTopListPromql) SetConditions(v []ConditionalFormatting)`
+`func (o *InputGraphVisualizationTopListPromql) SetConditions(v []InputConditionalFormatting)`
 
 SetConditions sets Conditions field to given value.
 

@@ -28,7 +28,7 @@ type InputGraphVisualizationTimeseriesConnection struct {
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode *string `json:"legendMode,omitempty"`
 	// Threshold markers displayed on the chart
-	Thresholds    []ThresholdMarker                                         `json:"thresholds,omitempty"`
+	Thresholds    []InputThresholdMarker                                    `json:"thresholds,omitempty"`
 	YAxisSettings *InputGraphVisualizationTimeseriesConnectionYAxisSettings `json:"yAxisSettings,omitempty"`
 	// Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. For widgets with a single query, only the `1` entry is read and it applies to every series. Defaults to regular.
 	LineStyleOptions     map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue `json:"lineStyleOptions,omitempty"`
@@ -162,9 +162,9 @@ func (o *InputGraphVisualizationTimeseriesConnection) SetLegendMode(v string) {
 }
 
 // GetThresholds returns the Thresholds field value if set, zero value otherwise.
-func (o *InputGraphVisualizationTimeseriesConnection) GetThresholds() []ThresholdMarker {
+func (o *InputGraphVisualizationTimeseriesConnection) GetThresholds() []InputThresholdMarker {
 	if o == nil || IsNil(o.Thresholds) {
-		var ret []ThresholdMarker
+		var ret []InputThresholdMarker
 		return ret
 	}
 	return o.Thresholds
@@ -172,7 +172,7 @@ func (o *InputGraphVisualizationTimeseriesConnection) GetThresholds() []Threshol
 
 // GetThresholdsOk returns a tuple with the Thresholds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationTimeseriesConnection) GetThresholdsOk() ([]ThresholdMarker, bool) {
+func (o *InputGraphVisualizationTimeseriesConnection) GetThresholdsOk() ([]InputThresholdMarker, bool) {
 	if o == nil || IsNil(o.Thresholds) {
 		return nil, false
 	}
@@ -188,8 +188,8 @@ func (o *InputGraphVisualizationTimeseriesConnection) HasThresholds() bool {
 	return false
 }
 
-// SetThresholds gets a reference to the given []ThresholdMarker and assigns it to the Thresholds field.
-func (o *InputGraphVisualizationTimeseriesConnection) SetThresholds(v []ThresholdMarker) {
+// SetThresholds gets a reference to the given []InputThresholdMarker and assigns it to the Thresholds field.
+func (o *InputGraphVisualizationTimeseriesConnection) SetThresholds(v []InputThresholdMarker) {
 	o.Thresholds = v
 }
 

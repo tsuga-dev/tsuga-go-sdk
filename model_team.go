@@ -29,7 +29,7 @@ type Team struct {
 	// `public` makes team-owned resources discoverable according to access controls. `private` restricts discovery to team members and authorized users.
 	Visibility string `json:"visibility"`
 	// Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies.
-	Tags                 []Tag1 `json:"tags,omitempty"`
+	Tags                 []Tag `json:"tags,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -160,9 +160,9 @@ func (o *Team) SetVisibility(v string) {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *Team) GetTags() []Tag1 {
+func (o *Team) GetTags() []Tag {
 	if o == nil || IsNil(o.Tags) {
-		var ret []Tag1
+		var ret []Tag
 		return ret
 	}
 	return o.Tags
@@ -170,7 +170,7 @@ func (o *Team) GetTags() []Tag1 {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Team) GetTagsOk() ([]Tag1, bool) {
+func (o *Team) GetTagsOk() ([]Tag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -186,8 +186,8 @@ func (o *Team) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []Tag1 and assigns it to the Tags field.
-func (o *Team) SetTags(v []Tag1) {
+// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
+func (o *Team) SetTags(v []Tag) {
 	o.Tags = v
 }
 

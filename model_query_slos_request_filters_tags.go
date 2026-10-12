@@ -21,7 +21,7 @@ var _ MappedNullable = &QuerySlosRequestFiltersTags{}
 // QuerySlosRequestFiltersTags Restrict results to SLOs that have at least one of the listed key/value tags
 type QuerySlosRequestFiltersTags struct {
 	// Values compared by this filter. When `exclude` is omitted or false, rows matching any value are kept; when `exclude` is true, matching rows are removed.
-	Values []Tag `json:"values"`
+	Values []InputTag `json:"values"`
 	// If true, exclude rows matching these values instead of including them
 	Exclude              *bool `json:"exclude,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -33,7 +33,7 @@ type _QuerySlosRequestFiltersTags QuerySlosRequestFiltersTags
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewQuerySlosRequestFiltersTags(values []Tag) *QuerySlosRequestFiltersTags {
+func NewQuerySlosRequestFiltersTags(values []InputTag) *QuerySlosRequestFiltersTags {
 	this := QuerySlosRequestFiltersTags{}
 	this.Values = values
 	return &this
@@ -48,9 +48,9 @@ func NewQuerySlosRequestFiltersTagsWithDefaults() *QuerySlosRequestFiltersTags {
 }
 
 // GetValues returns the Values field value
-func (o *QuerySlosRequestFiltersTags) GetValues() []Tag {
+func (o *QuerySlosRequestFiltersTags) GetValues() []InputTag {
 	if o == nil {
-		var ret []Tag
+		var ret []InputTag
 		return ret
 	}
 
@@ -59,7 +59,7 @@ func (o *QuerySlosRequestFiltersTags) GetValues() []Tag {
 
 // GetValuesOk returns a tuple with the Values field value
 // and a boolean to check if the value has been set.
-func (o *QuerySlosRequestFiltersTags) GetValuesOk() ([]Tag, bool) {
+func (o *QuerySlosRequestFiltersTags) GetValuesOk() ([]InputTag, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -67,7 +67,7 @@ func (o *QuerySlosRequestFiltersTags) GetValuesOk() ([]Tag, bool) {
 }
 
 // SetValues sets field value
-func (o *QuerySlosRequestFiltersTags) SetValues(v []Tag) {
+func (o *QuerySlosRequestFiltersTags) SetValues(v []InputTag) {
 	o.Values = v
 }
 

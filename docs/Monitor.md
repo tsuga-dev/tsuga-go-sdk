@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Name** | **string** | Display name of the monitor and alert source. | 
 **Owner** | **string** | Team ID that owns and manages the monitor. | 
 **Message** | Pointer to **string** | Caller-supplied message included in notifications triggered by this monitor. Omitted when the monitor was created or last updated without one. | [optional] 
-**Tags** | Pointer to [**[]Tag1**](Tag1.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
 **Configuration** | [**MonitorConfiguration**](MonitorConfiguration.md) |  | 
 **Priority** | **float32** | Monitor priority from 1 through 5, where 1 is highest priority. | 
 **Permissions** | **string** | &#x60;all&#x60; allows the resource to query all permitted telemetry, &#x60;owning-team-and-public&#x60; limits it to the owning team plus public data, and &#x60;owning-team-only&#x60; limits it to the owning team. | 
@@ -122,20 +122,20 @@ HasMessage returns a boolean if a field has been set.
 
 ### GetTags
 
-`func (o *Monitor) GetTags() []Tag1`
+`func (o *Monitor) GetTags() []Tag`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *Monitor) GetTagsOk() (*[]Tag1, bool)`
+`func (o *Monitor) GetTagsOk() (*[]Tag, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *Monitor) SetTags(v []Tag1)`
+`func (o *Monitor) SetTags(v []Tag)`
 
 SetTags sets Tags field to given value.
 

@@ -6,27 +6,27 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a time series chart | 
 **Source** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, &#x60;traces&#x60;, or &#x60;rum&#x60;. | 
-**Queries** | [**[]AggregationQuery1**](AggregationQuery1.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. For dataSource \&quot;metrics\&quot;, each aggregate&#39;s &#x60;field&#x60; is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \&quot;&lt;metricName&gt;.context.&lt;attribute&gt;\&quot; (e.g. \&quot;system.cpu.utilization.context.host.name\&quot;). | 
+**Queries** | [**[]InputAggregationQuery**](InputAggregationQuery.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. For dataSource \&quot;metrics\&quot;, each aggregate&#39;s &#x60;field&#x60; is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \&quot;&lt;metricName&gt;.context.&lt;attribute&gt;\&quot; (e.g. \&quot;system.cpu.utilization.context.host.name\&quot;). | 
 **Formula** | Pointer to **string** | Formula referencing query outputs, such as &#x60;q1 + q2&#x60;, to compute derived results. Defaults to &#x60;q1&#x60;. Formulas may reference only submitted queries (&#x60;q1&#x60; through &#x60;qN&#x60;); undefined query references return 400. | [optional] 
 **Aliases** | Pointer to [**InputGraphVisualizationTimeseriesPromqlAliases**](InputGraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
-**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
+**GroupBy** | Pointer to [**[]InputAggregationGroupBy**](InputAggregationGroupBy.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
 **GroupByMode** | Pointer to **string** | &#x60;absolute&#x60; keeps each group at its own value; &#x60;relative&#x60; shows it as a percentage of the ungrouped total (defaults to absolute) | [optional] 
 **TimeBucket** | Pointer to [**GraphVisualizationTimeseriesPromqlTimeBucket**](GraphVisualizationTimeseriesPromqlTimeBucket.md) |  | [optional] 
-**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
+**Normalizer** | Pointer to [**InputNormalizer**](InputNormalizer.md) |  | [optional] 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
-**Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
+**Thresholds** | Pointer to [**[]InputThresholdMarker**](InputThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
 **YAxisSettings** | Pointer to [**InputGraphVisualizationTimeseriesConnectionYAxisSettings**](InputGraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
 **Smoothing** | Pointer to **bool** | Whether to apply automatic smoothing to the rendered timeseries | [optional] 
 **LineStyleOptions** | Pointer to [**map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue**](GraphVisualizationTimeseriesConnectionLineStyleOptionsValue.md) | Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. For widgets with a single query, only the &#x60;1&#x60; entry is read and it applies to every series. Defaults to regular. | [optional] 
-**CustomLink** | Pointer to [**CustomLink1**](CustomLink1.md) |  | [optional] 
+**CustomLink** | Pointer to [**InputCustomLink**](InputCustomLink.md) |  | [optional] 
 
 ## Methods
 
 ### NewInputGraphVisualizationTimeseries
 
-`func NewInputGraphVisualizationTimeseries(type_ string, source string, queries []AggregationQuery1, ) *InputGraphVisualizationTimeseries`
+`func NewInputGraphVisualizationTimeseries(type_ string, source string, queries []InputAggregationQuery, ) *InputGraphVisualizationTimeseries`
 
 NewInputGraphVisualizationTimeseries instantiates a new InputGraphVisualizationTimeseries object
 This constructor will assign default values to properties that have it defined,
@@ -83,20 +83,20 @@ SetSource sets Source field to given value.
 
 ### GetQueries
 
-`func (o *InputGraphVisualizationTimeseries) GetQueries() []AggregationQuery1`
+`func (o *InputGraphVisualizationTimeseries) GetQueries() []InputAggregationQuery`
 
 GetQueries returns the Queries field if non-nil, zero value otherwise.
 
 ### GetQueriesOk
 
-`func (o *InputGraphVisualizationTimeseries) GetQueriesOk() (*[]AggregationQuery1, bool)`
+`func (o *InputGraphVisualizationTimeseries) GetQueriesOk() (*[]InputAggregationQuery, bool)`
 
 GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueries
 
-`func (o *InputGraphVisualizationTimeseries) SetQueries(v []AggregationQuery1)`
+`func (o *InputGraphVisualizationTimeseries) SetQueries(v []InputAggregationQuery)`
 
 SetQueries sets Queries field to given value.
 
@@ -178,20 +178,20 @@ HasVisibleSeries returns a boolean if a field has been set.
 
 ### GetGroupBy
 
-`func (o *InputGraphVisualizationTimeseries) GetGroupBy() []AggregationGroupBy`
+`func (o *InputGraphVisualizationTimeseries) GetGroupBy() []InputAggregationGroupBy`
 
 GetGroupBy returns the GroupBy field if non-nil, zero value otherwise.
 
 ### GetGroupByOk
 
-`func (o *InputGraphVisualizationTimeseries) GetGroupByOk() (*[]AggregationGroupBy, bool)`
+`func (o *InputGraphVisualizationTimeseries) GetGroupByOk() (*[]InputAggregationGroupBy, bool)`
 
 GetGroupByOk returns a tuple with the GroupBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroupBy
 
-`func (o *InputGraphVisualizationTimeseries) SetGroupBy(v []AggregationGroupBy)`
+`func (o *InputGraphVisualizationTimeseries) SetGroupBy(v []InputAggregationGroupBy)`
 
 SetGroupBy sets GroupBy field to given value.
 
@@ -253,20 +253,20 @@ HasTimeBucket returns a boolean if a field has been set.
 
 ### GetNormalizer
 
-`func (o *InputGraphVisualizationTimeseries) GetNormalizer() Normalizer`
+`func (o *InputGraphVisualizationTimeseries) GetNormalizer() InputNormalizer`
 
 GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
 
 ### GetNormalizerOk
 
-`func (o *InputGraphVisualizationTimeseries) GetNormalizerOk() (*Normalizer, bool)`
+`func (o *InputGraphVisualizationTimeseries) GetNormalizerOk() (*InputNormalizer, bool)`
 
 GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNormalizer
 
-`func (o *InputGraphVisualizationTimeseries) SetNormalizer(v Normalizer)`
+`func (o *InputGraphVisualizationTimeseries) SetNormalizer(v InputNormalizer)`
 
 SetNormalizer sets Normalizer field to given value.
 
@@ -328,20 +328,20 @@ HasLegendMode returns a boolean if a field has been set.
 
 ### GetThresholds
 
-`func (o *InputGraphVisualizationTimeseries) GetThresholds() []ThresholdMarker`
+`func (o *InputGraphVisualizationTimeseries) GetThresholds() []InputThresholdMarker`
 
 GetThresholds returns the Thresholds field if non-nil, zero value otherwise.
 
 ### GetThresholdsOk
 
-`func (o *InputGraphVisualizationTimeseries) GetThresholdsOk() (*[]ThresholdMarker, bool)`
+`func (o *InputGraphVisualizationTimeseries) GetThresholdsOk() (*[]InputThresholdMarker, bool)`
 
 GetThresholdsOk returns a tuple with the Thresholds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetThresholds
 
-`func (o *InputGraphVisualizationTimeseries) SetThresholds(v []ThresholdMarker)`
+`func (o *InputGraphVisualizationTimeseries) SetThresholds(v []InputThresholdMarker)`
 
 SetThresholds sets Thresholds field to given value.
 
@@ -428,20 +428,20 @@ HasLineStyleOptions returns a boolean if a field has been set.
 
 ### GetCustomLink
 
-`func (o *InputGraphVisualizationTimeseries) GetCustomLink() CustomLink1`
+`func (o *InputGraphVisualizationTimeseries) GetCustomLink() InputCustomLink`
 
 GetCustomLink returns the CustomLink field if non-nil, zero value otherwise.
 
 ### GetCustomLinkOk
 
-`func (o *InputGraphVisualizationTimeseries) GetCustomLinkOk() (*CustomLink1, bool)`
+`func (o *InputGraphVisualizationTimeseries) GetCustomLinkOk() (*InputCustomLink, bool)`
 
 GetCustomLinkOk returns a tuple with the CustomLink field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCustomLink
 
-`func (o *InputGraphVisualizationTimeseries) SetCustomLink(v CustomLink1)`
+`func (o *InputGraphVisualizationTimeseries) SetCustomLink(v InputCustomLink)`
 
 SetCustomLink sets CustomLink field to given value.
 

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Name** | **string** | Name to assign to the team. Must be kebab-case (lowercase letters, numbers, and dashes only) and unique in the organization. Maximum length is 100 characters. | 
 **Description** | Pointer to **NullableString** | Optional team description. Maximum length is 250 characters. | [optional] 
 **Visibility** | **string** | &#x60;public&#x60; makes team-owned resources discoverable according to access controls. &#x60;private&#x60; restricts discovery to team members and authorized users. | 
-**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
+**Tags** | Pointer to [**[]InputTag**](InputTag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 
 ## Methods
 
@@ -105,20 +105,20 @@ SetVisibility sets Visibility field to given value.
 
 ### GetTags
 
-`func (o *CreateTeamRequest) GetTags() []Tag`
+`func (o *CreateTeamRequest) GetTags() []InputTag`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *CreateTeamRequest) GetTagsOk() (*[]Tag, bool)`
+`func (o *CreateTeamRequest) GetTagsOk() (*[]InputTag, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *CreateTeamRequest) SetTags(v []Tag)`
+`func (o *CreateTeamRequest) SetTags(v []InputTag)`
 
 SetTags sets Tags field to given value.
 

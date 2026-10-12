@@ -17,21 +17,21 @@ import (
 
 // UpdateSloRequestAlertsInnerConfiguration - Alert trigger configuration: burn-rate or threshold
 type UpdateSloRequestAlertsInnerConfiguration struct {
-	BurnRateAlert  *BurnRateAlert
-	ThresholdAlert *ThresholdAlert
+	InputBurnRateAlert  *InputBurnRateAlert
+	InputThresholdAlert *InputThresholdAlert
 }
 
-// BurnRateAlertAsUpdateSloRequestAlertsInnerConfiguration is a convenience function that returns BurnRateAlert wrapped in UpdateSloRequestAlertsInnerConfiguration
-func BurnRateAlertAsUpdateSloRequestAlertsInnerConfiguration(v *BurnRateAlert) UpdateSloRequestAlertsInnerConfiguration {
+// InputBurnRateAlertAsUpdateSloRequestAlertsInnerConfiguration is a convenience function that returns InputBurnRateAlert wrapped in UpdateSloRequestAlertsInnerConfiguration
+func InputBurnRateAlertAsUpdateSloRequestAlertsInnerConfiguration(v *InputBurnRateAlert) UpdateSloRequestAlertsInnerConfiguration {
 	return UpdateSloRequestAlertsInnerConfiguration{
-		BurnRateAlert: v,
+		InputBurnRateAlert: v,
 	}
 }
 
-// ThresholdAlertAsUpdateSloRequestAlertsInnerConfiguration is a convenience function that returns ThresholdAlert wrapped in UpdateSloRequestAlertsInnerConfiguration
-func ThresholdAlertAsUpdateSloRequestAlertsInnerConfiguration(v *ThresholdAlert) UpdateSloRequestAlertsInnerConfiguration {
+// InputThresholdAlertAsUpdateSloRequestAlertsInnerConfiguration is a convenience function that returns InputThresholdAlert wrapped in UpdateSloRequestAlertsInnerConfiguration
+func InputThresholdAlertAsUpdateSloRequestAlertsInnerConfiguration(v *InputThresholdAlert) UpdateSloRequestAlertsInnerConfiguration {
 	return UpdateSloRequestAlertsInnerConfiguration{
-		ThresholdAlert: v,
+		InputThresholdAlert: v,
 	}
 }
 
@@ -45,27 +45,27 @@ func (dst *UpdateSloRequestAlertsInnerConfiguration) UnmarshalJSON(data []byte) 
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'BurnRateAlert'
-	if jsonDict["type"] == "BurnRateAlert" {
-		// try to unmarshal JSON data into BurnRateAlert
-		err = json.Unmarshal(data, &dst.BurnRateAlert)
+	// check if the discriminator value is 'InputBurnRateAlert'
+	if jsonDict["type"] == "InputBurnRateAlert" {
+		// try to unmarshal JSON data into InputBurnRateAlert
+		err = json.Unmarshal(data, &dst.InputBurnRateAlert)
 		if err == nil {
-			return nil // data stored in dst.BurnRateAlert, return on the first match
+			return nil // data stored in dst.InputBurnRateAlert, return on the first match
 		} else {
-			dst.BurnRateAlert = nil
-			return fmt.Errorf("failed to unmarshal UpdateSloRequestAlertsInnerConfiguration as BurnRateAlert: %s", err.Error())
+			dst.InputBurnRateAlert = nil
+			return fmt.Errorf("failed to unmarshal UpdateSloRequestAlertsInnerConfiguration as InputBurnRateAlert: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'ThresholdAlert'
-	if jsonDict["type"] == "ThresholdAlert" {
-		// try to unmarshal JSON data into ThresholdAlert
-		err = json.Unmarshal(data, &dst.ThresholdAlert)
+	// check if the discriminator value is 'InputThresholdAlert'
+	if jsonDict["type"] == "InputThresholdAlert" {
+		// try to unmarshal JSON data into InputThresholdAlert
+		err = json.Unmarshal(data, &dst.InputThresholdAlert)
 		if err == nil {
-			return nil // data stored in dst.ThresholdAlert, return on the first match
+			return nil // data stored in dst.InputThresholdAlert, return on the first match
 		} else {
-			dst.ThresholdAlert = nil
-			return fmt.Errorf("failed to unmarshal UpdateSloRequestAlertsInnerConfiguration as ThresholdAlert: %s", err.Error())
+			dst.InputThresholdAlert = nil
+			return fmt.Errorf("failed to unmarshal UpdateSloRequestAlertsInnerConfiguration as InputThresholdAlert: %s", err.Error())
 		}
 	}
 
@@ -74,12 +74,12 @@ func (dst *UpdateSloRequestAlertsInnerConfiguration) UnmarshalJSON(data []byte) 
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src UpdateSloRequestAlertsInnerConfiguration) MarshalJSON() ([]byte, error) {
-	if src.BurnRateAlert != nil {
-		return json.Marshal(&src.BurnRateAlert)
+	if src.InputBurnRateAlert != nil {
+		return json.Marshal(&src.InputBurnRateAlert)
 	}
 
-	if src.ThresholdAlert != nil {
-		return json.Marshal(&src.ThresholdAlert)
+	if src.InputThresholdAlert != nil {
+		return json.Marshal(&src.InputThresholdAlert)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -90,12 +90,12 @@ func (obj *UpdateSloRequestAlertsInnerConfiguration) GetActualInstance() interfa
 	if obj == nil {
 		return nil
 	}
-	if obj.BurnRateAlert != nil {
-		return obj.BurnRateAlert
+	if obj.InputBurnRateAlert != nil {
+		return obj.InputBurnRateAlert
 	}
 
-	if obj.ThresholdAlert != nil {
-		return obj.ThresholdAlert
+	if obj.InputThresholdAlert != nil {
+		return obj.InputThresholdAlert
 	}
 
 	// all schemas are nil
@@ -104,12 +104,12 @@ func (obj *UpdateSloRequestAlertsInnerConfiguration) GetActualInstance() interfa
 
 // Get the actual instance value
 func (obj UpdateSloRequestAlertsInnerConfiguration) GetActualInstanceValue() interface{} {
-	if obj.BurnRateAlert != nil {
-		return *obj.BurnRateAlert
+	if obj.InputBurnRateAlert != nil {
+		return *obj.InputBurnRateAlert
 	}
 
-	if obj.ThresholdAlert != nil {
-		return *obj.ThresholdAlert
+	if obj.InputThresholdAlert != nil {
+		return *obj.InputThresholdAlert
 	}
 
 	// all schemas are nil

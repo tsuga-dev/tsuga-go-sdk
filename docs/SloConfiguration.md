@@ -6,20 +6,20 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Configuration kind. Set to &#x60;event&#x60; for SLOs that compute SLI from good and total query formulas over the rolling timeframe. | 
 **DataSource** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, &#x60;traces&#x60;, or &#x60;rum&#x60;. | 
-**GoodQuery** | [**SloQueryFormula1**](SloQueryFormula1.md) |  | 
-**TotalQuery** | [**SloQueryFormula1**](SloQueryFormula1.md) |  | 
-**GroupByFields** | Pointer to [**[]AggregationGroupBy1**](AggregationGroupBy1.md) | Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values. | [optional] 
+**GoodQuery** | [**SloQueryFormula**](SloQueryFormula.md) |  | 
+**TotalQuery** | [**SloQueryFormula**](SloQueryFormula.md) |  | 
+**GroupByFields** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values. | [optional] 
 **NoDataBehavior** | **string** | How to treat time buckets with no data: good (count as meeting the SLO), bad (count as breaching it), or ignore (exclude from the error budget) | 
-**Query** | [**SloQueryFormula1**](SloQueryFormula1.md) |  | 
+**Query** | [**SloQueryFormula**](SloQueryFormula.md) |  | 
 **SliceSizeMinutes** | **int32** | Length of each time-SLO evaluation slice in minutes. Required for &#x60;type: time&#x60;. | 
 **Threshold** | [**TimeSliceSloConfigurationThreshold**](TimeSliceSloConfigurationThreshold.md) |  | 
-**Normalizer** | Pointer to [**Normalizer1**](Normalizer1.md) |  | [optional] 
+**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 
 ## Methods
 
 ### NewSloConfiguration
 
-`func NewSloConfiguration(type_ string, dataSource string, goodQuery SloQueryFormula1, totalQuery SloQueryFormula1, noDataBehavior string, query SloQueryFormula1, sliceSizeMinutes int32, threshold TimeSliceSloConfigurationThreshold, ) *SloConfiguration`
+`func NewSloConfiguration(type_ string, dataSource string, goodQuery SloQueryFormula, totalQuery SloQueryFormula, noDataBehavior string, query SloQueryFormula, sliceSizeMinutes int32, threshold TimeSliceSloConfigurationThreshold, ) *SloConfiguration`
 
 NewSloConfiguration instantiates a new SloConfiguration object
 This constructor will assign default values to properties that have it defined,
@@ -76,60 +76,60 @@ SetDataSource sets DataSource field to given value.
 
 ### GetGoodQuery
 
-`func (o *SloConfiguration) GetGoodQuery() SloQueryFormula1`
+`func (o *SloConfiguration) GetGoodQuery() SloQueryFormula`
 
 GetGoodQuery returns the GoodQuery field if non-nil, zero value otherwise.
 
 ### GetGoodQueryOk
 
-`func (o *SloConfiguration) GetGoodQueryOk() (*SloQueryFormula1, bool)`
+`func (o *SloConfiguration) GetGoodQueryOk() (*SloQueryFormula, bool)`
 
 GetGoodQueryOk returns a tuple with the GoodQuery field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGoodQuery
 
-`func (o *SloConfiguration) SetGoodQuery(v SloQueryFormula1)`
+`func (o *SloConfiguration) SetGoodQuery(v SloQueryFormula)`
 
 SetGoodQuery sets GoodQuery field to given value.
 
 
 ### GetTotalQuery
 
-`func (o *SloConfiguration) GetTotalQuery() SloQueryFormula1`
+`func (o *SloConfiguration) GetTotalQuery() SloQueryFormula`
 
 GetTotalQuery returns the TotalQuery field if non-nil, zero value otherwise.
 
 ### GetTotalQueryOk
 
-`func (o *SloConfiguration) GetTotalQueryOk() (*SloQueryFormula1, bool)`
+`func (o *SloConfiguration) GetTotalQueryOk() (*SloQueryFormula, bool)`
 
 GetTotalQueryOk returns a tuple with the TotalQuery field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalQuery
 
-`func (o *SloConfiguration) SetTotalQuery(v SloQueryFormula1)`
+`func (o *SloConfiguration) SetTotalQuery(v SloQueryFormula)`
 
 SetTotalQuery sets TotalQuery field to given value.
 
 
 ### GetGroupByFields
 
-`func (o *SloConfiguration) GetGroupByFields() []AggregationGroupBy1`
+`func (o *SloConfiguration) GetGroupByFields() []AggregationGroupBy`
 
 GetGroupByFields returns the GroupByFields field if non-nil, zero value otherwise.
 
 ### GetGroupByFieldsOk
 
-`func (o *SloConfiguration) GetGroupByFieldsOk() (*[]AggregationGroupBy1, bool)`
+`func (o *SloConfiguration) GetGroupByFieldsOk() (*[]AggregationGroupBy, bool)`
 
 GetGroupByFieldsOk returns a tuple with the GroupByFields field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroupByFields
 
-`func (o *SloConfiguration) SetGroupByFields(v []AggregationGroupBy1)`
+`func (o *SloConfiguration) SetGroupByFields(v []AggregationGroupBy)`
 
 SetGroupByFields sets GroupByFields field to given value.
 
@@ -161,20 +161,20 @@ SetNoDataBehavior sets NoDataBehavior field to given value.
 
 ### GetQuery
 
-`func (o *SloConfiguration) GetQuery() SloQueryFormula1`
+`func (o *SloConfiguration) GetQuery() SloQueryFormula`
 
 GetQuery returns the Query field if non-nil, zero value otherwise.
 
 ### GetQueryOk
 
-`func (o *SloConfiguration) GetQueryOk() (*SloQueryFormula1, bool)`
+`func (o *SloConfiguration) GetQueryOk() (*SloQueryFormula, bool)`
 
 GetQueryOk returns a tuple with the Query field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQuery
 
-`func (o *SloConfiguration) SetQuery(v SloQueryFormula1)`
+`func (o *SloConfiguration) SetQuery(v SloQueryFormula)`
 
 SetQuery sets Query field to given value.
 
@@ -221,20 +221,20 @@ SetThreshold sets Threshold field to given value.
 
 ### GetNormalizer
 
-`func (o *SloConfiguration) GetNormalizer() Normalizer1`
+`func (o *SloConfiguration) GetNormalizer() Normalizer`
 
 GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
 
 ### GetNormalizerOk
 
-`func (o *SloConfiguration) GetNormalizerOk() (*Normalizer1, bool)`
+`func (o *SloConfiguration) GetNormalizerOk() (*Normalizer, bool)`
 
 GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNormalizer
 
-`func (o *SloConfiguration) SetNormalizer(v Normalizer1)`
+`func (o *SloConfiguration) SetNormalizer(v Normalizer)`
 
 SetNormalizer sets Normalizer field to given value.
 

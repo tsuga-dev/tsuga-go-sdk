@@ -21,7 +21,7 @@ var _ MappedNullable = &QueryDashboardsRequestFiltersTags{}
 // QueryDashboardsRequestFiltersTags Restrict results to dashboards that have at least one of the listed key/value tags
 type QueryDashboardsRequestFiltersTags struct {
 	// Values compared by this filter. When `exclude` is omitted or false, rows matching any value are kept; when `exclude` is true, matching rows are removed.
-	Values []Tag `json:"values"`
+	Values []InputTag `json:"values"`
 	// If true, exclude rows matching these values instead of including them
 	Exclude              *bool `json:"exclude,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -33,7 +33,7 @@ type _QueryDashboardsRequestFiltersTags QueryDashboardsRequestFiltersTags
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewQueryDashboardsRequestFiltersTags(values []Tag) *QueryDashboardsRequestFiltersTags {
+func NewQueryDashboardsRequestFiltersTags(values []InputTag) *QueryDashboardsRequestFiltersTags {
 	this := QueryDashboardsRequestFiltersTags{}
 	this.Values = values
 	return &this
@@ -48,9 +48,9 @@ func NewQueryDashboardsRequestFiltersTagsWithDefaults() *QueryDashboardsRequestF
 }
 
 // GetValues returns the Values field value
-func (o *QueryDashboardsRequestFiltersTags) GetValues() []Tag {
+func (o *QueryDashboardsRequestFiltersTags) GetValues() []InputTag {
 	if o == nil {
-		var ret []Tag
+		var ret []InputTag
 		return ret
 	}
 
@@ -59,7 +59,7 @@ func (o *QueryDashboardsRequestFiltersTags) GetValues() []Tag {
 
 // GetValuesOk returns a tuple with the Values field value
 // and a boolean to check if the value has been set.
-func (o *QueryDashboardsRequestFiltersTags) GetValuesOk() ([]Tag, bool) {
+func (o *QueryDashboardsRequestFiltersTags) GetValuesOk() ([]InputTag, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -67,7 +67,7 @@ func (o *QueryDashboardsRequestFiltersTags) GetValuesOk() ([]Tag, bool) {
 }
 
 // SetValues sets field value
-func (o *QueryDashboardsRequestFiltersTags) SetValues(v []Tag) {
+func (o *QueryDashboardsRequestFiltersTags) SetValues(v []InputTag) {
 	o.Values = v
 }
 

@@ -25,25 +25,25 @@ type InputGraphVisualizationBar struct {
 	// Telemetry source queried by this aggregation: `logs`, `metrics`, `traces`, or `rum`.
 	Source string `json:"source"`
 	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order. For dataSource \"metrics\", each aggregate's `field` is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"system.cpu.utilization.context.host.name\").
-	Queries []AggregationQuery1 `json:"queries"`
+	Queries []InputAggregationQuery `json:"queries"`
 	// Formula referencing query outputs, such as `q1 + q2`, to compute derived results. Defaults to `q1`. Formulas may reference only submitted queries (`q1` through `qN`); undefined query references return 400.
 	Formula *string                                         `json:"formula,omitempty"`
 	Aliases *InputGraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted.
-	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
+	GroupBy []InputAggregationGroupBy `json:"groupBy,omitempty"`
 	// `absolute` keeps each group at its own value; `relative` shows it as a percentage of the ungrouped total (defaults to absolute)
 	GroupByMode *string                                          `json:"groupByMode,omitempty"`
 	TimeBucket  *GraphVisualizationTimeseriesPromqlTimeBucket    `json:"timeBucket,omitempty"`
 	Precision   *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
-	Normalizer  *Normalizer                                      `json:"normalizer,omitempty"`
+	Normalizer  *InputNormalizer                                 `json:"normalizer,omitempty"`
 	// Threshold markers displayed on the chart
-	Thresholds []ThresholdMarker `json:"thresholds,omitempty"`
+	Thresholds []InputThresholdMarker `json:"thresholds,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode           *string                                                   `json:"legendMode,omitempty"`
 	YAxisSettings        *InputGraphVisualizationTimeseriesConnectionYAxisSettings `json:"yAxisSettings,omitempty"`
-	CustomLink           *CustomLink1                                              `json:"customLink,omitempty"`
+	CustomLink           *InputCustomLink                                          `json:"customLink,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -53,7 +53,7 @@ type _InputGraphVisualizationBar InputGraphVisualizationBar
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInputGraphVisualizationBar(type_ string, source string, queries []AggregationQuery1) *InputGraphVisualizationBar {
+func NewInputGraphVisualizationBar(type_ string, source string, queries []InputAggregationQuery) *InputGraphVisualizationBar {
 	this := InputGraphVisualizationBar{}
 	this.Type = type_
 	this.Source = source
@@ -118,9 +118,9 @@ func (o *InputGraphVisualizationBar) SetSource(v string) {
 }
 
 // GetQueries returns the Queries field value
-func (o *InputGraphVisualizationBar) GetQueries() []AggregationQuery1 {
+func (o *InputGraphVisualizationBar) GetQueries() []InputAggregationQuery {
 	if o == nil {
-		var ret []AggregationQuery1
+		var ret []InputAggregationQuery
 		return ret
 	}
 
@@ -129,7 +129,7 @@ func (o *InputGraphVisualizationBar) GetQueries() []AggregationQuery1 {
 
 // GetQueriesOk returns a tuple with the Queries field value
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationBar) GetQueriesOk() ([]AggregationQuery1, bool) {
+func (o *InputGraphVisualizationBar) GetQueriesOk() ([]InputAggregationQuery, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -137,7 +137,7 @@ func (o *InputGraphVisualizationBar) GetQueriesOk() ([]AggregationQuery1, bool) 
 }
 
 // SetQueries sets field value
-func (o *InputGraphVisualizationBar) SetQueries(v []AggregationQuery1) {
+func (o *InputGraphVisualizationBar) SetQueries(v []InputAggregationQuery) {
 	o.Queries = v
 }
 
@@ -238,9 +238,9 @@ func (o *InputGraphVisualizationBar) SetVisibleSeries(v []bool) {
 }
 
 // GetGroupBy returns the GroupBy field value if set, zero value otherwise.
-func (o *InputGraphVisualizationBar) GetGroupBy() []AggregationGroupBy {
+func (o *InputGraphVisualizationBar) GetGroupBy() []InputAggregationGroupBy {
 	if o == nil || IsNil(o.GroupBy) {
-		var ret []AggregationGroupBy
+		var ret []InputAggregationGroupBy
 		return ret
 	}
 	return o.GroupBy
@@ -248,7 +248,7 @@ func (o *InputGraphVisualizationBar) GetGroupBy() []AggregationGroupBy {
 
 // GetGroupByOk returns a tuple with the GroupBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationBar) GetGroupByOk() ([]AggregationGroupBy, bool) {
+func (o *InputGraphVisualizationBar) GetGroupByOk() ([]InputAggregationGroupBy, bool) {
 	if o == nil || IsNil(o.GroupBy) {
 		return nil, false
 	}
@@ -264,8 +264,8 @@ func (o *InputGraphVisualizationBar) HasGroupBy() bool {
 	return false
 }
 
-// SetGroupBy gets a reference to the given []AggregationGroupBy and assigns it to the GroupBy field.
-func (o *InputGraphVisualizationBar) SetGroupBy(v []AggregationGroupBy) {
+// SetGroupBy gets a reference to the given []InputAggregationGroupBy and assigns it to the GroupBy field.
+func (o *InputGraphVisualizationBar) SetGroupBy(v []InputAggregationGroupBy) {
 	o.GroupBy = v
 }
 
@@ -366,9 +366,9 @@ func (o *InputGraphVisualizationBar) SetPrecision(v GraphVisualizationQueryValue
 }
 
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
-func (o *InputGraphVisualizationBar) GetNormalizer() Normalizer {
+func (o *InputGraphVisualizationBar) GetNormalizer() InputNormalizer {
 	if o == nil || IsNil(o.Normalizer) {
-		var ret Normalizer
+		var ret InputNormalizer
 		return ret
 	}
 	return *o.Normalizer
@@ -376,7 +376,7 @@ func (o *InputGraphVisualizationBar) GetNormalizer() Normalizer {
 
 // GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationBar) GetNormalizerOk() (*Normalizer, bool) {
+func (o *InputGraphVisualizationBar) GetNormalizerOk() (*InputNormalizer, bool) {
 	if o == nil || IsNil(o.Normalizer) {
 		return nil, false
 	}
@@ -392,15 +392,15 @@ func (o *InputGraphVisualizationBar) HasNormalizer() bool {
 	return false
 }
 
-// SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
-func (o *InputGraphVisualizationBar) SetNormalizer(v Normalizer) {
+// SetNormalizer gets a reference to the given InputNormalizer and assigns it to the Normalizer field.
+func (o *InputGraphVisualizationBar) SetNormalizer(v InputNormalizer) {
 	o.Normalizer = &v
 }
 
 // GetThresholds returns the Thresholds field value if set, zero value otherwise.
-func (o *InputGraphVisualizationBar) GetThresholds() []ThresholdMarker {
+func (o *InputGraphVisualizationBar) GetThresholds() []InputThresholdMarker {
 	if o == nil || IsNil(o.Thresholds) {
-		var ret []ThresholdMarker
+		var ret []InputThresholdMarker
 		return ret
 	}
 	return o.Thresholds
@@ -408,7 +408,7 @@ func (o *InputGraphVisualizationBar) GetThresholds() []ThresholdMarker {
 
 // GetThresholdsOk returns a tuple with the Thresholds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationBar) GetThresholdsOk() ([]ThresholdMarker, bool) {
+func (o *InputGraphVisualizationBar) GetThresholdsOk() ([]InputThresholdMarker, bool) {
 	if o == nil || IsNil(o.Thresholds) {
 		return nil, false
 	}
@@ -424,8 +424,8 @@ func (o *InputGraphVisualizationBar) HasThresholds() bool {
 	return false
 }
 
-// SetThresholds gets a reference to the given []ThresholdMarker and assigns it to the Thresholds field.
-func (o *InputGraphVisualizationBar) SetThresholds(v []ThresholdMarker) {
+// SetThresholds gets a reference to the given []InputThresholdMarker and assigns it to the Thresholds field.
+func (o *InputGraphVisualizationBar) SetThresholds(v []InputThresholdMarker) {
 	o.Thresholds = v
 }
 
@@ -494,9 +494,9 @@ func (o *InputGraphVisualizationBar) SetYAxisSettings(v InputGraphVisualizationT
 }
 
 // GetCustomLink returns the CustomLink field value if set, zero value otherwise.
-func (o *InputGraphVisualizationBar) GetCustomLink() CustomLink1 {
+func (o *InputGraphVisualizationBar) GetCustomLink() InputCustomLink {
 	if o == nil || IsNil(o.CustomLink) {
-		var ret CustomLink1
+		var ret InputCustomLink
 		return ret
 	}
 	return *o.CustomLink
@@ -504,7 +504,7 @@ func (o *InputGraphVisualizationBar) GetCustomLink() CustomLink1 {
 
 // GetCustomLinkOk returns a tuple with the CustomLink field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationBar) GetCustomLinkOk() (*CustomLink1, bool) {
+func (o *InputGraphVisualizationBar) GetCustomLinkOk() (*InputCustomLink, bool) {
 	if o == nil || IsNil(o.CustomLink) {
 		return nil, false
 	}
@@ -520,8 +520,8 @@ func (o *InputGraphVisualizationBar) HasCustomLink() bool {
 	return false
 }
 
-// SetCustomLink gets a reference to the given CustomLink1 and assigns it to the CustomLink field.
-func (o *InputGraphVisualizationBar) SetCustomLink(v CustomLink1) {
+// SetCustomLink gets a reference to the given InputCustomLink and assigns it to the CustomLink field.
+func (o *InputGraphVisualizationBar) SetCustomLink(v InputCustomLink) {
 	o.CustomLink = &v
 }
 

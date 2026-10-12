@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Display name of the SLO. | 
 **Description** | Pointer to **NullableString** | Free-form, caller-provided description of what the SLO measures. Optional. | [optional] 
-**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
+**Tags** | Pointer to [**[]InputTag**](InputTag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **Configuration** | [**UpdateSloRequestConfiguration**](UpdateSloRequestConfiguration.md) |  | 
 **Target** | **float32** | Target percentage (0 &lt; target &lt; 100, e.g. 99.9) | 
 **TimeframeDays** | **int32** | Rolling SLO evaluation window in days. Set by the caller on create or update and returned on read and list responses. Allowed values are 7, 30, and 90. | 
@@ -91,20 +91,20 @@ HasDescription returns a boolean if a field has been set.
 UnsetDescription ensures that no value is present for Description, not even an explicit nil
 ### GetTags
 
-`func (o *CreateSloRequest) GetTags() []Tag`
+`func (o *CreateSloRequest) GetTags() []InputTag`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *CreateSloRequest) GetTagsOk() (*[]Tag, bool)`
+`func (o *CreateSloRequest) GetTagsOk() (*[]InputTag, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *CreateSloRequest) SetTags(v []Tag)`
+`func (o *CreateSloRequest) SetTags(v []InputTag)`
 
 SetTags sets Tags field to given value.
 

@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a heatmap chart | 
 **Source** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, &#x60;traces&#x60;, or &#x60;rum&#x60;. | 
-**Queries** | [**[]AggregationQuery1**](AggregationQuery1.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. For dataSource \&quot;metrics\&quot;, each aggregate&#39;s &#x60;field&#x60; is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \&quot;&lt;metricName&gt;.context.&lt;attribute&gt;\&quot; (e.g. \&quot;system.cpu.utilization.context.host.name\&quot;). | 
+**Queries** | [**[]InputAggregationQuery**](InputAggregationQuery.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. For dataSource \&quot;metrics\&quot;, each aggregate&#39;s &#x60;field&#x60; is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \&quot;&lt;metricName&gt;.context.&lt;attribute&gt;\&quot; (e.g. \&quot;system.cpu.utilization.context.host.name\&quot;). | 
 **Formula** | Pointer to **string** | Formula referencing query outputs, such as &#x60;q1 + q2&#x60;, to compute derived results. Defaults to &#x60;q1&#x60;. Formulas may reference only submitted queries (&#x60;q1&#x60; through &#x60;qN&#x60;); undefined query references return 400. | [optional] 
 **Aliases** | Pointer to [**InputGraphVisualizationTimeseriesPromqlAliases**](InputGraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
-**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
+**GroupBy** | Pointer to [**[]InputAggregationGroupBy**](InputAggregationGroupBy.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
 **Group** | Pointer to **string** | Attribute that switches the count to \&quot;Groups\&quot; mode: records are grouped by this attribute, the aggregation produces one value per group, and the chart buckets those per-group values. When omitted, individual records are bucketed. | [optional] 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
-**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
+**Normalizer** | Pointer to [**InputNormalizer**](InputNormalizer.md) |  | [optional] 
 **Palette** | Pointer to **string** | Color palette used to render the heatmap intensity gradient | [optional] 
 **YAxisSettings** | Pointer to [**InputGraphVisualizationTimeseriesConnectionYAxisSettings**](InputGraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewInputGraphVisualizationHeatmap
 
-`func NewInputGraphVisualizationHeatmap(type_ string, source string, queries []AggregationQuery1, ) *InputGraphVisualizationHeatmap`
+`func NewInputGraphVisualizationHeatmap(type_ string, source string, queries []InputAggregationQuery, ) *InputGraphVisualizationHeatmap`
 
 NewInputGraphVisualizationHeatmap instantiates a new InputGraphVisualizationHeatmap object
 This constructor will assign default values to properties that have it defined,
@@ -78,20 +78,20 @@ SetSource sets Source field to given value.
 
 ### GetQueries
 
-`func (o *InputGraphVisualizationHeatmap) GetQueries() []AggregationQuery1`
+`func (o *InputGraphVisualizationHeatmap) GetQueries() []InputAggregationQuery`
 
 GetQueries returns the Queries field if non-nil, zero value otherwise.
 
 ### GetQueriesOk
 
-`func (o *InputGraphVisualizationHeatmap) GetQueriesOk() (*[]AggregationQuery1, bool)`
+`func (o *InputGraphVisualizationHeatmap) GetQueriesOk() (*[]InputAggregationQuery, bool)`
 
 GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueries
 
-`func (o *InputGraphVisualizationHeatmap) SetQueries(v []AggregationQuery1)`
+`func (o *InputGraphVisualizationHeatmap) SetQueries(v []InputAggregationQuery)`
 
 SetQueries sets Queries field to given value.
 
@@ -173,20 +173,20 @@ HasVisibleSeries returns a boolean if a field has been set.
 
 ### GetGroupBy
 
-`func (o *InputGraphVisualizationHeatmap) GetGroupBy() []AggregationGroupBy`
+`func (o *InputGraphVisualizationHeatmap) GetGroupBy() []InputAggregationGroupBy`
 
 GetGroupBy returns the GroupBy field if non-nil, zero value otherwise.
 
 ### GetGroupByOk
 
-`func (o *InputGraphVisualizationHeatmap) GetGroupByOk() (*[]AggregationGroupBy, bool)`
+`func (o *InputGraphVisualizationHeatmap) GetGroupByOk() (*[]InputAggregationGroupBy, bool)`
 
 GetGroupByOk returns a tuple with the GroupBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroupBy
 
-`func (o *InputGraphVisualizationHeatmap) SetGroupBy(v []AggregationGroupBy)`
+`func (o *InputGraphVisualizationHeatmap) SetGroupBy(v []InputAggregationGroupBy)`
 
 SetGroupBy sets GroupBy field to given value.
 
@@ -248,20 +248,20 @@ HasPrecision returns a boolean if a field has been set.
 
 ### GetNormalizer
 
-`func (o *InputGraphVisualizationHeatmap) GetNormalizer() Normalizer`
+`func (o *InputGraphVisualizationHeatmap) GetNormalizer() InputNormalizer`
 
 GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
 
 ### GetNormalizerOk
 
-`func (o *InputGraphVisualizationHeatmap) GetNormalizerOk() (*Normalizer, bool)`
+`func (o *InputGraphVisualizationHeatmap) GetNormalizerOk() (*InputNormalizer, bool)`
 
 GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNormalizer
 
-`func (o *InputGraphVisualizationHeatmap) SetNormalizer(v Normalizer)`
+`func (o *InputGraphVisualizationHeatmap) SetNormalizer(v InputNormalizer)`
 
 SetNormalizer sets Normalizer field to given value.
 

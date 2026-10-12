@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Formula** | Pointer to **string** | Formula referencing submitted query outputs, such as &#x60;q1 + q2&#x60;. References must be within &#x60;q1&#x60; through &#x60;qN&#x60; for the submitted queries. | [optional] 
 **Aliases** | Pointer to [**GraphVisualizationTimeseriesPromqlAliases**](GraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
-**Normalizer** | Pointer to [**Normalizer1**](Normalizer1.md) |  | [optional] 
+**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
 
 ## Methods
@@ -169,20 +169,20 @@ HasVisibleSeries returns a boolean if a field has been set.
 
 ### GetNormalizer
 
-`func (o *TableColumn) GetNormalizer() Normalizer1`
+`func (o *TableColumn) GetNormalizer() Normalizer`
 
 GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
 
 ### GetNormalizerOk
 
-`func (o *TableColumn) GetNormalizerOk() (*Normalizer1, bool)`
+`func (o *TableColumn) GetNormalizerOk() (*Normalizer, bool)`
 
 GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNormalizer
 
-`func (o *TableColumn) SetNormalizer(v Normalizer1)`
+`func (o *TableColumn) SetNormalizer(v Normalizer)`
 
 SetNormalizer sets Normalizer field to given value.
 

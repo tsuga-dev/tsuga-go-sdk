@@ -6,11 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | Display name of the dashboard. | [optional] 
 **Owner** | Pointer to **string** | ID of the team that owns the dashboard. Required and used for dashboard access control. | [optional] 
-**Graphs** | Pointer to [**[]Graph**](Graph.md) | Ordered widgets that compose the dashboard | [optional] 
+**Graphs** | Pointer to [**[]InputGraph**](InputGraph.md) | Ordered widgets that compose the dashboard | [optional] 
 **Filters** | Pointer to [**[]UpdateDashboardRequestFiltersInner**](UpdateDashboardRequestFiltersInner.md) | Dashboard-wide filters applied to every widget on the dashboard. Up to 10 filters are allowed. | [optional] 
-**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
+**Tags** | Pointer to [**[]InputTag**](InputTag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **TimePreset** | Pointer to **string** | Relative time preset used when opening the dashboard. Optional; create defaults to &#x60;past-30-minutes&#x60; when omitted, and update omission preserves the current value. | [optional] 
-**FolderId** | Pointer to **NullableString** | Folder that should contain the dashboard. Optional; omit on update to keep the current folder, pass null to clear the folder, or pass a readable dashboard-folder ID to move it. | [optional] 
+**FolderId** | Pointer to **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
 
 ## Methods
 
@@ -83,20 +83,20 @@ HasOwner returns a boolean if a field has been set.
 
 ### GetGraphs
 
-`func (o *UpdateDashboardRequest) GetGraphs() []Graph`
+`func (o *UpdateDashboardRequest) GetGraphs() []InputGraph`
 
 GetGraphs returns the Graphs field if non-nil, zero value otherwise.
 
 ### GetGraphsOk
 
-`func (o *UpdateDashboardRequest) GetGraphsOk() (*[]Graph, bool)`
+`func (o *UpdateDashboardRequest) GetGraphsOk() (*[]InputGraph, bool)`
 
 GetGraphsOk returns a tuple with the Graphs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGraphs
 
-`func (o *UpdateDashboardRequest) SetGraphs(v []Graph)`
+`func (o *UpdateDashboardRequest) SetGraphs(v []InputGraph)`
 
 SetGraphs sets Graphs field to given value.
 
@@ -133,20 +133,20 @@ HasFilters returns a boolean if a field has been set.
 
 ### GetTags
 
-`func (o *UpdateDashboardRequest) GetTags() []Tag`
+`func (o *UpdateDashboardRequest) GetTags() []InputTag`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *UpdateDashboardRequest) GetTagsOk() (*[]Tag, bool)`
+`func (o *UpdateDashboardRequest) GetTagsOk() (*[]InputTag, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *UpdateDashboardRequest) SetTags(v []Tag)`
+`func (o *UpdateDashboardRequest) SetTags(v []InputTag)`
 
 SetTags sets Tags field to given value.
 

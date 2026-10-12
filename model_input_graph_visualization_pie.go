@@ -25,21 +25,21 @@ type InputGraphVisualizationPie struct {
 	// Telemetry source queried by this aggregation: `logs`, `metrics`, `traces`, or `rum`.
 	Source string `json:"source"`
 	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order. For dataSource \"metrics\", each aggregate's `field` is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"system.cpu.utilization.context.host.name\").
-	Queries []AggregationQuery1 `json:"queries"`
+	Queries []InputAggregationQuery `json:"queries"`
 	// Formula referencing query outputs, such as `q1 + q2`, to compute derived results. Defaults to `q1`. Formulas may reference only submitted queries (`q1` through `qN`); undefined query references return 400.
 	Formula *string                                         `json:"formula,omitempty"`
 	Aliases *InputGraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted.
-	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
+	GroupBy []InputAggregationGroupBy `json:"groupBy,omitempty"`
 	// `absolute` keeps each group at its own value; `relative` shows it as a percentage of the ungrouped total (defaults to absolute)
 	GroupByMode *string                                          `json:"groupByMode,omitempty"`
-	Normalizer  *Normalizer                                      `json:"normalizer,omitempty"`
+	Normalizer  *InputNormalizer                                 `json:"normalizer,omitempty"`
 	Precision   *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
-	LegendMode           *string      `json:"legendMode,omitempty"`
-	CustomLink           *CustomLink1 `json:"customLink,omitempty"`
+	LegendMode           *string          `json:"legendMode,omitempty"`
+	CustomLink           *InputCustomLink `json:"customLink,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -49,7 +49,7 @@ type _InputGraphVisualizationPie InputGraphVisualizationPie
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInputGraphVisualizationPie(type_ string, source string, queries []AggregationQuery1) *InputGraphVisualizationPie {
+func NewInputGraphVisualizationPie(type_ string, source string, queries []InputAggregationQuery) *InputGraphVisualizationPie {
 	this := InputGraphVisualizationPie{}
 	this.Type = type_
 	this.Source = source
@@ -114,9 +114,9 @@ func (o *InputGraphVisualizationPie) SetSource(v string) {
 }
 
 // GetQueries returns the Queries field value
-func (o *InputGraphVisualizationPie) GetQueries() []AggregationQuery1 {
+func (o *InputGraphVisualizationPie) GetQueries() []InputAggregationQuery {
 	if o == nil {
-		var ret []AggregationQuery1
+		var ret []InputAggregationQuery
 		return ret
 	}
 
@@ -125,7 +125,7 @@ func (o *InputGraphVisualizationPie) GetQueries() []AggregationQuery1 {
 
 // GetQueriesOk returns a tuple with the Queries field value
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationPie) GetQueriesOk() ([]AggregationQuery1, bool) {
+func (o *InputGraphVisualizationPie) GetQueriesOk() ([]InputAggregationQuery, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -133,7 +133,7 @@ func (o *InputGraphVisualizationPie) GetQueriesOk() ([]AggregationQuery1, bool) 
 }
 
 // SetQueries sets field value
-func (o *InputGraphVisualizationPie) SetQueries(v []AggregationQuery1) {
+func (o *InputGraphVisualizationPie) SetQueries(v []InputAggregationQuery) {
 	o.Queries = v
 }
 
@@ -234,9 +234,9 @@ func (o *InputGraphVisualizationPie) SetVisibleSeries(v []bool) {
 }
 
 // GetGroupBy returns the GroupBy field value if set, zero value otherwise.
-func (o *InputGraphVisualizationPie) GetGroupBy() []AggregationGroupBy {
+func (o *InputGraphVisualizationPie) GetGroupBy() []InputAggregationGroupBy {
 	if o == nil || IsNil(o.GroupBy) {
-		var ret []AggregationGroupBy
+		var ret []InputAggregationGroupBy
 		return ret
 	}
 	return o.GroupBy
@@ -244,7 +244,7 @@ func (o *InputGraphVisualizationPie) GetGroupBy() []AggregationGroupBy {
 
 // GetGroupByOk returns a tuple with the GroupBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationPie) GetGroupByOk() ([]AggregationGroupBy, bool) {
+func (o *InputGraphVisualizationPie) GetGroupByOk() ([]InputAggregationGroupBy, bool) {
 	if o == nil || IsNil(o.GroupBy) {
 		return nil, false
 	}
@@ -260,8 +260,8 @@ func (o *InputGraphVisualizationPie) HasGroupBy() bool {
 	return false
 }
 
-// SetGroupBy gets a reference to the given []AggregationGroupBy and assigns it to the GroupBy field.
-func (o *InputGraphVisualizationPie) SetGroupBy(v []AggregationGroupBy) {
+// SetGroupBy gets a reference to the given []InputAggregationGroupBy and assigns it to the GroupBy field.
+func (o *InputGraphVisualizationPie) SetGroupBy(v []InputAggregationGroupBy) {
 	o.GroupBy = v
 }
 
@@ -298,9 +298,9 @@ func (o *InputGraphVisualizationPie) SetGroupByMode(v string) {
 }
 
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
-func (o *InputGraphVisualizationPie) GetNormalizer() Normalizer {
+func (o *InputGraphVisualizationPie) GetNormalizer() InputNormalizer {
 	if o == nil || IsNil(o.Normalizer) {
-		var ret Normalizer
+		var ret InputNormalizer
 		return ret
 	}
 	return *o.Normalizer
@@ -308,7 +308,7 @@ func (o *InputGraphVisualizationPie) GetNormalizer() Normalizer {
 
 // GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationPie) GetNormalizerOk() (*Normalizer, bool) {
+func (o *InputGraphVisualizationPie) GetNormalizerOk() (*InputNormalizer, bool) {
 	if o == nil || IsNil(o.Normalizer) {
 		return nil, false
 	}
@@ -324,8 +324,8 @@ func (o *InputGraphVisualizationPie) HasNormalizer() bool {
 	return false
 }
 
-// SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
-func (o *InputGraphVisualizationPie) SetNormalizer(v Normalizer) {
+// SetNormalizer gets a reference to the given InputNormalizer and assigns it to the Normalizer field.
+func (o *InputGraphVisualizationPie) SetNormalizer(v InputNormalizer) {
 	o.Normalizer = &v
 }
 
@@ -394,9 +394,9 @@ func (o *InputGraphVisualizationPie) SetLegendMode(v string) {
 }
 
 // GetCustomLink returns the CustomLink field value if set, zero value otherwise.
-func (o *InputGraphVisualizationPie) GetCustomLink() CustomLink1 {
+func (o *InputGraphVisualizationPie) GetCustomLink() InputCustomLink {
 	if o == nil || IsNil(o.CustomLink) {
-		var ret CustomLink1
+		var ret InputCustomLink
 		return ret
 	}
 	return *o.CustomLink
@@ -404,7 +404,7 @@ func (o *InputGraphVisualizationPie) GetCustomLink() CustomLink1 {
 
 // GetCustomLinkOk returns a tuple with the CustomLink field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationPie) GetCustomLinkOk() (*CustomLink1, bool) {
+func (o *InputGraphVisualizationPie) GetCustomLinkOk() (*InputCustomLink, bool) {
 	if o == nil || IsNil(o.CustomLink) {
 		return nil, false
 	}
@@ -420,8 +420,8 @@ func (o *InputGraphVisualizationPie) HasCustomLink() bool {
 	return false
 }
 
-// SetCustomLink gets a reference to the given CustomLink1 and assigns it to the CustomLink field.
-func (o *InputGraphVisualizationPie) SetCustomLink(v CustomLink1) {
+// SetCustomLink gets a reference to the given InputCustomLink and assigns it to the CustomLink field.
+func (o *InputGraphVisualizationPie) SetCustomLink(v InputCustomLink) {
 	o.CustomLink = &v
 }
 

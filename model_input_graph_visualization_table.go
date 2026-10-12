@@ -23,16 +23,16 @@ type InputGraphVisualizationTable struct {
 	// Displays the aggregation as a table with multi-level grouping
 	Type string `json:"type"`
 	// Each column defines an independent aggregation displayed as a table column
-	Columns []TableColumn1 `json:"columns"`
+	Columns []InputTableColumn `json:"columns"`
 	// Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted.
-	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
+	GroupBy []InputAggregationGroupBy `json:"groupBy,omitempty"`
 	// `absolute` keeps each group at its own value; `relative` shows it as a percentage of the ungrouped total (defaults to absolute)
 	GroupByMode *string `json:"groupByMode,omitempty"`
 	// Default sorting applied to a table widget. Column IDs are `label` for the grouping column and `col-<index>` for each entry in `columns`. Users can still change sorting by selecting columns in the rendered table.
-	DefaultSorting []TableDefaultSorting1 `json:"defaultSorting,omitempty"`
+	DefaultSorting []InputTableDefaultSorting `json:"defaultSorting,omitempty"`
 	// Table column widths in pixels, keyed by column id: `label` for the grouping column and `col-<index>` for each entry in `columns`. Columns without an entry keep their default width.
 	ColumnSizes          map[string]float32 `json:"columnSizes,omitempty"`
-	CustomLink           *CustomLink1       `json:"customLink,omitempty"`
+	CustomLink           *InputCustomLink   `json:"customLink,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -42,7 +42,7 @@ type _InputGraphVisualizationTable InputGraphVisualizationTable
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInputGraphVisualizationTable(type_ string, columns []TableColumn1) *InputGraphVisualizationTable {
+func NewInputGraphVisualizationTable(type_ string, columns []InputTableColumn) *InputGraphVisualizationTable {
 	this := InputGraphVisualizationTable{}
 	this.Type = type_
 	this.Columns = columns
@@ -82,9 +82,9 @@ func (o *InputGraphVisualizationTable) SetType(v string) {
 }
 
 // GetColumns returns the Columns field value
-func (o *InputGraphVisualizationTable) GetColumns() []TableColumn1 {
+func (o *InputGraphVisualizationTable) GetColumns() []InputTableColumn {
 	if o == nil {
-		var ret []TableColumn1
+		var ret []InputTableColumn
 		return ret
 	}
 
@@ -93,7 +93,7 @@ func (o *InputGraphVisualizationTable) GetColumns() []TableColumn1 {
 
 // GetColumnsOk returns a tuple with the Columns field value
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationTable) GetColumnsOk() ([]TableColumn1, bool) {
+func (o *InputGraphVisualizationTable) GetColumnsOk() ([]InputTableColumn, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -101,14 +101,14 @@ func (o *InputGraphVisualizationTable) GetColumnsOk() ([]TableColumn1, bool) {
 }
 
 // SetColumns sets field value
-func (o *InputGraphVisualizationTable) SetColumns(v []TableColumn1) {
+func (o *InputGraphVisualizationTable) SetColumns(v []InputTableColumn) {
 	o.Columns = v
 }
 
 // GetGroupBy returns the GroupBy field value if set, zero value otherwise.
-func (o *InputGraphVisualizationTable) GetGroupBy() []AggregationGroupBy {
+func (o *InputGraphVisualizationTable) GetGroupBy() []InputAggregationGroupBy {
 	if o == nil || IsNil(o.GroupBy) {
-		var ret []AggregationGroupBy
+		var ret []InputAggregationGroupBy
 		return ret
 	}
 	return o.GroupBy
@@ -116,7 +116,7 @@ func (o *InputGraphVisualizationTable) GetGroupBy() []AggregationGroupBy {
 
 // GetGroupByOk returns a tuple with the GroupBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationTable) GetGroupByOk() ([]AggregationGroupBy, bool) {
+func (o *InputGraphVisualizationTable) GetGroupByOk() ([]InputAggregationGroupBy, bool) {
 	if o == nil || IsNil(o.GroupBy) {
 		return nil, false
 	}
@@ -132,8 +132,8 @@ func (o *InputGraphVisualizationTable) HasGroupBy() bool {
 	return false
 }
 
-// SetGroupBy gets a reference to the given []AggregationGroupBy and assigns it to the GroupBy field.
-func (o *InputGraphVisualizationTable) SetGroupBy(v []AggregationGroupBy) {
+// SetGroupBy gets a reference to the given []InputAggregationGroupBy and assigns it to the GroupBy field.
+func (o *InputGraphVisualizationTable) SetGroupBy(v []InputAggregationGroupBy) {
 	o.GroupBy = v
 }
 
@@ -170,9 +170,9 @@ func (o *InputGraphVisualizationTable) SetGroupByMode(v string) {
 }
 
 // GetDefaultSorting returns the DefaultSorting field value if set, zero value otherwise.
-func (o *InputGraphVisualizationTable) GetDefaultSorting() []TableDefaultSorting1 {
+func (o *InputGraphVisualizationTable) GetDefaultSorting() []InputTableDefaultSorting {
 	if o == nil || IsNil(o.DefaultSorting) {
-		var ret []TableDefaultSorting1
+		var ret []InputTableDefaultSorting
 		return ret
 	}
 	return o.DefaultSorting
@@ -180,7 +180,7 @@ func (o *InputGraphVisualizationTable) GetDefaultSorting() []TableDefaultSorting
 
 // GetDefaultSortingOk returns a tuple with the DefaultSorting field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationTable) GetDefaultSortingOk() ([]TableDefaultSorting1, bool) {
+func (o *InputGraphVisualizationTable) GetDefaultSortingOk() ([]InputTableDefaultSorting, bool) {
 	if o == nil || IsNil(o.DefaultSorting) {
 		return nil, false
 	}
@@ -196,8 +196,8 @@ func (o *InputGraphVisualizationTable) HasDefaultSorting() bool {
 	return false
 }
 
-// SetDefaultSorting gets a reference to the given []TableDefaultSorting1 and assigns it to the DefaultSorting field.
-func (o *InputGraphVisualizationTable) SetDefaultSorting(v []TableDefaultSorting1) {
+// SetDefaultSorting gets a reference to the given []InputTableDefaultSorting and assigns it to the DefaultSorting field.
+func (o *InputGraphVisualizationTable) SetDefaultSorting(v []InputTableDefaultSorting) {
 	o.DefaultSorting = v
 }
 
@@ -234,9 +234,9 @@ func (o *InputGraphVisualizationTable) SetColumnSizes(v map[string]float32) {
 }
 
 // GetCustomLink returns the CustomLink field value if set, zero value otherwise.
-func (o *InputGraphVisualizationTable) GetCustomLink() CustomLink1 {
+func (o *InputGraphVisualizationTable) GetCustomLink() InputCustomLink {
 	if o == nil || IsNil(o.CustomLink) {
-		var ret CustomLink1
+		var ret InputCustomLink
 		return ret
 	}
 	return *o.CustomLink
@@ -244,7 +244,7 @@ func (o *InputGraphVisualizationTable) GetCustomLink() CustomLink1 {
 
 // GetCustomLinkOk returns a tuple with the CustomLink field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationTable) GetCustomLinkOk() (*CustomLink1, bool) {
+func (o *InputGraphVisualizationTable) GetCustomLinkOk() (*InputCustomLink, bool) {
 	if o == nil || IsNil(o.CustomLink) {
 		return nil, false
 	}
@@ -260,8 +260,8 @@ func (o *InputGraphVisualizationTable) HasCustomLink() bool {
 	return false
 }
 
-// SetCustomLink gets a reference to the given CustomLink1 and assigns it to the CustomLink field.
-func (o *InputGraphVisualizationTable) SetCustomLink(v CustomLink1) {
+// SetCustomLink gets a reference to the given InputCustomLink and assigns it to the CustomLink field.
+func (o *InputGraphVisualizationTable) SetCustomLink(v InputCustomLink) {
 	o.CustomLink = &v
 }
 

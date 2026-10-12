@@ -27,7 +27,7 @@ type CreateTeamRequest struct {
 	// `public` makes team-owned resources discoverable according to access controls. `private` restricts discovery to team members and authorized users.
 	Visibility string `json:"visibility"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
-	Tags                 []Tag `json:"tags,omitempty"`
+	Tags                 []InputTag `json:"tags,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -144,9 +144,9 @@ func (o *CreateTeamRequest) SetVisibility(v string) {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *CreateTeamRequest) GetTags() []Tag {
+func (o *CreateTeamRequest) GetTags() []InputTag {
 	if o == nil || IsNil(o.Tags) {
-		var ret []Tag
+		var ret []InputTag
 		return ret
 	}
 	return o.Tags
@@ -154,7 +154,7 @@ func (o *CreateTeamRequest) GetTags() []Tag {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateTeamRequest) GetTagsOk() ([]Tag, bool) {
+func (o *CreateTeamRequest) GetTagsOk() ([]InputTag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -170,8 +170,8 @@ func (o *CreateTeamRequest) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
-func (o *CreateTeamRequest) SetTags(v []Tag) {
+// SetTags gets a reference to the given []InputTag and assigns it to the Tags field.
+func (o *CreateTeamRequest) SetTags(v []InputTag) {
 	o.Tags = v
 }
 

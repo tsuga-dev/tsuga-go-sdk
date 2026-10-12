@@ -25,7 +25,7 @@ type InputGraphVisualizationPiePromql struct {
 	// PromQL expressions configured for this widget.
 	Queries    []string                                         `json:"queries"`
 	Aliases    *InputGraphVisualizationTimeseriesPromqlAliases  `json:"aliases,omitempty"`
-	Normalizer *Normalizer                                      `json:"normalizer,omitempty"`
+	Normalizer *InputNormalizer                                 `json:"normalizer,omitempty"`
 	Precision  *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode           *string `json:"legendMode,omitempty"`
@@ -134,9 +134,9 @@ func (o *InputGraphVisualizationPiePromql) SetAliases(v InputGraphVisualizationT
 }
 
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
-func (o *InputGraphVisualizationPiePromql) GetNormalizer() Normalizer {
+func (o *InputGraphVisualizationPiePromql) GetNormalizer() InputNormalizer {
 	if o == nil || IsNil(o.Normalizer) {
-		var ret Normalizer
+		var ret InputNormalizer
 		return ret
 	}
 	return *o.Normalizer
@@ -144,7 +144,7 @@ func (o *InputGraphVisualizationPiePromql) GetNormalizer() Normalizer {
 
 // GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationPiePromql) GetNormalizerOk() (*Normalizer, bool) {
+func (o *InputGraphVisualizationPiePromql) GetNormalizerOk() (*InputNormalizer, bool) {
 	if o == nil || IsNil(o.Normalizer) {
 		return nil, false
 	}
@@ -160,8 +160,8 @@ func (o *InputGraphVisualizationPiePromql) HasNormalizer() bool {
 	return false
 }
 
-// SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
-func (o *InputGraphVisualizationPiePromql) SetNormalizer(v Normalizer) {
+// SetNormalizer gets a reference to the given InputNormalizer and assigns it to the Normalizer field.
+func (o *InputGraphVisualizationPiePromql) SetNormalizer(v InputNormalizer) {
 	o.Normalizer = &v
 }
 

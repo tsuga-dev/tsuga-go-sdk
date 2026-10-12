@@ -6,29 +6,29 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the database rows-based aggregation as a time series chart | 
 **ConnectionId** | **string** | The ID of the connection to use to query the datastore. | 
-**Queries** | [**[]AggregationQuery1**](AggregationQuery1.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. For dataSource \&quot;metrics\&quot;, each aggregate&#39;s &#x60;field&#x60; is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \&quot;&lt;metricName&gt;.context.&lt;attribute&gt;\&quot; (e.g. \&quot;system.cpu.utilization.context.host.name\&quot;). | 
+**Queries** | [**[]AggregationQuery**](AggregationQuery.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. | 
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 **Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
-**YAxisSettings** | Pointer to [**InputGraphVisualizationTimeseriesConnectionYAxisSettings**](InputGraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
+**YAxisSettings** | Pointer to [**GraphVisualizationTimeseriesConnectionYAxisSettings**](GraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
 **LineStyleOptions** | Pointer to [**map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue**](GraphVisualizationTimeseriesConnectionLineStyleOptionsValue.md) | Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. For widgets with a single query, only the &#x60;1&#x60; entry is read and it applies to every series. Defaults to regular. | [optional] 
-**Query** | **string** | Query that selects RUM events for the list. Prefix every field with the stream it belongs to (&#x60;measurements.&#x60;, &#x60;events.&#x60;, or &#x60;exceptions.&#x60;) and filter on a single stream per query. A query without stream-prefixed fields searches the &#x60;events&#x60; stream. | 
-**ListColumns** | Pointer to [**[]WidgetListColumn1**](WidgetListColumn1.md) | Custom columns to display for each RUM event. Set attributes without their stream prefix, e.g. &#x60;view.name&#x60; rather than &#x60;events.view.name&#x60;. | [optional] 
+**Query** | **string** | Query that selects RUM events for the list | 
+**ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each RUM event. Attributes are read without their stream prefix, e.g. &#x60;view.name&#x60; rather than &#x60;events.view.name&#x60;. | [optional] 
 **ListColumnsSize** | Pointer to **map[string]float32** | List column widths in pixels, keyed by the &#x60;attribute&#x60; of the matching &#x60;listColumns&#x60; entry. Columns without an entry keep their default width. | [optional] 
-**IsCellWrapped** | Pointer to **bool** | Whether list widget cell text wraps instead of truncating. Applies to RUM event list widgets. Optional; omit or set false to use truncated cells. | [optional] 
-**DefaultSorting** | Pointer to [**[]ListDefaultSorting1**](ListDefaultSorting1.md) | Default sorting applied to a list widget. Optional on create or update for log, span, RUM event, or connection list widgets. Users can still change sorting by selecting columns in the rendered list. | [optional] 
+**IsCellWrapped** | Pointer to **bool** | Whether list widget cell text wraps instead of truncating. Applies to RUM event list widgets. | [optional] 
+**DefaultSorting** | Pointer to [**[]ListDefaultSorting**](ListDefaultSorting.md) | Default sorting applied to a list widget. Applies to log, span, RUM event, or connection list widgets. Users can still change sorting by selecting columns in the rendered list. | [optional] 
 **BackgroundMode** | Pointer to **string** | Controls whether the widget uses a solid or transparent background | [optional] 
 **Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the raw query value, before the unit is applied | [optional] 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
 **Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
-**Aliases** | Pointer to [**InputGraphVisualizationTimeseriesPromqlAliases**](InputGraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
+**Aliases** | Pointer to [**GraphVisualizationTimeseriesPromqlAliases**](GraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **TimeBucket** | Pointer to [**GraphVisualizationTimeseriesPromqlTimeBucket**](GraphVisualizationTimeseriesPromqlTimeBucket.md) |  | [optional] 
 **Smoothing** | Pointer to **bool** | Whether to apply automatic smoothing to the rendered timeseries | [optional] 
 **Source** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, &#x60;traces&#x60;, or &#x60;rum&#x60;. | 
-**Formula** | Pointer to **string** | Formula referencing query outputs, such as &#x60;q1 + q2&#x60;, to compute derived results. Defaults to &#x60;q1&#x60;. Formulas may reference only submitted queries (&#x60;q1&#x60; through &#x60;qN&#x60;); undefined query references return 400. | [optional] 
+**Formula** | Pointer to **string** | Formula referencing submitted query outputs, such as &#x60;q1 + q2&#x60;. References must be within &#x60;q1&#x60; through &#x60;qN&#x60; for the submitted queries. | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
-**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
+**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values. | [optional] 
 **GroupByMode** | Pointer to **string** | &#x60;absolute&#x60; keeps each group at its own value; &#x60;relative&#x60; shows it as a percentage of the ungrouped total (defaults to absolute) | [optional] 
-**CustomLink** | Pointer to [**CustomLink1**](CustomLink1.md) |  | [optional] 
+**CustomLink** | Pointer to [**CustomLink**](CustomLink.md) |  | [optional] 
 **IsStacked** | Pointer to **bool** | Requests stacked rendering for a top-list widget. Tsuga renders stacked rows only for one count or sum query with exactly two grouped fields, no formula, non-negative values, and a single-cluster context; otherwise the widget renders as a normal top list. | [optional] 
 **Max** | Pointer to **float32** | Gauge maximum value, on the raw query value before the unit is applied | [optional] 
 **ColorThresholds** | Pointer to [**[]GaugeColorThreshold**](GaugeColorThreshold.md) | Color thresholds inside the gauge range, on the raw query value before the unit is applied | [optional] 
@@ -36,7 +36,7 @@ Name | Type | Description | Notes
 **PercentileMarkers** | Pointer to **[]int32** | Percentile markers displayed on top of the distribution chart | [optional] 
 **BoundsScale** | Pointer to **string** | Spacing of the bucket boundaries across the distribution range. &#x60;linear&#x60; splits the range into equal-width buckets; &#x60;log&#x60; widens each bucket logarithmically, giving finer resolution near the lower bound. | [optional] 
 **Palette** | Pointer to **string** | Color palette used to render the heatmap intensity gradient | [optional] 
-**Columns** | [**[]TableColumn1**](TableColumn1.md) | Each column defines an independent aggregation displayed as a table column | 
+**Columns** | [**[]TableColumn**](TableColumn.md) | Each column defines an independent aggregation displayed as a table column | 
 **ColumnSizes** | Pointer to **map[string]float32** | Table column widths in pixels, keyed by column id: &#x60;label&#x60; for the grouping column and &#x60;col-&lt;index&gt;&#x60; for each entry in &#x60;columns&#x60;. Columns without an entry keep their default width. | [optional] 
 **Note** | Pointer to **string** | Markdown-compatible text shown in the note | [optional] 
 **NoteColor** | Pointer to **string** | Background color used to render the note | [optional] 
@@ -49,7 +49,7 @@ Name | Type | Description | Notes
 
 ### NewGraphVisualization
 
-`func NewGraphVisualization(type_ string, connectionId string, queries []AggregationQuery1, query string, source string, columns []TableColumn1, sloId string, ) *GraphVisualization`
+`func NewGraphVisualization(type_ string, connectionId string, queries []AggregationQuery, query string, source string, columns []TableColumn, sloId string, ) *GraphVisualization`
 
 NewGraphVisualization instantiates a new GraphVisualization object
 This constructor will assign default values to properties that have it defined,
@@ -106,20 +106,20 @@ SetConnectionId sets ConnectionId field to given value.
 
 ### GetQueries
 
-`func (o *GraphVisualization) GetQueries() []AggregationQuery1`
+`func (o *GraphVisualization) GetQueries() []AggregationQuery`
 
 GetQueries returns the Queries field if non-nil, zero value otherwise.
 
 ### GetQueriesOk
 
-`func (o *GraphVisualization) GetQueriesOk() (*[]AggregationQuery1, bool)`
+`func (o *GraphVisualization) GetQueriesOk() (*[]AggregationQuery, bool)`
 
 GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueries
 
-`func (o *GraphVisualization) SetQueries(v []AggregationQuery1)`
+`func (o *GraphVisualization) SetQueries(v []AggregationQuery)`
 
 SetQueries sets Queries field to given value.
 
@@ -176,20 +176,20 @@ HasThresholds returns a boolean if a field has been set.
 
 ### GetYAxisSettings
 
-`func (o *GraphVisualization) GetYAxisSettings() InputGraphVisualizationTimeseriesConnectionYAxisSettings`
+`func (o *GraphVisualization) GetYAxisSettings() GraphVisualizationTimeseriesConnectionYAxisSettings`
 
 GetYAxisSettings returns the YAxisSettings field if non-nil, zero value otherwise.
 
 ### GetYAxisSettingsOk
 
-`func (o *GraphVisualization) GetYAxisSettingsOk() (*InputGraphVisualizationTimeseriesConnectionYAxisSettings, bool)`
+`func (o *GraphVisualization) GetYAxisSettingsOk() (*GraphVisualizationTimeseriesConnectionYAxisSettings, bool)`
 
 GetYAxisSettingsOk returns a tuple with the YAxisSettings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetYAxisSettings
 
-`func (o *GraphVisualization) SetYAxisSettings(v InputGraphVisualizationTimeseriesConnectionYAxisSettings)`
+`func (o *GraphVisualization) SetYAxisSettings(v GraphVisualizationTimeseriesConnectionYAxisSettings)`
 
 SetYAxisSettings sets YAxisSettings field to given value.
 
@@ -246,20 +246,20 @@ SetQuery sets Query field to given value.
 
 ### GetListColumns
 
-`func (o *GraphVisualization) GetListColumns() []WidgetListColumn1`
+`func (o *GraphVisualization) GetListColumns() []WidgetListColumn`
 
 GetListColumns returns the ListColumns field if non-nil, zero value otherwise.
 
 ### GetListColumnsOk
 
-`func (o *GraphVisualization) GetListColumnsOk() (*[]WidgetListColumn1, bool)`
+`func (o *GraphVisualization) GetListColumnsOk() (*[]WidgetListColumn, bool)`
 
 GetListColumnsOk returns a tuple with the ListColumns field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetListColumns
 
-`func (o *GraphVisualization) SetListColumns(v []WidgetListColumn1)`
+`func (o *GraphVisualization) SetListColumns(v []WidgetListColumn)`
 
 SetListColumns sets ListColumns field to given value.
 
@@ -321,20 +321,20 @@ HasIsCellWrapped returns a boolean if a field has been set.
 
 ### GetDefaultSorting
 
-`func (o *GraphVisualization) GetDefaultSorting() []ListDefaultSorting1`
+`func (o *GraphVisualization) GetDefaultSorting() []ListDefaultSorting`
 
 GetDefaultSorting returns the DefaultSorting field if non-nil, zero value otherwise.
 
 ### GetDefaultSortingOk
 
-`func (o *GraphVisualization) GetDefaultSortingOk() (*[]ListDefaultSorting1, bool)`
+`func (o *GraphVisualization) GetDefaultSortingOk() (*[]ListDefaultSorting, bool)`
 
 GetDefaultSortingOk returns a tuple with the DefaultSorting field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDefaultSorting
 
-`func (o *GraphVisualization) SetDefaultSorting(v []ListDefaultSorting1)`
+`func (o *GraphVisualization) SetDefaultSorting(v []ListDefaultSorting)`
 
 SetDefaultSorting sets DefaultSorting field to given value.
 
@@ -446,20 +446,20 @@ HasNormalizer returns a boolean if a field has been set.
 
 ### GetAliases
 
-`func (o *GraphVisualization) GetAliases() InputGraphVisualizationTimeseriesPromqlAliases`
+`func (o *GraphVisualization) GetAliases() GraphVisualizationTimeseriesPromqlAliases`
 
 GetAliases returns the Aliases field if non-nil, zero value otherwise.
 
 ### GetAliasesOk
 
-`func (o *GraphVisualization) GetAliasesOk() (*InputGraphVisualizationTimeseriesPromqlAliases, bool)`
+`func (o *GraphVisualization) GetAliasesOk() (*GraphVisualizationTimeseriesPromqlAliases, bool)`
 
 GetAliasesOk returns a tuple with the Aliases field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAliases
 
-`func (o *GraphVisualization) SetAliases(v InputGraphVisualizationTimeseriesPromqlAliases)`
+`func (o *GraphVisualization) SetAliases(v GraphVisualizationTimeseriesPromqlAliases)`
 
 SetAliases sets Aliases field to given value.
 
@@ -641,20 +641,20 @@ HasGroupByMode returns a boolean if a field has been set.
 
 ### GetCustomLink
 
-`func (o *GraphVisualization) GetCustomLink() CustomLink1`
+`func (o *GraphVisualization) GetCustomLink() CustomLink`
 
 GetCustomLink returns the CustomLink field if non-nil, zero value otherwise.
 
 ### GetCustomLinkOk
 
-`func (o *GraphVisualization) GetCustomLinkOk() (*CustomLink1, bool)`
+`func (o *GraphVisualization) GetCustomLinkOk() (*CustomLink, bool)`
 
 GetCustomLinkOk returns a tuple with the CustomLink field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCustomLink
 
-`func (o *GraphVisualization) SetCustomLink(v CustomLink1)`
+`func (o *GraphVisualization) SetCustomLink(v CustomLink)`
 
 SetCustomLink sets CustomLink field to given value.
 
@@ -841,20 +841,20 @@ HasPalette returns a boolean if a field has been set.
 
 ### GetColumns
 
-`func (o *GraphVisualization) GetColumns() []TableColumn1`
+`func (o *GraphVisualization) GetColumns() []TableColumn`
 
 GetColumns returns the Columns field if non-nil, zero value otherwise.
 
 ### GetColumnsOk
 
-`func (o *GraphVisualization) GetColumnsOk() (*[]TableColumn1, bool)`
+`func (o *GraphVisualization) GetColumnsOk() (*[]TableColumn, bool)`
 
 GetColumnsOk returns a tuple with the Columns field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetColumns
 
-`func (o *GraphVisualization) SetColumns(v []TableColumn1)`
+`func (o *GraphVisualization) SetColumns(v []TableColumn)`
 
 SetColumns sets Columns field to given value.
 

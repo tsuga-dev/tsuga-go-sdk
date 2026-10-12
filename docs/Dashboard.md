@@ -7,9 +7,9 @@ Name | Type | Description | Notes
 **Id** | **string** | Tsuga-generated dashboard ID assigned when the dashboard is created. | 
 **Name** | **string** | Display name of the dashboard. Set by the caller on create or update. | 
 **Owner** | **string** | ID of the team that owns the dashboard. Set by the caller on create or update and used for dashboard access control. | 
-**Graphs** | [**[]Graph2**](Graph2.md) | Ordered widgets that compose the dashboard | 
+**Graphs** | [**[]Graph**](Graph.md) | Ordered widgets that compose the dashboard | 
 **Filters** | Pointer to [**[]DashboardFiltersInner**](DashboardFiltersInner.md) | Dashboard-wide filters applied to every widget on the dashboard. | [optional] 
-**Tags** | Pointer to [**[]Tag1**](Tag1.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
 **TimePreset** | Pointer to **string** | Relative time preset used when opening the dashboard. | [optional] 
 **FolderId** | Pointer to **string** | Folder that contains the dashboard. Set from the dashboard&#39;s saved folder relationship. Returned when the dashboard is in a folder; omitted when it is not. | [optional] 
 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewDashboard
 
-`func NewDashboard(id string, name string, owner string, graphs []Graph2, ) *Dashboard`
+`func NewDashboard(id string, name string, owner string, graphs []Graph, ) *Dashboard`
 
 NewDashboard instantiates a new Dashboard object
 This constructor will assign default values to properties that have it defined,
@@ -94,20 +94,20 @@ SetOwner sets Owner field to given value.
 
 ### GetGraphs
 
-`func (o *Dashboard) GetGraphs() []Graph2`
+`func (o *Dashboard) GetGraphs() []Graph`
 
 GetGraphs returns the Graphs field if non-nil, zero value otherwise.
 
 ### GetGraphsOk
 
-`func (o *Dashboard) GetGraphsOk() (*[]Graph2, bool)`
+`func (o *Dashboard) GetGraphsOk() (*[]Graph, bool)`
 
 GetGraphsOk returns a tuple with the Graphs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGraphs
 
-`func (o *Dashboard) SetGraphs(v []Graph2)`
+`func (o *Dashboard) SetGraphs(v []Graph)`
 
 SetGraphs sets Graphs field to given value.
 
@@ -139,20 +139,20 @@ HasFilters returns a boolean if a field has been set.
 
 ### GetTags
 
-`func (o *Dashboard) GetTags() []Tag1`
+`func (o *Dashboard) GetTags() []Tag`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *Dashboard) GetTagsOk() (*[]Tag1, bool)`
+`func (o *Dashboard) GetTagsOk() (*[]Tag, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *Dashboard) SetTags(v []Tag1)`
+`func (o *Dashboard) SetTags(v []Tag)`
 
 SetTags sets Tags field to given value.
 

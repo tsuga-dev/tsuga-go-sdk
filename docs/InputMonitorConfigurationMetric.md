@@ -11,13 +11,13 @@ Name | Type | Description | Notes
 **GroupByFields** | [**[]InputMonitorConfigurationMetricGroupByFieldsInner**](InputMonitorConfigurationMetricGroupByFieldsInner.md) | Monitor group by configuration. The &#x60;limit&#x60; setting is currently ignored; evaluation applies a fixed limit of 100 groups per field. | 
 **AggregationAlertLogic** | Pointer to **string** | How grouped results are combined into alert state. Use &#x60;no_aggregation&#x60; only when &#x60;groupByFields&#x60; is empty; use &#x60;all&#x60;, &#x60;any&#x60;, &#x60;each&#x60;, or &#x60;proportion&#x60; with non-empty &#x60;groupByFields&#x60;. &#x60;proportion&#x60; also requires &#x60;proportionAlertThreshold&#x60;. On create, omitted query-monitor values default to &#x60;no_aggregation&#x60;; on update, omitted values keep the existing aggregation logic. | [optional] 
 **ProportionAlertThreshold** | Pointer to **int32** | Percentage threshold used when &#x60;aggregationAlertLogic&#x60; is &#x60;proportion&#x60;. | [optional] 
-**Queries** | [**[]MonitorAggregationQuery1**](MonitorAggregationQuery1.md) | Aggregation queries used by alerting. Each query is referenced from formulas as q1, q2, and so on. | 
+**Queries** | [**[]InputMonitorAggregationQuery**](InputMonitorAggregationQuery.md) | Aggregation queries used by alerting. Each query is referenced from formulas as q1, q2, and so on. | 
 
 ## Methods
 
 ### NewInputMonitorConfigurationMetric
 
-`func NewInputMonitorConfigurationMetric(type_ string, conditions []InputMonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe int32, groupByFields []InputMonitorConfigurationMetricGroupByFieldsInner, queries []MonitorAggregationQuery1, ) *InputMonitorConfigurationMetric`
+`func NewInputMonitorConfigurationMetric(type_ string, conditions []InputMonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe int32, groupByFields []InputMonitorConfigurationMetricGroupByFieldsInner, queries []InputMonitorAggregationQuery, ) *InputMonitorConfigurationMetric`
 
 NewInputMonitorConfigurationMetric instantiates a new InputMonitorConfigurationMetric object
 This constructor will assign default values to properties that have it defined,
@@ -184,20 +184,20 @@ HasProportionAlertThreshold returns a boolean if a field has been set.
 
 ### GetQueries
 
-`func (o *InputMonitorConfigurationMetric) GetQueries() []MonitorAggregationQuery1`
+`func (o *InputMonitorConfigurationMetric) GetQueries() []InputMonitorAggregationQuery`
 
 GetQueries returns the Queries field if non-nil, zero value otherwise.
 
 ### GetQueriesOk
 
-`func (o *InputMonitorConfigurationMetric) GetQueriesOk() (*[]MonitorAggregationQuery1, bool)`
+`func (o *InputMonitorConfigurationMetric) GetQueriesOk() (*[]InputMonitorAggregationQuery, bool)`
 
 GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueries
 
-`func (o *InputMonitorConfigurationMetric) SetQueries(v []MonitorAggregationQuery1)`
+`func (o *InputMonitorConfigurationMetric) SetQueries(v []InputMonitorAggregationQuery)`
 
 SetQueries sets Queries field to given value.
 

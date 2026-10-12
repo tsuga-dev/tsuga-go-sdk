@@ -18,11 +18,11 @@ import (
 // checks if the SloQueryFormula type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SloQueryFormula{}
 
-// SloQueryFormula Aggregation queries combined by a formula to produce the SLO signal. Formulas reference queries as q1, q2, and so on. Do not send per-query fill; Tsuga derives the fill behavior from the SLO type.
+// SloQueryFormula Aggregation queries combined by a formula to produce the SLO signal. Tsuga evaluates this query formula during SLO evaluation and returns it as part of the saved SLO configuration. Returned queries include Tsuga-derived missing-point fill: event SLO queries use zero fill, and time SLO queries keep missing points null.
 type SloQueryFormula struct {
-	// Aggregation queries used by SLO evaluation. Each query is referenced from formulas as q1, q2, and so on.
-	Queries []SloAggregationQuery `json:"queries"`
-	// Formula referencing query outputs, such as `q1 + q2`, to compute derived results. Defaults to `q1`. Formulas may reference only submitted queries (`q1` through `qN`); undefined query references return 400.
+	// Aggregation queries used by alerting and SLO evaluation. Each query is referenced from formulas as q1, q2, and so on.
+	Queries []MonitorAggregationQuery `json:"queries"`
+	// Formula referencing submitted query outputs, such as `q1 + q2`. References must be within `q1` through `qN` for the submitted queries.
 	Formula              string `json:"formula"`
 	AdditionalProperties map[string]interface{}
 }
@@ -33,7 +33,7 @@ type _SloQueryFormula SloQueryFormula
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSloQueryFormula(queries []SloAggregationQuery, formula string) *SloQueryFormula {
+func NewSloQueryFormula(queries []MonitorAggregationQuery, formula string) *SloQueryFormula {
 	this := SloQueryFormula{}
 	this.Queries = queries
 	this.Formula = formula
@@ -49,9 +49,9 @@ func NewSloQueryFormulaWithDefaults() *SloQueryFormula {
 }
 
 // GetQueries returns the Queries field value
-func (o *SloQueryFormula) GetQueries() []SloAggregationQuery {
+func (o *SloQueryFormula) GetQueries() []MonitorAggregationQuery {
 	if o == nil {
-		var ret []SloAggregationQuery
+		var ret []MonitorAggregationQuery
 		return ret
 	}
 
@@ -60,7 +60,7 @@ func (o *SloQueryFormula) GetQueries() []SloAggregationQuery {
 
 // GetQueriesOk returns a tuple with the Queries field value
 // and a boolean to check if the value has been set.
-func (o *SloQueryFormula) GetQueriesOk() ([]SloAggregationQuery, bool) {
+func (o *SloQueryFormula) GetQueriesOk() ([]MonitorAggregationQuery, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -68,7 +68,7 @@ func (o *SloQueryFormula) GetQueriesOk() ([]SloAggregationQuery, bool) {
 }
 
 // SetQueries sets field value
-func (o *SloQueryFormula) SetQueries(v []SloAggregationQuery) {
+func (o *SloQueryFormula) SetQueries(v []MonitorAggregationQuery) {
 	o.Queries = v
 }
 

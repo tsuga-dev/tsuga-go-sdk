@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Values** | [**[]Tag**](Tag.md) | Values compared by this filter. When &#x60;exclude&#x60; is omitted or false, rows matching any value are kept; when &#x60;exclude&#x60; is true, matching rows are removed. | 
+**Values** | [**[]InputTag**](InputTag.md) | Values compared by this filter. When &#x60;exclude&#x60; is omitted or false, rows matching any value are kept; when &#x60;exclude&#x60; is true, matching rows are removed. | 
 **Exclude** | Pointer to **bool** | If true, exclude rows matching these values instead of including them | [optional] 
 
 ## Methods
 
 ### NewQueryMonitorsRequestFiltersTags
 
-`func NewQueryMonitorsRequestFiltersTags(values []Tag, ) *QueryMonitorsRequestFiltersTags`
+`func NewQueryMonitorsRequestFiltersTags(values []InputTag, ) *QueryMonitorsRequestFiltersTags`
 
 NewQueryMonitorsRequestFiltersTags instantiates a new QueryMonitorsRequestFiltersTags object
 This constructor will assign default values to properties that have it defined,
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetValues
 
-`func (o *QueryMonitorsRequestFiltersTags) GetValues() []Tag`
+`func (o *QueryMonitorsRequestFiltersTags) GetValues() []InputTag`
 
 GetValues returns the Values field if non-nil, zero value otherwise.
 
 ### GetValuesOk
 
-`func (o *QueryMonitorsRequestFiltersTags) GetValuesOk() (*[]Tag, bool)`
+`func (o *QueryMonitorsRequestFiltersTags) GetValuesOk() (*[]InputTag, bool)`
 
 GetValuesOk returns a tuple with the Values field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValues
 
-`func (o *QueryMonitorsRequestFiltersTags) SetValues(v []Tag)`
+`func (o *QueryMonitorsRequestFiltersTags) SetValues(v []InputTag)`
 
 SetValues sets Values field to given value.
 

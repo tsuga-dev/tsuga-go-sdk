@@ -27,7 +27,7 @@ type Slo struct {
 	// Free-form, caller-provided description of what the SLO measures. Absent when not set.
 	Description *string `json:"description,omitempty"`
 	// Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies.
-	Tags          []Tag1           `json:"tags,omitempty"`
+	Tags          []Tag            `json:"tags,omitempty"`
 	Configuration SloConfiguration `json:"configuration"`
 	// Target percentage (0 < target < 100, e.g. 99.9)
 	Target float32 `json:"target"`
@@ -153,9 +153,9 @@ func (o *Slo) SetDescription(v string) {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *Slo) GetTags() []Tag1 {
+func (o *Slo) GetTags() []Tag {
 	if o == nil || IsNil(o.Tags) {
-		var ret []Tag1
+		var ret []Tag
 		return ret
 	}
 	return o.Tags
@@ -163,7 +163,7 @@ func (o *Slo) GetTags() []Tag1 {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Slo) GetTagsOk() ([]Tag1, bool) {
+func (o *Slo) GetTagsOk() ([]Tag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -179,8 +179,8 @@ func (o *Slo) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []Tag1 and assigns it to the Tags field.
-func (o *Slo) SetTags(v []Tag1) {
+// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
+func (o *Slo) SetTags(v []Tag) {
 	o.Tags = v
 }
 

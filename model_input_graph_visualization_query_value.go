@@ -25,7 +25,7 @@ type InputGraphVisualizationQueryValue struct {
 	// Telemetry source queried by this aggregation: `logs`, `metrics`, `traces`, or `rum`.
 	Source string `json:"source"`
 	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order. For dataSource \"metrics\", each aggregate's `field` is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"system.cpu.utilization.context.host.name\").
-	Queries []AggregationQuery1 `json:"queries"`
+	Queries []InputAggregationQuery `json:"queries"`
 	// Formula referencing query outputs, such as `q1 + q2`, to compute derived results. Defaults to `q1`. Formulas may reference only submitted queries (`q1` through `qN`); undefined query references return 400.
 	Formula *string                                         `json:"formula,omitempty"`
 	Aliases *InputGraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
@@ -34,9 +34,9 @@ type InputGraphVisualizationQueryValue struct {
 	// Controls whether the widget uses a solid or transparent background
 	BackgroundMode *string `json:"backgroundMode,omitempty"`
 	// Conditional formatting rules applied to the raw query value, before the unit is applied
-	Conditions []ConditionalFormatting                          `json:"conditions,omitempty"`
+	Conditions []InputConditionalFormatting                     `json:"conditions,omitempty"`
 	Precision  *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
-	Normalizer *Normalizer                                      `json:"normalizer,omitempty"`
+	Normalizer *InputNormalizer                                 `json:"normalizer,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode           *string `json:"legendMode,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -48,7 +48,7 @@ type _InputGraphVisualizationQueryValue InputGraphVisualizationQueryValue
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInputGraphVisualizationQueryValue(type_ string, source string, queries []AggregationQuery1) *InputGraphVisualizationQueryValue {
+func NewInputGraphVisualizationQueryValue(type_ string, source string, queries []InputAggregationQuery) *InputGraphVisualizationQueryValue {
 	this := InputGraphVisualizationQueryValue{}
 	this.Type = type_
 	this.Source = source
@@ -113,9 +113,9 @@ func (o *InputGraphVisualizationQueryValue) SetSource(v string) {
 }
 
 // GetQueries returns the Queries field value
-func (o *InputGraphVisualizationQueryValue) GetQueries() []AggregationQuery1 {
+func (o *InputGraphVisualizationQueryValue) GetQueries() []InputAggregationQuery {
 	if o == nil {
-		var ret []AggregationQuery1
+		var ret []InputAggregationQuery
 		return ret
 	}
 
@@ -124,7 +124,7 @@ func (o *InputGraphVisualizationQueryValue) GetQueries() []AggregationQuery1 {
 
 // GetQueriesOk returns a tuple with the Queries field value
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationQueryValue) GetQueriesOk() ([]AggregationQuery1, bool) {
+func (o *InputGraphVisualizationQueryValue) GetQueriesOk() ([]InputAggregationQuery, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -132,7 +132,7 @@ func (o *InputGraphVisualizationQueryValue) GetQueriesOk() ([]AggregationQuery1,
 }
 
 // SetQueries sets field value
-func (o *InputGraphVisualizationQueryValue) SetQueries(v []AggregationQuery1) {
+func (o *InputGraphVisualizationQueryValue) SetQueries(v []InputAggregationQuery) {
 	o.Queries = v
 }
 
@@ -265,9 +265,9 @@ func (o *InputGraphVisualizationQueryValue) SetBackgroundMode(v string) {
 }
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
-func (o *InputGraphVisualizationQueryValue) GetConditions() []ConditionalFormatting {
+func (o *InputGraphVisualizationQueryValue) GetConditions() []InputConditionalFormatting {
 	if o == nil || IsNil(o.Conditions) {
-		var ret []ConditionalFormatting
+		var ret []InputConditionalFormatting
 		return ret
 	}
 	return o.Conditions
@@ -275,7 +275,7 @@ func (o *InputGraphVisualizationQueryValue) GetConditions() []ConditionalFormatt
 
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationQueryValue) GetConditionsOk() ([]ConditionalFormatting, bool) {
+func (o *InputGraphVisualizationQueryValue) GetConditionsOk() ([]InputConditionalFormatting, bool) {
 	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
@@ -291,8 +291,8 @@ func (o *InputGraphVisualizationQueryValue) HasConditions() bool {
 	return false
 }
 
-// SetConditions gets a reference to the given []ConditionalFormatting and assigns it to the Conditions field.
-func (o *InputGraphVisualizationQueryValue) SetConditions(v []ConditionalFormatting) {
+// SetConditions gets a reference to the given []InputConditionalFormatting and assigns it to the Conditions field.
+func (o *InputGraphVisualizationQueryValue) SetConditions(v []InputConditionalFormatting) {
 	o.Conditions = v
 }
 
@@ -329,9 +329,9 @@ func (o *InputGraphVisualizationQueryValue) SetPrecision(v GraphVisualizationQue
 }
 
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
-func (o *InputGraphVisualizationQueryValue) GetNormalizer() Normalizer {
+func (o *InputGraphVisualizationQueryValue) GetNormalizer() InputNormalizer {
 	if o == nil || IsNil(o.Normalizer) {
-		var ret Normalizer
+		var ret InputNormalizer
 		return ret
 	}
 	return *o.Normalizer
@@ -339,7 +339,7 @@ func (o *InputGraphVisualizationQueryValue) GetNormalizer() Normalizer {
 
 // GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationQueryValue) GetNormalizerOk() (*Normalizer, bool) {
+func (o *InputGraphVisualizationQueryValue) GetNormalizerOk() (*InputNormalizer, bool) {
 	if o == nil || IsNil(o.Normalizer) {
 		return nil, false
 	}
@@ -355,8 +355,8 @@ func (o *InputGraphVisualizationQueryValue) HasNormalizer() bool {
 	return false
 }
 
-// SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
-func (o *InputGraphVisualizationQueryValue) SetNormalizer(v Normalizer) {
+// SetNormalizer gets a reference to the given InputNormalizer and assigns it to the Normalizer field.
+func (o *InputGraphVisualizationQueryValue) SetNormalizer(v InputNormalizer) {
 	o.Normalizer = &v
 }
 

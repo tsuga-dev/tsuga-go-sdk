@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	createTagPolicyRequest := *openapiclient.NewCreateTagPolicyRequest("Name_example", false, "TagKey_example", []*string{nil}, false, openapiclient.createTagPolicy_request_configuration{TelemetryTagPolicy: openapiclient.NewTelemetryTagPolicy("Type_example", []string{"AssetTypes_example"}, false)}, "Owner_example") // CreateTagPolicyRequest | Tag policy create or update request. Provide policy identity, owner, enforced tag key, allowed values, team scope, active state, and asset or telemetry configuration.
+	createTagPolicyRequest := *openapiclient.NewCreateTagPolicyRequest("Name_example", false, "TagKey_example", []*string{nil}, false, openapiclient.createTagPolicy_request_configuration{InputTelemetryTagPolicy: openapiclient.NewInputTelemetryTagPolicy("Type_example", []string{"AssetTypes_example"}, false)}, "Owner_example") // CreateTagPolicyRequest | Tag policy create or update request. Provide policy identity, owner, enforced tag key, allowed values, team scope, active state, and asset or telemetry configuration.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -301,7 +301,7 @@ import (
 
 func main() {
 	id := "id_example" // string | Identifier of the tag policy to update. Use the `id` returned by tag policy list, get, or create responses.
-	updateTagPolicyRequest := *openapiclient.NewUpdateTagPolicyRequest("Name_example", false, "TagKey_example", []string{"AllowedTagValues_example"}, false, openapiclient.createTagPolicy_request_configuration{TelemetryTagPolicy: openapiclient.NewTelemetryTagPolicy("Type_example", []string{"AssetTypes_example"}, false)}, "Owner_example") // UpdateTagPolicyRequest | Tag policy create or update request. Provide policy identity, owner, enforced tag key, allowed values, team scope, active state, and asset or telemetry configuration.
+	updateTagPolicyRequest := *openapiclient.NewUpdateTagPolicyRequest("Name_example", false, "TagKey_example", []string{"AllowedTagValues_example"}, false, openapiclient.createTagPolicy_request_configuration{InputTelemetryTagPolicy: openapiclient.NewInputTelemetryTagPolicy("Type_example", []string{"AssetTypes_example"}, false)}, "Owner_example") // UpdateTagPolicyRequest | Tag policy create or update request. Provide policy identity, owner, enforced tag key, allowed values, team scope, active state, and asset or telemetry configuration.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

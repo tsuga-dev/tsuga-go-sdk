@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Display name of the dashboard. | 
 **Owner** | **string** | ID of the team that owns the dashboard. Required and used for dashboard access control. | 
-**Graphs** | [**[]Graph1**](Graph1.md) | Ordered widgets that compose the dashboard | 
+**Graphs** | [**[]InputGraph**](InputGraph.md) | Ordered widgets that compose the dashboard | 
 **Filters** | Pointer to [**[]UpdateDashboardRequestFiltersInner**](UpdateDashboardRequestFiltersInner.md) | Dashboard-wide filters applied to every widget on the dashboard. Up to 10 filters are allowed. | [optional] 
-**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
+**Tags** | Pointer to [**[]InputTag**](InputTag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **TimePreset** | Pointer to **string** | Relative time preset used when opening the dashboard. Optional; create defaults to &#x60;past-30-minutes&#x60; when omitted, and update omission preserves the current value. | [optional] 
 **FolderId** | Pointer to **NullableString** | Folder that should contain the dashboard. Optional; omit on update to keep the current folder, pass null to clear the folder, or pass a readable dashboard-folder ID to move it. | [optional] 
 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewCreateDashboardRequest
 
-`func NewCreateDashboardRequest(name string, owner string, graphs []Graph1, ) *CreateDashboardRequest`
+`func NewCreateDashboardRequest(name string, owner string, graphs []InputGraph, ) *CreateDashboardRequest`
 
 NewCreateDashboardRequest instantiates a new CreateDashboardRequest object
 This constructor will assign default values to properties that have it defined,
@@ -73,20 +73,20 @@ SetOwner sets Owner field to given value.
 
 ### GetGraphs
 
-`func (o *CreateDashboardRequest) GetGraphs() []Graph1`
+`func (o *CreateDashboardRequest) GetGraphs() []InputGraph`
 
 GetGraphs returns the Graphs field if non-nil, zero value otherwise.
 
 ### GetGraphsOk
 
-`func (o *CreateDashboardRequest) GetGraphsOk() (*[]Graph1, bool)`
+`func (o *CreateDashboardRequest) GetGraphsOk() (*[]InputGraph, bool)`
 
 GetGraphsOk returns a tuple with the Graphs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGraphs
 
-`func (o *CreateDashboardRequest) SetGraphs(v []Graph1)`
+`func (o *CreateDashboardRequest) SetGraphs(v []InputGraph)`
 
 SetGraphs sets Graphs field to given value.
 
@@ -118,20 +118,20 @@ HasFilters returns a boolean if a field has been set.
 
 ### GetTags
 
-`func (o *CreateDashboardRequest) GetTags() []Tag`
+`func (o *CreateDashboardRequest) GetTags() []InputTag`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *CreateDashboardRequest) GetTagsOk() (*[]Tag, bool)`
+`func (o *CreateDashboardRequest) GetTagsOk() (*[]InputTag, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *CreateDashboardRequest) SetTags(v []Tag)`
+`func (o *CreateDashboardRequest) SetTags(v []InputTag)`
 
 SetTags sets Tags field to given value.
 

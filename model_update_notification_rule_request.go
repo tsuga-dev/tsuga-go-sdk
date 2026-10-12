@@ -24,7 +24,7 @@ type UpdateNotificationRuleRequest struct {
 	Name string `json:"name"`
 	// Optional query that narrows which alert transitions trigger the rule. Matches on the monitor transition group key and the monitor tags, e.g. `env:prod service:api`. Omit or leave empty to match regardless of tags.
 	QueryString NullableString                           `json:"queryString,omitempty"`
-	TeamsFilter UpdateNotificationRuleRequestTeamsFilter `json:"teamsFilter"`
+	TeamsFilter CreateNotificationRuleRequestTeamsFilter `json:"teamsFilter"`
 	// Monitor priorities that must match for this rule to fire. An empty array matches every priority.
 	PrioritiesFilter []float32 `json:"prioritiesFilter"`
 	// Alert state transitions that must match for this rule to fire. An empty array matches every transition type.
@@ -34,7 +34,7 @@ type UpdateNotificationRuleRequest struct {
 	// Team ID that owns and manages the rule
 	Owner string `json:"owner"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
-	Tags []Tag `json:"tags,omitempty"`
+	Tags []InputTag `json:"tags,omitempty"`
 	// Set to true for the rule to send notifications when its filters match.
 	IsActive bool `json:"isActive"`
 	// Destinations that receive a notification whenever this rule matches an alert transition. This list replaces the existing targets on update.
@@ -48,7 +48,7 @@ type _UpdateNotificationRuleRequest UpdateNotificationRuleRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateNotificationRuleRequest(name string, teamsFilter UpdateNotificationRuleRequestTeamsFilter, prioritiesFilter []float32, transitionTypesFilter []string, owner string, isActive bool, targets []CreateNotificationRuleRequestTargetsInner) *UpdateNotificationRuleRequest {
+func NewUpdateNotificationRuleRequest(name string, teamsFilter CreateNotificationRuleRequestTeamsFilter, prioritiesFilter []float32, transitionTypesFilter []string, owner string, isActive bool, targets []CreateNotificationRuleRequestTargetsInner) *UpdateNotificationRuleRequest {
 	this := UpdateNotificationRuleRequest{}
 	this.Name = name
 	this.TeamsFilter = teamsFilter
@@ -136,9 +136,9 @@ func (o *UpdateNotificationRuleRequest) UnsetQueryString() {
 }
 
 // GetTeamsFilter returns the TeamsFilter field value
-func (o *UpdateNotificationRuleRequest) GetTeamsFilter() UpdateNotificationRuleRequestTeamsFilter {
+func (o *UpdateNotificationRuleRequest) GetTeamsFilter() CreateNotificationRuleRequestTeamsFilter {
 	if o == nil {
-		var ret UpdateNotificationRuleRequestTeamsFilter
+		var ret CreateNotificationRuleRequestTeamsFilter
 		return ret
 	}
 
@@ -147,7 +147,7 @@ func (o *UpdateNotificationRuleRequest) GetTeamsFilter() UpdateNotificationRuleR
 
 // GetTeamsFilterOk returns a tuple with the TeamsFilter field value
 // and a boolean to check if the value has been set.
-func (o *UpdateNotificationRuleRequest) GetTeamsFilterOk() (*UpdateNotificationRuleRequestTeamsFilter, bool) {
+func (o *UpdateNotificationRuleRequest) GetTeamsFilterOk() (*CreateNotificationRuleRequestTeamsFilter, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -155,7 +155,7 @@ func (o *UpdateNotificationRuleRequest) GetTeamsFilterOk() (*UpdateNotificationR
 }
 
 // SetTeamsFilter sets field value
-func (o *UpdateNotificationRuleRequest) SetTeamsFilter(v UpdateNotificationRuleRequestTeamsFilter) {
+func (o *UpdateNotificationRuleRequest) SetTeamsFilter(v CreateNotificationRuleRequestTeamsFilter) {
 	o.TeamsFilter = v
 }
 
@@ -264,9 +264,9 @@ func (o *UpdateNotificationRuleRequest) SetOwner(v string) {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *UpdateNotificationRuleRequest) GetTags() []Tag {
+func (o *UpdateNotificationRuleRequest) GetTags() []InputTag {
 	if o == nil || IsNil(o.Tags) {
-		var ret []Tag
+		var ret []InputTag
 		return ret
 	}
 	return o.Tags
@@ -274,7 +274,7 @@ func (o *UpdateNotificationRuleRequest) GetTags() []Tag {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateNotificationRuleRequest) GetTagsOk() ([]Tag, bool) {
+func (o *UpdateNotificationRuleRequest) GetTagsOk() ([]InputTag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -290,8 +290,8 @@ func (o *UpdateNotificationRuleRequest) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
-func (o *UpdateNotificationRuleRequest) SetTags(v []Tag) {
+// SetTags gets a reference to the given []InputTag and assigns it to the Tags field.
+func (o *UpdateNotificationRuleRequest) SetTags(v []InputTag) {
 	o.Tags = v
 }
 

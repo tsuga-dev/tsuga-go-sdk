@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **DataSource** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, &#x60;traces&#x60;, or &#x60;rum&#x60;. | 
 **GoodQuery** | [**SloQueryFormula**](SloQueryFormula.md) |  | 
 **TotalQuery** | [**SloQueryFormula**](SloQueryFormula.md) |  | 
-**GroupByFields** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
+**GroupByFields** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values. | [optional] 
 **NoDataBehavior** | **string** | How to treat SLO with no data: good (count as meeting the SLO), bad (count as breaching it) | 
 
 ## Methods

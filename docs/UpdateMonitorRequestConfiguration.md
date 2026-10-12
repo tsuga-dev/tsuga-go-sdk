@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **GroupByFields** | [**[]InputMonitorConfigurationMetricGroupByFieldsInner**](InputMonitorConfigurationMetricGroupByFieldsInner.md) | Monitor group by configuration. The &#x60;limit&#x60; setting is currently ignored; evaluation applies a fixed limit of 100 groups per field. | 
 **AggregationAlertLogic** | **string** | Certificate expiry monitors alert independently for each certificate. | 
 **ProportionAlertThreshold** | Pointer to **int32** | Percentage threshold used when &#x60;aggregationAlertLogic&#x60; is &#x60;proportion&#x60;. | [optional] 
-**Queries** | [**[]MonitorAggregationQuery1**](MonitorAggregationQuery1.md) | Aggregation queries used by alerting. Each query is referenced from formulas as q1, q2, and so on. | 
+**Queries** | [**[]InputMonitorAggregationQuery**](InputMonitorAggregationQuery.md) | Aggregation queries used by alerting. Each query is referenced from formulas as q1, q2, and so on. | 
 **Condition** | [**InputMonitorConfigurationAnomalyLogCondition**](InputMonitorConfigurationAnomalyLogCondition.md) |  | 
 **Filter** | [**InputMonitorConfigurationLogErrorPatternIncreaseFilter**](InputMonitorConfigurationLogErrorPatternIncreaseFilter.md) |  | 
 **WarnBeforeInDays** | **int32** | Number of days before certificate expiry when the monitor should warn. Valid values are 1 through 365. | 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewUpdateMonitorRequestConfiguration
 
-`func NewUpdateMonitorRequestConfiguration(type_ string, conditions []InputMonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe int32, groupByFields []InputMonitorConfigurationMetricGroupByFieldsInner, aggregationAlertLogic string, queries []MonitorAggregationQuery1, condition InputMonitorConfigurationAnomalyLogCondition, filter InputMonitorConfigurationLogErrorPatternIncreaseFilter, warnBeforeInDays int32, ) *UpdateMonitorRequestConfiguration`
+`func NewUpdateMonitorRequestConfiguration(type_ string, conditions []InputMonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe int32, groupByFields []InputMonitorConfigurationMetricGroupByFieldsInner, aggregationAlertLogic string, queries []InputMonitorAggregationQuery, condition InputMonitorConfigurationAnomalyLogCondition, filter InputMonitorConfigurationLogErrorPatternIncreaseFilter, warnBeforeInDays int32, ) *UpdateMonitorRequestConfiguration`
 
 NewUpdateMonitorRequestConfiguration instantiates a new UpdateMonitorRequestConfiguration object
 This constructor will assign default values to properties that have it defined,
@@ -183,20 +183,20 @@ HasProportionAlertThreshold returns a boolean if a field has been set.
 
 ### GetQueries
 
-`func (o *UpdateMonitorRequestConfiguration) GetQueries() []MonitorAggregationQuery1`
+`func (o *UpdateMonitorRequestConfiguration) GetQueries() []InputMonitorAggregationQuery`
 
 GetQueries returns the Queries field if non-nil, zero value otherwise.
 
 ### GetQueriesOk
 
-`func (o *UpdateMonitorRequestConfiguration) GetQueriesOk() (*[]MonitorAggregationQuery1, bool)`
+`func (o *UpdateMonitorRequestConfiguration) GetQueriesOk() (*[]InputMonitorAggregationQuery, bool)`
 
 GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueries
 
-`func (o *UpdateMonitorRequestConfiguration) SetQueries(v []MonitorAggregationQuery1)`
+`func (o *UpdateMonitorRequestConfiguration) SetQueries(v []InputMonitorAggregationQuery)`
 
 SetQueries sets Queries field to given value.
 

@@ -29,7 +29,7 @@ type Monitor struct {
 	// Caller-supplied message included in notifications triggered by this monitor. Omitted when the monitor was created or last updated without one.
 	Message *string `json:"message,omitempty"`
 	// Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies.
-	Tags          []Tag1               `json:"tags,omitempty"`
+	Tags          []Tag                `json:"tags,omitempty"`
 	Configuration MonitorConfiguration `json:"configuration"`
 	// Monitor priority from 1 through 5, where 1 is highest priority.
 	Priority float32 `json:"priority"`
@@ -175,9 +175,9 @@ func (o *Monitor) SetMessage(v string) {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *Monitor) GetTags() []Tag1 {
+func (o *Monitor) GetTags() []Tag {
 	if o == nil || IsNil(o.Tags) {
-		var ret []Tag1
+		var ret []Tag
 		return ret
 	}
 	return o.Tags
@@ -185,7 +185,7 @@ func (o *Monitor) GetTags() []Tag1 {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Monitor) GetTagsOk() ([]Tag1, bool) {
+func (o *Monitor) GetTagsOk() ([]Tag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -201,8 +201,8 @@ func (o *Monitor) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []Tag1 and assigns it to the Tags field.
-func (o *Monitor) SetTags(v []Tag1) {
+// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
+func (o *Monitor) SetTags(v []Tag) {
 	o.Tags = v
 }
 

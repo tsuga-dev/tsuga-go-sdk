@@ -25,11 +25,11 @@ type TimeSliceSloConfiguration struct {
 	// Telemetry source queried by this aggregation: `logs`, `metrics`, `traces`, or `rum`.
 	DataSource string          `json:"dataSource"`
 	Query      SloQueryFormula `json:"query"`
-	// Length of each time-SLO evaluation slice in minutes. Required for `type: time`. Valid input is 30 through 1440.
+	// Length of each time-SLO evaluation slice in minutes. Required for `type: time`.
 	SliceSizeMinutes int32                              `json:"sliceSizeMinutes"`
 	Threshold        TimeSliceSloConfigurationThreshold `json:"threshold"`
 	Normalizer       *Normalizer                        `json:"normalizer,omitempty"`
-	// Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted.
+	// Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values.
 	GroupByFields []AggregationGroupBy `json:"groupByFields,omitempty"`
 	// How to treat time buckets with no data: good (count as meeting the SLO), bad (count as breaching it), or ignore (exclude from the error budget)
 	NoDataBehavior       string `json:"noDataBehavior"`

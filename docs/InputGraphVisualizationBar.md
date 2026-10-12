@@ -6,25 +6,25 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a bar chart | 
 **Source** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, &#x60;traces&#x60;, or &#x60;rum&#x60;. | 
-**Queries** | [**[]AggregationQuery1**](AggregationQuery1.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. For dataSource \&quot;metrics\&quot;, each aggregate&#39;s &#x60;field&#x60; is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \&quot;&lt;metricName&gt;.context.&lt;attribute&gt;\&quot; (e.g. \&quot;system.cpu.utilization.context.host.name\&quot;). | 
+**Queries** | [**[]InputAggregationQuery**](InputAggregationQuery.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. For dataSource \&quot;metrics\&quot;, each aggregate&#39;s &#x60;field&#x60; is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \&quot;&lt;metricName&gt;.context.&lt;attribute&gt;\&quot; (e.g. \&quot;system.cpu.utilization.context.host.name\&quot;). | 
 **Formula** | Pointer to **string** | Formula referencing query outputs, such as &#x60;q1 + q2&#x60;, to compute derived results. Defaults to &#x60;q1&#x60;. Formulas may reference only submitted queries (&#x60;q1&#x60; through &#x60;qN&#x60;); undefined query references return 400. | [optional] 
 **Aliases** | Pointer to [**InputGraphVisualizationTimeseriesPromqlAliases**](InputGraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
-**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
+**GroupBy** | Pointer to [**[]InputAggregationGroupBy**](InputAggregationGroupBy.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
 **GroupByMode** | Pointer to **string** | &#x60;absolute&#x60; keeps each group at its own value; &#x60;relative&#x60; shows it as a percentage of the ungrouped total (defaults to absolute) | [optional] 
 **TimeBucket** | Pointer to [**GraphVisualizationTimeseriesPromqlTimeBucket**](GraphVisualizationTimeseriesPromqlTimeBucket.md) |  | [optional] 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
-**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
-**Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
+**Normalizer** | Pointer to [**InputNormalizer**](InputNormalizer.md) |  | [optional] 
+**Thresholds** | Pointer to [**[]InputThresholdMarker**](InputThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 **YAxisSettings** | Pointer to [**InputGraphVisualizationTimeseriesConnectionYAxisSettings**](InputGraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
-**CustomLink** | Pointer to [**CustomLink1**](CustomLink1.md) |  | [optional] 
+**CustomLink** | Pointer to [**InputCustomLink**](InputCustomLink.md) |  | [optional] 
 
 ## Methods
 
 ### NewInputGraphVisualizationBar
 
-`func NewInputGraphVisualizationBar(type_ string, source string, queries []AggregationQuery1, ) *InputGraphVisualizationBar`
+`func NewInputGraphVisualizationBar(type_ string, source string, queries []InputAggregationQuery, ) *InputGraphVisualizationBar`
 
 NewInputGraphVisualizationBar instantiates a new InputGraphVisualizationBar object
 This constructor will assign default values to properties that have it defined,
@@ -81,20 +81,20 @@ SetSource sets Source field to given value.
 
 ### GetQueries
 
-`func (o *InputGraphVisualizationBar) GetQueries() []AggregationQuery1`
+`func (o *InputGraphVisualizationBar) GetQueries() []InputAggregationQuery`
 
 GetQueries returns the Queries field if non-nil, zero value otherwise.
 
 ### GetQueriesOk
 
-`func (o *InputGraphVisualizationBar) GetQueriesOk() (*[]AggregationQuery1, bool)`
+`func (o *InputGraphVisualizationBar) GetQueriesOk() (*[]InputAggregationQuery, bool)`
 
 GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueries
 
-`func (o *InputGraphVisualizationBar) SetQueries(v []AggregationQuery1)`
+`func (o *InputGraphVisualizationBar) SetQueries(v []InputAggregationQuery)`
 
 SetQueries sets Queries field to given value.
 
@@ -176,20 +176,20 @@ HasVisibleSeries returns a boolean if a field has been set.
 
 ### GetGroupBy
 
-`func (o *InputGraphVisualizationBar) GetGroupBy() []AggregationGroupBy`
+`func (o *InputGraphVisualizationBar) GetGroupBy() []InputAggregationGroupBy`
 
 GetGroupBy returns the GroupBy field if non-nil, zero value otherwise.
 
 ### GetGroupByOk
 
-`func (o *InputGraphVisualizationBar) GetGroupByOk() (*[]AggregationGroupBy, bool)`
+`func (o *InputGraphVisualizationBar) GetGroupByOk() (*[]InputAggregationGroupBy, bool)`
 
 GetGroupByOk returns a tuple with the GroupBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroupBy
 
-`func (o *InputGraphVisualizationBar) SetGroupBy(v []AggregationGroupBy)`
+`func (o *InputGraphVisualizationBar) SetGroupBy(v []InputAggregationGroupBy)`
 
 SetGroupBy sets GroupBy field to given value.
 
@@ -276,20 +276,20 @@ HasPrecision returns a boolean if a field has been set.
 
 ### GetNormalizer
 
-`func (o *InputGraphVisualizationBar) GetNormalizer() Normalizer`
+`func (o *InputGraphVisualizationBar) GetNormalizer() InputNormalizer`
 
 GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
 
 ### GetNormalizerOk
 
-`func (o *InputGraphVisualizationBar) GetNormalizerOk() (*Normalizer, bool)`
+`func (o *InputGraphVisualizationBar) GetNormalizerOk() (*InputNormalizer, bool)`
 
 GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNormalizer
 
-`func (o *InputGraphVisualizationBar) SetNormalizer(v Normalizer)`
+`func (o *InputGraphVisualizationBar) SetNormalizer(v InputNormalizer)`
 
 SetNormalizer sets Normalizer field to given value.
 
@@ -301,20 +301,20 @@ HasNormalizer returns a boolean if a field has been set.
 
 ### GetThresholds
 
-`func (o *InputGraphVisualizationBar) GetThresholds() []ThresholdMarker`
+`func (o *InputGraphVisualizationBar) GetThresholds() []InputThresholdMarker`
 
 GetThresholds returns the Thresholds field if non-nil, zero value otherwise.
 
 ### GetThresholdsOk
 
-`func (o *InputGraphVisualizationBar) GetThresholdsOk() (*[]ThresholdMarker, bool)`
+`func (o *InputGraphVisualizationBar) GetThresholdsOk() (*[]InputThresholdMarker, bool)`
 
 GetThresholdsOk returns a tuple with the Thresholds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetThresholds
 
-`func (o *InputGraphVisualizationBar) SetThresholds(v []ThresholdMarker)`
+`func (o *InputGraphVisualizationBar) SetThresholds(v []InputThresholdMarker)`
 
 SetThresholds sets Thresholds field to given value.
 
@@ -376,20 +376,20 @@ HasYAxisSettings returns a boolean if a field has been set.
 
 ### GetCustomLink
 
-`func (o *InputGraphVisualizationBar) GetCustomLink() CustomLink1`
+`func (o *InputGraphVisualizationBar) GetCustomLink() InputCustomLink`
 
 GetCustomLink returns the CustomLink field if non-nil, zero value otherwise.
 
 ### GetCustomLinkOk
 
-`func (o *InputGraphVisualizationBar) GetCustomLinkOk() (*CustomLink1, bool)`
+`func (o *InputGraphVisualizationBar) GetCustomLinkOk() (*InputCustomLink, bool)`
 
 GetCustomLinkOk returns a tuple with the CustomLink field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCustomLink
 
-`func (o *InputGraphVisualizationBar) SetCustomLink(v CustomLink1)`
+`func (o *InputGraphVisualizationBar) SetCustomLink(v InputCustomLink)`
 
 SetCustomLink sets CustomLink field to given value.
 

@@ -26,7 +26,7 @@ type EventSloConfiguration struct {
 	DataSource string          `json:"dataSource"`
 	GoodQuery  SloQueryFormula `json:"goodQuery"`
 	TotalQuery SloQueryFormula `json:"totalQuery"`
-	// Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted.
+	// Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values.
 	GroupByFields []AggregationGroupBy `json:"groupByFields,omitempty"`
 	// How to treat SLO with no data: good (count as meeting the SLO), bad (count as breaching it)
 	NoDataBehavior       string `json:"noDataBehavior"`

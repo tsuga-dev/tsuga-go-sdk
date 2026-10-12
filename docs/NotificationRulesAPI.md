@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	createNotificationRuleRequest := *openapiclient.NewCreateNotificationRuleRequest("Name_example", openapiclient.createNotificationRule_request_teamsFilter{AllPublicTeams: openapiclient.NewAllPublicTeams("Type_example")}, []float32{float32(123)}, []string{"TransitionTypesFilter_example"}, "Owner_example", false, []openapiclient.CreateNotificationRuleRequestTargetsInner{*openapiclient.NewCreateNotificationRuleRequestTargetsInner("Id_example", openapiclient.createNotificationRule_request_targets_inner_config{RuleTargetInputEmail: openapiclient.NewRuleTargetInputEmail("Type_example", []string{"Addresses_example"})})}) // CreateNotificationRuleRequest | Notification rule create or update request. Provide matching filters, owner, tags, active state, and delivery targets.
+	createNotificationRuleRequest := *openapiclient.NewCreateNotificationRuleRequest("Name_example", openapiclient.createNotificationRule_request_teamsFilter{InputAllPublicTeams: openapiclient.NewInputAllPublicTeams("Type_example")}, []float32{float32(123)}, []string{"TransitionTypesFilter_example"}, "Owner_example", false, []openapiclient.CreateNotificationRuleRequestTargetsInner{*openapiclient.NewCreateNotificationRuleRequestTargetsInner("Id_example", openapiclient.createNotificationRule_request_targets_inner_config{RuleTargetInputEmail: openapiclient.NewRuleTargetInputEmail("Type_example", []string{"Addresses_example"})})}) // CreateNotificationRuleRequest | Notification rule create or update request. Provide matching filters, owner, tags, active state, and delivery targets.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -308,7 +308,7 @@ import (
 
 func main() {
 	id := "id_example" // string | Identifier of the notification rule to update. Use the `id` returned by notification rule list, get, or create responses.
-	updateNotificationRuleRequest := *openapiclient.NewUpdateNotificationRuleRequest("Name_example", openapiclient.updateNotificationRule_request_teamsFilter{AllPublicTeams: openapiclient.NewAllPublicTeams("Type_example")}, []float32{float32(123)}, []string{"TransitionTypesFilter_example"}, "Owner_example", false, []openapiclient.CreateNotificationRuleRequestTargetsInner{*openapiclient.NewCreateNotificationRuleRequestTargetsInner("Id_example", openapiclient.createNotificationRule_request_targets_inner_config{RuleTargetInputEmail: openapiclient.NewRuleTargetInputEmail("Type_example", []string{"Addresses_example"})})}) // UpdateNotificationRuleRequest | Notification rule create or update request. Provide matching filters, owner, tags, active state, and delivery targets.
+	updateNotificationRuleRequest := *openapiclient.NewUpdateNotificationRuleRequest("Name_example", openapiclient.createNotificationRule_request_teamsFilter{InputAllPublicTeams: openapiclient.NewInputAllPublicTeams("Type_example")}, []float32{float32(123)}, []string{"TransitionTypesFilter_example"}, "Owner_example", false, []openapiclient.CreateNotificationRuleRequestTargetsInner{*openapiclient.NewCreateNotificationRuleRequestTargetsInner("Id_example", openapiclient.createNotificationRule_request_targets_inner_config{RuleTargetInputEmail: openapiclient.NewRuleTargetInputEmail("Type_example", []string{"Addresses_example"})})}) // UpdateNotificationRuleRequest | Notification rule create or update request. Provide matching filters, owner, tags, active state, and delivery targets.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

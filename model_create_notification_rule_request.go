@@ -34,7 +34,7 @@ type CreateNotificationRuleRequest struct {
 	// Team ID that owns and manages the rule
 	Owner string `json:"owner"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
-	Tags []Tag `json:"tags,omitempty"`
+	Tags []InputTag `json:"tags,omitempty"`
 	// Set to true for the rule to send notifications when its filters match.
 	IsActive bool `json:"isActive"`
 	// Destinations that receive a notification whenever this rule matches an alert transition. This list replaces the existing targets on update.
@@ -264,9 +264,9 @@ func (o *CreateNotificationRuleRequest) SetOwner(v string) {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *CreateNotificationRuleRequest) GetTags() []Tag {
+func (o *CreateNotificationRuleRequest) GetTags() []InputTag {
 	if o == nil || IsNil(o.Tags) {
-		var ret []Tag
+		var ret []InputTag
 		return ret
 	}
 	return o.Tags
@@ -274,7 +274,7 @@ func (o *CreateNotificationRuleRequest) GetTags() []Tag {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateNotificationRuleRequest) GetTagsOk() ([]Tag, bool) {
+func (o *CreateNotificationRuleRequest) GetTagsOk() ([]InputTag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -290,8 +290,8 @@ func (o *CreateNotificationRuleRequest) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
-func (o *CreateNotificationRuleRequest) SetTags(v []Tag) {
+// SetTags gets a reference to the given []InputTag and assigns it to the Tags field.
+func (o *CreateNotificationRuleRequest) SetTags(v []InputTag) {
 	o.Tags = v
 }
 

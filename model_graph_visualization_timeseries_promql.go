@@ -26,7 +26,7 @@ type GraphVisualizationTimeseriesPromql struct {
 	Queries    []string                                         `json:"queries"`
 	Aliases    *GraphVisualizationTimeseriesPromqlAliases       `json:"aliases,omitempty"`
 	TimeBucket *GraphVisualizationTimeseriesPromqlTimeBucket    `json:"timeBucket,omitempty"`
-	Normalizer *Normalizer1                                     `json:"normalizer,omitempty"`
+	Normalizer *Normalizer                                      `json:"normalizer,omitempty"`
 	Precision  *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode *string `json:"legendMode,omitempty"`
@@ -174,9 +174,9 @@ func (o *GraphVisualizationTimeseriesPromql) SetTimeBucket(v GraphVisualizationT
 }
 
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
-func (o *GraphVisualizationTimeseriesPromql) GetNormalizer() Normalizer1 {
+func (o *GraphVisualizationTimeseriesPromql) GetNormalizer() Normalizer {
 	if o == nil || IsNil(o.Normalizer) {
-		var ret Normalizer1
+		var ret Normalizer
 		return ret
 	}
 	return *o.Normalizer
@@ -184,7 +184,7 @@ func (o *GraphVisualizationTimeseriesPromql) GetNormalizer() Normalizer1 {
 
 // GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationTimeseriesPromql) GetNormalizerOk() (*Normalizer1, bool) {
+func (o *GraphVisualizationTimeseriesPromql) GetNormalizerOk() (*Normalizer, bool) {
 	if o == nil || IsNil(o.Normalizer) {
 		return nil, false
 	}
@@ -200,8 +200,8 @@ func (o *GraphVisualizationTimeseriesPromql) HasNormalizer() bool {
 	return false
 }
 
-// SetNormalizer gets a reference to the given Normalizer1 and assigns it to the Normalizer field.
-func (o *GraphVisualizationTimeseriesPromql) SetNormalizer(v Normalizer1) {
+// SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
+func (o *GraphVisualizationTimeseriesPromql) SetNormalizer(v Normalizer) {
 	o.Normalizer = &v
 }
 

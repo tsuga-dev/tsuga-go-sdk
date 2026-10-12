@@ -50,11 +50,11 @@ func TestGraphVisualizationDiscriminator(t *testing.T) {
 			json: `{"type":"timeseries","source":"logs","queries":[{"aggregate":{"type":"count"}}]}`,
 			checkFn: func(t *testing.T, v tsuga.GraphVisualization) {
 				t.Helper()
-				if v.InputGraphVisualizationTimeseries == nil {
-					t.Fatal("expected InputGraphVisualizationTimeseries to be set")
+				if v.GraphVisualizationTimeseries == nil {
+					t.Fatal("expected GraphVisualizationTimeseries to be set")
 				}
-				if v.InputGraphVisualizationTimeseries.GetType() != "timeseries" {
-					t.Errorf("type = %q, want %q", v.InputGraphVisualizationTimeseries.GetType(), "timeseries")
+				if v.GraphVisualizationTimeseries.GetType() != "timeseries" {
+					t.Errorf("type = %q, want %q", v.GraphVisualizationTimeseries.GetType(), "timeseries")
 				}
 			},
 		},
@@ -63,8 +63,8 @@ func TestGraphVisualizationDiscriminator(t *testing.T) {
 			json: `{"type":"bar","source":"metrics","queries":[{"aggregate":{"type":"count"}}]}`,
 			checkFn: func(t *testing.T, v tsuga.GraphVisualization) {
 				t.Helper()
-				if v.InputGraphVisualizationBar == nil {
-					t.Fatal("expected InputGraphVisualizationBar to be set")
+				if v.GraphVisualizationBar == nil {
+					t.Fatal("expected GraphVisualizationBar to be set")
 				}
 			},
 		},
@@ -73,8 +73,8 @@ func TestGraphVisualizationDiscriminator(t *testing.T) {
 			json: `{"type":"top-list","source":"traces","queries":[{"aggregate":{"type":"count"}}]}`,
 			checkFn: func(t *testing.T, v tsuga.GraphVisualization) {
 				t.Helper()
-				if v.InputGraphVisualizationTopList == nil {
-					t.Fatal("expected InputGraphVisualizationTopList to be set")
+				if v.GraphVisualizationTopList == nil {
+					t.Fatal("expected GraphVisualizationTopList to be set")
 				}
 			},
 		},
@@ -83,8 +83,8 @@ func TestGraphVisualizationDiscriminator(t *testing.T) {
 			json: `{"type":"pie","source":"logs","queries":[{"aggregate":{"type":"count"}}]}`,
 			checkFn: func(t *testing.T, v tsuga.GraphVisualization) {
 				t.Helper()
-				if v.InputGraphVisualizationPie == nil {
-					t.Fatal("expected InputGraphVisualizationPie to be set")
+				if v.GraphVisualizationPie == nil {
+					t.Fatal("expected GraphVisualizationPie to be set")
 				}
 			},
 		},
@@ -93,8 +93,8 @@ func TestGraphVisualizationDiscriminator(t *testing.T) {
 			json: `{"type":"query-value","source":"logs","queries":[{"aggregate":{"type":"count"}}]}`,
 			checkFn: func(t *testing.T, v tsuga.GraphVisualization) {
 				t.Helper()
-				if v.InputGraphVisualizationQueryValue == nil {
-					t.Fatal("expected InputGraphVisualizationQueryValue to be set")
+				if v.GraphVisualizationQueryValue == nil {
+					t.Fatal("expected GraphVisualizationQueryValue to be set")
 				}
 			},
 		},
@@ -103,8 +103,8 @@ func TestGraphVisualizationDiscriminator(t *testing.T) {
 			json: `{"type":"list","source":"logs","query":"level:error"}`,
 			checkFn: func(t *testing.T, v tsuga.GraphVisualization) {
 				t.Helper()
-				if v.InputGraphVisualizationList == nil {
-					t.Fatal("expected InputGraphVisualizationList to be set")
+				if v.GraphVisualizationList == nil {
+					t.Fatal("expected GraphVisualizationList to be set")
 				}
 			},
 		},
@@ -113,8 +113,8 @@ func TestGraphVisualizationDiscriminator(t *testing.T) {
 			json: `{"type":"note","note":"hello world"}`,
 			checkFn: func(t *testing.T, v tsuga.GraphVisualization) {
 				t.Helper()
-				if v.InputGraphVisualizationNote == nil {
-					t.Fatal("expected InputGraphVisualizationNote to be set")
+				if v.GraphVisualizationNote == nil {
+					t.Fatal("expected GraphVisualizationNote to be set")
 				}
 			},
 		},
@@ -130,58 +130,58 @@ func TestGraphVisualizationDiscriminator(t *testing.T) {
 			// in an `any` slice produces a non-nil interface value, which would
 			// make every entry appear set (classic Go nil-interface trap).
 			populated := 0
-			if v.InputGraphVisualizationBar != nil {
+			if v.GraphVisualizationBar != nil {
 				populated++
 			}
-			if v.InputGraphVisualizationBarConnection != nil {
+			if v.GraphVisualizationBarConnection != nil {
 				populated++
 			}
-			if v.InputGraphVisualizationDistribution != nil {
+			if v.GraphVisualizationDistribution != nil {
 				populated++
 			}
-			if v.InputGraphVisualizationGauge != nil {
+			if v.GraphVisualizationGauge != nil {
 				populated++
 			}
-			if v.InputGraphVisualizationHeatmap != nil {
+			if v.GraphVisualizationHeatmap != nil {
 				populated++
 			}
-			if v.InputGraphVisualizationList != nil {
+			if v.GraphVisualizationList != nil {
 				populated++
 			}
-			if v.InputGraphVisualizationListConnection != nil {
+			if v.GraphVisualizationListConnection != nil {
 				populated++
 			}
-			if v.InputGraphVisualizationListLogPatterns != nil {
+			if v.GraphVisualizationListLogPatterns != nil {
 				populated++
 			}
-			if v.InputGraphVisualizationNote != nil {
+			if v.GraphVisualizationNote != nil {
 				populated++
 			}
-			if v.InputGraphVisualizationPie != nil {
+			if v.GraphVisualizationPie != nil {
 				populated++
 			}
-			if v.InputGraphVisualizationPieConnection != nil {
+			if v.GraphVisualizationPieConnection != nil {
 				populated++
 			}
-			if v.InputGraphVisualizationQueryValue != nil {
+			if v.GraphVisualizationQueryValue != nil {
 				populated++
 			}
-			if v.InputGraphVisualizationQueryValueConnection != nil {
+			if v.GraphVisualizationQueryValueConnection != nil {
 				populated++
 			}
-			if v.InputGraphVisualizationTable != nil {
+			if v.GraphVisualizationTable != nil {
 				populated++
 			}
-			if v.InputGraphVisualizationTimeseries != nil {
+			if v.GraphVisualizationTimeseries != nil {
 				populated++
 			}
-			if v.InputGraphVisualizationTimeseriesConnection != nil {
+			if v.GraphVisualizationTimeseriesConnection != nil {
 				populated++
 			}
-			if v.InputGraphVisualizationTopList != nil {
+			if v.GraphVisualizationTopList != nil {
 				populated++
 			}
-			if v.InputGraphVisualizationTopListConnection != nil {
+			if v.GraphVisualizationTopListConnection != nil {
 				populated++
 			}
 			if populated != 1 {

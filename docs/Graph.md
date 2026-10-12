@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | Unique identifier of the graph widget inside the dashboard. Assign it when the graph is created; use it to target the graph in later update requests. | 
+**Id** | **string** | Unique identifier of the graph widget inside the dashboard. Set by the caller when the graph is created; use it to target the graph in later update requests. | 
 **Name** | Pointer to **string** | Display name of the graph widget. | [optional] 
-**Description** | Pointer to **string** | Text shown with the graph widget. | [optional] 
-**DescriptionAlign** | Pointer to **NullableString** | Flex alignment keyword used for widget layout | [optional] 
-**DescriptionJustifyContent** | Pointer to **NullableString** | Flex alignment keyword used for widget layout | [optional] 
+**Description** | Pointer to **string** | Optional text shown with the graph widget. | [optional] 
+**DescriptionAlign** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
+**DescriptionJustifyContent** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
 **Visualization** | [**GraphVisualization**](GraphVisualization.md) |  | 
-**Layout** | Pointer to [**NullableGraphLayout**](GraphLayout.md) |  | [optional] 
+**Layout** | Pointer to [**GraphLayout**](GraphLayout.md) |  | [optional] 
 
 ## Methods
 
@@ -126,16 +126,6 @@ SetDescriptionAlign sets DescriptionAlign field to given value.
 
 HasDescriptionAlign returns a boolean if a field has been set.
 
-### SetDescriptionAlignNil
-
-`func (o *Graph) SetDescriptionAlignNil(b bool)`
-
- SetDescriptionAlignNil sets the value for DescriptionAlign to be an explicit nil
-
-### UnsetDescriptionAlign
-`func (o *Graph) UnsetDescriptionAlign()`
-
-UnsetDescriptionAlign ensures that no value is present for DescriptionAlign, not even an explicit nil
 ### GetDescriptionJustifyContent
 
 `func (o *Graph) GetDescriptionJustifyContent() string`
@@ -161,16 +151,6 @@ SetDescriptionJustifyContent sets DescriptionJustifyContent field to given value
 
 HasDescriptionJustifyContent returns a boolean if a field has been set.
 
-### SetDescriptionJustifyContentNil
-
-`func (o *Graph) SetDescriptionJustifyContentNil(b bool)`
-
- SetDescriptionJustifyContentNil sets the value for DescriptionJustifyContent to be an explicit nil
-
-### UnsetDescriptionJustifyContent
-`func (o *Graph) UnsetDescriptionJustifyContent()`
-
-UnsetDescriptionJustifyContent ensures that no value is present for DescriptionJustifyContent, not even an explicit nil
 ### GetVisualization
 
 `func (o *Graph) GetVisualization() GraphVisualization`
@@ -216,16 +196,6 @@ SetLayout sets Layout field to given value.
 
 HasLayout returns a boolean if a field has been set.
 
-### SetLayoutNil
-
-`func (o *Graph) SetLayoutNil(b bool)`
-
- SetLayoutNil sets the value for Layout to be an explicit nil
-
-### UnsetLayout
-`func (o *Graph) UnsetLayout()`
-
-UnsetLayout ensures that no value is present for Layout, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

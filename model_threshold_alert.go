@@ -22,7 +22,7 @@ var _ MappedNullable = &ThresholdAlert{}
 type ThresholdAlert struct {
 	// Alert configuration kind. Set to `threshold` for alerts that fire when the SLO indicator falls below a percentage threshold.
 	Type string `json:"type"`
-	// SLI percentage threshold for this alert. Required for threshold alerts; valid input is greater than 0 and less than 100. The alert passes when SLI is at or above this value and fires when SLI is strictly below it.
+	// SLI percentage threshold for this alert. The alert passes when SLI is at or above this value and fires when SLI is strictly below it.
 	Threshold            float32 `json:"threshold"`
 	AdditionalProperties map[string]interface{}
 }

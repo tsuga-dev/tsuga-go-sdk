@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Alert configuration kind. Set to &#x60;threshold&#x60; for alerts that fire when the SLO indicator falls below a percentage threshold. | 
-**Threshold** | **float32** | SLI percentage threshold for this alert. Required for threshold alerts; valid input is greater than 0 and less than 100. The alert passes when SLI is at or above this value and fires when SLI is strictly below it. | 
+**Threshold** | **float32** | SLI percentage threshold for this alert. The alert passes when SLI is at or above this value and fires when SLI is strictly below it. | 
 
 ## Methods
 

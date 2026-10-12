@@ -25,7 +25,7 @@ type GraphVisualizationTable struct {
 	// Each column defines an independent aggregation displayed as a table column
 	Columns []TableColumn `json:"columns"`
 	// Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values.
-	GroupBy []AggregationGroupBy1 `json:"groupBy,omitempty"`
+	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
 	// `absolute` keeps each group at its own value; `relative` shows it as a percentage of the ungrouped total (defaults to absolute)
 	GroupByMode *string `json:"groupByMode,omitempty"`
 	// Default sorting applied to a table widget. Column IDs are `label` for the grouping column and `col-<index>` for each entry in `columns`. Users can still change sorting by selecting columns in the rendered table.
@@ -106,9 +106,9 @@ func (o *GraphVisualizationTable) SetColumns(v []TableColumn) {
 }
 
 // GetGroupBy returns the GroupBy field value if set, zero value otherwise.
-func (o *GraphVisualizationTable) GetGroupBy() []AggregationGroupBy1 {
+func (o *GraphVisualizationTable) GetGroupBy() []AggregationGroupBy {
 	if o == nil || IsNil(o.GroupBy) {
-		var ret []AggregationGroupBy1
+		var ret []AggregationGroupBy
 		return ret
 	}
 	return o.GroupBy
@@ -116,7 +116,7 @@ func (o *GraphVisualizationTable) GetGroupBy() []AggregationGroupBy1 {
 
 // GetGroupByOk returns a tuple with the GroupBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationTable) GetGroupByOk() ([]AggregationGroupBy1, bool) {
+func (o *GraphVisualizationTable) GetGroupByOk() ([]AggregationGroupBy, bool) {
 	if o == nil || IsNil(o.GroupBy) {
 		return nil, false
 	}
@@ -132,8 +132,8 @@ func (o *GraphVisualizationTable) HasGroupBy() bool {
 	return false
 }
 
-// SetGroupBy gets a reference to the given []AggregationGroupBy1 and assigns it to the GroupBy field.
-func (o *GraphVisualizationTable) SetGroupBy(v []AggregationGroupBy1) {
+// SetGroupBy gets a reference to the given []AggregationGroupBy and assigns it to the GroupBy field.
+func (o *GraphVisualizationTable) SetGroupBy(v []AggregationGroupBy) {
 	o.GroupBy = v
 }
 

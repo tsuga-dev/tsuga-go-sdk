@@ -17,21 +17,21 @@ import (
 
 // UpdateSloRequestConfiguration - SLI configuration for this SLO. Use `event` for good/total event-ratio SLOs or `time` for thresholded time-slice SLOs.
 type UpdateSloRequestConfiguration struct {
-	EventSloConfiguration     *EventSloConfiguration
-	TimeSliceSloConfiguration *TimeSliceSloConfiguration
+	InputEventSloConfiguration     *InputEventSloConfiguration
+	InputTimeSliceSloConfiguration *InputTimeSliceSloConfiguration
 }
 
-// EventSloConfigurationAsUpdateSloRequestConfiguration is a convenience function that returns EventSloConfiguration wrapped in UpdateSloRequestConfiguration
-func EventSloConfigurationAsUpdateSloRequestConfiguration(v *EventSloConfiguration) UpdateSloRequestConfiguration {
+// InputEventSloConfigurationAsUpdateSloRequestConfiguration is a convenience function that returns InputEventSloConfiguration wrapped in UpdateSloRequestConfiguration
+func InputEventSloConfigurationAsUpdateSloRequestConfiguration(v *InputEventSloConfiguration) UpdateSloRequestConfiguration {
 	return UpdateSloRequestConfiguration{
-		EventSloConfiguration: v,
+		InputEventSloConfiguration: v,
 	}
 }
 
-// TimeSliceSloConfigurationAsUpdateSloRequestConfiguration is a convenience function that returns TimeSliceSloConfiguration wrapped in UpdateSloRequestConfiguration
-func TimeSliceSloConfigurationAsUpdateSloRequestConfiguration(v *TimeSliceSloConfiguration) UpdateSloRequestConfiguration {
+// InputTimeSliceSloConfigurationAsUpdateSloRequestConfiguration is a convenience function that returns InputTimeSliceSloConfiguration wrapped in UpdateSloRequestConfiguration
+func InputTimeSliceSloConfigurationAsUpdateSloRequestConfiguration(v *InputTimeSliceSloConfiguration) UpdateSloRequestConfiguration {
 	return UpdateSloRequestConfiguration{
-		TimeSliceSloConfiguration: v,
+		InputTimeSliceSloConfiguration: v,
 	}
 }
 
@@ -45,27 +45,27 @@ func (dst *UpdateSloRequestConfiguration) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'EventSloConfiguration'
-	if jsonDict["type"] == "EventSloConfiguration" {
-		// try to unmarshal JSON data into EventSloConfiguration
-		err = json.Unmarshal(data, &dst.EventSloConfiguration)
+	// check if the discriminator value is 'InputEventSloConfiguration'
+	if jsonDict["type"] == "InputEventSloConfiguration" {
+		// try to unmarshal JSON data into InputEventSloConfiguration
+		err = json.Unmarshal(data, &dst.InputEventSloConfiguration)
 		if err == nil {
-			return nil // data stored in dst.EventSloConfiguration, return on the first match
+			return nil // data stored in dst.InputEventSloConfiguration, return on the first match
 		} else {
-			dst.EventSloConfiguration = nil
-			return fmt.Errorf("failed to unmarshal UpdateSloRequestConfiguration as EventSloConfiguration: %s", err.Error())
+			dst.InputEventSloConfiguration = nil
+			return fmt.Errorf("failed to unmarshal UpdateSloRequestConfiguration as InputEventSloConfiguration: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'TimeSliceSloConfiguration'
-	if jsonDict["type"] == "TimeSliceSloConfiguration" {
-		// try to unmarshal JSON data into TimeSliceSloConfiguration
-		err = json.Unmarshal(data, &dst.TimeSliceSloConfiguration)
+	// check if the discriminator value is 'InputTimeSliceSloConfiguration'
+	if jsonDict["type"] == "InputTimeSliceSloConfiguration" {
+		// try to unmarshal JSON data into InputTimeSliceSloConfiguration
+		err = json.Unmarshal(data, &dst.InputTimeSliceSloConfiguration)
 		if err == nil {
-			return nil // data stored in dst.TimeSliceSloConfiguration, return on the first match
+			return nil // data stored in dst.InputTimeSliceSloConfiguration, return on the first match
 		} else {
-			dst.TimeSliceSloConfiguration = nil
-			return fmt.Errorf("failed to unmarshal UpdateSloRequestConfiguration as TimeSliceSloConfiguration: %s", err.Error())
+			dst.InputTimeSliceSloConfiguration = nil
+			return fmt.Errorf("failed to unmarshal UpdateSloRequestConfiguration as InputTimeSliceSloConfiguration: %s", err.Error())
 		}
 	}
 
@@ -74,12 +74,12 @@ func (dst *UpdateSloRequestConfiguration) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src UpdateSloRequestConfiguration) MarshalJSON() ([]byte, error) {
-	if src.EventSloConfiguration != nil {
-		return json.Marshal(&src.EventSloConfiguration)
+	if src.InputEventSloConfiguration != nil {
+		return json.Marshal(&src.InputEventSloConfiguration)
 	}
 
-	if src.TimeSliceSloConfiguration != nil {
-		return json.Marshal(&src.TimeSliceSloConfiguration)
+	if src.InputTimeSliceSloConfiguration != nil {
+		return json.Marshal(&src.InputTimeSliceSloConfiguration)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -90,12 +90,12 @@ func (obj *UpdateSloRequestConfiguration) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
-	if obj.EventSloConfiguration != nil {
-		return obj.EventSloConfiguration
+	if obj.InputEventSloConfiguration != nil {
+		return obj.InputEventSloConfiguration
 	}
 
-	if obj.TimeSliceSloConfiguration != nil {
-		return obj.TimeSliceSloConfiguration
+	if obj.InputTimeSliceSloConfiguration != nil {
+		return obj.InputTimeSliceSloConfiguration
 	}
 
 	// all schemas are nil
@@ -104,12 +104,12 @@ func (obj *UpdateSloRequestConfiguration) GetActualInstance() interface{} {
 
 // Get the actual instance value
 func (obj UpdateSloRequestConfiguration) GetActualInstanceValue() interface{} {
-	if obj.EventSloConfiguration != nil {
-		return *obj.EventSloConfiguration
+	if obj.InputEventSloConfiguration != nil {
+		return *obj.InputEventSloConfiguration
 	}
 
-	if obj.TimeSliceSloConfiguration != nil {
-		return *obj.TimeSliceSloConfiguration
+	if obj.InputTimeSliceSloConfiguration != nil {
+		return *obj.InputTimeSliceSloConfiguration
 	}
 
 	// all schemas are nil

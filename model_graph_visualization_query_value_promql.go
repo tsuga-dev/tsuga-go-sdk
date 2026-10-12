@@ -30,7 +30,7 @@ type GraphVisualizationQueryValuePromql struct {
 	// Conditional formatting rules applied to the raw query value, before the unit is applied
 	Conditions []ConditionalFormatting                          `json:"conditions,omitempty"`
 	Precision  *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
-	Normalizer *Normalizer1                                     `json:"normalizer,omitempty"`
+	Normalizer *Normalizer                                      `json:"normalizer,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode           *string `json:"legendMode,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -234,9 +234,9 @@ func (o *GraphVisualizationQueryValuePromql) SetPrecision(v GraphVisualizationQu
 }
 
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
-func (o *GraphVisualizationQueryValuePromql) GetNormalizer() Normalizer1 {
+func (o *GraphVisualizationQueryValuePromql) GetNormalizer() Normalizer {
 	if o == nil || IsNil(o.Normalizer) {
-		var ret Normalizer1
+		var ret Normalizer
 		return ret
 	}
 	return *o.Normalizer
@@ -244,7 +244,7 @@ func (o *GraphVisualizationQueryValuePromql) GetNormalizer() Normalizer1 {
 
 // GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationQueryValuePromql) GetNormalizerOk() (*Normalizer1, bool) {
+func (o *GraphVisualizationQueryValuePromql) GetNormalizerOk() (*Normalizer, bool) {
 	if o == nil || IsNil(o.Normalizer) {
 		return nil, false
 	}
@@ -260,8 +260,8 @@ func (o *GraphVisualizationQueryValuePromql) HasNormalizer() bool {
 	return false
 }
 
-// SetNormalizer gets a reference to the given Normalizer1 and assigns it to the Normalizer field.
-func (o *GraphVisualizationQueryValuePromql) SetNormalizer(v Normalizer1) {
+// SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
+func (o *GraphVisualizationQueryValuePromql) SetNormalizer(v Normalizer) {
 	o.Normalizer = &v
 }
 

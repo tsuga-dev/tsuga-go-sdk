@@ -21,8 +21,8 @@ var _ MappedNullable = &WidgetListColumn{}
 // WidgetListColumn List column pairing a displayed attribute with the formatting applied to its values.
 type WidgetListColumn struct {
 	// Attribute (log field or database row column) displayed as a column in the list
-	Attribute            string       `json:"attribute"`
-	Normalizer           *Normalizer1 `json:"normalizer,omitempty"`
+	Attribute            string      `json:"attribute"`
+	Normalizer           *Normalizer `json:"normalizer,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -71,9 +71,9 @@ func (o *WidgetListColumn) SetAttribute(v string) {
 }
 
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
-func (o *WidgetListColumn) GetNormalizer() Normalizer1 {
+func (o *WidgetListColumn) GetNormalizer() Normalizer {
 	if o == nil || IsNil(o.Normalizer) {
-		var ret Normalizer1
+		var ret Normalizer
 		return ret
 	}
 	return *o.Normalizer
@@ -81,7 +81,7 @@ func (o *WidgetListColumn) GetNormalizer() Normalizer1 {
 
 // GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WidgetListColumn) GetNormalizerOk() (*Normalizer1, bool) {
+func (o *WidgetListColumn) GetNormalizerOk() (*Normalizer, bool) {
 	if o == nil || IsNil(o.Normalizer) {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *WidgetListColumn) HasNormalizer() bool {
 	return false
 }
 
-// SetNormalizer gets a reference to the given Normalizer1 and assigns it to the Normalizer field.
-func (o *WidgetListColumn) SetNormalizer(v Normalizer1) {
+// SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
+func (o *WidgetListColumn) SetNormalizer(v Normalizer) {
 	o.Normalizer = &v
 }
 

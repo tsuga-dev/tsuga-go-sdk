@@ -6,20 +6,20 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a gauge | 
 **Source** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, &#x60;traces&#x60;, or &#x60;rum&#x60;. | 
-**Queries** | [**[]AggregationQuery1**](AggregationQuery1.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. For dataSource \&quot;metrics\&quot;, each aggregate&#39;s &#x60;field&#x60; is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \&quot;&lt;metricName&gt;.context.&lt;attribute&gt;\&quot; (e.g. \&quot;system.cpu.utilization.context.host.name\&quot;). | 
+**Queries** | [**[]InputAggregationQuery**](InputAggregationQuery.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. For dataSource \&quot;metrics\&quot;, each aggregate&#39;s &#x60;field&#x60; is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \&quot;&lt;metricName&gt;.context.&lt;attribute&gt;\&quot; (e.g. \&quot;system.cpu.utilization.context.host.name\&quot;). | 
 **Formula** | Pointer to **string** | Formula referencing query outputs, such as &#x60;q1 + q2&#x60;, to compute derived results. Defaults to &#x60;q1&#x60;. Formulas may reference only submitted queries (&#x60;q1&#x60; through &#x60;qN&#x60;); undefined query references return 400. | [optional] 
 **Aliases** | Pointer to [**InputGraphVisualizationTimeseriesPromqlAliases**](InputGraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
 **Max** | Pointer to **float32** | Gauge maximum value, on the raw query value before the unit is applied | [optional] 
-**ColorThresholds** | Pointer to [**[]GaugeColorThreshold**](GaugeColorThreshold.md) | Color thresholds inside the gauge range, on the raw query value before the unit is applied | [optional] 
+**ColorThresholds** | Pointer to [**[]InputGaugeColorThreshold**](InputGaugeColorThreshold.md) | Color thresholds inside the gauge range, on the raw query value before the unit is applied | [optional] 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
-**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
+**Normalizer** | Pointer to [**InputNormalizer**](InputNormalizer.md) |  | [optional] 
 
 ## Methods
 
 ### NewInputGraphVisualizationGauge
 
-`func NewInputGraphVisualizationGauge(type_ string, source string, queries []AggregationQuery1, ) *InputGraphVisualizationGauge`
+`func NewInputGraphVisualizationGauge(type_ string, source string, queries []InputAggregationQuery, ) *InputGraphVisualizationGauge`
 
 NewInputGraphVisualizationGauge instantiates a new InputGraphVisualizationGauge object
 This constructor will assign default values to properties that have it defined,
@@ -76,20 +76,20 @@ SetSource sets Source field to given value.
 
 ### GetQueries
 
-`func (o *InputGraphVisualizationGauge) GetQueries() []AggregationQuery1`
+`func (o *InputGraphVisualizationGauge) GetQueries() []InputAggregationQuery`
 
 GetQueries returns the Queries field if non-nil, zero value otherwise.
 
 ### GetQueriesOk
 
-`func (o *InputGraphVisualizationGauge) GetQueriesOk() (*[]AggregationQuery1, bool)`
+`func (o *InputGraphVisualizationGauge) GetQueriesOk() (*[]InputAggregationQuery, bool)`
 
 GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueries
 
-`func (o *InputGraphVisualizationGauge) SetQueries(v []AggregationQuery1)`
+`func (o *InputGraphVisualizationGauge) SetQueries(v []InputAggregationQuery)`
 
 SetQueries sets Queries field to given value.
 
@@ -196,20 +196,20 @@ HasMax returns a boolean if a field has been set.
 
 ### GetColorThresholds
 
-`func (o *InputGraphVisualizationGauge) GetColorThresholds() []GaugeColorThreshold`
+`func (o *InputGraphVisualizationGauge) GetColorThresholds() []InputGaugeColorThreshold`
 
 GetColorThresholds returns the ColorThresholds field if non-nil, zero value otherwise.
 
 ### GetColorThresholdsOk
 
-`func (o *InputGraphVisualizationGauge) GetColorThresholdsOk() (*[]GaugeColorThreshold, bool)`
+`func (o *InputGraphVisualizationGauge) GetColorThresholdsOk() (*[]InputGaugeColorThreshold, bool)`
 
 GetColorThresholdsOk returns a tuple with the ColorThresholds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetColorThresholds
 
-`func (o *InputGraphVisualizationGauge) SetColorThresholds(v []GaugeColorThreshold)`
+`func (o *InputGraphVisualizationGauge) SetColorThresholds(v []InputGaugeColorThreshold)`
 
 SetColorThresholds sets ColorThresholds field to given value.
 
@@ -246,20 +246,20 @@ HasPrecision returns a boolean if a field has been set.
 
 ### GetNormalizer
 
-`func (o *InputGraphVisualizationGauge) GetNormalizer() Normalizer`
+`func (o *InputGraphVisualizationGauge) GetNormalizer() InputNormalizer`
 
 GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
 
 ### GetNormalizerOk
 
-`func (o *InputGraphVisualizationGauge) GetNormalizerOk() (*Normalizer, bool)`
+`func (o *InputGraphVisualizationGauge) GetNormalizerOk() (*InputNormalizer, bool)`
 
 GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNormalizer
 
-`func (o *InputGraphVisualizationGauge) SetNormalizer(v Normalizer)`
+`func (o *InputGraphVisualizationGauge) SetNormalizer(v InputNormalizer)`
 
 SetNormalizer sets Normalizer field to given value.
 

@@ -26,7 +26,7 @@ type TelemetryTagPolicy struct {
 	AssetTypes []string `json:"assetTypes"`
 	// When true, Tsuga annotates non-compliant telemetry with tag policy warnings instead of only measuring violations.
 	ShouldInsertWarning bool `json:"shouldInsertWarning"`
-	// Percentage of non-compliant telemetry datapoints to drop. Valid values are 0 through 100.
+	// Percentage of non-compliant telemetry datapoints to drop. Omitted means no sampling drop is configured.
 	DropSample           *float32 `json:"dropSample,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

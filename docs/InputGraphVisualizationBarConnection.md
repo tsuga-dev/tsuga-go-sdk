@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **ConnectionId** | **string** | The ID of the connection to use to query the datastore. | 
 **Queries** | **[]string** |  | 
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
-**Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
+**Thresholds** | Pointer to [**[]InputThresholdMarker**](InputThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
 **YAxisSettings** | Pointer to [**InputGraphVisualizationTimeseriesConnectionYAxisSettings**](InputGraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
 
 ## Methods
@@ -117,20 +117,20 @@ HasLegendMode returns a boolean if a field has been set.
 
 ### GetThresholds
 
-`func (o *InputGraphVisualizationBarConnection) GetThresholds() []ThresholdMarker`
+`func (o *InputGraphVisualizationBarConnection) GetThresholds() []InputThresholdMarker`
 
 GetThresholds returns the Thresholds field if non-nil, zero value otherwise.
 
 ### GetThresholdsOk
 
-`func (o *InputGraphVisualizationBarConnection) GetThresholdsOk() (*[]ThresholdMarker, bool)`
+`func (o *InputGraphVisualizationBarConnection) GetThresholdsOk() (*[]InputThresholdMarker, bool)`
 
 GetThresholdsOk returns a tuple with the Thresholds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetThresholds
 
-`func (o *InputGraphVisualizationBarConnection) SetThresholds(v []ThresholdMarker)`
+`func (o *InputGraphVisualizationBarConnection) SetThresholds(v []InputThresholdMarker)`
 
 SetThresholds sets Thresholds field to given value.
 

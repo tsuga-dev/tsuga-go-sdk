@@ -24,14 +24,14 @@ type UpdateDashboardRequest struct {
 	// ID of the team that owns the dashboard. Required and used for dashboard access control.
 	Owner *string `json:"owner,omitempty"`
 	// Ordered widgets that compose the dashboard
-	Graphs []Graph `json:"graphs,omitempty"`
+	Graphs []InputGraph `json:"graphs,omitempty"`
 	// Dashboard-wide filters applied to every widget on the dashboard. Up to 10 filters are allowed.
 	Filters []UpdateDashboardRequestFiltersInner `json:"filters,omitempty"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
-	Tags []Tag `json:"tags,omitempty"`
+	Tags []InputTag `json:"tags,omitempty"`
 	// Relative time preset used when opening the dashboard. Optional; create defaults to `past-30-minutes` when omitted, and update omission preserves the current value.
 	TimePreset *string `json:"timePreset,omitempty"`
-	// Folder that should contain the dashboard. Optional; omit on update to keep the current folder, pass null to clear the folder, or pass a readable dashboard-folder ID to move it.
+	// Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder.
 	FolderId             NullableString `json:"folderId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -120,9 +120,9 @@ func (o *UpdateDashboardRequest) SetOwner(v string) {
 }
 
 // GetGraphs returns the Graphs field value if set, zero value otherwise.
-func (o *UpdateDashboardRequest) GetGraphs() []Graph {
+func (o *UpdateDashboardRequest) GetGraphs() []InputGraph {
 	if o == nil || IsNil(o.Graphs) {
-		var ret []Graph
+		var ret []InputGraph
 		return ret
 	}
 	return o.Graphs
@@ -130,7 +130,7 @@ func (o *UpdateDashboardRequest) GetGraphs() []Graph {
 
 // GetGraphsOk returns a tuple with the Graphs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateDashboardRequest) GetGraphsOk() ([]Graph, bool) {
+func (o *UpdateDashboardRequest) GetGraphsOk() ([]InputGraph, bool) {
 	if o == nil || IsNil(o.Graphs) {
 		return nil, false
 	}
@@ -146,8 +146,8 @@ func (o *UpdateDashboardRequest) HasGraphs() bool {
 	return false
 }
 
-// SetGraphs gets a reference to the given []Graph and assigns it to the Graphs field.
-func (o *UpdateDashboardRequest) SetGraphs(v []Graph) {
+// SetGraphs gets a reference to the given []InputGraph and assigns it to the Graphs field.
+func (o *UpdateDashboardRequest) SetGraphs(v []InputGraph) {
 	o.Graphs = v
 }
 
@@ -184,9 +184,9 @@ func (o *UpdateDashboardRequest) SetFilters(v []UpdateDashboardRequestFiltersInn
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *UpdateDashboardRequest) GetTags() []Tag {
+func (o *UpdateDashboardRequest) GetTags() []InputTag {
 	if o == nil || IsNil(o.Tags) {
-		var ret []Tag
+		var ret []InputTag
 		return ret
 	}
 	return o.Tags
@@ -194,7 +194,7 @@ func (o *UpdateDashboardRequest) GetTags() []Tag {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateDashboardRequest) GetTagsOk() ([]Tag, bool) {
+func (o *UpdateDashboardRequest) GetTagsOk() ([]InputTag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -210,8 +210,8 @@ func (o *UpdateDashboardRequest) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
-func (o *UpdateDashboardRequest) SetTags(v []Tag) {
+// SetTags gets a reference to the given []InputTag and assigns it to the Tags field.
+func (o *UpdateDashboardRequest) SetTags(v []InputTag) {
 	o.Tags = v
 }
 

@@ -26,9 +26,9 @@ type UpdateDashboardGraphRequest struct {
 	// Flex alignment keyword used for widget layout
 	DescriptionAlign NullableString `json:"descriptionAlign,omitempty"`
 	// Flex alignment keyword used for widget layout
-	DescriptionJustifyContent NullableString      `json:"descriptionJustifyContent,omitempty"`
-	Visualization             *GraphVisualization `json:"visualization,omitempty"`
-	Layout                    NullableGraphLayout `json:"layout,omitempty"`
+	DescriptionJustifyContent NullableString                            `json:"descriptionJustifyContent,omitempty"`
+	Visualization             *UpdateDashboardGraphRequestVisualization `json:"visualization,omitempty"`
+	Layout                    NullableUpdateDashboardGraphRequestLayout `json:"layout,omitempty"`
 	AdditionalProperties      map[string]interface{}
 }
 
@@ -224,9 +224,9 @@ func (o *UpdateDashboardGraphRequest) UnsetDescriptionJustifyContent() {
 }
 
 // GetVisualization returns the Visualization field value if set, zero value otherwise.
-func (o *UpdateDashboardGraphRequest) GetVisualization() GraphVisualization {
+func (o *UpdateDashboardGraphRequest) GetVisualization() UpdateDashboardGraphRequestVisualization {
 	if o == nil || IsNil(o.Visualization) {
-		var ret GraphVisualization
+		var ret UpdateDashboardGraphRequestVisualization
 		return ret
 	}
 	return *o.Visualization
@@ -234,7 +234,7 @@ func (o *UpdateDashboardGraphRequest) GetVisualization() GraphVisualization {
 
 // GetVisualizationOk returns a tuple with the Visualization field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateDashboardGraphRequest) GetVisualizationOk() (*GraphVisualization, bool) {
+func (o *UpdateDashboardGraphRequest) GetVisualizationOk() (*UpdateDashboardGraphRequestVisualization, bool) {
 	if o == nil || IsNil(o.Visualization) {
 		return nil, false
 	}
@@ -250,15 +250,15 @@ func (o *UpdateDashboardGraphRequest) HasVisualization() bool {
 	return false
 }
 
-// SetVisualization gets a reference to the given GraphVisualization and assigns it to the Visualization field.
-func (o *UpdateDashboardGraphRequest) SetVisualization(v GraphVisualization) {
+// SetVisualization gets a reference to the given UpdateDashboardGraphRequestVisualization and assigns it to the Visualization field.
+func (o *UpdateDashboardGraphRequest) SetVisualization(v UpdateDashboardGraphRequestVisualization) {
 	o.Visualization = &v
 }
 
 // GetLayout returns the Layout field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpdateDashboardGraphRequest) GetLayout() GraphLayout {
+func (o *UpdateDashboardGraphRequest) GetLayout() UpdateDashboardGraphRequestLayout {
 	if o == nil || IsNil(o.Layout.Get()) {
-		var ret GraphLayout
+		var ret UpdateDashboardGraphRequestLayout
 		return ret
 	}
 	return *o.Layout.Get()
@@ -267,7 +267,7 @@ func (o *UpdateDashboardGraphRequest) GetLayout() GraphLayout {
 // GetLayoutOk returns a tuple with the Layout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpdateDashboardGraphRequest) GetLayoutOk() (*GraphLayout, bool) {
+func (o *UpdateDashboardGraphRequest) GetLayoutOk() (*UpdateDashboardGraphRequestLayout, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -283,8 +283,8 @@ func (o *UpdateDashboardGraphRequest) HasLayout() bool {
 	return false
 }
 
-// SetLayout gets a reference to the given NullableGraphLayout and assigns it to the Layout field.
-func (o *UpdateDashboardGraphRequest) SetLayout(v GraphLayout) {
+// SetLayout gets a reference to the given NullableUpdateDashboardGraphRequestLayout and assigns it to the Layout field.
+func (o *UpdateDashboardGraphRequest) SetLayout(v UpdateDashboardGraphRequestLayout) {
 	o.Layout.Set(&v)
 }
 

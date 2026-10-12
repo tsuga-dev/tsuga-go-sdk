@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **ClusterIdsFilter** | **[]string** | Cluster IDs that must match for this rule to fire. An empty array matches every cluster, as does a transition that has no cluster ID. | 
 **Owner** | **string** | Team ID that owns and manages the rule. | 
 **IsActive** | **bool** | Whether the rule currently sends notifications when its filters match. | 
-**Tags** | Pointer to [**[]Tag1**](Tag1.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
 **Targets** | [**[]RuleTargetsInner**](RuleTargetsInner.md) | Destinations that receive a notification whenever this rule matches an alert transition. Every target in the list is notified independently, subject to its own rate limit and renotification settings. | 
 
 ## Methods
@@ -222,20 +222,20 @@ SetIsActive sets IsActive field to given value.
 
 ### GetTags
 
-`func (o *Rule) GetTags() []Tag1`
+`func (o *Rule) GetTags() []Tag`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *Rule) GetTagsOk() (*[]Tag1, bool)`
+`func (o *Rule) GetTagsOk() (*[]Tag, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *Rule) SetTags(v []Tag1)`
+`func (o *Rule) SetTags(v []Tag)`
 
 SetTags sets Tags field to given value.
 

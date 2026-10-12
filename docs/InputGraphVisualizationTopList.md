@@ -6,24 +6,24 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays the aggregation as a ranked list of top results | 
 **Source** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, &#x60;traces&#x60;, or &#x60;rum&#x60;. | 
-**Queries** | [**[]AggregationQuery1**](AggregationQuery1.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. For dataSource \&quot;metrics\&quot;, each aggregate&#39;s &#x60;field&#x60; is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \&quot;&lt;metricName&gt;.context.&lt;attribute&gt;\&quot; (e.g. \&quot;system.cpu.utilization.context.host.name\&quot;). | 
+**Queries** | [**[]InputAggregationQuery**](InputAggregationQuery.md) | Aggregations that may be combined together in the same query. Each item is referenced from &#x60;formula&#x60; as q1, q2, and so on, in submission order. For dataSource \&quot;metrics\&quot;, each aggregate&#39;s &#x60;field&#x60; is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \&quot;&lt;metricName&gt;.context.&lt;attribute&gt;\&quot; (e.g. \&quot;system.cpu.utilization.context.host.name\&quot;). | 
 **Formula** | Pointer to **string** | Formula referencing query outputs, such as &#x60;q1 + q2&#x60;, to compute derived results. Defaults to &#x60;q1&#x60;. Formulas may reference only submitted queries (&#x60;q1&#x60; through &#x60;qN&#x60;); undefined query references return 400. | [optional] 
 **Aliases** | Pointer to [**InputGraphVisualizationTimeseriesPromqlAliases**](InputGraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
-**GroupBy** | Pointer to [**[]AggregationGroupBy**](AggregationGroupBy.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
+**GroupBy** | Pointer to [**[]InputAggregationGroupBy**](InputAggregationGroupBy.md) | Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted. | [optional] 
 **GroupByMode** | Pointer to **string** | &#x60;absolute&#x60; keeps each group at its own value; &#x60;relative&#x60; shows it as a percentage of the ungrouped total (defaults to absolute) | [optional] 
-**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
+**Normalizer** | Pointer to [**InputNormalizer**](InputNormalizer.md) |  | [optional] 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
-**Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the raw query value, before the unit is applied | [optional] 
+**Conditions** | Pointer to [**[]InputConditionalFormatting**](InputConditionalFormatting.md) | Conditional formatting rules applied to the raw query value, before the unit is applied | [optional] 
 **IsStacked** | Pointer to **bool** | Requests stacked rendering for a top-list widget. Tsuga renders stacked rows only for one count or sum query with exactly two grouped fields, no formula, non-negative values, and a single-cluster context; otherwise the widget renders as a normal top list. | [optional] 
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
-**CustomLink** | Pointer to [**CustomLink1**](CustomLink1.md) |  | [optional] 
+**CustomLink** | Pointer to [**InputCustomLink**](InputCustomLink.md) |  | [optional] 
 
 ## Methods
 
 ### NewInputGraphVisualizationTopList
 
-`func NewInputGraphVisualizationTopList(type_ string, source string, queries []AggregationQuery1, ) *InputGraphVisualizationTopList`
+`func NewInputGraphVisualizationTopList(type_ string, source string, queries []InputAggregationQuery, ) *InputGraphVisualizationTopList`
 
 NewInputGraphVisualizationTopList instantiates a new InputGraphVisualizationTopList object
 This constructor will assign default values to properties that have it defined,
@@ -80,20 +80,20 @@ SetSource sets Source field to given value.
 
 ### GetQueries
 
-`func (o *InputGraphVisualizationTopList) GetQueries() []AggregationQuery1`
+`func (o *InputGraphVisualizationTopList) GetQueries() []InputAggregationQuery`
 
 GetQueries returns the Queries field if non-nil, zero value otherwise.
 
 ### GetQueriesOk
 
-`func (o *InputGraphVisualizationTopList) GetQueriesOk() (*[]AggregationQuery1, bool)`
+`func (o *InputGraphVisualizationTopList) GetQueriesOk() (*[]InputAggregationQuery, bool)`
 
 GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueries
 
-`func (o *InputGraphVisualizationTopList) SetQueries(v []AggregationQuery1)`
+`func (o *InputGraphVisualizationTopList) SetQueries(v []InputAggregationQuery)`
 
 SetQueries sets Queries field to given value.
 
@@ -175,20 +175,20 @@ HasVisibleSeries returns a boolean if a field has been set.
 
 ### GetGroupBy
 
-`func (o *InputGraphVisualizationTopList) GetGroupBy() []AggregationGroupBy`
+`func (o *InputGraphVisualizationTopList) GetGroupBy() []InputAggregationGroupBy`
 
 GetGroupBy returns the GroupBy field if non-nil, zero value otherwise.
 
 ### GetGroupByOk
 
-`func (o *InputGraphVisualizationTopList) GetGroupByOk() (*[]AggregationGroupBy, bool)`
+`func (o *InputGraphVisualizationTopList) GetGroupByOk() (*[]InputAggregationGroupBy, bool)`
 
 GetGroupByOk returns a tuple with the GroupBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroupBy
 
-`func (o *InputGraphVisualizationTopList) SetGroupBy(v []AggregationGroupBy)`
+`func (o *InputGraphVisualizationTopList) SetGroupBy(v []InputAggregationGroupBy)`
 
 SetGroupBy sets GroupBy field to given value.
 
@@ -225,20 +225,20 @@ HasGroupByMode returns a boolean if a field has been set.
 
 ### GetNormalizer
 
-`func (o *InputGraphVisualizationTopList) GetNormalizer() Normalizer`
+`func (o *InputGraphVisualizationTopList) GetNormalizer() InputNormalizer`
 
 GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
 
 ### GetNormalizerOk
 
-`func (o *InputGraphVisualizationTopList) GetNormalizerOk() (*Normalizer, bool)`
+`func (o *InputGraphVisualizationTopList) GetNormalizerOk() (*InputNormalizer, bool)`
 
 GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNormalizer
 
-`func (o *InputGraphVisualizationTopList) SetNormalizer(v Normalizer)`
+`func (o *InputGraphVisualizationTopList) SetNormalizer(v InputNormalizer)`
 
 SetNormalizer sets Normalizer field to given value.
 
@@ -275,20 +275,20 @@ HasPrecision returns a boolean if a field has been set.
 
 ### GetConditions
 
-`func (o *InputGraphVisualizationTopList) GetConditions() []ConditionalFormatting`
+`func (o *InputGraphVisualizationTopList) GetConditions() []InputConditionalFormatting`
 
 GetConditions returns the Conditions field if non-nil, zero value otherwise.
 
 ### GetConditionsOk
 
-`func (o *InputGraphVisualizationTopList) GetConditionsOk() (*[]ConditionalFormatting, bool)`
+`func (o *InputGraphVisualizationTopList) GetConditionsOk() (*[]InputConditionalFormatting, bool)`
 
 GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConditions
 
-`func (o *InputGraphVisualizationTopList) SetConditions(v []ConditionalFormatting)`
+`func (o *InputGraphVisualizationTopList) SetConditions(v []InputConditionalFormatting)`
 
 SetConditions sets Conditions field to given value.
 
@@ -350,20 +350,20 @@ HasLegendMode returns a boolean if a field has been set.
 
 ### GetCustomLink
 
-`func (o *InputGraphVisualizationTopList) GetCustomLink() CustomLink1`
+`func (o *InputGraphVisualizationTopList) GetCustomLink() InputCustomLink`
 
 GetCustomLink returns the CustomLink field if non-nil, zero value otherwise.
 
 ### GetCustomLinkOk
 
-`func (o *InputGraphVisualizationTopList) GetCustomLinkOk() (*CustomLink1, bool)`
+`func (o *InputGraphVisualizationTopList) GetCustomLinkOk() (*InputCustomLink, bool)`
 
 GetCustomLinkOk returns a tuple with the CustomLink field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCustomLink
 
-`func (o *InputGraphVisualizationTopList) SetCustomLink(v CustomLink1)`
+`func (o *InputGraphVisualizationTopList) SetCustomLink(v InputCustomLink)`
 
 SetCustomLink sets CustomLink field to given value.
 

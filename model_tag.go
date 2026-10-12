@@ -20,10 +20,10 @@ var _ MappedNullable = &Tag{}
 
 // Tag struct for Tag
 type Tag struct {
-	// Tag key to attach to the resource.
+	// Tag key attached to the resource. Consumers can use key/value tags for filtering, ownership context, and policy checks.
 	Key string `json:"key"`
-	// Tag value to attach to the resource. Leading or trailing whitespace is rejected.
-	Value                string `json:"value" validate:"regexp=^\\S(.*\\S)?$"`
+	// Tag value attached to the resource for this key. Tsuga returns the value exactly as stored.
+	Value                string `json:"value"`
 	AdditionalProperties map[string]interface{}
 }
 

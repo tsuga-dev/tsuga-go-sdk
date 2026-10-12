@@ -32,10 +32,10 @@ type GraphVisualizationTopList struct {
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Nested grouping levels applied to the results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values.
-	GroupBy []AggregationGroupBy1 `json:"groupBy,omitempty"`
+	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
 	// `absolute` keeps each group at its own value; `relative` shows it as a percentage of the ungrouped total (defaults to absolute)
 	GroupByMode *string                                          `json:"groupByMode,omitempty"`
-	Normalizer  *Normalizer1                                     `json:"normalizer,omitempty"`
+	Normalizer  *Normalizer                                      `json:"normalizer,omitempty"`
 	Precision   *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
 	// Conditional formatting rules applied to the raw query value, before the unit is applied
 	Conditions []ConditionalFormatting `json:"conditions,omitempty"`
@@ -238,9 +238,9 @@ func (o *GraphVisualizationTopList) SetVisibleSeries(v []bool) {
 }
 
 // GetGroupBy returns the GroupBy field value if set, zero value otherwise.
-func (o *GraphVisualizationTopList) GetGroupBy() []AggregationGroupBy1 {
+func (o *GraphVisualizationTopList) GetGroupBy() []AggregationGroupBy {
 	if o == nil || IsNil(o.GroupBy) {
-		var ret []AggregationGroupBy1
+		var ret []AggregationGroupBy
 		return ret
 	}
 	return o.GroupBy
@@ -248,7 +248,7 @@ func (o *GraphVisualizationTopList) GetGroupBy() []AggregationGroupBy1 {
 
 // GetGroupByOk returns a tuple with the GroupBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationTopList) GetGroupByOk() ([]AggregationGroupBy1, bool) {
+func (o *GraphVisualizationTopList) GetGroupByOk() ([]AggregationGroupBy, bool) {
 	if o == nil || IsNil(o.GroupBy) {
 		return nil, false
 	}
@@ -264,8 +264,8 @@ func (o *GraphVisualizationTopList) HasGroupBy() bool {
 	return false
 }
 
-// SetGroupBy gets a reference to the given []AggregationGroupBy1 and assigns it to the GroupBy field.
-func (o *GraphVisualizationTopList) SetGroupBy(v []AggregationGroupBy1) {
+// SetGroupBy gets a reference to the given []AggregationGroupBy and assigns it to the GroupBy field.
+func (o *GraphVisualizationTopList) SetGroupBy(v []AggregationGroupBy) {
 	o.GroupBy = v
 }
 
@@ -302,9 +302,9 @@ func (o *GraphVisualizationTopList) SetGroupByMode(v string) {
 }
 
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
-func (o *GraphVisualizationTopList) GetNormalizer() Normalizer1 {
+func (o *GraphVisualizationTopList) GetNormalizer() Normalizer {
 	if o == nil || IsNil(o.Normalizer) {
-		var ret Normalizer1
+		var ret Normalizer
 		return ret
 	}
 	return *o.Normalizer
@@ -312,7 +312,7 @@ func (o *GraphVisualizationTopList) GetNormalizer() Normalizer1 {
 
 // GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationTopList) GetNormalizerOk() (*Normalizer1, bool) {
+func (o *GraphVisualizationTopList) GetNormalizerOk() (*Normalizer, bool) {
 	if o == nil || IsNil(o.Normalizer) {
 		return nil, false
 	}
@@ -328,8 +328,8 @@ func (o *GraphVisualizationTopList) HasNormalizer() bool {
 	return false
 }
 
-// SetNormalizer gets a reference to the given Normalizer1 and assigns it to the Normalizer field.
-func (o *GraphVisualizationTopList) SetNormalizer(v Normalizer1) {
+// SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
+func (o *GraphVisualizationTopList) SetNormalizer(v Normalizer) {
 	o.Normalizer = &v
 }
 

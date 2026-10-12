@@ -7,6 +7,82 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Breaking: model names no longer depend on spec ordering. Request-side models are prefixed with `Input` and numbered response models lose their suffix.
+- Request-side models used when creating or updating resources (old name → new name):
+  - `AggregationGroupBy` → `InputAggregationGroupBy`
+  - `AggregationQuery1` → `InputAggregationQuery`
+  - `AllPublicTeams` → `InputAllPublicTeams`
+  - `AllTeams` → `InputAllTeams`
+  - `BurnRateAlert` → `InputBurnRateAlert`
+  - `ConditionalFormatting` → `InputConditionalFormatting`
+  - `CustomLink1` → `InputCustomLink`
+  - `EventSloConfiguration` → `InputEventSloConfiguration`
+  - `GaugeColorThreshold` → `InputGaugeColorThreshold`
+  - `Graph` → `InputGraph`
+  - `Graph1` → `InputGraph`
+  - `GraphLayout` (as `UpdateDashboardGraphRequest.Layout`) → `UpdateDashboardGraphRequestLayout` (same fields)
+  - `GraphVisualization` (the request oneOf, used by `Graph`, `Graph1` and `UpdateDashboardGraphRequest`) → `UpdateDashboardGraphRequestVisualization` (used by `InputGraph` and `UpdateDashboardGraphRequest`)
+  - `ListDefaultSorting1` → `InputListDefaultSorting`
+  - `MonitorAggregationQuery1` → `InputMonitorAggregationQuery`
+  - `Normalizer` → `InputNormalizer`
+  - `SloAggregationQuery` → `InputSloAggregationQuery`
+  - `SloQueryFormula` → `InputSloQueryFormula`
+  - `SpecificTeams` → `InputSpecificTeams`
+  - `SpecificTeams1` → `InputSpecificTeams`
+  - `TableColumn1` → `InputTableColumn`
+  - `TableDefaultSorting1` → `InputTableDefaultSorting`
+  - `Tag` → `InputTag`
+  - `TelemetryTagPolicy` → `InputTelemetryTagPolicy`
+  - `ThresholdAlert` → `InputThresholdAlert`
+  - `ThresholdMarker` → `InputThresholdMarker`
+  - `TimeSliceSloConfiguration` → `InputTimeSliceSloConfiguration`
+  - `TsugaAssetTagPolicy` → `InputTsugaAssetTagPolicy`
+  - `UpdateNotificationRuleRequestTeamsFilter` → `CreateNotificationRuleRequestTeamsFilter`
+  - `WidgetListColumn1` → `InputWidgetListColumn`
+- Response-side models that lost their numeric suffix (old name → new name):
+  - `AggregationGroupBy1` → `AggregationGroupBy`
+  - `BurnRateAlert1` → `BurnRateAlert`
+  - `EventSloConfiguration1` → `EventSloConfiguration`
+  - `Graph2` → `Graph`
+  - `Graph1Layout` → `GraphLayout`
+  - `Graph2Visualization` → `GraphVisualization`
+  - `Normalizer1` → `Normalizer`
+  - `SloQueryFormula1` → `SloQueryFormula`
+  - `SpecificTeams2` → `SpecificTeams`
+  - `Tag1` → `Tag`
+  - `TelemetryTagPolicy1` → `TelemetryTagPolicy`
+  - `ThresholdAlert1` → `ThresholdAlert`
+  - `TimeSliceSloConfiguration1` → `TimeSliceSloConfiguration`
+- Renamed oneOf members also rename the wrapper fields that hold them, for example `RuleTeamsFilter.SpecificTeams2` → `.SpecificTeams` and `UpdateSloRequestAlertsInnerConfiguration.BurnRateAlert` → `.InputBurnRateAlert`, and their convenience constructors, for example `SpecificTeams2AsRuleTeamsFilter` → `SpecificTeamsAsRuleTeamsFilter` and `TelemetryTagPolicy1AsTagPolicyConfiguration` → `TelemetryTagPolicyAsTagPolicyConfiguration`.
+
+- Breaking: model types that no longer exist (see the renames above for replacements):
+  - `AggregationGroupBy1`
+  - `AggregationQuery1`
+  - `BurnRateAlert1`
+  - `CustomLink1`
+  - `EventSloConfiguration1`
+  - `Graph1`
+  - `Graph1Layout`
+  - `Graph2`
+  - `Graph2Visualization`
+  - `ListDefaultSorting1`
+  - `MonitorAggregationQuery1`
+  - `Normalizer1`
+  - `SloAggregationQuery`
+  - `SloQueryFormula1`
+  - `SpecificTeams1`
+  - `SpecificTeams2`
+  - `TableColumn1`
+  - `TableDefaultSorting1`
+  - `Tag1`
+  - `TelemetryTagPolicy1`
+  - `ThresholdAlert1`
+  - `TimeSliceSloConfiguration1`
+  - `UpdateNotificationRuleRequestTeamsFilter`
+  - `WidgetListColumn1`
+
 ## [1.10.0] - 2026-10-07
 
 ### Added

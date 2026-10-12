@@ -17,29 +17,29 @@ import (
 
 // CreateNotificationRuleRequestTeamsFilter - Team visibility filter used when matching alert transitions. Tsuga validates create and update requests against the caller permissions.
 type CreateNotificationRuleRequestTeamsFilter struct {
-	AllPublicTeams *AllPublicTeams
-	AllTeams       *AllTeams
-	SpecificTeams  *SpecificTeams
+	InputAllPublicTeams *InputAllPublicTeams
+	InputAllTeams       *InputAllTeams
+	InputSpecificTeams  *InputSpecificTeams
 }
 
-// AllPublicTeamsAsCreateNotificationRuleRequestTeamsFilter is a convenience function that returns AllPublicTeams wrapped in CreateNotificationRuleRequestTeamsFilter
-func AllPublicTeamsAsCreateNotificationRuleRequestTeamsFilter(v *AllPublicTeams) CreateNotificationRuleRequestTeamsFilter {
+// InputAllPublicTeamsAsCreateNotificationRuleRequestTeamsFilter is a convenience function that returns InputAllPublicTeams wrapped in CreateNotificationRuleRequestTeamsFilter
+func InputAllPublicTeamsAsCreateNotificationRuleRequestTeamsFilter(v *InputAllPublicTeams) CreateNotificationRuleRequestTeamsFilter {
 	return CreateNotificationRuleRequestTeamsFilter{
-		AllPublicTeams: v,
+		InputAllPublicTeams: v,
 	}
 }
 
-// AllTeamsAsCreateNotificationRuleRequestTeamsFilter is a convenience function that returns AllTeams wrapped in CreateNotificationRuleRequestTeamsFilter
-func AllTeamsAsCreateNotificationRuleRequestTeamsFilter(v *AllTeams) CreateNotificationRuleRequestTeamsFilter {
+// InputAllTeamsAsCreateNotificationRuleRequestTeamsFilter is a convenience function that returns InputAllTeams wrapped in CreateNotificationRuleRequestTeamsFilter
+func InputAllTeamsAsCreateNotificationRuleRequestTeamsFilter(v *InputAllTeams) CreateNotificationRuleRequestTeamsFilter {
 	return CreateNotificationRuleRequestTeamsFilter{
-		AllTeams: v,
+		InputAllTeams: v,
 	}
 }
 
-// SpecificTeamsAsCreateNotificationRuleRequestTeamsFilter is a convenience function that returns SpecificTeams wrapped in CreateNotificationRuleRequestTeamsFilter
-func SpecificTeamsAsCreateNotificationRuleRequestTeamsFilter(v *SpecificTeams) CreateNotificationRuleRequestTeamsFilter {
+// InputSpecificTeamsAsCreateNotificationRuleRequestTeamsFilter is a convenience function that returns InputSpecificTeams wrapped in CreateNotificationRuleRequestTeamsFilter
+func InputSpecificTeamsAsCreateNotificationRuleRequestTeamsFilter(v *InputSpecificTeams) CreateNotificationRuleRequestTeamsFilter {
 	return CreateNotificationRuleRequestTeamsFilter{
-		SpecificTeams: v,
+		InputSpecificTeams: v,
 	}
 }
 
@@ -53,39 +53,39 @@ func (dst *CreateNotificationRuleRequestTeamsFilter) UnmarshalJSON(data []byte) 
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'AllPublicTeams'
-	if jsonDict["type"] == "AllPublicTeams" {
-		// try to unmarshal JSON data into AllPublicTeams
-		err = json.Unmarshal(data, &dst.AllPublicTeams)
+	// check if the discriminator value is 'InputAllPublicTeams'
+	if jsonDict["type"] == "InputAllPublicTeams" {
+		// try to unmarshal JSON data into InputAllPublicTeams
+		err = json.Unmarshal(data, &dst.InputAllPublicTeams)
 		if err == nil {
-			return nil // data stored in dst.AllPublicTeams, return on the first match
+			return nil // data stored in dst.InputAllPublicTeams, return on the first match
 		} else {
-			dst.AllPublicTeams = nil
-			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTeamsFilter as AllPublicTeams: %s", err.Error())
+			dst.InputAllPublicTeams = nil
+			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTeamsFilter as InputAllPublicTeams: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'AllTeams'
-	if jsonDict["type"] == "AllTeams" {
-		// try to unmarshal JSON data into AllTeams
-		err = json.Unmarshal(data, &dst.AllTeams)
+	// check if the discriminator value is 'InputAllTeams'
+	if jsonDict["type"] == "InputAllTeams" {
+		// try to unmarshal JSON data into InputAllTeams
+		err = json.Unmarshal(data, &dst.InputAllTeams)
 		if err == nil {
-			return nil // data stored in dst.AllTeams, return on the first match
+			return nil // data stored in dst.InputAllTeams, return on the first match
 		} else {
-			dst.AllTeams = nil
-			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTeamsFilter as AllTeams: %s", err.Error())
+			dst.InputAllTeams = nil
+			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTeamsFilter as InputAllTeams: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'SpecificTeams'
-	if jsonDict["type"] == "SpecificTeams" {
-		// try to unmarshal JSON data into SpecificTeams
-		err = json.Unmarshal(data, &dst.SpecificTeams)
+	// check if the discriminator value is 'InputSpecificTeams'
+	if jsonDict["type"] == "InputSpecificTeams" {
+		// try to unmarshal JSON data into InputSpecificTeams
+		err = json.Unmarshal(data, &dst.InputSpecificTeams)
 		if err == nil {
-			return nil // data stored in dst.SpecificTeams, return on the first match
+			return nil // data stored in dst.InputSpecificTeams, return on the first match
 		} else {
-			dst.SpecificTeams = nil
-			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTeamsFilter as SpecificTeams: %s", err.Error())
+			dst.InputSpecificTeams = nil
+			return fmt.Errorf("failed to unmarshal CreateNotificationRuleRequestTeamsFilter as InputSpecificTeams: %s", err.Error())
 		}
 	}
 
@@ -94,16 +94,16 @@ func (dst *CreateNotificationRuleRequestTeamsFilter) UnmarshalJSON(data []byte) 
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src CreateNotificationRuleRequestTeamsFilter) MarshalJSON() ([]byte, error) {
-	if src.AllPublicTeams != nil {
-		return json.Marshal(&src.AllPublicTeams)
+	if src.InputAllPublicTeams != nil {
+		return json.Marshal(&src.InputAllPublicTeams)
 	}
 
-	if src.AllTeams != nil {
-		return json.Marshal(&src.AllTeams)
+	if src.InputAllTeams != nil {
+		return json.Marshal(&src.InputAllTeams)
 	}
 
-	if src.SpecificTeams != nil {
-		return json.Marshal(&src.SpecificTeams)
+	if src.InputSpecificTeams != nil {
+		return json.Marshal(&src.InputSpecificTeams)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -114,16 +114,16 @@ func (obj *CreateNotificationRuleRequestTeamsFilter) GetActualInstance() interfa
 	if obj == nil {
 		return nil
 	}
-	if obj.AllPublicTeams != nil {
-		return obj.AllPublicTeams
+	if obj.InputAllPublicTeams != nil {
+		return obj.InputAllPublicTeams
 	}
 
-	if obj.AllTeams != nil {
-		return obj.AllTeams
+	if obj.InputAllTeams != nil {
+		return obj.InputAllTeams
 	}
 
-	if obj.SpecificTeams != nil {
-		return obj.SpecificTeams
+	if obj.InputSpecificTeams != nil {
+		return obj.InputSpecificTeams
 	}
 
 	// all schemas are nil
@@ -132,16 +132,16 @@ func (obj *CreateNotificationRuleRequestTeamsFilter) GetActualInstance() interfa
 
 // Get the actual instance value
 func (obj CreateNotificationRuleRequestTeamsFilter) GetActualInstanceValue() interface{} {
-	if obj.AllPublicTeams != nil {
-		return *obj.AllPublicTeams
+	if obj.InputAllPublicTeams != nil {
+		return *obj.InputAllPublicTeams
 	}
 
-	if obj.AllTeams != nil {
-		return *obj.AllTeams
+	if obj.InputAllTeams != nil {
+		return *obj.InputAllTeams
 	}
 
-	if obj.SpecificTeams != nil {
-		return *obj.SpecificTeams
+	if obj.InputSpecificTeams != nil {
+		return *obj.InputSpecificTeams
 	}
 
 	// all schemas are nil

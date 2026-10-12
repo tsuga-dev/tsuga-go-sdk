@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Type** | **string** | Displays PromQL metrics query-based aggregation as a pie chart | 
 **Queries** | **[]string** | PromQL expressions configured for this widget. | 
 **Aliases** | Pointer to [**InputGraphVisualizationTimeseriesPromqlAliases**](InputGraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
-**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
+**Normalizer** | Pointer to [**InputNormalizer**](InputNormalizer.md) |  | [optional] 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 
@@ -97,20 +97,20 @@ HasAliases returns a boolean if a field has been set.
 
 ### GetNormalizer
 
-`func (o *InputGraphVisualizationPiePromql) GetNormalizer() Normalizer`
+`func (o *InputGraphVisualizationPiePromql) GetNormalizer() InputNormalizer`
 
 GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
 
 ### GetNormalizerOk
 
-`func (o *InputGraphVisualizationPiePromql) GetNormalizerOk() (*Normalizer, bool)`
+`func (o *InputGraphVisualizationPiePromql) GetNormalizerOk() (*InputNormalizer, bool)`
 
 GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNormalizer
 
-`func (o *InputGraphVisualizationPiePromql) SetNormalizer(v Normalizer)`
+`func (o *InputGraphVisualizationPiePromql) SetNormalizer(v InputNormalizer)`
 
 SetNormalizer sets Normalizer field to given value.
 

@@ -27,9 +27,9 @@ type InputGraphVisualizationBarPromql struct {
 	Aliases    *InputGraphVisualizationTimeseriesPromqlAliases  `json:"aliases,omitempty"`
 	TimeBucket *GraphVisualizationTimeseriesPromqlTimeBucket    `json:"timeBucket,omitempty"`
 	Precision  *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
-	Normalizer *Normalizer                                      `json:"normalizer,omitempty"`
+	Normalizer *InputNormalizer                                 `json:"normalizer,omitempty"`
 	// Threshold markers displayed on the chart
-	Thresholds []ThresholdMarker `json:"thresholds,omitempty"`
+	Thresholds []InputThresholdMarker `json:"thresholds,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode           *string                                                   `json:"legendMode,omitempty"`
 	YAxisSettings        *InputGraphVisualizationTimeseriesConnectionYAxisSettings `json:"yAxisSettings,omitempty"`
@@ -202,9 +202,9 @@ func (o *InputGraphVisualizationBarPromql) SetPrecision(v GraphVisualizationQuer
 }
 
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
-func (o *InputGraphVisualizationBarPromql) GetNormalizer() Normalizer {
+func (o *InputGraphVisualizationBarPromql) GetNormalizer() InputNormalizer {
 	if o == nil || IsNil(o.Normalizer) {
-		var ret Normalizer
+		var ret InputNormalizer
 		return ret
 	}
 	return *o.Normalizer
@@ -212,7 +212,7 @@ func (o *InputGraphVisualizationBarPromql) GetNormalizer() Normalizer {
 
 // GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationBarPromql) GetNormalizerOk() (*Normalizer, bool) {
+func (o *InputGraphVisualizationBarPromql) GetNormalizerOk() (*InputNormalizer, bool) {
 	if o == nil || IsNil(o.Normalizer) {
 		return nil, false
 	}
@@ -228,15 +228,15 @@ func (o *InputGraphVisualizationBarPromql) HasNormalizer() bool {
 	return false
 }
 
-// SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
-func (o *InputGraphVisualizationBarPromql) SetNormalizer(v Normalizer) {
+// SetNormalizer gets a reference to the given InputNormalizer and assigns it to the Normalizer field.
+func (o *InputGraphVisualizationBarPromql) SetNormalizer(v InputNormalizer) {
 	o.Normalizer = &v
 }
 
 // GetThresholds returns the Thresholds field value if set, zero value otherwise.
-func (o *InputGraphVisualizationBarPromql) GetThresholds() []ThresholdMarker {
+func (o *InputGraphVisualizationBarPromql) GetThresholds() []InputThresholdMarker {
 	if o == nil || IsNil(o.Thresholds) {
-		var ret []ThresholdMarker
+		var ret []InputThresholdMarker
 		return ret
 	}
 	return o.Thresholds
@@ -244,7 +244,7 @@ func (o *InputGraphVisualizationBarPromql) GetThresholds() []ThresholdMarker {
 
 // GetThresholdsOk returns a tuple with the Thresholds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationBarPromql) GetThresholdsOk() ([]ThresholdMarker, bool) {
+func (o *InputGraphVisualizationBarPromql) GetThresholdsOk() ([]InputThresholdMarker, bool) {
 	if o == nil || IsNil(o.Thresholds) {
 		return nil, false
 	}
@@ -260,8 +260,8 @@ func (o *InputGraphVisualizationBarPromql) HasThresholds() bool {
 	return false
 }
 
-// SetThresholds gets a reference to the given []ThresholdMarker and assigns it to the Thresholds field.
-func (o *InputGraphVisualizationBarPromql) SetThresholds(v []ThresholdMarker) {
+// SetThresholds gets a reference to the given []InputThresholdMarker and assigns it to the Thresholds field.
+func (o *InputGraphVisualizationBarPromql) SetThresholds(v []InputThresholdMarker) {
 	o.Thresholds = v
 }
 

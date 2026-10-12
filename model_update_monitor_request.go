@@ -26,13 +26,13 @@ type UpdateMonitorRequest struct {
 	// Message included in notifications triggered by this monitor. Optional on create.
 	Message NullableString `json:"message,omitempty"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
-	Tags          []Tag                             `json:"tags,omitempty"`
+	Tags          []InputTag                        `json:"tags,omitempty"`
 	Configuration UpdateMonitorRequestConfiguration `json:"configuration"`
 	// Monitor priority from 1 through 5, where 1 is highest priority.
 	Priority float32 `json:"priority"`
 	// Team ID that owns and manages the monitor.
 	Owner string `json:"owner"`
-	// Folder that should contain the dashboard. Optional; omit on update to keep the current folder, pass null to clear the folder, or pass a readable dashboard-folder ID to move it.
+	// Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder.
 	DashboardId NullableString `json:"dashboardId,omitempty"`
 	// ISO timestamp until which the monitor is snoozed. Must be in the future and at most one month from now. On create: omit or send `null` to leave the monitor active. On update: omit to keep the current snooze, send `null` to clear it.
 	PauseUntil NullableTime `json:"pauseUntil,omitempty"`
@@ -135,9 +135,9 @@ func (o *UpdateMonitorRequest) UnsetMessage() {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *UpdateMonitorRequest) GetTags() []Tag {
+func (o *UpdateMonitorRequest) GetTags() []InputTag {
 	if o == nil || IsNil(o.Tags) {
-		var ret []Tag
+		var ret []InputTag
 		return ret
 	}
 	return o.Tags
@@ -145,7 +145,7 @@ func (o *UpdateMonitorRequest) GetTags() []Tag {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateMonitorRequest) GetTagsOk() ([]Tag, bool) {
+func (o *UpdateMonitorRequest) GetTagsOk() ([]InputTag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -161,8 +161,8 @@ func (o *UpdateMonitorRequest) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
-func (o *UpdateMonitorRequest) SetTags(v []Tag) {
+// SetTags gets a reference to the given []InputTag and assigns it to the Tags field.
+func (o *UpdateMonitorRequest) SetTags(v []InputTag) {
 	o.Tags = v
 }
 

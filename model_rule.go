@@ -38,7 +38,7 @@ type Rule struct {
 	// Whether the rule currently sends notifications when its filters match.
 	IsActive bool `json:"isActive"`
 	// Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies.
-	Tags []Tag1 `json:"tags,omitempty"`
+	Tags []Tag `json:"tags,omitempty"`
 	// Destinations that receive a notification whenever this rule matches an alert transition. Every target in the list is notified independently, subject to its own rate limit and renotification settings.
 	Targets              []RuleTargetsInner `json:"targets"`
 	AdditionalProperties map[string]interface{}
@@ -297,9 +297,9 @@ func (o *Rule) SetIsActive(v bool) {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *Rule) GetTags() []Tag1 {
+func (o *Rule) GetTags() []Tag {
 	if o == nil || IsNil(o.Tags) {
-		var ret []Tag1
+		var ret []Tag
 		return ret
 	}
 	return o.Tags
@@ -307,7 +307,7 @@ func (o *Rule) GetTags() []Tag1 {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Rule) GetTagsOk() ([]Tag1, bool) {
+func (o *Rule) GetTagsOk() ([]Tag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -323,8 +323,8 @@ func (o *Rule) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []Tag1 and assigns it to the Tags field.
-func (o *Rule) SetTags(v []Tag1) {
+// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
+func (o *Rule) SetTags(v []Tag) {
 	o.Tags = v
 }
 

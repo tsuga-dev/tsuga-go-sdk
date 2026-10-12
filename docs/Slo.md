@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** | Tsuga-generated SLO ID assigned when the SLO is created. | 
 **Name** | **string** | Display name of the SLO, set by the caller. | 
 **Description** | Pointer to **string** | Free-form, caller-provided description of what the SLO measures. Absent when not set. | [optional] 
-**Tags** | Pointer to [**[]Tag1**](Tag1.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
 **Configuration** | [**SloConfiguration**](SloConfiguration.md) |  | 
 **Target** | **float32** | Target percentage (0 &lt; target &lt; 100, e.g. 99.9) | 
 **TimeframeDays** | **int32** | Rolling SLO evaluation window in days. Set by the caller on create or update and returned on read and list responses. Allowed values are 7, 30, and 90. | 
@@ -102,20 +102,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetTags
 
-`func (o *Slo) GetTags() []Tag1`
+`func (o *Slo) GetTags() []Tag`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *Slo) GetTagsOk() (*[]Tag1, bool)`
+`func (o *Slo) GetTagsOk() (*[]Tag, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *Slo) SetTags(v []Tag1)`
+`func (o *Slo) SetTags(v []Tag)`
 
 SetTags sets Tags field to given value.
 

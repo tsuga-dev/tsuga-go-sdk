@@ -19,7 +19,7 @@ import (
 type RuleTeamsFilter struct {
 	AllPublicTeams *AllPublicTeams
 	AllTeams       *AllTeams
-	SpecificTeams2 *SpecificTeams2
+	SpecificTeams  *SpecificTeams
 }
 
 // AllPublicTeamsAsRuleTeamsFilter is a convenience function that returns AllPublicTeams wrapped in RuleTeamsFilter
@@ -36,10 +36,10 @@ func AllTeamsAsRuleTeamsFilter(v *AllTeams) RuleTeamsFilter {
 	}
 }
 
-// SpecificTeams2AsRuleTeamsFilter is a convenience function that returns SpecificTeams2 wrapped in RuleTeamsFilter
-func SpecificTeams2AsRuleTeamsFilter(v *SpecificTeams2) RuleTeamsFilter {
+// SpecificTeamsAsRuleTeamsFilter is a convenience function that returns SpecificTeams wrapped in RuleTeamsFilter
+func SpecificTeamsAsRuleTeamsFilter(v *SpecificTeams) RuleTeamsFilter {
 	return RuleTeamsFilter{
-		SpecificTeams2: v,
+		SpecificTeams: v,
 	}
 }
 
@@ -77,15 +77,15 @@ func (dst *RuleTeamsFilter) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'SpecificTeams_2'
-	if jsonDict["type"] == "SpecificTeams_2" {
-		// try to unmarshal JSON data into SpecificTeams2
-		err = json.Unmarshal(data, &dst.SpecificTeams2)
+	// check if the discriminator value is 'SpecificTeams'
+	if jsonDict["type"] == "SpecificTeams" {
+		// try to unmarshal JSON data into SpecificTeams
+		err = json.Unmarshal(data, &dst.SpecificTeams)
 		if err == nil {
-			return nil // data stored in dst.SpecificTeams2, return on the first match
+			return nil // data stored in dst.SpecificTeams, return on the first match
 		} else {
-			dst.SpecificTeams2 = nil
-			return fmt.Errorf("failed to unmarshal RuleTeamsFilter as SpecificTeams2: %s", err.Error())
+			dst.SpecificTeams = nil
+			return fmt.Errorf("failed to unmarshal RuleTeamsFilter as SpecificTeams: %s", err.Error())
 		}
 	}
 
@@ -102,8 +102,8 @@ func (src RuleTeamsFilter) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.AllTeams)
 	}
 
-	if src.SpecificTeams2 != nil {
-		return json.Marshal(&src.SpecificTeams2)
+	if src.SpecificTeams != nil {
+		return json.Marshal(&src.SpecificTeams)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -122,8 +122,8 @@ func (obj *RuleTeamsFilter) GetActualInstance() interface{} {
 		return obj.AllTeams
 	}
 
-	if obj.SpecificTeams2 != nil {
-		return obj.SpecificTeams2
+	if obj.SpecificTeams != nil {
+		return obj.SpecificTeams
 	}
 
 	// all schemas are nil
@@ -140,8 +140,8 @@ func (obj RuleTeamsFilter) GetActualInstanceValue() interface{} {
 		return *obj.AllTeams
 	}
 
-	if obj.SpecificTeams2 != nil {
-		return *obj.SpecificTeams2
+	if obj.SpecificTeams != nil {
+		return *obj.SpecificTeams
 	}
 
 	// all schemas are nil

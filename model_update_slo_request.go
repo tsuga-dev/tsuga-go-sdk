@@ -25,7 +25,7 @@ type UpdateSloRequest struct {
 	// Free-form, caller-provided description of what the SLO measures. Optional.
 	Description NullableString `json:"description,omitempty"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
-	Tags          []Tag                         `json:"tags,omitempty"`
+	Tags          []InputTag                    `json:"tags,omitempty"`
 	Configuration UpdateSloRequestConfiguration `json:"configuration"`
 	// Target percentage (0 < target < 100, e.g. 99.9)
 	Target float32 `json:"target"`
@@ -136,9 +136,9 @@ func (o *UpdateSloRequest) UnsetDescription() {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *UpdateSloRequest) GetTags() []Tag {
+func (o *UpdateSloRequest) GetTags() []InputTag {
 	if o == nil || IsNil(o.Tags) {
-		var ret []Tag
+		var ret []InputTag
 		return ret
 	}
 	return o.Tags
@@ -146,7 +146,7 @@ func (o *UpdateSloRequest) GetTags() []Tag {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSloRequest) GetTagsOk() ([]Tag, bool) {
+func (o *UpdateSloRequest) GetTagsOk() ([]InputTag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -162,8 +162,8 @@ func (o *UpdateSloRequest) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
-func (o *UpdateSloRequest) SetTags(v []Tag) {
+// SetTags gets a reference to the given []InputTag and assigns it to the Tags field.
+func (o *UpdateSloRequest) SetTags(v []InputTag) {
 	o.Tags = v
 }
 

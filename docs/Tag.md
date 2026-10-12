@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** | Tag key to attach to the resource. | 
-**Value** | **string** | Tag value to attach to the resource. Leading or trailing whitespace is rejected. | 
+**Key** | **string** | Tag key attached to the resource. Consumers can use key/value tags for filtering, ownership context, and policy checks. | 
+**Value** | **string** | Tag value attached to the resource for this key. Tsuga returns the value exactly as stored. | 
 
 ## Methods
 

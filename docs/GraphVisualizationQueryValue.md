@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **BackgroundMode** | Pointer to **string** | Controls whether the widget uses a solid or transparent background | [optional] 
 **Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the raw query value, before the unit is applied | [optional] 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
-**Normalizer** | Pointer to [**Normalizer1**](Normalizer1.md) |  | [optional] 
+**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 
 ## Methods
@@ -247,20 +247,20 @@ HasPrecision returns a boolean if a field has been set.
 
 ### GetNormalizer
 
-`func (o *GraphVisualizationQueryValue) GetNormalizer() Normalizer1`
+`func (o *GraphVisualizationQueryValue) GetNormalizer() Normalizer`
 
 GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
 
 ### GetNormalizerOk
 
-`func (o *GraphVisualizationQueryValue) GetNormalizerOk() (*Normalizer1, bool)`
+`func (o *GraphVisualizationQueryValue) GetNormalizerOk() (*Normalizer, bool)`
 
 GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNormalizer
 
-`func (o *GraphVisualizationQueryValue) SetNormalizer(v Normalizer1)`
+`func (o *GraphVisualizationQueryValue) SetNormalizer(v Normalizer)`
 
 SetNormalizer sets Normalizer field to given value.
 

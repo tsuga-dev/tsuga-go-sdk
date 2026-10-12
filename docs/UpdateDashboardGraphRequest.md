@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **Description** | Pointer to **NullableString** | Text shown with the graph widget. Pass null to remove it. | [optional] 
 **DescriptionAlign** | Pointer to **NullableString** | Flex alignment keyword used for widget layout | [optional] 
 **DescriptionJustifyContent** | Pointer to **NullableString** | Flex alignment keyword used for widget layout | [optional] 
-**Visualization** | Pointer to [**GraphVisualization**](GraphVisualization.md) |  | [optional] 
-**Layout** | Pointer to [**NullableGraphLayout**](GraphLayout.md) |  | [optional] 
+**Visualization** | Pointer to [**UpdateDashboardGraphRequestVisualization**](UpdateDashboardGraphRequestVisualization.md) |  | [optional] 
+**Layout** | Pointer to [**NullableUpdateDashboardGraphRequestLayout**](UpdateDashboardGraphRequestLayout.md) |  | [optional] 
 
 ## Methods
 
@@ -172,20 +172,20 @@ HasDescriptionJustifyContent returns a boolean if a field has been set.
 UnsetDescriptionJustifyContent ensures that no value is present for DescriptionJustifyContent, not even an explicit nil
 ### GetVisualization
 
-`func (o *UpdateDashboardGraphRequest) GetVisualization() GraphVisualization`
+`func (o *UpdateDashboardGraphRequest) GetVisualization() UpdateDashboardGraphRequestVisualization`
 
 GetVisualization returns the Visualization field if non-nil, zero value otherwise.
 
 ### GetVisualizationOk
 
-`func (o *UpdateDashboardGraphRequest) GetVisualizationOk() (*GraphVisualization, bool)`
+`func (o *UpdateDashboardGraphRequest) GetVisualizationOk() (*UpdateDashboardGraphRequestVisualization, bool)`
 
 GetVisualizationOk returns a tuple with the Visualization field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVisualization
 
-`func (o *UpdateDashboardGraphRequest) SetVisualization(v GraphVisualization)`
+`func (o *UpdateDashboardGraphRequest) SetVisualization(v UpdateDashboardGraphRequestVisualization)`
 
 SetVisualization sets Visualization field to given value.
 
@@ -197,20 +197,20 @@ HasVisualization returns a boolean if a field has been set.
 
 ### GetLayout
 
-`func (o *UpdateDashboardGraphRequest) GetLayout() GraphLayout`
+`func (o *UpdateDashboardGraphRequest) GetLayout() UpdateDashboardGraphRequestLayout`
 
 GetLayout returns the Layout field if non-nil, zero value otherwise.
 
 ### GetLayoutOk
 
-`func (o *UpdateDashboardGraphRequest) GetLayoutOk() (*GraphLayout, bool)`
+`func (o *UpdateDashboardGraphRequest) GetLayoutOk() (*UpdateDashboardGraphRequestLayout, bool)`
 
 GetLayoutOk returns a tuple with the Layout field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLayout
 
-`func (o *UpdateDashboardGraphRequest) SetLayout(v GraphLayout)`
+`func (o *UpdateDashboardGraphRequest) SetLayout(v UpdateDashboardGraphRequestLayout)`
 
 SetLayout sets Layout field to given value.
 

@@ -17,14 +17,14 @@ import (
 
 // TagPolicyConfiguration - Policy surface and enforcement behavior. Use `telemetry` for telemetry data or `tsuga_asset` for Tsuga-managed resources.
 type TagPolicyConfiguration struct {
-	TelemetryTagPolicy1 *TelemetryTagPolicy1
+	TelemetryTagPolicy  *TelemetryTagPolicy
 	TsugaAssetTagPolicy *TsugaAssetTagPolicy
 }
 
-// TelemetryTagPolicy1AsTagPolicyConfiguration is a convenience function that returns TelemetryTagPolicy1 wrapped in TagPolicyConfiguration
-func TelemetryTagPolicy1AsTagPolicyConfiguration(v *TelemetryTagPolicy1) TagPolicyConfiguration {
+// TelemetryTagPolicyAsTagPolicyConfiguration is a convenience function that returns TelemetryTagPolicy wrapped in TagPolicyConfiguration
+func TelemetryTagPolicyAsTagPolicyConfiguration(v *TelemetryTagPolicy) TagPolicyConfiguration {
 	return TagPolicyConfiguration{
-		TelemetryTagPolicy1: v,
+		TelemetryTagPolicy: v,
 	}
 }
 
@@ -45,15 +45,15 @@ func (dst *TagPolicyConfiguration) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'TelemetryTagPolicy_1'
-	if jsonDict["type"] == "TelemetryTagPolicy_1" {
-		// try to unmarshal JSON data into TelemetryTagPolicy1
-		err = json.Unmarshal(data, &dst.TelemetryTagPolicy1)
+	// check if the discriminator value is 'TelemetryTagPolicy'
+	if jsonDict["type"] == "TelemetryTagPolicy" {
+		// try to unmarshal JSON data into TelemetryTagPolicy
+		err = json.Unmarshal(data, &dst.TelemetryTagPolicy)
 		if err == nil {
-			return nil // data stored in dst.TelemetryTagPolicy1, return on the first match
+			return nil // data stored in dst.TelemetryTagPolicy, return on the first match
 		} else {
-			dst.TelemetryTagPolicy1 = nil
-			return fmt.Errorf("failed to unmarshal TagPolicyConfiguration as TelemetryTagPolicy1: %s", err.Error())
+			dst.TelemetryTagPolicy = nil
+			return fmt.Errorf("failed to unmarshal TagPolicyConfiguration as TelemetryTagPolicy: %s", err.Error())
 		}
 	}
 
@@ -74,8 +74,8 @@ func (dst *TagPolicyConfiguration) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src TagPolicyConfiguration) MarshalJSON() ([]byte, error) {
-	if src.TelemetryTagPolicy1 != nil {
-		return json.Marshal(&src.TelemetryTagPolicy1)
+	if src.TelemetryTagPolicy != nil {
+		return json.Marshal(&src.TelemetryTagPolicy)
 	}
 
 	if src.TsugaAssetTagPolicy != nil {
@@ -90,8 +90,8 @@ func (obj *TagPolicyConfiguration) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
-	if obj.TelemetryTagPolicy1 != nil {
-		return obj.TelemetryTagPolicy1
+	if obj.TelemetryTagPolicy != nil {
+		return obj.TelemetryTagPolicy
 	}
 
 	if obj.TsugaAssetTagPolicy != nil {
@@ -104,8 +104,8 @@ func (obj *TagPolicyConfiguration) GetActualInstance() interface{} {
 
 // Get the actual instance value
 func (obj TagPolicyConfiguration) GetActualInstanceValue() interface{} {
-	if obj.TelemetryTagPolicy1 != nil {
-		return *obj.TelemetryTagPolicy1
+	if obj.TelemetryTagPolicy != nil {
+		return *obj.TelemetryTagPolicy
 	}
 
 	if obj.TsugaAssetTagPolicy != nil {

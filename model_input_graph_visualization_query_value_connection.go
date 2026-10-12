@@ -28,9 +28,9 @@ type InputGraphVisualizationQueryValueConnection struct {
 	// Controls whether the widget uses a solid or transparent background
 	BackgroundMode *string `json:"backgroundMode,omitempty"`
 	// Conditional formatting rules applied to the raw query value, before the unit is applied
-	Conditions []ConditionalFormatting                          `json:"conditions,omitempty"`
+	Conditions []InputConditionalFormatting                     `json:"conditions,omitempty"`
 	Precision  *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
-	Normalizer *Normalizer                                      `json:"normalizer,omitempty"`
+	Normalizer *InputNormalizer                                 `json:"normalizer,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode           *string `json:"legendMode,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -163,9 +163,9 @@ func (o *InputGraphVisualizationQueryValueConnection) SetBackgroundMode(v string
 }
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
-func (o *InputGraphVisualizationQueryValueConnection) GetConditions() []ConditionalFormatting {
+func (o *InputGraphVisualizationQueryValueConnection) GetConditions() []InputConditionalFormatting {
 	if o == nil || IsNil(o.Conditions) {
-		var ret []ConditionalFormatting
+		var ret []InputConditionalFormatting
 		return ret
 	}
 	return o.Conditions
@@ -173,7 +173,7 @@ func (o *InputGraphVisualizationQueryValueConnection) GetConditions() []Conditio
 
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationQueryValueConnection) GetConditionsOk() ([]ConditionalFormatting, bool) {
+func (o *InputGraphVisualizationQueryValueConnection) GetConditionsOk() ([]InputConditionalFormatting, bool) {
 	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
@@ -189,8 +189,8 @@ func (o *InputGraphVisualizationQueryValueConnection) HasConditions() bool {
 	return false
 }
 
-// SetConditions gets a reference to the given []ConditionalFormatting and assigns it to the Conditions field.
-func (o *InputGraphVisualizationQueryValueConnection) SetConditions(v []ConditionalFormatting) {
+// SetConditions gets a reference to the given []InputConditionalFormatting and assigns it to the Conditions field.
+func (o *InputGraphVisualizationQueryValueConnection) SetConditions(v []InputConditionalFormatting) {
 	o.Conditions = v
 }
 
@@ -227,9 +227,9 @@ func (o *InputGraphVisualizationQueryValueConnection) SetPrecision(v GraphVisual
 }
 
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
-func (o *InputGraphVisualizationQueryValueConnection) GetNormalizer() Normalizer {
+func (o *InputGraphVisualizationQueryValueConnection) GetNormalizer() InputNormalizer {
 	if o == nil || IsNil(o.Normalizer) {
-		var ret Normalizer
+		var ret InputNormalizer
 		return ret
 	}
 	return *o.Normalizer
@@ -237,7 +237,7 @@ func (o *InputGraphVisualizationQueryValueConnection) GetNormalizer() Normalizer
 
 // GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationQueryValueConnection) GetNormalizerOk() (*Normalizer, bool) {
+func (o *InputGraphVisualizationQueryValueConnection) GetNormalizerOk() (*InputNormalizer, bool) {
 	if o == nil || IsNil(o.Normalizer) {
 		return nil, false
 	}
@@ -253,8 +253,8 @@ func (o *InputGraphVisualizationQueryValueConnection) HasNormalizer() bool {
 	return false
 }
 
-// SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
-func (o *InputGraphVisualizationQueryValueConnection) SetNormalizer(v Normalizer) {
+// SetNormalizer gets a reference to the given InputNormalizer and assigns it to the Normalizer field.
+func (o *InputGraphVisualizationQueryValueConnection) SetNormalizer(v InputNormalizer) {
 	o.Normalizer = &v
 }
 

@@ -26,7 +26,7 @@ type CreateMonitorRequest struct {
 	// Message included in notifications triggered by this monitor. Optional on create.
 	Message NullableString `json:"message,omitempty"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
-	Tags          []Tag                             `json:"tags,omitempty"`
+	Tags          []InputTag                        `json:"tags,omitempty"`
 	Configuration UpdateMonitorRequestConfiguration `json:"configuration"`
 	// Monitor priority from 1 through 5, where 1 is highest priority.
 	Priority float32 `json:"priority"`
@@ -135,9 +135,9 @@ func (o *CreateMonitorRequest) UnsetMessage() {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *CreateMonitorRequest) GetTags() []Tag {
+func (o *CreateMonitorRequest) GetTags() []InputTag {
 	if o == nil || IsNil(o.Tags) {
-		var ret []Tag
+		var ret []InputTag
 		return ret
 	}
 	return o.Tags
@@ -145,7 +145,7 @@ func (o *CreateMonitorRequest) GetTags() []Tag {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateMonitorRequest) GetTagsOk() ([]Tag, bool) {
+func (o *CreateMonitorRequest) GetTagsOk() ([]InputTag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -161,8 +161,8 @@ func (o *CreateMonitorRequest) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []Tag and assigns it to the Tags field.
-func (o *CreateMonitorRequest) SetTags(v []Tag) {
+// SetTags gets a reference to the given []InputTag and assigns it to the Tags field.
+func (o *CreateMonitorRequest) SetTags(v []InputTag) {
 	o.Tags = v
 }
 

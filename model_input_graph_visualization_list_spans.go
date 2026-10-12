@@ -25,13 +25,13 @@ type InputGraphVisualizationListSpans struct {
 	// Query that selects trace spans for the list
 	Query string `json:"query"`
 	// Custom columns to display for each span
-	ListColumns []WidgetListColumn1 `json:"listColumns,omitempty"`
+	ListColumns []InputWidgetListColumn `json:"listColumns,omitempty"`
 	// List column widths in pixels, keyed by the `attribute` of the matching `listColumns` entry. Columns without an entry keep their default width.
 	ListColumnsSize map[string]float32 `json:"listColumnsSize,omitempty"`
 	// Whether list widget cell text wraps instead of truncating. Applies to span list widgets. Optional; omit or set false to use truncated cells.
 	IsCellWrapped *bool `json:"isCellWrapped,omitempty"`
 	// Default sorting applied to a list widget. Optional on create or update for log, span, RUM event, or connection list widgets. Users can still change sorting by selecting columns in the rendered list.
-	DefaultSorting       []ListDefaultSorting1 `json:"defaultSorting,omitempty"`
+	DefaultSorting       []InputListDefaultSorting `json:"defaultSorting,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -105,9 +105,9 @@ func (o *InputGraphVisualizationListSpans) SetQuery(v string) {
 }
 
 // GetListColumns returns the ListColumns field value if set, zero value otherwise.
-func (o *InputGraphVisualizationListSpans) GetListColumns() []WidgetListColumn1 {
+func (o *InputGraphVisualizationListSpans) GetListColumns() []InputWidgetListColumn {
 	if o == nil || IsNil(o.ListColumns) {
-		var ret []WidgetListColumn1
+		var ret []InputWidgetListColumn
 		return ret
 	}
 	return o.ListColumns
@@ -115,7 +115,7 @@ func (o *InputGraphVisualizationListSpans) GetListColumns() []WidgetListColumn1 
 
 // GetListColumnsOk returns a tuple with the ListColumns field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationListSpans) GetListColumnsOk() ([]WidgetListColumn1, bool) {
+func (o *InputGraphVisualizationListSpans) GetListColumnsOk() ([]InputWidgetListColumn, bool) {
 	if o == nil || IsNil(o.ListColumns) {
 		return nil, false
 	}
@@ -131,8 +131,8 @@ func (o *InputGraphVisualizationListSpans) HasListColumns() bool {
 	return false
 }
 
-// SetListColumns gets a reference to the given []WidgetListColumn1 and assigns it to the ListColumns field.
-func (o *InputGraphVisualizationListSpans) SetListColumns(v []WidgetListColumn1) {
+// SetListColumns gets a reference to the given []InputWidgetListColumn and assigns it to the ListColumns field.
+func (o *InputGraphVisualizationListSpans) SetListColumns(v []InputWidgetListColumn) {
 	o.ListColumns = v
 }
 
@@ -201,9 +201,9 @@ func (o *InputGraphVisualizationListSpans) SetIsCellWrapped(v bool) {
 }
 
 // GetDefaultSorting returns the DefaultSorting field value if set, zero value otherwise.
-func (o *InputGraphVisualizationListSpans) GetDefaultSorting() []ListDefaultSorting1 {
+func (o *InputGraphVisualizationListSpans) GetDefaultSorting() []InputListDefaultSorting {
 	if o == nil || IsNil(o.DefaultSorting) {
-		var ret []ListDefaultSorting1
+		var ret []InputListDefaultSorting
 		return ret
 	}
 	return o.DefaultSorting
@@ -211,7 +211,7 @@ func (o *InputGraphVisualizationListSpans) GetDefaultSorting() []ListDefaultSort
 
 // GetDefaultSortingOk returns a tuple with the DefaultSorting field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationListSpans) GetDefaultSortingOk() ([]ListDefaultSorting1, bool) {
+func (o *InputGraphVisualizationListSpans) GetDefaultSortingOk() ([]InputListDefaultSorting, bool) {
 	if o == nil || IsNil(o.DefaultSorting) {
 		return nil, false
 	}
@@ -227,8 +227,8 @@ func (o *InputGraphVisualizationListSpans) HasDefaultSorting() bool {
 	return false
 }
 
-// SetDefaultSorting gets a reference to the given []ListDefaultSorting1 and assigns it to the DefaultSorting field.
-func (o *InputGraphVisualizationListSpans) SetDefaultSorting(v []ListDefaultSorting1) {
+// SetDefaultSorting gets a reference to the given []InputListDefaultSorting and assigns it to the DefaultSorting field.
+func (o *InputGraphVisualizationListSpans) SetDefaultSorting(v []InputListDefaultSorting) {
 	o.DefaultSorting = v
 }
 

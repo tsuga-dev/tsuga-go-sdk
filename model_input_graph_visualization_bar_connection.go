@@ -28,7 +28,7 @@ type InputGraphVisualizationBarConnection struct {
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
 	LegendMode *string `json:"legendMode,omitempty"`
 	// Threshold markers displayed on the chart
-	Thresholds           []ThresholdMarker                                         `json:"thresholds,omitempty"`
+	Thresholds           []InputThresholdMarker                                    `json:"thresholds,omitempty"`
 	YAxisSettings        *InputGraphVisualizationTimeseriesConnectionYAxisSettings `json:"yAxisSettings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -160,9 +160,9 @@ func (o *InputGraphVisualizationBarConnection) SetLegendMode(v string) {
 }
 
 // GetThresholds returns the Thresholds field value if set, zero value otherwise.
-func (o *InputGraphVisualizationBarConnection) GetThresholds() []ThresholdMarker {
+func (o *InputGraphVisualizationBarConnection) GetThresholds() []InputThresholdMarker {
 	if o == nil || IsNil(o.Thresholds) {
-		var ret []ThresholdMarker
+		var ret []InputThresholdMarker
 		return ret
 	}
 	return o.Thresholds
@@ -170,7 +170,7 @@ func (o *InputGraphVisualizationBarConnection) GetThresholds() []ThresholdMarker
 
 // GetThresholdsOk returns a tuple with the Thresholds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationBarConnection) GetThresholdsOk() ([]ThresholdMarker, bool) {
+func (o *InputGraphVisualizationBarConnection) GetThresholdsOk() ([]InputThresholdMarker, bool) {
 	if o == nil || IsNil(o.Thresholds) {
 		return nil, false
 	}
@@ -186,8 +186,8 @@ func (o *InputGraphVisualizationBarConnection) HasThresholds() bool {
 	return false
 }
 
-// SetThresholds gets a reference to the given []ThresholdMarker and assigns it to the Thresholds field.
-func (o *InputGraphVisualizationBarConnection) SetThresholds(v []ThresholdMarker) {
+// SetThresholds gets a reference to the given []InputThresholdMarker and assigns it to the Thresholds field.
+func (o *InputGraphVisualizationBarConnection) SetThresholds(v []InputThresholdMarker) {
 	o.Thresholds = v
 }
 

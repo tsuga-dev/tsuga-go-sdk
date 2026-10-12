@@ -8,9 +8,9 @@ Name | Type | Description | Notes
 **ConnectionId** | **string** | The ID of the connection to use to query the datastore. | 
 **Queries** | **[]string** |  | 
 **BackgroundMode** | Pointer to **string** | Controls whether the widget uses a solid or transparent background | [optional] 
-**Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the raw query value, before the unit is applied | [optional] 
+**Conditions** | Pointer to [**[]InputConditionalFormatting**](InputConditionalFormatting.md) | Conditional formatting rules applied to the raw query value, before the unit is applied | [optional] 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
-**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
+**Normalizer** | Pointer to [**InputNormalizer**](InputNormalizer.md) |  | [optional] 
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 
 ## Methods
@@ -119,20 +119,20 @@ HasBackgroundMode returns a boolean if a field has been set.
 
 ### GetConditions
 
-`func (o *InputGraphVisualizationQueryValueConnection) GetConditions() []ConditionalFormatting`
+`func (o *InputGraphVisualizationQueryValueConnection) GetConditions() []InputConditionalFormatting`
 
 GetConditions returns the Conditions field if non-nil, zero value otherwise.
 
 ### GetConditionsOk
 
-`func (o *InputGraphVisualizationQueryValueConnection) GetConditionsOk() (*[]ConditionalFormatting, bool)`
+`func (o *InputGraphVisualizationQueryValueConnection) GetConditionsOk() (*[]InputConditionalFormatting, bool)`
 
 GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConditions
 
-`func (o *InputGraphVisualizationQueryValueConnection) SetConditions(v []ConditionalFormatting)`
+`func (o *InputGraphVisualizationQueryValueConnection) SetConditions(v []InputConditionalFormatting)`
 
 SetConditions sets Conditions field to given value.
 
@@ -169,20 +169,20 @@ HasPrecision returns a boolean if a field has been set.
 
 ### GetNormalizer
 
-`func (o *InputGraphVisualizationQueryValueConnection) GetNormalizer() Normalizer`
+`func (o *InputGraphVisualizationQueryValueConnection) GetNormalizer() InputNormalizer`
 
 GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
 
 ### GetNormalizerOk
 
-`func (o *InputGraphVisualizationQueryValueConnection) GetNormalizerOk() (*Normalizer, bool)`
+`func (o *InputGraphVisualizationQueryValueConnection) GetNormalizerOk() (*InputNormalizer, bool)`
 
 GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNormalizer
 
-`func (o *InputGraphVisualizationQueryValueConnection) SetNormalizer(v Normalizer)`
+`func (o *InputGraphVisualizationQueryValueConnection) SetNormalizer(v InputNormalizer)`
 
 SetNormalizer sets Normalizer field to given value.
 

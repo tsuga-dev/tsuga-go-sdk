@@ -17,21 +17,21 @@ import (
 
 // CreateTagPolicyRequestConfiguration - Policy surface and enforcement behavior. Use `telemetry` for telemetry data or `tsuga_asset` for Tsuga-managed resources.
 type CreateTagPolicyRequestConfiguration struct {
-	TelemetryTagPolicy  *TelemetryTagPolicy
-	TsugaAssetTagPolicy *TsugaAssetTagPolicy
+	InputTelemetryTagPolicy  *InputTelemetryTagPolicy
+	InputTsugaAssetTagPolicy *InputTsugaAssetTagPolicy
 }
 
-// TelemetryTagPolicyAsCreateTagPolicyRequestConfiguration is a convenience function that returns TelemetryTagPolicy wrapped in CreateTagPolicyRequestConfiguration
-func TelemetryTagPolicyAsCreateTagPolicyRequestConfiguration(v *TelemetryTagPolicy) CreateTagPolicyRequestConfiguration {
+// InputTelemetryTagPolicyAsCreateTagPolicyRequestConfiguration is a convenience function that returns InputTelemetryTagPolicy wrapped in CreateTagPolicyRequestConfiguration
+func InputTelemetryTagPolicyAsCreateTagPolicyRequestConfiguration(v *InputTelemetryTagPolicy) CreateTagPolicyRequestConfiguration {
 	return CreateTagPolicyRequestConfiguration{
-		TelemetryTagPolicy: v,
+		InputTelemetryTagPolicy: v,
 	}
 }
 
-// TsugaAssetTagPolicyAsCreateTagPolicyRequestConfiguration is a convenience function that returns TsugaAssetTagPolicy wrapped in CreateTagPolicyRequestConfiguration
-func TsugaAssetTagPolicyAsCreateTagPolicyRequestConfiguration(v *TsugaAssetTagPolicy) CreateTagPolicyRequestConfiguration {
+// InputTsugaAssetTagPolicyAsCreateTagPolicyRequestConfiguration is a convenience function that returns InputTsugaAssetTagPolicy wrapped in CreateTagPolicyRequestConfiguration
+func InputTsugaAssetTagPolicyAsCreateTagPolicyRequestConfiguration(v *InputTsugaAssetTagPolicy) CreateTagPolicyRequestConfiguration {
 	return CreateTagPolicyRequestConfiguration{
-		TsugaAssetTagPolicy: v,
+		InputTsugaAssetTagPolicy: v,
 	}
 }
 
@@ -45,27 +45,27 @@ func (dst *CreateTagPolicyRequestConfiguration) UnmarshalJSON(data []byte) error
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'TelemetryTagPolicy'
-	if jsonDict["type"] == "TelemetryTagPolicy" {
-		// try to unmarshal JSON data into TelemetryTagPolicy
-		err = json.Unmarshal(data, &dst.TelemetryTagPolicy)
+	// check if the discriminator value is 'InputTelemetryTagPolicy'
+	if jsonDict["type"] == "InputTelemetryTagPolicy" {
+		// try to unmarshal JSON data into InputTelemetryTagPolicy
+		err = json.Unmarshal(data, &dst.InputTelemetryTagPolicy)
 		if err == nil {
-			return nil // data stored in dst.TelemetryTagPolicy, return on the first match
+			return nil // data stored in dst.InputTelemetryTagPolicy, return on the first match
 		} else {
-			dst.TelemetryTagPolicy = nil
-			return fmt.Errorf("failed to unmarshal CreateTagPolicyRequestConfiguration as TelemetryTagPolicy: %s", err.Error())
+			dst.InputTelemetryTagPolicy = nil
+			return fmt.Errorf("failed to unmarshal CreateTagPolicyRequestConfiguration as InputTelemetryTagPolicy: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'TsugaAssetTagPolicy'
-	if jsonDict["type"] == "TsugaAssetTagPolicy" {
-		// try to unmarshal JSON data into TsugaAssetTagPolicy
-		err = json.Unmarshal(data, &dst.TsugaAssetTagPolicy)
+	// check if the discriminator value is 'InputTsugaAssetTagPolicy'
+	if jsonDict["type"] == "InputTsugaAssetTagPolicy" {
+		// try to unmarshal JSON data into InputTsugaAssetTagPolicy
+		err = json.Unmarshal(data, &dst.InputTsugaAssetTagPolicy)
 		if err == nil {
-			return nil // data stored in dst.TsugaAssetTagPolicy, return on the first match
+			return nil // data stored in dst.InputTsugaAssetTagPolicy, return on the first match
 		} else {
-			dst.TsugaAssetTagPolicy = nil
-			return fmt.Errorf("failed to unmarshal CreateTagPolicyRequestConfiguration as TsugaAssetTagPolicy: %s", err.Error())
+			dst.InputTsugaAssetTagPolicy = nil
+			return fmt.Errorf("failed to unmarshal CreateTagPolicyRequestConfiguration as InputTsugaAssetTagPolicy: %s", err.Error())
 		}
 	}
 
@@ -74,12 +74,12 @@ func (dst *CreateTagPolicyRequestConfiguration) UnmarshalJSON(data []byte) error
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src CreateTagPolicyRequestConfiguration) MarshalJSON() ([]byte, error) {
-	if src.TelemetryTagPolicy != nil {
-		return json.Marshal(&src.TelemetryTagPolicy)
+	if src.InputTelemetryTagPolicy != nil {
+		return json.Marshal(&src.InputTelemetryTagPolicy)
 	}
 
-	if src.TsugaAssetTagPolicy != nil {
-		return json.Marshal(&src.TsugaAssetTagPolicy)
+	if src.InputTsugaAssetTagPolicy != nil {
+		return json.Marshal(&src.InputTsugaAssetTagPolicy)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -90,12 +90,12 @@ func (obj *CreateTagPolicyRequestConfiguration) GetActualInstance() interface{} 
 	if obj == nil {
 		return nil
 	}
-	if obj.TelemetryTagPolicy != nil {
-		return obj.TelemetryTagPolicy
+	if obj.InputTelemetryTagPolicy != nil {
+		return obj.InputTelemetryTagPolicy
 	}
 
-	if obj.TsugaAssetTagPolicy != nil {
-		return obj.TsugaAssetTagPolicy
+	if obj.InputTsugaAssetTagPolicy != nil {
+		return obj.InputTsugaAssetTagPolicy
 	}
 
 	// all schemas are nil
@@ -104,12 +104,12 @@ func (obj *CreateTagPolicyRequestConfiguration) GetActualInstance() interface{} 
 
 // Get the actual instance value
 func (obj CreateTagPolicyRequestConfiguration) GetActualInstanceValue() interface{} {
-	if obj.TelemetryTagPolicy != nil {
-		return *obj.TelemetryTagPolicy
+	if obj.InputTelemetryTagPolicy != nil {
+		return *obj.InputTelemetryTagPolicy
 	}
 
-	if obj.TsugaAssetTagPolicy != nil {
-		return *obj.TsugaAssetTagPolicy
+	if obj.InputTsugaAssetTagPolicy != nil {
+		return *obj.InputTsugaAssetTagPolicy
 	}
 
 	// all schemas are nil

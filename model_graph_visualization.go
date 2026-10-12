@@ -17,221 +17,221 @@ import (
 
 // GraphVisualization - Widget visualization configuration. The `type` discriminator selects the widget kind and its required fields.
 type GraphVisualization struct {
-	InputGraphVisualizationBar                  *InputGraphVisualizationBar
-	InputGraphVisualizationBarConnection        *InputGraphVisualizationBarConnection
-	InputGraphVisualizationBarPromql            *InputGraphVisualizationBarPromql
-	InputGraphVisualizationDistribution         *InputGraphVisualizationDistribution
-	InputGraphVisualizationGauge                *InputGraphVisualizationGauge
-	InputGraphVisualizationHeatmap              *InputGraphVisualizationHeatmap
-	InputGraphVisualizationList                 *InputGraphVisualizationList
-	InputGraphVisualizationListConnection       *InputGraphVisualizationListConnection
-	InputGraphVisualizationListLogPatterns      *InputGraphVisualizationListLogPatterns
-	InputGraphVisualizationListRum              *InputGraphVisualizationListRum
-	InputGraphVisualizationListSpans            *InputGraphVisualizationListSpans
-	InputGraphVisualizationNote                 *InputGraphVisualizationNote
-	InputGraphVisualizationPie                  *InputGraphVisualizationPie
-	InputGraphVisualizationPieConnection        *InputGraphVisualizationPieConnection
-	InputGraphVisualizationPiePromql            *InputGraphVisualizationPiePromql
-	InputGraphVisualizationQueryValue           *InputGraphVisualizationQueryValue
-	InputGraphVisualizationQueryValueConnection *InputGraphVisualizationQueryValueConnection
-	InputGraphVisualizationQueryValuePromql     *InputGraphVisualizationQueryValuePromql
-	InputGraphVisualizationSloOverTime          *InputGraphVisualizationSloOverTime
-	InputGraphVisualizationSloUptime            *InputGraphVisualizationSloUptime
-	InputGraphVisualizationTable                *InputGraphVisualizationTable
-	InputGraphVisualizationTimeseries           *InputGraphVisualizationTimeseries
-	InputGraphVisualizationTimeseriesConnection *InputGraphVisualizationTimeseriesConnection
-	InputGraphVisualizationTimeseriesPromql     *InputGraphVisualizationTimeseriesPromql
-	InputGraphVisualizationTopList              *InputGraphVisualizationTopList
-	InputGraphVisualizationTopListConnection    *InputGraphVisualizationTopListConnection
-	InputGraphVisualizationTopListPromql        *InputGraphVisualizationTopListPromql
+	GraphVisualizationBar                  *GraphVisualizationBar
+	GraphVisualizationBarConnection        *GraphVisualizationBarConnection
+	GraphVisualizationBarPromql            *GraphVisualizationBarPromql
+	GraphVisualizationDistribution         *GraphVisualizationDistribution
+	GraphVisualizationGauge                *GraphVisualizationGauge
+	GraphVisualizationHeatmap              *GraphVisualizationHeatmap
+	GraphVisualizationList                 *GraphVisualizationList
+	GraphVisualizationListConnection       *GraphVisualizationListConnection
+	GraphVisualizationListLogPatterns      *GraphVisualizationListLogPatterns
+	GraphVisualizationListRum              *GraphVisualizationListRum
+	GraphVisualizationListSpans            *GraphVisualizationListSpans
+	GraphVisualizationNote                 *GraphVisualizationNote
+	GraphVisualizationPie                  *GraphVisualizationPie
+	GraphVisualizationPieConnection        *GraphVisualizationPieConnection
+	GraphVisualizationPiePromql            *GraphVisualizationPiePromql
+	GraphVisualizationQueryValue           *GraphVisualizationQueryValue
+	GraphVisualizationQueryValueConnection *GraphVisualizationQueryValueConnection
+	GraphVisualizationQueryValuePromql     *GraphVisualizationQueryValuePromql
+	GraphVisualizationSloOverTime          *GraphVisualizationSloOverTime
+	GraphVisualizationSloUptime            *GraphVisualizationSloUptime
+	GraphVisualizationTable                *GraphVisualizationTable
+	GraphVisualizationTimeseries           *GraphVisualizationTimeseries
+	GraphVisualizationTimeseriesConnection *GraphVisualizationTimeseriesConnection
+	GraphVisualizationTimeseriesPromql     *GraphVisualizationTimeseriesPromql
+	GraphVisualizationTopList              *GraphVisualizationTopList
+	GraphVisualizationTopListConnection    *GraphVisualizationTopListConnection
+	GraphVisualizationTopListPromql        *GraphVisualizationTopListPromql
 }
 
-// InputGraphVisualizationBarAsGraphVisualization is a convenience function that returns InputGraphVisualizationBar wrapped in GraphVisualization
-func InputGraphVisualizationBarAsGraphVisualization(v *InputGraphVisualizationBar) GraphVisualization {
+// GraphVisualizationBarAsGraphVisualization is a convenience function that returns GraphVisualizationBar wrapped in GraphVisualization
+func GraphVisualizationBarAsGraphVisualization(v *GraphVisualizationBar) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationBar: v,
+		GraphVisualizationBar: v,
 	}
 }
 
-// InputGraphVisualizationBarConnectionAsGraphVisualization is a convenience function that returns InputGraphVisualizationBarConnection wrapped in GraphVisualization
-func InputGraphVisualizationBarConnectionAsGraphVisualization(v *InputGraphVisualizationBarConnection) GraphVisualization {
+// GraphVisualizationBarConnectionAsGraphVisualization is a convenience function that returns GraphVisualizationBarConnection wrapped in GraphVisualization
+func GraphVisualizationBarConnectionAsGraphVisualization(v *GraphVisualizationBarConnection) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationBarConnection: v,
+		GraphVisualizationBarConnection: v,
 	}
 }
 
-// InputGraphVisualizationBarPromqlAsGraphVisualization is a convenience function that returns InputGraphVisualizationBarPromql wrapped in GraphVisualization
-func InputGraphVisualizationBarPromqlAsGraphVisualization(v *InputGraphVisualizationBarPromql) GraphVisualization {
+// GraphVisualizationBarPromqlAsGraphVisualization is a convenience function that returns GraphVisualizationBarPromql wrapped in GraphVisualization
+func GraphVisualizationBarPromqlAsGraphVisualization(v *GraphVisualizationBarPromql) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationBarPromql: v,
+		GraphVisualizationBarPromql: v,
 	}
 }
 
-// InputGraphVisualizationDistributionAsGraphVisualization is a convenience function that returns InputGraphVisualizationDistribution wrapped in GraphVisualization
-func InputGraphVisualizationDistributionAsGraphVisualization(v *InputGraphVisualizationDistribution) GraphVisualization {
+// GraphVisualizationDistributionAsGraphVisualization is a convenience function that returns GraphVisualizationDistribution wrapped in GraphVisualization
+func GraphVisualizationDistributionAsGraphVisualization(v *GraphVisualizationDistribution) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationDistribution: v,
+		GraphVisualizationDistribution: v,
 	}
 }
 
-// InputGraphVisualizationGaugeAsGraphVisualization is a convenience function that returns InputGraphVisualizationGauge wrapped in GraphVisualization
-func InputGraphVisualizationGaugeAsGraphVisualization(v *InputGraphVisualizationGauge) GraphVisualization {
+// GraphVisualizationGaugeAsGraphVisualization is a convenience function that returns GraphVisualizationGauge wrapped in GraphVisualization
+func GraphVisualizationGaugeAsGraphVisualization(v *GraphVisualizationGauge) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationGauge: v,
+		GraphVisualizationGauge: v,
 	}
 }
 
-// InputGraphVisualizationHeatmapAsGraphVisualization is a convenience function that returns InputGraphVisualizationHeatmap wrapped in GraphVisualization
-func InputGraphVisualizationHeatmapAsGraphVisualization(v *InputGraphVisualizationHeatmap) GraphVisualization {
+// GraphVisualizationHeatmapAsGraphVisualization is a convenience function that returns GraphVisualizationHeatmap wrapped in GraphVisualization
+func GraphVisualizationHeatmapAsGraphVisualization(v *GraphVisualizationHeatmap) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationHeatmap: v,
+		GraphVisualizationHeatmap: v,
 	}
 }
 
-// InputGraphVisualizationListAsGraphVisualization is a convenience function that returns InputGraphVisualizationList wrapped in GraphVisualization
-func InputGraphVisualizationListAsGraphVisualization(v *InputGraphVisualizationList) GraphVisualization {
+// GraphVisualizationListAsGraphVisualization is a convenience function that returns GraphVisualizationList wrapped in GraphVisualization
+func GraphVisualizationListAsGraphVisualization(v *GraphVisualizationList) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationList: v,
+		GraphVisualizationList: v,
 	}
 }
 
-// InputGraphVisualizationListConnectionAsGraphVisualization is a convenience function that returns InputGraphVisualizationListConnection wrapped in GraphVisualization
-func InputGraphVisualizationListConnectionAsGraphVisualization(v *InputGraphVisualizationListConnection) GraphVisualization {
+// GraphVisualizationListConnectionAsGraphVisualization is a convenience function that returns GraphVisualizationListConnection wrapped in GraphVisualization
+func GraphVisualizationListConnectionAsGraphVisualization(v *GraphVisualizationListConnection) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationListConnection: v,
+		GraphVisualizationListConnection: v,
 	}
 }
 
-// InputGraphVisualizationListLogPatternsAsGraphVisualization is a convenience function that returns InputGraphVisualizationListLogPatterns wrapped in GraphVisualization
-func InputGraphVisualizationListLogPatternsAsGraphVisualization(v *InputGraphVisualizationListLogPatterns) GraphVisualization {
+// GraphVisualizationListLogPatternsAsGraphVisualization is a convenience function that returns GraphVisualizationListLogPatterns wrapped in GraphVisualization
+func GraphVisualizationListLogPatternsAsGraphVisualization(v *GraphVisualizationListLogPatterns) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationListLogPatterns: v,
+		GraphVisualizationListLogPatterns: v,
 	}
 }
 
-// InputGraphVisualizationListRumAsGraphVisualization is a convenience function that returns InputGraphVisualizationListRum wrapped in GraphVisualization
-func InputGraphVisualizationListRumAsGraphVisualization(v *InputGraphVisualizationListRum) GraphVisualization {
+// GraphVisualizationListRumAsGraphVisualization is a convenience function that returns GraphVisualizationListRum wrapped in GraphVisualization
+func GraphVisualizationListRumAsGraphVisualization(v *GraphVisualizationListRum) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationListRum: v,
+		GraphVisualizationListRum: v,
 	}
 }
 
-// InputGraphVisualizationListSpansAsGraphVisualization is a convenience function that returns InputGraphVisualizationListSpans wrapped in GraphVisualization
-func InputGraphVisualizationListSpansAsGraphVisualization(v *InputGraphVisualizationListSpans) GraphVisualization {
+// GraphVisualizationListSpansAsGraphVisualization is a convenience function that returns GraphVisualizationListSpans wrapped in GraphVisualization
+func GraphVisualizationListSpansAsGraphVisualization(v *GraphVisualizationListSpans) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationListSpans: v,
+		GraphVisualizationListSpans: v,
 	}
 }
 
-// InputGraphVisualizationNoteAsGraphVisualization is a convenience function that returns InputGraphVisualizationNote wrapped in GraphVisualization
-func InputGraphVisualizationNoteAsGraphVisualization(v *InputGraphVisualizationNote) GraphVisualization {
+// GraphVisualizationNoteAsGraphVisualization is a convenience function that returns GraphVisualizationNote wrapped in GraphVisualization
+func GraphVisualizationNoteAsGraphVisualization(v *GraphVisualizationNote) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationNote: v,
+		GraphVisualizationNote: v,
 	}
 }
 
-// InputGraphVisualizationPieAsGraphVisualization is a convenience function that returns InputGraphVisualizationPie wrapped in GraphVisualization
-func InputGraphVisualizationPieAsGraphVisualization(v *InputGraphVisualizationPie) GraphVisualization {
+// GraphVisualizationPieAsGraphVisualization is a convenience function that returns GraphVisualizationPie wrapped in GraphVisualization
+func GraphVisualizationPieAsGraphVisualization(v *GraphVisualizationPie) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationPie: v,
+		GraphVisualizationPie: v,
 	}
 }
 
-// InputGraphVisualizationPieConnectionAsGraphVisualization is a convenience function that returns InputGraphVisualizationPieConnection wrapped in GraphVisualization
-func InputGraphVisualizationPieConnectionAsGraphVisualization(v *InputGraphVisualizationPieConnection) GraphVisualization {
+// GraphVisualizationPieConnectionAsGraphVisualization is a convenience function that returns GraphVisualizationPieConnection wrapped in GraphVisualization
+func GraphVisualizationPieConnectionAsGraphVisualization(v *GraphVisualizationPieConnection) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationPieConnection: v,
+		GraphVisualizationPieConnection: v,
 	}
 }
 
-// InputGraphVisualizationPiePromqlAsGraphVisualization is a convenience function that returns InputGraphVisualizationPiePromql wrapped in GraphVisualization
-func InputGraphVisualizationPiePromqlAsGraphVisualization(v *InputGraphVisualizationPiePromql) GraphVisualization {
+// GraphVisualizationPiePromqlAsGraphVisualization is a convenience function that returns GraphVisualizationPiePromql wrapped in GraphVisualization
+func GraphVisualizationPiePromqlAsGraphVisualization(v *GraphVisualizationPiePromql) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationPiePromql: v,
+		GraphVisualizationPiePromql: v,
 	}
 }
 
-// InputGraphVisualizationQueryValueAsGraphVisualization is a convenience function that returns InputGraphVisualizationQueryValue wrapped in GraphVisualization
-func InputGraphVisualizationQueryValueAsGraphVisualization(v *InputGraphVisualizationQueryValue) GraphVisualization {
+// GraphVisualizationQueryValueAsGraphVisualization is a convenience function that returns GraphVisualizationQueryValue wrapped in GraphVisualization
+func GraphVisualizationQueryValueAsGraphVisualization(v *GraphVisualizationQueryValue) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationQueryValue: v,
+		GraphVisualizationQueryValue: v,
 	}
 }
 
-// InputGraphVisualizationQueryValueConnectionAsGraphVisualization is a convenience function that returns InputGraphVisualizationQueryValueConnection wrapped in GraphVisualization
-func InputGraphVisualizationQueryValueConnectionAsGraphVisualization(v *InputGraphVisualizationQueryValueConnection) GraphVisualization {
+// GraphVisualizationQueryValueConnectionAsGraphVisualization is a convenience function that returns GraphVisualizationQueryValueConnection wrapped in GraphVisualization
+func GraphVisualizationQueryValueConnectionAsGraphVisualization(v *GraphVisualizationQueryValueConnection) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationQueryValueConnection: v,
+		GraphVisualizationQueryValueConnection: v,
 	}
 }
 
-// InputGraphVisualizationQueryValuePromqlAsGraphVisualization is a convenience function that returns InputGraphVisualizationQueryValuePromql wrapped in GraphVisualization
-func InputGraphVisualizationQueryValuePromqlAsGraphVisualization(v *InputGraphVisualizationQueryValuePromql) GraphVisualization {
+// GraphVisualizationQueryValuePromqlAsGraphVisualization is a convenience function that returns GraphVisualizationQueryValuePromql wrapped in GraphVisualization
+func GraphVisualizationQueryValuePromqlAsGraphVisualization(v *GraphVisualizationQueryValuePromql) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationQueryValuePromql: v,
+		GraphVisualizationQueryValuePromql: v,
 	}
 }
 
-// InputGraphVisualizationSloOverTimeAsGraphVisualization is a convenience function that returns InputGraphVisualizationSloOverTime wrapped in GraphVisualization
-func InputGraphVisualizationSloOverTimeAsGraphVisualization(v *InputGraphVisualizationSloOverTime) GraphVisualization {
+// GraphVisualizationSloOverTimeAsGraphVisualization is a convenience function that returns GraphVisualizationSloOverTime wrapped in GraphVisualization
+func GraphVisualizationSloOverTimeAsGraphVisualization(v *GraphVisualizationSloOverTime) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationSloOverTime: v,
+		GraphVisualizationSloOverTime: v,
 	}
 }
 
-// InputGraphVisualizationSloUptimeAsGraphVisualization is a convenience function that returns InputGraphVisualizationSloUptime wrapped in GraphVisualization
-func InputGraphVisualizationSloUptimeAsGraphVisualization(v *InputGraphVisualizationSloUptime) GraphVisualization {
+// GraphVisualizationSloUptimeAsGraphVisualization is a convenience function that returns GraphVisualizationSloUptime wrapped in GraphVisualization
+func GraphVisualizationSloUptimeAsGraphVisualization(v *GraphVisualizationSloUptime) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationSloUptime: v,
+		GraphVisualizationSloUptime: v,
 	}
 }
 
-// InputGraphVisualizationTableAsGraphVisualization is a convenience function that returns InputGraphVisualizationTable wrapped in GraphVisualization
-func InputGraphVisualizationTableAsGraphVisualization(v *InputGraphVisualizationTable) GraphVisualization {
+// GraphVisualizationTableAsGraphVisualization is a convenience function that returns GraphVisualizationTable wrapped in GraphVisualization
+func GraphVisualizationTableAsGraphVisualization(v *GraphVisualizationTable) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationTable: v,
+		GraphVisualizationTable: v,
 	}
 }
 
-// InputGraphVisualizationTimeseriesAsGraphVisualization is a convenience function that returns InputGraphVisualizationTimeseries wrapped in GraphVisualization
-func InputGraphVisualizationTimeseriesAsGraphVisualization(v *InputGraphVisualizationTimeseries) GraphVisualization {
+// GraphVisualizationTimeseriesAsGraphVisualization is a convenience function that returns GraphVisualizationTimeseries wrapped in GraphVisualization
+func GraphVisualizationTimeseriesAsGraphVisualization(v *GraphVisualizationTimeseries) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationTimeseries: v,
+		GraphVisualizationTimeseries: v,
 	}
 }
 
-// InputGraphVisualizationTimeseriesConnectionAsGraphVisualization is a convenience function that returns InputGraphVisualizationTimeseriesConnection wrapped in GraphVisualization
-func InputGraphVisualizationTimeseriesConnectionAsGraphVisualization(v *InputGraphVisualizationTimeseriesConnection) GraphVisualization {
+// GraphVisualizationTimeseriesConnectionAsGraphVisualization is a convenience function that returns GraphVisualizationTimeseriesConnection wrapped in GraphVisualization
+func GraphVisualizationTimeseriesConnectionAsGraphVisualization(v *GraphVisualizationTimeseriesConnection) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationTimeseriesConnection: v,
+		GraphVisualizationTimeseriesConnection: v,
 	}
 }
 
-// InputGraphVisualizationTimeseriesPromqlAsGraphVisualization is a convenience function that returns InputGraphVisualizationTimeseriesPromql wrapped in GraphVisualization
-func InputGraphVisualizationTimeseriesPromqlAsGraphVisualization(v *InputGraphVisualizationTimeseriesPromql) GraphVisualization {
+// GraphVisualizationTimeseriesPromqlAsGraphVisualization is a convenience function that returns GraphVisualizationTimeseriesPromql wrapped in GraphVisualization
+func GraphVisualizationTimeseriesPromqlAsGraphVisualization(v *GraphVisualizationTimeseriesPromql) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationTimeseriesPromql: v,
+		GraphVisualizationTimeseriesPromql: v,
 	}
 }
 
-// InputGraphVisualizationTopListAsGraphVisualization is a convenience function that returns InputGraphVisualizationTopList wrapped in GraphVisualization
-func InputGraphVisualizationTopListAsGraphVisualization(v *InputGraphVisualizationTopList) GraphVisualization {
+// GraphVisualizationTopListAsGraphVisualization is a convenience function that returns GraphVisualizationTopList wrapped in GraphVisualization
+func GraphVisualizationTopListAsGraphVisualization(v *GraphVisualizationTopList) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationTopList: v,
+		GraphVisualizationTopList: v,
 	}
 }
 
-// InputGraphVisualizationTopListConnectionAsGraphVisualization is a convenience function that returns InputGraphVisualizationTopListConnection wrapped in GraphVisualization
-func InputGraphVisualizationTopListConnectionAsGraphVisualization(v *InputGraphVisualizationTopListConnection) GraphVisualization {
+// GraphVisualizationTopListConnectionAsGraphVisualization is a convenience function that returns GraphVisualizationTopListConnection wrapped in GraphVisualization
+func GraphVisualizationTopListConnectionAsGraphVisualization(v *GraphVisualizationTopListConnection) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationTopListConnection: v,
+		GraphVisualizationTopListConnection: v,
 	}
 }
 
-// InputGraphVisualizationTopListPromqlAsGraphVisualization is a convenience function that returns InputGraphVisualizationTopListPromql wrapped in GraphVisualization
-func InputGraphVisualizationTopListPromqlAsGraphVisualization(v *InputGraphVisualizationTopListPromql) GraphVisualization {
+// GraphVisualizationTopListPromqlAsGraphVisualization is a convenience function that returns GraphVisualizationTopListPromql wrapped in GraphVisualization
+func GraphVisualizationTopListPromqlAsGraphVisualization(v *GraphVisualizationTopListPromql) GraphVisualization {
 	return GraphVisualization{
-		InputGraphVisualizationTopListPromql: v,
+		GraphVisualizationTopListPromql: v,
 	}
 }
 
@@ -247,325 +247,325 @@ func (dst *GraphVisualization) UnmarshalJSON(data []byte) error {
 
 	// check if the discriminator value is 'bar'
 	if jsonDict["type"] == "bar" {
-		// try to unmarshal JSON data into InputGraphVisualizationBar
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationBar)
+		// try to unmarshal JSON data into GraphVisualizationBar
+		err = json.Unmarshal(data, &dst.GraphVisualizationBar)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationBar, return on the first match
+			return nil // data stored in dst.GraphVisualizationBar, return on the first match
 		} else {
-			dst.InputGraphVisualizationBar = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationBar: %s", err.Error())
+			dst.GraphVisualizationBar = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationBar: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'bar-connection'
 	if jsonDict["type"] == "bar-connection" {
-		// try to unmarshal JSON data into InputGraphVisualizationBarConnection
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationBarConnection)
+		// try to unmarshal JSON data into GraphVisualizationBarConnection
+		err = json.Unmarshal(data, &dst.GraphVisualizationBarConnection)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationBarConnection, return on the first match
+			return nil // data stored in dst.GraphVisualizationBarConnection, return on the first match
 		} else {
-			dst.InputGraphVisualizationBarConnection = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationBarConnection: %s", err.Error())
+			dst.GraphVisualizationBarConnection = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationBarConnection: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'bar-promql'
 	if jsonDict["type"] == "bar-promql" {
-		// try to unmarshal JSON data into InputGraphVisualizationBarPromql
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationBarPromql)
+		// try to unmarshal JSON data into GraphVisualizationBarPromql
+		err = json.Unmarshal(data, &dst.GraphVisualizationBarPromql)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationBarPromql, return on the first match
+			return nil // data stored in dst.GraphVisualizationBarPromql, return on the first match
 		} else {
-			dst.InputGraphVisualizationBarPromql = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationBarPromql: %s", err.Error())
+			dst.GraphVisualizationBarPromql = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationBarPromql: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'distribution'
 	if jsonDict["type"] == "distribution" {
-		// try to unmarshal JSON data into InputGraphVisualizationDistribution
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationDistribution)
+		// try to unmarshal JSON data into GraphVisualizationDistribution
+		err = json.Unmarshal(data, &dst.GraphVisualizationDistribution)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationDistribution, return on the first match
+			return nil // data stored in dst.GraphVisualizationDistribution, return on the first match
 		} else {
-			dst.InputGraphVisualizationDistribution = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationDistribution: %s", err.Error())
+			dst.GraphVisualizationDistribution = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationDistribution: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'gauge'
 	if jsonDict["type"] == "gauge" {
-		// try to unmarshal JSON data into InputGraphVisualizationGauge
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationGauge)
+		// try to unmarshal JSON data into GraphVisualizationGauge
+		err = json.Unmarshal(data, &dst.GraphVisualizationGauge)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationGauge, return on the first match
+			return nil // data stored in dst.GraphVisualizationGauge, return on the first match
 		} else {
-			dst.InputGraphVisualizationGauge = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationGauge: %s", err.Error())
+			dst.GraphVisualizationGauge = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationGauge: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'heatmap'
 	if jsonDict["type"] == "heatmap" {
-		// try to unmarshal JSON data into InputGraphVisualizationHeatmap
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationHeatmap)
+		// try to unmarshal JSON data into GraphVisualizationHeatmap
+		err = json.Unmarshal(data, &dst.GraphVisualizationHeatmap)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationHeatmap, return on the first match
+			return nil // data stored in dst.GraphVisualizationHeatmap, return on the first match
 		} else {
-			dst.InputGraphVisualizationHeatmap = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationHeatmap: %s", err.Error())
+			dst.GraphVisualizationHeatmap = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationHeatmap: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'list'
 	if jsonDict["type"] == "list" {
-		// try to unmarshal JSON data into InputGraphVisualizationList
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationList)
+		// try to unmarshal JSON data into GraphVisualizationList
+		err = json.Unmarshal(data, &dst.GraphVisualizationList)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationList, return on the first match
+			return nil // data stored in dst.GraphVisualizationList, return on the first match
 		} else {
-			dst.InputGraphVisualizationList = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationList: %s", err.Error())
+			dst.GraphVisualizationList = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationList: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'list-connection'
 	if jsonDict["type"] == "list-connection" {
-		// try to unmarshal JSON data into InputGraphVisualizationListConnection
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationListConnection)
+		// try to unmarshal JSON data into GraphVisualizationListConnection
+		err = json.Unmarshal(data, &dst.GraphVisualizationListConnection)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationListConnection, return on the first match
+			return nil // data stored in dst.GraphVisualizationListConnection, return on the first match
 		} else {
-			dst.InputGraphVisualizationListConnection = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationListConnection: %s", err.Error())
+			dst.GraphVisualizationListConnection = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationListConnection: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'list-log-patterns'
 	if jsonDict["type"] == "list-log-patterns" {
-		// try to unmarshal JSON data into InputGraphVisualizationListLogPatterns
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationListLogPatterns)
+		// try to unmarshal JSON data into GraphVisualizationListLogPatterns
+		err = json.Unmarshal(data, &dst.GraphVisualizationListLogPatterns)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationListLogPatterns, return on the first match
+			return nil // data stored in dst.GraphVisualizationListLogPatterns, return on the first match
 		} else {
-			dst.InputGraphVisualizationListLogPatterns = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationListLogPatterns: %s", err.Error())
+			dst.GraphVisualizationListLogPatterns = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationListLogPatterns: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'list-rum'
 	if jsonDict["type"] == "list-rum" {
-		// try to unmarshal JSON data into InputGraphVisualizationListRum
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationListRum)
+		// try to unmarshal JSON data into GraphVisualizationListRum
+		err = json.Unmarshal(data, &dst.GraphVisualizationListRum)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationListRum, return on the first match
+			return nil // data stored in dst.GraphVisualizationListRum, return on the first match
 		} else {
-			dst.InputGraphVisualizationListRum = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationListRum: %s", err.Error())
+			dst.GraphVisualizationListRum = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationListRum: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'list-spans'
 	if jsonDict["type"] == "list-spans" {
-		// try to unmarshal JSON data into InputGraphVisualizationListSpans
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationListSpans)
+		// try to unmarshal JSON data into GraphVisualizationListSpans
+		err = json.Unmarshal(data, &dst.GraphVisualizationListSpans)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationListSpans, return on the first match
+			return nil // data stored in dst.GraphVisualizationListSpans, return on the first match
 		} else {
-			dst.InputGraphVisualizationListSpans = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationListSpans: %s", err.Error())
+			dst.GraphVisualizationListSpans = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationListSpans: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'note'
 	if jsonDict["type"] == "note" {
-		// try to unmarshal JSON data into InputGraphVisualizationNote
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationNote)
+		// try to unmarshal JSON data into GraphVisualizationNote
+		err = json.Unmarshal(data, &dst.GraphVisualizationNote)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationNote, return on the first match
+			return nil // data stored in dst.GraphVisualizationNote, return on the first match
 		} else {
-			dst.InputGraphVisualizationNote = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationNote: %s", err.Error())
+			dst.GraphVisualizationNote = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationNote: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'pie'
 	if jsonDict["type"] == "pie" {
-		// try to unmarshal JSON data into InputGraphVisualizationPie
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationPie)
+		// try to unmarshal JSON data into GraphVisualizationPie
+		err = json.Unmarshal(data, &dst.GraphVisualizationPie)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationPie, return on the first match
+			return nil // data stored in dst.GraphVisualizationPie, return on the first match
 		} else {
-			dst.InputGraphVisualizationPie = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationPie: %s", err.Error())
+			dst.GraphVisualizationPie = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationPie: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'pie-connection'
 	if jsonDict["type"] == "pie-connection" {
-		// try to unmarshal JSON data into InputGraphVisualizationPieConnection
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationPieConnection)
+		// try to unmarshal JSON data into GraphVisualizationPieConnection
+		err = json.Unmarshal(data, &dst.GraphVisualizationPieConnection)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationPieConnection, return on the first match
+			return nil // data stored in dst.GraphVisualizationPieConnection, return on the first match
 		} else {
-			dst.InputGraphVisualizationPieConnection = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationPieConnection: %s", err.Error())
+			dst.GraphVisualizationPieConnection = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationPieConnection: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'pie-promql'
 	if jsonDict["type"] == "pie-promql" {
-		// try to unmarshal JSON data into InputGraphVisualizationPiePromql
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationPiePromql)
+		// try to unmarshal JSON data into GraphVisualizationPiePromql
+		err = json.Unmarshal(data, &dst.GraphVisualizationPiePromql)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationPiePromql, return on the first match
+			return nil // data stored in dst.GraphVisualizationPiePromql, return on the first match
 		} else {
-			dst.InputGraphVisualizationPiePromql = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationPiePromql: %s", err.Error())
+			dst.GraphVisualizationPiePromql = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationPiePromql: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'query-value'
 	if jsonDict["type"] == "query-value" {
-		// try to unmarshal JSON data into InputGraphVisualizationQueryValue
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationQueryValue)
+		// try to unmarshal JSON data into GraphVisualizationQueryValue
+		err = json.Unmarshal(data, &dst.GraphVisualizationQueryValue)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationQueryValue, return on the first match
+			return nil // data stored in dst.GraphVisualizationQueryValue, return on the first match
 		} else {
-			dst.InputGraphVisualizationQueryValue = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationQueryValue: %s", err.Error())
+			dst.GraphVisualizationQueryValue = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationQueryValue: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'query-value-connection'
 	if jsonDict["type"] == "query-value-connection" {
-		// try to unmarshal JSON data into InputGraphVisualizationQueryValueConnection
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationQueryValueConnection)
+		// try to unmarshal JSON data into GraphVisualizationQueryValueConnection
+		err = json.Unmarshal(data, &dst.GraphVisualizationQueryValueConnection)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationQueryValueConnection, return on the first match
+			return nil // data stored in dst.GraphVisualizationQueryValueConnection, return on the first match
 		} else {
-			dst.InputGraphVisualizationQueryValueConnection = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationQueryValueConnection: %s", err.Error())
+			dst.GraphVisualizationQueryValueConnection = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationQueryValueConnection: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'query-value-promql'
 	if jsonDict["type"] == "query-value-promql" {
-		// try to unmarshal JSON data into InputGraphVisualizationQueryValuePromql
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationQueryValuePromql)
+		// try to unmarshal JSON data into GraphVisualizationQueryValuePromql
+		err = json.Unmarshal(data, &dst.GraphVisualizationQueryValuePromql)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationQueryValuePromql, return on the first match
+			return nil // data stored in dst.GraphVisualizationQueryValuePromql, return on the first match
 		} else {
-			dst.InputGraphVisualizationQueryValuePromql = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationQueryValuePromql: %s", err.Error())
+			dst.GraphVisualizationQueryValuePromql = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationQueryValuePromql: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'slo-over-time'
 	if jsonDict["type"] == "slo-over-time" {
-		// try to unmarshal JSON data into InputGraphVisualizationSloOverTime
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationSloOverTime)
+		// try to unmarshal JSON data into GraphVisualizationSloOverTime
+		err = json.Unmarshal(data, &dst.GraphVisualizationSloOverTime)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationSloOverTime, return on the first match
+			return nil // data stored in dst.GraphVisualizationSloOverTime, return on the first match
 		} else {
-			dst.InputGraphVisualizationSloOverTime = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationSloOverTime: %s", err.Error())
+			dst.GraphVisualizationSloOverTime = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationSloOverTime: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'slo-uptime'
 	if jsonDict["type"] == "slo-uptime" {
-		// try to unmarshal JSON data into InputGraphVisualizationSloUptime
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationSloUptime)
+		// try to unmarshal JSON data into GraphVisualizationSloUptime
+		err = json.Unmarshal(data, &dst.GraphVisualizationSloUptime)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationSloUptime, return on the first match
+			return nil // data stored in dst.GraphVisualizationSloUptime, return on the first match
 		} else {
-			dst.InputGraphVisualizationSloUptime = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationSloUptime: %s", err.Error())
+			dst.GraphVisualizationSloUptime = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationSloUptime: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'table'
 	if jsonDict["type"] == "table" {
-		// try to unmarshal JSON data into InputGraphVisualizationTable
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationTable)
+		// try to unmarshal JSON data into GraphVisualizationTable
+		err = json.Unmarshal(data, &dst.GraphVisualizationTable)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationTable, return on the first match
+			return nil // data stored in dst.GraphVisualizationTable, return on the first match
 		} else {
-			dst.InputGraphVisualizationTable = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationTable: %s", err.Error())
+			dst.GraphVisualizationTable = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationTable: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'timeseries'
 	if jsonDict["type"] == "timeseries" {
-		// try to unmarshal JSON data into InputGraphVisualizationTimeseries
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationTimeseries)
+		// try to unmarshal JSON data into GraphVisualizationTimeseries
+		err = json.Unmarshal(data, &dst.GraphVisualizationTimeseries)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationTimeseries, return on the first match
+			return nil // data stored in dst.GraphVisualizationTimeseries, return on the first match
 		} else {
-			dst.InputGraphVisualizationTimeseries = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationTimeseries: %s", err.Error())
+			dst.GraphVisualizationTimeseries = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationTimeseries: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'timeseries-connection'
 	if jsonDict["type"] == "timeseries-connection" {
-		// try to unmarshal JSON data into InputGraphVisualizationTimeseriesConnection
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationTimeseriesConnection)
+		// try to unmarshal JSON data into GraphVisualizationTimeseriesConnection
+		err = json.Unmarshal(data, &dst.GraphVisualizationTimeseriesConnection)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationTimeseriesConnection, return on the first match
+			return nil // data stored in dst.GraphVisualizationTimeseriesConnection, return on the first match
 		} else {
-			dst.InputGraphVisualizationTimeseriesConnection = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationTimeseriesConnection: %s", err.Error())
+			dst.GraphVisualizationTimeseriesConnection = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationTimeseriesConnection: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'timeseries-promql'
 	if jsonDict["type"] == "timeseries-promql" {
-		// try to unmarshal JSON data into InputGraphVisualizationTimeseriesPromql
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationTimeseriesPromql)
+		// try to unmarshal JSON data into GraphVisualizationTimeseriesPromql
+		err = json.Unmarshal(data, &dst.GraphVisualizationTimeseriesPromql)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationTimeseriesPromql, return on the first match
+			return nil // data stored in dst.GraphVisualizationTimeseriesPromql, return on the first match
 		} else {
-			dst.InputGraphVisualizationTimeseriesPromql = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationTimeseriesPromql: %s", err.Error())
+			dst.GraphVisualizationTimeseriesPromql = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationTimeseriesPromql: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'top-list'
 	if jsonDict["type"] == "top-list" {
-		// try to unmarshal JSON data into InputGraphVisualizationTopList
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationTopList)
+		// try to unmarshal JSON data into GraphVisualizationTopList
+		err = json.Unmarshal(data, &dst.GraphVisualizationTopList)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationTopList, return on the first match
+			return nil // data stored in dst.GraphVisualizationTopList, return on the first match
 		} else {
-			dst.InputGraphVisualizationTopList = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationTopList: %s", err.Error())
+			dst.GraphVisualizationTopList = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationTopList: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'top-list-connection'
 	if jsonDict["type"] == "top-list-connection" {
-		// try to unmarshal JSON data into InputGraphVisualizationTopListConnection
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationTopListConnection)
+		// try to unmarshal JSON data into GraphVisualizationTopListConnection
+		err = json.Unmarshal(data, &dst.GraphVisualizationTopListConnection)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationTopListConnection, return on the first match
+			return nil // data stored in dst.GraphVisualizationTopListConnection, return on the first match
 		} else {
-			dst.InputGraphVisualizationTopListConnection = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationTopListConnection: %s", err.Error())
+			dst.GraphVisualizationTopListConnection = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationTopListConnection: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'top-list-promql'
 	if jsonDict["type"] == "top-list-promql" {
-		// try to unmarshal JSON data into InputGraphVisualizationTopListPromql
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationTopListPromql)
+		// try to unmarshal JSON data into GraphVisualizationTopListPromql
+		err = json.Unmarshal(data, &dst.GraphVisualizationTopListPromql)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationTopListPromql, return on the first match
+			return nil // data stored in dst.GraphVisualizationTopListPromql, return on the first match
 		} else {
-			dst.InputGraphVisualizationTopListPromql = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as InputGraphVisualizationTopListPromql: %s", err.Error())
+			dst.GraphVisualizationTopListPromql = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationTopListPromql: %s", err.Error())
 		}
 	}
 
@@ -574,112 +574,112 @@ func (dst *GraphVisualization) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src GraphVisualization) MarshalJSON() ([]byte, error) {
-	if src.InputGraphVisualizationBar != nil {
-		return json.Marshal(&src.InputGraphVisualizationBar)
+	if src.GraphVisualizationBar != nil {
+		return json.Marshal(&src.GraphVisualizationBar)
 	}
 
-	if src.InputGraphVisualizationBarConnection != nil {
-		return json.Marshal(&src.InputGraphVisualizationBarConnection)
+	if src.GraphVisualizationBarConnection != nil {
+		return json.Marshal(&src.GraphVisualizationBarConnection)
 	}
 
-	if src.InputGraphVisualizationBarPromql != nil {
-		return json.Marshal(&src.InputGraphVisualizationBarPromql)
+	if src.GraphVisualizationBarPromql != nil {
+		return json.Marshal(&src.GraphVisualizationBarPromql)
 	}
 
-	if src.InputGraphVisualizationDistribution != nil {
-		return json.Marshal(&src.InputGraphVisualizationDistribution)
+	if src.GraphVisualizationDistribution != nil {
+		return json.Marshal(&src.GraphVisualizationDistribution)
 	}
 
-	if src.InputGraphVisualizationGauge != nil {
-		return json.Marshal(&src.InputGraphVisualizationGauge)
+	if src.GraphVisualizationGauge != nil {
+		return json.Marshal(&src.GraphVisualizationGauge)
 	}
 
-	if src.InputGraphVisualizationHeatmap != nil {
-		return json.Marshal(&src.InputGraphVisualizationHeatmap)
+	if src.GraphVisualizationHeatmap != nil {
+		return json.Marshal(&src.GraphVisualizationHeatmap)
 	}
 
-	if src.InputGraphVisualizationList != nil {
-		return json.Marshal(&src.InputGraphVisualizationList)
+	if src.GraphVisualizationList != nil {
+		return json.Marshal(&src.GraphVisualizationList)
 	}
 
-	if src.InputGraphVisualizationListConnection != nil {
-		return json.Marshal(&src.InputGraphVisualizationListConnection)
+	if src.GraphVisualizationListConnection != nil {
+		return json.Marshal(&src.GraphVisualizationListConnection)
 	}
 
-	if src.InputGraphVisualizationListLogPatterns != nil {
-		return json.Marshal(&src.InputGraphVisualizationListLogPatterns)
+	if src.GraphVisualizationListLogPatterns != nil {
+		return json.Marshal(&src.GraphVisualizationListLogPatterns)
 	}
 
-	if src.InputGraphVisualizationListRum != nil {
-		return json.Marshal(&src.InputGraphVisualizationListRum)
+	if src.GraphVisualizationListRum != nil {
+		return json.Marshal(&src.GraphVisualizationListRum)
 	}
 
-	if src.InputGraphVisualizationListSpans != nil {
-		return json.Marshal(&src.InputGraphVisualizationListSpans)
+	if src.GraphVisualizationListSpans != nil {
+		return json.Marshal(&src.GraphVisualizationListSpans)
 	}
 
-	if src.InputGraphVisualizationNote != nil {
-		return json.Marshal(&src.InputGraphVisualizationNote)
+	if src.GraphVisualizationNote != nil {
+		return json.Marshal(&src.GraphVisualizationNote)
 	}
 
-	if src.InputGraphVisualizationPie != nil {
-		return json.Marshal(&src.InputGraphVisualizationPie)
+	if src.GraphVisualizationPie != nil {
+		return json.Marshal(&src.GraphVisualizationPie)
 	}
 
-	if src.InputGraphVisualizationPieConnection != nil {
-		return json.Marshal(&src.InputGraphVisualizationPieConnection)
+	if src.GraphVisualizationPieConnection != nil {
+		return json.Marshal(&src.GraphVisualizationPieConnection)
 	}
 
-	if src.InputGraphVisualizationPiePromql != nil {
-		return json.Marshal(&src.InputGraphVisualizationPiePromql)
+	if src.GraphVisualizationPiePromql != nil {
+		return json.Marshal(&src.GraphVisualizationPiePromql)
 	}
 
-	if src.InputGraphVisualizationQueryValue != nil {
-		return json.Marshal(&src.InputGraphVisualizationQueryValue)
+	if src.GraphVisualizationQueryValue != nil {
+		return json.Marshal(&src.GraphVisualizationQueryValue)
 	}
 
-	if src.InputGraphVisualizationQueryValueConnection != nil {
-		return json.Marshal(&src.InputGraphVisualizationQueryValueConnection)
+	if src.GraphVisualizationQueryValueConnection != nil {
+		return json.Marshal(&src.GraphVisualizationQueryValueConnection)
 	}
 
-	if src.InputGraphVisualizationQueryValuePromql != nil {
-		return json.Marshal(&src.InputGraphVisualizationQueryValuePromql)
+	if src.GraphVisualizationQueryValuePromql != nil {
+		return json.Marshal(&src.GraphVisualizationQueryValuePromql)
 	}
 
-	if src.InputGraphVisualizationSloOverTime != nil {
-		return json.Marshal(&src.InputGraphVisualizationSloOverTime)
+	if src.GraphVisualizationSloOverTime != nil {
+		return json.Marshal(&src.GraphVisualizationSloOverTime)
 	}
 
-	if src.InputGraphVisualizationSloUptime != nil {
-		return json.Marshal(&src.InputGraphVisualizationSloUptime)
+	if src.GraphVisualizationSloUptime != nil {
+		return json.Marshal(&src.GraphVisualizationSloUptime)
 	}
 
-	if src.InputGraphVisualizationTable != nil {
-		return json.Marshal(&src.InputGraphVisualizationTable)
+	if src.GraphVisualizationTable != nil {
+		return json.Marshal(&src.GraphVisualizationTable)
 	}
 
-	if src.InputGraphVisualizationTimeseries != nil {
-		return json.Marshal(&src.InputGraphVisualizationTimeseries)
+	if src.GraphVisualizationTimeseries != nil {
+		return json.Marshal(&src.GraphVisualizationTimeseries)
 	}
 
-	if src.InputGraphVisualizationTimeseriesConnection != nil {
-		return json.Marshal(&src.InputGraphVisualizationTimeseriesConnection)
+	if src.GraphVisualizationTimeseriesConnection != nil {
+		return json.Marshal(&src.GraphVisualizationTimeseriesConnection)
 	}
 
-	if src.InputGraphVisualizationTimeseriesPromql != nil {
-		return json.Marshal(&src.InputGraphVisualizationTimeseriesPromql)
+	if src.GraphVisualizationTimeseriesPromql != nil {
+		return json.Marshal(&src.GraphVisualizationTimeseriesPromql)
 	}
 
-	if src.InputGraphVisualizationTopList != nil {
-		return json.Marshal(&src.InputGraphVisualizationTopList)
+	if src.GraphVisualizationTopList != nil {
+		return json.Marshal(&src.GraphVisualizationTopList)
 	}
 
-	if src.InputGraphVisualizationTopListConnection != nil {
-		return json.Marshal(&src.InputGraphVisualizationTopListConnection)
+	if src.GraphVisualizationTopListConnection != nil {
+		return json.Marshal(&src.GraphVisualizationTopListConnection)
 	}
 
-	if src.InputGraphVisualizationTopListPromql != nil {
-		return json.Marshal(&src.InputGraphVisualizationTopListPromql)
+	if src.GraphVisualizationTopListPromql != nil {
+		return json.Marshal(&src.GraphVisualizationTopListPromql)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -690,112 +690,112 @@ func (obj *GraphVisualization) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
-	if obj.InputGraphVisualizationBar != nil {
-		return obj.InputGraphVisualizationBar
+	if obj.GraphVisualizationBar != nil {
+		return obj.GraphVisualizationBar
 	}
 
-	if obj.InputGraphVisualizationBarConnection != nil {
-		return obj.InputGraphVisualizationBarConnection
+	if obj.GraphVisualizationBarConnection != nil {
+		return obj.GraphVisualizationBarConnection
 	}
 
-	if obj.InputGraphVisualizationBarPromql != nil {
-		return obj.InputGraphVisualizationBarPromql
+	if obj.GraphVisualizationBarPromql != nil {
+		return obj.GraphVisualizationBarPromql
 	}
 
-	if obj.InputGraphVisualizationDistribution != nil {
-		return obj.InputGraphVisualizationDistribution
+	if obj.GraphVisualizationDistribution != nil {
+		return obj.GraphVisualizationDistribution
 	}
 
-	if obj.InputGraphVisualizationGauge != nil {
-		return obj.InputGraphVisualizationGauge
+	if obj.GraphVisualizationGauge != nil {
+		return obj.GraphVisualizationGauge
 	}
 
-	if obj.InputGraphVisualizationHeatmap != nil {
-		return obj.InputGraphVisualizationHeatmap
+	if obj.GraphVisualizationHeatmap != nil {
+		return obj.GraphVisualizationHeatmap
 	}
 
-	if obj.InputGraphVisualizationList != nil {
-		return obj.InputGraphVisualizationList
+	if obj.GraphVisualizationList != nil {
+		return obj.GraphVisualizationList
 	}
 
-	if obj.InputGraphVisualizationListConnection != nil {
-		return obj.InputGraphVisualizationListConnection
+	if obj.GraphVisualizationListConnection != nil {
+		return obj.GraphVisualizationListConnection
 	}
 
-	if obj.InputGraphVisualizationListLogPatterns != nil {
-		return obj.InputGraphVisualizationListLogPatterns
+	if obj.GraphVisualizationListLogPatterns != nil {
+		return obj.GraphVisualizationListLogPatterns
 	}
 
-	if obj.InputGraphVisualizationListRum != nil {
-		return obj.InputGraphVisualizationListRum
+	if obj.GraphVisualizationListRum != nil {
+		return obj.GraphVisualizationListRum
 	}
 
-	if obj.InputGraphVisualizationListSpans != nil {
-		return obj.InputGraphVisualizationListSpans
+	if obj.GraphVisualizationListSpans != nil {
+		return obj.GraphVisualizationListSpans
 	}
 
-	if obj.InputGraphVisualizationNote != nil {
-		return obj.InputGraphVisualizationNote
+	if obj.GraphVisualizationNote != nil {
+		return obj.GraphVisualizationNote
 	}
 
-	if obj.InputGraphVisualizationPie != nil {
-		return obj.InputGraphVisualizationPie
+	if obj.GraphVisualizationPie != nil {
+		return obj.GraphVisualizationPie
 	}
 
-	if obj.InputGraphVisualizationPieConnection != nil {
-		return obj.InputGraphVisualizationPieConnection
+	if obj.GraphVisualizationPieConnection != nil {
+		return obj.GraphVisualizationPieConnection
 	}
 
-	if obj.InputGraphVisualizationPiePromql != nil {
-		return obj.InputGraphVisualizationPiePromql
+	if obj.GraphVisualizationPiePromql != nil {
+		return obj.GraphVisualizationPiePromql
 	}
 
-	if obj.InputGraphVisualizationQueryValue != nil {
-		return obj.InputGraphVisualizationQueryValue
+	if obj.GraphVisualizationQueryValue != nil {
+		return obj.GraphVisualizationQueryValue
 	}
 
-	if obj.InputGraphVisualizationQueryValueConnection != nil {
-		return obj.InputGraphVisualizationQueryValueConnection
+	if obj.GraphVisualizationQueryValueConnection != nil {
+		return obj.GraphVisualizationQueryValueConnection
 	}
 
-	if obj.InputGraphVisualizationQueryValuePromql != nil {
-		return obj.InputGraphVisualizationQueryValuePromql
+	if obj.GraphVisualizationQueryValuePromql != nil {
+		return obj.GraphVisualizationQueryValuePromql
 	}
 
-	if obj.InputGraphVisualizationSloOverTime != nil {
-		return obj.InputGraphVisualizationSloOverTime
+	if obj.GraphVisualizationSloOverTime != nil {
+		return obj.GraphVisualizationSloOverTime
 	}
 
-	if obj.InputGraphVisualizationSloUptime != nil {
-		return obj.InputGraphVisualizationSloUptime
+	if obj.GraphVisualizationSloUptime != nil {
+		return obj.GraphVisualizationSloUptime
 	}
 
-	if obj.InputGraphVisualizationTable != nil {
-		return obj.InputGraphVisualizationTable
+	if obj.GraphVisualizationTable != nil {
+		return obj.GraphVisualizationTable
 	}
 
-	if obj.InputGraphVisualizationTimeseries != nil {
-		return obj.InputGraphVisualizationTimeseries
+	if obj.GraphVisualizationTimeseries != nil {
+		return obj.GraphVisualizationTimeseries
 	}
 
-	if obj.InputGraphVisualizationTimeseriesConnection != nil {
-		return obj.InputGraphVisualizationTimeseriesConnection
+	if obj.GraphVisualizationTimeseriesConnection != nil {
+		return obj.GraphVisualizationTimeseriesConnection
 	}
 
-	if obj.InputGraphVisualizationTimeseriesPromql != nil {
-		return obj.InputGraphVisualizationTimeseriesPromql
+	if obj.GraphVisualizationTimeseriesPromql != nil {
+		return obj.GraphVisualizationTimeseriesPromql
 	}
 
-	if obj.InputGraphVisualizationTopList != nil {
-		return obj.InputGraphVisualizationTopList
+	if obj.GraphVisualizationTopList != nil {
+		return obj.GraphVisualizationTopList
 	}
 
-	if obj.InputGraphVisualizationTopListConnection != nil {
-		return obj.InputGraphVisualizationTopListConnection
+	if obj.GraphVisualizationTopListConnection != nil {
+		return obj.GraphVisualizationTopListConnection
 	}
 
-	if obj.InputGraphVisualizationTopListPromql != nil {
-		return obj.InputGraphVisualizationTopListPromql
+	if obj.GraphVisualizationTopListPromql != nil {
+		return obj.GraphVisualizationTopListPromql
 	}
 
 	// all schemas are nil
@@ -804,112 +804,112 @@ func (obj *GraphVisualization) GetActualInstance() interface{} {
 
 // Get the actual instance value
 func (obj GraphVisualization) GetActualInstanceValue() interface{} {
-	if obj.InputGraphVisualizationBar != nil {
-		return *obj.InputGraphVisualizationBar
+	if obj.GraphVisualizationBar != nil {
+		return *obj.GraphVisualizationBar
 	}
 
-	if obj.InputGraphVisualizationBarConnection != nil {
-		return *obj.InputGraphVisualizationBarConnection
+	if obj.GraphVisualizationBarConnection != nil {
+		return *obj.GraphVisualizationBarConnection
 	}
 
-	if obj.InputGraphVisualizationBarPromql != nil {
-		return *obj.InputGraphVisualizationBarPromql
+	if obj.GraphVisualizationBarPromql != nil {
+		return *obj.GraphVisualizationBarPromql
 	}
 
-	if obj.InputGraphVisualizationDistribution != nil {
-		return *obj.InputGraphVisualizationDistribution
+	if obj.GraphVisualizationDistribution != nil {
+		return *obj.GraphVisualizationDistribution
 	}
 
-	if obj.InputGraphVisualizationGauge != nil {
-		return *obj.InputGraphVisualizationGauge
+	if obj.GraphVisualizationGauge != nil {
+		return *obj.GraphVisualizationGauge
 	}
 
-	if obj.InputGraphVisualizationHeatmap != nil {
-		return *obj.InputGraphVisualizationHeatmap
+	if obj.GraphVisualizationHeatmap != nil {
+		return *obj.GraphVisualizationHeatmap
 	}
 
-	if obj.InputGraphVisualizationList != nil {
-		return *obj.InputGraphVisualizationList
+	if obj.GraphVisualizationList != nil {
+		return *obj.GraphVisualizationList
 	}
 
-	if obj.InputGraphVisualizationListConnection != nil {
-		return *obj.InputGraphVisualizationListConnection
+	if obj.GraphVisualizationListConnection != nil {
+		return *obj.GraphVisualizationListConnection
 	}
 
-	if obj.InputGraphVisualizationListLogPatterns != nil {
-		return *obj.InputGraphVisualizationListLogPatterns
+	if obj.GraphVisualizationListLogPatterns != nil {
+		return *obj.GraphVisualizationListLogPatterns
 	}
 
-	if obj.InputGraphVisualizationListRum != nil {
-		return *obj.InputGraphVisualizationListRum
+	if obj.GraphVisualizationListRum != nil {
+		return *obj.GraphVisualizationListRum
 	}
 
-	if obj.InputGraphVisualizationListSpans != nil {
-		return *obj.InputGraphVisualizationListSpans
+	if obj.GraphVisualizationListSpans != nil {
+		return *obj.GraphVisualizationListSpans
 	}
 
-	if obj.InputGraphVisualizationNote != nil {
-		return *obj.InputGraphVisualizationNote
+	if obj.GraphVisualizationNote != nil {
+		return *obj.GraphVisualizationNote
 	}
 
-	if obj.InputGraphVisualizationPie != nil {
-		return *obj.InputGraphVisualizationPie
+	if obj.GraphVisualizationPie != nil {
+		return *obj.GraphVisualizationPie
 	}
 
-	if obj.InputGraphVisualizationPieConnection != nil {
-		return *obj.InputGraphVisualizationPieConnection
+	if obj.GraphVisualizationPieConnection != nil {
+		return *obj.GraphVisualizationPieConnection
 	}
 
-	if obj.InputGraphVisualizationPiePromql != nil {
-		return *obj.InputGraphVisualizationPiePromql
+	if obj.GraphVisualizationPiePromql != nil {
+		return *obj.GraphVisualizationPiePromql
 	}
 
-	if obj.InputGraphVisualizationQueryValue != nil {
-		return *obj.InputGraphVisualizationQueryValue
+	if obj.GraphVisualizationQueryValue != nil {
+		return *obj.GraphVisualizationQueryValue
 	}
 
-	if obj.InputGraphVisualizationQueryValueConnection != nil {
-		return *obj.InputGraphVisualizationQueryValueConnection
+	if obj.GraphVisualizationQueryValueConnection != nil {
+		return *obj.GraphVisualizationQueryValueConnection
 	}
 
-	if obj.InputGraphVisualizationQueryValuePromql != nil {
-		return *obj.InputGraphVisualizationQueryValuePromql
+	if obj.GraphVisualizationQueryValuePromql != nil {
+		return *obj.GraphVisualizationQueryValuePromql
 	}
 
-	if obj.InputGraphVisualizationSloOverTime != nil {
-		return *obj.InputGraphVisualizationSloOverTime
+	if obj.GraphVisualizationSloOverTime != nil {
+		return *obj.GraphVisualizationSloOverTime
 	}
 
-	if obj.InputGraphVisualizationSloUptime != nil {
-		return *obj.InputGraphVisualizationSloUptime
+	if obj.GraphVisualizationSloUptime != nil {
+		return *obj.GraphVisualizationSloUptime
 	}
 
-	if obj.InputGraphVisualizationTable != nil {
-		return *obj.InputGraphVisualizationTable
+	if obj.GraphVisualizationTable != nil {
+		return *obj.GraphVisualizationTable
 	}
 
-	if obj.InputGraphVisualizationTimeseries != nil {
-		return *obj.InputGraphVisualizationTimeseries
+	if obj.GraphVisualizationTimeseries != nil {
+		return *obj.GraphVisualizationTimeseries
 	}
 
-	if obj.InputGraphVisualizationTimeseriesConnection != nil {
-		return *obj.InputGraphVisualizationTimeseriesConnection
+	if obj.GraphVisualizationTimeseriesConnection != nil {
+		return *obj.GraphVisualizationTimeseriesConnection
 	}
 
-	if obj.InputGraphVisualizationTimeseriesPromql != nil {
-		return *obj.InputGraphVisualizationTimeseriesPromql
+	if obj.GraphVisualizationTimeseriesPromql != nil {
+		return *obj.GraphVisualizationTimeseriesPromql
 	}
 
-	if obj.InputGraphVisualizationTopList != nil {
-		return *obj.InputGraphVisualizationTopList
+	if obj.GraphVisualizationTopList != nil {
+		return *obj.GraphVisualizationTopList
 	}
 
-	if obj.InputGraphVisualizationTopListConnection != nil {
-		return *obj.InputGraphVisualizationTopListConnection
+	if obj.GraphVisualizationTopListConnection != nil {
+		return *obj.GraphVisualizationTopListConnection
 	}
 
-	if obj.InputGraphVisualizationTopListPromql != nil {
-		return *obj.InputGraphVisualizationTopListPromql
+	if obj.GraphVisualizationTopListPromql != nil {
+		return *obj.GraphVisualizationTopListPromql
 	}
 
 	// all schemas are nil

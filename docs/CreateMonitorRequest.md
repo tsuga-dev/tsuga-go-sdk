@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Display name of the monitor and alert source. | 
 **Message** | Pointer to **NullableString** | Message included in notifications triggered by this monitor. Optional on create. | [optional] 
-**Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
+**Tags** | Pointer to [**[]InputTag**](InputTag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **Configuration** | [**UpdateMonitorRequestConfiguration**](UpdateMonitorRequestConfiguration.md) |  | 
 **Priority** | **float32** | Monitor priority from 1 through 5, where 1 is highest priority. | 
 **Owner** | **string** | Team ID that owns and manages the monitor. | 
@@ -91,20 +91,20 @@ HasMessage returns a boolean if a field has been set.
 UnsetMessage ensures that no value is present for Message, not even an explicit nil
 ### GetTags
 
-`func (o *CreateMonitorRequest) GetTags() []Tag`
+`func (o *CreateMonitorRequest) GetTags() []InputTag`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *CreateMonitorRequest) GetTagsOk() (*[]Tag, bool)`
+`func (o *CreateMonitorRequest) GetTagsOk() (*[]InputTag, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *CreateMonitorRequest) SetTags(v []Tag)`
+`func (o *CreateMonitorRequest) SetTags(v []InputTag)`
 
 SetTags sets Tags field to given value.
 

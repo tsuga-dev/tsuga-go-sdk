@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Alert configuration kind. Set to &#x60;burn-rate&#x60; for alerts that fire when the SLO consumes error budget faster than the configured multiplier. | 
-**BurnRate** | **float32** | Burn-rate multiplier that triggers this alert. Required for burn-rate alerts; valid input is 1 through 100. Non-template values are accepted; short and long evaluation windows are derived from the predefined template with the closest burn rate. | 
+**BurnRate** | **float32** | Burn-rate multiplier that triggers this alert. The short and long evaluation windows are derived from the predefined template with the closest burn rate. | 
 
 ## Methods
 

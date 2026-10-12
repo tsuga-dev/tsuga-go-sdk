@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Type** | **string** | Policy applies to telemetry data points during ingestion or evaluation. | 
 **AssetTypes** | **[]string** | Telemetry signals covered by the policy. An empty array means logs, metrics, and traces. | 
 **ShouldInsertWarning** | **bool** | When true, Tsuga annotates non-compliant telemetry with tag policy warnings instead of only measuring violations. | 
-**DropSample** | Pointer to **float32** | Percentage of non-compliant telemetry datapoints to drop. Valid values are 0 through 100. | [optional] 
+**DropSample** | Pointer to **float32** | Percentage of non-compliant telemetry datapoints to drop. Omitted means no sampling drop is configured. | [optional] 
 
 ## Methods
 

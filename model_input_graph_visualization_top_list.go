@@ -25,25 +25,25 @@ type InputGraphVisualizationTopList struct {
 	// Telemetry source queried by this aggregation: `logs`, `metrics`, `traces`, or `rum`.
 	Source string `json:"source"`
 	// Aggregations that may be combined together in the same query. Each item is referenced from `formula` as q1, q2, and so on, in submission order. For dataSource \"metrics\", each aggregate's `field` is the metric name, not an attribute; to count distinct values of an attribute use unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"system.cpu.utilization.context.host.name\").
-	Queries []AggregationQuery1 `json:"queries"`
+	Queries []InputAggregationQuery `json:"queries"`
 	// Formula referencing query outputs, such as `q1 + q2`, to compute derived results. Defaults to `q1`. Formulas may reference only submitted queries (`q1` through `qN`); undefined query references return 400.
 	Formula *string                                         `json:"formula,omitempty"`
 	Aliases *InputGraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
 	// Flags indicating whether each query or formula series is visible
 	VisibleSeries []bool `json:"visibleSeries,omitempty"`
 	// Nested grouping levels applied to aggregation results, outermost first (e.g. group by service, then by level within each service). Each level splits results further, so the response contains one result per unique combination of group values instead of one aggregated total. Defaults to an empty array (one ungrouped result) when omitted.
-	GroupBy []AggregationGroupBy `json:"groupBy,omitempty"`
+	GroupBy []InputAggregationGroupBy `json:"groupBy,omitempty"`
 	// `absolute` keeps each group at its own value; `relative` shows it as a percentage of the ungrouped total (defaults to absolute)
 	GroupByMode *string                                          `json:"groupByMode,omitempty"`
-	Normalizer  *Normalizer                                      `json:"normalizer,omitempty"`
+	Normalizer  *InputNormalizer                                 `json:"normalizer,omitempty"`
 	Precision   *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
 	// Conditional formatting rules applied to the raw query value, before the unit is applied
-	Conditions []ConditionalFormatting `json:"conditions,omitempty"`
+	Conditions []InputConditionalFormatting `json:"conditions,omitempty"`
 	// Requests stacked rendering for a top-list widget. Tsuga renders stacked rows only for one count or sum query with exactly two grouped fields, no formula, non-negative values, and a single-cluster context; otherwise the widget renders as a normal top list.
 	IsStacked *bool `json:"isStacked,omitempty"`
 	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
-	LegendMode           *string      `json:"legendMode,omitempty"`
-	CustomLink           *CustomLink1 `json:"customLink,omitempty"`
+	LegendMode           *string          `json:"legendMode,omitempty"`
+	CustomLink           *InputCustomLink `json:"customLink,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -53,7 +53,7 @@ type _InputGraphVisualizationTopList InputGraphVisualizationTopList
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInputGraphVisualizationTopList(type_ string, source string, queries []AggregationQuery1) *InputGraphVisualizationTopList {
+func NewInputGraphVisualizationTopList(type_ string, source string, queries []InputAggregationQuery) *InputGraphVisualizationTopList {
 	this := InputGraphVisualizationTopList{}
 	this.Type = type_
 	this.Source = source
@@ -118,9 +118,9 @@ func (o *InputGraphVisualizationTopList) SetSource(v string) {
 }
 
 // GetQueries returns the Queries field value
-func (o *InputGraphVisualizationTopList) GetQueries() []AggregationQuery1 {
+func (o *InputGraphVisualizationTopList) GetQueries() []InputAggregationQuery {
 	if o == nil {
-		var ret []AggregationQuery1
+		var ret []InputAggregationQuery
 		return ret
 	}
 
@@ -129,7 +129,7 @@ func (o *InputGraphVisualizationTopList) GetQueries() []AggregationQuery1 {
 
 // GetQueriesOk returns a tuple with the Queries field value
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationTopList) GetQueriesOk() ([]AggregationQuery1, bool) {
+func (o *InputGraphVisualizationTopList) GetQueriesOk() ([]InputAggregationQuery, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -137,7 +137,7 @@ func (o *InputGraphVisualizationTopList) GetQueriesOk() ([]AggregationQuery1, bo
 }
 
 // SetQueries sets field value
-func (o *InputGraphVisualizationTopList) SetQueries(v []AggregationQuery1) {
+func (o *InputGraphVisualizationTopList) SetQueries(v []InputAggregationQuery) {
 	o.Queries = v
 }
 
@@ -238,9 +238,9 @@ func (o *InputGraphVisualizationTopList) SetVisibleSeries(v []bool) {
 }
 
 // GetGroupBy returns the GroupBy field value if set, zero value otherwise.
-func (o *InputGraphVisualizationTopList) GetGroupBy() []AggregationGroupBy {
+func (o *InputGraphVisualizationTopList) GetGroupBy() []InputAggregationGroupBy {
 	if o == nil || IsNil(o.GroupBy) {
-		var ret []AggregationGroupBy
+		var ret []InputAggregationGroupBy
 		return ret
 	}
 	return o.GroupBy
@@ -248,7 +248,7 @@ func (o *InputGraphVisualizationTopList) GetGroupBy() []AggregationGroupBy {
 
 // GetGroupByOk returns a tuple with the GroupBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationTopList) GetGroupByOk() ([]AggregationGroupBy, bool) {
+func (o *InputGraphVisualizationTopList) GetGroupByOk() ([]InputAggregationGroupBy, bool) {
 	if o == nil || IsNil(o.GroupBy) {
 		return nil, false
 	}
@@ -264,8 +264,8 @@ func (o *InputGraphVisualizationTopList) HasGroupBy() bool {
 	return false
 }
 
-// SetGroupBy gets a reference to the given []AggregationGroupBy and assigns it to the GroupBy field.
-func (o *InputGraphVisualizationTopList) SetGroupBy(v []AggregationGroupBy) {
+// SetGroupBy gets a reference to the given []InputAggregationGroupBy and assigns it to the GroupBy field.
+func (o *InputGraphVisualizationTopList) SetGroupBy(v []InputAggregationGroupBy) {
 	o.GroupBy = v
 }
 
@@ -302,9 +302,9 @@ func (o *InputGraphVisualizationTopList) SetGroupByMode(v string) {
 }
 
 // GetNormalizer returns the Normalizer field value if set, zero value otherwise.
-func (o *InputGraphVisualizationTopList) GetNormalizer() Normalizer {
+func (o *InputGraphVisualizationTopList) GetNormalizer() InputNormalizer {
 	if o == nil || IsNil(o.Normalizer) {
-		var ret Normalizer
+		var ret InputNormalizer
 		return ret
 	}
 	return *o.Normalizer
@@ -312,7 +312,7 @@ func (o *InputGraphVisualizationTopList) GetNormalizer() Normalizer {
 
 // GetNormalizerOk returns a tuple with the Normalizer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationTopList) GetNormalizerOk() (*Normalizer, bool) {
+func (o *InputGraphVisualizationTopList) GetNormalizerOk() (*InputNormalizer, bool) {
 	if o == nil || IsNil(o.Normalizer) {
 		return nil, false
 	}
@@ -328,8 +328,8 @@ func (o *InputGraphVisualizationTopList) HasNormalizer() bool {
 	return false
 }
 
-// SetNormalizer gets a reference to the given Normalizer and assigns it to the Normalizer field.
-func (o *InputGraphVisualizationTopList) SetNormalizer(v Normalizer) {
+// SetNormalizer gets a reference to the given InputNormalizer and assigns it to the Normalizer field.
+func (o *InputGraphVisualizationTopList) SetNormalizer(v InputNormalizer) {
 	o.Normalizer = &v
 }
 
@@ -366,9 +366,9 @@ func (o *InputGraphVisualizationTopList) SetPrecision(v GraphVisualizationQueryV
 }
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
-func (o *InputGraphVisualizationTopList) GetConditions() []ConditionalFormatting {
+func (o *InputGraphVisualizationTopList) GetConditions() []InputConditionalFormatting {
 	if o == nil || IsNil(o.Conditions) {
-		var ret []ConditionalFormatting
+		var ret []InputConditionalFormatting
 		return ret
 	}
 	return o.Conditions
@@ -376,7 +376,7 @@ func (o *InputGraphVisualizationTopList) GetConditions() []ConditionalFormatting
 
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationTopList) GetConditionsOk() ([]ConditionalFormatting, bool) {
+func (o *InputGraphVisualizationTopList) GetConditionsOk() ([]InputConditionalFormatting, bool) {
 	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
@@ -392,8 +392,8 @@ func (o *InputGraphVisualizationTopList) HasConditions() bool {
 	return false
 }
 
-// SetConditions gets a reference to the given []ConditionalFormatting and assigns it to the Conditions field.
-func (o *InputGraphVisualizationTopList) SetConditions(v []ConditionalFormatting) {
+// SetConditions gets a reference to the given []InputConditionalFormatting and assigns it to the Conditions field.
+func (o *InputGraphVisualizationTopList) SetConditions(v []InputConditionalFormatting) {
 	o.Conditions = v
 }
 
@@ -462,9 +462,9 @@ func (o *InputGraphVisualizationTopList) SetLegendMode(v string) {
 }
 
 // GetCustomLink returns the CustomLink field value if set, zero value otherwise.
-func (o *InputGraphVisualizationTopList) GetCustomLink() CustomLink1 {
+func (o *InputGraphVisualizationTopList) GetCustomLink() InputCustomLink {
 	if o == nil || IsNil(o.CustomLink) {
-		var ret CustomLink1
+		var ret InputCustomLink
 		return ret
 	}
 	return *o.CustomLink
@@ -472,7 +472,7 @@ func (o *InputGraphVisualizationTopList) GetCustomLink() CustomLink1 {
 
 // GetCustomLinkOk returns a tuple with the CustomLink field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationTopList) GetCustomLinkOk() (*CustomLink1, bool) {
+func (o *InputGraphVisualizationTopList) GetCustomLinkOk() (*InputCustomLink, bool) {
 	if o == nil || IsNil(o.CustomLink) {
 		return nil, false
 	}
@@ -488,8 +488,8 @@ func (o *InputGraphVisualizationTopList) HasCustomLink() bool {
 	return false
 }
 
-// SetCustomLink gets a reference to the given CustomLink1 and assigns it to the CustomLink field.
-func (o *InputGraphVisualizationTopList) SetCustomLink(v CustomLink1) {
+// SetCustomLink gets a reference to the given InputCustomLink and assigns it to the CustomLink field.
+func (o *InputGraphVisualizationTopList) SetCustomLink(v InputCustomLink) {
 	o.CustomLink = &v
 }
 
