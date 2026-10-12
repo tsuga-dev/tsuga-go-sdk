@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.10.1] - 2026-10-12
+
 ### Changed
 
 - Breaking: model names no longer depend on spec ordering. Request-side models are prefixed with `Input` and numbered response models lose their suffix.
