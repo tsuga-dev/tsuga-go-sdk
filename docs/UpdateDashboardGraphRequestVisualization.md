@@ -43,13 +43,16 @@ Name | Type | Description | Notes
 **NoteAlign** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
 **NoteJustifyContent** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
 **Layout** | Pointer to **string** | Layout used to render log patterns | [optional] 
-**SloId** | **string** | Id of the SLO to display | 
+**SloId** | **string** | Id of the SLO to display. Omit it to cover every SLO that matches &#x60;filters&#x60;. | 
+**Filters** | Pointer to [**InputGraphVisualizationSloFilters**](InputGraphVisualizationSloFilters.md) |  | [optional] 
+**OrganizeBy** | Pointer to **string** | Groups the results by owning team or by cluster. Omit it to list results ungrouped. | [optional] 
+**Display** | **[]string** | Sections to show: &#x60;summary&#x60; for the result count per status, &#x60;table&#x60; for the list of results. | 
 
 ## Methods
 
 ### NewUpdateDashboardGraphRequestVisualization
 
-`func NewUpdateDashboardGraphRequestVisualization(type_ string, connectionId string, queries []InputAggregationQuery, query string, source string, columns []InputTableColumn, sloId string, ) *UpdateDashboardGraphRequestVisualization`
+`func NewUpdateDashboardGraphRequestVisualization(type_ string, connectionId string, queries []InputAggregationQuery, query string, source string, columns []InputTableColumn, sloId string, display []string, ) *UpdateDashboardGraphRequestVisualization`
 
 NewUpdateDashboardGraphRequestVisualization instantiates a new UpdateDashboardGraphRequestVisualization object
 This constructor will assign default values to properties that have it defined,
@@ -1027,6 +1030,76 @@ and a boolean to check if the value has been set.
 `func (o *UpdateDashboardGraphRequestVisualization) SetSloId(v string)`
 
 SetSloId sets SloId field to given value.
+
+
+### GetFilters
+
+`func (o *UpdateDashboardGraphRequestVisualization) GetFilters() InputGraphVisualizationSloFilters`
+
+GetFilters returns the Filters field if non-nil, zero value otherwise.
+
+### GetFiltersOk
+
+`func (o *UpdateDashboardGraphRequestVisualization) GetFiltersOk() (*InputGraphVisualizationSloFilters, bool)`
+
+GetFiltersOk returns a tuple with the Filters field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFilters
+
+`func (o *UpdateDashboardGraphRequestVisualization) SetFilters(v InputGraphVisualizationSloFilters)`
+
+SetFilters sets Filters field to given value.
+
+### HasFilters
+
+`func (o *UpdateDashboardGraphRequestVisualization) HasFilters() bool`
+
+HasFilters returns a boolean if a field has been set.
+
+### GetOrganizeBy
+
+`func (o *UpdateDashboardGraphRequestVisualization) GetOrganizeBy() string`
+
+GetOrganizeBy returns the OrganizeBy field if non-nil, zero value otherwise.
+
+### GetOrganizeByOk
+
+`func (o *UpdateDashboardGraphRequestVisualization) GetOrganizeByOk() (*string, bool)`
+
+GetOrganizeByOk returns a tuple with the OrganizeBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrganizeBy
+
+`func (o *UpdateDashboardGraphRequestVisualization) SetOrganizeBy(v string)`
+
+SetOrganizeBy sets OrganizeBy field to given value.
+
+### HasOrganizeBy
+
+`func (o *UpdateDashboardGraphRequestVisualization) HasOrganizeBy() bool`
+
+HasOrganizeBy returns a boolean if a field has been set.
+
+### GetDisplay
+
+`func (o *UpdateDashboardGraphRequestVisualization) GetDisplay() []string`
+
+GetDisplay returns the Display field if non-nil, zero value otherwise.
+
+### GetDisplayOk
+
+`func (o *UpdateDashboardGraphRequestVisualization) GetDisplayOk() (*[]string, bool)`
+
+GetDisplayOk returns a tuple with the Display field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDisplay
+
+`func (o *UpdateDashboardGraphRequestVisualization) SetDisplay(v []string)`
+
+SetDisplay sets Display field to given value.
 
 
 

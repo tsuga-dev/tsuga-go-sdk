@@ -2867,6 +2867,7 @@ components:
           enum:
           - INTERNAL_ERROR
           - INVALID_QUERY_TO_CLUSTER
+          - CLUSTER_DB_QUERY_CONNECTION_POOL_TIMEOUT
           type: string
         message:
           description: Human readable explanation of the error
@@ -8092,6 +8093,42 @@ components:
       - sloId
       - type
       title: SloOverTime
+    GraphVisualizationSlo:
+      properties:
+        type:
+          description: "Displays the latest status of SLOs as summary cards with the\
+            \ result count per status, a table of results, or both. Status is not\
+            \ recomputed over the dashboard time range."
+          enum:
+          - slo
+          type: string
+        sloId:
+          description: Id of the SLO to display. Omit it to cover every SLO that matches
+            `filters`.
+          type: string
+        filters:
+          $ref: "#/components/schemas/GraphVisualizationSlo_filters"
+        organizeBy:
+          description: Groups the results by owning team or by cluster. Omit it to
+            list results ungrouped.
+          enum:
+          - team
+          - cluster
+          type: string
+        display:
+          description: "Sections to show: `summary` for the result count per status,\
+            \ `table` for the list of results."
+          items:
+            enum:
+            - summary
+            - table
+            type: string
+          type: array
+          default: null
+      required:
+      - display
+      - type
+      title: Slo
     InputGraphVisualizationTimeseriesConnection:
       properties:
         type:
@@ -9599,6 +9636,46 @@ components:
       - sloId
       - type
       title: InputSloOverTime
+    InputGraphVisualizationSlo:
+      properties:
+        type:
+          description: "Displays the latest status of SLOs as summary cards with the\
+            \ result count per status, a table of results, or both. Status is not\
+            \ recomputed over the dashboard time range."
+          enum:
+          - slo
+          type: string
+        sloId:
+          description: Id of the SLO to display. Omit it to cover every SLO that matches
+            `filters`.
+          maxLength: 250
+          minLength: 1
+          type: string
+        filters:
+          $ref: "#/components/schemas/InputGraphVisualizationSlo_filters"
+        organizeBy:
+          description: Groups the results by owning team or by cluster. Omit it to
+            list results ungrouped.
+          enum:
+          - team
+          - cluster
+          type: string
+        display:
+          description: "Sections to show: `summary` for the result count per status,\
+            \ `table` for the list of results."
+          items:
+            enum:
+            - summary
+            - table
+            type: string
+          minItems: 1
+          type: array
+          uniqueItems: true
+          default: null
+      required:
+      - display
+      - type
+      title: InputSlo
     Graph:
       description: "Single dashboard widget, combining its identity, its visualization\
         \ configuration, and its position on the dashboard grid."
@@ -11470,6 +11547,7 @@ components:
           list-rum: "#/components/schemas/InputGraphVisualizationListRum"
           slo-uptime: "#/components/schemas/InputGraphVisualizationSloUptime"
           slo-over-time: "#/components/schemas/InputGraphVisualizationSloOverTime"
+          slo: "#/components/schemas/InputGraphVisualizationSlo"
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/InputGraphVisualizationTimeseriesConnection"
@@ -11499,6 +11577,7 @@ components:
       - $ref: "#/components/schemas/InputGraphVisualizationListRum"
       - $ref: "#/components/schemas/InputGraphVisualizationSloUptime"
       - $ref: "#/components/schemas/InputGraphVisualizationSloOverTime"
+      - $ref: "#/components/schemas/InputGraphVisualizationSlo"
       required:
       - type
     updateDashboardGraph_request_layout:
@@ -13690,6 +13769,63 @@ components:
       required:
       - metric
       - time
+    GraphVisualizationSlo_filters_owners:
+      description: Restrict results to SLOs owned by any of these team IDs
+      properties:
+        values:
+          items:
+            type: string
+          type: array
+          default: null
+        exclude:
+          type: boolean
+      required:
+      - values
+    GraphVisualizationSlo_filters_tags:
+      description: Restrict results to SLOs that have at least one of the listed key/value
+        tags
+      properties:
+        values:
+          description: Key/value tags applied to the resource. Use them to organize
+            resources and to satisfy tag policies.
+          items:
+            $ref: "#/components/schemas/Tag"
+          title: Tags
+          type: array
+          default: null
+        exclude:
+          type: boolean
+      required:
+      - values
+    GraphVisualizationSlo_filters_statuses:
+      description: "Keep only the results whose status is one of these values. A result\
+        \ is one cluster of an ungrouped SLO, or one group of a grouped SLO."
+      properties:
+        values:
+          items:
+            description: "SLO status: healthy (meeting the target), breached (breaching\
+              \ it), or no_data (not evaluated yet)"
+            enum:
+            - healthy
+            - breached
+            - no_data
+            type: string
+          type: array
+          default: null
+        exclude:
+          type: boolean
+      required:
+      - values
+    GraphVisualizationSlo_filters:
+      description: "Narrows the SLOs the widget covers. Omit it, or any of its fields,\
+        \ to apply no filter."
+      properties:
+        owners:
+          $ref: "#/components/schemas/GraphVisualizationSlo_filters_owners"
+        tags:
+          $ref: "#/components/schemas/GraphVisualizationSlo_filters_tags"
+        statuses:
+          $ref: "#/components/schemas/GraphVisualizationSlo_filters_statuses"
     InputGraphVisualizationTimeseriesConnection_yAxisSettings_scale_oneOf:
       properties:
         type:
@@ -13753,6 +13889,41 @@ components:
           description: "Display names for individual query series, keyed by the zero-based\
             \ query index as a string."
           type: object
+    InputGraphVisualizationSlo_filters_statuses:
+      description: "Keep only the results whose status is one of these values. A result\
+        \ is one cluster of an ungrouped SLO, or one group of a grouped SLO."
+      properties:
+        values:
+          description: "Values compared by this filter. When `exclude` is omitted\
+            \ or false, rows matching any value are kept; when `exclude` is true,\
+            \ matching rows are removed."
+          items:
+            description: "SLO status: healthy (meeting the target), breached (breaching\
+              \ it), or no_data (not evaluated yet)"
+            enum:
+            - healthy
+            - breached
+            - no_data
+            type: string
+          maxItems: 3
+          type: array
+          default: null
+        exclude:
+          description: "If true, exclude rows matching these values instead of including\
+            \ them"
+          type: boolean
+      required:
+      - values
+    InputGraphVisualizationSlo_filters:
+      description: "Narrows the SLOs the widget covers. Omit it, or any of its fields,\
+        \ to apply no filter."
+      properties:
+        owners:
+          $ref: "#/components/schemas/querySlos_request_filters_owners"
+        tags:
+          $ref: "#/components/schemas/querySlos_request_filters_tags"
+        statuses:
+          $ref: "#/components/schemas/InputGraphVisualizationSlo_filters_statuses"
     Graph_visualization:
       description: Widget visualization configuration. The `type` discriminator selects
         the widget kind and its required fields.
@@ -13785,6 +13956,7 @@ components:
           list-rum: "#/components/schemas/GraphVisualizationListRum"
           slo-uptime: "#/components/schemas/GraphVisualizationSloUptime"
           slo-over-time: "#/components/schemas/GraphVisualizationSloOverTime"
+          slo: "#/components/schemas/GraphVisualizationSlo"
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection"
@@ -13814,6 +13986,7 @@ components:
       - $ref: "#/components/schemas/GraphVisualizationListRum"
       - $ref: "#/components/schemas/GraphVisualizationSloUptime"
       - $ref: "#/components/schemas/GraphVisualizationSloOverTime"
+      - $ref: "#/components/schemas/GraphVisualizationSlo"
       required:
       - type
     Graph_layout:

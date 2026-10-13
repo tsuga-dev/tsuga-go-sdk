@@ -35,6 +35,7 @@ type GraphVisualization struct {
 	GraphVisualizationQueryValue           *GraphVisualizationQueryValue
 	GraphVisualizationQueryValueConnection *GraphVisualizationQueryValueConnection
 	GraphVisualizationQueryValuePromql     *GraphVisualizationQueryValuePromql
+	GraphVisualizationSlo                  *GraphVisualizationSlo
 	GraphVisualizationSloOverTime          *GraphVisualizationSloOverTime
 	GraphVisualizationSloUptime            *GraphVisualizationSloUptime
 	GraphVisualizationTable                *GraphVisualizationTable
@@ -169,6 +170,13 @@ func GraphVisualizationQueryValueConnectionAsGraphVisualization(v *GraphVisualiz
 func GraphVisualizationQueryValuePromqlAsGraphVisualization(v *GraphVisualizationQueryValuePromql) GraphVisualization {
 	return GraphVisualization{
 		GraphVisualizationQueryValuePromql: v,
+	}
+}
+
+// GraphVisualizationSloAsGraphVisualization is a convenience function that returns GraphVisualizationSlo wrapped in GraphVisualization
+func GraphVisualizationSloAsGraphVisualization(v *GraphVisualizationSlo) GraphVisualization {
+	return GraphVisualization{
+		GraphVisualizationSlo: v,
 	}
 }
 
@@ -461,6 +469,18 @@ func (dst *GraphVisualization) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'slo'
+	if jsonDict["type"] == "slo" {
+		// try to unmarshal JSON data into GraphVisualizationSlo
+		err = json.Unmarshal(data, &dst.GraphVisualizationSlo)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationSlo, return on the first match
+		} else {
+			dst.GraphVisualizationSlo = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationSlo: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'slo-over-time'
 	if jsonDict["type"] == "slo-over-time" {
 		// try to unmarshal JSON data into GraphVisualizationSloOverTime
@@ -646,6 +666,10 @@ func (src GraphVisualization) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.GraphVisualizationQueryValuePromql)
 	}
 
+	if src.GraphVisualizationSlo != nil {
+		return json.Marshal(&src.GraphVisualizationSlo)
+	}
+
 	if src.GraphVisualizationSloOverTime != nil {
 		return json.Marshal(&src.GraphVisualizationSloOverTime)
 	}
@@ -762,6 +786,10 @@ func (obj *GraphVisualization) GetActualInstance() interface{} {
 		return obj.GraphVisualizationQueryValuePromql
 	}
 
+	if obj.GraphVisualizationSlo != nil {
+		return obj.GraphVisualizationSlo
+	}
+
 	if obj.GraphVisualizationSloOverTime != nil {
 		return obj.GraphVisualizationSloOverTime
 	}
@@ -874,6 +902,10 @@ func (obj GraphVisualization) GetActualInstanceValue() interface{} {
 
 	if obj.GraphVisualizationQueryValuePromql != nil {
 		return *obj.GraphVisualizationQueryValuePromql
+	}
+
+	if obj.GraphVisualizationSlo != nil {
+		return *obj.GraphVisualizationSlo
 	}
 
 	if obj.GraphVisualizationSloOverTime != nil {

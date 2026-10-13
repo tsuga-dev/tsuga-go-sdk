@@ -43,13 +43,16 @@ Name | Type | Description | Notes
 **NoteAlign** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
 **NoteJustifyContent** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
 **Layout** | Pointer to **string** | Layout used to render log patterns | [optional] 
-**SloId** | **string** | Id of the SLO to display | 
+**SloId** | **string** | Id of the SLO to display. Omit it to cover every SLO that matches &#x60;filters&#x60;. | 
+**Filters** | Pointer to [**GraphVisualizationSloFilters**](GraphVisualizationSloFilters.md) |  | [optional] 
+**OrganizeBy** | Pointer to **string** | Groups the results by owning team or by cluster. Omit it to list results ungrouped. | [optional] 
+**Display** | **[]string** | Sections to show: &#x60;summary&#x60; for the result count per status, &#x60;table&#x60; for the list of results. | 
 
 ## Methods
 
 ### NewGraphVisualization
 
-`func NewGraphVisualization(type_ string, connectionId string, queries []AggregationQuery, query string, source string, columns []TableColumn, sloId string, ) *GraphVisualization`
+`func NewGraphVisualization(type_ string, connectionId string, queries []AggregationQuery, query string, source string, columns []TableColumn, sloId string, display []string, ) *GraphVisualization`
 
 NewGraphVisualization instantiates a new GraphVisualization object
 This constructor will assign default values to properties that have it defined,
@@ -1027,6 +1030,76 @@ and a boolean to check if the value has been set.
 `func (o *GraphVisualization) SetSloId(v string)`
 
 SetSloId sets SloId field to given value.
+
+
+### GetFilters
+
+`func (o *GraphVisualization) GetFilters() GraphVisualizationSloFilters`
+
+GetFilters returns the Filters field if non-nil, zero value otherwise.
+
+### GetFiltersOk
+
+`func (o *GraphVisualization) GetFiltersOk() (*GraphVisualizationSloFilters, bool)`
+
+GetFiltersOk returns a tuple with the Filters field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFilters
+
+`func (o *GraphVisualization) SetFilters(v GraphVisualizationSloFilters)`
+
+SetFilters sets Filters field to given value.
+
+### HasFilters
+
+`func (o *GraphVisualization) HasFilters() bool`
+
+HasFilters returns a boolean if a field has been set.
+
+### GetOrganizeBy
+
+`func (o *GraphVisualization) GetOrganizeBy() string`
+
+GetOrganizeBy returns the OrganizeBy field if non-nil, zero value otherwise.
+
+### GetOrganizeByOk
+
+`func (o *GraphVisualization) GetOrganizeByOk() (*string, bool)`
+
+GetOrganizeByOk returns a tuple with the OrganizeBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrganizeBy
+
+`func (o *GraphVisualization) SetOrganizeBy(v string)`
+
+SetOrganizeBy sets OrganizeBy field to given value.
+
+### HasOrganizeBy
+
+`func (o *GraphVisualization) HasOrganizeBy() bool`
+
+HasOrganizeBy returns a boolean if a field has been set.
+
+### GetDisplay
+
+`func (o *GraphVisualization) GetDisplay() []string`
+
+GetDisplay returns the Display field if non-nil, zero value otherwise.
+
+### GetDisplayOk
+
+`func (o *GraphVisualization) GetDisplayOk() (*[]string, bool)`
+
+GetDisplayOk returns a tuple with the Display field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDisplay
+
+`func (o *GraphVisualization) SetDisplay(v []string)`
+
+SetDisplay sets Display field to given value.
 
 
 

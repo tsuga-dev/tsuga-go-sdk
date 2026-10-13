@@ -35,6 +35,7 @@ type UpdateDashboardGraphRequestVisualization struct {
 	InputGraphVisualizationQueryValue           *InputGraphVisualizationQueryValue
 	InputGraphVisualizationQueryValueConnection *InputGraphVisualizationQueryValueConnection
 	InputGraphVisualizationQueryValuePromql     *InputGraphVisualizationQueryValuePromql
+	InputGraphVisualizationSlo                  *InputGraphVisualizationSlo
 	InputGraphVisualizationSloOverTime          *InputGraphVisualizationSloOverTime
 	InputGraphVisualizationSloUptime            *InputGraphVisualizationSloUptime
 	InputGraphVisualizationTable                *InputGraphVisualizationTable
@@ -169,6 +170,13 @@ func InputGraphVisualizationQueryValueConnectionAsUpdateDashboardGraphRequestVis
 func InputGraphVisualizationQueryValuePromqlAsUpdateDashboardGraphRequestVisualization(v *InputGraphVisualizationQueryValuePromql) UpdateDashboardGraphRequestVisualization {
 	return UpdateDashboardGraphRequestVisualization{
 		InputGraphVisualizationQueryValuePromql: v,
+	}
+}
+
+// InputGraphVisualizationSloAsUpdateDashboardGraphRequestVisualization is a convenience function that returns InputGraphVisualizationSlo wrapped in UpdateDashboardGraphRequestVisualization
+func InputGraphVisualizationSloAsUpdateDashboardGraphRequestVisualization(v *InputGraphVisualizationSlo) UpdateDashboardGraphRequestVisualization {
+	return UpdateDashboardGraphRequestVisualization{
+		InputGraphVisualizationSlo: v,
 	}
 }
 
@@ -461,6 +469,18 @@ func (dst *UpdateDashboardGraphRequestVisualization) UnmarshalJSON(data []byte) 
 		}
 	}
 
+	// check if the discriminator value is 'slo'
+	if jsonDict["type"] == "slo" {
+		// try to unmarshal JSON data into InputGraphVisualizationSlo
+		err = json.Unmarshal(data, &dst.InputGraphVisualizationSlo)
+		if err == nil {
+			return nil // data stored in dst.InputGraphVisualizationSlo, return on the first match
+		} else {
+			dst.InputGraphVisualizationSlo = nil
+			return fmt.Errorf("failed to unmarshal UpdateDashboardGraphRequestVisualization as InputGraphVisualizationSlo: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'slo-over-time'
 	if jsonDict["type"] == "slo-over-time" {
 		// try to unmarshal JSON data into InputGraphVisualizationSloOverTime
@@ -646,6 +666,10 @@ func (src UpdateDashboardGraphRequestVisualization) MarshalJSON() ([]byte, error
 		return json.Marshal(&src.InputGraphVisualizationQueryValuePromql)
 	}
 
+	if src.InputGraphVisualizationSlo != nil {
+		return json.Marshal(&src.InputGraphVisualizationSlo)
+	}
+
 	if src.InputGraphVisualizationSloOverTime != nil {
 		return json.Marshal(&src.InputGraphVisualizationSloOverTime)
 	}
@@ -762,6 +786,10 @@ func (obj *UpdateDashboardGraphRequestVisualization) GetActualInstance() interfa
 		return obj.InputGraphVisualizationQueryValuePromql
 	}
 
+	if obj.InputGraphVisualizationSlo != nil {
+		return obj.InputGraphVisualizationSlo
+	}
+
 	if obj.InputGraphVisualizationSloOverTime != nil {
 		return obj.InputGraphVisualizationSloOverTime
 	}
@@ -874,6 +902,10 @@ func (obj UpdateDashboardGraphRequestVisualization) GetActualInstanceValue() int
 
 	if obj.InputGraphVisualizationQueryValuePromql != nil {
 		return *obj.InputGraphVisualizationQueryValuePromql
+	}
+
+	if obj.InputGraphVisualizationSlo != nil {
+		return *obj.InputGraphVisualizationSlo
 	}
 
 	if obj.InputGraphVisualizationSloOverTime != nil {
