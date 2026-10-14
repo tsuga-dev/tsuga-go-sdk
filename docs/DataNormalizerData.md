@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | Normalizes values as data sizes using byte units | 
-**Unit** | **string** | Data size unit used to present the normalized values | 
+**Type** | **string** | Normalizes values as data sizes using byte or bit units | 
+**Unit** | **string** | Data size unit of the raw values. Byte units (B, KB, MB, ...) scale in steps of 1000. Bit units (bit, Kibit, Mibit, ...) are binary: values are converted to bytes and scale in steps of 1024 (KiB, MiB, GiB, ...). | 
 
 ## Methods
 

@@ -6652,12 +6652,15 @@ components:
     DataNormalizerData:
       properties:
         type:
-          description: Normalizes values as data sizes using byte units
+          description: Normalizes values as data sizes using byte or bit units
           enum:
           - data
           type: string
         unit:
-          description: Data size unit used to present the normalized values
+          description: "Data size unit of the raw values. Byte units (B, KB, MB, ...)\
+            \ scale in steps of 1000. Bit units (bit, Kibit, Mibit, ...) are binary:\
+            \ values are converted to bytes and scale in steps of 1024 (KiB, MiB,\
+            \ GiB, ...)."
           enum:
           - B
           - KB
@@ -6665,6 +6668,12 @@ components:
           - GB
           - TB
           - PB
+          - bit
+          - Kibit
+          - Mibit
+          - Gibit
+          - Tibit
+          - Pibit
           type: string
       required:
       - type
