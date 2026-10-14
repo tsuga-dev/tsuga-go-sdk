@@ -37,6 +37,8 @@ type Monitor struct {
 	Permissions string `json:"permissions"`
 	// ID of the dashboard linked to this monitor for context when investigating alerts. Caller-supplied. Omitted when no dashboard is linked.
 	DashboardId *string `json:"dashboardId,omitempty"`
+	// ID of the monitor folder containing this monitor. Omitted for unfiled monitors.
+	FolderId *string `json:"folderId,omitempty"`
 	// Timestamp until which the monitor is snoozed. Omitted when the monitor is not snoozed.
 	PauseUntil *string `json:"pauseUntil,omitempty"`
 	// Cluster IDs where the monitor is deployed. Empty means all eligible clusters.
@@ -310,6 +312,38 @@ func (o *Monitor) SetDashboardId(v string) {
 	o.DashboardId = &v
 }
 
+// GetFolderId returns the FolderId field value if set, zero value otherwise.
+func (o *Monitor) GetFolderId() string {
+	if o == nil || IsNil(o.FolderId) {
+		var ret string
+		return ret
+	}
+	return *o.FolderId
+}
+
+// GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Monitor) GetFolderIdOk() (*string, bool) {
+	if o == nil || IsNil(o.FolderId) {
+		return nil, false
+	}
+	return o.FolderId, true
+}
+
+// HasFolderId returns a boolean if a field has been set.
+func (o *Monitor) HasFolderId() bool {
+	if o != nil && !IsNil(o.FolderId) {
+		return true
+	}
+
+	return false
+}
+
+// SetFolderId gets a reference to the given string and assigns it to the FolderId field.
+func (o *Monitor) SetFolderId(v string) {
+	o.FolderId = &v
+}
+
 // GetPauseUntil returns the PauseUntil field value if set, zero value otherwise.
 func (o *Monitor) GetPauseUntil() string {
 	if o == nil || IsNil(o.PauseUntil) {
@@ -391,6 +425,9 @@ func (o Monitor) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DashboardId) {
 		toSerialize["dashboardId"] = o.DashboardId
 	}
+	if !IsNil(o.FolderId) {
+		toSerialize["folderId"] = o.FolderId
+	}
 	if !IsNil(o.PauseUntil) {
 		toSerialize["pauseUntil"] = o.PauseUntil
 	}
@@ -453,6 +490,7 @@ func (o *Monitor) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "priority")
 		delete(additionalProperties, "permissions")
 		delete(additionalProperties, "dashboardId")
+		delete(additionalProperties, "folderId")
 		delete(additionalProperties, "pauseUntil")
 		delete(additionalProperties, "clusterIds")
 		o.AdditionalProperties = additionalProperties

@@ -306,7 +306,7 @@ import (
 
 func main() {
 	id := "id_example" // string | Identifier of the saved monitor to update. Use the `id` returned by monitor query or create responses.
-	updateMonitorRequest := *openapiclient.NewUpdateMonitorRequest("Name_example", openapiclient.updateMonitor_request_configuration{InputMonitorConfigurationAnomalyLog: openapiclient.NewInputMonitorConfigurationAnomalyLog("Type_example", *openapiclient.NewInputMonitorConfigurationAnomalyLogCondition("Formula_example", "ConditionType_example"), "NoDataBehavior_example", int32(123), []openapiclient.InputMonitorConfigurationMetricGroupByFieldsInner{*openapiclient.NewInputMonitorConfigurationMetricGroupByFieldsInner([]string{"Fields_example"}, float32(123))}, []openapiclient.InputMonitorAggregationQuery{*openapiclient.NewInputMonitorAggregationQuery(openapiclient.InputAggregate{InputAggregateAverage: openapiclient.NewInputAggregateAverage("Type_example", "Field_example")}, "Filter_example")})}, float32(123), "Owner_example", "Permissions_example") // UpdateMonitorRequest | Monitor update request. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, `clusterIds`, and `pauseUntil` keep their existing values. Omitting `dashboardId` clears the dashboard link.
+	updateMonitorRequest := *openapiclient.NewUpdateMonitorRequest("Name_example", openapiclient.updateMonitor_request_configuration{InputMonitorConfigurationAnomalyLog: openapiclient.NewInputMonitorConfigurationAnomalyLog("Type_example", *openapiclient.NewInputMonitorConfigurationAnomalyLogCondition("Formula_example", "ConditionType_example"), "NoDataBehavior_example", int32(123), []openapiclient.InputMonitorConfigurationMetricGroupByFieldsInner{*openapiclient.NewInputMonitorConfigurationMetricGroupByFieldsInner([]string{"Fields_example"}, float32(123))}, []openapiclient.InputMonitorAggregationQuery{*openapiclient.NewInputMonitorAggregationQuery(openapiclient.InputAggregate{InputAggregateAverage: openapiclient.NewInputAggregateAverage("Type_example", "Field_example")}, "Filter_example")})}, float32(123), "Owner_example", "Permissions_example") // UpdateMonitorRequest | Monitor update request. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, `clusterIds`, `pauseUntil`, and `folderId` keep their existing values. Omitting `dashboardId` clears the dashboard link.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -336,7 +336,7 @@ Other parameters are passed through a pointer to a apiUpdateMonitorRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **updateMonitorRequest** | [**UpdateMonitorRequest**](UpdateMonitorRequest.md) | Monitor update request. Required fields and the submitted configuration are overwritten; omitted &#x60;message&#x60;, &#x60;tags&#x60;, &#x60;clusterIds&#x60;, and &#x60;pauseUntil&#x60; keep their existing values. Omitting &#x60;dashboardId&#x60; clears the dashboard link. | 
+ **updateMonitorRequest** | [**UpdateMonitorRequest**](UpdateMonitorRequest.md) | Monitor update request. Required fields and the submitted configuration are overwritten; omitted &#x60;message&#x60;, &#x60;tags&#x60;, &#x60;clusterIds&#x60;, &#x60;pauseUntil&#x60;, and &#x60;folderId&#x60; keep their existing values. Omitting &#x60;dashboardId&#x60; clears the dashboard link. | 
 
 ### Return type
 

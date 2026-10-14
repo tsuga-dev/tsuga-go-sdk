@@ -25,8 +25,10 @@ type QueryMonitorsRequestFilters struct {
 	Priorities  *QueryMonitorsRequestFiltersPriorities  `json:"priorities,omitempty"`
 	Types       *QueryMonitorsRequestFiltersTypes       `json:"types,omitempty"`
 	// Restrict results by activity status: active monitors or currently snoozed monitors
-	Activity             *string                                `json:"activity,omitempty"`
-	ClusterIds           *QueryMonitorsRequestFiltersClusterIds `json:"clusterIds,omitempty"`
+	Activity   *string                                `json:"activity,omitempty"`
+	ClusterIds *QueryMonitorsRequestFiltersClusterIds `json:"clusterIds,omitempty"`
+	// Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder.
+	FolderId             NullableString `json:"folderId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -273,6 +275,49 @@ func (o *QueryMonitorsRequestFilters) SetClusterIds(v QueryMonitorsRequestFilter
 	o.ClusterIds = &v
 }
 
+// GetFolderId returns the FolderId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *QueryMonitorsRequestFilters) GetFolderId() string {
+	if o == nil || IsNil(o.FolderId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.FolderId.Get()
+}
+
+// GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *QueryMonitorsRequestFilters) GetFolderIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.FolderId.Get(), o.FolderId.IsSet()
+}
+
+// HasFolderId returns a boolean if a field has been set.
+func (o *QueryMonitorsRequestFilters) HasFolderId() bool {
+	if o != nil && o.FolderId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetFolderId gets a reference to the given NullableString and assigns it to the FolderId field.
+func (o *QueryMonitorsRequestFilters) SetFolderId(v string) {
+	o.FolderId.Set(&v)
+}
+
+// SetFolderIdNil sets the value for FolderId to be an explicit nil
+func (o *QueryMonitorsRequestFilters) SetFolderIdNil() {
+	o.FolderId.Set(nil)
+}
+
+// UnsetFolderId ensures that no value is present for FolderId, not even an explicit nil
+func (o *QueryMonitorsRequestFilters) UnsetFolderId() {
+	o.FolderId.Unset()
+}
+
 func (o QueryMonitorsRequestFilters) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -304,6 +349,9 @@ func (o QueryMonitorsRequestFilters) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ClusterIds) {
 		toSerialize["clusterIds"] = o.ClusterIds
 	}
+	if o.FolderId.IsSet() {
+		toSerialize["folderId"] = o.FolderId.Get()
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -333,6 +381,7 @@ func (o *QueryMonitorsRequestFilters) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "types")
 		delete(additionalProperties, "activity")
 		delete(additionalProperties, "clusterIds")
+		delete(additionalProperties, "folderId")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `MonitorFoldersAPI`: new API for monitor folders.
+- `CreateMonitorRequest`, `UpdateMonitorRequest`: `FolderId`, filing the monitor into a monitor folder. On update, leave it unset to keep the current folder or set it to nil to remove it.
+- `Monitor`: `FolderId`, the folder holding the monitor.
+- `QueryMonitorsRequestFilters`: `FolderId`, restricting results to a folder, or to unfiled monitors when set to nil.
+
 ## [1.10.1] - 2026-10-12
 
 ### Changed

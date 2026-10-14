@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **Priority** | **float32** | Monitor priority from 1 through 5, where 1 is highest priority. | 
 **Owner** | **string** | Team ID that owns and manages the monitor. | 
 **DashboardId** | Pointer to **NullableString** | ID of the dashboard to link to this monitor for context when investigating alerts. On create: omit or send &#x60;null&#x60; to leave the monitor unlinked. On update: omit to skip updating this field, send &#x60;null&#x60; to clear an existing link. | [optional] 
+**FolderId** | Pointer to **NullableString** | Folder to organize this monitor in. Omit on create or send null to leave it unfiled; omit on update to keep its folder, or send null to remove it. A non-null ID must name a readable monitor folder. Assignment does not change ownership, data access, or evaluation state. | [optional] 
 **PauseUntil** | Pointer to **NullableTime** | ISO timestamp until which the monitor is snoozed. Must be in the future and at most one month from now. On create: omit or send &#x60;null&#x60; to leave the monitor active. On update: omit to keep the current snooze, send &#x60;null&#x60; to clear it. | [optional] 
 **Permissions** | **string** | &#x60;all&#x60; allows the resource to query all permitted telemetry, &#x60;owning-team-and-public&#x60; limits it to the owning team plus public data, and &#x60;owning-team-only&#x60; limits it to the owning team. | 
 **ClusterIds** | Pointer to **[]string** | Cluster IDs where the monitor should be deployed. Empty or omitted means all eligible clusters for cluster-deployed monitor types. | [optional] 
@@ -209,6 +210,41 @@ HasDashboardId returns a boolean if a field has been set.
 `func (o *CreateMonitorRequest) UnsetDashboardId()`
 
 UnsetDashboardId ensures that no value is present for DashboardId, not even an explicit nil
+### GetFolderId
+
+`func (o *CreateMonitorRequest) GetFolderId() string`
+
+GetFolderId returns the FolderId field if non-nil, zero value otherwise.
+
+### GetFolderIdOk
+
+`func (o *CreateMonitorRequest) GetFolderIdOk() (*string, bool)`
+
+GetFolderIdOk returns a tuple with the FolderId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFolderId
+
+`func (o *CreateMonitorRequest) SetFolderId(v string)`
+
+SetFolderId sets FolderId field to given value.
+
+### HasFolderId
+
+`func (o *CreateMonitorRequest) HasFolderId() bool`
+
+HasFolderId returns a boolean if a field has been set.
+
+### SetFolderIdNil
+
+`func (o *CreateMonitorRequest) SetFolderIdNil(b bool)`
+
+ SetFolderIdNil sets the value for FolderId to be an explicit nil
+
+### UnsetFolderId
+`func (o *CreateMonitorRequest) UnsetFolderId()`
+
+UnsetFolderId ensures that no value is present for FolderId, not even an explicit nil
 ### GetPauseUntil
 
 `func (o *CreateMonitorRequest) GetPauseUntil() time.Time`

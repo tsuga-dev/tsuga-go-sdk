@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **Types** | Pointer to [**QueryMonitorsRequestFiltersTypes**](QueryMonitorsRequestFiltersTypes.md) |  | [optional] 
 **Activity** | Pointer to **string** | Restrict results by activity status: active monitors or currently snoozed monitors | [optional] 
 **ClusterIds** | Pointer to [**QueryMonitorsRequestFiltersClusterIds**](QueryMonitorsRequestFiltersClusterIds.md) |  | [optional] 
+**FolderId** | Pointer to **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
 
 ## Methods
 
@@ -206,6 +207,41 @@ SetClusterIds sets ClusterIds field to given value.
 
 HasClusterIds returns a boolean if a field has been set.
 
+### GetFolderId
+
+`func (o *QueryMonitorsRequestFilters) GetFolderId() string`
+
+GetFolderId returns the FolderId field if non-nil, zero value otherwise.
+
+### GetFolderIdOk
+
+`func (o *QueryMonitorsRequestFilters) GetFolderIdOk() (*string, bool)`
+
+GetFolderIdOk returns a tuple with the FolderId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFolderId
+
+`func (o *QueryMonitorsRequestFilters) SetFolderId(v string)`
+
+SetFolderId sets FolderId field to given value.
+
+### HasFolderId
+
+`func (o *QueryMonitorsRequestFilters) HasFolderId() bool`
+
+HasFolderId returns a boolean if a field has been set.
+
+### SetFolderIdNil
+
+`func (o *QueryMonitorsRequestFilters) SetFolderIdNil(b bool)`
+
+ SetFolderIdNil sets the value for FolderId to be an explicit nil
+
+### UnsetFolderId
+`func (o *QueryMonitorsRequestFilters) UnsetFolderId()`
+
+UnsetFolderId ensures that no value is present for FolderId, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

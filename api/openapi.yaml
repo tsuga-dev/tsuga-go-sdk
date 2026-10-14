@@ -99,6 +99,8 @@ tags:
     \ to inspect rule outcomes and recommendations for teams or clusters. See [Quality\
     \ reports](/documentation/account-and-settings/quality-reports)."
   name: quality-reports
+- description: Folders for organizing monitors into a two-level hierarchy.
+  name: monitor-folders
 - description: Folders for organizing dashboards into a two-level hierarchy.
   name: dashboard-folders
 - description: "Operations for retention policy rows for logs, metrics, and traces.\
@@ -634,11 +636,367 @@ paths:
               style: simple
       tags:
       - dashboards
+  /v1/monitor-folders/query:
+    post:
+      description: "Queries monitor folders visible to the authenticated operation\
+        \ key. Returns all folders unless the `parentFolderId` filter is set: pass\
+        \ a folder ID to select the children of that folder, or null to return only\
+        \ top-level folders. Results are ordered by most recently updated folder first\
+        \ unless `sort` is set, and include the number of readable monitors directly\
+        \ assigned to each folder. Use filters to narrow by owning team, name or ID\
+        \ substring, or tags."
+      operationId: queryMonitorFolders
+      requestBody:
+        content:
+          application/json:
+            example:
+              filters:
+                owners:
+                  values:
+                  - team-123-abc
+                searchQuery:
+                  value: Platform
+                tags:
+                  values:
+                  - key: team
+                    value: platform
+              sort:
+                by: name
+                direction: asc
+              limit: 10
+              offset: 0
+            schema:
+              $ref: "#/components/schemas/queryMonitorFolders_request"
+        description: "Monitor folder query request. Use filters, sorting, limit, and\
+          \ offset to page through visible monitor folders."
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueryMonitorFoldersResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - monitor-folders
+  /v1/monitor-folders/{id}:
+    delete:
+      description: Deletes an empty monitor folder by ID. The request fails if the
+        folder still contains monitors or child folders; monitors and child folders
+        are not moved or deleted automatically.
+      operationId: deleteMonitorFolder
+      parameters:
+      - description: "Identifier of the monitor folder to delete. Use the `id` returned\
+          \ by folder list, get, create, or update responses."
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteMonitorFolderResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - monitor-folders
+    get:
+      description: Retrieves one monitor folder by ID.
+      operationId: getMonitorFolder
+      parameters:
+      - description: "Identifier of the monitor folder to retrieve. Use the `id` returned\
+          \ by folder list, get, create, or update responses."
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetMonitorFolderResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - monitor-folders
+    put:
+      description: "Updates an existing monitor folder by ID. Send the folder name,\
+        \ owner, tags, and parent relationship; omit `parentFolderId` to keep the\
+        \ current parent or send null to move the folder to top level."
+      operationId: updateMonitorFolder
+      parameters:
+      - description: "Identifier of the monitor folder to update. Use the `id` returned\
+          \ by folder list, get, create, or update responses."
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              name: Platform
+              owner: team-123-abc
+              parentFolderId: null
+              tags:
+              - key: team
+                value: platform
+            schema:
+              $ref: "#/components/schemas/updateMonitorFolder_request"
+        description: "Monitor folder create or update request. Provide a name, owner\
+          \ team, optional parent folder, and optional tags."
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateMonitorFolderResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - monitor-folders
+  /v1/monitor-folders:
+    post:
+      description: "Creates a monitor folder owned by the specified team. To create\
+        \ a child folder, set `parentFolderId` to a readable top-level folder."
+      operationId: createMonitorFolder
+      requestBody:
+        content:
+          application/json:
+            example:
+              name: Platform
+              owner: team-123-abc
+              parentFolderId: null
+              tags:
+              - key: team
+                value: platform
+            schema:
+              $ref: "#/components/schemas/createMonitorFolder_request"
+        description: "Monitor folder create or update request. Provide a name, owner\
+          \ team, optional parent folder, and optional tags."
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateMonitorFolderResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - monitor-folders
   /v1/monitors/query:
     post:
       description: "Queries monitors visible to the authenticated operation key. Use\
         \ this endpoint to inventory monitor definitions, filter by owner, tag, priority,\
-        \ type, activity, or cluster, and page through results. See [Monitors](/documentation/alert/monitors/index)."
+        \ type, activity, cluster, or folder, and page through results. See [Monitors](/documentation/alert/monitors/index)."
       operationId: queryMonitors
       requestBody:
         content:
@@ -666,6 +1024,7 @@ paths:
                 clusterIds:
                   values:
                   - cluster-123-abc
+                folderId: folder-123-abc
               sort:
                 by: name
                 direction: asc
@@ -853,8 +1212,8 @@ paths:
     put:
       description: "Updates an existing monitor definition by ID. Required fields\
         \ and the submitted configuration are overwritten; omitted `message`, `tags`,\
-        \ `clusterIds`, and `pauseUntil` keep their existing values. Omitting `dashboardId`\
-        \ clears the dashboard link."
+        \ `clusterIds`, `pauseUntil`, and `folderId` keep their existing values. Omitting\
+        \ `dashboardId` clears the dashboard link."
       operationId: updateMonitor
       parameters:
       - description: Identifier of the saved monitor to update. Use the `id` returned
@@ -900,6 +1259,7 @@ paths:
                   priority: 1
                   owner: team-123-abc
                   dashboardId: 789-abc-def
+                  folderId: folder-123-abc
                   permissions: all
                   clusterIds: []
               example2:
@@ -931,6 +1291,7 @@ paths:
                   priority: 2
                   owner: team-123-abc
                   dashboardId: 789-abc-def
+                  folderId: folder-123-abc
                   permissions: all
                   clusterIds: []
               example3:
@@ -950,6 +1311,7 @@ paths:
                   priority: 3
                   owner: team-123-abc
                   dashboardId: 789-abc-def
+                  folderId: folder-123-abc
                   permissions: all
                   clusterIds: []
               example4:
@@ -972,6 +1334,7 @@ paths:
                   priority: 2
                   owner: team-123-abc
                   dashboardId: 789-abc-def
+                  folderId: folder-123-abc
                   permissions: all
                   clusterIds: []
               example5:
@@ -994,14 +1357,15 @@ paths:
                   priority: 2
                   owner: team-123-abc
                   dashboardId: 789-abc-def
+                  folderId: folder-123-abc
                   permissions: all
                   clusterIds: []
             schema:
               $ref: "#/components/schemas/updateMonitor_request"
         description: "Monitor update request. Required fields and the submitted configuration\
-          \ are overwritten; omitted `message`, `tags`, `clusterIds`, and `pauseUntil`\
-          \ keep their existing values. Omitting `dashboardId` clears the dashboard\
-          \ link."
+          \ are overwritten; omitted `message`, `tags`, `clusterIds`, `pauseUntil`,\
+          \ and `folderId` keep their existing values. Omitting `dashboardId` clears\
+          \ the dashboard link."
         required: true
       responses:
         "200":
@@ -1082,6 +1446,7 @@ paths:
                   priority: 1
                   owner: team-123-abc
                   dashboardId: 789-abc-def
+                  folderId: folder-123-abc
                   permissions: all
                   clusterIds: []
               example2:
@@ -1113,6 +1478,7 @@ paths:
                   priority: 2
                   owner: team-123-abc
                   dashboardId: 789-abc-def
+                  folderId: folder-123-abc
                   permissions: all
                   clusterIds: []
               example3:
@@ -1132,6 +1498,7 @@ paths:
                   priority: 3
                   owner: team-123-abc
                   dashboardId: 789-abc-def
+                  folderId: folder-123-abc
                   permissions: all
                   clusterIds: []
               example4:
@@ -1154,6 +1521,7 @@ paths:
                   priority: 2
                   owner: team-123-abc
                   dashboardId: 789-abc-def
+                  folderId: folder-123-abc
                   permissions: all
                   clusterIds: []
               example5:
@@ -1176,6 +1544,7 @@ paths:
                   priority: 2
                   owner: team-123-abc
                   dashboardId: 789-abc-def
+                  folderId: folder-123-abc
                   permissions: all
                   clusterIds: []
             schema:
@@ -3318,6 +3687,199 @@ components:
       required:
       - data
       - requestId
+    MonitorFolderWithMonitorCount:
+      description: "Folder used to organize monitors into a two-level hierarchy, including\
+        \ the number of readable monitors it directly contains."
+      example:
+        id: 123-456-abc
+        name: Platform
+        owner: team-123-abc
+        tags:
+        - key: team
+          value: platform
+        monitorCount: 10
+      properties:
+        id:
+          description: Tsuga-generated monitor folder ID assigned when the folder
+            is created. Use it as monitor `folderId` or child-folder `parentFolderId`.
+          type: string
+        name:
+          description: Display name of the monitor folder. Set by the caller on create
+            or update.
+          type: string
+        owner:
+          description: ID of the team that owns the monitor folder. Set by the caller
+            on create or update and used for folder access control.
+          type: string
+        parentFolderId:
+          description: ID of the top-level parent folder when this folder is nested.
+            Set by the caller on create or update. Returned only for child folders;
+            omitted for top-level folders.
+          type: string
+        tags:
+          description: Key/value tags applied to the resource. Use them to organize
+            resources and to satisfy tag policies.
+          items:
+            $ref: "#/components/schemas/Tag"
+          title: Tags
+          type: array
+          default: null
+        monitorCount:
+          description: Number of monitors directly assigned to this folder that the
+            caller can read. Returned only by folder list responses; callers without
+            monitor read access see 0.
+          type: number
+      required:
+      - id
+      - monitorCount
+      - name
+      - owner
+    QueryMonitorFoldersResponse:
+      example:
+        requestId: requestId
+        data:
+        - id: 123-456-abc
+          name: Platform
+          owner: team-123-abc
+          tags:
+          - key: team
+            value: platform
+          monitorCount: 10
+        - id: 123-456-abc
+          name: Platform
+          owner: team-123-abc
+          tags:
+          - key: team
+            value: platform
+          monitorCount: 10
+        metadata:
+          pagination:
+            totalCount: 0
+            pageCount: 6
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/MonitorFolderWithMonitorCount"
+          type: array
+          default: null
+        metadata:
+          $ref: "#/components/schemas/ResponseMetadata"
+      required:
+      - data
+      - requestId
+    MonitorFolder:
+      description: Folder used to organize monitors into a two-level hierarchy
+      example:
+        id: 123-456-abc
+        name: Platform
+        owner: team-123-abc
+        tags:
+        - key: team
+          value: platform
+      properties:
+        id:
+          description: Tsuga-generated monitor folder ID assigned when the folder
+            is created. Use it as monitor `folderId` or child-folder `parentFolderId`.
+          type: string
+        name:
+          description: Display name of the monitor folder. Set by the caller on create
+            or update.
+          type: string
+        owner:
+          description: ID of the team that owns the monitor folder. Set by the caller
+            on create or update and used for folder access control.
+          type: string
+        parentFolderId:
+          description: ID of the top-level parent folder when this folder is nested.
+            Set by the caller on create or update. Returned only for child folders;
+            omitted for top-level folders.
+          type: string
+        tags:
+          description: Key/value tags applied to the resource. Use them to organize
+            resources and to satisfy tag policies.
+          items:
+            $ref: "#/components/schemas/Tag"
+          title: Tags
+          type: array
+          default: null
+      required:
+      - id
+      - name
+      - owner
+    GetMonitorFolderResponse:
+      example:
+        requestId: requestId
+        data:
+          id: 123-456-abc
+          name: Platform
+          owner: team-123-abc
+          tags:
+          - key: team
+            value: platform
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/MonitorFolder"
+      required:
+      - data
+      - requestId
+    CreateMonitorFolderResponse:
+      example:
+        requestId: requestId
+        data:
+          id: 123-456-abc
+          name: Platform
+          owner: team-123-abc
+          tags:
+          - key: team
+            value: platform
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/MonitorFolder"
+      required:
+      - data
+      - requestId
+    UpdateMonitorFolderResponse:
+      example:
+        requestId: requestId
+        data:
+          id: 123-456-abc
+          name: Platform
+          owner: team-123-abc
+          tags:
+          - key: team
+            value: platform
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/MonitorFolder"
+      required:
+      - data
+      - requestId
+    DeleteMonitorFolderResponse:
+      example:
+        requestId: requestId
+        data:
+          success: true
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/DeleteResponse"
+      required:
+      - data
+      - requestId
     Monitor:
       description: "Saved alert definition that evaluates telemetry and creates alert\
         \ transitions. Notification delivery is configured separately with notification\
@@ -3346,6 +3908,7 @@ components:
         priority: 1
         owner: team-123-abc
         dashboardId: 789-abc-def
+        folderId: folder-123-abc
         permissions: all
         clusterIds: []
       properties:
@@ -3395,6 +3958,10 @@ components:
           description: ID of the dashboard linked to this monitor for context when
             investigating alerts. Caller-supplied. Omitted when no dashboard is linked.
           type: string
+        folderId:
+          description: ID of the monitor folder containing this monitor. Omitted for
+            unfiled monitors.
+          type: string
         pauseUntil:
           description: Timestamp until which the monitor is snoozed. Omitted when
             the monitor is not snoozed.
@@ -3441,6 +4008,7 @@ components:
           priority: 1
           owner: team-123-abc
           dashboardId: 789-abc-def
+          folderId: folder-123-abc
           permissions: all
           clusterIds: []
         - id: 123-456-abc
@@ -3466,6 +4034,7 @@ components:
           priority: 1
           owner: team-123-abc
           dashboardId: 789-abc-def
+          folderId: folder-123-abc
           permissions: all
           clusterIds: []
         metadata:
@@ -3513,6 +4082,7 @@ components:
           priority: 1
           owner: team-123-abc
           dashboardId: 789-abc-def
+          folderId: folder-123-abc
           permissions: all
           clusterIds: []
       properties:
@@ -3551,6 +4121,7 @@ components:
           priority: 1
           owner: team-123-abc
           dashboardId: 789-abc-def
+          folderId: folder-123-abc
           permissions: all
           clusterIds: []
       properties:
@@ -3589,6 +4160,7 @@ components:
           priority: 1
           owner: team-123-abc
           dashboardId: 789-abc-def
+          folderId: folder-123-abc
           permissions: all
           clusterIds: []
       properties:
@@ -11655,6 +12227,197 @@ components:
           $ref: "#/components/schemas/updateDashboardGraph_request_visualization"
         layout:
           $ref: "#/components/schemas/updateDashboardGraph_request_layout"
+    queryMonitorFolders_request_filters_owners:
+      description: Restrict results to monitor folders owned by any of these team
+        IDs
+      properties:
+        values:
+          description: "Values compared by this filter. When `exclude` is omitted\
+            \ or false, rows matching any value are kept; when `exclude` is true,\
+            \ matching rows are removed."
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 50
+          type: array
+          default: null
+        exclude:
+          description: "If true, exclude rows matching these values instead of including\
+            \ them"
+          type: boolean
+      required:
+      - values
+    queryMonitorFolders_request_filters_searchQuery:
+      description: "Text filter for monitor folder names or IDs. Optional; `exclude:\
+        \ true` returns folders whose name and ID do not match the substring."
+      properties:
+        value:
+          description: Substring matched case-insensitively against monitor folder
+            names or folder IDs. Omit the whole `searchQuery` filter to skip text
+            filtering.
+          maxLength: 250
+          minLength: 1
+          type: string
+        exclude:
+          description: "If true, exclude monitor folders matching this value instead\
+            \ of including them"
+          type: boolean
+      required:
+      - value
+    queryMonitorFolders_request_filters_tags:
+      description: Restrict results to monitor folders that have at least one of the
+        listed key/value tags
+      properties:
+        values:
+          description: "Values compared by this filter. When `exclude` is omitted\
+            \ or false, rows matching any value are kept; when `exclude` is true,\
+            \ matching rows are removed."
+          items:
+            $ref: "#/components/schemas/InputTag"
+          maxItems: 50
+          type: array
+          default: null
+        exclude:
+          description: "If true, exclude rows matching these values instead of including\
+            \ them"
+          type: boolean
+      required:
+      - values
+    queryMonitorFolders_request_filters:
+      properties:
+        owners:
+          $ref: "#/components/schemas/queryMonitorFolders_request_filters_owners"
+        searchQuery:
+          $ref: "#/components/schemas/queryMonitorFolders_request_filters_searchQuery"
+        tags:
+          $ref: "#/components/schemas/queryMonitorFolders_request_filters_tags"
+        parentFolderId:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+    queryMonitorFolders_request_sort:
+      description: Optional sorting applied to the returned monitor folders
+      properties:
+        by:
+          description: "Field to sort the returned monitor folders by: `owner` sorts\
+            \ by owning team name, `tags` sorts by tag key/value pairs, `monitorCount`\
+            \ sorts by the number of readable monitors directly in the folder, `updatedAt`\
+            \ sorts by last-updated timestamp, and `name` sorts alphabetically by\
+            \ folder name."
+          enum:
+          - owner
+          - tags
+          - monitorCount
+          - updatedAt
+          - name
+          type: string
+        direction:
+          description: "Sort direction: ascending or descending."
+          enum:
+          - asc
+          - desc
+          type: string
+      required:
+      - by
+      - direction
+    queryMonitorFolders_request:
+      description: "Monitor folder query request. Use filters, sorting, limit, and\
+        \ offset to page through visible monitor folders."
+      properties:
+        limit:
+          default: 100
+          description: Maximum number of items to return in this page. Omit to use
+            the public API default of 100.
+          maximum: 1000
+          minimum: 1
+          type: integer
+        offset:
+          description: "Zero-based index of the first matching item to return. Increase\
+            \ it with `limit` to request later pages. If `limit` is provided without\
+            \ `offset`, the offset defaults to 0."
+          minimum: 0
+          type: integer
+        filters:
+          $ref: "#/components/schemas/queryMonitorFolders_request_filters"
+        sort:
+          $ref: "#/components/schemas/queryMonitorFolders_request_sort"
+    updateMonitorFolder_request:
+      description: "Monitor folder create or update request. Provide a name, owner\
+        \ team, optional parent folder, and optional tags."
+      properties:
+        name:
+          description: Display name of the monitor folder.
+          maxLength: 250
+          minLength: 1
+          type: string
+        owner:
+          description: ID of the team that owns the monitor folder and controls folder
+            access.
+          maxLength: 250
+          minLength: 1
+          type: string
+        parentFolderId:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        tags:
+          description: Key/value tags to apply to the resource. Tag policies may require
+            specific keys or values.
+          items:
+            $ref: "#/components/schemas/InputTag"
+          maxItems: 50
+          title: InputTags
+          type: array
+          default: null
+      required:
+      - name
+      - owner
+    createMonitorFolder_request:
+      description: "Monitor folder create or update request. Provide a name, owner\
+        \ team, optional parent folder, and optional tags."
+      properties:
+        name:
+          description: Display name of the monitor folder.
+          maxLength: 250
+          minLength: 1
+          type: string
+        owner:
+          description: ID of the team that owns the monitor folder and controls folder
+            access.
+          maxLength: 250
+          minLength: 1
+          type: string
+        parentFolderId:
+          description: ID of the top-level folder to nest this folder under. Omit
+            on create or pass null to create a top-level folder; omit on update to
+            keep the current parent; pass null on update to move the folder to top
+            level. Non-null values must name a readable top-level folder. Folders
+            can be nested at most two levels deep.
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        tags:
+          description: Key/value tags to apply to the resource. Tag policies may require
+            specific keys or values.
+          items:
+            $ref: "#/components/schemas/InputTag"
+          maxItems: 50
+          title: InputTags
+          type: array
+          default: null
+      required:
+      - name
+      - owner
     queryMonitors_request_filters_owners:
       description: Restrict results to monitors owned by any of these team IDs
       properties:
@@ -11800,6 +12563,14 @@ components:
           type: string
         clusterIds:
           $ref: "#/components/schemas/queryMonitors_request_filters_clusterIds"
+        folderId:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
     queryMonitors_request_sort:
       description: Optional sorting applied to the returned monitors. Ties are broken
         by creation time and monitor ID for stable pagination.
@@ -11876,9 +12647,9 @@ components:
       - type
     updateMonitor_request:
       description: "Monitor update request. Required fields and the submitted configuration\
-        \ are overwritten; omitted `message`, `tags`, `clusterIds`, and `pauseUntil`\
-        \ keep their existing values. Omitting `dashboardId` clears the dashboard\
-        \ link."
+        \ are overwritten; omitted `message`, `tags`, `clusterIds`, `pauseUntil`,\
+        \ and `folderId` keep their existing values. Omitting `dashboardId` clears\
+        \ the dashboard link."
       properties:
         name:
           description: Display name of the monitor and alert source.
@@ -11918,6 +12689,14 @@ components:
           minLength: 1
           type: string
         dashboardId:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        folderId:
           description: "Folder filter for dashboard query results. Optional; pass\
             \ a folder ID to return dashboards in that folder, or null to return only\
             \ dashboards that are not in any folder."
@@ -12007,6 +12786,15 @@ components:
             \ investigating alerts. On create: omit or send `null` to leave the monitor\
             \ unlinked. On update: omit to skip updating this field, send `null` to\
             \ clear an existing link."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        folderId:
+          description: "Folder to organize this monitor in. Omit on create or send\
+            \ null to leave it unfiled; omit on update to keep its folder, or send\
+            \ null to remove it. A non-null ID must name a readable monitor folder.\
+            \ Assignment does not change ownership, data access, or evaluation state."
           maxLength: 250
           minLength: 1
           nullable: true

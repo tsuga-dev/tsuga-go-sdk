@@ -1,6 +1,7 @@
 .gitignore
 api/openapi.yaml
 api_dashboards.go
+api_monitor_folders.go
 api_monitors.go
 api_notification_rules.go
 api_slos.go
@@ -27,6 +28,8 @@ docs/ClientErrorResponseDetails.md
 docs/ConditionalFormatting.md
 docs/CreateDashboardRequest.md
 docs/CreateDashboardResponse.md
+docs/CreateMonitorFolderRequest.md
+docs/CreateMonitorFolderResponse.md
 docs/CreateMonitorRequest.md
 docs/CreateMonitorResponse.md
 docs/CreateNotificationRuleRequest.md
@@ -58,6 +61,7 @@ docs/DataNormalizerNone.md
 docs/DataNormalizerPercent.md
 docs/DataNormalizerPercentFraction.md
 docs/DeleteDashboardResponse.md
+docs/DeleteMonitorFolderResponse.md
 docs/DeleteMonitorResponse.md
 docs/DeleteNotificationRuleResponse.md
 docs/DeleteResponse.md
@@ -79,6 +83,7 @@ docs/FunctionSqrt.md
 docs/FunctionTimeOffset.md
 docs/GaugeColorThreshold.md
 docs/GetDashboardResponse.md
+docs/GetMonitorFolderResponse.md
 docs/GetMonitorResponse.md
 docs/GetNotificationRuleResponse.md
 docs/GetSloResponse.md
@@ -250,6 +255,9 @@ docs/MonitorConfigurationMetric.md
 docs/MonitorConfigurationMetricConditionsInner.md
 docs/MonitorConfigurationMetricGroupByFieldsInner.md
 docs/MonitorConfigurationTrace.md
+docs/MonitorFolder.md
+docs/MonitorFolderWithMonitorCount.md
+docs/MonitorFoldersAPI.md
 docs/MonitorsAPI.md
 docs/Normalizer.md
 docs/NotificationRulesAPI.md
@@ -260,6 +268,13 @@ docs/QueryDashboardsRequestFiltersSearchQuery.md
 docs/QueryDashboardsRequestFiltersTags.md
 docs/QueryDashboardsRequestSort.md
 docs/QueryDashboardsResponse.md
+docs/QueryMonitorFoldersRequest.md
+docs/QueryMonitorFoldersRequestFilters.md
+docs/QueryMonitorFoldersRequestFiltersOwners.md
+docs/QueryMonitorFoldersRequestFiltersSearchQuery.md
+docs/QueryMonitorFoldersRequestFiltersTags.md
+docs/QueryMonitorFoldersRequestSort.md
+docs/QueryMonitorFoldersResponse.md
 docs/QueryMonitorsRequest.md
 docs/QueryMonitorsRequestFilters.md
 docs/QueryMonitorsRequestFiltersClusterIds.md
@@ -343,6 +358,8 @@ docs/UpdateDashboardGraphResponse.md
 docs/UpdateDashboardRequest.md
 docs/UpdateDashboardRequestFiltersInner.md
 docs/UpdateDashboardResponse.md
+docs/UpdateMonitorFolderRequest.md
+docs/UpdateMonitorFolderResponse.md
 docs/UpdateMonitorRequest.md
 docs/UpdateMonitorRequestConfiguration.md
 docs/UpdateMonitorResponse.md
@@ -379,6 +396,8 @@ model_client_error_response_details.go
 model_conditional_formatting.go
 model_create_dashboard_request.go
 model_create_dashboard_response.go
+model_create_monitor_folder_request.go
+model_create_monitor_folder_response.go
 model_create_monitor_request.go
 model_create_monitor_response.go
 model_create_notification_rule_request.go
@@ -409,6 +428,7 @@ model_data_normalizer_none.go
 model_data_normalizer_percent.go
 model_data_normalizer_percent_fraction.go
 model_delete_dashboard_response.go
+model_delete_monitor_folder_response.go
 model_delete_monitor_response.go
 model_delete_notification_rule_response.go
 model_delete_response.go
@@ -430,6 +450,7 @@ model_function_sqrt.go
 model_function_time_offset.go
 model_gauge_color_threshold.go
 model_get_dashboard_response.go
+model_get_monitor_folder_response.go
 model_get_monitor_response.go
 model_get_notification_rule_response.go
 model_get_slo_response.go
@@ -601,6 +622,8 @@ model_monitor_configuration_metric.go
 model_monitor_configuration_metric_conditions_inner.go
 model_monitor_configuration_metric_group_by_fields_inner.go
 model_monitor_configuration_trace.go
+model_monitor_folder.go
+model_monitor_folder_with_monitor_count.go
 model_normalizer.go
 model_query_dashboards_request.go
 model_query_dashboards_request_filters.go
@@ -609,6 +632,13 @@ model_query_dashboards_request_filters_search_query.go
 model_query_dashboards_request_filters_tags.go
 model_query_dashboards_request_sort.go
 model_query_dashboards_response.go
+model_query_monitor_folders_request.go
+model_query_monitor_folders_request_filters.go
+model_query_monitor_folders_request_filters_owners.go
+model_query_monitor_folders_request_filters_search_query.go
+model_query_monitor_folders_request_filters_tags.go
+model_query_monitor_folders_request_sort.go
+model_query_monitor_folders_response.go
 model_query_monitors_request.go
 model_query_monitors_request_filters.go
 model_query_monitors_request_filters_cluster_ids.go
@@ -689,6 +719,8 @@ model_update_dashboard_graph_response.go
 model_update_dashboard_request.go
 model_update_dashboard_request_filters_inner.go
 model_update_dashboard_response.go
+model_update_monitor_folder_request.go
+model_update_monitor_folder_response.go
 model_update_monitor_request.go
 model_update_monitor_request_configuration.go
 model_update_monitor_response.go

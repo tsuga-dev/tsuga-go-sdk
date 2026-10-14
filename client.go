@@ -50,6 +50,8 @@ type APIClient struct {
 
 	DashboardsAPI DashboardsAPI
 
+	MonitorFoldersAPI MonitorFoldersAPI
+
 	MonitorsAPI MonitorsAPI
 
 	NotificationRulesAPI NotificationRulesAPI
@@ -78,6 +80,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 
 	// API Services
 	c.DashboardsAPI = (*DashboardsAPIService)(&c.common)
+	c.MonitorFoldersAPI = (*MonitorFoldersAPIService)(&c.common)
 	c.MonitorsAPI = (*MonitorsAPIService)(&c.common)
 	c.NotificationRulesAPI = (*NotificationRulesAPIService)(&c.common)
 	c.SlosAPI = (*SlosAPIService)(&c.common)

@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Priority** | **float32** | Monitor priority from 1 through 5, where 1 is highest priority. | 
 **Permissions** | **string** | &#x60;all&#x60; allows the resource to query all permitted telemetry, &#x60;owning-team-and-public&#x60; limits it to the owning team plus public data, and &#x60;owning-team-only&#x60; limits it to the owning team. | 
 **DashboardId** | Pointer to **string** | ID of the dashboard linked to this monitor for context when investigating alerts. Caller-supplied. Omitted when no dashboard is linked. | [optional] 
+**FolderId** | Pointer to **string** | ID of the monitor folder containing this monitor. Omitted for unfiled monitors. | [optional] 
 **PauseUntil** | Pointer to **string** | Timestamp until which the monitor is snoozed. Omitted when the monitor is not snoozed. | [optional] 
 **ClusterIds** | **[]string** | Cluster IDs where the monitor is deployed. Empty means all eligible clusters. | 
 
@@ -229,6 +230,31 @@ SetDashboardId sets DashboardId field to given value.
 `func (o *Monitor) HasDashboardId() bool`
 
 HasDashboardId returns a boolean if a field has been set.
+
+### GetFolderId
+
+`func (o *Monitor) GetFolderId() string`
+
+GetFolderId returns the FolderId field if non-nil, zero value otherwise.
+
+### GetFolderIdOk
+
+`func (o *Monitor) GetFolderIdOk() (*string, bool)`
+
+GetFolderIdOk returns a tuple with the FolderId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFolderId
+
+`func (o *Monitor) SetFolderId(v string)`
+
+SetFolderId sets FolderId field to given value.
+
+### HasFolderId
+
+`func (o *Monitor) HasFolderId() bool`
+
+HasFolderId returns a boolean if a field has been set.
 
 ### GetPauseUntil
 

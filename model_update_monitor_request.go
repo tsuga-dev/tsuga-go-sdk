@@ -19,7 +19,7 @@ import (
 // checks if the UpdateMonitorRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &UpdateMonitorRequest{}
 
-// UpdateMonitorRequest Monitor update request. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, `clusterIds`, and `pauseUntil` keep their existing values. Omitting `dashboardId` clears the dashboard link.
+// UpdateMonitorRequest Monitor update request. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, `clusterIds`, `pauseUntil`, and `folderId` keep their existing values. Omitting `dashboardId` clears the dashboard link.
 type UpdateMonitorRequest struct {
 	// Display name of the monitor and alert source.
 	Name string `json:"name"`
@@ -34,6 +34,8 @@ type UpdateMonitorRequest struct {
 	Owner string `json:"owner"`
 	// Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder.
 	DashboardId NullableString `json:"dashboardId,omitempty"`
+	// Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder.
+	FolderId NullableString `json:"folderId,omitempty"`
 	// ISO timestamp until which the monitor is snoozed. Must be in the future and at most one month from now. On create: omit or send `null` to leave the monitor active. On update: omit to keep the current snooze, send `null` to clear it.
 	PauseUntil NullableTime `json:"pauseUntil,omitempty"`
 	// `all` allows the resource to query all permitted telemetry, `owning-team-and-public` limits it to the owning team plus public data, and `owning-team-only` limits it to the owning team.
@@ -281,6 +283,49 @@ func (o *UpdateMonitorRequest) UnsetDashboardId() {
 	o.DashboardId.Unset()
 }
 
+// GetFolderId returns the FolderId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateMonitorRequest) GetFolderId() string {
+	if o == nil || IsNil(o.FolderId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.FolderId.Get()
+}
+
+// GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateMonitorRequest) GetFolderIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.FolderId.Get(), o.FolderId.IsSet()
+}
+
+// HasFolderId returns a boolean if a field has been set.
+func (o *UpdateMonitorRequest) HasFolderId() bool {
+	if o != nil && o.FolderId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetFolderId gets a reference to the given NullableString and assigns it to the FolderId field.
+func (o *UpdateMonitorRequest) SetFolderId(v string) {
+	o.FolderId.Set(&v)
+}
+
+// SetFolderIdNil sets the value for FolderId to be an explicit nil
+func (o *UpdateMonitorRequest) SetFolderIdNil() {
+	o.FolderId.Set(nil)
+}
+
+// UnsetFolderId ensures that no value is present for FolderId, not even an explicit nil
+func (o *UpdateMonitorRequest) UnsetFolderId() {
+	o.FolderId.Unset()
+}
+
 // GetPauseUntil returns the PauseUntil field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateMonitorRequest) GetPauseUntil() time.Time {
 	if o == nil || IsNil(o.PauseUntil.Get()) {
@@ -403,6 +448,9 @@ func (o UpdateMonitorRequest) ToMap() (map[string]interface{}, error) {
 	if o.DashboardId.IsSet() {
 		toSerialize["dashboardId"] = o.DashboardId.Get()
 	}
+	if o.FolderId.IsSet() {
+		toSerialize["folderId"] = o.FolderId.Get()
+	}
 	if o.PauseUntil.IsSet() {
 		toSerialize["pauseUntil"] = o.PauseUntil.Get()
 	}
@@ -464,6 +512,7 @@ func (o *UpdateMonitorRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "priority")
 		delete(additionalProperties, "owner")
 		delete(additionalProperties, "dashboardId")
+		delete(additionalProperties, "folderId")
 		delete(additionalProperties, "pauseUntil")
 		delete(additionalProperties, "permissions")
 		delete(additionalProperties, "clusterIds")

@@ -34,6 +34,8 @@ type CreateMonitorRequest struct {
 	Owner string `json:"owner"`
 	// ID of the dashboard to link to this monitor for context when investigating alerts. On create: omit or send `null` to leave the monitor unlinked. On update: omit to skip updating this field, send `null` to clear an existing link.
 	DashboardId NullableString `json:"dashboardId,omitempty"`
+	// Folder to organize this monitor in. Omit on create or send null to leave it unfiled; omit on update to keep its folder, or send null to remove it. A non-null ID must name a readable monitor folder. Assignment does not change ownership, data access, or evaluation state.
+	FolderId NullableString `json:"folderId,omitempty"`
 	// ISO timestamp until which the monitor is snoozed. Must be in the future and at most one month from now. On create: omit or send `null` to leave the monitor active. On update: omit to keep the current snooze, send `null` to clear it.
 	PauseUntil NullableTime `json:"pauseUntil,omitempty"`
 	// `all` allows the resource to query all permitted telemetry, `owning-team-and-public` limits it to the owning team plus public data, and `owning-team-only` limits it to the owning team.
@@ -281,6 +283,49 @@ func (o *CreateMonitorRequest) UnsetDashboardId() {
 	o.DashboardId.Unset()
 }
 
+// GetFolderId returns the FolderId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateMonitorRequest) GetFolderId() string {
+	if o == nil || IsNil(o.FolderId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.FolderId.Get()
+}
+
+// GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateMonitorRequest) GetFolderIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.FolderId.Get(), o.FolderId.IsSet()
+}
+
+// HasFolderId returns a boolean if a field has been set.
+func (o *CreateMonitorRequest) HasFolderId() bool {
+	if o != nil && o.FolderId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetFolderId gets a reference to the given NullableString and assigns it to the FolderId field.
+func (o *CreateMonitorRequest) SetFolderId(v string) {
+	o.FolderId.Set(&v)
+}
+
+// SetFolderIdNil sets the value for FolderId to be an explicit nil
+func (o *CreateMonitorRequest) SetFolderIdNil() {
+	o.FolderId.Set(nil)
+}
+
+// UnsetFolderId ensures that no value is present for FolderId, not even an explicit nil
+func (o *CreateMonitorRequest) UnsetFolderId() {
+	o.FolderId.Unset()
+}
+
 // GetPauseUntil returns the PauseUntil field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateMonitorRequest) GetPauseUntil() time.Time {
 	if o == nil || IsNil(o.PauseUntil.Get()) {
@@ -403,6 +448,9 @@ func (o CreateMonitorRequest) ToMap() (map[string]interface{}, error) {
 	if o.DashboardId.IsSet() {
 		toSerialize["dashboardId"] = o.DashboardId.Get()
 	}
+	if o.FolderId.IsSet() {
+		toSerialize["folderId"] = o.FolderId.Get()
+	}
 	if o.PauseUntil.IsSet() {
 		toSerialize["pauseUntil"] = o.PauseUntil.Get()
 	}
@@ -464,6 +512,7 @@ func (o *CreateMonitorRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "priority")
 		delete(additionalProperties, "owner")
 		delete(additionalProperties, "dashboardId")
+		delete(additionalProperties, "folderId")
 		delete(additionalProperties, "pauseUntil")
 		delete(additionalProperties, "permissions")
 		delete(additionalProperties, "clusterIds")
