@@ -48,6 +48,8 @@ type APIClient struct {
 
 	// API Services
 
+	AdaptiveNotificationRulesAPI AdaptiveNotificationRulesAPI
+
 	DashboardsAPI DashboardsAPI
 
 	MonitorFoldersAPI MonitorFoldersAPI
@@ -79,6 +81,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
+	c.AdaptiveNotificationRulesAPI = (*AdaptiveNotificationRulesAPIService)(&c.common)
 	c.DashboardsAPI = (*DashboardsAPIService)(&c.common)
 	c.MonitorFoldersAPI = (*MonitorFoldersAPIService)(&c.common)
 	c.MonitorsAPI = (*MonitorsAPIService)(&c.common)

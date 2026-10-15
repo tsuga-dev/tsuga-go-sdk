@@ -1,5 +1,6 @@
 .gitignore
 api/openapi.yaml
+api_adaptive_notification_rules.go
 api_dashboards.go
 api_monitor_folders.go
 api_monitors.go
@@ -9,6 +10,8 @@ api_tag_policies.go
 api_teams.go
 client.go
 configuration.go
+docs/AdaptiveNotificationRulesAPI.md
+docs/AdaptiveRule.md
 docs/Aggregate.md
 docs/AggregateAverage.md
 docs/AggregateCount.md
@@ -26,6 +29,8 @@ docs/ClientErrorEnvelope.md
 docs/ClientErrorResponse.md
 docs/ClientErrorResponseDetails.md
 docs/ConditionalFormatting.md
+docs/CreateAdaptiveNotificationRuleRequest.md
+docs/CreateAdaptiveNotificationRuleResponse.md
 docs/CreateDashboardRequest.md
 docs/CreateDashboardResponse.md
 docs/CreateMonitorFolderRequest.md
@@ -60,6 +65,7 @@ docs/DataNormalizerLevel.md
 docs/DataNormalizerNone.md
 docs/DataNormalizerPercent.md
 docs/DataNormalizerPercentFraction.md
+docs/DeleteAdaptiveNotificationRuleResponse.md
 docs/DeleteDashboardResponse.md
 docs/DeleteMonitorFolderResponse.md
 docs/DeleteMonitorResponse.md
@@ -82,6 +88,7 @@ docs/FunctionRolling.md
 docs/FunctionSqrt.md
 docs/FunctionTimeOffset.md
 docs/GaugeColorThreshold.md
+docs/GetAdaptiveNotificationRuleResponse.md
 docs/GetDashboardResponse.md
 docs/GetMonitorFolderResponse.md
 docs/GetMonitorResponse.md
@@ -232,6 +239,7 @@ docs/InputThresholdMarker.md
 docs/InputTimeSliceSloConfiguration.md
 docs/InputTsugaAssetTagPolicy.md
 docs/InputWidgetListColumn.md
+docs/ListAdaptiveNotificationRulesResponse.md
 docs/ListDefaultSorting.md
 docs/ListNotificationRulesResponse.md
 docs/ListTagPoliciesResponse.md
@@ -351,6 +359,8 @@ docs/ThresholdMarker.md
 docs/TimeSliceSloConfiguration.md
 docs/TimeSliceSloConfigurationThreshold.md
 docs/TsugaAssetTagPolicy.md
+docs/UpdateAdaptiveNotificationRuleRequest.md
+docs/UpdateAdaptiveNotificationRuleResponse.md
 docs/UpdateDashboardGraphRequest.md
 docs/UpdateDashboardGraphRequestLayout.md
 docs/UpdateDashboardGraphRequestVisualization.md
@@ -377,6 +387,7 @@ docs/UpdateTeamResponse.md
 docs/WidgetListColumn.md
 go.mod
 go.sum
+model_adaptive_rule.go
 model_aggregate.go
 model_aggregate_average.go
 model_aggregate_count.go
@@ -394,6 +405,8 @@ model_client_error_envelope.go
 model_client_error_response.go
 model_client_error_response_details.go
 model_conditional_formatting.go
+model_create_adaptive_notification_rule_request.go
+model_create_adaptive_notification_rule_response.go
 model_create_dashboard_request.go
 model_create_dashboard_response.go
 model_create_monitor_folder_request.go
@@ -427,6 +440,7 @@ model_data_normalizer_level.go
 model_data_normalizer_none.go
 model_data_normalizer_percent.go
 model_data_normalizer_percent_fraction.go
+model_delete_adaptive_notification_rule_response.go
 model_delete_dashboard_response.go
 model_delete_monitor_folder_response.go
 model_delete_monitor_response.go
@@ -449,6 +463,7 @@ model_function_rolling.go
 model_function_sqrt.go
 model_function_time_offset.go
 model_gauge_color_threshold.go
+model_get_adaptive_notification_rule_response.go
 model_get_dashboard_response.go
 model_get_monitor_folder_response.go
 model_get_monitor_response.go
@@ -599,6 +614,7 @@ model_input_threshold_marker.go
 model_input_time_slice_slo_configuration.go
 model_input_tsuga_asset_tag_policy.go
 model_input_widget_list_column.go
+model_list_adaptive_notification_rules_response.go
 model_list_default_sorting.go
 model_list_notification_rules_response.go
 model_list_tag_policies_response.go
@@ -712,6 +728,8 @@ model_threshold_marker.go
 model_time_slice_slo_configuration.go
 model_time_slice_slo_configuration_threshold.go
 model_tsuga_asset_tag_policy.go
+model_update_adaptive_notification_rule_request.go
+model_update_adaptive_notification_rule_response.go
 model_update_dashboard_graph_request.go
 model_update_dashboard_graph_request_layout.go
 model_update_dashboard_graph_request_visualization.go

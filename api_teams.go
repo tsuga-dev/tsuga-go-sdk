@@ -82,7 +82,7 @@ type TeamsAPI interface {
 	/*
 		UpdateTeam Method for UpdateTeam
 
-		Replaces a team definition by ID, including name, description, visibility, and tags.
+		Replaces a team definition by ID, including description, visibility, and tags. The name cannot be changed and must match the current one.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Identifier of the team to update. Use the `id` returned by team list, get, or create responses.
@@ -658,7 +658,7 @@ func (r TeamsAPIUpdateTeamRequest) Execute() (*UpdateTeamResponse, *http.Respons
 /*
 UpdateTeam Method for UpdateTeam
 
-Replaces a team definition by ID, including name, description, visibility, and tags.
+Replaces a team definition by ID, including description, visibility, and tags. The name cannot be changed and must match the current one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Identifier of the team to update. Use the `id` returned by team list, get, or create responses.

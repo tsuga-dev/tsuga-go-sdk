@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `AdaptiveNotificationRulesAPI`: new API for adaptive notification rules. On update, leave `MonitorIds` or `SloIds` unset to keep the current list, or send an empty list to clear it.
+
 ## [1.11.0] - 2026-10-15
 
 ### Added

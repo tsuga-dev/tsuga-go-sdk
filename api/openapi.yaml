@@ -81,9 +81,17 @@ tags:
 - description: "Operations for notification routing rules. Use these endpoints to\
     \ match alert transitions and send notifications to configured targets. See [Rules](/documentation/alert/notifications/rules)."
   name: notification-rules
+- description: "Operations for adaptive notification rules. Use these endpoints to\
+    \ page the owners of the failing service when selected monitors or SLOs fire.\
+    \ See [Rules](/documentation/alert/notifications/rules)."
+  name: adaptive-notification-rules
 - description: "Operations for notification silences. Use these endpoints to suppress\
     \ matching notification delivery during one-time or recurring windows. See [Silences](/documentation/alert/notifications/silences)."
   name: notification-silences
+- description: "Operations for machine access keys. Use these endpoints to create,\
+    \ list, inspect, update, and delete operation keys used by the API, Terraform,\
+    \ CLI, and MCP. See [API keys](/documentation/account-and-settings/api-keys)."
+  name: operation-api-keys
 - description: "Operations for organization-level settings. Use these endpoints to\
     \ inspect or update account-wide configuration such as allowed email domains.\
     \ See [Domains and email login](/documentation/account-and-settings/authentication/domains-and-email-login)."
@@ -2003,6 +2011,399 @@ paths:
               style: simple
       tags:
       - notification-rules
+  /v1/adaptive-notification-rules:
+    get:
+      description: Lists adaptive notification rules visible to the authenticated
+        operation key. Standard notification rules are listed by the notification
+        rules endpoint. Pagination fields limit the returned page.
+      operationId: listAdaptiveNotificationRules
+      parameters:
+      - description: Maximum number of items to return in this page. Omit to use the
+          public API default of 100.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - description: "Zero-based index of the first matching item to return. Increase\
+          \ it with `limit` to request later pages. If `limit` is provided without\
+          \ `offset`, the offset defaults to 0."
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListAdaptiveNotificationRulesResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - adaptive-notification-rules
+    post:
+      description: "Creates an adaptive notification rule. Only trace monitors, metric\
+        \ monitors over OTel span metrics, and SLOs over traces or OTel span metrics\
+        \ are eligible."
+      operationId: createAdaptiveNotificationRule
+      requestBody:
+        content:
+          application/json:
+            example:
+              name: Checkout latency
+              owner: team-123-abc
+              isActive: true
+              shouldCreateInvestigation: true
+              tags:
+              - key: channel
+                value: alerts
+              monitorIds:
+              - monitor-123-abc
+              sloIds:
+              - slo-456-def
+              fallbackTarget:
+                id: 789-abc-def
+                rateLimit:
+                  maxMessages: 10
+                  minutes: 5
+                config:
+                  type: email
+                  addresses:
+                  - oncall@example.com
+                  renotifyConfig:
+                    mode: each
+                    renotificationStates:
+                    - alert
+                    renotifyIntervalMinutes: 30
+            schema:
+              $ref: "#/components/schemas/createAdaptiveNotificationRule_request"
+        description: "Adaptive notification rule create or update request. Provide\
+          \ the monitors or SLOs the rule reacts to, the owner, the active state,\
+          \ and the fallback target."
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateAdaptiveNotificationRuleResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - adaptive-notification-rules
+  /v1/adaptive-notification-rules/{id}:
+    delete:
+      description: "Deletes an adaptive notification rule by ID. Its monitors and\
+        \ SLOs keep evaluating, but this rule no longer pages anyone."
+      operationId: deleteAdaptiveNotificationRule
+      parameters:
+      - description: "Identifier of the adaptive notification rule to delete. Use\
+          \ the `id` returned by adaptive notification rule list, get, create, or\
+          \ update responses."
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteAdaptiveNotificationRuleResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - adaptive-notification-rules
+    get:
+      description: Retrieves one adaptive notification rule by ID.
+      operationId: getAdaptiveNotificationRule
+      parameters:
+      - description: Identifier of the adaptive notification rule to retrieve. Use
+          the `id` returned by adaptive notification rule list or create responses.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetAdaptiveNotificationRuleResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - adaptive-notification-rules
+    put:
+      description: "Updates an existing adaptive notification rule by ID. Required\
+        \ fields and the fallback target are overwritten; omitted optional fields,\
+        \ including `monitorIds` and `sloIds`, keep their existing values. Send an\
+        \ empty array to clear a list."
+      operationId: updateAdaptiveNotificationRule
+      parameters:
+      - description: "Identifier of the adaptive notification rule to update. Use\
+          \ the `id` returned by adaptive notification rule list, get, or create responses."
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              name: Checkout latency
+              owner: team-123-abc
+              isActive: true
+              shouldCreateInvestigation: true
+              tags:
+              - key: channel
+                value: alerts
+              monitorIds:
+              - monitor-123-abc
+              sloIds:
+              - slo-456-def
+              fallbackTarget:
+                id: 789-abc-def
+                rateLimit:
+                  maxMessages: 10
+                  minutes: 5
+                config:
+                  type: email
+                  addresses:
+                  - oncall@example.com
+                  renotifyConfig:
+                    mode: each
+                    renotificationStates:
+                    - alert
+                    renotifyIntervalMinutes: 30
+            schema:
+              $ref: "#/components/schemas/updateAdaptiveNotificationRule_request"
+        description: "Adaptive notification rule create or update request. Provide\
+          \ the monitors or SLOs the rule reacts to, the owner, the active state,\
+          \ and the fallback target."
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateAdaptiveNotificationRuleResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - adaptive-notification-rules
   /v1/slos/query:
     post:
       description: "Queries SLOs visible to the authenticated operation key. Use this\
@@ -3083,8 +3484,8 @@ paths:
       tags:
       - teams
     put:
-      description: "Replaces a team definition by ID, including name, description,\
-        \ visibility, and tags."
+      description: "Replaces a team definition by ID, including description, visibility,\
+        \ and tags. The name cannot be changed and must match the current one."
       operationId: updateTeam
       parameters:
       - description: "Identifier of the team to update. Use the `id` returned by team\
@@ -4526,6 +4927,294 @@ components:
       - data
       - requestId
     DeleteNotificationRuleResponse:
+      example:
+        requestId: requestId
+        data:
+          success: true
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/DeleteResponse"
+      required:
+      - data
+      - requestId
+    AdaptiveRule:
+      description: "Adaptive notification rule that reacts to selected monitors and\
+        \ SLOs. When one of them fires, Tsuga pages the owners of the failing service\
+        \ it identifies from the sampled traces, and pages the fallback target when\
+        \ no owner can be resolved. See [Rules](/documentation/alert/notifications/rules)."
+      example:
+        id: 123-456-abc
+        name: Checkout latency
+        owner: team-123-abc
+        isActive: true
+        shouldCreateInvestigation: true
+        tags:
+        - key: channel
+          value: alerts
+        monitorIds:
+        - monitor-123-abc
+        sloIds:
+        - slo-456-def
+        fallbackTarget:
+          id: 789-abc-def
+          rateLimit:
+            maxMessages: 10
+            minutes: 5
+          config:
+            type: email
+            addresses:
+            - oncall@example.com
+            renotifyConfig:
+              mode: each
+              renotificationStates:
+              - alert
+              renotifyIntervalMinutes: 30
+      properties:
+        id:
+          description: Unique identifier of the adaptive notification rule. Generated
+            by Tsuga.
+          type: string
+        name:
+          description: Display name of the adaptive notification rule.
+          type: string
+        owner:
+          description: Team ID that owns and manages the rule.
+          type: string
+        isActive:
+          description: Whether the rule currently sends notifications when one of
+            its monitors fires.
+          type: boolean
+        shouldCreateInvestigation:
+          description: "Whether each page records an investigation holding the sampled\
+            \ traces and the call graph the destination was resolved from, linked\
+            \ from the notification body."
+          type: boolean
+        tags:
+          description: Key/value tags applied to the resource. Use them to organize
+            resources and to satisfy tag policies.
+          items:
+            $ref: "#/components/schemas/Tag"
+          title: Tags
+          type: array
+          default: null
+        monitorIds:
+          description: Monitors this rule reacts to.
+          items:
+            type: string
+          type: array
+          default: null
+        sloIds:
+          description: SLOs this rule reacts to.
+          items:
+            type: string
+          type: array
+          default: null
+        fallbackTarget:
+          $ref: "#/components/schemas/Rule_targets_inner"
+      required:
+      - fallbackTarget
+      - id
+      - isActive
+      - monitorIds
+      - name
+      - owner
+      - shouldCreateInvestigation
+      - sloIds
+    ListAdaptiveNotificationRulesResponse:
+      example:
+        requestId: requestId
+        data:
+        - id: 123-456-abc
+          name: Checkout latency
+          owner: team-123-abc
+          isActive: true
+          shouldCreateInvestigation: true
+          tags:
+          - key: channel
+            value: alerts
+          monitorIds:
+          - monitor-123-abc
+          sloIds:
+          - slo-456-def
+          fallbackTarget:
+            id: 789-abc-def
+            rateLimit:
+              maxMessages: 10
+              minutes: 5
+            config:
+              type: email
+              addresses:
+              - oncall@example.com
+              renotifyConfig:
+                mode: each
+                renotificationStates:
+                - alert
+                renotifyIntervalMinutes: 30
+        - id: 123-456-abc
+          name: Checkout latency
+          owner: team-123-abc
+          isActive: true
+          shouldCreateInvestigation: true
+          tags:
+          - key: channel
+            value: alerts
+          monitorIds:
+          - monitor-123-abc
+          sloIds:
+          - slo-456-def
+          fallbackTarget:
+            id: 789-abc-def
+            rateLimit:
+              maxMessages: 10
+              minutes: 5
+            config:
+              type: email
+              addresses:
+              - oncall@example.com
+              renotifyConfig:
+                mode: each
+                renotificationStates:
+                - alert
+                renotifyIntervalMinutes: 30
+        metadata:
+          pagination:
+            totalCount: 0
+            pageCount: 6
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/AdaptiveRule"
+          type: array
+          default: null
+        metadata:
+          $ref: "#/components/schemas/ResponseMetadata"
+      required:
+      - data
+      - requestId
+    GetAdaptiveNotificationRuleResponse:
+      example:
+        requestId: requestId
+        data:
+          id: 123-456-abc
+          name: Checkout latency
+          owner: team-123-abc
+          isActive: true
+          shouldCreateInvestigation: true
+          tags:
+          - key: channel
+            value: alerts
+          monitorIds:
+          - monitor-123-abc
+          sloIds:
+          - slo-456-def
+          fallbackTarget:
+            id: 789-abc-def
+            rateLimit:
+              maxMessages: 10
+              minutes: 5
+            config:
+              type: email
+              addresses:
+              - oncall@example.com
+              renotifyConfig:
+                mode: each
+                renotificationStates:
+                - alert
+                renotifyIntervalMinutes: 30
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/AdaptiveRule"
+      required:
+      - data
+      - requestId
+    CreateAdaptiveNotificationRuleResponse:
+      example:
+        requestId: requestId
+        data:
+          id: 123-456-abc
+          name: Checkout latency
+          owner: team-123-abc
+          isActive: true
+          shouldCreateInvestigation: true
+          tags:
+          - key: channel
+            value: alerts
+          monitorIds:
+          - monitor-123-abc
+          sloIds:
+          - slo-456-def
+          fallbackTarget:
+            id: 789-abc-def
+            rateLimit:
+              maxMessages: 10
+              minutes: 5
+            config:
+              type: email
+              addresses:
+              - oncall@example.com
+              renotifyConfig:
+                mode: each
+                renotificationStates:
+                - alert
+                renotifyIntervalMinutes: 30
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/AdaptiveRule"
+      required:
+      - data
+      - requestId
+    UpdateAdaptiveNotificationRuleResponse:
+      example:
+        requestId: requestId
+        data:
+          id: 123-456-abc
+          name: Checkout latency
+          owner: team-123-abc
+          isActive: true
+          shouldCreateInvestigation: true
+          tags:
+          - key: channel
+            value: alerts
+          monitorIds:
+          - monitor-123-abc
+          sloIds:
+          - slo-456-def
+          fallbackTarget:
+            id: 789-abc-def
+            rateLimit:
+              maxMessages: 10
+              minutes: 5
+            config:
+              type: email
+              addresses:
+              - oncall@example.com
+              renotifyConfig:
+                mode: each
+                renotificationStates:
+                - alert
+                renotifyIntervalMinutes: 30
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/AdaptiveRule"
+      required:
+      - data
+      - requestId
+    DeleteAdaptiveNotificationRuleResponse:
       example:
         requestId: requestId
         data:
@@ -13111,6 +13800,142 @@ components:
       - targets
       - teamsFilter
       - transitionTypesFilter
+    createAdaptiveNotificationRule_request:
+      description: "Adaptive notification rule create or update request. Provide the\
+        \ monitors or SLOs the rule reacts to, the owner, the active state, and the\
+        \ fallback target."
+      properties:
+        name:
+          description: Display name of the adaptive notification rule.
+          maxLength: 250
+          minLength: 0
+          type: string
+        owner:
+          description: Team ID that owns and manages the rule
+          maxLength: 250
+          minLength: 1
+          type: string
+        tags:
+          description: Key/value tags to apply to the resource. Tag policies may require
+            specific keys or values.
+          items:
+            $ref: "#/components/schemas/InputTag"
+          maxItems: 50
+          title: InputTags
+          type: array
+          default: null
+        isActive:
+          description: Set to true for the rule to send notifications when one of
+            its monitors fires.
+          type: boolean
+        shouldCreateInvestigation:
+          description: "Set to true to record an investigation for each page, holding\
+            \ the sampled traces and the call graph the destination was resolved from,\
+            \ and to link it from the notification body. Defaults to false."
+          type: boolean
+        monitorIds:
+          description: "Monitors this rule reacts to. Only trace monitors and metric\
+            \ monitors over OTel span metrics are eligible. On update, omitting this\
+            \ field keeps the current monitors; send an empty array to remove them.\
+            \ Send at least one monitor or SLO."
+          items:
+            description: "Folder filter for dashboard query results. Optional; pass\
+              \ a folder ID to return dashboards in that folder, or null to return\
+              \ only dashboards that are not in any folder."
+            maxLength: 250
+            minLength: 1
+            nullable: true
+            type: string
+          maxItems: 100
+          type: array
+          default: null
+        sloIds:
+          description: "SLOs this rule reacts to. Only SLOs over traces or OTel span\
+            \ metrics are eligible. On update, omitting this field keeps the current\
+            \ SLOs; send an empty array to remove them. Send at least one monitor\
+            \ or SLO."
+          items:
+            description: "Folder filter for dashboard query results. Optional; pass\
+              \ a folder ID to return dashboards in that folder, or null to return\
+              \ only dashboards that are not in any folder."
+            maxLength: 250
+            minLength: 1
+            nullable: true
+            type: string
+          maxItems: 100
+          type: array
+          default: null
+        fallbackTarget:
+          $ref: "#/components/schemas/createNotificationRule_request_targets_inner"
+      required:
+      - fallbackTarget
+      - isActive
+      - name
+      - owner
+    updateAdaptiveNotificationRule_request:
+      description: "Adaptive notification rule create or update request. Provide the\
+        \ monitors or SLOs the rule reacts to, the owner, the active state, and the\
+        \ fallback target."
+      properties:
+        name:
+          description: Display name of the adaptive notification rule.
+          maxLength: 250
+          minLength: 0
+          type: string
+        owner:
+          description: Team ID that owns and manages the rule
+          maxLength: 250
+          minLength: 1
+          type: string
+        tags:
+          description: Key/value tags to apply to the resource. Tag policies may require
+            specific keys or values.
+          items:
+            $ref: "#/components/schemas/InputTag"
+          maxItems: 50
+          title: InputTags
+          type: array
+          default: null
+        isActive:
+          description: Set to true for the rule to send notifications when one of
+            its monitors fires.
+          type: boolean
+        shouldCreateInvestigation:
+          description: "Set to true to record an investigation for each page, holding\
+            \ the sampled traces and the call graph the destination was resolved from,\
+            \ and to link it from the notification body. Defaults to false."
+          type: boolean
+        monitorIds:
+          description: "Monitors this rule reacts to. Only trace monitors and metric\
+            \ monitors over OTel span metrics are eligible. On update, omitting this\
+            \ field keeps the current monitors; send an empty array to remove them.\
+            \ Send at least one monitor or SLO."
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 100
+          type: array
+          default: null
+        sloIds:
+          description: "SLOs this rule reacts to. Only SLOs over traces or OTel span\
+            \ metrics are eligible. On update, omitting this field keeps the current\
+            \ SLOs; send an empty array to remove them. Send at least one monitor\
+            \ or SLO."
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 100
+          type: array
+          default: null
+        fallbackTarget:
+          $ref: "#/components/schemas/createNotificationRule_request_targets_inner"
+      required:
+      - fallbackTarget
+      - isActive
+      - name
+      - owner
     querySlos_request_filters_owners:
       description: Restrict results to SLOs owned by any of these team IDs
       properties:
