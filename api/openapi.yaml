@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 1.0.0
+  version: 20261014.20.0+ce244f5
 servers:
 - url: https://api.tsuga.com
 security:
@@ -115,6 +115,9 @@ tags:
 - description: "Operations for services inferred from telemetry. Use these endpoints\
     \ to inspect service metadata, activity, and dependency graphs. See [Services](/documentation/categorize/services/index)."
   name: services
+- description: "Operations for short links copied from the Logs and Traces pages.\
+    \ Use these endpoints to resolve a short link to the app URL it opens. See [Logs](/documentation/explore/logs#share-the-current-search)."
+  name: short-urls
 - description: "Operations for tag policies applied to Tsuga-managed assets or telemetry\
     \ data. Use these endpoints to configure required tags and allowed values. See\
     \ [Tag policies](/documentation/account-and-settings/tag-policies)."
@@ -131,6 +134,10 @@ tags:
 - description: "Operations for organization users. Use these endpoints to list users\
     \ and resolve user IDs, roles, and display metadata. See [Members](/documentation/account-and-settings/members)."
   name: users
+- description: "Operations for widget share links created from Analytics or a dashboard\
+    \ widget. Use these endpoints to read the query a share link renders. See [Share\
+    \ links](/documentation/visualize/analytics/index#share-links)."
+  name: widget-shares
 paths:
   /v1/dashboards/query:
     post:
@@ -12544,6 +12551,14 @@ components:
       - values
     queryMonitors_request_filters:
       properties:
+        folderId:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
         owners:
           $ref: "#/components/schemas/queryMonitors_request_filters_owners"
         searchQuery:
@@ -12563,14 +12578,6 @@ components:
           type: string
         clusterIds:
           $ref: "#/components/schemas/queryMonitors_request_filters_clusterIds"
-        folderId:
-          description: "Folder filter for dashboard query results. Optional; pass\
-            \ a folder ID to return dashboards in that folder, or null to return only\
-            \ dashboards that are not in any folder."
-          maxLength: 250
-          minLength: 1
-          nullable: true
-          type: string
     queryMonitors_request_sort:
       description: Optional sorting applied to the returned monitors. Ties are broken
         by creation time and monitor ID for stable pagination.
