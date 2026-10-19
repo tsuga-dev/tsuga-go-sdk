@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Display name of the monitor folder. | 
 **Owner** | **string** | ID of the team that owns the monitor folder and controls folder access. | 
-**ParentFolderId** | Pointer to **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
+**ParentFolderId** | Pointer to **NullableString** | ID of the top-level folder to nest this folder under. Omit on create or pass null to create a top-level folder; omit on update to keep the current parent; pass null on update to move the folder to top level. Non-null values must name a readable top-level folder. Folders can be nested at most two levels deep. | [optional] 
 **Tags** | Pointer to [**[]InputTag**](InputTag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 
 ## Methods

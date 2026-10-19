@@ -22,7 +22,7 @@ var _ MappedNullable = &UpdateSloRequest{}
 type UpdateSloRequest struct {
 	// Display name of the SLO.
 	Name string `json:"name"`
-	// Free-form, caller-provided description of what the SLO measures. Optional.
+	// Message included in notifications triggered by this monitor. Optional on create.
 	Description NullableString `json:"description,omitempty"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
 	Tags          []InputTag                    `json:"tags,omitempty"`

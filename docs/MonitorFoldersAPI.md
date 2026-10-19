@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateMonitorFolder
 
-> CreateMonitorFolderResponse CreateMonitorFolder(ctx).CreateMonitorFolderRequest(createMonitorFolderRequest).Execute()
+> CreateMonitorFolderResponse CreateMonitorFolder(ctx).UpdateMonitorFolderRequest(updateMonitorFolderRequest).Execute()
 
 
 
@@ -33,11 +33,11 @@ import (
 )
 
 func main() {
-	createMonitorFolderRequest := *openapiclient.NewCreateMonitorFolderRequest("Name_example", "Owner_example") // CreateMonitorFolderRequest | Monitor folder create or update request. Provide a name, owner team, optional parent folder, and optional tags.
+	updateMonitorFolderRequest := *openapiclient.NewUpdateMonitorFolderRequest("Name_example", "Owner_example") // UpdateMonitorFolderRequest | Monitor folder create or update request. Provide a name, owner team, optional parent folder, and optional tags.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MonitorFoldersAPI.CreateMonitorFolder(context.Background()).CreateMonitorFolderRequest(createMonitorFolderRequest).Execute()
+	resp, r, err := apiClient.MonitorFoldersAPI.CreateMonitorFolder(context.Background()).UpdateMonitorFolderRequest(updateMonitorFolderRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MonitorFoldersAPI.CreateMonitorFolder``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -58,7 +58,7 @@ Other parameters are passed through a pointer to a apiCreateMonitorFolderRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createMonitorFolderRequest** | [**CreateMonitorFolderRequest**](CreateMonitorFolderRequest.md) | Monitor folder create or update request. Provide a name, owner team, optional parent folder, and optional tags. | 
+ **updateMonitorFolderRequest** | [**UpdateMonitorFolderRequest**](UpdateMonitorFolderRequest.md) | Monitor folder create or update request. Provide a name, owner team, optional parent folder, and optional tags. | 
 
 ### Return type
 

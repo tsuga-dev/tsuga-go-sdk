@@ -24,7 +24,7 @@ type UpdateMonitorFolderRequest struct {
 	Name string `json:"name"`
 	// ID of the team that owns the monitor folder and controls folder access.
 	Owner string `json:"owner"`
-	// Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder.
+	// ID of the top-level folder to nest this folder under. Omit on create or pass null to create a top-level folder; omit on update to keep the current parent; pass null on update to move the folder to top level. Non-null values must name a readable top-level folder. Folders can be nested at most two levels deep.
 	ParentFolderId NullableString `json:"parentFolderId,omitempty"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
 	Tags                 []InputTag `json:"tags,omitempty"`

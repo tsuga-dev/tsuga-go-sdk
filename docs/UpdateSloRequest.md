@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Display name of the SLO. | 
-**Description** | Pointer to **NullableString** | Free-form, caller-provided description of what the SLO measures. Optional. | [optional] 
+**Description** | Pointer to **NullableString** | Message included in notifications triggered by this monitor. Optional on create. | [optional] 
 **Tags** | Pointer to [**[]InputTag**](InputTag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **Configuration** | [**UpdateSloRequestConfiguration**](UpdateSloRequestConfiguration.md) |  | 
 **Target** | **float32** | Target percentage (0 &lt; target &lt; 100, e.g. 99.9) | 

@@ -48,19 +48,85 @@ type APIClient struct {
 
 	// API Services
 
+	AlertsAPI AlertsAPI
+
+	AuthenticationAPI AuthenticationAPI
+
+	ClustersAPI ClustersAPI
+
+	CustomUsageTagsAPI CustomUsageTagsAPI
+
+	DashboardFoldersAPI DashboardFoldersAPI
+
 	DashboardsAPI DashboardsAPI
+
+	DocsAPI DocsAPI
+
+	FeedbackAPI FeedbackAPI
+
+	GrokAPI GrokAPI
+
+	IngestionApiKeysAPI IngestionApiKeysAPI
+
+	InterestingFieldsAPI InterestingFieldsAPI
+
+	InventoryAPI InventoryAPI
+
+	InvitationsAPI InvitationsAPI
+
+	KubernetesExplorerAPI KubernetesExplorerAPI
+
+	LogsAPI LogsAPI
+
+	MetricRoutesAPI MetricRoutesAPI
+
+	MetricsAPI MetricsAPI
 
 	MonitorFoldersAPI MonitorFoldersAPI
 
 	MonitorsAPI MonitorsAPI
 
+	NotificationIntegrationsAPI NotificationIntegrationsAPI
+
 	NotificationRulesAPI NotificationRulesAPI
+
+	NotificationSilencesAPI NotificationSilencesAPI
+
+	OperationApiKeysAPI OperationApiKeysAPI
+
+	OrganizationAPI OrganizationAPI
+
+	PromqlAPI PromqlAPI
+
+	PublicTokensAPI PublicTokensAPI
+
+	QualityReportsAPI QualityReportsAPI
+
+	QueuesAPI QueuesAPI
+
+	RetentionPoliciesAPI RetentionPoliciesAPI
+
+	RoutesAPI RoutesAPI
+
+	RumAPI RumAPI
+
+	ServicesAPI ServicesAPI
+
+	ShortUrlsAPI ShortUrlsAPI
 
 	SlosAPI SlosAPI
 
 	TagPoliciesAPI TagPoliciesAPI
 
+	TeamMembershipsAPI TeamMembershipsAPI
+
 	TeamsAPI TeamsAPI
+
+	TracesAPI TracesAPI
+
+	UsersAPI UsersAPI
+
+	WidgetSharesAPI WidgetSharesAPI
 }
 
 type service struct {
@@ -79,13 +145,46 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
+	c.AlertsAPI = (*AlertsAPIService)(&c.common)
+	c.AuthenticationAPI = (*AuthenticationAPIService)(&c.common)
+	c.ClustersAPI = (*ClustersAPIService)(&c.common)
+	c.CustomUsageTagsAPI = (*CustomUsageTagsAPIService)(&c.common)
+	c.DashboardFoldersAPI = (*DashboardFoldersAPIService)(&c.common)
 	c.DashboardsAPI = (*DashboardsAPIService)(&c.common)
+	c.DocsAPI = (*DocsAPIService)(&c.common)
+	c.FeedbackAPI = (*FeedbackAPIService)(&c.common)
+	c.GrokAPI = (*GrokAPIService)(&c.common)
+	c.IngestionApiKeysAPI = (*IngestionApiKeysAPIService)(&c.common)
+	c.InterestingFieldsAPI = (*InterestingFieldsAPIService)(&c.common)
+	c.InventoryAPI = (*InventoryAPIService)(&c.common)
+	c.InvitationsAPI = (*InvitationsAPIService)(&c.common)
+	c.KubernetesExplorerAPI = (*KubernetesExplorerAPIService)(&c.common)
+	c.LogsAPI = (*LogsAPIService)(&c.common)
+	c.MetricRoutesAPI = (*MetricRoutesAPIService)(&c.common)
+	c.MetricsAPI = (*MetricsAPIService)(&c.common)
 	c.MonitorFoldersAPI = (*MonitorFoldersAPIService)(&c.common)
 	c.MonitorsAPI = (*MonitorsAPIService)(&c.common)
+	c.NotificationIntegrationsAPI = (*NotificationIntegrationsAPIService)(&c.common)
 	c.NotificationRulesAPI = (*NotificationRulesAPIService)(&c.common)
+	c.NotificationSilencesAPI = (*NotificationSilencesAPIService)(&c.common)
+	c.OperationApiKeysAPI = (*OperationApiKeysAPIService)(&c.common)
+	c.OrganizationAPI = (*OrganizationAPIService)(&c.common)
+	c.PromqlAPI = (*PromqlAPIService)(&c.common)
+	c.PublicTokensAPI = (*PublicTokensAPIService)(&c.common)
+	c.QualityReportsAPI = (*QualityReportsAPIService)(&c.common)
+	c.QueuesAPI = (*QueuesAPIService)(&c.common)
+	c.RetentionPoliciesAPI = (*RetentionPoliciesAPIService)(&c.common)
+	c.RoutesAPI = (*RoutesAPIService)(&c.common)
+	c.RumAPI = (*RumAPIService)(&c.common)
+	c.ServicesAPI = (*ServicesAPIService)(&c.common)
+	c.ShortUrlsAPI = (*ShortUrlsAPIService)(&c.common)
 	c.SlosAPI = (*SlosAPIService)(&c.common)
 	c.TagPoliciesAPI = (*TagPoliciesAPIService)(&c.common)
+	c.TeamMembershipsAPI = (*TeamMembershipsAPIService)(&c.common)
 	c.TeamsAPI = (*TeamsAPIService)(&c.common)
+	c.TracesAPI = (*TracesAPIService)(&c.common)
+	c.UsersAPI = (*UsersAPIService)(&c.common)
+	c.WidgetSharesAPI = (*WidgetSharesAPIService)(&c.common)
 
 	return c
 }

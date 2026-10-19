@@ -1,0 +1,72 @@
+# GetRumAttributesResponse
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**RequestId** | **string** | Identifier used to trace the lifecycle of this API request | 
+**Data** | [**GetRumAttributesResponseData**](GetRumAttributesResponseData.md) |  | 
+
+## Methods
+
+### NewGetRumAttributesResponse
+
+`func NewGetRumAttributesResponse(requestId string, data GetRumAttributesResponseData, ) *GetRumAttributesResponse`
+
+NewGetRumAttributesResponse instantiates a new GetRumAttributesResponse object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewGetRumAttributesResponseWithDefaults
+
+`func NewGetRumAttributesResponseWithDefaults() *GetRumAttributesResponse`
+
+NewGetRumAttributesResponseWithDefaults instantiates a new GetRumAttributesResponse object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetRequestId
+
+`func (o *GetRumAttributesResponse) GetRequestId() string`
+
+GetRequestId returns the RequestId field if non-nil, zero value otherwise.
+
+### GetRequestIdOk
+
+`func (o *GetRumAttributesResponse) GetRequestIdOk() (*string, bool)`
+
+GetRequestIdOk returns a tuple with the RequestId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRequestId
+
+`func (o *GetRumAttributesResponse) SetRequestId(v string)`
+
+SetRequestId sets RequestId field to given value.
+
+
+### GetData
+
+`func (o *GetRumAttributesResponse) GetData() GetRumAttributesResponseData`
+
+GetData returns the Data field if non-nil, zero value otherwise.
+
+### GetDataOk
+
+`func (o *GetRumAttributesResponse) GetDataOk() (*GetRumAttributesResponseData, bool)`
+
+GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetData
+
+`func (o *GetRumAttributesResponse) SetData(v GetRumAttributesResponseData)`
+
+SetData sets Data field to given value.
+
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

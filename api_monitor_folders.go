@@ -101,12 +101,12 @@ type MonitorFoldersAPIService service
 type MonitorFoldersAPICreateMonitorFolderRequest struct {
 	ctx                        context.Context
 	ApiService                 MonitorFoldersAPI
-	createMonitorFolderRequest *CreateMonitorFolderRequest
+	updateMonitorFolderRequest *UpdateMonitorFolderRequest
 }
 
 // Monitor folder create or update request. Provide a name, owner team, optional parent folder, and optional tags.
-func (r MonitorFoldersAPICreateMonitorFolderRequest) CreateMonitorFolderRequest(createMonitorFolderRequest CreateMonitorFolderRequest) MonitorFoldersAPICreateMonitorFolderRequest {
-	r.createMonitorFolderRequest = &createMonitorFolderRequest
+func (r MonitorFoldersAPICreateMonitorFolderRequest) UpdateMonitorFolderRequest(updateMonitorFolderRequest UpdateMonitorFolderRequest) MonitorFoldersAPICreateMonitorFolderRequest {
+	r.updateMonitorFolderRequest = &updateMonitorFolderRequest
 	return r
 }
 
@@ -150,8 +150,8 @@ func (a *MonitorFoldersAPIService) CreateMonitorFolderExecute(r MonitorFoldersAP
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createMonitorFolderRequest == nil {
-		return localVarReturnValue, nil, reportError("createMonitorFolderRequest is required and must be specified")
+	if r.updateMonitorFolderRequest == nil {
+		return localVarReturnValue, nil, reportError("updateMonitorFolderRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -172,7 +172,7 @@ func (a *MonitorFoldersAPIService) CreateMonitorFolderExecute(r MonitorFoldersAP
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createMonitorFolderRequest
+	localVarPostBody = r.updateMonitorFolderRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
