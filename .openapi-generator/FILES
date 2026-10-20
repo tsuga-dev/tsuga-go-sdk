@@ -1,5 +1,6 @@
 .gitignore
 api/openapi.yaml
+api_adaptive_notification_rules.go
 api_alerts.go
 api_authentication.go
 api_clusters.go
@@ -42,6 +43,8 @@ api_users.go
 api_widget_shares.go
 client.go
 configuration.go
+docs/AdaptiveNotificationRulesAPI.md
+docs/AdaptiveRule.md
 docs/AddUserToTeamResponse.md
 docs/Aggregate.md
 docs/AggregateAverage.md
@@ -80,6 +83,8 @@ docs/ConditionalFormatting.md
 docs/ContrastSet.md
 docs/ContrastSetOtherValue.md
 docs/ContrastSetValue.md
+docs/CreateAdaptiveNotificationRuleRequest.md
+docs/CreateAdaptiveNotificationRuleResponse.md
 docs/CreateCloudAccountRequest.md
 docs/CreateCloudAccountRequestConnectionSettings.md
 docs/CreateCloudAccountResponse.md
@@ -180,6 +185,7 @@ docs/DataNormalizerLevel.md
 docs/DataNormalizerNone.md
 docs/DataNormalizerPercent.md
 docs/DataNormalizerPercentFraction.md
+docs/DeleteAdaptiveNotificationRuleResponse.md
 docs/DeleteCloudAccountResponse.md
 docs/DeleteCustomUsageTagResponse.md
 docs/DeleteDashboardFolderResponse.md
@@ -212,6 +218,7 @@ docs/FindContrastSetsRequestTargetGroup.md
 docs/FindContrastSetsResponse.md
 docs/FindContrastSetsResponseData.md
 docs/Function.md
+docs/FunctionCumsum.md
 docs/FunctionIncrease.md
 docs/FunctionLast.md
 docs/FunctionLog.md
@@ -225,6 +232,7 @@ docs/FunctionSqrt.md
 docs/FunctionTimeOffset.md
 docs/GaugeColorThreshold.md
 docs/GcpConnectionSettings.md
+docs/GetAdaptiveNotificationRuleResponse.md
 docs/GetAllowedDomainsResponse.md
 docs/GetCloudAccountResponse.md
 docs/GetCustomUsageTagResponse.md
@@ -485,6 +493,7 @@ docs/InviteUsersRequestInner.md
 docs/InviteUsersResponse.md
 docs/InviteUsersResponseData.md
 docs/KubernetesExplorerAPI.md
+docs/ListAdaptiveNotificationRulesResponse.md
 docs/ListCloudAccountsResponse.md
 docs/ListClustersResponse.md
 docs/ListCustomUsageTagsResponse.md
@@ -874,6 +883,8 @@ docs/TimeSliceSloConfigurationThreshold.md
 docs/TimeseriesAggregationResponse.md
 docs/TracesAPI.md
 docs/TsugaAssetTagPolicy.md
+docs/UpdateAdaptiveNotificationRuleRequest.md
+docs/UpdateAdaptiveNotificationRuleResponse.md
 docs/UpdateAllowedDomainsRequest.md
 docs/UpdateAllowedDomainsResponse.md
 docs/UpdateCloudAccountRequest.md
@@ -946,6 +957,7 @@ docs/WidgetShare.md
 docs/WidgetSharesAPI.md
 go.mod
 go.sum
+model_adaptive_rule.go
 model_add_user_to_team_response.go
 model_aggregate.go
 model_aggregate_average.go
@@ -981,6 +993,8 @@ model_conditional_formatting.go
 model_contrast_set.go
 model_contrast_set_other_value.go
 model_contrast_set_value.go
+model_create_adaptive_notification_rule_request.go
+model_create_adaptive_notification_rule_response.go
 model_create_cloud_account_request.go
 model_create_cloud_account_request_connection_settings.go
 model_create_cloud_account_response.go
@@ -1078,6 +1092,7 @@ model_data_normalizer_level.go
 model_data_normalizer_none.go
 model_data_normalizer_percent.go
 model_data_normalizer_percent_fraction.go
+model_delete_adaptive_notification_rule_response.go
 model_delete_cloud_account_response.go
 model_delete_custom_usage_tag_response.go
 model_delete_dashboard_folder_response.go
@@ -1108,6 +1123,7 @@ model_find_contrast_sets_request_target_group.go
 model_find_contrast_sets_response.go
 model_find_contrast_sets_response_data.go
 model_function.go
+model_function_cumsum.go
 model_function_increase.go
 model_function_last.go
 model_function_log.go
@@ -1121,6 +1137,7 @@ model_function_sqrt.go
 model_function_time_offset.go
 model_gauge_color_threshold.go
 model_gcp_connection_settings.go
+model_get_adaptive_notification_rule_response.go
 model_get_allowed_domains_response.go
 model_get_cloud_account_response.go
 model_get_custom_usage_tag_response.go
@@ -1375,6 +1392,7 @@ model_input_widget_list_column.go
 model_invite_users_request_inner.go
 model_invite_users_response.go
 model_invite_users_response_data.go
+model_list_adaptive_notification_rules_response.go
 model_list_cloud_accounts_response.go
 model_list_clusters_response.go
 model_list_custom_usage_tags_response.go
@@ -1740,6 +1758,8 @@ model_time_slice_slo_configuration.go
 model_time_slice_slo_configuration_threshold.go
 model_timeseries_aggregation_response.go
 model_tsuga_asset_tag_policy.go
+model_update_adaptive_notification_rule_request.go
+model_update_adaptive_notification_rule_response.go
 model_update_allowed_domains_request.go
 model_update_allowed_domains_response.go
 model_update_cloud_account_request.go

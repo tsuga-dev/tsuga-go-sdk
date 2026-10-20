@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **TimeframeDays** | **int32** | Rolling SLO evaluation window in days. Set by the caller on create or update and returned on read and list responses. Allowed values are 7, 30, and 90. | 
 **Owner** | **string** | Team ID that owns the SLO | 
 **Permissions** | **string** | &#x60;all&#x60; allows the resource to query all permitted telemetry, &#x60;owning-team-and-public&#x60; limits it to the owning team plus public data, and &#x60;owning-team-only&#x60; limits it to the owning team. | 
-**ClusterIds** | **[]string** | Cluster IDs this SLO is evaluated on. Omit or send an empty array on input to run on all clusters; responses use an empty array to mean all clusters. Non-empty input values must reference existing clusters. | 
+**ClusterIds** | **[]string** | Cluster IDs this SLO is evaluated on. An empty array means every cluster. | 
 **Alerts** | [**[]SloAlertsInner**](SloAlertsInner.md) | Alerts attached to this SLO | 
 
 ## Methods

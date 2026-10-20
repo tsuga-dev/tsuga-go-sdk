@@ -27,6 +27,7 @@ Name | Type | Description | Notes
 **ServiceTarget** | Pointer to **string** | Notification targets attached to a service. | [optional] 
 **Slo** | Pointer to **string** | Service level objectives and the alerts attached to them. | [optional] 
 **NotificationRule** | Pointer to **string** | Notification rules, which route alert transitions to notification targets. | [optional] 
+**AdaptiveNotificationRule** | Pointer to **string** | Adaptive notification rules, which page the owners of the failing service when one of their monitors or SLOs fires. | [optional] 
 **NotificationIntegration** | Pointer to **string** | Notification integrations, containing the credentials Tsuga uses when sending notifications. | [optional] 
 **NotificationSilence** | Pointer to **string** | Notification silences, which suppress matching notification delivery. | [optional] 
 **CustomUsageTag** | Pointer to **string** | Custom usage tags, the telemetry tag keys tracked as usage dimensions. | [optional] 
@@ -632,6 +633,31 @@ SetNotificationRule sets NotificationRule field to given value.
 `func (o *CreateOperationApiKeyRequestPermissions) HasNotificationRule() bool`
 
 HasNotificationRule returns a boolean if a field has been set.
+
+### GetAdaptiveNotificationRule
+
+`func (o *CreateOperationApiKeyRequestPermissions) GetAdaptiveNotificationRule() string`
+
+GetAdaptiveNotificationRule returns the AdaptiveNotificationRule field if non-nil, zero value otherwise.
+
+### GetAdaptiveNotificationRuleOk
+
+`func (o *CreateOperationApiKeyRequestPermissions) GetAdaptiveNotificationRuleOk() (*string, bool)`
+
+GetAdaptiveNotificationRuleOk returns a tuple with the AdaptiveNotificationRule field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAdaptiveNotificationRule
+
+`func (o *CreateOperationApiKeyRequestPermissions) SetAdaptiveNotificationRule(v string)`
+
+SetAdaptiveNotificationRule sets AdaptiveNotificationRule field to given value.
+
+### HasAdaptiveNotificationRule
+
+`func (o *CreateOperationApiKeyRequestPermissions) HasAdaptiveNotificationRule() bool`
+
+HasAdaptiveNotificationRule returns a boolean if a field has been set.
 
 ### GetNotificationIntegration
 

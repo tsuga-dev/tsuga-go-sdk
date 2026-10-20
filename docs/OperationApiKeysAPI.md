@@ -29,11 +29,12 @@ import (
 	"context"
 	"fmt"
 	"os"
+    "time"
 	openapiclient "github.com/tsuga-dev/tsuga-go-sdk"
 )
 
 func main() {
-	createOperationApiKeyRequest := *openapiclient.NewCreateOperationApiKeyRequest("Name_example", "Owner_example", "Scope_example", *openapiclient.NewCreateOperationApiKeyRequestPermissions()) // CreateOperationApiKeyRequest | Operation API key creation request. Provide a kebab-case name, owner team, scope, and permissions, and optionally tags and an expiration date.
+	createOperationApiKeyRequest := *openapiclient.NewCreateOperationApiKeyRequest("Name_example", "Owner_example", "Scope_example", *openapiclient.NewCreateOperationApiKeyRequestPermissions(), time.Now()) // CreateOperationApiKeyRequest | Operation API key creation request. Provide a kebab-case name, owner team, scope, permissions, expiration date, and optionally tags.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -58,7 +59,7 @@ Other parameters are passed through a pointer to a apiCreateOperationApiKeyReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createOperationApiKeyRequest** | [**CreateOperationApiKeyRequest**](CreateOperationApiKeyRequest.md) | Operation API key creation request. Provide a kebab-case name, owner team, scope, and permissions, and optionally tags and an expiration date. | 
+ **createOperationApiKeyRequest** | [**CreateOperationApiKeyRequest**](CreateOperationApiKeyRequest.md) | Operation API key creation request. Provide a kebab-case name, owner team, scope, permissions, expiration date, and optionally tags. | 
 
 ### Return type
 
@@ -303,12 +304,13 @@ import (
 	"context"
 	"fmt"
 	"os"
+    "time"
 	openapiclient "github.com/tsuga-dev/tsuga-go-sdk"
 )
 
 func main() {
 	id := "id_example" // string | Identifier of the operation API key to update. Use the `id` returned by operation API key list, get, or create responses.
-	updateOperationApiKeyRequest := *openapiclient.NewUpdateOperationApiKeyRequest("Name_example", "Owner_example", "Scope_example", *openapiclient.NewCreateOperationApiKeyRequestPermissions()) // UpdateOperationApiKeyRequest | Operation API key update request. Provide the full definition, including name, owner team, scope, and permissions.
+	updateOperationApiKeyRequest := *openapiclient.NewUpdateOperationApiKeyRequest("Name_example", "Owner_example", "Scope_example", *openapiclient.NewCreateOperationApiKeyRequestPermissions(), time.Now()) // UpdateOperationApiKeyRequest | Operation API key update request. Provide the full definition, including name, owner team, scope, permissions, and expiration date.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -338,7 +340,7 @@ Other parameters are passed through a pointer to a apiUpdateOperationApiKeyReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **updateOperationApiKeyRequest** | [**UpdateOperationApiKeyRequest**](UpdateOperationApiKeyRequest.md) | Operation API key update request. Provide the full definition, including name, owner team, scope, and permissions. | 
+ **updateOperationApiKeyRequest** | [**UpdateOperationApiKeyRequest**](UpdateOperationApiKeyRequest.md) | Operation API key update request. Provide the full definition, including name, owner team, scope, permissions, and expiration date. | 
 
 ### Return type
 

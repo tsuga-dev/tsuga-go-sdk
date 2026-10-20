@@ -9,13 +9,13 @@ Name | Type | Description | Notes
 **Tags** | Pointer to [**[]InputTag**](InputTag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **Scope** | **string** | Team-access boundary for the operation API key. Set when the key is created or updated. &#x60;all&#x60; can reach all teams, &#x60;owning-team-and-public&#x60; can reach the owning team and public teams, and &#x60;owning-team-only&#x60; can reach only the owning team. | 
 **Permissions** | [**CreateOperationApiKeyRequestPermissions**](CreateOperationApiKeyRequestPermissions.md) |  | 
-**ExpiresAt** | Pointer to **NullableTime** | Date and time after which the key stops working. Send null for a key that never expires. On update, leave it out to keep the current expiration. When the caller is an operation API key, set a future expiration, no later than the caller&#39;s own when the caller expires. | [optional] 
+**ExpiresAt** | **time.Time** | Date and time after which the key stops working. When the caller is an operation API key, set a future expiration, no later than the caller&#39;s own when the caller expires. | 
 
 ## Methods
 
 ### NewUpdateOperationApiKeyRequest
 
-`func NewUpdateOperationApiKeyRequest(name string, owner string, scope string, permissions CreateOperationApiKeyRequestPermissions, ) *UpdateOperationApiKeyRequest`
+`func NewUpdateOperationApiKeyRequest(name string, owner string, scope string, permissions CreateOperationApiKeyRequestPermissions, expiresAt time.Time, ) *UpdateOperationApiKeyRequest`
 
 NewUpdateOperationApiKeyRequest instantiates a new UpdateOperationApiKeyRequest object
 This constructor will assign default values to properties that have it defined,
@@ -154,22 +154,7 @@ and a boolean to check if the value has been set.
 
 SetExpiresAt sets ExpiresAt field to given value.
 
-### HasExpiresAt
 
-`func (o *UpdateOperationApiKeyRequest) HasExpiresAt() bool`
-
-HasExpiresAt returns a boolean if a field has been set.
-
-### SetExpiresAtNil
-
-`func (o *UpdateOperationApiKeyRequest) SetExpiresAtNil(b bool)`
-
- SetExpiresAtNil sets the value for ExpiresAt to be an explicit nil
-
-### UnsetExpiresAt
-`func (o *UpdateOperationApiKeyRequest) UnsetExpiresAt()`
-
-UnsetExpiresAt ensures that no value is present for ExpiresAt, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

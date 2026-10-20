@@ -30,8 +30,8 @@ import (
 )
 
 func main() {
-	from := int64(1704067200) // int64 | Start of the query window as a Unix timestamp in seconds
-	to := int64(1704067200) // int64 | End of the query window as a Unix timestamp in seconds
+	from := int64(1704067200) // int64 | Unix timestamp in seconds. Required, but does not scope the result.
+	to := int64(1704067200) // int64 | Unix timestamp in seconds. Required, but does not scope the result.
 	name := "name_example" // string | Metric name to retrieve, for example `http.server.request.duration`.
 	clusterId := "clusterId_example" // string | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. (optional)
 
@@ -62,8 +62,8 @@ Other parameters are passed through a pointer to a apiGetMetricRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **from** | **int64** | Start of the query window as a Unix timestamp in seconds | 
- **to** | **int64** | End of the query window as a Unix timestamp in seconds | 
+ **from** | **int64** | Unix timestamp in seconds. Required, but does not scope the result. | 
+ **to** | **int64** | Unix timestamp in seconds. Required, but does not scope the result. | 
 
  **clusterId** | **string** | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. | 
 
@@ -106,8 +106,8 @@ import (
 )
 
 func main() {
-	from := int64(1704067200) // int64 | Start of the query window as a Unix timestamp in seconds
-	to := int64(1704067200) // int64 | End of the query window as a Unix timestamp in seconds
+	from := int64(1704067200) // int64 | Unix timestamp in seconds. Required, but does not scope the result.
+	to := int64(1704067200) // int64 | Unix timestamp in seconds. Required, but does not scope the result.
 	clusterId := "clusterId_example" // string | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -133,8 +133,8 @@ Other parameters are passed through a pointer to a apiListMetricsRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **from** | **int64** | Start of the query window as a Unix timestamp in seconds | 
- **to** | **int64** | End of the query window as a Unix timestamp in seconds | 
+ **from** | **int64** | Unix timestamp in seconds. Required, but does not scope the result. | 
+ **to** | **int64** | Unix timestamp in seconds. Required, but does not scope the result. | 
  **clusterId** | **string** | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. | 
 
 ### Return type
