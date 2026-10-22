@@ -15,12 +15,12 @@ Name | Type | Description | Notes
 **CustomHeaders** | Pointer to **map[string]string** |  | [optional] 
 **PayloadTemplate** | Pointer to [**CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate**](CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate.md) |  | [optional] 
 **EventNameMapping** | Pointer to [**NullableUpdateNotificationIntegrationRequestSettingOneOf2EventNameMapping**](UpdateNotificationIntegrationRequestSettingOneOf2EventNameMapping.md) |  | [optional] 
-**InstanceName** | Pointer to **string** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
-**Username** | Pointer to **string** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
-**Password** | Pointer to **string** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
+**InstanceName** | Pointer to **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
+**Username** | Pointer to **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
+**Password** | Pointer to **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
 **SiteUrl** | Pointer to **string** |  | [optional] 
-**Email** | Pointer to **string** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
-**ApiToken** | Pointer to **string** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
+**Email** | Pointer to **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
+**ApiToken** | Pointer to **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
 
 ## Methods
 
@@ -321,6 +321,16 @@ SetInstanceName sets InstanceName field to given value.
 
 HasInstanceName returns a boolean if a field has been set.
 
+### SetInstanceNameNil
+
+`func (o *UpdateNotificationIntegrationRequestSetting) SetInstanceNameNil(b bool)`
+
+ SetInstanceNameNil sets the value for InstanceName to be an explicit nil
+
+### UnsetInstanceName
+`func (o *UpdateNotificationIntegrationRequestSetting) UnsetInstanceName()`
+
+UnsetInstanceName ensures that no value is present for InstanceName, not even an explicit nil
 ### GetUsername
 
 `func (o *UpdateNotificationIntegrationRequestSetting) GetUsername() string`
@@ -346,6 +356,16 @@ SetUsername sets Username field to given value.
 
 HasUsername returns a boolean if a field has been set.
 
+### SetUsernameNil
+
+`func (o *UpdateNotificationIntegrationRequestSetting) SetUsernameNil(b bool)`
+
+ SetUsernameNil sets the value for Username to be an explicit nil
+
+### UnsetUsername
+`func (o *UpdateNotificationIntegrationRequestSetting) UnsetUsername()`
+
+UnsetUsername ensures that no value is present for Username, not even an explicit nil
 ### GetPassword
 
 `func (o *UpdateNotificationIntegrationRequestSetting) GetPassword() string`
@@ -371,6 +391,16 @@ SetPassword sets Password field to given value.
 
 HasPassword returns a boolean if a field has been set.
 
+### SetPasswordNil
+
+`func (o *UpdateNotificationIntegrationRequestSetting) SetPasswordNil(b bool)`
+
+ SetPasswordNil sets the value for Password to be an explicit nil
+
+### UnsetPassword
+`func (o *UpdateNotificationIntegrationRequestSetting) UnsetPassword()`
+
+UnsetPassword ensures that no value is present for Password, not even an explicit nil
 ### GetSiteUrl
 
 `func (o *UpdateNotificationIntegrationRequestSetting) GetSiteUrl() string`
@@ -421,6 +451,16 @@ SetEmail sets Email field to given value.
 
 HasEmail returns a boolean if a field has been set.
 
+### SetEmailNil
+
+`func (o *UpdateNotificationIntegrationRequestSetting) SetEmailNil(b bool)`
+
+ SetEmailNil sets the value for Email to be an explicit nil
+
+### UnsetEmail
+`func (o *UpdateNotificationIntegrationRequestSetting) UnsetEmail()`
+
+UnsetEmail ensures that no value is present for Email, not even an explicit nil
 ### GetApiToken
 
 `func (o *UpdateNotificationIntegrationRequestSetting) GetApiToken() string`
@@ -446,6 +486,16 @@ SetApiToken sets ApiToken field to given value.
 
 HasApiToken returns a boolean if a field has been set.
 
+### SetApiTokenNil
+
+`func (o *UpdateNotificationIntegrationRequestSetting) SetApiTokenNil(b bool)`
+
+ SetApiTokenNil sets the value for ApiToken to be an explicit nil
+
+### UnsetApiToken
+`func (o *UpdateNotificationIntegrationRequestSetting) UnsetApiToken()`
+
+UnsetApiToken ensures that no value is present for ApiToken, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

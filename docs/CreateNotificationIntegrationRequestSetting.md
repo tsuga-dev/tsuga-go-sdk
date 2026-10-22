@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** |  | 
-**AlertSourceConfigId** | **string** | Display name of the graph widget. Pass null to remove it. | 
-**Token** | **string** | Display name of the graph widget. Pass null to remove it. | 
+**AlertSourceConfigId** | **NullableString** | Display name of the graph widget. Pass null to remove it. | 
+**Token** | **NullableString** | Display name of the graph widget. Pass null to remove it. | 
 **Url** | **string** |  | 
-**IntegrationKey** | **string** | Display name of the graph widget. Pass null to remove it. | 
+**IntegrationKey** | **NullableString** | Display name of the graph widget. Pass null to remove it. | 
 **WebhookUrl** | **string** |  | 
 **Method** | **string** |  | 
 **Authentication** | [**CreateNotificationIntegrationRequestSettingOneOf4Authentication**](CreateNotificationIntegrationRequestSettingOneOf4Authentication.md) |  | 
@@ -16,8 +16,8 @@ Name | Type | Description | Notes
 **PayloadTemplate** | [**CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate**](CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate.md) |  | 
 **EventNameMapping** | Pointer to [**CreateNotificationIntegrationRequestSettingOneOf4EventNameMapping**](CreateNotificationIntegrationRequestSettingOneOf4EventNameMapping.md) |  | [optional] 
 **InstanceName** | **string** | Instance name of the ServiceNow instance. This corresponds to the subdomain part of the instance URL, like \&quot;my-instance\&quot; in \&quot;my-instance.service-now.com\&quot; | 
-**Username** | **string** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | 
-**Password** | **string** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | 
+**Username** | **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | 
+**Password** | **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | 
 **SiteUrl** | **string** | Base URL of the Jira Cloud site, like \&quot;https://your-company.atlassian.net\&quot;. Tsuga files issues against this site. | 
 **Email** | **string** | Atlassian account email used together with the API token for Basic authentication. | 
 **ApiToken** | **string** | Atlassian API token minted for the account, used as the Basic auth password. | 
@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 
 ### NewCreateNotificationIntegrationRequestSetting
 
-`func NewCreateNotificationIntegrationRequestSetting(type_ string, alertSourceConfigId string, token string, url string, integrationKey string, webhookUrl string, method string, authentication CreateNotificationIntegrationRequestSettingOneOf4Authentication, customHeaders map[string]string, payloadTemplate CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate, instanceName string, username string, password string, siteUrl string, email string, apiToken string, ) *CreateNotificationIntegrationRequestSetting`
+`func NewCreateNotificationIntegrationRequestSetting(type_ string, alertSourceConfigId NullableString, token NullableString, url string, integrationKey NullableString, webhookUrl string, method string, authentication CreateNotificationIntegrationRequestSettingOneOf4Authentication, customHeaders map[string]*string, payloadTemplate CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate, instanceName string, username NullableString, password NullableString, siteUrl string, email string, apiToken string, ) *CreateNotificationIntegrationRequestSetting`
 
 NewCreateNotificationIntegrationRequestSetting instantiates a new CreateNotificationIntegrationRequestSetting object
 This constructor will assign default values to properties that have it defined,
@@ -81,6 +81,16 @@ and a boolean to check if the value has been set.
 SetAlertSourceConfigId sets AlertSourceConfigId field to given value.
 
 
+### SetAlertSourceConfigIdNil
+
+`func (o *CreateNotificationIntegrationRequestSetting) SetAlertSourceConfigIdNil(b bool)`
+
+ SetAlertSourceConfigIdNil sets the value for AlertSourceConfigId to be an explicit nil
+
+### UnsetAlertSourceConfigId
+`func (o *CreateNotificationIntegrationRequestSetting) UnsetAlertSourceConfigId()`
+
+UnsetAlertSourceConfigId ensures that no value is present for AlertSourceConfigId, not even an explicit nil
 ### GetToken
 
 `func (o *CreateNotificationIntegrationRequestSetting) GetToken() string`
@@ -101,6 +111,16 @@ and a boolean to check if the value has been set.
 SetToken sets Token field to given value.
 
 
+### SetTokenNil
+
+`func (o *CreateNotificationIntegrationRequestSetting) SetTokenNil(b bool)`
+
+ SetTokenNil sets the value for Token to be an explicit nil
+
+### UnsetToken
+`func (o *CreateNotificationIntegrationRequestSetting) UnsetToken()`
+
+UnsetToken ensures that no value is present for Token, not even an explicit nil
 ### GetUrl
 
 `func (o *CreateNotificationIntegrationRequestSetting) GetUrl() string`
@@ -141,6 +161,16 @@ and a boolean to check if the value has been set.
 SetIntegrationKey sets IntegrationKey field to given value.
 
 
+### SetIntegrationKeyNil
+
+`func (o *CreateNotificationIntegrationRequestSetting) SetIntegrationKeyNil(b bool)`
+
+ SetIntegrationKeyNil sets the value for IntegrationKey to be an explicit nil
+
+### UnsetIntegrationKey
+`func (o *CreateNotificationIntegrationRequestSetting) UnsetIntegrationKey()`
+
+UnsetIntegrationKey ensures that no value is present for IntegrationKey, not even an explicit nil
 ### GetWebhookUrl
 
 `func (o *CreateNotificationIntegrationRequestSetting) GetWebhookUrl() string`
@@ -203,20 +233,20 @@ SetAuthentication sets Authentication field to given value.
 
 ### GetCustomHeaders
 
-`func (o *CreateNotificationIntegrationRequestSetting) GetCustomHeaders() map[string]string`
+`func (o *CreateNotificationIntegrationRequestSetting) GetCustomHeaders() map[string]*string`
 
 GetCustomHeaders returns the CustomHeaders field if non-nil, zero value otherwise.
 
 ### GetCustomHeadersOk
 
-`func (o *CreateNotificationIntegrationRequestSetting) GetCustomHeadersOk() (*map[string]string, bool)`
+`func (o *CreateNotificationIntegrationRequestSetting) GetCustomHeadersOk() (*map[string]*string, bool)`
 
 GetCustomHeadersOk returns a tuple with the CustomHeaders field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCustomHeaders
 
-`func (o *CreateNotificationIntegrationRequestSetting) SetCustomHeaders(v map[string]string)`
+`func (o *CreateNotificationIntegrationRequestSetting) SetCustomHeaders(v map[string]*string)`
 
 SetCustomHeaders sets CustomHeaders field to given value.
 
@@ -306,6 +336,16 @@ and a boolean to check if the value has been set.
 SetUsername sets Username field to given value.
 
 
+### SetUsernameNil
+
+`func (o *CreateNotificationIntegrationRequestSetting) SetUsernameNil(b bool)`
+
+ SetUsernameNil sets the value for Username to be an explicit nil
+
+### UnsetUsername
+`func (o *CreateNotificationIntegrationRequestSetting) UnsetUsername()`
+
+UnsetUsername ensures that no value is present for Username, not even an explicit nil
 ### GetPassword
 
 `func (o *CreateNotificationIntegrationRequestSetting) GetPassword() string`
@@ -326,6 +366,16 @@ and a boolean to check if the value has been set.
 SetPassword sets Password field to given value.
 
 
+### SetPasswordNil
+
+`func (o *CreateNotificationIntegrationRequestSetting) SetPasswordNil(b bool)`
+
+ SetPasswordNil sets the value for Password to be an explicit nil
+
+### UnsetPassword
+`func (o *CreateNotificationIntegrationRequestSetting) UnsetPassword()`
+
+UnsetPassword ensures that no value is present for Password, not even an explicit nil
 ### GetSiteUrl
 
 `func (o *CreateNotificationIntegrationRequestSetting) GetSiteUrl() string`

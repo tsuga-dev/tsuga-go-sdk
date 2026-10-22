@@ -5,17 +5,17 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** |  | 
-**Token** | **string** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | 
-**Username** | **string** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | 
-**Password** | **string** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | 
-**Key** | **string** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | 
-**Value** | **string** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | 
+**Token** | **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | 
+**Username** | **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | 
+**Password** | **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | 
+**Key** | **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | 
+**Value** | **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | 
 
 ## Methods
 
 ### NewCreateNotificationIntegrationRequestSettingOneOf4Authentication
 
-`func NewCreateNotificationIntegrationRequestSettingOneOf4Authentication(type_ string, token string, username string, password string, key string, value string, ) *CreateNotificationIntegrationRequestSettingOneOf4Authentication`
+`func NewCreateNotificationIntegrationRequestSettingOneOf4Authentication(type_ string, token NullableString, username NullableString, password NullableString, key NullableString, value NullableString, ) *CreateNotificationIntegrationRequestSettingOneOf4Authentication`
 
 NewCreateNotificationIntegrationRequestSettingOneOf4Authentication instantiates a new CreateNotificationIntegrationRequestSettingOneOf4Authentication object
 This constructor will assign default values to properties that have it defined,
@@ -70,6 +70,16 @@ and a boolean to check if the value has been set.
 SetToken sets Token field to given value.
 
 
+### SetTokenNil
+
+`func (o *CreateNotificationIntegrationRequestSettingOneOf4Authentication) SetTokenNil(b bool)`
+
+ SetTokenNil sets the value for Token to be an explicit nil
+
+### UnsetToken
+`func (o *CreateNotificationIntegrationRequestSettingOneOf4Authentication) UnsetToken()`
+
+UnsetToken ensures that no value is present for Token, not even an explicit nil
 ### GetUsername
 
 `func (o *CreateNotificationIntegrationRequestSettingOneOf4Authentication) GetUsername() string`
@@ -90,6 +100,16 @@ and a boolean to check if the value has been set.
 SetUsername sets Username field to given value.
 
 
+### SetUsernameNil
+
+`func (o *CreateNotificationIntegrationRequestSettingOneOf4Authentication) SetUsernameNil(b bool)`
+
+ SetUsernameNil sets the value for Username to be an explicit nil
+
+### UnsetUsername
+`func (o *CreateNotificationIntegrationRequestSettingOneOf4Authentication) UnsetUsername()`
+
+UnsetUsername ensures that no value is present for Username, not even an explicit nil
 ### GetPassword
 
 `func (o *CreateNotificationIntegrationRequestSettingOneOf4Authentication) GetPassword() string`
@@ -110,6 +130,16 @@ and a boolean to check if the value has been set.
 SetPassword sets Password field to given value.
 
 
+### SetPasswordNil
+
+`func (o *CreateNotificationIntegrationRequestSettingOneOf4Authentication) SetPasswordNil(b bool)`
+
+ SetPasswordNil sets the value for Password to be an explicit nil
+
+### UnsetPassword
+`func (o *CreateNotificationIntegrationRequestSettingOneOf4Authentication) UnsetPassword()`
+
+UnsetPassword ensures that no value is present for Password, not even an explicit nil
 ### GetKey
 
 `func (o *CreateNotificationIntegrationRequestSettingOneOf4Authentication) GetKey() string`
@@ -130,6 +160,16 @@ and a boolean to check if the value has been set.
 SetKey sets Key field to given value.
 
 
+### SetKeyNil
+
+`func (o *CreateNotificationIntegrationRequestSettingOneOf4Authentication) SetKeyNil(b bool)`
+
+ SetKeyNil sets the value for Key to be an explicit nil
+
+### UnsetKey
+`func (o *CreateNotificationIntegrationRequestSettingOneOf4Authentication) UnsetKey()`
+
+UnsetKey ensures that no value is present for Key, not even an explicit nil
 ### GetValue
 
 `func (o *CreateNotificationIntegrationRequestSettingOneOf4Authentication) GetValue() string`
@@ -150,6 +190,16 @@ and a boolean to check if the value has been set.
 SetValue sets Value field to given value.
 
 
+### SetValueNil
+
+`func (o *CreateNotificationIntegrationRequestSettingOneOf4Authentication) SetValueNil(b bool)`
+
+ SetValueNil sets the value for Value to be an explicit nil
+
+### UnsetValue
+`func (o *CreateNotificationIntegrationRequestSettingOneOf4Authentication) UnsetValue()`
+
+UnsetValue ensures that no value is present for Value, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

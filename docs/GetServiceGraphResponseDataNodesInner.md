@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **Name** | **string** | Service or inferred dependency name shown in the graph. | 
 **Env** | Pointer to **string** | Environment observed from spans. | [optional] 
 **NodeType** | **string** | Discriminator for this node variant. Always &#x60;inferred&#x60; for a non-database dependency detected from client-span attributes (e.g. a queue or external HTTP call) that could not be matched to a service catalog entry. Database dependencies use the &#x60;inferred_db&#x60; variant. | 
-**Id** | **string** | Service ID, or null when multiple namespaces match the observed service name. | 
-**Namespace** | **string** | Service namespace, or null when multiple namespaces match the observed service name. | 
+**Id** | **NullableString** | Service ID, or null when multiple namespaces match the observed service name. | 
+**Namespace** | **NullableString** | Service namespace, or null when multiple namespaces match the observed service name. | 
 **ErrorRate** | Pointer to **float32** | Ratio of entry requests with at least one error to total entry requests observed on this service. Omitted when no entry requests were observed. Computed from the raw sampled counts, so trace sampling does not affect it. | [optional] 
 **EntryErrorRequestCount** | **float32** | Estimated number of entry requests on this service where at least one entry span had error status, projected from the sampled traces onto the full population. | 
 **EntryRequestCount** | **float32** | Estimated number of entry requests on this service, projected from the sampled traces onto the full population. Observed as unique trace IDs that have at least one entry span on this service. An entry span is a consumer-kind span, a root span (no parent), or any span whose parent belongs to a different service. | 
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 
 ### NewGetServiceGraphResponseDataNodesInner
 
-`func NewGetServiceGraphResponseDataNodesInner(name string, nodeType string, id string, namespace string, entryErrorRequestCount float32, entryRequestCount float32, serviceType string, ) *GetServiceGraphResponseDataNodesInner`
+`func NewGetServiceGraphResponseDataNodesInner(name string, nodeType string, id NullableString, namespace NullableString, entryErrorRequestCount float32, entryRequestCount float32, serviceType string, ) *GetServiceGraphResponseDataNodesInner`
 
 NewGetServiceGraphResponseDataNodesInner instantiates a new GetServiceGraphResponseDataNodesInner object
 This constructor will assign default values to properties that have it defined,
@@ -120,6 +120,16 @@ and a boolean to check if the value has been set.
 SetId sets Id field to given value.
 
 
+### SetIdNil
+
+`func (o *GetServiceGraphResponseDataNodesInner) SetIdNil(b bool)`
+
+ SetIdNil sets the value for Id to be an explicit nil
+
+### UnsetId
+`func (o *GetServiceGraphResponseDataNodesInner) UnsetId()`
+
+UnsetId ensures that no value is present for Id, not even an explicit nil
 ### GetNamespace
 
 `func (o *GetServiceGraphResponseDataNodesInner) GetNamespace() string`
@@ -140,6 +150,16 @@ and a boolean to check if the value has been set.
 SetNamespace sets Namespace field to given value.
 
 
+### SetNamespaceNil
+
+`func (o *GetServiceGraphResponseDataNodesInner) SetNamespaceNil(b bool)`
+
+ SetNamespaceNil sets the value for Namespace to be an explicit nil
+
+### UnsetNamespace
+`func (o *GetServiceGraphResponseDataNodesInner) UnsetNamespace()`
+
+UnsetNamespace ensures that no value is present for Namespace, not even an explicit nil
 ### GetErrorRate
 
 `func (o *GetServiceGraphResponseDataNodesInner) GetErrorRate() float32`
