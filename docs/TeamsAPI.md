@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## ListTeams
 
-> ListTeamsResponse ListTeams(ctx).Limit(limit).Offset(offset).Execute()
+> ListTeamsResponse ListTeams(ctx).Limit(limit).Offset(offset).Name(name).Execute()
 
 
 
@@ -241,10 +241,11 @@ import (
 func main() {
 	limit := int32(56) // int32 | Maximum number of items to return in this page. Omit to use the public API default of 100. (optional) (default to 100)
 	offset := int32(56) // int32 | Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0. (optional)
+	name := "name_example" // string | Exact team name to look up. Returns at most one team, since team names are unique. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamsAPI.ListTeams(context.Background()).Limit(limit).Offset(offset).Execute()
+	resp, r, err := apiClient.TeamsAPI.ListTeams(context.Background()).Limit(limit).Offset(offset).Name(name).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamsAPI.ListTeams``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -267,6 +268,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int32** | Maximum number of items to return in this page. Omit to use the public API default of 100. | [default to 100]
  **offset** | **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | 
+ **name** | **string** | Exact team name to look up. Returns at most one team, since team names are unique. | 
 
 ### Return type
 

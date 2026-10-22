@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **OperationApiKey** | Pointer to **string** | Operation API keys, used to authenticate API, Terraform, MCP, and Tsuga CLI clients. | [optional] 
 **Inventory** | Pointer to **string** | Cloud resources discovered by inventory scans. | [optional] 
 **CloudAccount** | Pointer to **string** | Cloud accounts Tsuga scans to discover resources. | [optional] 
+**CustomRole** | Pointer to **string** | Custom global roles, which define what their holders can access across the organization. | [optional] 
 **Logs** | Pointer to **string** | Ingested log events, through search and aggregation endpoints. | [optional] 
 **LogRoute** | Pointer to **string** | Log routes, which select newly ingested logs and apply processors to them. | [optional] 
 **Metrics** | Pointer to **string** | Ingested metrics, through query and aggregation endpoints. | [optional] 
@@ -308,6 +309,31 @@ SetCloudAccount sets CloudAccount field to given value.
 `func (o *CreateOperationApiKeyRequestPermissions) HasCloudAccount() bool`
 
 HasCloudAccount returns a boolean if a field has been set.
+
+### GetCustomRole
+
+`func (o *CreateOperationApiKeyRequestPermissions) GetCustomRole() string`
+
+GetCustomRole returns the CustomRole field if non-nil, zero value otherwise.
+
+### GetCustomRoleOk
+
+`func (o *CreateOperationApiKeyRequestPermissions) GetCustomRoleOk() (*string, bool)`
+
+GetCustomRoleOk returns a tuple with the CustomRole field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustomRole
+
+`func (o *CreateOperationApiKeyRequestPermissions) SetCustomRole(v string)`
+
+SetCustomRole sets CustomRole field to given value.
+
+### HasCustomRole
+
+`func (o *CreateOperationApiKeyRequestPermissions) HasCustomRole() bool`
+
+HasCustomRole returns a boolean if a field has been set.
 
 ### GetLogs
 

@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261018.1.0+9ef6059
+  version: 20261021.21.0+838201c
 servers:
 - url: https://api.tsuga.com
 security:
@@ -27,6 +27,10 @@ tags:
 - description: "Operations for listing Tsuga clusters that hold observability data.\
     \ Use these endpoints to choose cluster scope for telemetry queries. See [Clusters](/documentation/account-and-settings/clusters)."
   name: clusters
+- description: "Operations for custom global roles. Use these endpoints to define\
+    \ which teams, telemetry signals, and resource types the holders of a role can\
+    \ access. See [Custom global roles](/documentation/account-and-settings/roles-and-permissions#custom-global-roles)."
+  name: custom-roles
 - description: "Operations for custom telemetry tag keys tracked as usage dimensions.\
     \ Use these endpoints to configure which tags appear in usage analysis. See [Usage\
     \ overview](/documentation/account-and-settings/usage-overview)."
@@ -1606,6 +1610,364 @@ paths:
               style: simple
       tags:
       - clusters
+  /v1/custom-roles:
+    get:
+      description: "Lists every custom global role of the organization, ordered by\
+        \ name, with what each role grants."
+      operationId: listCustomRoles
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListCustomRolesResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - custom-roles
+    post:
+      description: "Creates a custom global role. The name must be unique across the\
+        \ organization. Grants on resource types a custom role cannot configure are\
+        \ dropped. Requires write access on custom roles, which only an operation\
+        \ key scoped to all teams can hold. Only a Global admin can first grant it\
+        \ to a key; a key holding it and write access on operation API keys can then\
+        \ pass it on to the keys it creates or updates."
+      operationId: createCustomRole
+      requestBody:
+        content:
+          application/json:
+            example:
+              name: Platform on-call
+              description: Edits monitors and dashboards of the platform teams.
+              teamScope:
+                type: specific
+                teamIds:
+                - team-123-abc
+              assets:
+                dashboard: write
+                monitor: write
+                team: read
+              telemetry:
+              - log
+              - metric
+              - trace
+              telemetryQuery:
+              - key: context.env
+                values:
+                - production
+            schema:
+              $ref: "#/components/schemas/createCustomRole_request"
+        description: "Custom role create or update request. Provide the role name,\
+          \ optional description, team scope, resource type grants, readable telemetry\
+          \ signals, and optional telemetry restriction."
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateCustomRoleResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - custom-roles
+  /v1/custom-roles/{id}:
+    delete:
+      description: "Deletes a custom global role by ID. Fails while a user still holds\
+        \ the role; change their global role first. Pending invitations that carry\
+        \ the role are deleted with it. Requires write access on custom roles, which\
+        \ only an operation key scoped to all teams can hold."
+      operationId: deleteCustomRole
+      parameters:
+      - description: "Identifier of the custom role to delete. Use the `id` returned\
+          \ by custom role list, get, create, or update responses."
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteCustomRoleResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - custom-roles
+    get:
+      description: Retrieves one custom global role by ID.
+      operationId: getCustomRole
+      parameters:
+      - description: "Identifier of the custom role to retrieve. Use the `id` returned\
+          \ by custom role list, create, or update responses."
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetCustomRoleResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - custom-roles
+    put:
+      description: "Replaces the name, team scope, resource type grants, and telemetry\
+        \ signals of a custom global role by ID. The new grants apply to every user\
+        \ holding the role. Requires write access on custom roles, which only an operation\
+        \ key scoped to all teams can hold."
+      operationId: updateCustomRole
+      parameters:
+      - description: "Identifier of the custom role to update. Use the `id` returned\
+          \ by custom role list, get, or create responses."
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              name: Platform on-call
+              description: Edits monitors and dashboards of the platform teams.
+              teamScope:
+                type: specific
+                teamIds:
+                - team-123-abc
+              assets:
+                dashboard: write
+                monitor: write
+                team: read
+              telemetry:
+              - log
+              - metric
+              - trace
+              telemetryQuery:
+              - key: context.env
+                values:
+                - production
+            schema:
+              $ref: "#/components/schemas/updateCustomRole_request"
+        description: "Custom role create or update request. Provide the role name,\
+          \ optional description, team scope, resource type grants, readable telemetry\
+          \ signals, and optional telemetry restriction."
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateCustomRoleResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - custom-roles
   /v1/custom-usage-tags:
     get:
       description: Lists custom usage tag keys configured for the organization. Use
@@ -3556,6 +3918,8 @@ paths:
     post:
       description: Creates up to 10 invitations to join the organization. Each invitation
         assigns an organization role and initial team membership after acceptance.
+        Only an operation key scoped to all teams can invite with a custom role; invitations
+        it is not allowed to send are skipped and listed in the response message.
       operationId: inviteUsers
       requestBody:
         content:
@@ -6560,6 +6924,27 @@ paths:
                   folderId: folder-123-abc
                   permissions: all
                   clusterIds: []
+              example6:
+                value:
+                  name: Faulty Deployment Detector
+                  message: A workload keeps failing after its last rollout.
+                  tags:
+                  - key: team
+                    value: platform
+                  configuration:
+                    type: k8s-faulty-deployment
+                    aggregationAlertLogic: each
+                    filter:
+                      clusterNames:
+                      - prod-eu-west-1
+                      namespaces:
+                      - checkout
+                      envs:
+                      - production
+                  priority: 2
+                  owner: team-123-abc
+                  permissions: all
+                  clusterIds: []
             schema:
               $ref: "#/components/schemas/updateMonitor_request"
         description: "Monitor update request. Required fields and the submitted configuration\
@@ -6616,7 +7001,8 @@ paths:
     post:
       description: "Creates a monitor owned by the specified team. The monitor can\
         \ evaluate logs, metrics, traces, anomaly behavior, certificate expiry, new\
-        \ error patterns, or error pattern increases depending on its configuration."
+        \ error patterns, error pattern increases, or Kubernetes faulty deployments\
+        \ depending on its configuration."
       operationId: createMonitor
       requestBody:
         content:
@@ -6745,6 +7131,27 @@ paths:
                   owner: team-123-abc
                   dashboardId: 789-abc-def
                   folderId: folder-123-abc
+                  permissions: all
+                  clusterIds: []
+              example6:
+                value:
+                  name: Faulty Deployment Detector
+                  message: A workload keeps failing after its last rollout.
+                  tags:
+                  - key: team
+                    value: platform
+                  configuration:
+                    type: k8s-faulty-deployment
+                    aggregationAlertLogic: each
+                    filter:
+                      clusterNames:
+                      - prod-eu-west-1
+                      namespaces:
+                      - checkout
+                      envs:
+                      - production
+                  priority: 2
+                  owner: team-123-abc
                   permissions: all
                   clusterIds: []
             schema:
@@ -11069,6 +11476,21 @@ paths:
           minimum: 0
           type: integer
         style: form
+      - description: "Exact team name to look up. Returns at most one team, since\
+          \ team names are unique."
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -12511,7 +12933,11 @@ components:
           - CLUSTER_DB_QUERY_QUERY_TIMEOUT
           - CLUSTER_DB_QUERY_CONNECTION_TIMEOUT
           - CLUSTER_DB_QUERY_CONNECTION_POOL_TIMEOUT
+          - CLUSTER_AGGREGATION_BUCKET_LIMIT_EXCEEDED
+          - CLUSTER_AGGREGATION_FORMULA
+          - CLUSTER_AGGREGATION_INTERVAL_PARSE_ERROR
           - CLUSTER_AGGREGATION_STRUCTURE
+          - CLUSTER_AGGREGATION_SYNTAX
           - ABORT_ERROR
           - BAD_REQUEST
           - CUSTOM_ROLE_IN_USE
@@ -13561,6 +13987,234 @@ components:
             $ref: "#/components/schemas/Cluster"
           type: array
           default: null
+      required:
+      - data
+      - requestId
+    CustomRole:
+      description: "Global role defined by the organization. It sets which teams its\
+        \ holders reach, which telemetry signals they can query, and which resource\
+        \ types they can read or write. See [Custom global roles](/documentation/account-and-settings/roles-and-permissions#custom-global-roles)."
+      example:
+        id: 123-456-abc
+        name: Platform on-call
+        description: Edits monitors and dashboards of the platform teams.
+        teamScope:
+          type: specific
+          teamIds:
+          - team-123-abc
+        assets:
+          dashboard: write
+          monitor: write
+          team: read
+        telemetry:
+        - log
+        - metric
+        - trace
+        telemetryQuery:
+        - key: context.env
+          values:
+          - production
+      properties:
+        id:
+          description: Tsuga-generated custom role ID assigned at creation.
+          type: string
+        name:
+          description: "Human-readable custom role name, unique across the account."
+          type: string
+        description:
+          description: Free-form description of the custom role. Absent when not set.
+          type: string
+        teamScope:
+          $ref: "#/components/schemas/CustomRole_teamScope"
+        assets:
+          $ref: "#/components/schemas/createCustomRole_request_assets"
+        telemetry:
+          description: Telemetry signals the role can read. An empty array grants
+            no telemetry access.
+          items:
+            enum:
+            - log
+            - metric
+            - trace
+            - rum
+            type: string
+          type: array
+          default: null
+        telemetryQuery:
+          description: "Additional restriction applied cluster-side to every telemetry\
+            \ query the role holder runs. Each entry keeps only the data points whose\
+            \ `key` matches one of `values`, and entries are combined with AND."
+          items:
+            $ref: "#/components/schemas/CustomRole_telemetryQuery_inner"
+          type: array
+          default: null
+      required:
+      - assets
+      - id
+      - name
+      - teamScope
+      - telemetry
+    ListCustomRolesResponse:
+      example:
+        requestId: requestId
+        data:
+        - id: 123-456-abc
+          name: Platform on-call
+          description: Edits monitors and dashboards of the platform teams.
+          teamScope:
+            type: specific
+            teamIds:
+            - team-123-abc
+          assets:
+            dashboard: write
+            monitor: write
+            team: read
+          telemetry:
+          - log
+          - metric
+          - trace
+          telemetryQuery:
+          - key: context.env
+            values:
+            - production
+        - id: 123-456-abc
+          name: Platform on-call
+          description: Edits monitors and dashboards of the platform teams.
+          teamScope:
+            type: specific
+            teamIds:
+            - team-123-abc
+          assets:
+            dashboard: write
+            monitor: write
+            team: read
+          telemetry:
+          - log
+          - metric
+          - trace
+          telemetryQuery:
+          - key: context.env
+            values:
+            - production
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/CustomRole"
+          type: array
+          default: null
+      required:
+      - data
+      - requestId
+    GetCustomRoleResponse:
+      example:
+        requestId: requestId
+        data:
+          id: 123-456-abc
+          name: Platform on-call
+          description: Edits monitors and dashboards of the platform teams.
+          teamScope:
+            type: specific
+            teamIds:
+            - team-123-abc
+          assets:
+            dashboard: write
+            monitor: write
+            team: read
+          telemetry:
+          - log
+          - metric
+          - trace
+          telemetryQuery:
+          - key: context.env
+            values:
+            - production
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/CustomRole"
+      required:
+      - data
+      - requestId
+    CreateCustomRoleResponse:
+      example:
+        requestId: requestId
+        data:
+          id: 123-456-abc
+          name: Platform on-call
+          description: Edits monitors and dashboards of the platform teams.
+          teamScope:
+            type: specific
+            teamIds:
+            - team-123-abc
+          assets:
+            dashboard: write
+            monitor: write
+            team: read
+          telemetry:
+          - log
+          - metric
+          - trace
+          telemetryQuery:
+          - key: context.env
+            values:
+            - production
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/CustomRole"
+      required:
+      - data
+      - requestId
+    UpdateCustomRoleResponse:
+      example:
+        requestId: requestId
+        data:
+          id: 123-456-abc
+          name: Platform on-call
+          description: Edits monitors and dashboards of the platform teams.
+          teamScope:
+            type: specific
+            teamIds:
+            - team-123-abc
+          assets:
+            dashboard: write
+            monitor: write
+            team: read
+          telemetry:
+          - log
+          - metric
+          - trace
+          telemetryQuery:
+          - key: context.env
+            values:
+            - production
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/CustomRole"
+      required:
+      - data
+      - requestId
+    DeleteCustomRoleResponse:
+      example:
+        requestId: requestId
+        data:
+          success: true
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/DeleteResponse"
       required:
       - data
       - requestId
@@ -19661,6 +20315,11 @@ components:
           - teams_only
           - custom
           type: string
+        customRoleId:
+          description: "Identifier of the custom role held by the user, when `role`\
+            \ is `custom`. Use it with the custom role endpoints to read what the\
+            \ role grants."
+          type: string
       required:
       - email
       - id
@@ -20903,6 +21562,26 @@ components:
       - noDataBehavior
       - type
       - warnBeforeInDays
+    MonitorConfigurationK8sFaultyDeployment:
+      properties:
+        type:
+          description: "Monitor that alerts when a Kubernetes workload (Deployment,\
+            \ StatefulSet, or DaemonSet) keeps failing right after a rollout."
+          enum:
+          - k8s-faulty-deployment
+          type: string
+        aggregationAlertLogic:
+          description: Fixed aggregation logic for Kubernetes faulty deployment monitors.
+            Each faulty workload revision is evaluated as its own alert group.
+          enum:
+          - each
+          type: string
+        filter:
+          $ref: "#/components/schemas/MonitorConfigurationK8sFaultyDeployment_filter"
+      required:
+      - aggregationAlertLogic
+      - filter
+      - type
     InputMonitorConfigurationMetric:
       properties:
         type:
@@ -21420,6 +22099,26 @@ components:
       - noDataBehavior
       - type
       - warnBeforeInDays
+    InputMonitorConfigurationK8sFaultyDeployment:
+      properties:
+        type:
+          description: "Monitor that alerts when a Kubernetes workload (Deployment,\
+            \ StatefulSet, or DaemonSet) keeps failing right after a rollout."
+          enum:
+          - k8s-faulty-deployment
+          type: string
+        aggregationAlertLogic:
+          description: Fixed aggregation logic for Kubernetes faulty deployment monitors.
+            Each faulty workload revision is evaluated as its own alert group.
+          enum:
+          - each
+          type: string
+        filter:
+          $ref: "#/components/schemas/InputMonitorConfigurationK8sFaultyDeployment_filter"
+      required:
+      - aggregationAlertLogic
+      - filter
+      - type
     RuleTargetConfigSlack:
       properties:
         type:
@@ -25952,6 +26651,56 @@ components:
       - permissions
       - scope
       title: OperationApiKeyCreated
+    CustomRoleAllTeams:
+      properties:
+        type:
+          enum:
+          - all
+          type: string
+      required:
+      - type
+      title: CustomRoleAllTeams
+    CustomRolePublicTeams:
+      properties:
+        type:
+          enum:
+          - public
+          type: string
+      required:
+      - type
+      title: CustomRolePublicTeams
+    CustomRoleSpecificTeams:
+      properties:
+        type:
+          enum:
+          - specific
+          type: string
+        teamIds:
+          description: Team IDs the scope applies to.
+          items:
+            type: string
+          type: array
+          default: null
+      required:
+      - teamIds
+      - type
+      title: CustomRoleSpecificTeams
+    CustomRoleAllTeamsExcept:
+      properties:
+        type:
+          enum:
+          - all-except
+          type: string
+        teamIds:
+          description: Team IDs the scope applies to.
+          items:
+            type: string
+          type: array
+          default: null
+      required:
+      - teamIds
+      - type
+      title: CustomRoleAllTeamsExcept
     Graph:
       description: "Single dashboard widget, combining its identity, its visualization\
         \ configuration, and its position on the dashboard grid."
@@ -27935,6 +28684,13 @@ components:
           - read
           - write
           type: string
+        custom-role:
+          description: "Custom global roles, which define what their holders can access\
+            \ across the organization."
+          enum:
+          - read
+          - write
+          type: string
         logs:
           description: "Ingested log events, through search and aggregation endpoints."
           enum:
@@ -28312,6 +29068,480 @@ components:
       - owner
       - tags
       - teamOverrideFields
+    createCustomRole_request_teamScope_oneOf:
+      properties:
+        type:
+          enum:
+          - all
+          type: string
+      required:
+      - type
+    createCustomRole_request_teamScope_oneOf_1:
+      properties:
+        type:
+          enum:
+          - public
+          type: string
+      required:
+      - type
+    createCustomRole_request_teamScope_oneOf_2:
+      properties:
+        type:
+          enum:
+          - specific
+          type: string
+        teamIds:
+          description: Team IDs the scope applies to.
+          items:
+            description: "Folder filter for dashboard query results. Optional; pass\
+              \ a folder ID to return dashboards in that folder, or null to return\
+              \ only dashboards that are not in any folder."
+            maxLength: 250
+            minLength: 1
+            nullable: true
+            type: string
+          maxItems: 50
+          minItems: 1
+          type: array
+          uniqueItems: true
+          default: null
+      required:
+      - teamIds
+      - type
+    createCustomRole_request_teamScope_oneOf_3:
+      properties:
+        type:
+          enum:
+          - all-except
+          type: string
+        teamIds:
+          description: Team IDs the scope applies to.
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 50
+          minItems: 1
+          type: array
+          uniqueItems: true
+          default: null
+      required:
+      - teamIds
+      - type
+    createCustomRole_request_teamScope:
+      description: "Teams the role grants its asset permissions on. `all` covers every\
+        \ team, `public` covers public teams only, `specific` covers the listed teams,\
+        \ and `all-except` covers every team but the listed ones."
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/createCustomRole_request_teamScope_oneOf"
+      - $ref: "#/components/schemas/createCustomRole_request_teamScope_oneOf_1"
+      - $ref: "#/components/schemas/createCustomRole_request_teamScope_oneOf_2"
+      - $ref: "#/components/schemas/createCustomRole_request_teamScope_oneOf_3"
+      required:
+      - type
+    createCustomRole_request_assets:
+      description: "Access level granted per resource type, within the role team scope.\
+        \ An omitted resource type grants no access."
+      properties:
+        database:
+          description: Access granted on this resource type.
+          enum:
+          - read
+          type: string
+        inventory:
+          description: Access granted on this resource type.
+          enum:
+          - read
+          type: string
+        queue:
+          description: Access granted on this resource type.
+          enum:
+          - read
+          type: string
+        service:
+          description: Access granted on this resource type.
+          enum:
+          - read
+          type: string
+        audit-log:
+          description: Access granted on this resource type.
+          enum:
+          - read
+          type: string
+        allowed-domains:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        audit-log-stream-destination:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        cluster-integration-config:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        custom-usage-tag:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        databricks-connection:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        github-connection:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        llm-provider:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        retention-policy:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        saml-config:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        sensitive-data-scanner-rule:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        service-target:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        team-remap-config:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        adaptive-notification-rule:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        cloud-account:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        dashboard-folder:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        monitor-folder:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        dashboard-report:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        dashboard-share:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        dashboard:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        ingestion-api-key:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        investigation:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        log-route:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        metric-route:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        monitor:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        notebook:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        notification-integration:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        notification-rule:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        notification-silence:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        operation-api-key:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        quality-report:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        rum-public-token:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        sandbox-configuration:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        slo:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        tag-policy:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        user-invitation:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        team:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+      required:
+      - team
+    createCustomRole_request_telemetryQuery_inner:
+      properties:
+        key:
+          description: "Attribute key matched against telemetry data points, such\
+            \ as `env` or `service.name`."
+          maxLength: 250
+          minLength: 1
+          type: string
+        values:
+          description: Values the attribute must equal for a data point to be kept.
+            A data point matching any of them is kept.
+          items:
+            maxLength: 250
+            minLength: 1
+            pattern: ^(?!\*$)
+            type: string
+            errorMessage:
+              pattern: Must not be '*'.
+          maxItems: 20
+          minItems: 1
+          type: array
+          default: null
+      required:
+      - key
+      - values
+    createCustomRole_request:
+      description: "Custom role create or update request. Provide the role name, optional\
+        \ description, team scope, resource type grants, readable telemetry signals,\
+        \ and optional telemetry restriction."
+      properties:
+        name:
+          description: Human-readable custom role name.
+          maxLength: 250
+          minLength: 1
+          type: string
+        description:
+          description: "Free-form description of the custom role. Omit on update to\
+            \ keep the current description, or pass null to remove it."
+          maxLength: 250
+          minLength: 0
+          nullable: true
+          type: string
+        teamScope:
+          $ref: "#/components/schemas/createCustomRole_request_teamScope"
+        assets:
+          $ref: "#/components/schemas/createCustomRole_request_assets"
+        telemetry:
+          description: Telemetry signals the role can read. An empty array grants
+            no telemetry access.
+          items:
+            enum:
+            - log
+            - metric
+            - trace
+            - rum
+            type: string
+          type: array
+          default: null
+        telemetryQuery:
+          description: "Additional restriction applied cluster-side to every telemetry\
+            \ query the role holder runs. Each entry keeps only the data points whose\
+            \ `key` matches one of `values`, and entries are combined with AND."
+          items:
+            $ref: "#/components/schemas/createCustomRole_request_telemetryQuery_inner"
+          maxItems: 3
+          nullable: true
+          type: array
+          default: null
+      required:
+      - assets
+      - name
+      - teamScope
+      - telemetry
+    updateCustomRole_request_teamScope_oneOf:
+      properties:
+        type:
+          enum:
+          - specific
+          type: string
+        teamIds:
+          description: Team IDs the scope applies to.
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 50
+          minItems: 1
+          type: array
+          uniqueItems: true
+          default: null
+      required:
+      - teamIds
+      - type
+    updateCustomRole_request_teamScope:
+      description: "Teams the role grants its asset permissions on. `all` covers every\
+        \ team, `public` covers public teams only, `specific` covers the listed teams,\
+        \ and `all-except` covers every team but the listed ones."
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/createCustomRole_request_teamScope_oneOf"
+      - $ref: "#/components/schemas/createCustomRole_request_teamScope_oneOf_1"
+      - $ref: "#/components/schemas/updateCustomRole_request_teamScope_oneOf"
+      - $ref: "#/components/schemas/createCustomRole_request_teamScope_oneOf_3"
+      required:
+      - type
+    updateCustomRole_request:
+      description: "Custom role create or update request. Provide the role name, optional\
+        \ description, team scope, resource type grants, readable telemetry signals,\
+        \ and optional telemetry restriction."
+      properties:
+        name:
+          description: Human-readable custom role name.
+          maxLength: 250
+          minLength: 1
+          type: string
+        description:
+          description: "Free-form description of the custom role. Omit on update to\
+            \ keep the current description, or pass null to remove it."
+          maxLength: 250
+          minLength: 0
+          nullable: true
+          type: string
+        teamScope:
+          $ref: "#/components/schemas/updateCustomRole_request_teamScope"
+        assets:
+          $ref: "#/components/schemas/createCustomRole_request_assets"
+        telemetry:
+          description: Telemetry signals the role can read. An empty array grants
+            no telemetry access.
+          items:
+            enum:
+            - log
+            - metric
+            - trace
+            - rum
+            type: string
+          type: array
+          default: null
+        telemetryQuery:
+          description: "Additional restriction applied cluster-side to every telemetry\
+            \ query the role holder runs. Each entry keeps only the data points whose\
+            \ `key` matches one of `values`, and entries are combined with AND."
+          items:
+            $ref: "#/components/schemas/createCustomRole_request_telemetryQuery_inner"
+          maxItems: 3
+          nullable: true
+          type: array
+          default: null
+      required:
+      - assets
+      - name
+      - teamScope
+      - telemetry
     createCustomUsageTag_request:
       description: Custom usage tag creation request.
       properties:
@@ -29151,7 +30381,7 @@ components:
           default: null
       required:
       - scope
-    inviteUsers_request_inner:
+    inviteUsers_request_inner_oneOf:
       properties:
         email:
           description: Lowercase email address to invite into the organization.
@@ -29187,6 +30417,55 @@ components:
       - email
       - teamId
       - teamRole
+      - userRole
+    inviteUsers_request_inner_oneOf_1:
+      properties:
+        email:
+          description: Lowercase email address to invite into the organization.
+          format: lowercase-email
+          maxLength: 254
+          minLength: 0
+          type: string
+          errorMessage:
+            format: Must be a valid lowercase email address.
+        teamId:
+          description: Team ID to add the invited user to after acceptance.
+          maxLength: 250
+          minLength: 0
+          type: string
+        teamRole:
+          description: "Role the invited user receives in the target team once accepted:\
+            \ `admin`, `editor`, or `viewer`."
+          enum:
+          - admin
+          - editor
+          - viewer
+          type: string
+        userRole:
+          description: Assigns the custom role identified by `customRoleId` after
+            acceptance.
+          enum:
+          - custom
+          type: string
+        customRoleId:
+          description: Identifier of the custom role to assign. Use the `id` returned
+            by the custom role endpoints.
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - customRoleId
+      - email
+      - teamId
+      - teamRole
+      - userRole
+    inviteUsers_request_inner:
+      discriminator:
+        propertyName: userRole
+      oneOf:
+      - $ref: "#/components/schemas/inviteUsers_request_inner_oneOf"
+      - $ref: "#/components/schemas/inviteUsers_request_inner_oneOf_1"
+      required:
       - userRole
     queryInvitations_request_filters_searchQuery:
       description: "Substring matched against the invitation email, team name, or\
@@ -30184,8 +31463,9 @@ components:
             - anomaly-detection
             - log-error-pattern
             - log-error-pattern-increase
+            - k8s-faulty-deployment
             type: string
-          maxItems: 5
+          maxItems: 6
           type: array
           default: null
         exclude:
@@ -30305,6 +31585,7 @@ components:
           log-error-pattern: "#/components/schemas/InputMonitorConfigurationLogErrorPattern"
           log-error-pattern-increase: "#/components/schemas/InputMonitorConfigurationLogErrorPatternIncrease"
           certificate-expiry: "#/components/schemas/InputMonitorConfigurationCertificateExpiry"
+          k8s-faulty-deployment: "#/components/schemas/InputMonitorConfigurationK8sFaultyDeployment"
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/InputMonitorConfigurationMetric"
@@ -30316,6 +31597,7 @@ components:
       - $ref: "#/components/schemas/InputMonitorConfigurationLogErrorPattern"
       - $ref: "#/components/schemas/InputMonitorConfigurationLogErrorPatternIncrease"
       - $ref: "#/components/schemas/InputMonitorConfigurationCertificateExpiry"
+      - $ref: "#/components/schemas/InputMonitorConfigurationK8sFaultyDeployment"
       required:
       - type
     updateMonitor_request:
@@ -34029,6 +35311,35 @@ components:
           default: null
       required:
       - attributes
+    CustomRole_teamScope:
+      description: "Teams the role grants its asset permissions on. `all` covers every\
+        \ team, `public` covers public teams only, `specific` covers the listed teams,\
+        \ and `all-except` covers every team but the listed ones."
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/CustomRoleAllTeams"
+      - $ref: "#/components/schemas/CustomRolePublicTeams"
+      - $ref: "#/components/schemas/CustomRoleSpecificTeams"
+      - $ref: "#/components/schemas/CustomRoleAllTeamsExcept"
+      required:
+      - type
+    CustomRole_telemetryQuery_inner:
+      properties:
+        key:
+          description: "Attribute key matched against telemetry data points, such\
+            \ as `env` or `service.name`."
+          type: string
+        values:
+          description: Values the attribute must equal for a data point to be kept.
+            A data point matching any of them is kept.
+          items:
+            type: string
+          type: array
+          default: null
+      required:
+      - key
+      - values
     Dashboard_filters_inner:
       properties:
         key:
@@ -36647,6 +37958,7 @@ components:
           log-error-pattern-increase: "#/components/schemas/MonitorConfigurationLogErrorPatternIncrease"
           anomaly-trace: "#/components/schemas/MonitorConfigurationAnomalyTrace"
           certificate-expiry: "#/components/schemas/MonitorConfigurationCertificateExpiry"
+          k8s-faulty-deployment: "#/components/schemas/MonitorConfigurationK8sFaultyDeployment"
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/MonitorConfigurationMetric"
@@ -36658,6 +37970,7 @@ components:
       - $ref: "#/components/schemas/MonitorConfigurationLogErrorPatternIncrease"
       - $ref: "#/components/schemas/MonitorConfigurationAnomalyTrace"
       - $ref: "#/components/schemas/MonitorConfigurationCertificateExpiry"
+      - $ref: "#/components/schemas/MonitorConfigurationK8sFaultyDeployment"
       required:
       - type
     Rule_teamsFilter:
@@ -38363,6 +39676,28 @@ components:
           default: null
       required:
       - env
+    MonitorConfigurationK8sFaultyDeployment_filter:
+      description: Workload selection used for faulty deployment detection. All configured
+        fields must match for a workload to be watched.
+      properties:
+        clusterNames:
+          description: Kubernetes cluster names to watch. Omit to watch every cluster.
+          items:
+            type: string
+          type: array
+          default: null
+        namespaces:
+          description: Kubernetes namespaces to watch. Omit to watch every namespace.
+          items:
+            type: string
+          type: array
+          default: null
+        envs:
+          description: Environments to watch. Omit to watch every environment.
+          items:
+            type: string
+          type: array
+          default: null
     InputMonitorConfigurationMetric_conditions_inner:
       properties:
         formula:
@@ -38521,6 +39856,38 @@ components:
           default: null
       required:
       - env
+    InputMonitorConfigurationK8sFaultyDeployment_filter:
+      description: Workload selection used for faulty deployment detection. All configured
+        fields must match for a workload to be watched. Send an empty object to watch
+        every workload.
+      properties:
+        clusterNames:
+          description: Kubernetes cluster names to watch. Omit to watch every cluster.
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          minItems: 1
+          type: array
+          default: null
+        namespaces:
+          description: Kubernetes namespaces to watch. Omit to watch every namespace.
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          minItems: 1
+          type: array
+          default: null
+        envs:
+          description: Environments to watch. Omit to watch every environment.
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          minItems: 1
+          type: array
+          default: null
     RuleTargetConfigSlack_renotifyConfig:
       description: "Configuration for repeat monitor notifications on this target.\
         \ If omitted, Tsuga sends only the original notification for each alert transition."
@@ -39044,6 +40411,7 @@ components:
           anomaly-trace: "#/components/schemas/MonitorConfigurationAnomalyTrace"
           certificate-expiry: "#/components/schemas/MonitorConfigurationCertificateExpiry"
           log-error-pattern-increase: "#/components/schemas/MonitorConfigurationLogErrorPatternIncrease"
+          k8s-faulty-deployment: "#/components/schemas/MonitorConfigurationK8sFaultyDeployment"
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/MonitorConfigurationMetric"
@@ -39054,6 +40422,7 @@ components:
       - $ref: "#/components/schemas/MonitorConfigurationAnomalyTrace"
       - $ref: "#/components/schemas/MonitorConfigurationCertificateExpiry"
       - $ref: "#/components/schemas/MonitorConfigurationLogErrorPatternIncrease"
+      - $ref: "#/components/schemas/MonitorConfigurationK8sFaultyDeployment"
       required:
       - type
     OngoingMonitorAlert_monitor:

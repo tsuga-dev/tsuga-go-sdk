@@ -30,7 +30,7 @@ import (
 )
 
 func main() {
-	inviteUsersRequestInner := []openapiclient.InviteUsersRequestInner{*openapiclient.NewInviteUsersRequestInner("Email_example", "TeamId_example", "TeamRole_example", "UserRole_example")} // []InviteUsersRequestInner | Invitations to create. Up to 10 invitations are accepted per request.
+	inviteUsersRequestInner := []openapiclient.InviteUsersRequestInner{openapiclient.inviteUsers_request_inner{InviteUsersRequestInnerOneOf: openapiclient.NewInviteUsersRequestInnerOneOf("Email_example", "TeamId_example", "TeamRole_example", "UserRole_example")}} // []InviteUsersRequestInner | Invitations to create. Up to 10 invitations are accepted per request.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
