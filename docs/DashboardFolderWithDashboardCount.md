@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Owner** | **string** | ID of the team that owns the dashboard folder. Set by the caller on create or update and used for folder access control. | 
 **ParentFolderId** | Pointer to **string** | ID of the top-level parent folder when this folder is nested. Set by the caller on create or update. Returned only for child folders; omitted for top-level folders. | [optional] 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
-**DashboardCount** | **float32** | Number of dashboards directly assigned to this folder that the caller can read. Returned only by folder list responses; callers without dashboard read access see 0. | 
+**DashboardCount** | **float32** | Number of dashboards in this folder and its readable subfolders that the caller can read. Returned only by folder list responses; callers without dashboard read access see 0. | 
 
 ## Methods
 

@@ -45,7 +45,7 @@ Name | Type | Description | Notes
 **Layout** | Pointer to **string** | Layout used to render log patterns | [optional] 
 **SloId** | **string** | Id of the SLO to display. Omit it to cover every SLO that matches &#x60;filters&#x60;. | 
 **Filters** | Pointer to [**InputGraphVisualizationSloFilters**](InputGraphVisualizationSloFilters.md) |  | [optional] 
-**OrganizeBy** | Pointer to **string** | Groups the results by owning team or by cluster. Omit it to list results ungrouped. | [optional] 
+**OrganizeBy** | Pointer to [**InputSloWidgetOrganizeBy**](InputSloWidgetOrganizeBy.md) |  | [optional] 
 **Display** | **[]string** | Sections to show: &#x60;summary&#x60; for the result count per status, &#x60;table&#x60; for the list of results. | 
 
 ## Methods
@@ -1059,20 +1059,20 @@ HasFilters returns a boolean if a field has been set.
 
 ### GetOrganizeBy
 
-`func (o *UpdateDashboardGraphRequestVisualization) GetOrganizeBy() string`
+`func (o *UpdateDashboardGraphRequestVisualization) GetOrganizeBy() InputSloWidgetOrganizeBy`
 
 GetOrganizeBy returns the OrganizeBy field if non-nil, zero value otherwise.
 
 ### GetOrganizeByOk
 
-`func (o *UpdateDashboardGraphRequestVisualization) GetOrganizeByOk() (*string, bool)`
+`func (o *UpdateDashboardGraphRequestVisualization) GetOrganizeByOk() (*InputSloWidgetOrganizeBy, bool)`
 
 GetOrganizeByOk returns a tuple with the OrganizeBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrganizeBy
 
-`func (o *UpdateDashboardGraphRequestVisualization) SetOrganizeBy(v string)`
+`func (o *UpdateDashboardGraphRequestVisualization) SetOrganizeBy(v InputSloWidgetOrganizeBy)`
 
 SetOrganizeBy sets OrganizeBy field to given value.
 

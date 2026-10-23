@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Tsuga-generated SLO alert ID assigned when the alert is created. | 
-**Priority** | **float32** | Alert priority (1 is highest, 5 is lowest) | 
+**Priority** | **int32** | Alert priority (1 is highest, 5 is lowest) | 
 **Configuration** | [**SloAlertsInnerConfiguration**](SloAlertsInnerConfiguration.md) |  | 
 
 ## Methods
 
 ### NewOngoingSloAlertSloAlert
 
-`func NewOngoingSloAlertSloAlert(id string, priority float32, configuration SloAlertsInnerConfiguration, ) *OngoingSloAlertSloAlert`
+`func NewOngoingSloAlertSloAlert(id string, priority int32, configuration SloAlertsInnerConfiguration, ) *OngoingSloAlertSloAlert`
 
 NewOngoingSloAlertSloAlert instantiates a new OngoingSloAlertSloAlert object
 This constructor will assign default values to properties that have it defined,
@@ -49,20 +49,20 @@ SetId sets Id field to given value.
 
 ### GetPriority
 
-`func (o *OngoingSloAlertSloAlert) GetPriority() float32`
+`func (o *OngoingSloAlertSloAlert) GetPriority() int32`
 
 GetPriority returns the Priority field if non-nil, zero value otherwise.
 
 ### GetPriorityOk
 
-`func (o *OngoingSloAlertSloAlert) GetPriorityOk() (*float32, bool)`
+`func (o *OngoingSloAlertSloAlert) GetPriorityOk() (*int32, bool)`
 
 GetPriorityOk returns a tuple with the Priority field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPriority
 
-`func (o *OngoingSloAlertSloAlert) SetPriority(v float32)`
+`func (o *OngoingSloAlertSloAlert) SetPriority(v int32)`
 
 SetPriority sets Priority field to given value.
 

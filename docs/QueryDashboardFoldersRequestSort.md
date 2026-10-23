@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**By** | **string** | Field to sort the returned dashboard folders by: &#x60;owner&#x60; sorts by owning team name, &#x60;tags&#x60; sorts by tag key/value pairs, &#x60;dashboardCount&#x60; sorts by the number of readable dashboards directly in the folder, &#x60;updatedAt&#x60; sorts by last-updated timestamp, and &#x60;name&#x60; sorts alphabetically by folder name. | 
+**By** | **string** | Field to sort the returned dashboard folders by: &#x60;owner&#x60; sorts by owning team name, &#x60;tags&#x60; sorts by tag key/value pairs, &#x60;dashboardCount&#x60; sorts by the number of readable dashboards in the folder and its readable subfolders, &#x60;updatedAt&#x60; sorts by last-updated timestamp, and &#x60;name&#x60; sorts alphabetically by folder name. | 
 **Direction** | **string** | Sort direction: ascending or descending. | 
 
 ## Methods

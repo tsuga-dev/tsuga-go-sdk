@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Name** | **string** | Display name of the notification rule. | 
 **QueryString** | Pointer to **NullableString** | Optional query that narrows which alert transitions trigger the rule. Matches on the monitor transition group key and the monitor tags, e.g. &#x60;env:prod service:api&#x60;. Omit or leave empty to match regardless of tags. | [optional] 
 **TeamsFilter** | [**CreateNotificationRuleRequestTeamsFilter**](CreateNotificationRuleRequestTeamsFilter.md) |  | 
-**PrioritiesFilter** | **[]float32** | Monitor priorities that must match for this rule to fire. An empty array matches every priority. | 
+**PrioritiesFilter** | **[]int32** | Monitor priorities that must match for this rule to fire. An empty array matches every priority. | 
 **TransitionTypesFilter** | **[]string** | Alert state transitions that must match for this rule to fire. An empty array matches every transition type. | 
 **ClusterIdsFilter** | Pointer to **[]string** | Cluster IDs that must match for this rule to fire. Omit it, or leave it empty, to match every cluster. | [optional] 
 **Owner** | **string** | Team ID that owns and manages the rule | 
@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 
 ### NewUpdateNotificationRuleRequest
 
-`func NewUpdateNotificationRuleRequest(name string, teamsFilter CreateNotificationRuleRequestTeamsFilter, prioritiesFilter []float32, transitionTypesFilter []string, owner string, isActive bool, targets []CreateNotificationRuleRequestTargetsInner, ) *UpdateNotificationRuleRequest`
+`func NewUpdateNotificationRuleRequest(name string, teamsFilter CreateNotificationRuleRequestTeamsFilter, prioritiesFilter []int32, transitionTypesFilter []string, owner string, isActive bool, targets []CreateNotificationRuleRequestTargetsInner, ) *UpdateNotificationRuleRequest`
 
 NewUpdateNotificationRuleRequest instantiates a new UpdateNotificationRuleRequest object
 This constructor will assign default values to properties that have it defined,
@@ -111,20 +111,20 @@ SetTeamsFilter sets TeamsFilter field to given value.
 
 ### GetPrioritiesFilter
 
-`func (o *UpdateNotificationRuleRequest) GetPrioritiesFilter() []float32`
+`func (o *UpdateNotificationRuleRequest) GetPrioritiesFilter() []int32`
 
 GetPrioritiesFilter returns the PrioritiesFilter field if non-nil, zero value otherwise.
 
 ### GetPrioritiesFilterOk
 
-`func (o *UpdateNotificationRuleRequest) GetPrioritiesFilterOk() (*[]float32, bool)`
+`func (o *UpdateNotificationRuleRequest) GetPrioritiesFilterOk() (*[]int32, bool)`
 
 GetPrioritiesFilterOk returns a tuple with the PrioritiesFilter field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrioritiesFilter
 
-`func (o *UpdateNotificationRuleRequest) SetPrioritiesFilter(v []float32)`
+`func (o *UpdateNotificationRuleRequest) SetPrioritiesFilter(v []int32)`
 
 SetPrioritiesFilter sets PrioritiesFilter field to given value.
 

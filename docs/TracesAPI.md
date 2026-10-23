@@ -32,7 +32,7 @@ import (
 )
 
 func main() {
-	findContrastSetsRequest := *openapiclient.NewFindContrastSetsRequest(*openapiclient.NewFindContrastSetsRequestTargetGroup("Filter_example", *openapiclient.NewInputTimeRange(int64(1704067200), int64(1704067200))), *openapiclient.NewFindContrastSetsRequestBaselineGroup("Filter_example", *openapiclient.NewInputTimeRange(int64(1704067200), int64(1704067200)))) // FindContrastSetsRequest | Contrast-set request. Provide the target group to explain and the baseline to compare it against, plus optional significance tuning. Send `clusterId` as a query parameter, not in the JSON body.
+	findContrastSetsRequest := *openapiclient.NewFindContrastSetsRequest(*openapiclient.NewFindContrastSetsRequestTargetGroup("Filter_example", *openapiclient.NewInputTimeRange(int64(123), int64(123))), *openapiclient.NewFindContrastSetsRequestBaselineGroup("Filter_example", *openapiclient.NewInputTimeRange(int64(123), int64(123)))) // FindContrastSetsRequest | Contrast-set request. Provide the target group to explain and the baseline to compare it against, plus optional significance tuning. Send `clusterId` as a query parameter, not in the JSON body.
 	clusterId := "clusterId_example" // string | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. (optional)
 
 	configuration := openapiclient.NewConfiguration()

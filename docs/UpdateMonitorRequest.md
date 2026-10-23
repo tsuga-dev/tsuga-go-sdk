@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Message** | Pointer to **NullableString** | Message included in notifications triggered by this monitor. Optional on create. | [optional] 
 **Tags** | Pointer to [**[]InputTag**](InputTag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **Configuration** | [**UpdateMonitorRequestConfiguration**](UpdateMonitorRequestConfiguration.md) |  | 
-**Priority** | **float32** | Monitor priority from 1 through 5, where 1 is highest priority. | 
+**Priority** | **int32** | Monitor priority from 1 through 5, where 1 is highest priority. | 
 **Owner** | **string** | Team ID that owns and manages the monitor. | 
 **DashboardId** | Pointer to **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
 **FolderId** | Pointer to **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 
 ### NewUpdateMonitorRequest
 
-`func NewUpdateMonitorRequest(name string, configuration UpdateMonitorRequestConfiguration, priority float32, owner string, permissions string, ) *UpdateMonitorRequest`
+`func NewUpdateMonitorRequest(name string, configuration UpdateMonitorRequestConfiguration, priority int32, owner string, permissions string, ) *UpdateMonitorRequest`
 
 NewUpdateMonitorRequest instantiates a new UpdateMonitorRequest object
 This constructor will assign default values to properties that have it defined,
@@ -137,20 +137,20 @@ SetConfiguration sets Configuration field to given value.
 
 ### GetPriority
 
-`func (o *UpdateMonitorRequest) GetPriority() float32`
+`func (o *UpdateMonitorRequest) GetPriority() int32`
 
 GetPriority returns the Priority field if non-nil, zero value otherwise.
 
 ### GetPriorityOk
 
-`func (o *UpdateMonitorRequest) GetPriorityOk() (*float32, bool)`
+`func (o *UpdateMonitorRequest) GetPriorityOk() (*int32, bool)`
 
 GetPriorityOk returns a tuple with the Priority field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPriority
 
-`func (o *UpdateMonitorRequest) SetPriority(v float32)`
+`func (o *UpdateMonitorRequest) SetPriority(v int32)`
 
 SetPriority sets Priority field to given value.
 

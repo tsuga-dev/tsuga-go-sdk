@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Message** | Pointer to **string** | Caller-supplied message included in notifications triggered by this monitor. Omitted when the monitor was created or last updated without one. | [optional] 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
 **Configuration** | [**MonitorConfiguration**](MonitorConfiguration.md) |  | 
-**Priority** | **float32** | Monitor priority from 1 through 5, where 1 is highest priority. | 
+**Priority** | **int32** | Monitor priority from 1 through 5, where 1 is highest priority. | 
 **Permissions** | **string** | &#x60;all&#x60; allows the resource to query all permitted telemetry, &#x60;owning-team-and-public&#x60; limits it to the owning team plus public data, and &#x60;owning-team-only&#x60; limits it to the owning team. | 
 **DashboardId** | Pointer to **string** | ID of the dashboard linked to this monitor for context when investigating alerts. Caller-supplied. Omitted when no dashboard is linked. | [optional] 
 **FolderId** | Pointer to **string** | ID of the monitor folder containing this monitor. Omitted for unfiled monitors. | [optional] 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewMonitor
 
-`func NewMonitor(id string, name string, owner string, configuration MonitorConfiguration, priority float32, permissions string, clusterIds []string, ) *Monitor`
+`func NewMonitor(id string, name string, owner string, configuration MonitorConfiguration, priority int32, permissions string, clusterIds []string, ) *Monitor`
 
 NewMonitor instantiates a new Monitor object
 This constructor will assign default values to properties that have it defined,
@@ -168,20 +168,20 @@ SetConfiguration sets Configuration field to given value.
 
 ### GetPriority
 
-`func (o *Monitor) GetPriority() float32`
+`func (o *Monitor) GetPriority() int32`
 
 GetPriority returns the Priority field if non-nil, zero value otherwise.
 
 ### GetPriorityOk
 
-`func (o *Monitor) GetPriorityOk() (*float32, bool)`
+`func (o *Monitor) GetPriorityOk() (*int32, bool)`
 
 GetPriorityOk returns a tuple with the Priority field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPriority
 
-`func (o *Monitor) SetPriority(v float32)`
+`func (o *Monitor) SetPriority(v int32)`
 
 SetPriority sets Priority field to given value.
 

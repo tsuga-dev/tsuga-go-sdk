@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Priority** | **float32** | Alert priority (1 is highest, 5 is lowest) | 
+**Priority** | **int32** | Alert priority (1 is highest, 5 is lowest) | 
 **Configuration** | [**UpdateSloRequestAlertsInnerConfiguration**](UpdateSloRequestAlertsInnerConfiguration.md) |  | 
 
 ## Methods
 
 ### NewCreateSloRequestAlertsInner
 
-`func NewCreateSloRequestAlertsInner(priority float32, configuration UpdateSloRequestAlertsInnerConfiguration, ) *CreateSloRequestAlertsInner`
+`func NewCreateSloRequestAlertsInner(priority int32, configuration UpdateSloRequestAlertsInnerConfiguration, ) *CreateSloRequestAlertsInner`
 
 NewCreateSloRequestAlertsInner instantiates a new CreateSloRequestAlertsInner object
 This constructor will assign default values to properties that have it defined,
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetPriority
 
-`func (o *CreateSloRequestAlertsInner) GetPriority() float32`
+`func (o *CreateSloRequestAlertsInner) GetPriority() int32`
 
 GetPriority returns the Priority field if non-nil, zero value otherwise.
 
 ### GetPriorityOk
 
-`func (o *CreateSloRequestAlertsInner) GetPriorityOk() (*float32, bool)`
+`func (o *CreateSloRequestAlertsInner) GetPriorityOk() (*int32, bool)`
 
 GetPriorityOk returns a tuple with the Priority field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPriority
 
-`func (o *CreateSloRequestAlertsInner) SetPriority(v float32)`
+`func (o *CreateSloRequestAlertsInner) SetPriority(v int32)`
 
 SetPriority sets Priority field to given value.
 

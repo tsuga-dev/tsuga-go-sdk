@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Human-readable custom role name. | 
+**Name** | **string** | Human-readable custom role name, unique across the account. | 
 **Description** | Pointer to **NullableString** | Free-form description of the custom role. Omit on update to keep the current description, or pass null to remove it. | [optional] 
 **TeamScope** | [**CreateCustomRoleRequestTeamScope**](CreateCustomRoleRequestTeamScope.md) |  | 
 **Assets** | [**CreateCustomRoleRequestAssets**](CreateCustomRoleRequestAssets.md) |  | 

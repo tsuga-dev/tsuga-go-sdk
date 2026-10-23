@@ -14,14 +14,14 @@ Name | Type | Description | Notes
 **NotificationRuleIds** | Pointer to **[]string** | Notification rule IDs this silence applies to directly, matching any notification produced by one of these rules regardless of priority or transition type. Set only when &#x60;prioritiesFilter&#x60;, &#x60;transitionTypesFilter&#x60;, and &#x60;queryString&#x60; are not used to filter alerts. | [optional] 
 **QueryString** | Pointer to **string** | Query on the alerting monitor tags and group-by dimensions, e.g. &#x60;env:prod AND service:bridge&#x60;. The monitor itself can be targeted with &#x60;monitor_id:&lt;monitor id&gt;&#x60;. | [optional] 
 **TeamsFilter** | [**RuleTeamsFilter**](RuleTeamsFilter.md) |  | 
-**PrioritiesFilter** | **[]float32** | Monitor priorities that must match for this silence to apply. An empty array matches every priority. | 
+**PrioritiesFilter** | **[]int32** | Monitor priorities that must match for this silence to apply. An empty array matches every priority. | 
 **TransitionTypesFilter** | **[]string** | Alert state transitions that must match for this silence to apply. An empty array matches every transition type. | 
 
 ## Methods
 
 ### NewNotificationSilence
 
-`func NewNotificationSilence(id string, name string, reason string, owner string, isActive bool, schedule NotificationSilenceSchedule, teamsFilter RuleTeamsFilter, prioritiesFilter []float32, transitionTypesFilter []string, ) *NotificationSilence`
+`func NewNotificationSilence(id string, name string, reason string, owner string, isActive bool, schedule NotificationSilenceSchedule, teamsFilter RuleTeamsFilter, prioritiesFilter []int32, transitionTypesFilter []string, ) *NotificationSilence`
 
 NewNotificationSilence instantiates a new NotificationSilence object
 This constructor will assign default values to properties that have it defined,
@@ -253,20 +253,20 @@ SetTeamsFilter sets TeamsFilter field to given value.
 
 ### GetPrioritiesFilter
 
-`func (o *NotificationSilence) GetPrioritiesFilter() []float32`
+`func (o *NotificationSilence) GetPrioritiesFilter() []int32`
 
 GetPrioritiesFilter returns the PrioritiesFilter field if non-nil, zero value otherwise.
 
 ### GetPrioritiesFilterOk
 
-`func (o *NotificationSilence) GetPrioritiesFilterOk() (*[]float32, bool)`
+`func (o *NotificationSilence) GetPrioritiesFilterOk() (*[]int32, bool)`
 
 GetPrioritiesFilterOk returns a tuple with the PrioritiesFilter field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrioritiesFilter
 
-`func (o *NotificationSilence) SetPrioritiesFilter(v []float32)`
+`func (o *NotificationSilence) SetPrioritiesFilter(v []int32)`
 
 SetPrioritiesFilter sets PrioritiesFilter field to given value.
 

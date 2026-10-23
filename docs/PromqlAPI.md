@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-	queryPromqlRequest := *openapiclient.NewQueryPromqlRequest("Query_example", "Step_example", *openapiclient.NewInputTimeRange(int64(1704067200), int64(1704067200))) // QueryPromqlRequest | PromQL range-query request. Send clusterId as a query parameter, not in this JSON body.
+	queryPromqlRequest := *openapiclient.NewQueryPromqlRequest("Query_example", "Step_example", *openapiclient.NewInputTimeRange(int64(123), int64(123))) // QueryPromqlRequest | PromQL range-query request. Send clusterId as a query parameter, not in this JSON body.
 	clusterId := "clusterId_example" // string | Telemetry cluster to query. Set by the client as the clusterId query parameter, not in the JSON body. Required when the organization has multiple clusters; omit only for single-cluster organizations. Unknown cluster IDs return 404. (optional)
 
 	configuration := openapiclient.NewConfiguration()

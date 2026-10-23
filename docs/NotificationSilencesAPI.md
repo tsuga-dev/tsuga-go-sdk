@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	createNotificationSilenceRequest := *openapiclient.NewCreateNotificationSilenceRequest("Name_example", "Reason_example", "Owner_example", false, openapiclient.createNotificationSilence_request_schedule{InputSilenceScheduleOneTime: openapiclient.NewInputSilenceScheduleOneTime("Type_example", "StartTime_example", "EndTime_example")}, openapiclient.createNotificationRule_request_teamsFilter{InputAllPublicTeams: openapiclient.NewInputAllPublicTeams("Type_example")}, []float32{float32(123)}, []string{"TransitionTypesFilter_example"}) // CreateNotificationSilenceRequest | Notification silence create or update request. Provide the mute reason, owner, schedule, filters, active state, and tags.
+	createNotificationSilenceRequest := *openapiclient.NewCreateNotificationSilenceRequest("Name_example", "Reason_example", "Owner_example", false, openapiclient.createNotificationSilence_request_schedule{InputSilenceScheduleOneTime: openapiclient.NewInputSilenceScheduleOneTime("Type_example", "StartTime_example", "EndTime_example")}, openapiclient.createNotificationRule_request_teamsFilter{InputAllPublicTeams: openapiclient.NewInputAllPublicTeams("Type_example")}, []int32{int32(123)}, []string{"TransitionTypesFilter_example"}) // CreateNotificationSilenceRequest | Notification silence create or update request. Provide the mute reason, owner, schedule, filters, active state, and tags.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -301,7 +301,7 @@ import (
 
 func main() {
 	id := "id_example" // string | Identifier of the notification silence to update. Use the `id` returned by notification silence list, get, or create responses.
-	updateNotificationSilenceRequest := *openapiclient.NewUpdateNotificationSilenceRequest("Name_example", "Reason_example", "Owner_example", false, openapiclient.createNotificationSilence_request_schedule{InputSilenceScheduleOneTime: openapiclient.NewInputSilenceScheduleOneTime("Type_example", "StartTime_example", "EndTime_example")}, openapiclient.createNotificationRule_request_teamsFilter{InputAllPublicTeams: openapiclient.NewInputAllPublicTeams("Type_example")}, []float32{float32(123)}, []string{"TransitionTypesFilter_example"}) // UpdateNotificationSilenceRequest | Notification silence create or update request. Provide the mute reason, owner, schedule, filters, active state, and tags.
+	updateNotificationSilenceRequest := *openapiclient.NewUpdateNotificationSilenceRequest("Name_example", "Reason_example", "Owner_example", false, openapiclient.createNotificationSilence_request_schedule{InputSilenceScheduleOneTime: openapiclient.NewInputSilenceScheduleOneTime("Type_example", "StartTime_example", "EndTime_example")}, openapiclient.createNotificationRule_request_teamsFilter{InputAllPublicTeams: openapiclient.NewInputAllPublicTeams("Type_example")}, []int32{int32(123)}, []string{"TransitionTypesFilter_example"}) // UpdateNotificationSilenceRequest | Notification silence create or update request. Provide the mute reason, owner, schedule, filters, active state, and tags.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

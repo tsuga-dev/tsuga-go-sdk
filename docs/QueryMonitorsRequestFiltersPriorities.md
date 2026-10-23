@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Values** | **[]float32** | Values compared by this filter. When &#x60;exclude&#x60; is omitted or false, rows matching any value are kept; when &#x60;exclude&#x60; is true, matching rows are removed. | 
+**Values** | **[]int32** | Values compared by this filter. When &#x60;exclude&#x60; is omitted or false, rows matching any value are kept; when &#x60;exclude&#x60; is true, matching rows are removed. | 
 **Exclude** | Pointer to **bool** | If true, exclude rows matching these values instead of including them | [optional] 
 
 ## Methods
 
 ### NewQueryMonitorsRequestFiltersPriorities
 
-`func NewQueryMonitorsRequestFiltersPriorities(values []float32, ) *QueryMonitorsRequestFiltersPriorities`
+`func NewQueryMonitorsRequestFiltersPriorities(values []int32, ) *QueryMonitorsRequestFiltersPriorities`
 
 NewQueryMonitorsRequestFiltersPriorities instantiates a new QueryMonitorsRequestFiltersPriorities object
 This constructor will assign default values to properties that have it defined,
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetValues
 
-`func (o *QueryMonitorsRequestFiltersPriorities) GetValues() []float32`
+`func (o *QueryMonitorsRequestFiltersPriorities) GetValues() []int32`
 
 GetValues returns the Values field if non-nil, zero value otherwise.
 
 ### GetValuesOk
 
-`func (o *QueryMonitorsRequestFiltersPriorities) GetValuesOk() (*[]float32, bool)`
+`func (o *QueryMonitorsRequestFiltersPriorities) GetValuesOk() (*[]int32, bool)`
 
 GetValuesOk returns a tuple with the Values field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValues
 
-`func (o *QueryMonitorsRequestFiltersPriorities) SetValues(v []float32)`
+`func (o *QueryMonitorsRequestFiltersPriorities) SetValues(v []int32)`
 
 SetValues sets Values field to given value.
 

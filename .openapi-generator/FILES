@@ -3,6 +3,7 @@ api/openapi.yaml
 api_adaptive_notification_rules.go
 api_alerts.go
 api_authentication.go
+api_cli.go
 api_clusters.go
 api_custom_roles.go
 api_custom_usage_tags.go
@@ -74,6 +75,8 @@ docs/BulkRemoveUsersFromTeamResponse.md
 docs/BulkRemoveUsersFromTeamResponseData.md
 docs/BulkRemoveUsersFromTeamResponseDataResultsInner.md
 docs/BurnRateAlert.md
+docs/CliAPI.md
+docs/CliRunRecorded.md
 docs/ClientErrorEnvelope.md
 docs/ClientErrorResponse.md
 docs/ClientErrorResponseDetails.md
@@ -497,6 +500,8 @@ docs/InputSilenceScheduleRecurringWeeklySchedule.md
 docs/InputSilenceTimeRange.md
 docs/InputSloAggregationQuery.md
 docs/InputSloQueryFormula.md
+docs/InputSloWidgetOrganizeBy.md
+docs/InputSloWidgetOrganizeByKey.md
 docs/InputSpecificTeams.md
 docs/InputTableColumn.md
 docs/InputTableDefaultSorting.md
@@ -808,6 +813,8 @@ docs/QuerySlosRequestSort.md
 docs/QuerySlosResponse.md
 docs/Queue.md
 docs/QueuesAPI.md
+docs/RecordCliRunRequest.md
+docs/RecordCliRunResponse.md
 docs/RemoveUserFromTeamRequest.md
 docs/RemoveUserFromTeamResponse.md
 docs/ResponseMetadata.md
@@ -885,6 +892,9 @@ docs/SloAlertsInner.md
 docs/SloAlertsInnerConfiguration.md
 docs/SloConfiguration.md
 docs/SloQueryFormula.md
+docs/SloWidgetOrganizeBy.md
+docs/SloWidgetOrganizeByKey.md
+docs/SloWidgetOrganizeByTeam.md
 docs/SlosAPI.md
 docs/SpecificTeams.md
 docs/SummarizeTraceResponse.md
@@ -1015,6 +1025,7 @@ model_bulk_remove_users_from_team_response.go
 model_bulk_remove_users_from_team_response_data.go
 model_bulk_remove_users_from_team_response_data_results_inner.go
 model_burn_rate_alert.go
+model_cli_run_recorded.go
 model_client_error_envelope.go
 model_client_error_response.go
 model_client_error_response_details.go
@@ -1429,6 +1440,8 @@ model_input_silence_schedule_recurring_weekly_schedule.go
 model_input_silence_time_range.go
 model_input_slo_aggregation_query.go
 model_input_slo_query_formula.go
+model_input_slo_widget_organize_by.go
+model_input_slo_widget_organize_by_key.go
 model_input_specific_teams.go
 model_input_table_column.go
 model_input_table_default_sorting.go
@@ -1722,6 +1735,8 @@ model_query_slos_request_filters_tags.go
 model_query_slos_request_sort.go
 model_query_slos_response.go
 model_queue.go
+model_record_cli_run_request.go
+model_record_cli_run_response.go
 model_remove_user_from_team_request.go
 model_remove_user_from_team_response.go
 model_response_metadata.go
@@ -1794,6 +1809,9 @@ model_slo_alerts_inner.go
 model_slo_alerts_inner_configuration.go
 model_slo_configuration.go
 model_slo_query_formula.go
+model_slo_widget_organize_by.go
+model_slo_widget_organize_by_key.go
+model_slo_widget_organize_by_team.go
 model_specific_teams.go
 model_summarize_trace_response.go
 model_summarize_trace_response_data.go

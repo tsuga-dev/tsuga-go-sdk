@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Name** | **string** | Display name of the notification rule. | 
 **QueryString** | Pointer to **string** | Optional query that narrows which alert transitions trigger the rule. Matches on the monitor transition group key and the monitor tags, e.g. &#x60;env:prod service:api&#x60;. Omit or leave empty to match regardless of tags. | [optional] 
 **TeamsFilter** | [**RuleTeamsFilter**](RuleTeamsFilter.md) |  | 
-**PrioritiesFilter** | **[]float32** | Monitor priorities that must match for this rule to fire. An empty array matches every priority. | 
+**PrioritiesFilter** | **[]int32** | Monitor priorities that must match for this rule to fire. An empty array matches every priority. | 
 **TransitionTypesFilter** | **[]string** | Alert state transitions that must match for this rule to fire. An empty array matches every transition type. | 
 **ClusterIdsFilter** | **[]string** | Cluster IDs that must match for this rule to fire. An empty array matches every cluster, as does a transition that has no cluster ID. | 
 **Owner** | **string** | Team ID that owns and manages the rule. | 
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 
 ### NewRule
 
-`func NewRule(id string, name string, teamsFilter RuleTeamsFilter, prioritiesFilter []float32, transitionTypesFilter []string, clusterIdsFilter []string, owner string, isActive bool, targets []RuleTargetsInner, ) *Rule`
+`func NewRule(id string, name string, teamsFilter RuleTeamsFilter, prioritiesFilter []int32, transitionTypesFilter []string, clusterIdsFilter []string, owner string, isActive bool, targets []RuleTargetsInner, ) *Rule`
 
 NewRule instantiates a new Rule object
 This constructor will assign default values to properties that have it defined,
@@ -122,20 +122,20 @@ SetTeamsFilter sets TeamsFilter field to given value.
 
 ### GetPrioritiesFilter
 
-`func (o *Rule) GetPrioritiesFilter() []float32`
+`func (o *Rule) GetPrioritiesFilter() []int32`
 
 GetPrioritiesFilter returns the PrioritiesFilter field if non-nil, zero value otherwise.
 
 ### GetPrioritiesFilterOk
 
-`func (o *Rule) GetPrioritiesFilterOk() (*[]float32, bool)`
+`func (o *Rule) GetPrioritiesFilterOk() (*[]int32, bool)`
 
 GetPrioritiesFilterOk returns a tuple with the PrioritiesFilter field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrioritiesFilter
 
-`func (o *Rule) SetPrioritiesFilter(v []float32)`
+`func (o *Rule) SetPrioritiesFilter(v []int32)`
 
 SetPrioritiesFilter sets PrioritiesFilter field to given value.
 

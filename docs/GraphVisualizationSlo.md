@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Type** | **string** | Displays the latest status of SLOs as summary cards with the result count per status, a table of results, or both. Status is not recomputed over the dashboard time range. | 
 **SloId** | Pointer to **string** | Id of the SLO to display. Omit it to cover every SLO that matches &#x60;filters&#x60;. | [optional] 
 **Filters** | Pointer to [**GraphVisualizationSloFilters**](GraphVisualizationSloFilters.md) |  | [optional] 
-**OrganizeBy** | Pointer to **string** | Groups the results by owning team or by cluster. Omit it to list results ungrouped. | [optional] 
+**OrganizeBy** | Pointer to [**SloWidgetOrganizeBy**](SloWidgetOrganizeBy.md) |  | [optional] 
 **Display** | **[]string** | Sections to show: &#x60;summary&#x60; for the result count per status, &#x60;table&#x60; for the list of results. | 
 
 ## Methods
@@ -101,20 +101,20 @@ HasFilters returns a boolean if a field has been set.
 
 ### GetOrganizeBy
 
-`func (o *GraphVisualizationSlo) GetOrganizeBy() string`
+`func (o *GraphVisualizationSlo) GetOrganizeBy() SloWidgetOrganizeBy`
 
 GetOrganizeBy returns the OrganizeBy field if non-nil, zero value otherwise.
 
 ### GetOrganizeByOk
 
-`func (o *GraphVisualizationSlo) GetOrganizeByOk() (*string, bool)`
+`func (o *GraphVisualizationSlo) GetOrganizeByOk() (*SloWidgetOrganizeBy, bool)`
 
 GetOrganizeByOk returns a tuple with the OrganizeBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrganizeBy
 
-`func (o *GraphVisualizationSlo) SetOrganizeBy(v string)`
+`func (o *GraphVisualizationSlo) SetOrganizeBy(v SloWidgetOrganizeBy)`
 
 SetOrganizeBy sets OrganizeBy field to given value.
 

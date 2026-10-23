@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | Identifier of an existing alert to update. Omit to create a new alert on this SLO. | [optional] 
-**Priority** | **float32** | Alert priority (1 is highest, 5 is lowest) | 
+**Priority** | **int32** | Alert priority (1 is highest, 5 is lowest) | 
 **Configuration** | [**UpdateSloRequestAlertsInnerConfiguration**](UpdateSloRequestAlertsInnerConfiguration.md) |  | 
 
 ## Methods
 
 ### NewUpdateSloRequestAlertsInner
 
-`func NewUpdateSloRequestAlertsInner(priority float32, configuration UpdateSloRequestAlertsInnerConfiguration, ) *UpdateSloRequestAlertsInner`
+`func NewUpdateSloRequestAlertsInner(priority int32, configuration UpdateSloRequestAlertsInnerConfiguration, ) *UpdateSloRequestAlertsInner`
 
 NewUpdateSloRequestAlertsInner instantiates a new UpdateSloRequestAlertsInner object
 This constructor will assign default values to properties that have it defined,
@@ -54,20 +54,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetPriority
 
-`func (o *UpdateSloRequestAlertsInner) GetPriority() float32`
+`func (o *UpdateSloRequestAlertsInner) GetPriority() int32`
 
 GetPriority returns the Priority field if non-nil, zero value otherwise.
 
 ### GetPriorityOk
 
-`func (o *UpdateSloRequestAlertsInner) GetPriorityOk() (*float32, bool)`
+`func (o *UpdateSloRequestAlertsInner) GetPriorityOk() (*int32, bool)`
 
 GetPriorityOk returns a tuple with the Priority field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPriority
 
-`func (o *UpdateSloRequestAlertsInner) SetPriority(v float32)`
+`func (o *UpdateSloRequestAlertsInner) SetPriority(v int32)`
 
 SetPriority sets Priority field to given value.
 
