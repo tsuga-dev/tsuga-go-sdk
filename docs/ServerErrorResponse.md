@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **Code** | Pointer to **string** | Machine readable error code describing what went wrong | [optional] 
 **Message** | **string** | Human readable explanation of the error | 
 **StatusCode** | **float32** | HTTP status code that was returned | 
+**Hint** | Pointer to **string** | One next step that fixes the error, such as the field to change or how long to wait. Omitted when the code covers too many cases for one step, and the message then says what to change. | [optional] 
+**DocUrl** | Pointer to **string** | Absolute URL of the public documentation section that explains this error and how to fix it. | [optional] 
 
 ## Methods
 
@@ -91,6 +93,56 @@ and a boolean to check if the value has been set.
 
 SetStatusCode sets StatusCode field to given value.
 
+
+### GetHint
+
+`func (o *ServerErrorResponse) GetHint() string`
+
+GetHint returns the Hint field if non-nil, zero value otherwise.
+
+### GetHintOk
+
+`func (o *ServerErrorResponse) GetHintOk() (*string, bool)`
+
+GetHintOk returns a tuple with the Hint field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHint
+
+`func (o *ServerErrorResponse) SetHint(v string)`
+
+SetHint sets Hint field to given value.
+
+### HasHint
+
+`func (o *ServerErrorResponse) HasHint() bool`
+
+HasHint returns a boolean if a field has been set.
+
+### GetDocUrl
+
+`func (o *ServerErrorResponse) GetDocUrl() string`
+
+GetDocUrl returns the DocUrl field if non-nil, zero value otherwise.
+
+### GetDocUrlOk
+
+`func (o *ServerErrorResponse) GetDocUrlOk() (*string, bool)`
+
+GetDocUrlOk returns a tuple with the DocUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDocUrl
+
+`func (o *ServerErrorResponse) SetDocUrl(v string)`
+
+SetDocUrl sets DocUrl field to given value.
+
+### HasDocUrl
+
+`func (o *ServerErrorResponse) HasDocUrl() bool`
+
+HasDocUrl returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **Queries** | [**[]MonitorAggregationQuery**](MonitorAggregationQuery.md) | Aggregation queries used by alerting and SLO evaluation. Each query is referenced from formulas as q1, q2, and so on. | 
 **Condition** | [**MonitorConfigurationAnomalyLogCondition**](MonitorConfigurationAnomalyLogCondition.md) |  | 
 **Filter** | [**MonitorConfigurationK8sFaultyDeploymentFilter**](MonitorConfigurationK8sFaultyDeploymentFilter.md) |  | 
+**AlertOnFirstOccurrence** | Pointer to **bool** | When &#x60;true&#x60;, every new error pattern alerts on the next evaluation, even if it appeared in a single log. When &#x60;false&#x60; or omitted, a new pattern alerts only once it has lasted at least 5 minutes and matched at least 20 logs, which filters out one-off errors. | [optional] 
 **WarnBeforeInDays** | **int32** | Number of days before certificate expiry when the monitor should warn. | 
 **CloudAccounts** | Pointer to **[]string** | Cloud account IDs whose certificates are checked. Omitted means certificates from all cloud accounts are checked. | [optional] 
 
@@ -240,6 +241,31 @@ and a boolean to check if the value has been set.
 
 SetFilter sets Filter field to given value.
 
+
+### GetAlertOnFirstOccurrence
+
+`func (o *MonitorConfiguration) GetAlertOnFirstOccurrence() bool`
+
+GetAlertOnFirstOccurrence returns the AlertOnFirstOccurrence field if non-nil, zero value otherwise.
+
+### GetAlertOnFirstOccurrenceOk
+
+`func (o *MonitorConfiguration) GetAlertOnFirstOccurrenceOk() (*bool, bool)`
+
+GetAlertOnFirstOccurrenceOk returns a tuple with the AlertOnFirstOccurrence field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAlertOnFirstOccurrence
+
+`func (o *MonitorConfiguration) SetAlertOnFirstOccurrence(v bool)`
+
+SetAlertOnFirstOccurrence sets AlertOnFirstOccurrence field to given value.
+
+### HasAlertOnFirstOccurrence
+
+`func (o *MonitorConfiguration) HasAlertOnFirstOccurrence() bool`
+
+HasAlertOnFirstOccurrence returns a boolean if a field has been set.
 
 ### GetWarnBeforeInDays
 

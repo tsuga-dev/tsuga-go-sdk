@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 
 ## ListMetrics
 
-> ListMetricsResponse ListMetrics(ctx).From(from).To(to).ClusterId(clusterId).Execute()
+> ListMetricsResponse ListMetrics(ctx).From(from).To(to).ClusterId(clusterId).Limit(limit).Offset(offset).Search(search).Execute()
 
 
 
@@ -109,10 +109,13 @@ func main() {
 	from := int64(1704067200) // int64 | Unix timestamp in seconds. Required, but does not scope the result.
 	to := int64(1704067200) // int64 | Unix timestamp in seconds. Required, but does not scope the result.
 	clusterId := "clusterId_example" // string | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. (optional)
+	limit := int32(56) // int32 | Maximum number of items to return in this page. Omit to use the public API default of 100. (optional) (default to 100)
+	offset := int32(56) // int32 | Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0. (optional)
+	search := "search_example" // string | Keep only metric names containing this value, matched case-insensitively. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MetricsAPI.ListMetrics(context.Background()).From(from).To(to).ClusterId(clusterId).Execute()
+	resp, r, err := apiClient.MetricsAPI.ListMetrics(context.Background()).From(from).To(to).ClusterId(clusterId).Limit(limit).Offset(offset).Search(search).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MetricsAPI.ListMetrics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -136,6 +139,9 @@ Name | Type | Description  | Notes
  **from** | **int64** | Unix timestamp in seconds. Required, but does not scope the result. | 
  **to** | **int64** | Unix timestamp in seconds. Required, but does not scope the result. | 
  **clusterId** | **string** | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. | 
+ **limit** | **int32** | Maximum number of items to return in this page. Omit to use the public API default of 100. | [default to 100]
+ **offset** | **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | 
+ **search** | **string** | Keep only metric names containing this value, matched case-insensitively. | 
 
 ### Return type
 

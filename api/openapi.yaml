@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261023.8.0+12f457a
+  version: 20261026.6.0+7c99ff3
 servers:
 - url: https://api.tsuga.com
 security:
@@ -6050,10 +6050,13 @@ paths:
     get:
       description: "Lists metric names with metadata such as type, unit, temporality,\
         \ capabilities, and attributes. Use this to discover metric names before querying\
-        \ or graphing them. This reads a cluster-wide catalog of names rather than\
-        \ the window: `from` and `to` are accepted but do not scope the result, and\
-        \ a name stays listed after the metric stops reporting. To find out whether\
-        \ a metric has data in a window, run a `count` aggregation over it. See [Metrics](/documentation/explore/metrics/index)."
+        \ or graphing them. Results are sorted by name and paged, 100 per page by\
+        \ default; when `totalCount` exceeds the page, narrow them with `search` or\
+        \ page through them with `limit` and `offset`. This reads a cluster-wide catalog\
+        \ of names rather than the window: `from` and `to` are accepted but do not\
+        \ scope the result, and a name stays listed after the metric stops reporting.\
+        \ To find out whether a metric has data in a window, run a `count` aggregation\
+        \ over it. See [Metrics](/documentation/explore/metrics/index)."
       operationId: listMetrics
       parameters:
       - description: "Unix timestamp in seconds. Required, but does not scope the\
@@ -6091,6 +6094,43 @@ paths:
         schema:
           maxLength: 250
           minLength: 1
+          type: string
+        style: form
+      - description: Maximum number of items to return in this page. Omit to use the
+          public API default of 100.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - description: "Zero-based index of the first matching item to return. Increase\
+          \ it with `limit` to request later pages. If `limit` is provided without\
+          \ `offset`, the offset defaults to 0."
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - description: "Keep only metric names containing this value, matched case-insensitively."
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
           type: string
         style: form
       responses:
@@ -12990,6 +13030,8 @@ components:
             tagPolicyId: tagPolicyId
             tagKey: tagKey
             message: message
+        hint: hint
+        docUrl: docUrl
       properties:
         code:
           description: Machine readable error code describing what went wrong
@@ -13040,6 +13082,15 @@ components:
           type: number
         details:
           $ref: "#/components/schemas/ClientErrorResponse_details"
+        hint:
+          description: "One next step that fixes the error, such as the field to change\
+            \ or how long to wait. Omitted when the code covers too many cases for\
+            \ one step, and the message then says what to change."
+          type: string
+        docUrl:
+          description: Absolute URL of the public documentation section that explains
+            this error and how to fix it.
+          type: string
       required:
       - message
       - statusCode
@@ -13049,6 +13100,8 @@ components:
         code: INTERNAL_ERROR
         message: message
         statusCode: 3.616076749251911
+        hint: hint
+        docUrl: docUrl
       properties:
         code:
           description: Machine readable error code describing what went wrong
@@ -13063,6 +13116,15 @@ components:
         statusCode:
           description: HTTP status code that was returned
           type: number
+        hint:
+          description: "One next step that fixes the error, such as the field to change\
+            \ or how long to wait. Omitted when the code covers too many cases for\
+            \ one step, and the message then says what to change."
+          type: string
+        docUrl:
+          description: Absolute URL of the public documentation section that explains
+            this error and how to fix it.
+          type: string
       required:
       - message
       - statusCode
@@ -13089,6 +13151,8 @@ components:
               tagPolicyId: tagPolicyId
               tagKey: tagKey
               message: message
+          hint: hint
+          docUrl: docUrl
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -13106,6 +13170,8 @@ components:
           code: INTERNAL_ERROR
           message: message
           statusCode: 3.616076749251911
+          hint: hint
+          docUrl: docUrl
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -17248,6 +17314,10 @@ components:
           attributes:
           - attributes
           - attributes
+        metadata:
+          pagination:
+            totalCount: 2
+            pageCount: 7
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -17257,6 +17327,8 @@ components:
             $ref: "#/components/schemas/ListMetricsResponse_data_inner"
           type: array
           default: null
+        metadata:
+          $ref: "#/components/schemas/ResponseMetadata"
       required:
       - data
       - requestId
@@ -23907,6 +23979,12 @@ components:
           type: string
         filter:
           $ref: "#/components/schemas/MonitorConfigurationLogErrorPattern_filter"
+        alertOnFirstOccurrence:
+          description: "When `true`, every new error pattern alerts on the next evaluation,\
+            \ even if it appeared in a single log. When `false` or omitted, a new\
+            \ pattern alerts only once it has lasted at least 5 minutes and matched\
+            \ at least 20 logs, which filters out one-off errors."
+          type: boolean
       required:
       - aggregationAlertLogic
       - filter
@@ -24500,6 +24578,12 @@ components:
           type: string
         filter:
           $ref: "#/components/schemas/InputMonitorConfigurationLogErrorPattern_filter"
+        alertOnFirstOccurrence:
+          description: "When `true`, every new error pattern alerts on the next evaluation,\
+            \ even if it appeared in a single log. When `false` or omitted, a new\
+            \ pattern alerts only once it has lasted at least 5 minutes and matched\
+            \ at least 20 logs, which filters out one-off errors."
+          type: boolean
       required:
       - aggregationAlertLogic
       - filter

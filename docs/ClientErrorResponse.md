@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **Message** | **string** | Human readable explanation of the error | 
 **StatusCode** | **float32** | HTTP status code that was returned | 
 **Details** | Pointer to [**ClientErrorResponseDetails**](ClientErrorResponseDetails.md) |  | [optional] 
+**Hint** | Pointer to **string** | One next step that fixes the error, such as the field to change or how long to wait. Omitted when the code covers too many cases for one step, and the message then says what to change. | [optional] 
+**DocUrl** | Pointer to **string** | Absolute URL of the public documentation section that explains this error and how to fix it. | [optional] 
 
 ## Methods
 
@@ -117,6 +119,56 @@ SetDetails sets Details field to given value.
 `func (o *ClientErrorResponse) HasDetails() bool`
 
 HasDetails returns a boolean if a field has been set.
+
+### GetHint
+
+`func (o *ClientErrorResponse) GetHint() string`
+
+GetHint returns the Hint field if non-nil, zero value otherwise.
+
+### GetHintOk
+
+`func (o *ClientErrorResponse) GetHintOk() (*string, bool)`
+
+GetHintOk returns a tuple with the Hint field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHint
+
+`func (o *ClientErrorResponse) SetHint(v string)`
+
+SetHint sets Hint field to given value.
+
+### HasHint
+
+`func (o *ClientErrorResponse) HasHint() bool`
+
+HasHint returns a boolean if a field has been set.
+
+### GetDocUrl
+
+`func (o *ClientErrorResponse) GetDocUrl() string`
+
+GetDocUrl returns the DocUrl field if non-nil, zero value otherwise.
+
+### GetDocUrlOk
+
+`func (o *ClientErrorResponse) GetDocUrlOk() (*string, bool)`
+
+GetDocUrlOk returns a tuple with the DocUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDocUrl
+
+`func (o *ClientErrorResponse) SetDocUrl(v string)`
+
+SetDocUrl sets DocUrl field to given value.
+
+### HasDocUrl
+
+`func (o *ClientErrorResponse) HasDocUrl() bool`
+
+HasDocUrl returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

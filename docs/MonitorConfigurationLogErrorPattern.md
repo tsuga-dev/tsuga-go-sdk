@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **AggregationAlertLogic** | **string** | Fixed aggregation logic for log error pattern monitors. Each new pattern is evaluated as its own alert group. | 
 **NoDataBehavior** | **string** | Fixed no-data behavior for log error pattern monitors. Pattern state is kept until inactive pattern groups expire. | 
 **Filter** | [**MonitorConfigurationLogErrorPatternFilter**](MonitorConfigurationLogErrorPatternFilter.md) |  | 
+**AlertOnFirstOccurrence** | Pointer to **bool** | When &#x60;true&#x60;, every new error pattern alerts on the next evaluation, even if it appeared in a single log. When &#x60;false&#x60; or omitted, a new pattern alerts only once it has lasted at least 5 minutes and matched at least 20 logs, which filters out one-off errors. | [optional] 
 
 ## Methods
 
@@ -107,6 +108,31 @@ and a boolean to check if the value has been set.
 
 SetFilter sets Filter field to given value.
 
+
+### GetAlertOnFirstOccurrence
+
+`func (o *MonitorConfigurationLogErrorPattern) GetAlertOnFirstOccurrence() bool`
+
+GetAlertOnFirstOccurrence returns the AlertOnFirstOccurrence field if non-nil, zero value otherwise.
+
+### GetAlertOnFirstOccurrenceOk
+
+`func (o *MonitorConfigurationLogErrorPattern) GetAlertOnFirstOccurrenceOk() (*bool, bool)`
+
+GetAlertOnFirstOccurrenceOk returns a tuple with the AlertOnFirstOccurrence field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAlertOnFirstOccurrence
+
+`func (o *MonitorConfigurationLogErrorPattern) SetAlertOnFirstOccurrence(v bool)`
+
+SetAlertOnFirstOccurrence sets AlertOnFirstOccurrence field to given value.
+
+### HasAlertOnFirstOccurrence
+
+`func (o *MonitorConfigurationLogErrorPattern) HasAlertOnFirstOccurrence() bool`
+
+HasAlertOnFirstOccurrence returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
