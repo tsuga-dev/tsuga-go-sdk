@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** | Unique identifier of this service. Use it with service detail and graph endpoints. | [optional] 
+**Id** | Pointer to **string** | Unique identifier of this service. Use it with service detail and graph endpoints. Absent until the hourly service catalog task records the service. | [optional] 
 **ServiceName** | **string** | OpenTelemetry service name observed in telemetry. | 
 **ServiceNamespace** | Pointer to **string** | OpenTelemetry service namespace observed in telemetry. | [optional] 
 **Env** | **string** | Environment value observed for this service. | 
@@ -15,8 +15,8 @@ Name | Type | Description | Notes
 **Frameworks** | [**[]ServiceFrameworksInner**](ServiceFrameworksInner.md) | Application frameworks detected from OTel instrumentation scope | 
 **CloudPlatforms** | Pointer to [**[]ServiceCloudPlatformsInner**](ServiceCloudPlatformsInner.md) | Cloud platforms this service is running on. Absent or empty when Tsuga has not observed platform metadata for the service; treat both the same. | [optional] 
 **CloudProviders** | Pointer to [**[]ServiceCloudProvidersInner**](ServiceCloudProvidersInner.md) | Cloud providers this service is running on. Absent or empty when Tsuga has not observed provider metadata for the service; treat both the same. | [optional] 
-**LastSeenAt** | Pointer to **string** | Most recent time Tsuga observed telemetry for this service. | [optional] 
-**FirstSeenAt** | Pointer to **string** | First time Tsuga observed telemetry for this service. | [optional] 
+**LastSeenAt** | Pointer to **string** | Most recent time Tsuga observed telemetry for this service. Absent until the hourly service catalog task records the service. | [optional] 
+**FirstSeenAt** | Pointer to **string** | First time Tsuga observed telemetry for this service. Absent until the hourly service catalog task records the service. | [optional] 
 **TraceRequestRate** | Pointer to **float32** | Requests per second observed for this service over the queried window, counting calls of its primary span kind. The primary span kind is the busiest of &#x60;SPAN_KIND_SERVER&#x60;, &#x60;SPAN_KIND_PRODUCER&#x60;, and &#x60;SPAN_KIND_CONSUMER&#x60; in the service’s busiest env, or &#x60;SPAN_KIND_INTERNAL&#x60; when the service has none of those; &#x60;SPAN_KIND_CLIENT&#x60; never counts. Every env of the service uses that same span kind. Omitted when the trace query failed, which is distinct from &#x60;0&#x60; (the service is quiet). | [optional] 
 **TraceErrorRate** | Pointer to **float32** | Percentage of this service’s primary-span-kind calls (see &#x60;traceRequestRate&#x60;) over the queried window that ended with error status. Omitted when the trace query failed. | [optional] 
 

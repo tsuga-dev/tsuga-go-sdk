@@ -180,7 +180,7 @@ import (
 )
 
 func main() {
-	serviceId := "serviceId_example" // string | Identifier of the service to retrieve. Use the `id` returned by service list responses.
+	serviceId := "serviceId_example" // string | Identifier of the service to retrieve. Use the `id` returned by service query responses.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -200,7 +200,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceId** | **string** | Identifier of the service to retrieve. Use the &#x60;id&#x60; returned by service list responses. | 
+**serviceId** | **string** | Identifier of the service to retrieve. Use the &#x60;id&#x60; returned by service query responses. | 
 
 ### Other Parameters
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Team** | **string** | Team name observed on telemetry for this service. The emitting service sets it through telemetry attributes. Returned when Tsuga has observed a team value for the service; metadata refreshes weekly or when a new service version appears. | 
+**Team** | **string** | Team name observed on telemetry for this service. The emitting service sets it through telemetry attributes. Returned when Tsuga has observed a team value for the service; metadata refreshes weekly or when a new service version appears. For a service the service catalog has not recorded yet, it comes from the trace span metrics of the queried window. | 
 
 ## Methods
 

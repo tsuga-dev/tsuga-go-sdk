@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Filters** | Pointer to [**QueryServicesRequestFilters**](QueryServicesRequestFilters.md) |  | [optional] 
 **Sort** | Pointer to [**QueryServicesRequestSort**](QueryServicesRequestSort.md) |  | [optional] 
-**StatsWindow** | Pointer to **string** | Lookback used to compute the trace request rate and trace error rate fields, and the span-call totals that pick each service&#39;s primary environment. Defaults to &#x60;1h&#x60;. | [optional] 
+**StatsWindow** | Pointer to **string** | Lookback used to select the services returned, which are those with trace span metrics in it, and to compute the trace request rate and trace error rate fields and the span-call totals that pick each service&#39;s primary environment. Defaults to &#x60;1h&#x60;. | [optional] 
 **Limit** | Pointer to **int32** | Maximum number of items to return in this page. Omit to use the public API default of 100. | [optional] [default to 100]
 **Offset** | Pointer to **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | [optional] 
 **ClusterId** | Pointer to **string** | Telemetry cluster to target. Omit to use the first cluster in the organization; this does not query all clusters. | [optional] 
