@@ -9,11 +9,11 @@ Name | Type | Description | Notes
 **NoDataBehavior** | **string** | Certificate expiry monitors resolve when matching certificate data disappears. | 
 **Timeframe** | **int32** | Lookback window, in minutes, that each anomaly monitor evaluation aggregates over. | 
 **GroupByFields** | [**[]InputMonitorConfigurationMetricGroupByFieldsInner**](InputMonitorConfigurationMetricGroupByFieldsInner.md) | Monitor group by configuration. The &#x60;limit&#x60; setting is currently ignored; evaluation applies a fixed limit of 100 groups per field. | 
-**AggregationAlertLogic** | **string** | Fixed aggregation logic for Kubernetes faulty deployment monitors. Each faulty workload revision is evaluated as its own alert group. | 
+**AggregationAlertLogic** | **string** | Fixed aggregation logic for faulty deployment monitors. Each faulty service version in an environment is evaluated as its own alert group. | 
 **ProportionAlertThreshold** | Pointer to **int32** | Percentage threshold used when &#x60;aggregationAlertLogic&#x60; is &#x60;proportion&#x60;. | [optional] 
 **Queries** | [**[]InputMonitorAggregationQuery**](InputMonitorAggregationQuery.md) | Aggregation queries used by alerting. Each query is referenced from formulas as q1, q2, and so on. | 
 **Condition** | [**InputMonitorConfigurationAnomalyLogCondition**](InputMonitorConfigurationAnomalyLogCondition.md) |  | 
-**Filter** | [**InputMonitorConfigurationK8sFaultyDeploymentFilter**](InputMonitorConfigurationK8sFaultyDeploymentFilter.md) |  | 
+**Filter** | [**InputMonitorConfigurationFaultyDeploymentFilter**](InputMonitorConfigurationFaultyDeploymentFilter.md) |  | 
 **AlertOnFirstOccurrence** | Pointer to **bool** | When &#x60;true&#x60;, every new error pattern alerts on the next evaluation, even if it appeared in a single log. When &#x60;false&#x60; or omitted, a new pattern alerts only once it has lasted at least 5 minutes and matched at least 20 logs, which filters out one-off errors. | [optional] 
 **WarnBeforeInDays** | **int32** | Number of days before certificate expiry when the monitor should warn. Valid values are 1 through 365. | 
 **CloudAccounts** | Pointer to **[]string** | Cloud account IDs whose certificates are checked. Omit to check certificates from all cloud accounts. | [optional] 
@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 
 ### NewUpdateMonitorRequestConfiguration
 
-`func NewUpdateMonitorRequestConfiguration(type_ string, conditions []InputMonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe int32, groupByFields []InputMonitorConfigurationMetricGroupByFieldsInner, aggregationAlertLogic string, queries []InputMonitorAggregationQuery, condition InputMonitorConfigurationAnomalyLogCondition, filter InputMonitorConfigurationK8sFaultyDeploymentFilter, warnBeforeInDays int32, ) *UpdateMonitorRequestConfiguration`
+`func NewUpdateMonitorRequestConfiguration(type_ string, conditions []InputMonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe int32, groupByFields []InputMonitorConfigurationMetricGroupByFieldsInner, aggregationAlertLogic string, queries []InputMonitorAggregationQuery, condition InputMonitorConfigurationAnomalyLogCondition, filter InputMonitorConfigurationFaultyDeploymentFilter, warnBeforeInDays int32, ) *UpdateMonitorRequestConfiguration`
 
 NewUpdateMonitorRequestConfiguration instantiates a new UpdateMonitorRequestConfiguration object
 This constructor will assign default values to properties that have it defined,
@@ -224,20 +224,20 @@ SetCondition sets Condition field to given value.
 
 ### GetFilter
 
-`func (o *UpdateMonitorRequestConfiguration) GetFilter() InputMonitorConfigurationK8sFaultyDeploymentFilter`
+`func (o *UpdateMonitorRequestConfiguration) GetFilter() InputMonitorConfigurationFaultyDeploymentFilter`
 
 GetFilter returns the Filter field if non-nil, zero value otherwise.
 
 ### GetFilterOk
 
-`func (o *UpdateMonitorRequestConfiguration) GetFilterOk() (*InputMonitorConfigurationK8sFaultyDeploymentFilter, bool)`
+`func (o *UpdateMonitorRequestConfiguration) GetFilterOk() (*InputMonitorConfigurationFaultyDeploymentFilter, bool)`
 
 GetFilterOk returns a tuple with the Filter field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFilter
 
-`func (o *UpdateMonitorRequestConfiguration) SetFilter(v InputMonitorConfigurationK8sFaultyDeploymentFilter)`
+`func (o *UpdateMonitorRequestConfiguration) SetFilter(v InputMonitorConfigurationFaultyDeploymentFilter)`
 
 SetFilter sets Filter field to given value.
 

@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261026.6.0+7c99ff3
+  version: 20261026.43.0+e28513c
 servers:
 - url: https://api.tsuga.com
 security:
@@ -3779,72 +3779,6 @@ paths:
               style: simple
       tags:
       - docs
-  /v1/cli-runs:
-    post:
-      description: "Record one Tsuga CLI run, sent only by CLIs that opted in with\
-        \ `TSUGA_TELEMETRY=1`. Unauthenticated, so that runs which failed before or\
-        \ during authentication are recorded too."
-      operationId: recordCliRun
-      requestBody:
-        content:
-          application/json:
-            example:
-              cliVersion: 1.40.0
-              command: monitors list
-              durationMs: 412
-              exitCode: 0
-              osType: darwin
-              nodeVersion: 24.1.0
-              traceId: 4bf92f3577b34da6a3ce929d0e0e4736
-              spanId: 00f067aa0ba902b7
-            schema:
-              $ref: "#/components/schemas/recordCliRun_request"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RecordCliRunResponse"
-          description: Successful response
-          headers:
-            x-request-id:
-              description: "Unique identifier for this API request, useful for debugging\
-                \ and support"
-              explode: false
-              schema:
-                type: string
-              style: simple
-        "4XX":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ClientErrorEnvelope"
-          description: Client error
-          headers:
-            x-request-id:
-              description: "Unique identifier for this API request, useful for debugging\
-                \ and support"
-              explode: false
-              schema:
-                type: string
-              style: simple
-        "5XX":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ServerErrorEnvelope"
-          description: Server error
-          headers:
-            x-request-id:
-              description: "Unique identifier for this API request, useful for debugging\
-                \ and support"
-              explode: false
-              schema:
-                type: string
-              style: simple
-      tags:
-      - cli
   /v1/feedback:
     post:
       description: "Submit free-text feedback about Tsuga tools or APIs, e.g. a tool\
@@ -7051,6 +6985,25 @@ paths:
                   owner: team-123-abc
                   permissions: all
                   clusterIds: []
+              example7:
+                value:
+                  name: Service Faulty Deployment Detector
+                  message: A newly deployed service version is faulty.
+                  tags:
+                  - key: team
+                    value: platform
+                  configuration:
+                    type: faulty-deployment
+                    aggregationAlertLogic: each
+                    filter:
+                      services:
+                      - checkout-api
+                      envs:
+                      - production
+                  priority: 2
+                  owner: team-123-abc
+                  permissions: all
+                  clusterIds: []
             schema:
               $ref: "#/components/schemas/updateMonitor_request"
         description: "Monitor update request. Required fields and the submitted configuration\
@@ -7107,8 +7060,8 @@ paths:
     post:
       description: "Creates a monitor owned by the specified team. The monitor can\
         \ evaluate logs, metrics, traces, anomaly behavior, certificate expiry, new\
-        \ error patterns, error pattern increases, or Kubernetes faulty deployments\
-        \ depending on its configuration."
+        \ error patterns, error pattern increases, Kubernetes faulty deployments,\
+        \ or faulty service deployments depending on its configuration."
       operationId: createMonitor
       requestBody:
         content:
@@ -7254,6 +7207,25 @@ paths:
                       - prod-eu-west-1
                       namespaces:
                       - checkout
+                      envs:
+                      - production
+                  priority: 2
+                  owner: team-123-abc
+                  permissions: all
+                  clusterIds: []
+              example7:
+                value:
+                  name: Service Faulty Deployment Detector
+                  message: A newly deployed service version is faulty.
+                  tags:
+                  - key: team
+                    value: platform
+                  configuration:
+                    type: faulty-deployment
+                    aggregationAlertLogic: each
+                    filter:
+                      services:
+                      - checkout-api
                       envs:
                       - production
                   priority: 2
@@ -14965,6 +14937,18 @@ components:
               key:
                 groupId: groupId
                 lineStyle: regular
+            normalizer:
+              type: duration
+              unit: ns
+            eventsOverlay:
+              type: service-deployments
+              teams:
+              - teams
+              - teams
+              services:
+              - services
+              - services
+              env: env
           layout:
             x: 1.4658129805029452
             "y": 5.962133916683182
@@ -14999,6 +14983,18 @@ components:
               key:
                 groupId: groupId
                 lineStyle: regular
+            normalizer:
+              type: duration
+              unit: ns
+            eventsOverlay:
+              type: service-deployments
+              teams:
+              - teams
+              - teams
+              services:
+              - services
+              - services
+              env: env
           layout:
             x: 1.4658129805029452
             "y": 5.962133916683182
@@ -15130,6 +15126,18 @@ components:
                 key:
                   groupId: groupId
                   lineStyle: regular
+              normalizer:
+                type: duration
+                unit: ns
+              eventsOverlay:
+                type: service-deployments
+                teams:
+                - teams
+                - teams
+                services:
+                - services
+                - services
+                env: env
             layout:
               x: 1.4658129805029452
               "y": 5.962133916683182
@@ -15164,6 +15172,18 @@ components:
                 key:
                   groupId: groupId
                   lineStyle: regular
+              normalizer:
+                type: duration
+                unit: ns
+              eventsOverlay:
+                type: service-deployments
+                teams:
+                - teams
+                - teams
+                services:
+                - services
+                - services
+                env: env
             layout:
               x: 1.4658129805029452
               "y": 5.962133916683182
@@ -15220,6 +15240,18 @@ components:
                 key:
                   groupId: groupId
                   lineStyle: regular
+              normalizer:
+                type: duration
+                unit: ns
+              eventsOverlay:
+                type: service-deployments
+                teams:
+                - teams
+                - teams
+                services:
+                - services
+                - services
+                env: env
             layout:
               x: 1.4658129805029452
               "y": 5.962133916683182
@@ -15254,6 +15286,18 @@ components:
                 key:
                   groupId: groupId
                   lineStyle: regular
+              normalizer:
+                type: duration
+                unit: ns
+              eventsOverlay:
+                type: service-deployments
+                teams:
+                - teams
+                - teams
+                services:
+                - services
+                - services
+                env: env
             layout:
               x: 1.4658129805029452
               "y": 5.962133916683182
@@ -15332,6 +15376,18 @@ components:
                 key:
                   groupId: groupId
                   lineStyle: regular
+              normalizer:
+                type: duration
+                unit: ns
+              eventsOverlay:
+                type: service-deployments
+                teams:
+                - teams
+                - teams
+                services:
+                - services
+                - services
+                env: env
             layout:
               x: 1.4658129805029452
               "y": 5.962133916683182
@@ -15366,6 +15422,18 @@ components:
                 key:
                   groupId: groupId
                   lineStyle: regular
+              normalizer:
+                type: duration
+                unit: ns
+              eventsOverlay:
+                type: service-deployments
+                teams:
+                - teams
+                - teams
+                services:
+                - services
+                - services
+                env: env
             layout:
               x: 1.4658129805029452
               "y": 5.962133916683182
@@ -15435,6 +15503,18 @@ components:
                 key:
                   groupId: groupId
                   lineStyle: regular
+              normalizer:
+                type: duration
+                unit: ns
+              eventsOverlay:
+                type: service-deployments
+                teams:
+                - teams
+                - teams
+                services:
+                - services
+                - services
+                env: env
             layout:
               x: 1.4658129805029452
               "y": 5.962133916683182
@@ -15469,6 +15549,18 @@ components:
                 key:
                   groupId: groupId
                   lineStyle: regular
+              normalizer:
+                type: duration
+                unit: ns
+              eventsOverlay:
+                type: service-deployments
+                teams:
+                - teams
+                - teams
+                services:
+                - services
+                - services
+                env: env
             layout:
               x: 1.4658129805029452
               "y": 5.962133916683182
@@ -15538,6 +15630,18 @@ components:
                 key:
                   groupId: groupId
                   lineStyle: regular
+              normalizer:
+                type: duration
+                unit: ns
+              eventsOverlay:
+                type: service-deployments
+                teams:
+                - teams
+                - teams
+                services:
+                - services
+                - services
+                env: env
             layout:
               x: 1.4658129805029452
               "y": 5.962133916683182
@@ -15572,6 +15676,18 @@ components:
                 key:
                   groupId: groupId
                   lineStyle: regular
+              normalizer:
+                type: duration
+                unit: ns
+              eventsOverlay:
+                type: service-deployments
+                teams:
+                - teams
+                - teams
+                services:
+                - services
+                - services
+                env: env
             layout:
               x: 1.4658129805029452
               "y": 5.962133916683182
@@ -15637,6 +15753,18 @@ components:
               key:
                 groupId: groupId
                 lineStyle: regular
+            normalizer:
+              type: duration
+              unit: ns
+            eventsOverlay:
+              type: service-deployments
+              teams:
+              - teams
+              - teams
+              services:
+              - services
+              - services
+              env: env
           layout:
             x: 1.4658129805029452
             "y": 5.962133916683182
@@ -16322,30 +16450,6 @@ components:
             $ref: "#/components/schemas/DocSearchResult"
           type: array
           default: null
-      required:
-      - data
-      - requestId
-    CliRunRecorded:
-      description: Acknowledgement of a recorded CLI run
-      example:
-        id: id
-      properties:
-        id:
-          description: API request ID the run was recorded under.
-          type: string
-      required:
-      - id
-    RecordCliRunResponse:
-      example:
-        requestId: requestId
-        data:
-          id: id
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/CliRunRecorded"
       required:
       - data
       - requestId
@@ -23353,20 +23457,6 @@ components:
       required:
       - type
       title: Increase
-    FunctionRolling:
-      properties:
-        type:
-          description: Computes a rolling window aggregate
-          enum:
-          - rolling
-          type: string
-        window:
-          description: Duration of the rolling window
-          type: string
-      required:
-      - type
-      - window
-      title: Rolling
     FunctionLog:
       properties:
         type:
@@ -23442,22 +23532,6 @@ components:
       required:
       - type
       title: Cumsum
-    InputFunctionRolling:
-      properties:
-        type:
-          description: Computes a rolling window aggregate
-          enum:
-          - rolling
-          type: string
-        window:
-          description: Duration of the rolling window
-          maxLength: 250
-          minLength: 1
-          type: string
-      required:
-      - type
-      - window
-      title: InputRolling
     InputFunctionLog:
       properties:
         type:
@@ -24130,6 +24204,27 @@ components:
       - aggregationAlertLogic
       - filter
       - type
+    MonitorConfigurationFaultyDeployment:
+      properties:
+        type:
+          description: Monitor that alerts when Tsuga faulty deployment detection
+            flags a newly deployed service version as faulty.
+          enum:
+          - faulty-deployment
+          type: string
+        aggregationAlertLogic:
+          description: Fixed aggregation logic for faulty deployment monitors. Each
+            faulty service version in an environment is evaluated as its own alert
+            group.
+          enum:
+          - each
+          type: string
+        filter:
+          $ref: "#/components/schemas/MonitorConfigurationFaultyDeployment_filter"
+      required:
+      - aggregationAlertLogic
+      - filter
+      - type
     InputMonitorConfigurationMetric:
       properties:
         type:
@@ -24669,6 +24764,27 @@ components:
           type: string
         filter:
           $ref: "#/components/schemas/InputMonitorConfigurationK8sFaultyDeployment_filter"
+      required:
+      - aggregationAlertLogic
+      - filter
+      - type
+    InputMonitorConfigurationFaultyDeployment:
+      properties:
+        type:
+          description: Monitor that alerts when Tsuga faulty deployment detection
+            flags a newly deployed service version as faulty.
+          enum:
+          - faulty-deployment
+          type: string
+        aggregationAlertLogic:
+          description: Fixed aggregation logic for faulty deployment monitors. Each
+            faulty service version in an environment is evaluated as its own alert
+            group.
+          enum:
+          - each
+          type: string
+        filter:
+          $ref: "#/components/schemas/InputMonitorConfigurationFaultyDeployment_filter"
       required:
       - aggregationAlertLogic
       - filter
@@ -25237,6 +25353,9 @@ components:
       - type
       - weeklySchedule
     DataNormalizerDuration:
+      example:
+        type: duration
+        unit: ns
       properties:
         type:
           description: Normalizes values as durations using standard time units
@@ -25382,6 +25501,171 @@ components:
       - type
       - unit
       title: InputCustom
+    WidgetServiceDeploymentsOverlay:
+      example:
+        type: service-deployments
+        teams:
+        - teams
+        - teams
+        services:
+        - services
+        - services
+        env: env
+      properties:
+        type:
+          description: Draws the deployments contained in the time range over the
+            chart
+          enum:
+          - service-deployments
+          type: string
+        teams:
+          description: "IDs of the teams whose services are drawn. The set is resolved\
+            \ when the widget renders, so a service joining one of these teams later\
+            \ is picked up automatically. Every service is drawn when omitted."
+          items:
+            type: string
+          type: array
+          default: null
+        services:
+          description: "OpenTelemetry service names to draw, narrowing `teams` down\
+            \ to an explicit list. Every service matching `teams` is drawn when omitted."
+          items:
+            type: string
+          type: array
+          default: null
+        env:
+          description: Environment whose deployments are drawn. Deployments from every
+            environment are drawn when omitted.
+          type: string
+      required:
+      - type
+      title: ServiceDeploymentsOverlay
+    WidgetLogsOverlay:
+      properties:
+        type:
+          description: Draws log events over the chart
+          enum:
+          - logs
+          type: string
+        query:
+          description: Tsuga query selecting the log events drawn over the chart.
+            All log events in the time range are drawn when omitted.
+          type: string
+      required:
+      - type
+      title: LogsOverlay
+    WidgetOngoingAlertsOverlay:
+      properties:
+        type:
+          description: Draws monitor and SLO alerts over the chart
+          enum:
+          - ongoing-alerts
+          type: string
+        alertTypes:
+          description: Kinds of alert drawn over the chart. Both monitor and SLO alerts
+            are drawn when omitted.
+          items:
+            enum:
+            - monitor
+            - slo
+            type: string
+          type: array
+          default: null
+        query:
+          description: "Case-insensitive substring matched against the alert, the\
+            \ same way the Ongoing alerts page matches its search box. Every alert\
+            \ is drawn when omitted."
+          type: string
+        filters:
+          $ref: "#/components/schemas/WidgetOngoingAlertsOverlay_filters"
+      required:
+      - type
+      title: OngoingAlertsOverlay
+    InputWidgetServiceDeploymentsOverlay:
+      properties:
+        type:
+          description: Draws the deployments contained in the time range over the
+            chart
+          enum:
+          - service-deployments
+          type: string
+        teams:
+          description: "IDs of the teams whose services are drawn. The set is resolved\
+            \ when the widget renders, so a service joining one of these teams later\
+            \ is picked up automatically. Every service is drawn when omitted."
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 50
+          type: array
+          default: null
+        services:
+          description: "OpenTelemetry service names to draw, narrowing `teams` down\
+            \ to an explicit list. Every service matching `teams` is drawn when omitted."
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 200
+          type: array
+          default: null
+        env:
+          description: Environment whose deployments are drawn. Deployments from every
+            environment are drawn when omitted.
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - type
+      title: InputServiceDeploymentsOverlay
+    InputWidgetLogsOverlay:
+      properties:
+        type:
+          description: Draws log events over the chart
+          enum:
+          - logs
+          type: string
+        query:
+          description: Tsuga query selecting the log events drawn over the chart.
+            All log events in the time range are drawn when omitted.
+          format: tsuga-query
+          maxLength: 10000
+          minLength: 0
+          type: string
+      required:
+      - type
+      title: InputLogsOverlay
+    InputWidgetOngoingAlertsOverlay:
+      properties:
+        type:
+          description: Draws monitor and SLO alerts over the chart
+          enum:
+          - ongoing-alerts
+          type: string
+        alertTypes:
+          description: Kinds of alert drawn over the chart. Both monitor and SLO alerts
+            are drawn when omitted.
+          items:
+            enum:
+            - monitor
+            - slo
+            type: string
+          maxItems: 2
+          type: array
+          default: null
+        query:
+          description: "Case-insensitive substring matched against the alert, the\
+            \ same way the Ongoing alerts page matches its search box. Every alert\
+            \ is drawn when omitted."
+          maxLength: 250
+          minLength: 0
+          type: string
+        filters:
+          $ref: "#/components/schemas/InputWidgetOngoingAlertsOverlay_filters"
+      required:
+      - type
+      title: InputOngoingAlertsOverlay
     SloWidgetOrganizeByTeam:
       properties:
         type:
@@ -25453,6 +25737,18 @@ components:
           key:
             groupId: groupId
             lineStyle: regular
+        normalizer:
+          type: duration
+          unit: ns
+        eventsOverlay:
+          type: service-deployments
+          teams:
+          - teams
+          - teams
+          services:
+          - services
+          - services
+          env: env
       properties:
         type:
           description: Displays the database rows-based aggregation as a time series
@@ -25493,6 +25789,10 @@ components:
             \ query, only the `1` entry is read and it applies to every series. Defaults\
             \ to regular."
           type: object
+        normalizer:
+          $ref: "#/components/schemas/Normalizer"
+        eventsOverlay:
+          $ref: "#/components/schemas/EventsOverlay"
       required:
       - connectionId
       - queries
@@ -25559,6 +25859,8 @@ components:
             type: string
           type: array
           default: null
+        normalizer:
+          $ref: "#/components/schemas/Normalizer"
       required:
       - connectionId
       - queries
@@ -25588,6 +25890,8 @@ components:
           - legend-only
           - no-legend
           type: string
+        normalizer:
+          $ref: "#/components/schemas/Normalizer"
       required:
       - connectionId
       - queries
@@ -25625,6 +25929,10 @@ components:
           default: null
         yAxisSettings:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings"
+        normalizer:
+          $ref: "#/components/schemas/Normalizer"
+        eventsOverlay:
+          $ref: "#/components/schemas/EventsOverlay"
       required:
       - connectionId
       - queries
@@ -25729,6 +26037,8 @@ components:
             \ query, only the `1` entry is read and it applies to every series. Defaults\
             \ to regular."
           type: object
+        eventsOverlay:
+          $ref: "#/components/schemas/EventsOverlay"
       required:
       - queries
       - type
@@ -25889,6 +26199,8 @@ components:
           type: string
         yAxisSettings:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings"
+        eventsOverlay:
+          $ref: "#/components/schemas/EventsOverlay"
       required:
       - queries
       - type
@@ -25980,6 +26292,8 @@ components:
           type: object
         customLink:
           $ref: "#/components/schemas/CustomLink"
+        eventsOverlay:
+          $ref: "#/components/schemas/EventsOverlay"
       required:
       - queries
       - source
@@ -26338,6 +26652,8 @@ components:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings"
         customLink:
           $ref: "#/components/schemas/CustomLink"
+        eventsOverlay:
+          $ref: "#/components/schemas/EventsOverlay"
       required:
       - queries
       - source
@@ -26487,6 +26803,8 @@ components:
           type: string
         yAxisSettings:
           $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings"
+        eventsOverlay:
+          $ref: "#/components/schemas/EventsOverlay"
       required:
       - queries
       - source
@@ -26837,6 +27155,10 @@ components:
             \ query, only the `1` entry is read and it applies to every series. Defaults\
             \ to regular."
           type: object
+        normalizer:
+          $ref: "#/components/schemas/InputNormalizer"
+        eventsOverlay:
+          $ref: "#/components/schemas/InputEventsOverlay"
       required:
       - connectionId
       - queries
@@ -26919,6 +27241,8 @@ components:
           minItems: 1
           type: array
           default: null
+        normalizer:
+          $ref: "#/components/schemas/InputNormalizer"
       required:
       - connectionId
       - queries
@@ -26956,6 +27280,8 @@ components:
           - legend-only
           - no-legend
           type: string
+        normalizer:
+          $ref: "#/components/schemas/InputNormalizer"
       required:
       - connectionId
       - queries
@@ -27001,6 +27327,10 @@ components:
           default: null
         yAxisSettings:
           $ref: "#/components/schemas/InputGraphVisualizationTimeseriesConnection_yAxisSettings"
+        normalizer:
+          $ref: "#/components/schemas/InputNormalizer"
+        eventsOverlay:
+          $ref: "#/components/schemas/InputEventsOverlay"
       required:
       - connectionId
       - queries
@@ -27114,6 +27444,8 @@ components:
             \ query, only the `1` entry is read and it applies to every series. Defaults\
             \ to regular."
           type: object
+        eventsOverlay:
+          $ref: "#/components/schemas/InputEventsOverlay"
       required:
       - queries
       - type
@@ -27278,6 +27610,8 @@ components:
           type: string
         yAxisSettings:
           $ref: "#/components/schemas/InputGraphVisualizationTimeseriesConnection_yAxisSettings"
+        eventsOverlay:
+          $ref: "#/components/schemas/InputEventsOverlay"
       required:
       - queries
       - type
@@ -27384,6 +27718,8 @@ components:
           type: object
         customLink:
           $ref: "#/components/schemas/InputCustomLink"
+        eventsOverlay:
+          $ref: "#/components/schemas/InputEventsOverlay"
       required:
       - queries
       - source
@@ -27813,6 +28149,8 @@ components:
           $ref: "#/components/schemas/InputGraphVisualizationTimeseriesConnection_yAxisSettings"
         customLink:
           $ref: "#/components/schemas/InputCustomLink"
+        eventsOverlay:
+          $ref: "#/components/schemas/InputEventsOverlay"
       required:
       - queries
       - source
@@ -27998,6 +28336,8 @@ components:
           type: string
         yAxisSettings:
           $ref: "#/components/schemas/InputGraphVisualizationTimeseriesConnection_yAxisSettings"
+        eventsOverlay:
+          $ref: "#/components/schemas/InputEventsOverlay"
       required:
       - queries
       - source
@@ -29383,6 +29723,18 @@ components:
             key:
               groupId: groupId
               lineStyle: regular
+          normalizer:
+            type: duration
+            unit: ns
+          eventsOverlay:
+            type: service-deployments
+            teams:
+            - teams
+            - teams
+            services:
+            - services
+            - services
+            env: env
         layout:
           x: 1.4658129805029452
           "y": 5.962133916683182
@@ -29503,7 +29855,6 @@ components:
           per-hour: "#/components/schemas/FunctionPerHour"
           rate: "#/components/schemas/FunctionRate"
           increase: "#/components/schemas/FunctionIncrease"
-          rolling: "#/components/schemas/FunctionRolling"
           log: "#/components/schemas/FunctionLog"
           power: "#/components/schemas/FunctionPower"
           sqrt: "#/components/schemas/FunctionSqrt"
@@ -29517,7 +29868,6 @@ components:
       - $ref: "#/components/schemas/FunctionPerHour"
       - $ref: "#/components/schemas/FunctionRate"
       - $ref: "#/components/schemas/FunctionIncrease"
-      - $ref: "#/components/schemas/FunctionRolling"
       - $ref: "#/components/schemas/FunctionLog"
       - $ref: "#/components/schemas/FunctionPower"
       - $ref: "#/components/schemas/FunctionSqrt"
@@ -29556,8 +29906,8 @@ components:
         timeAggregate:
           description: "Per-series rollup applied within each time bucket before the\
             \ cross-series aggregate. Use it on metric queries when `aggregate.type`\
-            \ is `sum` and no `rate`, `increase`, `last`, or `rolling` function is\
-            \ present. When omitted, Tsuga derives the rollup from the metric type."
+            \ is `sum` and no `rate`, `increase`, or `last` function is present. When\
+            \ omitted, Tsuga derives the rollup from the metric type."
           enum:
           - avg
           - sum
@@ -30107,7 +30457,6 @@ components:
           per-hour: "#/components/schemas/FunctionPerHour"
           rate: "#/components/schemas/FunctionRate"
           increase: "#/components/schemas/FunctionIncrease"
-          rolling: "#/components/schemas/InputFunctionRolling"
           log: "#/components/schemas/InputFunctionLog"
           power: "#/components/schemas/FunctionPower"
           sqrt: "#/components/schemas/FunctionSqrt"
@@ -30121,7 +30470,6 @@ components:
       - $ref: "#/components/schemas/FunctionPerHour"
       - $ref: "#/components/schemas/FunctionRate"
       - $ref: "#/components/schemas/FunctionIncrease"
-      - $ref: "#/components/schemas/InputFunctionRolling"
       - $ref: "#/components/schemas/InputFunctionLog"
       - $ref: "#/components/schemas/FunctionPower"
       - $ref: "#/components/schemas/FunctionSqrt"
@@ -30149,8 +30497,8 @@ components:
         timeAggregate:
           description: "Per-series rollup applied within each time bucket before the\
             \ cross-series aggregate. Use it on metric queries when `aggregate.type`\
-            \ is `sum` and no `rate`, `increase`, `last`, or `rolling` function is\
-            \ present. When omitted, Tsuga derives the rollup from the metric type."
+            \ is `sum` and no `rate`, `increase`, or `last` function is present. When\
+            \ omitted, Tsuga derives the rollup from the metric type."
           enum:
           - avg
           - sum
@@ -30234,6 +30582,23 @@ components:
       - level
       - value
       title: ThresholdMarker
+    EventsOverlay:
+      description: "Events displayed on top of the chart, over its time axis, so they\
+        \ can be correlated with the plotted data. A widget carries at most one overlay,\
+        \ and each kind of overlay carries its own settings."
+      discriminator:
+        mapping:
+          service-deployments: "#/components/schemas/WidgetServiceDeploymentsOverlay"
+          logs: "#/components/schemas/WidgetLogsOverlay"
+          ongoing-alerts: "#/components/schemas/WidgetOngoingAlertsOverlay"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/WidgetServiceDeploymentsOverlay"
+      - $ref: "#/components/schemas/WidgetLogsOverlay"
+      - $ref: "#/components/schemas/WidgetOngoingAlertsOverlay"
+      required:
+      - type
+      title: EventsOverlay
     WidgetListColumn:
       description: List column pairing a displayed attribute with the formatting applied
         to its values.
@@ -30306,8 +30671,8 @@ components:
         timeAggregate:
           description: "Per-series rollup applied within each time bucket before the\
             \ cross-series aggregate. Use it on metric queries when `aggregate.type`\
-            \ is `sum` and no `rate`, `increase`, `last`, or `rolling` function is\
-            \ present. When omitted, Tsuga derives the rollup from the metric type."
+            \ is `sum` and no `rate`, `increase`, or `last` function is present. When\
+            \ omitted, Tsuga derives the rollup from the metric type."
           enum:
           - avg
           - sum
@@ -30492,6 +30857,23 @@ components:
       required:
       - type
       title: InputNormalizer
+    InputEventsOverlay:
+      description: "Events displayed on top of the chart, over its time axis, so they\
+        \ can be correlated with the plotted data. A widget carries at most one overlay,\
+        \ and each kind of overlay carries its own settings."
+      discriminator:
+        mapping:
+          service-deployments: "#/components/schemas/InputWidgetServiceDeploymentsOverlay"
+          logs: "#/components/schemas/InputWidgetLogsOverlay"
+          ongoing-alerts: "#/components/schemas/InputWidgetOngoingAlertsOverlay"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/InputWidgetServiceDeploymentsOverlay"
+      - $ref: "#/components/schemas/InputWidgetLogsOverlay"
+      - $ref: "#/components/schemas/InputWidgetOngoingAlertsOverlay"
+      required:
+      - type
+      title: InputEventsOverlay
     InputWidgetListColumn:
       description: List column pairing a displayed attribute with the formatting applied
         to its values.
@@ -30568,8 +30950,8 @@ components:
         timeAggregate:
           description: "Per-series rollup applied within each time bucket before the\
             \ cross-series aggregate. Use it on metric queries when `aggregate.type`\
-            \ is `sum` and no `rate`, `increase`, `last`, or `rolling` function is\
-            \ present. When omitted, Tsuga derives the rollup from the metric type."
+            \ is `sum` and no `rate`, `increase`, or `last` function is present. When\
+            \ omitted, Tsuga derives the rollup from the metric type."
           enum:
           - avg
           - sum
@@ -30892,8 +31274,8 @@ components:
         timeAggregate:
           description: "Per-series rollup applied within each time bucket before the\
             \ cross-series aggregate. Use it on metric queries when `aggregate.type`\
-            \ is `sum` and no `rate`, `increase`, `last`, or `rolling` function is\
-            \ present. When omitted, Tsuga derives the rollup from the metric type."
+            \ is `sum` and no `rate`, `increase`, or `last` function is present. When\
+            \ omitted, Tsuga derives the rollup from the metric type."
           enum:
           - avg
           - sum
@@ -33227,55 +33609,6 @@ components:
       required:
       - name
       - owner
-    recordCliRun_request:
-      properties:
-        cliVersion:
-          description: Version of the CLI that ran.
-          pattern: "^[0-9A-Za-z.+-]{1,40}$"
-          type: string
-        command:
-          description: "Command path without its arguments, e.g. `monitors list`."
-          pattern: "^[a-z0-9 -]{0,120}$"
-          type: string
-        durationMs:
-          description: Run duration.
-          maximum: 86400000
-          minimum: 0
-          type: integer
-        exitCode:
-          description: Process exit code.
-          maximum: 255
-          minimum: 0
-          type: integer
-        errorType:
-          description: "Kind of failure, e.g. `TransportError`."
-          pattern: "^[A-Za-z]{1,64}$"
-          type: string
-        osType:
-          description: e.g. `darwin`.
-          pattern: "^[a-z0-9]{1,20}$"
-          type: string
-        nodeVersion:
-          description: e.g. `24.1.0`.
-          pattern: "^[0-9.]{1,20}$"
-          type: string
-        traceId:
-          description: W3C trace ID the CLI sent with its API calls during the run.
-          pattern: "^(?!0+$)[0-9a-f]{32}$"
-          type: string
-        spanId:
-          description: W3C span ID the CLI named as the parent of its API calls.
-          pattern: "^(?!0+$)[0-9a-f]{16}$"
-          type: string
-      required:
-      - cliVersion
-      - command
-      - durationMs
-      - exitCode
-      - nodeVersion
-      - osType
-      - spanId
-      - traceId
     createFeedback_request:
       properties:
         content:
@@ -34416,8 +34749,9 @@ components:
             - log-error-pattern
             - log-error-pattern-increase
             - k8s-faulty-deployment
+            - faulty-deployment
             type: string
-          maxItems: 6
+          maxItems: 7
           type: array
           default: null
         exclude:
@@ -34538,6 +34872,7 @@ components:
           log-error-pattern-increase: "#/components/schemas/InputMonitorConfigurationLogErrorPatternIncrease"
           certificate-expiry: "#/components/schemas/InputMonitorConfigurationCertificateExpiry"
           k8s-faulty-deployment: "#/components/schemas/InputMonitorConfigurationK8sFaultyDeployment"
+          faulty-deployment: "#/components/schemas/InputMonitorConfigurationFaultyDeployment"
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/InputMonitorConfigurationMetric"
@@ -34550,6 +34885,7 @@ components:
       - $ref: "#/components/schemas/InputMonitorConfigurationLogErrorPatternIncrease"
       - $ref: "#/components/schemas/InputMonitorConfigurationCertificateExpiry"
       - $ref: "#/components/schemas/InputMonitorConfigurationK8sFaultyDeployment"
+      - $ref: "#/components/schemas/InputMonitorConfigurationFaultyDeployment"
       required:
       - type
     updateMonitor_request:
@@ -41090,6 +41426,7 @@ components:
           anomaly-trace: "#/components/schemas/MonitorConfigurationAnomalyTrace"
           certificate-expiry: "#/components/schemas/MonitorConfigurationCertificateExpiry"
           k8s-faulty-deployment: "#/components/schemas/MonitorConfigurationK8sFaultyDeployment"
+          faulty-deployment: "#/components/schemas/MonitorConfigurationFaultyDeployment"
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/MonitorConfigurationMetric"
@@ -41102,6 +41439,7 @@ components:
       - $ref: "#/components/schemas/MonitorConfigurationAnomalyTrace"
       - $ref: "#/components/schemas/MonitorConfigurationCertificateExpiry"
       - $ref: "#/components/schemas/MonitorConfigurationK8sFaultyDeployment"
+      - $ref: "#/components/schemas/MonitorConfigurationFaultyDeployment"
       required:
       - type
     Rule_teamsFilter:
@@ -42972,6 +43310,22 @@ components:
             type: string
           type: array
           default: null
+    MonitorConfigurationFaultyDeployment_filter:
+      description: Deployment selection used for faulty deployment detection. All
+        configured fields must match for a deployment to be watched.
+      properties:
+        services:
+          description: Service names to watch. Omit to watch every service.
+          items:
+            type: string
+          type: array
+          default: null
+        envs:
+          description: Environments to watch. Omit to watch every environment.
+          items:
+            type: string
+          type: array
+          default: null
     InputMonitorConfigurationMetric_conditions_inner:
       properties:
         formula:
@@ -43146,6 +43500,29 @@ components:
           default: null
         namespaces:
           description: Kubernetes namespaces to watch. Omit to watch every namespace.
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          minItems: 1
+          type: array
+          default: null
+        envs:
+          description: Environments to watch. Omit to watch every environment.
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          minItems: 1
+          type: array
+          default: null
+    InputMonitorConfigurationFaultyDeployment_filter:
+      description: Deployment selection used for faulty deployment detection. All
+        configured fields must match for a deployment to be watched. Send an empty
+        object to watch every deployment.
+      properties:
+        services:
+          description: Service names to watch. Omit to watch every service.
           items:
             maxLength: 250
             minLength: 1
@@ -43337,6 +43714,98 @@ components:
             \ time zone, and windows on the same day cannot overlap."
           items:
             $ref: "#/components/schemas/SilenceTimeRange"
+          type: array
+          default: null
+    WidgetOngoingAlertsOverlay_filters:
+      description: "Narrows the drawn alerts. An alert must match every listed filter,\
+        \ and a filter matches when the alert has any of its values."
+      properties:
+        team:
+          description: "Names of the teams owning the monitor, or the SLO for an SLO\
+            \ alert. Names rather than IDs, matching how the Ongoing alerts page filters\
+            \ by owner."
+          items:
+            type: string
+          type: array
+          default: null
+        triggeredBy:
+          description: "Group-by dimensions that raised the alert, each formatted\
+            \ as `key:value`. An alert matches when any of its triggering dimensions\
+            \ is listed."
+          items:
+            type: string
+          type: array
+          default: null
+        priority:
+          description: "Priorities the alert was raised at. A monitor alert takes\
+            \ its priority from the monitor, an SLO alert from the SLO alert that\
+            \ fired."
+          items:
+            enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            type: integer
+          type: array
+          default: null
+        cluster:
+          description: IDs of the clusters the alert was raised on. Alerts raised
+            on no cluster are always drawn.
+          items:
+            type: string
+          type: array
+          default: null
+    InputWidgetOngoingAlertsOverlay_filters:
+      description: "Narrows the drawn alerts. An alert must match every listed filter,\
+        \ and a filter matches when the alert has any of its values."
+      properties:
+        team:
+          description: "Names of the teams owning the monitor, or the SLO for an SLO\
+            \ alert. Names rather than IDs, matching how the Ongoing alerts page filters\
+            \ by owner."
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 50
+          type: array
+          default: null
+        triggeredBy:
+          description: "Group-by dimensions that raised the alert, each formatted\
+            \ as `key:value`. An alert matches when any of its triggering dimensions\
+            \ is listed."
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 50
+          type: array
+          default: null
+        priority:
+          description: "Priorities the alert was raised at. A monitor alert takes\
+            \ its priority from the monitor, an SLO alert from the SLO alert that\
+            \ fired."
+          items:
+            enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            type: integer
+          maxItems: 5
+          type: array
+          default: null
+        cluster:
+          description: IDs of the clusters the alert was raised on. Alerts raised
+            on no cluster are always drawn.
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 50
           type: array
           default: null
     GraphVisualizationTimeseriesConnection_yAxisSettings_min_oneOf:
@@ -43697,6 +44166,7 @@ components:
           certificate-expiry: "#/components/schemas/MonitorConfigurationCertificateExpiry"
           log-error-pattern-increase: "#/components/schemas/MonitorConfigurationLogErrorPatternIncrease"
           k8s-faulty-deployment: "#/components/schemas/MonitorConfigurationK8sFaultyDeployment"
+          faulty-deployment: "#/components/schemas/MonitorConfigurationFaultyDeployment"
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/MonitorConfigurationMetric"
@@ -43708,6 +44178,7 @@ components:
       - $ref: "#/components/schemas/MonitorConfigurationCertificateExpiry"
       - $ref: "#/components/schemas/MonitorConfigurationLogErrorPatternIncrease"
       - $ref: "#/components/schemas/MonitorConfigurationK8sFaultyDeployment"
+      - $ref: "#/components/schemas/MonitorConfigurationFaultyDeployment"
       required:
       - type
     OngoingMonitorAlert_monitor:

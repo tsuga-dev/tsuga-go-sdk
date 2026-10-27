@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
 **YAxisSettings** | Pointer to [**GraphVisualizationTimeseriesConnectionYAxisSettings**](GraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
 **LineStyleOptions** | Pointer to [**map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue**](GraphVisualizationTimeseriesConnectionLineStyleOptionsValue.md) | Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. For widgets with a single query, only the &#x60;1&#x60; entry is read and it applies to every series. Defaults to regular. | [optional] 
+**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
+**EventsOverlay** | Pointer to [**EventsOverlay**](EventsOverlay.md) |  | [optional] 
 **Query** | **string** | Query that selects RUM events for the list | 
 **ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each RUM event. Attributes are read without their stream prefix, e.g. &#x60;view.name&#x60; rather than &#x60;events.view.name&#x60;. | [optional] 
 **ListColumnsSize** | Pointer to **map[string]float32** | List column widths in pixels, keyed by the &#x60;attribute&#x60; of the matching &#x60;listColumns&#x60; entry. Columns without an entry keep their default width. | [optional] 
@@ -19,7 +21,6 @@ Name | Type | Description | Notes
 **BackgroundMode** | Pointer to **string** | Controls whether the widget uses a solid or transparent background | [optional] 
 **Conditions** | Pointer to [**[]ConditionalFormatting**](ConditionalFormatting.md) | Conditional formatting rules applied to the raw query value, before the unit is applied | [optional] 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
-**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 **Aliases** | Pointer to [**GraphVisualizationTimeseriesPromqlAliases**](GraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **TimeBucket** | Pointer to [**GraphVisualizationTimeseriesPromqlTimeBucket**](GraphVisualizationTimeseriesPromqlTimeBucket.md) |  | [optional] 
 **Smoothing** | Pointer to **bool** | Whether to apply automatic smoothing to the rendered timeseries | [optional] 
@@ -227,6 +228,56 @@ SetLineStyleOptions sets LineStyleOptions field to given value.
 
 HasLineStyleOptions returns a boolean if a field has been set.
 
+### GetNormalizer
+
+`func (o *GraphVisualization) GetNormalizer() Normalizer`
+
+GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
+
+### GetNormalizerOk
+
+`func (o *GraphVisualization) GetNormalizerOk() (*Normalizer, bool)`
+
+GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNormalizer
+
+`func (o *GraphVisualization) SetNormalizer(v Normalizer)`
+
+SetNormalizer sets Normalizer field to given value.
+
+### HasNormalizer
+
+`func (o *GraphVisualization) HasNormalizer() bool`
+
+HasNormalizer returns a boolean if a field has been set.
+
+### GetEventsOverlay
+
+`func (o *GraphVisualization) GetEventsOverlay() EventsOverlay`
+
+GetEventsOverlay returns the EventsOverlay field if non-nil, zero value otherwise.
+
+### GetEventsOverlayOk
+
+`func (o *GraphVisualization) GetEventsOverlayOk() (*EventsOverlay, bool)`
+
+GetEventsOverlayOk returns a tuple with the EventsOverlay field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventsOverlay
+
+`func (o *GraphVisualization) SetEventsOverlay(v EventsOverlay)`
+
+SetEventsOverlay sets EventsOverlay field to given value.
+
+### HasEventsOverlay
+
+`func (o *GraphVisualization) HasEventsOverlay() bool`
+
+HasEventsOverlay returns a boolean if a field has been set.
+
 ### GetQuery
 
 `func (o *GraphVisualization) GetQuery() string`
@@ -421,31 +472,6 @@ SetPrecision sets Precision field to given value.
 `func (o *GraphVisualization) HasPrecision() bool`
 
 HasPrecision returns a boolean if a field has been set.
-
-### GetNormalizer
-
-`func (o *GraphVisualization) GetNormalizer() Normalizer`
-
-GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
-
-### GetNormalizerOk
-
-`func (o *GraphVisualization) GetNormalizerOk() (*Normalizer, bool)`
-
-GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetNormalizer
-
-`func (o *GraphVisualization) SetNormalizer(v Normalizer)`
-
-SetNormalizer sets Normalizer field to given value.
-
-### HasNormalizer
-
-`func (o *GraphVisualization) HasNormalizer() bool`
-
-HasNormalizer returns a boolean if a field has been set.
 
 ### GetAliases
 

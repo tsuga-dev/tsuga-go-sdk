@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Type** | **string** | Displays the database rows-based aggregation as a ranked top list | 
 **ConnectionId** | **string** | The ID of the connection to use to query the datastore. | 
 **Queries** | **[]string** |  | 
+**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
 
 ## Methods
 
@@ -86,6 +87,31 @@ and a boolean to check if the value has been set.
 
 SetQueries sets Queries field to given value.
 
+
+### GetNormalizer
+
+`func (o *GraphVisualizationTopListConnection) GetNormalizer() Normalizer`
+
+GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
+
+### GetNormalizerOk
+
+`func (o *GraphVisualizationTopListConnection) GetNormalizerOk() (*Normalizer, bool)`
+
+GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNormalizer
+
+`func (o *GraphVisualizationTopListConnection) SetNormalizer(v Normalizer)`
+
+SetNormalizer sets Normalizer field to given value.
+
+### HasNormalizer
+
+`func (o *GraphVisualizationTopListConnection) HasNormalizer() bool`
+
+HasNormalizer returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

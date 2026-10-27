@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 **YAxisSettings** | Pointer to [**InputGraphVisualizationTimeseriesConnectionYAxisSettings**](InputGraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
 **CustomLink** | Pointer to [**InputCustomLink**](InputCustomLink.md) |  | [optional] 
+**EventsOverlay** | Pointer to [**InputEventsOverlay**](InputEventsOverlay.md) |  | [optional] 
 
 ## Methods
 
@@ -398,6 +399,31 @@ SetCustomLink sets CustomLink field to given value.
 `func (o *InputGraphVisualizationBar) HasCustomLink() bool`
 
 HasCustomLink returns a boolean if a field has been set.
+
+### GetEventsOverlay
+
+`func (o *InputGraphVisualizationBar) GetEventsOverlay() InputEventsOverlay`
+
+GetEventsOverlay returns the EventsOverlay field if non-nil, zero value otherwise.
+
+### GetEventsOverlayOk
+
+`func (o *InputGraphVisualizationBar) GetEventsOverlayOk() (*InputEventsOverlay, bool)`
+
+GetEventsOverlayOk returns a tuple with the EventsOverlay field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventsOverlay
+
+`func (o *InputGraphVisualizationBar) SetEventsOverlay(v InputEventsOverlay)`
+
+SetEventsOverlay sets EventsOverlay field to given value.
+
+### HasEventsOverlay
+
+`func (o *InputGraphVisualizationBar) HasEventsOverlay() bool`
+
+HasEventsOverlay returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
 **YAxisSettings** | Pointer to [**GraphVisualizationTimeseriesConnectionYAxisSettings**](GraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
 **LineStyleOptions** | Pointer to [**map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue**](GraphVisualizationTimeseriesConnectionLineStyleOptionsValue.md) | Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. For widgets with a single query, only the &#x60;1&#x60; entry is read and it applies to every series. Defaults to regular. | [optional] 
+**Normalizer** | Pointer to [**Normalizer**](Normalizer.md) |  | [optional] 
+**EventsOverlay** | Pointer to [**EventsOverlay**](EventsOverlay.md) |  | [optional] 
 
 ## Methods
 
@@ -190,6 +192,56 @@ SetLineStyleOptions sets LineStyleOptions field to given value.
 `func (o *GraphVisualizationTimeseriesConnection) HasLineStyleOptions() bool`
 
 HasLineStyleOptions returns a boolean if a field has been set.
+
+### GetNormalizer
+
+`func (o *GraphVisualizationTimeseriesConnection) GetNormalizer() Normalizer`
+
+GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
+
+### GetNormalizerOk
+
+`func (o *GraphVisualizationTimeseriesConnection) GetNormalizerOk() (*Normalizer, bool)`
+
+GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNormalizer
+
+`func (o *GraphVisualizationTimeseriesConnection) SetNormalizer(v Normalizer)`
+
+SetNormalizer sets Normalizer field to given value.
+
+### HasNormalizer
+
+`func (o *GraphVisualizationTimeseriesConnection) HasNormalizer() bool`
+
+HasNormalizer returns a boolean if a field has been set.
+
+### GetEventsOverlay
+
+`func (o *GraphVisualizationTimeseriesConnection) GetEventsOverlay() EventsOverlay`
+
+GetEventsOverlay returns the EventsOverlay field if non-nil, zero value otherwise.
+
+### GetEventsOverlayOk
+
+`func (o *GraphVisualizationTimeseriesConnection) GetEventsOverlayOk() (*EventsOverlay, bool)`
+
+GetEventsOverlayOk returns a tuple with the EventsOverlay field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventsOverlay
+
+`func (o *GraphVisualizationTimeseriesConnection) SetEventsOverlay(v EventsOverlay)`
+
+SetEventsOverlay sets EventsOverlay field to given value.
+
+### HasEventsOverlay
+
+`func (o *GraphVisualizationTimeseriesConnection) HasEventsOverlay() bool`
+
+HasEventsOverlay returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 **YAxisSettings** | Pointer to [**GraphVisualizationTimeseriesConnectionYAxisSettings**](GraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
 **CustomLink** | Pointer to [**CustomLink**](CustomLink.md) |  | [optional] 
+**EventsOverlay** | Pointer to [**EventsOverlay**](EventsOverlay.md) |  | [optional] 
 
 ## Methods
 
@@ -398,6 +399,31 @@ SetCustomLink sets CustomLink field to given value.
 `func (o *GraphVisualizationBar) HasCustomLink() bool`
 
 HasCustomLink returns a boolean if a field has been set.
+
+### GetEventsOverlay
+
+`func (o *GraphVisualizationBar) GetEventsOverlay() EventsOverlay`
+
+GetEventsOverlay returns the EventsOverlay field if non-nil, zero value otherwise.
+
+### GetEventsOverlayOk
+
+`func (o *GraphVisualizationBar) GetEventsOverlayOk() (*EventsOverlay, bool)`
+
+GetEventsOverlayOk returns a tuple with the EventsOverlay field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventsOverlay
+
+`func (o *GraphVisualizationBar) SetEventsOverlay(v EventsOverlay)`
+
+SetEventsOverlay sets EventsOverlay field to given value.
+
+### HasEventsOverlay
+
+`func (o *GraphVisualizationBar) HasEventsOverlay() bool`
+
+HasEventsOverlay returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

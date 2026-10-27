@@ -9,19 +9,19 @@ Name | Type | Description | Notes
 **NoDataBehavior** | **string** | Fixed no-data behavior for log error pattern increase monitors. A pattern group resolves once its volume stops increasing. | 
 **Timeframe** | **float32** | Lookback window, in minutes, that each anomaly monitor evaluation aggregates over. Always a whole number from 5 through 1440. | 
 **GroupByFields** | [**[]MonitorConfigurationMetricGroupByFieldsInner**](MonitorConfigurationMetricGroupByFieldsInner.md) | Monitor group by configuration. The &#x60;limit&#x60; setting is currently ignored; evaluation applies a fixed limit of 100 groups per field. | 
-**AggregationAlertLogic** | **string** | Fixed aggregation logic for Kubernetes faulty deployment monitors. Each faulty workload revision is evaluated as its own alert group. | 
+**AggregationAlertLogic** | **string** | Fixed aggregation logic for faulty deployment monitors. Each faulty service version in an environment is evaluated as its own alert group. | 
 **ProportionAlertThreshold** | Pointer to **int32** | Percentage threshold used when &#x60;aggregationAlertLogic&#x60; is &#x60;proportion&#x60;. | [optional] 
 **Queries** | [**[]MonitorAggregationQuery**](MonitorAggregationQuery.md) | Aggregation queries used by alerting and SLO evaluation. Each query is referenced from formulas as q1, q2, and so on. | 
 **Condition** | [**MonitorConfigurationAnomalyLogCondition**](MonitorConfigurationAnomalyLogCondition.md) |  | 
 **WarnBeforeInDays** | **int32** | Number of days before certificate expiry when the monitor should warn. | 
 **CloudAccounts** | Pointer to **[]string** | Cloud account IDs whose certificates are checked. Omitted means certificates from all cloud accounts are checked. | [optional] 
-**Filter** | [**MonitorConfigurationK8sFaultyDeploymentFilter**](MonitorConfigurationK8sFaultyDeploymentFilter.md) |  | 
+**Filter** | [**MonitorConfigurationFaultyDeploymentFilter**](MonitorConfigurationFaultyDeploymentFilter.md) |  | 
 
 ## Methods
 
 ### NewOngoingMonitorAlertMonitorConfiguration
 
-`func NewOngoingMonitorAlertMonitorConfiguration(type_ string, conditions []MonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, aggregationAlertLogic string, queries []MonitorAggregationQuery, condition MonitorConfigurationAnomalyLogCondition, warnBeforeInDays int32, filter MonitorConfigurationK8sFaultyDeploymentFilter, ) *OngoingMonitorAlertMonitorConfiguration`
+`func NewOngoingMonitorAlertMonitorConfiguration(type_ string, conditions []MonitorConfigurationMetricConditionsInner, noDataBehavior string, timeframe float32, groupByFields []MonitorConfigurationMetricGroupByFieldsInner, aggregationAlertLogic string, queries []MonitorAggregationQuery, condition MonitorConfigurationAnomalyLogCondition, warnBeforeInDays int32, filter MonitorConfigurationFaultyDeploymentFilter, ) *OngoingMonitorAlertMonitorConfiguration`
 
 NewOngoingMonitorAlertMonitorConfiguration instantiates a new OngoingMonitorAlertMonitorConfiguration object
 This constructor will assign default values to properties that have it defined,
@@ -268,20 +268,20 @@ HasCloudAccounts returns a boolean if a field has been set.
 
 ### GetFilter
 
-`func (o *OngoingMonitorAlertMonitorConfiguration) GetFilter() MonitorConfigurationK8sFaultyDeploymentFilter`
+`func (o *OngoingMonitorAlertMonitorConfiguration) GetFilter() MonitorConfigurationFaultyDeploymentFilter`
 
 GetFilter returns the Filter field if non-nil, zero value otherwise.
 
 ### GetFilterOk
 
-`func (o *OngoingMonitorAlertMonitorConfiguration) GetFilterOk() (*MonitorConfigurationK8sFaultyDeploymentFilter, bool)`
+`func (o *OngoingMonitorAlertMonitorConfiguration) GetFilterOk() (*MonitorConfigurationFaultyDeploymentFilter, bool)`
 
 GetFilterOk returns a tuple with the Filter field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFilter
 
-`func (o *OngoingMonitorAlertMonitorConfiguration) SetFilter(v MonitorConfigurationK8sFaultyDeploymentFilter)`
+`func (o *OngoingMonitorAlertMonitorConfiguration) SetFilter(v MonitorConfigurationFaultyDeploymentFilter)`
 
 SetFilter sets Filter field to given value.
 

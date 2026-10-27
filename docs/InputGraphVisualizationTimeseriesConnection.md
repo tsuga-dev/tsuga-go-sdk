@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **Thresholds** | Pointer to [**[]InputThresholdMarker**](InputThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
 **YAxisSettings** | Pointer to [**InputGraphVisualizationTimeseriesConnectionYAxisSettings**](InputGraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
 **LineStyleOptions** | Pointer to [**map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue**](GraphVisualizationTimeseriesConnectionLineStyleOptionsValue.md) | Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. For widgets with a single query, only the &#x60;1&#x60; entry is read and it applies to every series. Defaults to regular. | [optional] 
+**Normalizer** | Pointer to [**InputNormalizer**](InputNormalizer.md) |  | [optional] 
+**EventsOverlay** | Pointer to [**InputEventsOverlay**](InputEventsOverlay.md) |  | [optional] 
 
 ## Methods
 
@@ -190,6 +192,56 @@ SetLineStyleOptions sets LineStyleOptions field to given value.
 `func (o *InputGraphVisualizationTimeseriesConnection) HasLineStyleOptions() bool`
 
 HasLineStyleOptions returns a boolean if a field has been set.
+
+### GetNormalizer
+
+`func (o *InputGraphVisualizationTimeseriesConnection) GetNormalizer() InputNormalizer`
+
+GetNormalizer returns the Normalizer field if non-nil, zero value otherwise.
+
+### GetNormalizerOk
+
+`func (o *InputGraphVisualizationTimeseriesConnection) GetNormalizerOk() (*InputNormalizer, bool)`
+
+GetNormalizerOk returns a tuple with the Normalizer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNormalizer
+
+`func (o *InputGraphVisualizationTimeseriesConnection) SetNormalizer(v InputNormalizer)`
+
+SetNormalizer sets Normalizer field to given value.
+
+### HasNormalizer
+
+`func (o *InputGraphVisualizationTimeseriesConnection) HasNormalizer() bool`
+
+HasNormalizer returns a boolean if a field has been set.
+
+### GetEventsOverlay
+
+`func (o *InputGraphVisualizationTimeseriesConnection) GetEventsOverlay() InputEventsOverlay`
+
+GetEventsOverlay returns the EventsOverlay field if non-nil, zero value otherwise.
+
+### GetEventsOverlayOk
+
+`func (o *InputGraphVisualizationTimeseriesConnection) GetEventsOverlayOk() (*InputEventsOverlay, bool)`
+
+GetEventsOverlayOk returns a tuple with the EventsOverlay field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventsOverlay
+
+`func (o *InputGraphVisualizationTimeseriesConnection) SetEventsOverlay(v InputEventsOverlay)`
+
+SetEventsOverlay sets EventsOverlay field to given value.
+
+### HasEventsOverlay
+
+`func (o *InputGraphVisualizationTimeseriesConnection) HasEventsOverlay() bool`
+
+HasEventsOverlay returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

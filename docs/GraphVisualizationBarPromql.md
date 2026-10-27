@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Thresholds** | Pointer to [**[]ThresholdMarker**](ThresholdMarker.md) | Threshold markers displayed on the chart | [optional] 
 **LegendMode** | Pointer to **string** | Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend) | [optional] 
 **YAxisSettings** | Pointer to [**GraphVisualizationTimeseriesConnectionYAxisSettings**](GraphVisualizationTimeseriesConnectionYAxisSettings.md) |  | [optional] 
+**EventsOverlay** | Pointer to [**EventsOverlay**](EventsOverlay.md) |  | [optional] 
 
 ## Methods
 
@@ -247,6 +248,31 @@ SetYAxisSettings sets YAxisSettings field to given value.
 `func (o *GraphVisualizationBarPromql) HasYAxisSettings() bool`
 
 HasYAxisSettings returns a boolean if a field has been set.
+
+### GetEventsOverlay
+
+`func (o *GraphVisualizationBarPromql) GetEventsOverlay() EventsOverlay`
+
+GetEventsOverlay returns the EventsOverlay field if non-nil, zero value otherwise.
+
+### GetEventsOverlayOk
+
+`func (o *GraphVisualizationBarPromql) GetEventsOverlayOk() (*EventsOverlay, bool)`
+
+GetEventsOverlayOk returns a tuple with the EventsOverlay field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventsOverlay
+
+`func (o *GraphVisualizationBarPromql) SetEventsOverlay(v EventsOverlay)`
+
+SetEventsOverlay sets EventsOverlay field to given value.
+
+### HasEventsOverlay
+
+`func (o *GraphVisualizationBarPromql) HasEventsOverlay() bool`
+
+HasEventsOverlay returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

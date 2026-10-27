@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Aggregate** | [**Aggregate**](Aggregate.md) |  | 
 **Functions** | Pointer to [**[]Function**](Function.md) | Post-processing functions applied to aggregation results | [optional] 
 **Fill** | Pointer to [**MonitorAggregationQueryFill**](MonitorAggregationQueryFill.md) |  | [optional] 
-**TimeAggregate** | Pointer to **string** | Per-series rollup applied within each time bucket before the cross-series aggregate. Use it on metric queries when &#x60;aggregate.type&#x60; is &#x60;sum&#x60; and no &#x60;rate&#x60;, &#x60;increase&#x60;, &#x60;last&#x60;, or &#x60;rolling&#x60; function is present. When omitted, Tsuga derives the rollup from the metric type. | [optional] 
+**TimeAggregate** | Pointer to **string** | Per-series rollup applied within each time bucket before the cross-series aggregate. Use it on metric queries when &#x60;aggregate.type&#x60; is &#x60;sum&#x60; and no &#x60;rate&#x60;, &#x60;increase&#x60;, or &#x60;last&#x60; function is present. When omitted, Tsuga derives the rollup from the metric type. | [optional] 
 **MetricKind** | Pointer to **string** | Variant of the metric in &#x60;aggregate.field&#x60; to query, for metric names reported under several kinds (for instance both cumulative and delta). When omitted, Tsuga picks one variant by type and temporality precedence. | [optional] 
 **Filter** | **string** | Filter to apply to the aggregation | 
 

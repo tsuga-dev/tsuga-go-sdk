@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Normalizes the metric to events per second | 
-**Window** | **string** | Duration of the rolling window | 
 **Base** | **int32** | The base of the logarithm | 
 **Exponent** | **int32** | The exponent to raise values to | 
 **Seconds** | **int32** | Number of seconds to offset | 
@@ -14,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewInputFunction
 
-`func NewInputFunction(type_ string, window string, base int32, exponent int32, seconds int32, ) *InputFunction`
+`func NewInputFunction(type_ string, base int32, exponent int32, seconds int32, ) *InputFunction`
 
 NewInputFunction instantiates a new InputFunction object
 This constructor will assign default values to properties that have it defined,
@@ -47,26 +46,6 @@ and a boolean to check if the value has been set.
 `func (o *InputFunction) SetType(v string)`
 
 SetType sets Type field to given value.
-
-
-### GetWindow
-
-`func (o *InputFunction) GetWindow() string`
-
-GetWindow returns the Window field if non-nil, zero value otherwise.
-
-### GetWindowOk
-
-`func (o *InputFunction) GetWindowOk() (*string, bool)`
-
-GetWindowOk returns a tuple with the Window field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetWindow
-
-`func (o *InputFunction) SetWindow(v string)`
-
-SetWindow sets Window field to given value.
 
 
 ### GetBase
