@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261026.52.0+a50cd2b
+  version: 20261027.9.0+da24613
 servers:
 - url: https://api.tsuga.com
 security:
