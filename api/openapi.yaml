@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261026.43.0+e28513c
+  version: 20261026.52.0+a50cd2b
 servers:
 - url: https://api.tsuga.com
 security:
@@ -6981,6 +6981,9 @@ paths:
                       - checkout
                       envs:
                       - production
+                      workloadTypes:
+                      - replicaSet
+                      - statefulSet
                   priority: 2
                   owner: team-123-abc
                   permissions: all
@@ -7209,6 +7212,9 @@ paths:
                       - checkout
                       envs:
                       - production
+                      workloadTypes:
+                      - replicaSet
+                      - statefulSet
                   priority: 2
                   owner: team-123-abc
                   permissions: all
@@ -23563,110 +23569,6 @@ components:
       - seconds
       - type
       title: InputTimeOffset
-    AwsConnectionSettings:
-      properties:
-        type:
-          description: Discriminator identifying AWS connection settings.
-          enum:
-          - aws
-          type: string
-        accountId:
-          description: AWS account ID that Tsuga scans.
-          pattern: "^[0-9]{12}$"
-          type: string
-          errorMessage:
-            pattern: Must be a 12-digit AWS account ID.
-        externalId:
-          description: External ID Tsuga passes when assuming the cross-account IAM
-            role.
-          maxLength: 250
-          minLength: 1
-          type: string
-        roleArn:
-          description: ARN of the IAM role Tsuga assumes to read inventory in the
-            account.
-          maxLength: 2048
-          minLength: 1
-          pattern: "^arn:aws[a-z-]*:iam::[0-9]{12}:role/.+$"
-          type: string
-          errorMessage:
-            pattern: "Must be an IAM role ARN, e.g. arn:aws:iam::123456789012:role/MyRole."
-      required:
-      - accountId
-      - externalId
-      - roleArn
-      - type
-    GcpConnectionSettings:
-      properties:
-        type:
-          description: Discriminator identifying GCP connection settings.
-          enum:
-          - gcp
-          type: string
-        projectId:
-          description: GCP project ID that Tsuga scans.
-          maxLength: 30
-          minLength: 6
-          pattern: "^[a-z][a-z0-9-]{4,28}[a-z0-9]$"
-          type: string
-          errorMessage:
-            pattern: "Must be a GCP project ID (6-30 chars: lowercase letters, digits,\
-              \ hyphens)."
-        serviceAccountId:
-          description: Service account Tsuga impersonates to read inventory.
-          maxLength: 128
-          minLength: 1
-          pattern: "^[^@\\s]+@[^@\\s]+\\.iam\\.gserviceaccount\\.com$"
-          type: string
-          errorMessage:
-            pattern: "Must be a service account email, e.g. name@project.iam.gserviceaccount.com."
-        workloadIdentityProvider:
-          description: "Full resource name of the workload identity provider used\
-            \ for federated authentication, e.g. //iam.googleapis.com/projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider."
-          maxLength: 256
-          minLength: 1
-          pattern: "^//iam\\.googleapis\\.com/projects/[0-9]+/locations/global/workloadIdentityPools/[^/]+/providers/[^/]+$"
-          type: string
-          errorMessage:
-            pattern: "Must be the full provider resource name: //iam.googleapis.com/projects/<PROJECT_NUMBER>/locations/global/workloadIdentityPools/<POOL_ID>/providers/<PROVIDER_ID>."
-      required:
-      - projectId
-      - serviceAccountId
-      - type
-      - workloadIdentityProvider
-    AzureConnectionSettings:
-      properties:
-        type:
-          description: Discriminator identifying Azure connection settings.
-          enum:
-          - azure
-          type: string
-        clientId:
-          description: Client ID of the Azure application Tsuga authenticates as (GUID).
-          minLength: 1
-          pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"
-          type: string
-          errorMessage:
-            pattern: Must be a GUID.
-        subscriptionId:
-          description: Azure subscription ID that Tsuga scans (GUID).
-          minLength: 1
-          pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"
-          type: string
-          errorMessage:
-            pattern: Must be a GUID.
-        tenantId:
-          description: Azure tenant ID that owns the subscription (GUID).
-          minLength: 1
-          pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"
-          type: string
-          errorMessage:
-            pattern: Must be a GUID.
-      required:
-      - clientId
-      - subscriptionId
-      - tenantId
-      - type
     MonitorConfigurationMetric:
       example:
         type: metric
@@ -24788,6 +24690,110 @@ components:
       required:
       - aggregationAlertLogic
       - filter
+      - type
+    AwsConnectionSettings:
+      properties:
+        type:
+          description: Discriminator identifying AWS connection settings.
+          enum:
+          - aws
+          type: string
+        accountId:
+          description: AWS account ID that Tsuga scans.
+          pattern: "^[0-9]{12}$"
+          type: string
+          errorMessage:
+            pattern: Must be a 12-digit AWS account ID.
+        externalId:
+          description: External ID Tsuga passes when assuming the cross-account IAM
+            role.
+          maxLength: 250
+          minLength: 1
+          type: string
+        roleArn:
+          description: ARN of the IAM role Tsuga assumes to read inventory in the
+            account.
+          maxLength: 2048
+          minLength: 1
+          pattern: "^arn:aws[a-z-]*:iam::[0-9]{12}:role/.+$"
+          type: string
+          errorMessage:
+            pattern: "Must be an IAM role ARN, e.g. arn:aws:iam::123456789012:role/MyRole."
+      required:
+      - accountId
+      - externalId
+      - roleArn
+      - type
+    GcpConnectionSettings:
+      properties:
+        type:
+          description: Discriminator identifying GCP connection settings.
+          enum:
+          - gcp
+          type: string
+        projectId:
+          description: GCP project ID that Tsuga scans.
+          maxLength: 30
+          minLength: 6
+          pattern: "^[a-z][a-z0-9-]{4,28}[a-z0-9]$"
+          type: string
+          errorMessage:
+            pattern: "Must be a GCP project ID (6-30 chars: lowercase letters, digits,\
+              \ hyphens)."
+        serviceAccountId:
+          description: Service account Tsuga impersonates to read inventory.
+          maxLength: 128
+          minLength: 1
+          pattern: "^[^@\\s]+@[^@\\s]+\\.iam\\.gserviceaccount\\.com$"
+          type: string
+          errorMessage:
+            pattern: "Must be a service account email, e.g. name@project.iam.gserviceaccount.com."
+        workloadIdentityProvider:
+          description: "Full resource name of the workload identity provider used\
+            \ for federated authentication, e.g. //iam.googleapis.com/projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider."
+          maxLength: 256
+          minLength: 1
+          pattern: "^//iam\\.googleapis\\.com/projects/[0-9]+/locations/global/workloadIdentityPools/[^/]+/providers/[^/]+$"
+          type: string
+          errorMessage:
+            pattern: "Must be the full provider resource name: //iam.googleapis.com/projects/<PROJECT_NUMBER>/locations/global/workloadIdentityPools/<POOL_ID>/providers/<PROVIDER_ID>."
+      required:
+      - projectId
+      - serviceAccountId
+      - type
+      - workloadIdentityProvider
+    AzureConnectionSettings:
+      properties:
+        type:
+          description: Discriminator identifying Azure connection settings.
+          enum:
+          - azure
+          type: string
+        clientId:
+          description: Client ID of the Azure application Tsuga authenticates as (GUID).
+          minLength: 1
+          pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"
+          type: string
+          errorMessage:
+            pattern: Must be a GUID.
+        subscriptionId:
+          description: Azure subscription ID that Tsuga scans (GUID).
+          minLength: 1
+          pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"
+          type: string
+          errorMessage:
+            pattern: Must be a GUID.
+        tenantId:
+          description: Azure tenant ID that owns the subscription (GUID).
+          minLength: 1
+          pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"
+          type: string
+          errorMessage:
+            pattern: Must be a GUID.
+      required:
+      - clientId
+      - subscriptionId
+      - tenantId
       - type
     RuleTargetConfigSlack:
       example:
@@ -26091,6 +26097,43 @@ components:
       - queries
       - type
       title: QueryValuePromql
+    GraphVisualizationGaugePromql:
+      properties:
+        type:
+          description: Configures a PromQL metrics query-based aggregation as a gauge
+          enum:
+          - gauge-promql
+          type: string
+        queries:
+          description: PromQL expressions configured for this widget. PromQL-backed
+            widgets require at least one query.
+          items:
+            description: "Raw PromQL expression for this widget, returned exactly\
+              \ as stored."
+            type: string
+          type: array
+          default: null
+        aliases:
+          $ref: "#/components/schemas/GraphVisualizationTimeseriesPromql_aliases"
+        max:
+          description: "Gauge maximum value, on the raw query value before the unit\
+            \ is applied"
+          type: number
+        colorThresholds:
+          description: "Color thresholds inside the gauge range, on the raw query\
+            \ value before the unit is applied"
+          items:
+            $ref: "#/components/schemas/GaugeColorThreshold"
+          type: array
+          default: null
+        precision:
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
+        normalizer:
+          $ref: "#/components/schemas/Normalizer"
+      required:
+      - queries
+      - type
+      title: GaugePromql
     GraphVisualizationTopListPromql:
       properties:
         type:
@@ -26205,6 +26248,77 @@ components:
       - queries
       - type
       title: BarPromql
+    GraphVisualizationDistributionPromql:
+      properties:
+        type:
+          description: "Displays a PromQL histogram query grouped by `le` as a distribution\
+            \ chart, e.g. `sum by (le) (rate(http_duration_bucket[5m]))`"
+          enum:
+          - distribution-promql
+          type: string
+        queries:
+          description: PromQL expressions configured for this widget. PromQL-backed
+            widgets require at least one query.
+          items:
+            description: "Raw PromQL expression for this widget, returned exactly\
+              \ as stored."
+            type: string
+          type: array
+          default: null
+        precision:
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
+        normalizer:
+          $ref: "#/components/schemas/Normalizer"
+        percentileMarkers:
+          description: Percentile markers displayed on top of the distribution chart
+          items:
+            description: Marker value expressed as a percentage between 0 and 100
+            type: integer
+          type: array
+          default: null
+      required:
+      - queries
+      - type
+      title: DistributionPromql
+    GraphVisualizationHeatmapPromql:
+      properties:
+        type:
+          description: "Displays a PromQL histogram query grouped by `le` as a heatmap\
+            \ chart, e.g. `sum by (le) (rate(http_duration_bucket[5m]))`"
+          enum:
+          - heatmap-promql
+          type: string
+        queries:
+          description: PromQL expressions configured for this widget. PromQL-backed
+            widgets require at least one query.
+          items:
+            description: "Raw PromQL expression for this widget, returned exactly\
+              \ as stored."
+            type: string
+          type: array
+          default: null
+        precision:
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
+        normalizer:
+          $ref: "#/components/schemas/Normalizer"
+        palette:
+          description: Color palette used to render the heatmap intensity gradient
+          enum:
+          - red
+          - pink
+          - violet
+          - blue
+          - cyan
+          - green
+          - yellow
+          - orange
+          type: string
+        yAxisSettings:
+          $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings"
+      required:
+      - queries
+      - type
+      title: HeatmapPromql
     GraphVisualizationTimeseries:
       properties:
         type:
@@ -27499,6 +27613,44 @@ components:
       - queries
       - type
       title: InputQueryValuePromql
+    InputGraphVisualizationGaugePromql:
+      properties:
+        type:
+          description: Configures a PromQL metrics query-based aggregation as a gauge
+          enum:
+          - gauge-promql
+          type: string
+        queries:
+          description: PromQL expressions configured for this widget.
+          items:
+            description: Raw PromQL expression for this widget.
+            maxLength: 50000
+            minLength: 1
+            type: string
+          minItems: 1
+          type: array
+          default: null
+        aliases:
+          $ref: "#/components/schemas/InputGraphVisualizationTimeseriesPromql_aliases"
+        max:
+          description: "Gauge maximum value, on the raw query value before the unit\
+            \ is applied"
+          type: number
+        colorThresholds:
+          description: "Color thresholds inside the gauge range, on the raw query\
+            \ value before the unit is applied"
+          items:
+            $ref: "#/components/schemas/InputGaugeColorThreshold"
+          type: array
+          default: null
+        precision:
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
+        normalizer:
+          $ref: "#/components/schemas/InputNormalizer"
+      required:
+      - queries
+      - type
+      title: InputGaugePromql
     InputGraphVisualizationTopListPromql:
       properties:
         type:
@@ -27616,6 +27768,81 @@ components:
       - queries
       - type
       title: InputBarPromql
+    InputGraphVisualizationDistributionPromql:
+      properties:
+        type:
+          description: "Displays a PromQL histogram query grouped by `le` as a distribution\
+            \ chart, e.g. `sum by (le) (rate(http_duration_bucket[5m]))`"
+          enum:
+          - distribution-promql
+          type: string
+        queries:
+          description: PromQL expressions configured for this widget.
+          items:
+            description: Raw PromQL expression for this widget.
+            maxLength: 50000
+            minLength: 1
+            type: string
+          minItems: 1
+          type: array
+          default: null
+        precision:
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
+        normalizer:
+          $ref: "#/components/schemas/InputNormalizer"
+        percentileMarkers:
+          description: Percentile markers displayed on top of the distribution chart
+          items:
+            description: Marker value expressed as a percentage between 0 and 100
+            maximum: 100
+            minimum: 0
+            type: integer
+          type: array
+          default: null
+      required:
+      - queries
+      - type
+      title: InputDistributionPromql
+    InputGraphVisualizationHeatmapPromql:
+      properties:
+        type:
+          description: "Displays a PromQL histogram query grouped by `le` as a heatmap\
+            \ chart, e.g. `sum by (le) (rate(http_duration_bucket[5m]))`"
+          enum:
+          - heatmap-promql
+          type: string
+        queries:
+          description: PromQL expressions configured for this widget.
+          items:
+            description: Raw PromQL expression for this widget.
+            maxLength: 50000
+            minLength: 1
+            type: string
+          minItems: 1
+          type: array
+          default: null
+        precision:
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
+        normalizer:
+          $ref: "#/components/schemas/InputNormalizer"
+        palette:
+          description: Color palette used to render the heatmap intensity gradient
+          enum:
+          - red
+          - pink
+          - violet
+          - blue
+          - cyan
+          - green
+          - yellow
+          - orange
+          type: string
+        yAxisSettings:
+          $ref: "#/components/schemas/InputGraphVisualizationTimeseriesConnection_yAxisSettings"
+      required:
+      - queries
+      - type
+      title: InputHeatmapPromql
     InputGraphVisualizationTimeseries:
       properties:
         type:
@@ -30656,6 +30883,30 @@ components:
       - operator
       - value
       title: ConditionalFormatting
+    GaugeColorThreshold:
+      description: "Color band of the gauge range. Bands are ordered by `from`, so\
+        \ entries may be listed in any order."
+      properties:
+        from:
+          description: Lower bound of the Gauge color threshold; runs up to the next
+            threshold or the max
+          type: number
+        color:
+          description: Color applied to the band starting at this value
+          enum:
+          - red
+          - pink
+          - violet
+          - blue
+          - cyan
+          - green
+          - yellow
+          - orange
+          type: string
+      required:
+      - color
+      - from
+      title: GaugeColorThreshold
     AggregationQuery:
       properties:
         aggregate:
@@ -30716,30 +30967,6 @@ components:
       required:
       - url
       title: CustomLink
-    GaugeColorThreshold:
-      description: "Color band of the gauge range. Bands are ordered by `from`, so\
-        \ entries may be listed in any order."
-      properties:
-        from:
-          description: Lower bound of the Gauge color threshold; runs up to the next
-            threshold or the max
-          type: number
-        color:
-          description: Color applied to the band starting at this value
-          enum:
-          - red
-          - pink
-          - violet
-          - blue
-          - cyan
-          - green
-          - yellow
-          - orange
-          type: string
-      required:
-      - color
-      - from
-      title: GaugeColorThreshold
     TableColumn:
       description: "Table column backed by its own aggregation. `defaultSorting` and\
         \ `columnSizes` reference it as `col-<index>`, using its zero-based position\
@@ -30933,6 +31160,30 @@ components:
       - operator
       - value
       title: InputConditionalFormatting
+    InputGaugeColorThreshold:
+      description: "Color band of the gauge range. Bands are ordered by `from`, so\
+        \ entries may be listed in any order."
+      properties:
+        from:
+          description: Lower bound of the Gauge color threshold; runs up to the next
+            threshold or the max
+          type: number
+        color:
+          description: Color applied to the band starting at this value
+          enum:
+          - red
+          - pink
+          - violet
+          - blue
+          - cyan
+          - green
+          - yellow
+          - orange
+          type: string
+      required:
+      - color
+      - from
+      title: InputGaugeColorThreshold
     InputAggregationQuery:
       properties:
         aggregate:
@@ -31036,30 +31287,6 @@ components:
       required:
       - url
       title: InputCustomLink
-    InputGaugeColorThreshold:
-      description: "Color band of the gauge range. Bands are ordered by `from`, so\
-        \ entries may be listed in any order."
-      properties:
-        from:
-          description: Lower bound of the Gauge color threshold; runs up to the next
-            threshold or the max
-          type: number
-        color:
-          description: Color applied to the band starting at this value
-          enum:
-          - red
-          - pink
-          - violet
-          - blue
-          - cyan
-          - green
-          - yellow
-          - orange
-          type: string
-      required:
-      - color
-      - from
-      title: InputGaugeColorThreshold
     InputTableColumn:
       description: "Table column backed by its own aggregation. `defaultSorting` and\
         \ `columnSizes` reference it as `col-<index>`, using its zero-based position\
@@ -33144,9 +33371,12 @@ components:
           query-value-connection: "#/components/schemas/InputGraphVisualizationQueryValueConnection"
           timeseries-promql: "#/components/schemas/InputGraphVisualizationTimeseriesPromql"
           query-value-promql: "#/components/schemas/InputGraphVisualizationQueryValuePromql"
+          gauge-promql: "#/components/schemas/InputGraphVisualizationGaugePromql"
           top-list-promql: "#/components/schemas/InputGraphVisualizationTopListPromql"
           pie-promql: "#/components/schemas/InputGraphVisualizationPiePromql"
           bar-promql: "#/components/schemas/InputGraphVisualizationBarPromql"
+          distribution-promql: "#/components/schemas/InputGraphVisualizationDistributionPromql"
+          heatmap-promql: "#/components/schemas/InputGraphVisualizationHeatmapPromql"
           timeseries: "#/components/schemas/InputGraphVisualizationTimeseries"
           top-list: "#/components/schemas/InputGraphVisualizationTopList"
           pie: "#/components/schemas/InputGraphVisualizationPie"
@@ -33174,9 +33404,12 @@ components:
       - $ref: "#/components/schemas/InputGraphVisualizationQueryValueConnection"
       - $ref: "#/components/schemas/InputGraphVisualizationTimeseriesPromql"
       - $ref: "#/components/schemas/InputGraphVisualizationQueryValuePromql"
+      - $ref: "#/components/schemas/InputGraphVisualizationGaugePromql"
       - $ref: "#/components/schemas/InputGraphVisualizationTopListPromql"
       - $ref: "#/components/schemas/InputGraphVisualizationPiePromql"
       - $ref: "#/components/schemas/InputGraphVisualizationBarPromql"
+      - $ref: "#/components/schemas/InputGraphVisualizationDistributionPromql"
+      - $ref: "#/components/schemas/InputGraphVisualizationHeatmapPromql"
       - $ref: "#/components/schemas/InputGraphVisualizationTimeseries"
       - $ref: "#/components/schemas/InputGraphVisualizationTopList"
       - $ref: "#/components/schemas/InputGraphVisualizationPie"
@@ -43310,6 +43543,19 @@ components:
             type: string
           type: array
           default: null
+        workloadTypes:
+          description: Kubernetes workload types to watch. Omit to watch every workload
+            type.
+          items:
+            description: "Kubernetes workload type: `replicaSet` (Deployment rollouts),\
+              \ `statefulSet`, or `daemonSet`."
+            enum:
+            - replicaSet
+            - statefulSet
+            - daemonSet
+            type: string
+          type: array
+          default: null
     MonitorConfigurationFaultyDeployment_filter:
       description: Deployment selection used for faulty deployment detection. All
         configured fields must match for a deployment to be watched.
@@ -43515,6 +43761,21 @@ components:
             type: string
           minItems: 1
           type: array
+          default: null
+        workloadTypes:
+          description: Kubernetes workload types to watch. Omit to watch every workload
+            type.
+          items:
+            description: "Kubernetes workload type: `replicaSet` (Deployment rollouts),\
+              \ `statefulSet`, or `daemonSet`."
+            enum:
+            - replicaSet
+            - statefulSet
+            - daemonSet
+            type: string
+          minItems: 1
+          type: array
+          uniqueItems: true
           default: null
     InputMonitorConfigurationFaultyDeployment_filter:
       description: Deployment selection used for faulty deployment detection. All
@@ -44493,9 +44754,12 @@ components:
           query-value-connection: "#/components/schemas/GraphVisualizationQueryValueConnection"
           timeseries-promql: "#/components/schemas/GraphVisualizationTimeseriesPromql"
           query-value-promql: "#/components/schemas/GraphVisualizationQueryValuePromql"
+          gauge-promql: "#/components/schemas/GraphVisualizationGaugePromql"
           top-list-promql: "#/components/schemas/GraphVisualizationTopListPromql"
           pie-promql: "#/components/schemas/GraphVisualizationPiePromql"
           bar-promql: "#/components/schemas/GraphVisualizationBarPromql"
+          distribution-promql: "#/components/schemas/GraphVisualizationDistributionPromql"
+          heatmap-promql: "#/components/schemas/GraphVisualizationHeatmapPromql"
           timeseries: "#/components/schemas/GraphVisualizationTimeseries"
           top-list: "#/components/schemas/GraphVisualizationTopList"
           pie: "#/components/schemas/GraphVisualizationPie"
@@ -44523,9 +44787,12 @@ components:
       - $ref: "#/components/schemas/GraphVisualizationQueryValueConnection"
       - $ref: "#/components/schemas/GraphVisualizationTimeseriesPromql"
       - $ref: "#/components/schemas/GraphVisualizationQueryValuePromql"
+      - $ref: "#/components/schemas/GraphVisualizationGaugePromql"
       - $ref: "#/components/schemas/GraphVisualizationTopListPromql"
       - $ref: "#/components/schemas/GraphVisualizationPiePromql"
       - $ref: "#/components/schemas/GraphVisualizationBarPromql"
+      - $ref: "#/components/schemas/GraphVisualizationDistributionPromql"
+      - $ref: "#/components/schemas/GraphVisualizationHeatmapPromql"
       - $ref: "#/components/schemas/GraphVisualizationTimeseries"
       - $ref: "#/components/schemas/GraphVisualizationTopList"
       - $ref: "#/components/schemas/GraphVisualizationPie"

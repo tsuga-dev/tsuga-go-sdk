@@ -24,6 +24,10 @@ Name | Type | Description | Notes
 **Aliases** | Pointer to [**InputGraphVisualizationTimeseriesPromqlAliases**](InputGraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **TimeBucket** | Pointer to [**GraphVisualizationTimeseriesPromqlTimeBucket**](GraphVisualizationTimeseriesPromqlTimeBucket.md) |  | [optional] 
 **Smoothing** | Pointer to **bool** | Whether to apply automatic smoothing to the rendered timeseries | [optional] 
+**Max** | Pointer to **float32** | Gauge maximum value, on the raw query value before the unit is applied | [optional] 
+**ColorThresholds** | Pointer to [**[]InputGaugeColorThreshold**](InputGaugeColorThreshold.md) | Color thresholds inside the gauge range, on the raw query value before the unit is applied | [optional] 
+**PercentileMarkers** | Pointer to **[]int32** | Percentile markers displayed on top of the distribution chart | [optional] 
+**Palette** | Pointer to **string** | Color palette used to render the heatmap intensity gradient | [optional] 
 **Source** | **string** | Telemetry source queried by this aggregation: &#x60;logs&#x60;, &#x60;metrics&#x60;, &#x60;traces&#x60;, or &#x60;rum&#x60;. | 
 **Formula** | Pointer to **string** | Formula referencing query outputs, such as &#x60;q1 + q2&#x60;, to compute derived results. Defaults to &#x60;q1&#x60;. Formulas may reference only submitted queries (&#x60;q1&#x60; through &#x60;qN&#x60;); undefined query references return 400. | [optional] 
 **VisibleSeries** | Pointer to **[]bool** | Flags indicating whether each query or formula series is visible | [optional] 
@@ -31,12 +35,8 @@ Name | Type | Description | Notes
 **GroupByMode** | Pointer to **string** | &#x60;absolute&#x60; keeps each group at its own value; &#x60;relative&#x60; shows it as a percentage of the ungrouped total (defaults to absolute) | [optional] 
 **CustomLink** | Pointer to [**InputCustomLink**](InputCustomLink.md) |  | [optional] 
 **IsStacked** | Pointer to **bool** | Requests stacked rendering for a top-list widget. Tsuga renders stacked rows only for one count or sum query with exactly two grouped fields, no formula, non-negative values, and a single-cluster context; otherwise the widget renders as a normal top list. | [optional] 
-**Max** | Pointer to **float32** | Gauge maximum value, on the raw query value before the unit is applied | [optional] 
-**ColorThresholds** | Pointer to [**[]InputGaugeColorThreshold**](InputGaugeColorThreshold.md) | Color thresholds inside the gauge range, on the raw query value before the unit is applied | [optional] 
 **Group** | Pointer to **string** | Attribute that switches the count to \&quot;Groups\&quot; mode: records are grouped by this attribute, the aggregation produces one value per group, and the chart buckets those per-group values. When omitted, individual records are bucketed. | [optional] 
-**PercentileMarkers** | Pointer to **[]int32** | Percentile markers displayed on top of the distribution chart | [optional] 
 **BoundsScale** | Pointer to **string** | Spacing of the bucket boundaries across the distribution range. &#x60;linear&#x60; splits the range into equal-width buckets; &#x60;log&#x60; widens each bucket logarithmically, giving finer resolution near the lower bound. | [optional] 
-**Palette** | Pointer to **string** | Color palette used to render the heatmap intensity gradient | [optional] 
 **Columns** | [**[]InputTableColumn**](InputTableColumn.md) | Each column defines an independent aggregation displayed as a table column | 
 **ColumnSizes** | Pointer to **map[string]float32** | Table column widths in pixels, keyed by column id: &#x60;label&#x60; for the grouping column and &#x60;col-&lt;index&gt;&#x60; for each entry in &#x60;columns&#x60;. Columns without an entry keep their default width. | [optional] 
 **Note** | Pointer to **string** | Markdown-compatible text shown in the note | [optional] 
@@ -548,6 +548,106 @@ SetSmoothing sets Smoothing field to given value.
 
 HasSmoothing returns a boolean if a field has been set.
 
+### GetMax
+
+`func (o *UpdateDashboardGraphRequestVisualization) GetMax() float32`
+
+GetMax returns the Max field if non-nil, zero value otherwise.
+
+### GetMaxOk
+
+`func (o *UpdateDashboardGraphRequestVisualization) GetMaxOk() (*float32, bool)`
+
+GetMaxOk returns a tuple with the Max field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMax
+
+`func (o *UpdateDashboardGraphRequestVisualization) SetMax(v float32)`
+
+SetMax sets Max field to given value.
+
+### HasMax
+
+`func (o *UpdateDashboardGraphRequestVisualization) HasMax() bool`
+
+HasMax returns a boolean if a field has been set.
+
+### GetColorThresholds
+
+`func (o *UpdateDashboardGraphRequestVisualization) GetColorThresholds() []InputGaugeColorThreshold`
+
+GetColorThresholds returns the ColorThresholds field if non-nil, zero value otherwise.
+
+### GetColorThresholdsOk
+
+`func (o *UpdateDashboardGraphRequestVisualization) GetColorThresholdsOk() (*[]InputGaugeColorThreshold, bool)`
+
+GetColorThresholdsOk returns a tuple with the ColorThresholds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetColorThresholds
+
+`func (o *UpdateDashboardGraphRequestVisualization) SetColorThresholds(v []InputGaugeColorThreshold)`
+
+SetColorThresholds sets ColorThresholds field to given value.
+
+### HasColorThresholds
+
+`func (o *UpdateDashboardGraphRequestVisualization) HasColorThresholds() bool`
+
+HasColorThresholds returns a boolean if a field has been set.
+
+### GetPercentileMarkers
+
+`func (o *UpdateDashboardGraphRequestVisualization) GetPercentileMarkers() []int32`
+
+GetPercentileMarkers returns the PercentileMarkers field if non-nil, zero value otherwise.
+
+### GetPercentileMarkersOk
+
+`func (o *UpdateDashboardGraphRequestVisualization) GetPercentileMarkersOk() (*[]int32, bool)`
+
+GetPercentileMarkersOk returns a tuple with the PercentileMarkers field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPercentileMarkers
+
+`func (o *UpdateDashboardGraphRequestVisualization) SetPercentileMarkers(v []int32)`
+
+SetPercentileMarkers sets PercentileMarkers field to given value.
+
+### HasPercentileMarkers
+
+`func (o *UpdateDashboardGraphRequestVisualization) HasPercentileMarkers() bool`
+
+HasPercentileMarkers returns a boolean if a field has been set.
+
+### GetPalette
+
+`func (o *UpdateDashboardGraphRequestVisualization) GetPalette() string`
+
+GetPalette returns the Palette field if non-nil, zero value otherwise.
+
+### GetPaletteOk
+
+`func (o *UpdateDashboardGraphRequestVisualization) GetPaletteOk() (*string, bool)`
+
+GetPaletteOk returns a tuple with the Palette field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPalette
+
+`func (o *UpdateDashboardGraphRequestVisualization) SetPalette(v string)`
+
+SetPalette sets Palette field to given value.
+
+### HasPalette
+
+`func (o *UpdateDashboardGraphRequestVisualization) HasPalette() bool`
+
+HasPalette returns a boolean if a field has been set.
+
 ### GetSource
 
 `func (o *UpdateDashboardGraphRequestVisualization) GetSource() string`
@@ -718,56 +818,6 @@ SetIsStacked sets IsStacked field to given value.
 
 HasIsStacked returns a boolean if a field has been set.
 
-### GetMax
-
-`func (o *UpdateDashboardGraphRequestVisualization) GetMax() float32`
-
-GetMax returns the Max field if non-nil, zero value otherwise.
-
-### GetMaxOk
-
-`func (o *UpdateDashboardGraphRequestVisualization) GetMaxOk() (*float32, bool)`
-
-GetMaxOk returns a tuple with the Max field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMax
-
-`func (o *UpdateDashboardGraphRequestVisualization) SetMax(v float32)`
-
-SetMax sets Max field to given value.
-
-### HasMax
-
-`func (o *UpdateDashboardGraphRequestVisualization) HasMax() bool`
-
-HasMax returns a boolean if a field has been set.
-
-### GetColorThresholds
-
-`func (o *UpdateDashboardGraphRequestVisualization) GetColorThresholds() []InputGaugeColorThreshold`
-
-GetColorThresholds returns the ColorThresholds field if non-nil, zero value otherwise.
-
-### GetColorThresholdsOk
-
-`func (o *UpdateDashboardGraphRequestVisualization) GetColorThresholdsOk() (*[]InputGaugeColorThreshold, bool)`
-
-GetColorThresholdsOk returns a tuple with the ColorThresholds field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetColorThresholds
-
-`func (o *UpdateDashboardGraphRequestVisualization) SetColorThresholds(v []InputGaugeColorThreshold)`
-
-SetColorThresholds sets ColorThresholds field to given value.
-
-### HasColorThresholds
-
-`func (o *UpdateDashboardGraphRequestVisualization) HasColorThresholds() bool`
-
-HasColorThresholds returns a boolean if a field has been set.
-
 ### GetGroup
 
 `func (o *UpdateDashboardGraphRequestVisualization) GetGroup() string`
@@ -793,31 +843,6 @@ SetGroup sets Group field to given value.
 
 HasGroup returns a boolean if a field has been set.
 
-### GetPercentileMarkers
-
-`func (o *UpdateDashboardGraphRequestVisualization) GetPercentileMarkers() []int32`
-
-GetPercentileMarkers returns the PercentileMarkers field if non-nil, zero value otherwise.
-
-### GetPercentileMarkersOk
-
-`func (o *UpdateDashboardGraphRequestVisualization) GetPercentileMarkersOk() (*[]int32, bool)`
-
-GetPercentileMarkersOk returns a tuple with the PercentileMarkers field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPercentileMarkers
-
-`func (o *UpdateDashboardGraphRequestVisualization) SetPercentileMarkers(v []int32)`
-
-SetPercentileMarkers sets PercentileMarkers field to given value.
-
-### HasPercentileMarkers
-
-`func (o *UpdateDashboardGraphRequestVisualization) HasPercentileMarkers() bool`
-
-HasPercentileMarkers returns a boolean if a field has been set.
-
 ### GetBoundsScale
 
 `func (o *UpdateDashboardGraphRequestVisualization) GetBoundsScale() string`
@@ -842,31 +867,6 @@ SetBoundsScale sets BoundsScale field to given value.
 `func (o *UpdateDashboardGraphRequestVisualization) HasBoundsScale() bool`
 
 HasBoundsScale returns a boolean if a field has been set.
-
-### GetPalette
-
-`func (o *UpdateDashboardGraphRequestVisualization) GetPalette() string`
-
-GetPalette returns the Palette field if non-nil, zero value otherwise.
-
-### GetPaletteOk
-
-`func (o *UpdateDashboardGraphRequestVisualization) GetPaletteOk() (*string, bool)`
-
-GetPaletteOk returns a tuple with the Palette field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPalette
-
-`func (o *UpdateDashboardGraphRequestVisualization) SetPalette(v string)`
-
-SetPalette sets Palette field to given value.
-
-### HasPalette
-
-`func (o *UpdateDashboardGraphRequestVisualization) HasPalette() bool`
-
-HasPalette returns a boolean if a field has been set.
 
 ### GetColumns
 

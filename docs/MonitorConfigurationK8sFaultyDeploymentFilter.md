@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **ClusterNames** | Pointer to **[]string** | Kubernetes cluster names to watch. Omit to watch every cluster. | [optional] 
 **Namespaces** | Pointer to **[]string** | Kubernetes namespaces to watch. Omit to watch every namespace. | [optional] 
 **Envs** | Pointer to **[]string** | Environments to watch. Omit to watch every environment. | [optional] 
+**WorkloadTypes** | Pointer to **[]string** | Kubernetes workload types to watch. Omit to watch every workload type. | [optional] 
 
 ## Methods
 
@@ -101,6 +102,31 @@ SetEnvs sets Envs field to given value.
 `func (o *MonitorConfigurationK8sFaultyDeploymentFilter) HasEnvs() bool`
 
 HasEnvs returns a boolean if a field has been set.
+
+### GetWorkloadTypes
+
+`func (o *MonitorConfigurationK8sFaultyDeploymentFilter) GetWorkloadTypes() []string`
+
+GetWorkloadTypes returns the WorkloadTypes field if non-nil, zero value otherwise.
+
+### GetWorkloadTypesOk
+
+`func (o *MonitorConfigurationK8sFaultyDeploymentFilter) GetWorkloadTypesOk() (*[]string, bool)`
+
+GetWorkloadTypesOk returns a tuple with the WorkloadTypes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWorkloadTypes
+
+`func (o *MonitorConfigurationK8sFaultyDeploymentFilter) SetWorkloadTypes(v []string)`
+
+SetWorkloadTypes sets WorkloadTypes field to given value.
+
+### HasWorkloadTypes
+
+`func (o *MonitorConfigurationK8sFaultyDeploymentFilter) HasWorkloadTypes() bool`
+
+HasWorkloadTypes returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
