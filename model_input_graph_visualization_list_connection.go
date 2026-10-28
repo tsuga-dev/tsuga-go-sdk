@@ -25,7 +25,7 @@ type InputGraphVisualizationListConnection struct {
 	ConnectionId string `json:"connectionId"`
 	// The read-only SQL query to execute against the connection.
 	Query string `json:"query"`
-	// Custom columns to display for each database row
+	// Custom columns to display for each database row. Omit it and the list renders no columns: there is no default set.
 	ListColumns []InputWidgetListColumn `json:"listColumns,omitempty"`
 	// List column widths in pixels, keyed by the `attribute` of the matching `listColumns` entry. Columns without an entry keep their default width.
 	ListColumnsSize map[string]float32 `json:"listColumnsSize,omitempty"`

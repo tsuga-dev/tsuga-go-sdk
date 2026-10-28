@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Configures a PromQL metrics query-based aggregation as a gauge | 
-**Queries** | **[]string** | PromQL expressions configured for this widget. | 
+**Queries** | **[]string** | PromQL expressions configured for this widget. Only the first expression is rendered; later entries are stored and ignored. | 
 **Aliases** | Pointer to [**InputGraphVisualizationTimeseriesPromqlAliases**](InputGraphVisualizationTimeseriesPromqlAliases.md) |  | [optional] 
 **Max** | Pointer to **float32** | Gauge maximum value, on the raw query value before the unit is applied | [optional] 
 **ColorThresholds** | Pointer to [**[]InputGaugeColorThreshold**](InputGaugeColorThreshold.md) | Color thresholds inside the gauge range, on the raw query value before the unit is applied | [optional] 

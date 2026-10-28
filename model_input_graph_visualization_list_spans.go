@@ -23,7 +23,7 @@ type InputGraphVisualizationListSpans struct {
 	Type string `json:"type"`
 	// Query that selects trace spans for the list
 	Query string `json:"query"`
-	// Custom columns to display for each span
+	// Custom columns to display for each span. Omit it and the list renders no columns: there is no default set.
 	ListColumns []InputWidgetListColumn `json:"listColumns,omitempty"`
 	// List column widths in pixels, keyed by the `attribute` of the matching `listColumns` entry. Columns without an entry keep their default width.
 	ListColumnsSize map[string]float32 `json:"listColumnsSize,omitempty"`

@@ -18,7 +18,7 @@ import (
 // checks if the UpdateMonitorRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &UpdateMonitorRequest{}
 
-// UpdateMonitorRequest Monitor update request. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, `clusterIds`, `pauseUntil`, and `folderId` keep their existing values. Omitting `dashboardId` clears the dashboard link.
+// UpdateMonitorRequest Monitor update request. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, `clusterIds`, `pauseUntil`, and `folderId` keep their existing values. Omitted `dashboardId` keeps the dashboard link; send `null` to clear it.
 type UpdateMonitorRequest struct {
 	// Display name of the monitor and alert source.
 	Name string `json:"name"`

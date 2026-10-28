@@ -81,7 +81,7 @@ type MonitorsAPI interface {
 	/*
 		UpdateMonitor Method for UpdateMonitor
 
-		Updates an existing monitor definition by ID. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, `clusterIds`, `pauseUntil`, and `folderId` keep their existing values. Omitting `dashboardId` clears the dashboard link.
+		Updates an existing monitor definition by ID. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, `clusterIds`, `pauseUntil`, and `folderId` keep their existing values. Omitted `dashboardId` keeps the dashboard link; send `null` to clear it.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Identifier of the saved monitor to update. Use the `id` returned by monitor query or create responses.
@@ -632,7 +632,7 @@ type MonitorsAPIUpdateMonitorRequest struct {
 	updateMonitorRequest *UpdateMonitorRequest
 }
 
-// Monitor update request. Required fields and the submitted configuration are overwritten; omitted &#x60;message&#x60;, &#x60;tags&#x60;, &#x60;clusterIds&#x60;, &#x60;pauseUntil&#x60;, and &#x60;folderId&#x60; keep their existing values. Omitting &#x60;dashboardId&#x60; clears the dashboard link.
+// Monitor update request. Required fields and the submitted configuration are overwritten; omitted &#x60;message&#x60;, &#x60;tags&#x60;, &#x60;clusterIds&#x60;, &#x60;pauseUntil&#x60;, and &#x60;folderId&#x60; keep their existing values. Omitted &#x60;dashboardId&#x60; keeps the dashboard link; send &#x60;null&#x60; to clear it.
 func (r MonitorsAPIUpdateMonitorRequest) UpdateMonitorRequest(updateMonitorRequest UpdateMonitorRequest) MonitorsAPIUpdateMonitorRequest {
 	r.updateMonitorRequest = &updateMonitorRequest
 	return r
@@ -645,7 +645,7 @@ func (r MonitorsAPIUpdateMonitorRequest) Execute() (*UpdateMonitorResponse, *htt
 /*
 UpdateMonitor Method for UpdateMonitor
 
-Updates an existing monitor definition by ID. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, `clusterIds`, `pauseUntil`, and `folderId` keep their existing values. Omitting `dashboardId` clears the dashboard link.
+Updates an existing monitor definition by ID. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, `clusterIds`, `pauseUntil`, and `folderId` keep their existing values. Omitted `dashboardId` keeps the dashboard link; send `null` to clear it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Identifier of the saved monitor to update. Use the `id` returned by monitor query or create responses.

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays a PromQL histogram query grouped by &#x60;le&#x60; as a heatmap chart, e.g. &#x60;sum by (le) (rate(http_duration_bucket[5m]))&#x60; | 
-**Queries** | **[]string** | PromQL expressions configured for this widget. | 
+**Queries** | **[]string** | PromQL expressions configured for this widget. Only the first expression is rendered; later entries are stored and ignored. | 
 **Precision** | Pointer to [**GraphVisualizationQueryValueConnectionPrecision**](GraphVisualizationQueryValueConnectionPrecision.md) |  | [optional] 
 **Normalizer** | Pointer to [**InputNormalizer**](InputNormalizer.md) |  | [optional] 
 **Palette** | Pointer to **string** | Color palette used to render the heatmap intensity gradient | [optional] 

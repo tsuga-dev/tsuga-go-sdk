@@ -40,6 +40,8 @@ type CreateOperationApiKeyRequestPermissions struct {
 	CloudAccount *string `json:"cloud-account,omitempty"`
 	// Custom global roles, which define what their holders can access across the organization.
 	CustomRole *string `json:"custom-role,omitempty"`
+	// Data deletion requests, which delete the telemetry events matching a query on a cluster.
+	DataDeletionRequest *string `json:"data-deletion-request,omitempty"`
 	// Ingested log events, through search and aggregation endpoints.
 	Logs *string `json:"logs,omitempty"`
 	// Log routes, which select newly ingested logs and apply processors to them.
@@ -462,6 +464,38 @@ func (o *CreateOperationApiKeyRequestPermissions) HasCustomRole() bool {
 // SetCustomRole gets a reference to the given string and assigns it to the CustomRole field.
 func (o *CreateOperationApiKeyRequestPermissions) SetCustomRole(v string) {
 	o.CustomRole = &v
+}
+
+// GetDataDeletionRequest returns the DataDeletionRequest field value if set, zero value otherwise.
+func (o *CreateOperationApiKeyRequestPermissions) GetDataDeletionRequest() string {
+	if o == nil || IsNil(o.DataDeletionRequest) {
+		var ret string
+		return ret
+	}
+	return *o.DataDeletionRequest
+}
+
+// GetDataDeletionRequestOk returns a tuple with the DataDeletionRequest field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateOperationApiKeyRequestPermissions) GetDataDeletionRequestOk() (*string, bool) {
+	if o == nil || IsNil(o.DataDeletionRequest) {
+		return nil, false
+	}
+	return o.DataDeletionRequest, true
+}
+
+// HasDataDeletionRequest returns a boolean if a field has been set.
+func (o *CreateOperationApiKeyRequestPermissions) HasDataDeletionRequest() bool {
+	if o != nil && !IsNil(o.DataDeletionRequest) {
+		return true
+	}
+
+	return false
+}
+
+// SetDataDeletionRequest gets a reference to the given string and assigns it to the DataDeletionRequest field.
+func (o *CreateOperationApiKeyRequestPermissions) SetDataDeletionRequest(v string) {
+	o.DataDeletionRequest = &v
 }
 
 // GetLogs returns the Logs field value if set, zero value otherwise.
@@ -1307,6 +1341,9 @@ func (o CreateOperationApiKeyRequestPermissions) ToMap() (map[string]interface{}
 	if !IsNil(o.CustomRole) {
 		toSerialize["custom-role"] = o.CustomRole
 	}
+	if !IsNil(o.DataDeletionRequest) {
+		toSerialize["data-deletion-request"] = o.DataDeletionRequest
+	}
 	if !IsNil(o.Logs) {
 		toSerialize["logs"] = o.Logs
 	}
@@ -1415,6 +1452,7 @@ func (o *CreateOperationApiKeyRequestPermissions) UnmarshalJSON(data []byte) (er
 		delete(additionalProperties, "inventory")
 		delete(additionalProperties, "cloud-account")
 		delete(additionalProperties, "custom-role")
+		delete(additionalProperties, "data-deletion-request")
 		delete(additionalProperties, "logs")
 		delete(additionalProperties, "log-route")
 		delete(additionalProperties, "metrics")

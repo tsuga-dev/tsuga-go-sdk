@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Type** | **string** | Displays database rows as a tabular list | 
 **ConnectionId** | **string** | The ID of the connection to use to query the datastore. | 
 **Query** | **string** | The read-only SQL query to execute against the connection. | 
-**ListColumns** | Pointer to [**[]InputWidgetListColumn**](InputWidgetListColumn.md) | Custom columns to display for each database row | [optional] 
+**ListColumns** | Pointer to [**[]InputWidgetListColumn**](InputWidgetListColumn.md) | Custom columns to display for each database row. Omit it and the list renders no columns: there is no default set. | [optional] 
 **ListColumnsSize** | Pointer to **map[string]float32** | List column widths in pixels, keyed by the &#x60;attribute&#x60; of the matching &#x60;listColumns&#x60; entry. Columns without an entry keep their default width. | [optional] 
 **IsCellWrapped** | Pointer to **bool** | Whether list widget cell text wraps instead of truncating. Applies to connection list widgets. Optional; omit or set false to use truncated cells. | [optional] 
 **DefaultSorting** | Pointer to [**[]InputListDefaultSorting**](InputListDefaultSorting.md) | Default sorting applied to a list widget. Optional on create or update for log, span, RUM event, or connection list widgets. Users can still change sorting by selecting columns in the rendered list. | [optional] 

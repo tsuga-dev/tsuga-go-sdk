@@ -34,7 +34,7 @@ type GraphVisualizationTimeseriesPromql struct {
 	YAxisSettings *GraphVisualizationTimeseriesConnectionYAxisSettings `json:"yAxisSettings,omitempty"`
 	// Whether to apply automatic smoothing to the rendered timeseries
 	Smoothing *bool `json:"smoothing,omitempty"`
-	// Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. For widgets with a single query, only the `1` entry is read and it applies to every series. Defaults to regular.
+	// Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. Each entry is `{groupId, lineStyle}`, where `groupId` is `_q<n>` for query n or `_value` for the formula. For widgets with a single query, only the `1` entry is read and it applies to every series. Defaults to regular.
 	LineStyleOptions     map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue `json:"lineStyleOptions,omitempty"`
 	EventsOverlay        *EventsOverlay                                                         `json:"eventsOverlay,omitempty"`
 	AdditionalProperties map[string]interface{}

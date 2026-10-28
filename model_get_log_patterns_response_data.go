@@ -21,7 +21,7 @@ var _ MappedNullable = &GetLogPatternsResponseData{}
 type GetLogPatternsResponseData struct {
 	// Log patterns clustered from logs matching the query.
 	Patterns []GetLogPatternsResponseDataPatternsInner `json:"patterns"`
-	// Number of logs sampled while computing patterns.
+	// Sum of the returned patterns' `size` values. It is not the number of logs matching the query: logs outside the returned patterns are not counted.
 	SampleSize           float32 `json:"sampleSize"`
 	AdditionalProperties map[string]interface{}
 }

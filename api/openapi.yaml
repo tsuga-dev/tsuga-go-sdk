@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261027.32.0+ae0d554
+  version: 20261028.16.0+33881f3
 servers:
 - url: https://api.tsuga.com
 security:
@@ -35,6 +35,10 @@ tags:
     \ Use these endpoints to configure which tags appear in usage analysis. See [Usage\
     \ overview](/documentation/account-and-settings/usage-overview)."
   name: custom-usage-tags
+- description: "Operations for requests that delete telemetry events matching a query,\
+    \ for example to answer GDPR erasure requests. Only scope:all operation API keys\
+    \ and global admins can use them."
+  name: data-deletion-requests
 - description: "Operations for saved dashboards and dashboard graphs. Use these endpoints\
     \ to inventory, create, update, and delete reusable visualization definitions.\
     \ See [Dashboards](/documentation/visualize/dashboards/index)."
@@ -2206,6 +2210,262 @@ paths:
               style: simple
       tags:
       - custom-usage-tags
+  /v1/data-deletion-requests:
+    get:
+      description: "Lists the data deletion requests of the organization, with the\
+        \ status the cluster executes each one with."
+      operationId: listDataDeletionRequests
+      parameters:
+      - description: Maximum number of items to return in this page. Omit to use the
+          public API default of 100.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - description: "Zero-based index of the first matching item to return. Increase\
+          \ it with `limit` to request later pages. If `limit` is provided without\
+          \ `offset`, the offset defaults to 0."
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - description: Set to only return the requests of this cluster.
+        explode: true
+        in: query
+        name: clusterId
+        required: false
+        schema:
+          description: Display name of the graph widget. Pass null to remove it.
+          maxLength: 250
+          minLength: 0
+          nullable: true
+          type: string
+        style: form
+      - description: Set to only return the requests deleting from this telemetry
+          signal.
+        explode: true
+        in: query
+        name: dataSource
+        required: false
+        schema:
+          enum:
+          - logs
+          - traces
+          - rum
+          type: string
+        style: form
+      - description: "Field to sort the requests by. Omit to sort by creation time,\
+          \ newest first."
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          enum:
+          - updatedAt
+          - matchedEventCount
+          type: string
+        style: form
+      - description: "Sort direction: ascending or descending."
+        explode: true
+        in: query
+        name: sortDirection
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListDataDeletionRequestsResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - data-deletion-requests
+    post:
+      description: "Creates a request to delete the events matching a query in a time\
+        \ range. The cluster executes it 30 minutes after creation, leaving time to\
+        \ cancel it. Deleted events cannot be restored. Use `dryRun` to count the\
+        \ matching events first."
+      operationId: createDataDeletionRequest
+      requestBody:
+        content:
+          application/json:
+            example:
+              clusterId: cluster-123-abc
+              dataSource: logs
+              query: user.id:123
+              from: 1767225600
+              to: 1769904000
+              reason: "GDPR request #42"
+              dryRun: true
+              owner: team-123-abc
+            schema:
+              $ref: "#/components/schemas/createDataDeletionRequest_request"
+        description: "Data deletion request to create: the cluster and telemetry signal\
+          \ to delete from, the query and time range selecting the events, the reason\
+          \ kept for audit, and the owning team."
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateDataDeletionRequestResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - data-deletion-requests
+  /v1/data-deletion-requests/{id}/cancel:
+    post:
+      description: "Cancels a data deletion request. Before `dueAt`, no event is deleted;\
+        \ after, the remaining work stops and events already deleted stay deleted."
+      operationId: cancelDataDeletionRequest
+      parameters:
+      - description: ID of the deletion request to cancel.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CancelDataDeletionRequestResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - data-deletion-requests
   /v1/dashboards/query:
     post:
       description: "Queries dashboards visible to the authenticated operation key.\
@@ -2414,8 +2674,11 @@ paths:
       tags:
       - dashboards
     put:
-      description: Updates an existing dashboard by ID. Fields are patched from the
-        request body; omitted fields keep their current values.
+      description: "Updates an existing dashboard by ID. Top-level fields are patched\
+        \ from the request body and omitted ones keep their current values, but a\
+        \ sent array replaces the stored one whole: a `graphs` array missing a widget\
+        \ deletes that widget. Read the dashboard first and send back every widget\
+        \ you keep, or use `updateDashboardGraph` to change one widget."
       operationId: updateDashboard
       parameters:
       - description: "Identifier of the saved dashboard to update. Use the `id` returned\
@@ -2606,7 +2869,8 @@ paths:
       description: Updates one graph inside a dashboard without replacing the full
         dashboard. Use this for targeted widget edits when you already know the dashboard
         ID and graph ID. Fields are patched from the request body; omitted fields
-        keep their current values and null clears them.
+        keep their current values and null clears them. A sent `visualization` or
+        `layout` replaces the stored one whole rather than merging into it.
       operationId: updateDashboardGraph
       parameters:
       - description: Identifier of the dashboard that contains the graph to update.
@@ -5987,7 +6251,7 @@ paths:
         \ or graphing them. Results are sorted by name and paged, 100 per page by\
         \ default; when `totalCount` exceeds the page, narrow them with `search` or\
         \ page through them with `limit` and `offset`. This reads a cluster-wide catalog\
-        \ of names rather than the window: `from` and `to` are accepted but do not\
+        \ of names rather than the window: `from` and `to` are required but do not\
         \ scope the result, and a name stays listed after the metric stops reporting.\
         \ To find out whether a metric has data in a window, run a `count` aggregation\
         \ over it. See [Metrics](/documentation/explore/metrics/index)."
@@ -6117,7 +6381,7 @@ paths:
       description: "Retrieves metadata for one metric name. Use this to inspect available\
         \ dimensions and supported query behavior for a metric. Like the list endpoint,\
         \ this answers from a cluster-wide catalog rather than the window: `from`\
-        \ and `to` are accepted but do not scope the result. See [Metric details](/documentation/explore/metrics/metric-details)."
+        \ and `to` are required but do not scope the result. See [Metric details](/documentation/explore/metrics/metric-details)."
       operationId: getMetric
       parameters:
       - description: "Unix timestamp in seconds. Required, but does not scope the\
@@ -6816,8 +7080,8 @@ paths:
     put:
       description: "Updates an existing monitor definition by ID. Required fields\
         \ and the submitted configuration are overwritten; omitted `message`, `tags`,\
-        \ `clusterIds`, `pauseUntil`, and `folderId` keep their existing values. Omitting\
-        \ `dashboardId` clears the dashboard link."
+        \ `clusterIds`, `pauseUntil`, and `folderId` keep their existing values. Omitted\
+        \ `dashboardId` keeps the dashboard link; send `null` to clear it."
       operationId: updateMonitor
       parameters:
       - description: Identifier of the saved monitor to update. Use the `id` returned
@@ -6849,6 +7113,7 @@ paths:
                   configuration:
                     type: log
                     timeframe: 5
+                    consecutiveWindows: 1
                     groupByFields: []
                     aggregationAlertLogic: no_aggregation
                     queries:
@@ -6869,13 +7134,15 @@ paths:
               example2:
                 value:
                   name: High CPU Utilization By Service
-                  message: More than half of grouped services are above the CPU threshold.
+                  message: More than half of grouped services have been above the
+                    CPU threshold for 2 consecutive 10-minute windows.
                   tags:
                   - key: severity
                     value: warning
                   configuration:
                     type: metric
                     timeframe: 10
+                    consecutiveWindows: 2
                     groupByFields:
                     - fields:
                       - context.service.name
@@ -7011,8 +7278,8 @@ paths:
               $ref: "#/components/schemas/updateMonitor_request"
         description: "Monitor update request. Required fields and the submitted configuration\
           \ are overwritten; omitted `message`, `tags`, `clusterIds`, `pauseUntil`,\
-          \ and `folderId` keep their existing values. Omitting `dashboardId` clears\
-          \ the dashboard link."
+          \ and `folderId` keep their existing values. Omitted `dashboardId` keeps\
+          \ the dashboard link; send `null` to clear it."
         required: true
       responses:
         "200":
@@ -7080,6 +7347,7 @@ paths:
                   configuration:
                     type: log
                     timeframe: 5
+                    consecutiveWindows: 1
                     groupByFields: []
                     aggregationAlertLogic: no_aggregation
                     queries:
@@ -7100,13 +7368,15 @@ paths:
               example2:
                 value:
                   name: High CPU Utilization By Service
-                  message: More than half of grouped services are above the CPU threshold.
+                  message: More than half of grouped services have been above the
+                    CPU threshold for 2 consecutive 10-minute windows.
                   tags:
                   - key: severity
                     value: warning
                   configuration:
                     type: metric
                     timeframe: 10
+                    consecutiveWindows: 2
                     groupByFields:
                     - fields:
                       - context.service.name
@@ -12992,7 +13262,7 @@ components:
       example:
         code: CLUSTER_DB_QUERY_INVALID_CONNECTION_PARAMS
         message: message
-        statusCode: 9.301444243932576
+        statusCode: 3.616076749251911
         details:
           type: tag_policy_violation
           violations:
@@ -13077,7 +13347,7 @@ components:
       example:
         code: INTERNAL_ERROR
         message: message
-        statusCode: 3.616076749251911
+        statusCode: 2.027123023002322
         hint: hint
         docUrl: docUrl
       properties:
@@ -13113,7 +13383,7 @@ components:
         error:
           code: CLUSTER_DB_QUERY_INVALID_CONNECTION_PARAMS
           message: message
-          statusCode: 9.301444243932576
+          statusCode: 3.616076749251911
           details:
             type: tag_policy_violation
             violations:
@@ -13147,7 +13417,7 @@ components:
         error:
           code: INTERNAL_ERROR
           message: message
-          statusCode: 3.616076749251911
+          statusCode: 2.027123023002322
           hint: hint
           docUrl: docUrl
       properties:
@@ -13194,8 +13464,8 @@ components:
         \ the full result set the page was taken from."
       example:
         pagination:
-          totalCount: 2
-          pageCount: 7
+          totalCount: 7
+          pageCount: 9
       properties:
         pagination:
           $ref: "#/components/schemas/ResponseMetadata_pagination"
@@ -13256,6 +13526,7 @@ components:
                   replaceNullWith: replaceNullWith
                 aggregationAlertLogic: no_aggregation
                 proportionAlertThreshold: 5
+                consecutiveWindows: 5
                 queries:
                 - aggregate:
                     type: count
@@ -13281,7 +13552,7 @@ components:
                   timeAggregate: avg
                   metricKind: gauge
                   filter: filter
-              priority: 5
+              priority: 2
               permissions: all
               dashboardId: dashboardId
               folderId: folderId
@@ -13337,6 +13608,7 @@ components:
                   replaceNullWith: replaceNullWith
                 aggregationAlertLogic: no_aggregation
                 proportionAlertThreshold: 5
+                consecutiveWindows: 5
                 queries:
                 - aggregate:
                     type: count
@@ -13362,7 +13634,7 @@ components:
                   timeAggregate: avg
                   metricKind: gauge
                   filter: filter
-              priority: 5
+              priority: 2
               permissions: all
               dashboardId: dashboardId
               folderId: folderId
@@ -13383,8 +13655,8 @@ components:
                 number: number
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -13527,8 +13799,8 @@ components:
           - teamOverrideFields
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -13603,6 +13875,7 @@ components:
             inventory: read
             cloud-account: read
             custom-role: read
+            data-deletion-request: read
             logs: read
             log-route: read
             metrics: read
@@ -13665,6 +13938,7 @@ components:
           inventory: read
           cloud-account: read
           custom-role: read
+          data-deletion-request: read
           logs: read
           log-route: read
           metrics: read
@@ -13771,6 +14045,7 @@ components:
             inventory: read
             cloud-account: read
             custom-role: read
+            data-deletion-request: read
             logs: read
             log-route: read
             metrics: read
@@ -13819,6 +14094,7 @@ components:
             inventory: read
             cloud-account: read
             custom-role: read
+            data-deletion-request: read
             logs: read
             log-route: read
             metrics: read
@@ -13848,8 +14124,8 @@ components:
           expiresAt: expiresAt
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -13889,6 +14165,7 @@ components:
             inventory: read
             cloud-account: read
             custom-role: read
+            data-deletion-request: read
             logs: read
             log-route: read
             metrics: read
@@ -13976,6 +14253,7 @@ components:
             inventory: read
             cloud-account: read
             custom-role: read
+            data-deletion-request: read
             logs: read
             log-route: read
             metrics: read
@@ -14232,8 +14510,8 @@ components:
           - teamOverrideFields
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -14405,6 +14683,7 @@ components:
           rum-public-token: read
           sandbox-configuration: read
           slo: read
+          synthetic-test: read
           tag-policy: read
           user-invitation: read
           team: read
@@ -14508,6 +14787,7 @@ components:
             rum-public-token: read
             sandbox-configuration: read
             slo: read
+            synthetic-test: read
             tag-policy: read
             user-invitation: read
             team: read
@@ -14567,6 +14847,7 @@ components:
             rum-public-token: read
             sandbox-configuration: read
             slo: read
+            synthetic-test: read
             tag-policy: read
             user-invitation: read
             team: read
@@ -14642,6 +14923,7 @@ components:
             rum-public-token: read
             sandbox-configuration: read
             slo: read
+            synthetic-test: read
             tag-policy: read
             user-invitation: read
             team: read
@@ -14714,6 +14996,7 @@ components:
             rum-public-token: read
             sandbox-configuration: read
             slo: read
+            synthetic-test: read
             tag-policy: read
             user-invitation: read
             team: read
@@ -14786,6 +15069,7 @@ components:
             rum-public-token: read
             sandbox-configuration: read
             slo: read
+            synthetic-test: read
             tag-policy: read
             user-invitation: read
             team: read
@@ -14902,6 +15186,224 @@ components:
           type: string
         data:
           $ref: "#/components/schemas/DeleteResponse"
+      required:
+      - data
+      - requestId
+    DataDeletionRequest:
+      description: "Request to delete the events of one telemetry signal that match\
+        \ a query in a time range, for example to answer a GDPR erasure request."
+      example:
+        id: id
+        clusterId: clusterId
+        dataSource: logs
+        query: query
+        from: from
+        to: to
+        reason: reason
+        dryRun: true
+        status: pending
+        execution:
+          failureReason: failureReason
+          startedAt: startedAt
+          completedAt: completedAt
+          progress:
+            matchedRows: 0
+            scannedRows: 6
+        matchedEventCount: 1
+        dueAt: dueAt
+        owner: owner
+      properties:
+        id:
+          description: Unique identifier of the deletion request.
+          type: string
+        clusterId:
+          description: ID of the cluster the request deletes events from.
+          type: string
+        dataSource:
+          description: Telemetry signal the request deletes events from.
+          enum:
+          - logs
+          - traces
+          - rum
+          type: string
+        query:
+          description: Tsuga query selecting the events the request deletes.
+          type: string
+        from:
+          description: Inclusive start of the event time range.
+          type: string
+        to:
+          description: Exclusive end of the event time range.
+          type: string
+        reason:
+          description: "Why the deletion was requested, kept for audit."
+          type: string
+        dryRun:
+          description: "Whether the cluster only counts the events the request matches,\
+            \ without deleting them."
+          type: boolean
+        status:
+          description: "Status of the request: `cancelled` once cancelled, which is\
+            \ final. Otherwise the status the cluster executes it with: `pending`\
+            \ until the cluster starts it, then `running`, then `done`, or `failed`\
+            \ if it cannot be executed. A `done` request goes back to `running` when\
+            \ late events arrive. Also `pending` when the cluster could not be reached."
+          enum:
+          - pending
+          - running
+          - done
+          - failed
+          - cancelled
+          type: string
+        execution:
+          $ref: "#/components/schemas/DataDeletionRequest_execution"
+        matchedEventCount:
+          description: "Number of events the request matched at creation. The cluster\
+            \ deletes the events matching when it executes the request, which can\
+            \ differ."
+          type: integer
+        dueAt:
+          description: "Time from which the cluster executes the request. Cancelling\
+            \ before then prevents any deletion; cancelling later stops the remaining\
+            \ work, and events already deleted stay deleted."
+          type: string
+        owner:
+          description: ID of the team that owns the request.
+          type: string
+      required:
+      - clusterId
+      - dataSource
+      - dryRun
+      - dueAt
+      - from
+      - id
+      - matchedEventCount
+      - owner
+      - query
+      - reason
+      - status
+      - to
+    ListDataDeletionRequestsResponse:
+      example:
+        requestId: requestId
+        data:
+        - id: id
+          clusterId: clusterId
+          dataSource: logs
+          query: query
+          from: from
+          to: to
+          reason: reason
+          dryRun: true
+          status: pending
+          execution:
+            failureReason: failureReason
+            startedAt: startedAt
+            completedAt: completedAt
+            progress:
+              matchedRows: 0
+              scannedRows: 6
+          matchedEventCount: 1
+          dueAt: dueAt
+          owner: owner
+        - id: id
+          clusterId: clusterId
+          dataSource: logs
+          query: query
+          from: from
+          to: to
+          reason: reason
+          dryRun: true
+          status: pending
+          execution:
+            failureReason: failureReason
+            startedAt: startedAt
+            completedAt: completedAt
+            progress:
+              matchedRows: 0
+              scannedRows: 6
+          matchedEventCount: 1
+          dueAt: dueAt
+          owner: owner
+        metadata:
+          pagination:
+            totalCount: 7
+            pageCount: 9
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/DataDeletionRequest"
+          type: array
+          default: null
+        metadata:
+          $ref: "#/components/schemas/ResponseMetadata"
+      required:
+      - data
+      - requestId
+    CreateDataDeletionRequestResponse:
+      example:
+        requestId: requestId
+        data:
+          id: id
+          clusterId: clusterId
+          dataSource: logs
+          query: query
+          from: from
+          to: to
+          reason: reason
+          dryRun: true
+          status: pending
+          execution:
+            failureReason: failureReason
+            startedAt: startedAt
+            completedAt: completedAt
+            progress:
+              matchedRows: 0
+              scannedRows: 6
+          matchedEventCount: 1
+          dueAt: dueAt
+          owner: owner
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/DataDeletionRequest"
+      required:
+      - data
+      - requestId
+    CancelDataDeletionRequestResponse:
+      example:
+        requestId: requestId
+        data:
+          id: id
+          clusterId: clusterId
+          dataSource: logs
+          query: query
+          from: from
+          to: to
+          reason: reason
+          dryRun: true
+          status: pending
+          execution:
+            failureReason: failureReason
+            startedAt: startedAt
+            completedAt: completedAt
+            progress:
+              matchedRows: 0
+              scannedRows: 6
+          matchedEventCount: 1
+          dueAt: dueAt
+          owner: owner
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/DataDeletionRequest"
       required:
       - data
       - requestId
@@ -15329,8 +15831,8 @@ components:
           folderId: folderId
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -15875,8 +16377,8 @@ components:
           dashboardCount: 0.8008281904610115
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -16089,8 +16591,8 @@ components:
           monitorCount: 0.8008281904610115
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -16286,8 +16788,8 @@ components:
           p90ProcessingMs: 5.962133916683182
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -16660,8 +17162,8 @@ components:
           updatedAt: updatedAt
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -16712,8 +17214,8 @@ components:
             value: value
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -17253,10 +17755,16 @@ components:
           - replicaSetName: replicaSetName
             revision: 5
             firstSeen: firstSeen
+            faultyReasons:
+            - faultyReasons
+            - faultyReasons
             logsSearchFilter: logsSearchFilter
           - replicaSetName: replicaSetName
             revision: 5
             firstSeen: firstSeen
+            faultyReasons:
+            - faultyReasons
+            - faultyReasons
             logsSearchFilter: logsSearchFilter
       properties:
         requestId:
@@ -17426,8 +17934,8 @@ components:
           - attributes
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -17686,8 +18194,8 @@ components:
               subtype: map-attributes
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -17951,6 +18459,7 @@ components:
             replaceNullWith: replaceNullWith
           aggregationAlertLogic: no_aggregation
           proportionAlertThreshold: 5
+          consecutiveWindows: 5
           queries:
           - aggregate:
               type: count
@@ -18093,6 +18602,7 @@ components:
               replaceNullWith: replaceNullWith
             aggregationAlertLogic: no_aggregation
             proportionAlertThreshold: 5
+            consecutiveWindows: 5
             queries:
             - aggregate:
                 type: count
@@ -18161,6 +18671,7 @@ components:
               replaceNullWith: replaceNullWith
             aggregationAlertLogic: no_aggregation
             proportionAlertThreshold: 5
+            consecutiveWindows: 5
             queries:
             - aggregate:
                 type: count
@@ -18196,8 +18707,8 @@ components:
           - clusterIds
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -18251,6 +18762,7 @@ components:
               replaceNullWith: replaceNullWith
             aggregationAlertLogic: no_aggregation
             proportionAlertThreshold: 5
+            consecutiveWindows: 5
             queries:
             - aggregate:
                 type: count
@@ -18332,6 +18844,7 @@ components:
               replaceNullWith: replaceNullWith
             aggregationAlertLogic: no_aggregation
             proportionAlertThreshold: 5
+            consecutiveWindows: 5
             queries:
             - aggregate:
                 type: count
@@ -18413,6 +18926,7 @@ components:
               replaceNullWith: replaceNullWith
             aggregationAlertLogic: no_aggregation
             proportionAlertThreshold: 5
+            consecutiveWindows: 5
             queries:
             - aggregate:
                 type: count
@@ -18725,8 +19239,8 @@ components:
                 renotifyIntervalMinutes: 5
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -19118,8 +19632,8 @@ components:
                 renotifyIntervalMinutes: 5
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -19354,8 +19868,8 @@ components:
             value: value
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -20140,8 +20654,8 @@ components:
           createdAt: createdAt
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -20175,8 +20689,8 @@ components:
               params: ""
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -20546,8 +21060,8 @@ components:
               subtype: map-attributes
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -21042,8 +21556,8 @@ components:
           traceErrorRate: 6.027456183070403
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -21747,8 +22261,8 @@ components:
               burnRate: 5.637376656633329
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -22432,8 +22946,8 @@ components:
             value: value
         metadata:
           pagination:
-            totalCount: 2
-            pageCount: 7
+            totalCount: 7
+            pageCount: 9
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -23301,7 +23815,10 @@ components:
           - count
           type: string
         field:
-          description: Attribute containing the values to aggregate
+          description: "Metric to count when `dataSource` is `metrics`, where it is\
+            \ required: without it the query fails with `count aggregate requires\
+            \ a non-empty field`. On `logs`, `traces` and `rum`, `count` counts records\
+            \ and ignores this field."
           maxLength: 250
           minLength: 0
           type: string
@@ -23596,6 +24113,7 @@ components:
           replaceNullWith: replaceNullWith
         aggregationAlertLogic: no_aggregation
         proportionAlertThreshold: 5
+        consecutiveWindows: 5
         queries:
         - aggregate:
             type: count
@@ -23672,6 +24190,17 @@ components:
         proportionAlertThreshold:
           description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
           type: integer
+        consecutiveWindows:
+          description: "Number of consecutive `timeframe`-minute windows that must\
+            \ all meet the conditions before the monitor alerts. 1 or omitted is the\
+            \ standard threshold behavior: one window ending at evaluation time. Above\
+            \ 1, each evaluation checks the last `consecutiveWindows` windows and\
+            \ alerts only when every one meets the conditions, per group for grouped\
+            \ monitors. A window that does not meet the conditions breaks the run,\
+            \ and so does a window with no data unless `noDataBehavior` is `consider_zero`,\
+            \ which evaluates it as 0. At most 10, and above 1, `consecutiveWindows`\
+            \ × `timeframe` must not exceed 4320 minutes (3 days)."
+          type: integer
         queries:
           description: "Aggregation queries used by alerting and SLO evaluation. Each\
             \ query is referenced from formulas as q1, q2, and so on."
@@ -23738,6 +24267,17 @@ components:
         proportionAlertThreshold:
           description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
           type: integer
+        consecutiveWindows:
+          description: "Number of consecutive `timeframe`-minute windows that must\
+            \ all meet the conditions before the monitor alerts. 1 or omitted is the\
+            \ standard threshold behavior: one window ending at evaluation time. Above\
+            \ 1, each evaluation checks the last `consecutiveWindows` windows and\
+            \ alerts only when every one meets the conditions, per group for grouped\
+            \ monitors. A window that does not meet the conditions breaks the run,\
+            \ and so does a window with no data unless `noDataBehavior` is `consider_zero`,\
+            \ which evaluates it as 0. At most 10, and above 1, `consecutiveWindows`\
+            \ × `timeframe` must not exceed 4320 minutes (3 days)."
+          type: integer
         queries:
           description: "Aggregation queries used by alerting and SLO evaluation. Each\
             \ query is referenced from formulas as q1, q2, and so on."
@@ -23803,6 +24343,17 @@ components:
           type: string
         proportionAlertThreshold:
           description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
+          type: integer
+        consecutiveWindows:
+          description: "Number of consecutive `timeframe`-minute windows that must\
+            \ all meet the conditions before the monitor alerts. 1 or omitted is the\
+            \ standard threshold behavior: one window ending at evaluation time. Above\
+            \ 1, each evaluation checks the last `consecutiveWindows` windows and\
+            \ alerts only when every one meets the conditions, per group for grouped\
+            \ monitors. A window that does not meet the conditions breaks the run,\
+            \ and so does a window with no data unless `noDataBehavior` is `consider_zero`,\
+            \ which evaluates it as 0. At most 10, and above 1, `consecutiveWindows`\
+            \ × `timeframe` must not exceed 4320 minutes (3 days)."
           type: integer
         queries:
           description: "Aggregation queries used by alerting and SLO evaluation. Each\
@@ -24172,8 +24723,11 @@ components:
           description: "How grouped results are combined into alert state. Use `no_aggregation`\
             \ only when `groupByFields` is empty; use `all`, `any`, `each`, or `proportion`\
             \ with non-empty `groupByFields`. `proportion` also requires `proportionAlertThreshold`.\
-            \ On create, omitted query-monitor values default to `no_aggregation`;\
-            \ on update, omitted values keep the existing aggregation logic."
+            \ With `groupByFields`, send `each` so every group opens and resolves\
+            \ its own alert, as the app does by default; `all`, `any`, and `proportion`\
+            \ raise one alert for the whole monitor. On create, omitted query-monitor\
+            \ values default to `no_aggregation`; on update, omitted values keep the\
+            \ existing aggregation logic."
           enum:
           - no_aggregation
           - all
@@ -24184,6 +24738,19 @@ components:
         proportionAlertThreshold:
           description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
           maximum: 99
+          minimum: 1
+          type: integer
+        consecutiveWindows:
+          description: "Number of consecutive `timeframe`-minute windows that must\
+            \ all meet the conditions before the monitor alerts. 1 or omitted is the\
+            \ standard threshold behavior: one window ending at evaluation time. Above\
+            \ 1, each evaluation checks the last `consecutiveWindows` windows and\
+            \ alerts only when every one meets the conditions, per group for grouped\
+            \ monitors. A window that does not meet the conditions breaks the run,\
+            \ and so does a window with no data unless `noDataBehavior` is `consider_zero`,\
+            \ which evaluates it as 0. At most 10, and above 1, `consecutiveWindows`\
+            \ × `timeframe` must not exceed 4320 minutes (3 days)."
+          maximum: 10
           minimum: 1
           type: integer
         queries:
@@ -24247,8 +24814,11 @@ components:
           description: "How grouped results are combined into alert state. Use `no_aggregation`\
             \ only when `groupByFields` is empty; use `all`, `any`, `each`, or `proportion`\
             \ with non-empty `groupByFields`. `proportion` also requires `proportionAlertThreshold`.\
-            \ On create, omitted query-monitor values default to `no_aggregation`;\
-            \ on update, omitted values keep the existing aggregation logic."
+            \ With `groupByFields`, send `each` so every group opens and resolves\
+            \ its own alert, as the app does by default; `all`, `any`, and `proportion`\
+            \ raise one alert for the whole monitor. On create, omitted query-monitor\
+            \ values default to `no_aggregation`; on update, omitted values keep the\
+            \ existing aggregation logic."
           enum:
           - no_aggregation
           - all
@@ -24259,6 +24829,19 @@ components:
         proportionAlertThreshold:
           description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
           maximum: 99
+          minimum: 1
+          type: integer
+        consecutiveWindows:
+          description: "Number of consecutive `timeframe`-minute windows that must\
+            \ all meet the conditions before the monitor alerts. 1 or omitted is the\
+            \ standard threshold behavior: one window ending at evaluation time. Above\
+            \ 1, each evaluation checks the last `consecutiveWindows` windows and\
+            \ alerts only when every one meets the conditions, per group for grouped\
+            \ monitors. A window that does not meet the conditions breaks the run,\
+            \ and so does a window with no data unless `noDataBehavior` is `consider_zero`,\
+            \ which evaluates it as 0. At most 10, and above 1, `consecutiveWindows`\
+            \ × `timeframe` must not exceed 4320 minutes (3 days)."
+          maximum: 10
           minimum: 1
           type: integer
         queries:
@@ -24322,8 +24905,11 @@ components:
           description: "How grouped results are combined into alert state. Use `no_aggregation`\
             \ only when `groupByFields` is empty; use `all`, `any`, `each`, or `proportion`\
             \ with non-empty `groupByFields`. `proportion` also requires `proportionAlertThreshold`.\
-            \ On create, omitted query-monitor values default to `no_aggregation`;\
-            \ on update, omitted values keep the existing aggregation logic."
+            \ With `groupByFields`, send `each` so every group opens and resolves\
+            \ its own alert, as the app does by default; `all`, `any`, and `proportion`\
+            \ raise one alert for the whole monitor. On create, omitted query-monitor\
+            \ values default to `no_aggregation`; on update, omitted values keep the\
+            \ existing aggregation logic."
           enum:
           - no_aggregation
           - all
@@ -24334,6 +24920,19 @@ components:
         proportionAlertThreshold:
           description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
           maximum: 99
+          minimum: 1
+          type: integer
+        consecutiveWindows:
+          description: "Number of consecutive `timeframe`-minute windows that must\
+            \ all meet the conditions before the monitor alerts. 1 or omitted is the\
+            \ standard threshold behavior: one window ending at evaluation time. Above\
+            \ 1, each evaluation checks the last `consecutiveWindows` windows and\
+            \ alerts only when every one meets the conditions, per group for grouped\
+            \ monitors. A window that does not meet the conditions breaks the run,\
+            \ and so does a window with no data unless `noDataBehavior` is `consider_zero`,\
+            \ which evaluates it as 0. At most 10, and above 1, `consecutiveWindows`\
+            \ × `timeframe` must not exceed 4320 minutes (3 days)."
+          maximum: 10
           minimum: 1
           type: integer
         queries:
@@ -24388,8 +24987,11 @@ components:
           description: "How grouped results are combined into alert state. Use `no_aggregation`\
             \ only when `groupByFields` is empty; use `all`, `any`, `each`, or `proportion`\
             \ with non-empty `groupByFields`. `proportion` also requires `proportionAlertThreshold`.\
-            \ On create, omitted query-monitor values default to `no_aggregation`;\
-            \ on update, omitted values keep the existing aggregation logic."
+            \ With `groupByFields`, send `each` so every group opens and resolves\
+            \ its own alert, as the app does by default; `all`, `any`, and `proportion`\
+            \ raise one alert for the whole monitor. On create, omitted query-monitor\
+            \ values default to `no_aggregation`; on update, omitted values keep the\
+            \ existing aggregation logic."
           enum:
           - no_aggregation
           - all
@@ -24454,8 +25056,11 @@ components:
           description: "How grouped results are combined into alert state. Use `no_aggregation`\
             \ only when `groupByFields` is empty; use `all`, `any`, `each`, or `proportion`\
             \ with non-empty `groupByFields`. `proportion` also requires `proportionAlertThreshold`.\
-            \ On create, omitted query-monitor values default to `no_aggregation`;\
-            \ on update, omitted values keep the existing aggregation logic."
+            \ With `groupByFields`, send `each` so every group opens and resolves\
+            \ its own alert, as the app does by default; `all`, `any`, and `proportion`\
+            \ raise one alert for the whole monitor. On create, omitted query-monitor\
+            \ values default to `no_aggregation`; on update, omitted values keep the\
+            \ existing aggregation logic."
           enum:
           - no_aggregation
           - all
@@ -24522,8 +25127,11 @@ components:
           description: "How grouped results are combined into alert state. Use `no_aggregation`\
             \ only when `groupByFields` is empty; use `all`, `any`, `each`, or `proportion`\
             \ with non-empty `groupByFields`. `proportion` also requires `proportionAlertThreshold`.\
-            \ On create, omitted query-monitor values default to `no_aggregation`;\
-            \ on update, omitted values keep the existing aggregation logic."
+            \ With `groupByFields`, send `each` so every group opens and resolves\
+            \ its own alert, as the app does by default; `all`, `any`, and `proportion`\
+            \ raise one alert for the whole monitor. On create, omitted query-monitor\
+            \ values default to `no_aggregation`; on update, omitted values keep the\
+            \ existing aggregation logic."
           enum:
           - no_aggregation
           - all
@@ -25791,9 +26399,10 @@ components:
           additionalProperties:
             $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_lineStyleOptions_value"
           description: "Line style of each series, keyed by 1-based query index. The\
-            \ last index is the formula when there is one. For widgets with a single\
-            \ query, only the `1` entry is read and it applies to every series. Defaults\
-            \ to regular."
+            \ last index is the formula when there is one. Each entry is `{groupId,\
+            \ lineStyle}`, where `groupId` is `_q<n>` for query n or `_value` for\
+            \ the formula. For widgets with a single query, only the `1` entry is\
+            \ read and it applies to every series. Defaults to regular."
           type: object
         normalizer:
           $ref: "#/components/schemas/Normalizer"
@@ -26039,9 +26648,10 @@ components:
           additionalProperties:
             $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_lineStyleOptions_value"
           description: "Line style of each series, keyed by 1-based query index. The\
-            \ last index is the formula when there is one. For widgets with a single\
-            \ query, only the `1` entry is read and it applies to every series. Defaults\
-            \ to regular."
+            \ last index is the formula when there is one. Each entry is `{groupId,\
+            \ lineStyle}`, where `groupId` is `_q<n>` for query n or `_value` for\
+            \ the formula. For widgets with a single query, only the `1` entry is\
+            \ read and it applies to every series. Defaults to regular."
           type: object
         eventsOverlay:
           $ref: "#/components/schemas/EventsOverlay"
@@ -26400,9 +27010,10 @@ components:
           additionalProperties:
             $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_lineStyleOptions_value"
           description: "Line style of each series, keyed by 1-based query index. The\
-            \ last index is the formula when there is one. For widgets with a single\
-            \ query, only the `1` entry is read and it applies to every series. Defaults\
-            \ to regular."
+            \ last index is the formula when there is one. Each entry is `{groupId,\
+            \ lineStyle}`, where `groupId` is `_q<n>` for query n or `_value` for\
+            \ the formula. For widgets with a single query, only the `1` entry is\
+            \ read and it applies to every series. Defaults to regular."
           type: object
         customLink:
           $ref: "#/components/schemas/CustomLink"
@@ -27265,9 +27876,10 @@ components:
           additionalProperties:
             $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_lineStyleOptions_value"
           description: "Line style of each series, keyed by 1-based query index. The\
-            \ last index is the formula when there is one. For widgets with a single\
-            \ query, only the `1` entry is read and it applies to every series. Defaults\
-            \ to regular."
+            \ last index is the formula when there is one. Each entry is `{groupId,\
+            \ lineStyle}`, where `groupId` is `_q<n>` for query n or `_value` for\
+            \ the formula. For widgets with a single query, only the `1` entry is\
+            \ read and it applies to every series. Defaults to regular."
           type: object
         normalizer:
           $ref: "#/components/schemas/InputNormalizer"
@@ -27299,7 +27911,8 @@ components:
           errorMessage:
             format: Must be a readonly SQL query - only SELECT statements are allowed.
         listColumns:
-          description: Custom columns to display for each database row
+          description: "Custom columns to display for each database row. Omit it and\
+            \ the list renders no columns: there is no default set."
           items:
             $ref: "#/components/schemas/InputWidgetListColumn"
           type: array
@@ -27514,7 +28127,8 @@ components:
           - timeseries-promql
           type: string
         queries:
-          description: PromQL expressions configured for this widget.
+          description: PromQL expressions configured for this widget. Only the first
+            expression is rendered; later entries are stored and ignored.
           items:
             description: Raw PromQL expression for this widget.
             maxLength: 50000
@@ -27554,9 +28168,10 @@ components:
           additionalProperties:
             $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_lineStyleOptions_value"
           description: "Line style of each series, keyed by 1-based query index. The\
-            \ last index is the formula when there is one. For widgets with a single\
-            \ query, only the `1` entry is read and it applies to every series. Defaults\
-            \ to regular."
+            \ last index is the formula when there is one. Each entry is `{groupId,\
+            \ lineStyle}`, where `groupId` is `_q<n>` for query n or `_value` for\
+            \ the formula. For widgets with a single query, only the `1` entry is\
+            \ read and it applies to every series. Defaults to regular."
           type: object
         eventsOverlay:
           $ref: "#/components/schemas/InputEventsOverlay"
@@ -27573,7 +28188,8 @@ components:
           - query-value-promql
           type: string
         queries:
-          description: PromQL expressions configured for this widget.
+          description: PromQL expressions configured for this widget. Only the first
+            expression is rendered; later entries are stored and ignored.
           items:
             description: Raw PromQL expression for this widget.
             maxLength: 50000
@@ -27621,7 +28237,8 @@ components:
           - gauge-promql
           type: string
         queries:
-          description: PromQL expressions configured for this widget.
+          description: PromQL expressions configured for this widget. Only the first
+            expression is rendered; later entries are stored and ignored.
           items:
             description: Raw PromQL expression for this widget.
             maxLength: 50000
@@ -27660,7 +28277,8 @@ components:
           - top-list-promql
           type: string
         queries:
-          description: PromQL expressions configured for this widget.
+          description: PromQL expressions configured for this widget. Only the first
+            expression is rendered; later entries are stored and ignored.
           items:
             description: Raw PromQL expression for this widget.
             maxLength: 50000
@@ -27694,7 +28312,8 @@ components:
           - pie-promql
           type: string
         queries:
-          description: PromQL expressions configured for this widget.
+          description: PromQL expressions configured for this widget. Only the first
+            expression is rendered; later entries are stored and ignored.
           items:
             description: Raw PromQL expression for this widget.
             maxLength: 50000
@@ -27729,7 +28348,8 @@ components:
           - bar-promql
           type: string
         queries:
-          description: PromQL expressions configured for this widget.
+          description: PromQL expressions configured for this widget. Only the first
+            expression is rendered; later entries are stored and ignored.
           items:
             description: Raw PromQL expression for this widget.
             maxLength: 50000
@@ -27777,7 +28397,8 @@ components:
           - distribution-promql
           type: string
         queries:
-          description: PromQL expressions configured for this widget.
+          description: PromQL expressions configured for this widget. Only the first
+            expression is rendered; later entries are stored and ignored.
           items:
             description: Raw PromQL expression for this widget.
             maxLength: 50000
@@ -27812,7 +28433,8 @@ components:
           - heatmap-promql
           type: string
         queries:
-          description: PromQL expressions configured for this widget.
+          description: PromQL expressions configured for this widget. Only the first
+            expression is rendered; later entries are stored and ignored.
           items:
             description: Raw PromQL expression for this widget.
             maxLength: 50000
@@ -27875,7 +28497,9 @@ components:
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
             \ derived results. Defaults to `q1`. Formulas may reference only submitted\
-            \ queries (`q1` through `qN`); undefined query references return 400."
+            \ queries (`q1` through `qN`); undefined query references return 400.\
+            \ Only `+`, `-`, `*`, `/` and parentheses over query references and numbers\
+            \ are supported, with no functions such as `max()`."
           format: tsuga-formula
           maxLength: 250
           minLength: 0
@@ -27939,9 +28563,10 @@ components:
           additionalProperties:
             $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_lineStyleOptions_value"
           description: "Line style of each series, keyed by 1-based query index. The\
-            \ last index is the formula when there is one. For widgets with a single\
-            \ query, only the `1` entry is read and it applies to every series. Defaults\
-            \ to regular."
+            \ last index is the formula when there is one. Each entry is `{groupId,\
+            \ lineStyle}`, where `groupId` is `_q<n>` for query n or `_value` for\
+            \ the formula. For widgets with a single query, only the `1` entry is\
+            \ read and it applies to every series. Defaults to regular."
           type: object
         customLink:
           $ref: "#/components/schemas/InputCustomLink"
@@ -27984,7 +28609,9 @@ components:
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
             \ derived results. Defaults to `q1`. Formulas may reference only submitted\
-            \ queries (`q1` through `qN`); undefined query references return 400."
+            \ queries (`q1` through `qN`); undefined query references return 400.\
+            \ Only `+`, `-`, `*`, `/` and parentheses over query references and numbers\
+            \ are supported, with no functions such as `max()`."
           format: tsuga-formula
           maxLength: 250
           minLength: 0
@@ -28083,7 +28710,9 @@ components:
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
             \ derived results. Defaults to `q1`. Formulas may reference only submitted\
-            \ queries (`q1` through `qN`); undefined query references return 400."
+            \ queries (`q1` through `qN`); undefined query references return 400.\
+            \ Only `+`, `-`, `*`, `/` and parentheses over query references and numbers\
+            \ are supported, with no functions such as `max()`."
           format: tsuga-formula
           maxLength: 250
           minLength: 0
@@ -28169,7 +28798,9 @@ components:
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
             \ derived results. Defaults to `q1`. Formulas may reference only submitted\
-            \ queries (`q1` through `qN`); undefined query references return 400."
+            \ queries (`q1` through `qN`); undefined query references return 400.\
+            \ Only `+`, `-`, `*`, `/` and parentheses over query references and numbers\
+            \ are supported, with no functions such as `max()`."
           format: tsuga-formula
           maxLength: 250
           minLength: 0
@@ -28248,7 +28879,9 @@ components:
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
             \ derived results. Defaults to `q1`. Formulas may reference only submitted\
-            \ queries (`q1` through `qN`); undefined query references return 400."
+            \ queries (`q1` through `qN`); undefined query references return 400.\
+            \ Only `+`, `-`, `*`, `/` and parentheses over query references and numbers\
+            \ are supported, with no functions such as `max()`."
           format: tsuga-formula
           maxLength: 250
           minLength: 0
@@ -28267,7 +28900,7 @@ components:
           default: null
         max:
           description: "Gauge maximum value, on the raw query value before the unit\
-            \ is applied"
+            \ is applied. Defaults to 100 when omitted."
           type: number
         colorThresholds:
           description: "Color thresholds inside the gauge range, on the raw query\
@@ -28317,7 +28950,9 @@ components:
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
             \ derived results. Defaults to `q1`. Formulas may reference only submitted\
-            \ queries (`q1` through `qN`); undefined query references return 400."
+            \ queries (`q1` through `qN`); undefined query references return 400.\
+            \ Only `+`, `-`, `*`, `/` and parentheses over query references and numbers\
+            \ are supported, with no functions such as `max()`."
           format: tsuga-formula
           maxLength: 250
           minLength: 0
@@ -28415,7 +29050,9 @@ components:
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
             \ derived results. Defaults to `q1`. Formulas may reference only submitted\
-            \ queries (`q1` through `qN`); undefined query references return 400."
+            \ queries (`q1` through `qN`); undefined query references return 400.\
+            \ Only `+`, `-`, `*`, `/` and parentheses over query references and numbers\
+            \ are supported, with no functions such as `max()`."
           format: tsuga-formula
           maxLength: 250
           minLength: 0
@@ -28509,7 +29146,9 @@ components:
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
             \ derived results. Defaults to `q1`. Formulas may reference only submitted\
-            \ queries (`q1` through `qN`); undefined query references return 400."
+            \ queries (`q1` through `qN`); undefined query references return 400.\
+            \ Only `+`, `-`, `*`, `/` and parentheses over query references and numbers\
+            \ are supported, with no functions such as `max()`."
           format: tsuga-formula
           maxLength: 250
           minLength: 0
@@ -28616,8 +29255,8 @@ components:
             description: Column width by column id
             type: number
           description: "Table column widths in pixels, keyed by column id: `label`\
-            \ for the grouping column and `col-<index>` for each entry in `columns`.\
-            \ Columns without an entry keep their default width."
+            \ for the grouping column and `col-<index>` for each entry in `columns`,\
+            \ counting from 0. Columns without an entry keep their default width."
           type: object
         customLink:
           $ref: "#/components/schemas/InputCustomLink"
@@ -28639,7 +29278,8 @@ components:
           minLength: 0
           type: string
         listColumns:
-          description: Custom columns to display for each log
+          description: "Custom columns to display for each log. Omit it and the list\
+            \ renders no columns: there is no default set."
           items:
             $ref: "#/components/schemas/InputWidgetListColumn"
           type: array
@@ -28750,7 +29390,8 @@ components:
           minLength: 0
           type: string
         listColumns:
-          description: Custom columns to display for each span
+          description: "Custom columns to display for each span. Omit it and the list\
+            \ renders no columns: there is no default set."
           items:
             $ref: "#/components/schemas/InputWidgetListColumn"
           type: array
@@ -28798,7 +29439,8 @@ components:
           type: string
         listColumns:
           description: "Custom columns to display for each RUM event. Set attributes\
-            \ without their stream prefix, e.g. `view.name` rather than `events.view.name`."
+            \ without their stream prefix, e.g. `view.name` rather than `events.view.name`.\
+            \ Omit it and the list renders no columns: there is no default set."
           items:
             $ref: "#/components/schemas/InputWidgetListColumn"
           type: array
@@ -29340,6 +29982,7 @@ components:
               replaceNullWith: replaceNullWith
             aggregationAlertLogic: no_aggregation
             proportionAlertThreshold: 5
+            consecutiveWindows: 5
             queries:
             - aggregate:
                 type: count
@@ -29365,7 +30008,7 @@ components:
               timeAggregate: avg
               metricKind: gauge
               filter: filter
-          priority: 5
+          priority: 2
           permissions: all
           dashboardId: dashboardId
           folderId: folderId
@@ -29506,6 +30149,7 @@ components:
           inventory: read
           cloud-account: read
           custom-role: read
+          data-deletion-request: read
           logs: read
           log-route: read
           metrics: read
@@ -30049,8 +30693,9 @@ components:
       - type
       title: AllPublicTeams
     Aggregate:
-      description: Aggregation operation for this query. Required for every query;
-        `field` is required by all aggregate types except `count`.
+      description: "Aggregation operation for this query. Required for every query;\
+        \ `field` is required by all aggregate types except `count`, which needs it\
+        \ only when `dataSource` is `metrics`."
       discriminator:
         mapping:
           count: "#/components/schemas/AggregateCount"
@@ -30651,8 +31296,9 @@ components:
       - values
       title: ContrastSet
     InputAggregate:
-      description: Aggregation operation for this query. Required for every query;
-        `field` is required by all aggregate types except `count`.
+      description: "Aggregation operation for this query. Required for every query;\
+        \ `field` is required by all aggregate types except `count`, which needs it\
+        \ only when `dataSource` is `metrics`."
       discriminator:
         mapping:
           count: "#/components/schemas/InputAggregateCount"
@@ -31322,7 +31968,9 @@ components:
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
             \ derived results. Defaults to `q1`. Formulas may reference only submitted\
-            \ queries (`q1` through `qN`); undefined query references return 400."
+            \ queries (`q1` through `qN`); undefined query references return 400.\
+            \ Only `+`, `-`, `*`, `/` and parentheses over query references and numbers\
+            \ are supported, with no functions such as `max()`."
           format: tsuga-formula
           maxLength: 250
           minLength: 0
@@ -31351,7 +31999,8 @@ components:
     InputTableDefaultSorting:
       properties:
         id:
-          description: ID of the column to sort by
+          description: "ID of the column to sort by: `label` for the grouping column,\
+            \ or `col-<index>` with the zero-based position of the entry in `columns`."
           maxLength: 250
           minLength: 0
           type: string
@@ -31552,7 +32201,9 @@ components:
         formula:
           description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
             \ derived results. Defaults to `q1`. Formulas may reference only submitted\
-            \ queries (`q1` through `qN`); undefined query references return 400."
+            \ queries (`q1` through `qN`); undefined query references return 400.\
+            \ Only `+`, `-`, `*`, `/` and parentheses over query references and numbers\
+            \ are supported, with no functions such as `max()`."
           format: tsuga-formula
           maxLength: 250
           minLength: 0
@@ -32064,6 +32715,7 @@ components:
         inventory: read
         cloud-account: read
         custom-role: read
+        data-deletion-request: read
         logs: read
         log-route: read
         metrics: read
@@ -32155,6 +32807,13 @@ components:
         custom-role:
           description: "Custom global roles, which define what their holders can access\
             \ across the organization."
+          enum:
+          - read
+          - write
+          type: string
+        data-deletion-request:
+          description: "Data deletion requests, which delete the telemetry events\
+            \ matching a query on a cluster."
           enum:
           - read
           - write
@@ -32651,6 +33310,7 @@ components:
         rum-public-token: read
         sandbox-configuration: read
         slo: read
+        synthetic-test: read
         tag-policy: read
         user-invitation: read
         team: read
@@ -32878,6 +33538,12 @@ components:
           - read
           - write
           type: string
+        synthetic-test:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
         tag-policy:
           description: Access granted on this resource type. `write` implies `read`.
           enum:
@@ -33065,6 +33731,67 @@ components:
           type: string
       required:
       - tagKey
+    createDataDeletionRequest_request:
+      description: "Data deletion request to create: the cluster and telemetry signal\
+        \ to delete from, the query and time range selecting the events, the reason\
+        \ kept for audit, and the owning team."
+      properties:
+        clusterId:
+          description: ID of the cluster to delete the events from.
+          maxLength: 250
+          minLength: 1
+          type: string
+        dataSource:
+          description: Telemetry signal to delete events from.
+          enum:
+          - logs
+          - traces
+          - rum
+          type: string
+        query:
+          description: "Tsuga query selecting the events to delete. Queries matching\
+            \ every event, full-text searches and queries that only exclude events\
+            \ (`NOT user.id:123`) are rejected: select events by attribute."
+          format: tsuga-query
+          maxLength: 10000
+          minLength: 1
+          type: string
+        from:
+          description: Start of the query window as a Unix timestamp in seconds
+          format: int64
+          maximum: 4927737600
+          minimum: 1456444800
+          type: integer
+        to:
+          description: End of the query window as a Unix timestamp in seconds
+          format: int64
+          maximum: 4927737600
+          minimum: 1456444800
+          type: integer
+        reason:
+          description: "Why the deletion is requested, for example the reference of\
+            \ a GDPR request. Kept for audit."
+          maxLength: 50000
+          minLength: 1
+          type: string
+        dryRun:
+          description: "Set to true to only count the events the request matches,\
+            \ without deleting them."
+          type: boolean
+        owner:
+          description: ID of the team that owns the request.
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - clusterId
+      - dataSource
+      - dryRun
+      - from
+      - owner
+      - query
+      - reason
+      - to
     queryDashboards_request_filters_owners:
       description: Restrict results to dashboards owned by any of these team IDs
       properties:
@@ -35124,8 +35851,8 @@ components:
     updateMonitor_request:
       description: "Monitor update request. Required fields and the submitted configuration\
         \ are overwritten; omitted `message`, `tags`, `clusterIds`, `pauseUntil`,\
-        \ and `folderId` keep their existing values. Omitting `dashboardId` clears\
-        \ the dashboard link."
+        \ and `folderId` keep their existing values. Omitted `dashboardId` keeps the\
+        \ dashboard link; send `null` to clear it."
       properties:
         name:
           description: Display name of the monitor and alert source.
@@ -37903,7 +38630,8 @@ components:
           description: "Maximum number of findings to return, strongest first. A finding\
             \ is one attribute/value pair, and findings are grouped into one `contrastSets`\
             \ entry per attribute, so a result carries at most this many `values`\
-            \ rows across possibly fewer entries. Valid values are 1 through 100."
+            \ rows across possibly fewer entries. Valid values are 1 through 100.\
+            \ Defaults to 10."
           maximum: 100
           minimum: 1
           type: integer
@@ -37911,14 +38639,14 @@ components:
           description: "Minimum lift a value must reach to be reported as a finding.\
             \ Lift is the value's coverage of the target group divided by its coverage\
             \ of the baseline, so `2` keeps only values at least twice as frequent\
-            \ in the target. Raise it to cut weak findings."
+            \ in the target. Raise it to cut weak findings. Defaults to 1.5."
           minimum: 1
           type: number
         minSupport:
           description: "Support floor as a percentage: a value is reported as a finding\
             \ only when it covers at least this much of the target group or of the\
             \ baseline group. Valid values are 0 through 100. Raise it to drop findings\
-            \ that explain only a handful of spans."
+            \ that explain only a handful of spans. Defaults to 0.5."
           maximum: 100
           minimum: 0
           type: number
@@ -38583,8 +39311,8 @@ components:
       description: "Counts describing the full result set that the returned page was\
         \ taken from, for computing how many further pages remain."
       example:
-        totalCount: 2
-        pageCount: 7
+        totalCount: 7
+        pageCount: 9
       properties:
         totalCount:
           description: Total number of items matching the query before `limit` and
@@ -38651,6 +39379,7 @@ components:
                 replaceNullWith: replaceNullWith
               aggregationAlertLogic: no_aggregation
               proportionAlertThreshold: 5
+              consecutiveWindows: 5
               queries:
               - aggregate:
                   type: count
@@ -38676,7 +39405,7 @@ components:
                 timeAggregate: avg
                 metricKind: gauge
                 filter: filter
-            priority: 5
+            priority: 2
             permissions: all
             dashboardId: dashboardId
             folderId: folderId
@@ -38732,6 +39461,7 @@ components:
                 replaceNullWith: replaceNullWith
               aggregationAlertLogic: no_aggregation
               proportionAlertThreshold: 5
+              consecutiveWindows: 5
               queries:
               - aggregate:
                   type: count
@@ -38757,7 +39487,7 @@ components:
                 timeAggregate: avg
                 metricKind: gauge
                 filter: filter
-            priority: 5
+            priority: 2
             permissions: all
             dashboardId: dashboardId
             folderId: folderId
@@ -38873,6 +39603,47 @@ components:
       required:
       - key
       - values
+    DataDeletionRequest_execution_progress:
+      example:
+        matchedRows: 0
+        scannedRows: 6
+      properties:
+        matchedRows:
+          description: Events matching the request. A dry run counts them without
+            deleting them.
+          type: integer
+        scannedRows:
+          description: Events the cluster scanned for matching ones.
+          type: integer
+      required:
+      - matchedRows
+      - scannedRows
+    DataDeletionRequest_execution:
+      description: "How the cluster is executing the request, as it answered when\
+        \ the request was read. Absent until the cluster takes the request on (once\
+        \ due), or when the cluster could not be reached."
+      example:
+        failureReason: failureReason
+        startedAt: startedAt
+        completedAt: completedAt
+        progress:
+          matchedRows: 0
+          scannedRows: 6
+      properties:
+        failureReason:
+          description: "Why the cluster could not execute the request, when its status\
+            \ is `failed`."
+          type: string
+        startedAt:
+          description: When the cluster started executing the request.
+          type: string
+        completedAt:
+          description: "When the execution last reached `done`, `failed` or `cancelled`."
+          type: string
+        progress:
+          $ref: "#/components/schemas/DataDeletionRequest_execution_progress"
+      required:
+      - progress
     Dashboard_filters_inner:
       example:
         key: key
@@ -40954,6 +41725,9 @@ components:
         replicaSetName: replicaSetName
         revision: 5
         firstSeen: firstSeen
+        faultyReasons:
+        - faultyReasons
+        - faultyReasons
         logsSearchFilter: logsSearchFilter
       properties:
         replicaSetName:
@@ -40967,6 +41741,14 @@ components:
           description: ReplicaSet metadata.creationTimestamp from the latest observed
             ReplicaSet object. Present when creation time is observed.
           type: string
+        faultyReasons:
+          description: Container status reasons the Kubernetes faulty deployment monitor
+            reported for this revision within the revisions lookback. Present only
+            when the revision was flagged as faulty.
+          items:
+            type: string
+          type: array
+          default: null
         logsSearchFilter:
           description: "TQL log search filter scoped to this ReplicaSet revision.\
             \ Built from cluster, namespace, and ReplicaSet identifiers."
@@ -41001,10 +41783,16 @@ components:
         - replicaSetName: replicaSetName
           revision: 5
           firstSeen: firstSeen
+          faultyReasons:
+          - faultyReasons
+          - faultyReasons
           logsSearchFilter: logsSearchFilter
         - replicaSetName: replicaSetName
           revision: 5
           firstSeen: firstSeen
+          faultyReasons:
+          - faultyReasons
+          - faultyReasons
           logsSearchFilter: logsSearchFilter
       properties:
         overview:
@@ -41164,7 +41952,9 @@ components:
           type: array
           default: null
         sampleSize:
-          description: Number of logs sampled while computing patterns.
+          description: "Sum of the returned patterns' `size` values. It is not the\
+            \ number of logs matching the query: logs outside the returned patterns\
+            \ are not counted."
           type: number
       required:
       - patterns
@@ -44271,6 +45061,25 @@ components:
           type: boolean
       required:
       - values
+    GraphVisualizationSlo_filters_keys_inner:
+      properties:
+        key:
+          description: "Group-by field or tag key to filter on, such as `context.team`"
+          type: string
+        values:
+          description: Values compared with the result's group-by value and its SLO's
+            tag values for `key`
+          items:
+            type: string
+          type: array
+          default: null
+        exclude:
+          description: "If true, keep the results with none of these values instead\
+            \ of those with at least one"
+          type: boolean
+      required:
+      - key
+      - values
     GraphVisualizationSlo_filters:
       description: "Narrows the SLOs the widget covers. Omit it, or any of its fields,\
         \ to apply no filter."
@@ -44281,6 +45090,16 @@ components:
           $ref: "#/components/schemas/GraphVisualizationSlo_filters_tags"
         statuses:
           $ref: "#/components/schemas/GraphVisualizationSlo_filters_statuses"
+        keys:
+          description: "Keep only the results matching every key filter. A result's\
+            \ values for a key are its group-by value when its SLO groups by that\
+            \ field, and its SLO's tag values for that key. A result matches when\
+            \ one of its values is in `values`, or, with `exclude: true`, when none\
+            \ is; a result with no value for the key only matches an exclusion."
+          items:
+            $ref: "#/components/schemas/GraphVisualizationSlo_filters_keys_inner"
+          type: array
+          default: null
     InputGraphVisualizationTimeseriesConnection_yAxisSettings_scale_oneOf:
       properties:
         type:
@@ -44369,6 +45188,30 @@ components:
           type: boolean
       required:
       - values
+    InputGraphVisualizationSlo_filters_keys_inner:
+      properties:
+        key:
+          description: "Group-by field or tag key to filter on, such as `context.team`"
+          maxLength: 250
+          minLength: 1
+          type: string
+        values:
+          description: Values compared with the result's group-by value and its SLO's
+            tag values for `key`
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 50
+          type: array
+          default: null
+        exclude:
+          description: "If true, keep the results with none of these values instead\
+            \ of those with at least one"
+          type: boolean
+      required:
+      - key
+      - values
     InputGraphVisualizationSlo_filters:
       description: "Narrows the SLOs the widget covers. Omit it, or any of its fields,\
         \ to apply no filter."
@@ -44379,6 +45222,17 @@ components:
           $ref: "#/components/schemas/querySlos_request_filters_tags"
         statuses:
           $ref: "#/components/schemas/InputGraphVisualizationSlo_filters_statuses"
+        keys:
+          description: "Keep only the results matching every key filter. A result's\
+            \ values for a key are its group-by value when its SLO groups by that\
+            \ field, and its SLO's tag values for that key. A result matches when\
+            \ one of its values is in `values`, or, with `exclude: true`, when none\
+            \ is; a result with no value for the key only matches an exclusion."
+          items:
+            $ref: "#/components/schemas/InputGraphVisualizationSlo_filters_keys_inner"
+          maxItems: 50
+          type: array
+          default: null
     ProcessorParamsCreatorCategory_clauses_inner:
       properties:
         query:
@@ -44482,6 +45336,7 @@ components:
             replaceNullWith: replaceNullWith
           aggregationAlertLogic: no_aggregation
           proportionAlertThreshold: 5
+          consecutiveWindows: 5
           queries:
           - aggregate:
               type: count
@@ -44507,7 +45362,7 @@ components:
             timeAggregate: avg
             metricKind: gauge
             filter: filter
-        priority: 5
+        priority: 2
         permissions: all
         dashboardId: dashboardId
         folderId: folderId

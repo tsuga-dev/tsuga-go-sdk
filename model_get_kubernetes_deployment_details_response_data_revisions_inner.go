@@ -25,6 +25,8 @@ type GetKubernetesDeploymentDetailsResponseDataRevisionsInner struct {
 	Revision int32 `json:"revision"`
 	// ReplicaSet metadata.creationTimestamp from the latest observed ReplicaSet object. Present when creation time is observed.
 	FirstSeen *string `json:"firstSeen,omitempty"`
+	// Container status reasons the Kubernetes faulty deployment monitor reported for this revision within the revisions lookback. Present only when the revision was flagged as faulty.
+	FaultyReasons []string `json:"faultyReasons,omitempty"`
 	// TQL log search filter scoped to this ReplicaSet revision. Built from cluster, namespace, and ReplicaSet identifiers.
 	LogsSearchFilter     string `json:"logsSearchFilter"`
 	AdditionalProperties map[string]interface{}
@@ -132,6 +134,38 @@ func (o *GetKubernetesDeploymentDetailsResponseDataRevisionsInner) SetFirstSeen(
 	o.FirstSeen = &v
 }
 
+// GetFaultyReasons returns the FaultyReasons field value if set, zero value otherwise.
+func (o *GetKubernetesDeploymentDetailsResponseDataRevisionsInner) GetFaultyReasons() []string {
+	if o == nil || IsNil(o.FaultyReasons) {
+		var ret []string
+		return ret
+	}
+	return o.FaultyReasons
+}
+
+// GetFaultyReasonsOk returns a tuple with the FaultyReasons field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetKubernetesDeploymentDetailsResponseDataRevisionsInner) GetFaultyReasonsOk() ([]string, bool) {
+	if o == nil || IsNil(o.FaultyReasons) {
+		return nil, false
+	}
+	return o.FaultyReasons, true
+}
+
+// HasFaultyReasons returns a boolean if a field has been set.
+func (o *GetKubernetesDeploymentDetailsResponseDataRevisionsInner) HasFaultyReasons() bool {
+	if o != nil && !IsNil(o.FaultyReasons) {
+		return true
+	}
+
+	return false
+}
+
+// SetFaultyReasons gets a reference to the given []string and assigns it to the FaultyReasons field.
+func (o *GetKubernetesDeploymentDetailsResponseDataRevisionsInner) SetFaultyReasons(v []string) {
+	o.FaultyReasons = v
+}
+
 // GetLogsSearchFilter returns the LogsSearchFilter field value
 func (o *GetKubernetesDeploymentDetailsResponseDataRevisionsInner) GetLogsSearchFilter() string {
 	if o == nil {
@@ -170,6 +204,9 @@ func (o GetKubernetesDeploymentDetailsResponseDataRevisionsInner) ToMap() (map[s
 	toSerialize["revision"] = o.Revision
 	if !IsNil(o.FirstSeen) {
 		toSerialize["firstSeen"] = o.FirstSeen
+	}
+	if !IsNil(o.FaultyReasons) {
+		toSerialize["faultyReasons"] = o.FaultyReasons
 	}
 	toSerialize["logsSearchFilter"] = o.LogsSearchFilter
 
@@ -220,6 +257,7 @@ func (o *GetKubernetesDeploymentDetailsResponseDataRevisionsInner) UnmarshalJSON
 		delete(additionalProperties, "replicaSetName")
 		delete(additionalProperties, "revision")
 		delete(additionalProperties, "firstSeen")
+		delete(additionalProperties, "faultyReasons")
 		delete(additionalProperties, "logsSearchFilter")
 		o.AdditionalProperties = additionalProperties
 	}

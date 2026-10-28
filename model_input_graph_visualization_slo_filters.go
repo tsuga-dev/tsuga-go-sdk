@@ -18,9 +18,11 @@ var _ MappedNullable = &InputGraphVisualizationSloFilters{}
 
 // InputGraphVisualizationSloFilters Narrows the SLOs the widget covers. Omit it, or any of its fields, to apply no filter.
 type InputGraphVisualizationSloFilters struct {
-	Owners               *QuerySlosRequestFiltersOwners             `json:"owners,omitempty"`
-	Tags                 *QuerySlosRequestFiltersTags               `json:"tags,omitempty"`
-	Statuses             *InputGraphVisualizationSloFiltersStatuses `json:"statuses,omitempty"`
+	Owners   *QuerySlosRequestFiltersOwners             `json:"owners,omitempty"`
+	Tags     *QuerySlosRequestFiltersTags               `json:"tags,omitempty"`
+	Statuses *InputGraphVisualizationSloFiltersStatuses `json:"statuses,omitempty"`
+	// Keep only the results matching every key filter. A result's values for a key are its group-by value when its SLO groups by that field, and its SLO's tag values for that key. A result matches when one of its values is in `values`, or, with `exclude: true`, when none is; a result with no value for the key only matches an exclusion.
+	Keys                 []InputGraphVisualizationSloFiltersKeysInner `json:"keys,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -139,6 +141,38 @@ func (o *InputGraphVisualizationSloFilters) SetStatuses(v InputGraphVisualizatio
 	o.Statuses = &v
 }
 
+// GetKeys returns the Keys field value if set, zero value otherwise.
+func (o *InputGraphVisualizationSloFilters) GetKeys() []InputGraphVisualizationSloFiltersKeysInner {
+	if o == nil || IsNil(o.Keys) {
+		var ret []InputGraphVisualizationSloFiltersKeysInner
+		return ret
+	}
+	return o.Keys
+}
+
+// GetKeysOk returns a tuple with the Keys field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputGraphVisualizationSloFilters) GetKeysOk() ([]InputGraphVisualizationSloFiltersKeysInner, bool) {
+	if o == nil || IsNil(o.Keys) {
+		return nil, false
+	}
+	return o.Keys, true
+}
+
+// HasKeys returns a boolean if a field has been set.
+func (o *InputGraphVisualizationSloFilters) HasKeys() bool {
+	if o != nil && !IsNil(o.Keys) {
+		return true
+	}
+
+	return false
+}
+
+// SetKeys gets a reference to the given []InputGraphVisualizationSloFiltersKeysInner and assigns it to the Keys field.
+func (o *InputGraphVisualizationSloFilters) SetKeys(v []InputGraphVisualizationSloFiltersKeysInner) {
+	o.Keys = v
+}
+
 func (o InputGraphVisualizationSloFilters) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -157,6 +191,9 @@ func (o InputGraphVisualizationSloFilters) ToMap() (map[string]interface{}, erro
 	}
 	if !IsNil(o.Statuses) {
 		toSerialize["statuses"] = o.Statuses
+	}
+	if !IsNil(o.Keys) {
+		toSerialize["keys"] = o.Keys
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -183,6 +220,7 @@ func (o *InputGraphVisualizationSloFilters) UnmarshalJSON(data []byte) (err erro
 		delete(additionalProperties, "owners")
 		delete(additionalProperties, "tags")
 		delete(additionalProperties, "statuses")
+		delete(additionalProperties, "keys")
 		o.AdditionalProperties = additionalProperties
 	}
 

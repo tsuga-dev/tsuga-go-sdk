@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Displays matching logs in a tabular list | 
 **Query** | **string** | Query that selects logs for the list | 
-**ListColumns** | Pointer to [**[]InputWidgetListColumn**](InputWidgetListColumn.md) | Custom columns to display for each log | [optional] 
+**ListColumns** | Pointer to [**[]InputWidgetListColumn**](InputWidgetListColumn.md) | Custom columns to display for each log. Omit it and the list renders no columns: there is no default set. | [optional] 
 **ListColumnsSize** | Pointer to **map[string]float32** | List column widths in pixels, keyed by the &#x60;attribute&#x60; of the matching &#x60;listColumns&#x60; entry. Columns without an entry keep their default width. | [optional] 
 **IsCellWrapped** | Pointer to **bool** | Whether list widget cell text wraps instead of truncating. Applies to list widgets. Optional; omit or set false to use truncated cells. | [optional] 
 **DefaultSorting** | Pointer to [**[]InputListDefaultSorting**](InputListDefaultSorting.md) | Default sorting applied to a list widget. Optional on create or update for log, span, RUM event, or connection list widgets. Users can still change sorting by selecting columns in the rendered list. | [optional] 

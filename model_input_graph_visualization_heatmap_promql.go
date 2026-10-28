@@ -21,7 +21,7 @@ var _ MappedNullable = &InputGraphVisualizationHeatmapPromql{}
 type InputGraphVisualizationHeatmapPromql struct {
 	// Displays a PromQL histogram query grouped by `le` as a heatmap chart, e.g. `sum by (le) (rate(http_duration_bucket[5m]))`
 	Type string `json:"type"`
-	// PromQL expressions configured for this widget.
+	// PromQL expressions configured for this widget. Only the first expression is rendered; later entries are stored and ignored.
 	Queries    []string                                         `json:"queries"`
 	Precision  *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
 	Normalizer *InputNormalizer                                 `json:"normalizer,omitempty"`

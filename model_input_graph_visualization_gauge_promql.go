@@ -21,7 +21,7 @@ var _ MappedNullable = &InputGraphVisualizationGaugePromql{}
 type InputGraphVisualizationGaugePromql struct {
 	// Configures a PromQL metrics query-based aggregation as a gauge
 	Type string `json:"type"`
-	// PromQL expressions configured for this widget.
+	// PromQL expressions configured for this widget. Only the first expression is rendered; later entries are stored and ignored.
 	Queries []string                                        `json:"queries"`
 	Aliases *InputGraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
 	// Gauge maximum value, on the raw query value before the unit is applied

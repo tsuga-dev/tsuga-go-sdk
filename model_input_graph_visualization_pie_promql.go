@@ -21,7 +21,7 @@ var _ MappedNullable = &InputGraphVisualizationPiePromql{}
 type InputGraphVisualizationPiePromql struct {
 	// Displays PromQL metrics query-based aggregation as a pie chart
 	Type string `json:"type"`
-	// PromQL expressions configured for this widget.
+	// PromQL expressions configured for this widget. Only the first expression is rendered; later entries are stored and ignored.
 	Queries    []string                                         `json:"queries"`
 	Aliases    *InputGraphVisualizationTimeseriesPromqlAliases  `json:"aliases,omitempty"`
 	Normalizer *InputNormalizer                                 `json:"normalizer,omitempty"`

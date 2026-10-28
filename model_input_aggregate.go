@@ -14,7 +14,7 @@ import (
 	"fmt"
 )
 
-// InputAggregate - Aggregation operation for this query. Required for every query; `field` is required by all aggregate types except `count`.
+// InputAggregate - Aggregation operation for this query. Required for every query; `field` is required by all aggregate types except `count`, which needs it only when `dataSource` is `metrics`.
 type InputAggregate struct {
 	InputAggregateAverage     *InputAggregateAverage
 	InputAggregateCount       *InputAggregateCount

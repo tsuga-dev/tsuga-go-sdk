@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **GroupByFields** | [**[]MonitorConfigurationMetricGroupByFieldsInner**](MonitorConfigurationMetricGroupByFieldsInner.md) | Monitor group by configuration. The &#x60;limit&#x60; setting is currently ignored; evaluation applies a fixed limit of 100 groups per field. | 
 **AggregationAlertLogic** | Pointer to **string** | How grouped results are combined into alert state. Use &#x60;no_aggregation&#x60; only when &#x60;groupByFields&#x60; is empty; use &#x60;all&#x60;, &#x60;any&#x60;, &#x60;each&#x60;, or &#x60;proportion&#x60; with non-empty &#x60;groupByFields&#x60;. &#x60;proportion&#x60; also requires &#x60;proportionAlertThreshold&#x60;. | [optional] 
 **ProportionAlertThreshold** | Pointer to **int32** | Percentage threshold used when &#x60;aggregationAlertLogic&#x60; is &#x60;proportion&#x60;. | [optional] 
+**ConsecutiveWindows** | Pointer to **int32** | Number of consecutive &#x60;timeframe&#x60;-minute windows that must all meet the conditions before the monitor alerts. 1 or omitted is the standard threshold behavior: one window ending at evaluation time. Above 1, each evaluation checks the last &#x60;consecutiveWindows&#x60; windows and alerts only when every one meets the conditions, per group for grouped monitors. A window that does not meet the conditions breaks the run, and so does a window with no data unless &#x60;noDataBehavior&#x60; is &#x60;consider_zero&#x60;, which evaluates it as 0. At most 10, and above 1, &#x60;consecutiveWindows&#x60; × &#x60;timeframe&#x60; must not exceed 4320 minutes (3 days). | [optional] 
 **Queries** | [**[]MonitorAggregationQuery**](MonitorAggregationQuery.md) | Aggregation queries used by alerting and SLO evaluation. Each query is referenced from formulas as q1, q2, and so on. | 
 
 ## Methods
@@ -181,6 +182,31 @@ SetProportionAlertThreshold sets ProportionAlertThreshold field to given value.
 `func (o *MonitorConfigurationLog) HasProportionAlertThreshold() bool`
 
 HasProportionAlertThreshold returns a boolean if a field has been set.
+
+### GetConsecutiveWindows
+
+`func (o *MonitorConfigurationLog) GetConsecutiveWindows() int32`
+
+GetConsecutiveWindows returns the ConsecutiveWindows field if non-nil, zero value otherwise.
+
+### GetConsecutiveWindowsOk
+
+`func (o *MonitorConfigurationLog) GetConsecutiveWindowsOk() (*int32, bool)`
+
+GetConsecutiveWindowsOk returns a tuple with the ConsecutiveWindows field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConsecutiveWindows
+
+`func (o *MonitorConfigurationLog) SetConsecutiveWindows(v int32)`
+
+SetConsecutiveWindows sets ConsecutiveWindows field to given value.
+
+### HasConsecutiveWindows
+
+`func (o *MonitorConfigurationLog) HasConsecutiveWindows() bool`
+
+HasConsecutiveWindows returns a boolean if a field has been set.
 
 ### GetQueries
 

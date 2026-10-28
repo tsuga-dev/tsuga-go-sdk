@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Counts the total number of records | 
-**Field** | Pointer to **string** | Attribute containing the values to aggregate | [optional] 
+**Field** | Pointer to **string** | Metric to count when &#x60;dataSource&#x60; is &#x60;metrics&#x60;, where it is required: without it the query fails with &#x60;count aggregate requires a non-empty field&#x60;. On &#x60;logs&#x60;, &#x60;traces&#x60; and &#x60;rum&#x60;, &#x60;count&#x60; counts records and ignores this field. | [optional] 
 
 ## Methods
 

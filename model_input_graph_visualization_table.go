@@ -29,7 +29,7 @@ type InputGraphVisualizationTable struct {
 	GroupByMode *string `json:"groupByMode,omitempty"`
 	// Default sorting applied to a table widget. Column IDs are `label` for the grouping column and `col-<index>` for each entry in `columns`. Users can still change sorting by selecting columns in the rendered table.
 	DefaultSorting []InputTableDefaultSorting `json:"defaultSorting,omitempty"`
-	// Table column widths in pixels, keyed by column id: `label` for the grouping column and `col-<index>` for each entry in `columns`. Columns without an entry keep their default width.
+	// Table column widths in pixels, keyed by column id: `label` for the grouping column and `col-<index>` for each entry in `columns`, counting from 0. Columns without an entry keep their default width.
 	ColumnSizes          map[string]float32 `json:"columnSizes,omitempty"`
 	CustomLink           *InputCustomLink   `json:"customLink,omitempty"`
 	AdditionalProperties map[string]interface{}

@@ -96,6 +96,8 @@ type CreateCustomRoleRequestAssets struct {
 	// Access granted on this resource type. `write` implies `read`.
 	Slo *string `json:"slo,omitempty"`
 	// Access granted on this resource type. `write` implies `read`.
+	SyntheticTest *string `json:"synthetic-test,omitempty"`
+	// Access granted on this resource type. `write` implies `read`.
 	TagPolicy *string `json:"tag-policy,omitempty"`
 	// Access granted on this resource type. `write` implies `read`.
 	UserInvitation *string `json:"user-invitation,omitempty"`
@@ -1340,6 +1342,38 @@ func (o *CreateCustomRoleRequestAssets) SetSlo(v string) {
 	o.Slo = &v
 }
 
+// GetSyntheticTest returns the SyntheticTest field value if set, zero value otherwise.
+func (o *CreateCustomRoleRequestAssets) GetSyntheticTest() string {
+	if o == nil || IsNil(o.SyntheticTest) {
+		var ret string
+		return ret
+	}
+	return *o.SyntheticTest
+}
+
+// GetSyntheticTestOk returns a tuple with the SyntheticTest field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCustomRoleRequestAssets) GetSyntheticTestOk() (*string, bool) {
+	if o == nil || IsNil(o.SyntheticTest) {
+		return nil, false
+	}
+	return o.SyntheticTest, true
+}
+
+// HasSyntheticTest returns a boolean if a field has been set.
+func (o *CreateCustomRoleRequestAssets) HasSyntheticTest() bool {
+	if o != nil && !IsNil(o.SyntheticTest) {
+		return true
+	}
+
+	return false
+}
+
+// SetSyntheticTest gets a reference to the given string and assigns it to the SyntheticTest field.
+func (o *CreateCustomRoleRequestAssets) SetSyntheticTest(v string) {
+	o.SyntheticTest = &v
+}
+
 // GetTagPolicy returns the TagPolicy field value if set, zero value otherwise.
 func (o *CreateCustomRoleRequestAssets) GetTagPolicy() string {
 	if o == nil || IsNil(o.TagPolicy) {
@@ -1552,6 +1586,9 @@ func (o CreateCustomRoleRequestAssets) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Slo) {
 		toSerialize["slo"] = o.Slo
 	}
+	if !IsNil(o.SyntheticTest) {
+		toSerialize["synthetic-test"] = o.SyntheticTest
+	}
 	if !IsNil(o.TagPolicy) {
 		toSerialize["tag-policy"] = o.TagPolicy
 	}
@@ -1640,6 +1677,7 @@ func (o *CreateCustomRoleRequestAssets) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "rum-public-token")
 		delete(additionalProperties, "sandbox-configuration")
 		delete(additionalProperties, "slo")
+		delete(additionalProperties, "synthetic-test")
 		delete(additionalProperties, "tag-policy")
 		delete(additionalProperties, "user-invitation")
 		delete(additionalProperties, "team")

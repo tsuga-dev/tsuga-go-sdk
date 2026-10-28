@@ -33,6 +33,8 @@ type MonitorConfigurationTrace struct {
 	AggregationAlertLogic *string `json:"aggregationAlertLogic,omitempty"`
 	// Percentage threshold used when `aggregationAlertLogic` is `proportion`.
 	ProportionAlertThreshold *int32 `json:"proportionAlertThreshold,omitempty"`
+	// Number of consecutive `timeframe`-minute windows that must all meet the conditions before the monitor alerts. 1 or omitted is the standard threshold behavior: one window ending at evaluation time. Above 1, each evaluation checks the last `consecutiveWindows` windows and alerts only when every one meets the conditions, per group for grouped monitors. A window that does not meet the conditions breaks the run, and so does a window with no data unless `noDataBehavior` is `consider_zero`, which evaluates it as 0. At most 10, and above 1, `consecutiveWindows` × `timeframe` must not exceed 4320 minutes (3 days).
+	ConsecutiveWindows *int32 `json:"consecutiveWindows,omitempty"`
 	// Aggregation queries used by alerting and SLO evaluation. Each query is referenced from formulas as q1, q2, and so on.
 	Queries              []MonitorAggregationQuery `json:"queries"`
 	AdditionalProperties map[string]interface{}
@@ -247,6 +249,38 @@ func (o *MonitorConfigurationTrace) SetProportionAlertThreshold(v int32) {
 	o.ProportionAlertThreshold = &v
 }
 
+// GetConsecutiveWindows returns the ConsecutiveWindows field value if set, zero value otherwise.
+func (o *MonitorConfigurationTrace) GetConsecutiveWindows() int32 {
+	if o == nil || IsNil(o.ConsecutiveWindows) {
+		var ret int32
+		return ret
+	}
+	return *o.ConsecutiveWindows
+}
+
+// GetConsecutiveWindowsOk returns a tuple with the ConsecutiveWindows field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MonitorConfigurationTrace) GetConsecutiveWindowsOk() (*int32, bool) {
+	if o == nil || IsNil(o.ConsecutiveWindows) {
+		return nil, false
+	}
+	return o.ConsecutiveWindows, true
+}
+
+// HasConsecutiveWindows returns a boolean if a field has been set.
+func (o *MonitorConfigurationTrace) HasConsecutiveWindows() bool {
+	if o != nil && !IsNil(o.ConsecutiveWindows) {
+		return true
+	}
+
+	return false
+}
+
+// SetConsecutiveWindows gets a reference to the given int32 and assigns it to the ConsecutiveWindows field.
+func (o *MonitorConfigurationTrace) SetConsecutiveWindows(v int32) {
+	o.ConsecutiveWindows = &v
+}
+
 // GetQueries returns the Queries field value
 func (o *MonitorConfigurationTrace) GetQueries() []MonitorAggregationQuery {
 	if o == nil {
@@ -291,6 +325,9 @@ func (o MonitorConfigurationTrace) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ProportionAlertThreshold) {
 		toSerialize["proportionAlertThreshold"] = o.ProportionAlertThreshold
+	}
+	if !IsNil(o.ConsecutiveWindows) {
+		toSerialize["consecutiveWindows"] = o.ConsecutiveWindows
 	}
 	toSerialize["queries"] = o.Queries
 
@@ -348,6 +385,7 @@ func (o *MonitorConfigurationTrace) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "groupByFields")
 		delete(additionalProperties, "aggregationAlertLogic")
 		delete(additionalProperties, "proportionAlertThreshold")
+		delete(additionalProperties, "consecutiveWindows")
 		delete(additionalProperties, "queries")
 		o.AdditionalProperties = additionalProperties
 	}

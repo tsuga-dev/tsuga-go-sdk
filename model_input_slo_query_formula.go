@@ -21,7 +21,7 @@ var _ MappedNullable = &InputSloQueryFormula{}
 type InputSloQueryFormula struct {
 	// Aggregation queries used by SLO evaluation. Each query is referenced from formulas as q1, q2, and so on.
 	Queries []InputSloAggregationQuery `json:"queries"`
-	// Formula referencing query outputs, such as `q1 + q2`, to compute derived results. Defaults to `q1`. Formulas may reference only submitted queries (`q1` through `qN`); undefined query references return 400.
+	// Formula referencing query outputs, such as `q1 + q2`, to compute derived results. Defaults to `q1`. Formulas may reference only submitted queries (`q1` through `qN`); undefined query references return 400. Only `+`, `-`, `*`, `/` and parentheses over query references and numbers are supported, with no functions such as `max()`.
 	Formula              string `json:"formula"`
 	AdditionalProperties map[string]interface{}
 }

@@ -21,7 +21,7 @@ var _ MappedNullable = &InputAggregateCount{}
 type InputAggregateCount struct {
 	// Counts the total number of records
 	Type string `json:"type"`
-	// Attribute containing the values to aggregate
+	// Metric to count when `dataSource` is `metrics`, where it is required: without it the query fails with `count aggregate requires a non-empty field`. On `logs`, `traces` and `rum`, `count` counts records and ignores this field.
 	Field                *string `json:"field,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

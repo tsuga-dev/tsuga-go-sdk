@@ -21,7 +21,7 @@ var _ MappedNullable = &InputGraphVisualizationQueryValuePromql{}
 type InputGraphVisualizationQueryValuePromql struct {
 	// Configures a PromQL metrics query-based aggregation as a single value
 	Type string `json:"type"`
-	// PromQL expressions configured for this widget.
+	// PromQL expressions configured for this widget. Only the first expression is rendered; later entries are stored and ignored.
 	Queries []string                                        `json:"queries"`
 	Aliases *InputGraphVisualizationTimeseriesPromqlAliases `json:"aliases,omitempty"`
 	// Controls whether the widget uses a solid or transparent background

@@ -39,7 +39,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the Tsuga Public API API v20261027.32.0+ae0d554
+// APIClient manages communication with the Tsuga Public API API v20261028.16.0+33881f3
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -62,6 +62,8 @@ type APIClient struct {
 	DashboardFoldersAPI DashboardFoldersAPI
 
 	DashboardsAPI DashboardsAPI
+
+	DataDeletionRequestsAPI DataDeletionRequestsAPI
 
 	DocsAPI DocsAPI
 
@@ -156,6 +158,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.CustomUsageTagsAPI = (*CustomUsageTagsAPIService)(&c.common)
 	c.DashboardFoldersAPI = (*DashboardFoldersAPIService)(&c.common)
 	c.DashboardsAPI = (*DashboardsAPIService)(&c.common)
+	c.DataDeletionRequestsAPI = (*DataDeletionRequestsAPIService)(&c.common)
 	c.DocsAPI = (*DocsAPIService)(&c.common)
 	c.FeedbackAPI = (*FeedbackAPIService)(&c.common)
 	c.GrokAPI = (*GrokAPIService)(&c.common)

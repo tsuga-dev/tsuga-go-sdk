@@ -19,7 +19,7 @@ var _ MappedNullable = &InputTableDefaultSorting{}
 
 // InputTableDefaultSorting struct for InputTableDefaultSorting
 type InputTableDefaultSorting struct {
-	// ID of the column to sort by
+	// ID of the column to sort by: `label` for the grouping column, or `col-<index>` with the zero-based position of the entry in `columns`.
 	Id string `json:"id"`
 	// Whether the sort is descending
 	Desc                 bool `json:"desc"`

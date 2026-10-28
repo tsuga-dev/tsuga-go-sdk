@@ -23,7 +23,7 @@ type InputGraphVisualizationListRum struct {
 	Type string `json:"type"`
 	// Query that selects RUM events for the list. Prefix every field with the stream it belongs to (`measurements.`, `events.`, or `exceptions.`) and filter on a single stream per query. A query without stream-prefixed fields searches the `events` stream.
 	Query string `json:"query"`
-	// Custom columns to display for each RUM event. Set attributes without their stream prefix, e.g. `view.name` rather than `events.view.name`.
+	// Custom columns to display for each RUM event. Set attributes without their stream prefix, e.g. `view.name` rather than `events.view.name`. Omit it and the list renders no columns: there is no default set.
 	ListColumns []InputWidgetListColumn `json:"listColumns,omitempty"`
 	// List column widths in pixels, keyed by the `attribute` of the matching `listColumns` entry. Columns without an entry keep their default width.
 	ListColumnsSize map[string]float32 `json:"listColumnsSize,omitempty"`

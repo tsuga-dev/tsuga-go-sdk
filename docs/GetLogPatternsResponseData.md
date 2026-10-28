@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Patterns** | [**[]GetLogPatternsResponseDataPatternsInner**](GetLogPatternsResponseDataPatternsInner.md) | Log patterns clustered from logs matching the query. | 
-**SampleSize** | **float32** | Number of logs sampled while computing patterns. | 
+**SampleSize** | **float32** | Sum of the returned patterns&#39; &#x60;size&#x60; values. It is not the number of logs matching the query: logs outside the returned patterns are not counted. | 
 
 ## Methods
 

@@ -42,6 +42,7 @@ Name | Type | Description | Notes
 **RumPublicToken** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **SandboxConfiguration** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **Slo** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
+**SyntheticTest** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **TagPolicy** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **UserInvitation** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **Team** | **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | 
@@ -1014,6 +1015,31 @@ SetSlo sets Slo field to given value.
 `func (o *CreateCustomRoleRequestAssets) HasSlo() bool`
 
 HasSlo returns a boolean if a field has been set.
+
+### GetSyntheticTest
+
+`func (o *CreateCustomRoleRequestAssets) GetSyntheticTest() string`
+
+GetSyntheticTest returns the SyntheticTest field if non-nil, zero value otherwise.
+
+### GetSyntheticTestOk
+
+`func (o *CreateCustomRoleRequestAssets) GetSyntheticTestOk() (*string, bool)`
+
+GetSyntheticTestOk returns a tuple with the SyntheticTest field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSyntheticTest
+
+`func (o *CreateCustomRoleRequestAssets) SetSyntheticTest(v string)`
+
+SetSyntheticTest sets SyntheticTest field to given value.
+
+### HasSyntheticTest
+
+`func (o *CreateCustomRoleRequestAssets) HasSyntheticTest() bool`
+
+HasSyntheticTest returns a boolean if a field has been set.
 
 ### GetTagPolicy
 

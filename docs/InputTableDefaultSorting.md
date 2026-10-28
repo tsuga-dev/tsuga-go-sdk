@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | ID of the column to sort by | 
+**Id** | **string** | ID of the column to sort by: &#x60;label&#x60; for the grouping column, or &#x60;col-&lt;index&gt;&#x60; with the zero-based position of the entry in &#x60;columns&#x60;. | 
 **Desc** | **bool** | Whether the sort is descending | 
 
 ## Methods

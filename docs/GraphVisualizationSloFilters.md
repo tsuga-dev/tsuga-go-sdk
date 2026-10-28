@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Owners** | Pointer to [**GraphVisualizationSloFiltersOwners**](GraphVisualizationSloFiltersOwners.md) |  | [optional] 
 **Tags** | Pointer to [**GraphVisualizationSloFiltersTags**](GraphVisualizationSloFiltersTags.md) |  | [optional] 
 **Statuses** | Pointer to [**GraphVisualizationSloFiltersStatuses**](GraphVisualizationSloFiltersStatuses.md) |  | [optional] 
+**Keys** | Pointer to [**[]GraphVisualizationSloFiltersKeysInner**](GraphVisualizationSloFiltersKeysInner.md) | Keep only the results matching every key filter. A result&#39;s values for a key are its group-by value when its SLO groups by that field, and its SLO&#39;s tag values for that key. A result matches when one of its values is in &#x60;values&#x60;, or, with &#x60;exclude: true&#x60;, when none is; a result with no value for the key only matches an exclusion. | [optional] 
 
 ## Methods
 
@@ -101,6 +102,31 @@ SetStatuses sets Statuses field to given value.
 `func (o *GraphVisualizationSloFilters) HasStatuses() bool`
 
 HasStatuses returns a boolean if a field has been set.
+
+### GetKeys
+
+`func (o *GraphVisualizationSloFilters) GetKeys() []GraphVisualizationSloFiltersKeysInner`
+
+GetKeys returns the Keys field if non-nil, zero value otherwise.
+
+### GetKeysOk
+
+`func (o *GraphVisualizationSloFilters) GetKeysOk() (*[]GraphVisualizationSloFiltersKeysInner, bool)`
+
+GetKeysOk returns a tuple with the Keys field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKeys
+
+`func (o *GraphVisualizationSloFilters) SetKeys(v []GraphVisualizationSloFiltersKeysInner)`
+
+SetKeys sets Keys field to given value.
+
+### HasKeys
+
+`func (o *GraphVisualizationSloFilters) HasKeys() bool`
+
+HasKeys returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

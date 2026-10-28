@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **Inventory** | Pointer to **string** | Cloud resources discovered by inventory scans. | [optional] 
 **CloudAccount** | Pointer to **string** | Cloud accounts Tsuga scans to discover resources. | [optional] 
 **CustomRole** | Pointer to **string** | Custom global roles, which define what their holders can access across the organization. | [optional] 
+**DataDeletionRequest** | Pointer to **string** | Data deletion requests, which delete the telemetry events matching a query on a cluster. | [optional] 
 **Logs** | Pointer to **string** | Ingested log events, through search and aggregation endpoints. | [optional] 
 **LogRoute** | Pointer to **string** | Log routes, which select newly ingested logs and apply processors to them. | [optional] 
 **Metrics** | Pointer to **string** | Ingested metrics, through query and aggregation endpoints. | [optional] 
@@ -334,6 +335,31 @@ SetCustomRole sets CustomRole field to given value.
 `func (o *CreateOperationApiKeyRequestPermissions) HasCustomRole() bool`
 
 HasCustomRole returns a boolean if a field has been set.
+
+### GetDataDeletionRequest
+
+`func (o *CreateOperationApiKeyRequestPermissions) GetDataDeletionRequest() string`
+
+GetDataDeletionRequest returns the DataDeletionRequest field if non-nil, zero value otherwise.
+
+### GetDataDeletionRequestOk
+
+`func (o *CreateOperationApiKeyRequestPermissions) GetDataDeletionRequestOk() (*string, bool)`
+
+GetDataDeletionRequestOk returns a tuple with the DataDeletionRequest field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDataDeletionRequest
+
+`func (o *CreateOperationApiKeyRequestPermissions) SetDataDeletionRequest(v string)`
+
+SetDataDeletionRequest sets DataDeletionRequest field to given value.
+
+### HasDataDeletionRequest
+
+`func (o *CreateOperationApiKeyRequestPermissions) HasDataDeletionRequest() bool`
+
+HasDataDeletionRequest returns a boolean if a field has been set.
 
 ### GetLogs
 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Queries** | [**[]InputSloAggregationQuery**](InputSloAggregationQuery.md) | Aggregation queries used by SLO evaluation. Each query is referenced from formulas as q1, q2, and so on. | 
-**Formula** | **string** | Formula referencing query outputs, such as &#x60;q1 + q2&#x60;, to compute derived results. Defaults to &#x60;q1&#x60;. Formulas may reference only submitted queries (&#x60;q1&#x60; through &#x60;qN&#x60;); undefined query references return 400. | 
+**Formula** | **string** | Formula referencing query outputs, such as &#x60;q1 + q2&#x60;, to compute derived results. Defaults to &#x60;q1&#x60;. Formulas may reference only submitted queries (&#x60;q1&#x60; through &#x60;qN&#x60;); undefined query references return 400. Only &#x60;+&#x60;, &#x60;-&#x60;, &#x60;*&#x60;, &#x60;/&#x60; and parentheses over query references and numbers are supported, with no functions such as &#x60;max()&#x60;. | 
 
 ## Methods
 

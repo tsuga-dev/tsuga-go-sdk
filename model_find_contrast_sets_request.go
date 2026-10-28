@@ -23,11 +23,11 @@ type FindContrastSetsRequest struct {
 	BaselineGroup FindContrastSetsRequestBaselineGroup `json:"baselineGroup"`
 	// Span attribute dot-paths to test, such as `context.service.name` or `span_attributes.http.route`. At most 20. Attributes referenced by either group filter are always excluded, along with their known sibling attributes for the same field, so the condition being contrasted does not come back as a finding under one of those names. Omit or pass an empty array to let Tsuga sample both groups and test the attributes, most frequent in the target first, that take more than one value across the two samples. When none varies, nothing is tested and `contrastSets` is empty.
 	CandidateAttrs []*string `json:"candidateAttrs,omitempty"`
-	// Maximum number of findings to return, strongest first. A finding is one attribute/value pair, and findings are grouped into one `contrastSets` entry per attribute, so a result carries at most this many `values` rows across possibly fewer entries. Valid values are 1 through 100.
+	// Maximum number of findings to return, strongest first. A finding is one attribute/value pair, and findings are grouped into one `contrastSets` entry per attribute, so a result carries at most this many `values` rows across possibly fewer entries. Valid values are 1 through 100. Defaults to 10.
 	TopK *int32 `json:"topK,omitempty"`
-	// Minimum lift a value must reach to be reported as a finding. Lift is the value's coverage of the target group divided by its coverage of the baseline, so `2` keeps only values at least twice as frequent in the target. Raise it to cut weak findings.
+	// Minimum lift a value must reach to be reported as a finding. Lift is the value's coverage of the target group divided by its coverage of the baseline, so `2` keeps only values at least twice as frequent in the target. Raise it to cut weak findings. Defaults to 1.5.
 	MinLift *float32 `json:"minLift,omitempty"`
-	// Support floor as a percentage: a value is reported as a finding only when it covers at least this much of the target group or of the baseline group. Valid values are 0 through 100. Raise it to drop findings that explain only a handful of spans.
+	// Support floor as a percentage: a value is reported as a finding only when it covers at least this much of the target group or of the baseline group. Valid values are 0 through 100. Raise it to drop findings that explain only a handful of spans. Defaults to 0.5.
 	MinSupport           *float32 `json:"minSupport,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

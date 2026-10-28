@@ -29,7 +29,7 @@ type InputGraphVisualizationTimeseriesConnection struct {
 	// Threshold markers displayed on the chart
 	Thresholds    []InputThresholdMarker                                    `json:"thresholds,omitempty"`
 	YAxisSettings *InputGraphVisualizationTimeseriesConnectionYAxisSettings `json:"yAxisSettings,omitempty"`
-	// Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. For widgets with a single query, only the `1` entry is read and it applies to every series. Defaults to regular.
+	// Line style of each series, keyed by 1-based query index. The last index is the formula when there is one. Each entry is `{groupId, lineStyle}`, where `groupId` is `_q<n>` for query n or `_value` for the formula. For widgets with a single query, only the `1` entry is read and it applies to every series. Defaults to regular.
 	LineStyleOptions     map[string]GraphVisualizationTimeseriesConnectionLineStyleOptionsValue `json:"lineStyleOptions,omitempty"`
 	Normalizer           *InputNormalizer                                                       `json:"normalizer,omitempty"`
 	EventsOverlay        *InputEventsOverlay                                                    `json:"eventsOverlay,omitempty"`

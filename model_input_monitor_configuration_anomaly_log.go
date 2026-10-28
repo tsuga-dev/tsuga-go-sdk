@@ -28,7 +28,7 @@ type InputMonitorConfigurationAnomalyLog struct {
 	Timeframe int32 `json:"timeframe"`
 	// Monitor group by configuration. The `limit` setting is currently ignored; evaluation applies a fixed limit of 100 groups per field.
 	GroupByFields []InputMonitorConfigurationMetricGroupByFieldsInner `json:"groupByFields"`
-	// How grouped results are combined into alert state. Use `no_aggregation` only when `groupByFields` is empty; use `all`, `any`, `each`, or `proportion` with non-empty `groupByFields`. `proportion` also requires `proportionAlertThreshold`. On create, omitted query-monitor values default to `no_aggregation`; on update, omitted values keep the existing aggregation logic.
+	// How grouped results are combined into alert state. Use `no_aggregation` only when `groupByFields` is empty; use `all`, `any`, `each`, or `proportion` with non-empty `groupByFields`. `proportion` also requires `proportionAlertThreshold`. With `groupByFields`, send `each` so every group opens and resolves its own alert, as the app does by default; `all`, `any`, and `proportion` raise one alert for the whole monitor. On create, omitted query-monitor values default to `no_aggregation`; on update, omitted values keep the existing aggregation logic.
 	AggregationAlertLogic *string `json:"aggregationAlertLogic,omitempty"`
 	// Percentage threshold used when `aggregationAlertLogic` is `proportion`.
 	ProportionAlertThreshold *int32 `json:"proportionAlertThreshold,omitempty"`
