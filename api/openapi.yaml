@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261028.16.0+33881f3
+  version: 20261029.19.0+296073d
 servers:
 - url: https://api.tsuga.com
 security:
@@ -38780,6 +38780,33 @@ components:
     InputProcessor_anyOf_1_params_oneOf_3:
       properties:
         sourceAttribute:
+          description: Attribute containing the IP address to look up
+          maxLength: 250
+          minLength: 1
+          type: string
+        targetAttribute:
+          description: Target map attribute where geolocation details will be written
+          maxLength: 250
+          minLength: 1
+          type: string
+        redactSource:
+          description: "Whether to replace a public IP address in the source attribute\
+            \ with `[REDACTED_IP]`. Private IP addresses and non-IP values are left\
+            \ unchanged."
+          type: boolean
+        subtype:
+          description: Resolves an IP address attribute to geolocation details.
+          enum:
+          - geo-ip
+          type: string
+      required:
+      - redactSource
+      - sourceAttribute
+      - subtype
+      - targetAttribute
+    InputProcessor_anyOf_1_params_oneOf_4:
+      properties:
+        sourceAttribute:
           description: Attribute containing the key/value string segment to parse
           maxLength: 250
           minLength: 1
@@ -38825,6 +38852,7 @@ components:
       - $ref: "#/components/schemas/InputProcessor_anyOf_1_params_oneOf_1"
       - $ref: "#/components/schemas/InputProcessor_anyOf_1_params_oneOf_2"
       - $ref: "#/components/schemas/InputProcessor_anyOf_1_params_oneOf_3"
+      - $ref: "#/components/schemas/InputProcessor_anyOf_1_params_oneOf_4"
       required:
       - subtype
     InputProcessor_anyOf_1:
@@ -39118,6 +39146,29 @@ components:
     OutputProcessor_anyOf_1_params_oneOf_3:
       properties:
         sourceAttribute:
+          description: Attribute containing the IP address to look up
+          type: string
+        targetAttribute:
+          description: Target map attribute where geolocation details will be written
+          type: string
+        redactSource:
+          description: "Whether to replace a public IP address in the source attribute\
+            \ with `[REDACTED_IP]`. Private IP addresses and non-IP values are left\
+            \ unchanged."
+          type: boolean
+        subtype:
+          description: Resolves an IP address attribute to geolocation details.
+          enum:
+          - geo-ip
+          type: string
+      required:
+      - redactSource
+      - sourceAttribute
+      - subtype
+      - targetAttribute
+    OutputProcessor_anyOf_1_params_oneOf_4:
+      properties:
+        sourceAttribute:
           description: Attribute containing the key/value string segment to parse
           type: string
         targetAttribute:
@@ -39155,6 +39206,7 @@ components:
       - $ref: "#/components/schemas/OutputProcessor_anyOf_1_params_oneOf_1"
       - $ref: "#/components/schemas/OutputProcessor_anyOf_1_params_oneOf_2"
       - $ref: "#/components/schemas/OutputProcessor_anyOf_1_params_oneOf_3"
+      - $ref: "#/components/schemas/OutputProcessor_anyOf_1_params_oneOf_4"
       required:
       - subtype
     OutputProcessor_anyOf_1:

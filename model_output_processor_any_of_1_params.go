@@ -20,6 +20,7 @@ type OutputProcessorAnyOf1Params struct {
 	OutputProcessorAnyOf1ParamsOneOf1 *OutputProcessorAnyOf1ParamsOneOf1
 	OutputProcessorAnyOf1ParamsOneOf2 *OutputProcessorAnyOf1ParamsOneOf2
 	OutputProcessorAnyOf1ParamsOneOf3 *OutputProcessorAnyOf1ParamsOneOf3
+	OutputProcessorAnyOf1ParamsOneOf4 *OutputProcessorAnyOf1ParamsOneOf4
 }
 
 // OutputProcessorAnyOf1ParamsOneOfAsOutputProcessorAnyOf1Params is a convenience function that returns OutputProcessorAnyOf1ParamsOneOf wrapped in OutputProcessorAnyOf1Params
@@ -47,6 +48,13 @@ func OutputProcessorAnyOf1ParamsOneOf2AsOutputProcessorAnyOf1Params(v *OutputPro
 func OutputProcessorAnyOf1ParamsOneOf3AsOutputProcessorAnyOf1Params(v *OutputProcessorAnyOf1ParamsOneOf3) OutputProcessorAnyOf1Params {
 	return OutputProcessorAnyOf1Params{
 		OutputProcessorAnyOf1ParamsOneOf3: v,
+	}
+}
+
+// OutputProcessorAnyOf1ParamsOneOf4AsOutputProcessorAnyOf1Params is a convenience function that returns OutputProcessorAnyOf1ParamsOneOf4 wrapped in OutputProcessorAnyOf1Params
+func OutputProcessorAnyOf1ParamsOneOf4AsOutputProcessorAnyOf1Params(v *OutputProcessorAnyOf1ParamsOneOf4) OutputProcessorAnyOf1Params {
+	return OutputProcessorAnyOf1Params{
+		OutputProcessorAnyOf1ParamsOneOf4: v,
 	}
 }
 
@@ -108,6 +116,18 @@ func (dst *OutputProcessorAnyOf1Params) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'OutputProcessor_anyOf_1_params_oneOf_4'
+	if jsonDict["subtype"] == "OutputProcessor_anyOf_1_params_oneOf_4" {
+		// try to unmarshal JSON data into OutputProcessorAnyOf1ParamsOneOf4
+		err = json.Unmarshal(data, &dst.OutputProcessorAnyOf1ParamsOneOf4)
+		if err == nil {
+			return nil // data stored in dst.OutputProcessorAnyOf1ParamsOneOf4, return on the first match
+		} else {
+			dst.OutputProcessorAnyOf1ParamsOneOf4 = nil
+			return fmt.Errorf("failed to unmarshal OutputProcessorAnyOf1Params as OutputProcessorAnyOf1ParamsOneOf4: %s", err.Error())
+		}
+	}
+
 	return nil
 }
 
@@ -127,6 +147,10 @@ func (src OutputProcessorAnyOf1Params) MarshalJSON() ([]byte, error) {
 
 	if src.OutputProcessorAnyOf1ParamsOneOf3 != nil {
 		return json.Marshal(&src.OutputProcessorAnyOf1ParamsOneOf3)
+	}
+
+	if src.OutputProcessorAnyOf1ParamsOneOf4 != nil {
+		return json.Marshal(&src.OutputProcessorAnyOf1ParamsOneOf4)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -153,6 +177,10 @@ func (obj *OutputProcessorAnyOf1Params) GetActualInstance() interface{} {
 		return obj.OutputProcessorAnyOf1ParamsOneOf3
 	}
 
+	if obj.OutputProcessorAnyOf1ParamsOneOf4 != nil {
+		return obj.OutputProcessorAnyOf1ParamsOneOf4
+	}
+
 	// all schemas are nil
 	return nil
 }
@@ -173,6 +201,10 @@ func (obj OutputProcessorAnyOf1Params) GetActualInstanceValue() interface{} {
 
 	if obj.OutputProcessorAnyOf1ParamsOneOf3 != nil {
 		return *obj.OutputProcessorAnyOf1ParamsOneOf3
+	}
+
+	if obj.OutputProcessorAnyOf1ParamsOneOf4 != nil {
+		return *obj.OutputProcessorAnyOf1ParamsOneOf4
 	}
 
 	// all schemas are nil

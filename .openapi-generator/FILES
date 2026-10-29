@@ -497,6 +497,7 @@ docs/InputProcessorAnyOf1ParamsOneOf.md
 docs/InputProcessorAnyOf1ParamsOneOf1.md
 docs/InputProcessorAnyOf1ParamsOneOf2.md
 docs/InputProcessorAnyOf1ParamsOneOf3.md
+docs/InputProcessorAnyOf1ParamsOneOf4.md
 docs/InputProcessorAnyOf2.md
 docs/InputProcessorAnyOf2Params.md
 docs/InputProcessorAnyOf3.md
@@ -670,6 +671,7 @@ docs/OutputProcessorAnyOf1ParamsOneOf.md
 docs/OutputProcessorAnyOf1ParamsOneOf1.md
 docs/OutputProcessorAnyOf1ParamsOneOf2.md
 docs/OutputProcessorAnyOf1ParamsOneOf3.md
+docs/OutputProcessorAnyOf1ParamsOneOf4.md
 docs/OutputProcessorAnyOf2.md
 docs/OutputProcessorAnyOf2Params.md
 docs/OutputProcessorAnyOf3.md
@@ -1461,6 +1463,7 @@ model_input_processor_any_of_1_params_one_of.go
 model_input_processor_any_of_1_params_one_of_1.go
 model_input_processor_any_of_1_params_one_of_2.go
 model_input_processor_any_of_1_params_one_of_3.go
+model_input_processor_any_of_1_params_one_of_4.go
 model_input_processor_any_of_2.go
 model_input_processor_any_of_2_params.go
 model_input_processor_any_of_3.go
@@ -1620,6 +1623,7 @@ model_output_processor_any_of_1_params_one_of.go
 model_output_processor_any_of_1_params_one_of_1.go
 model_output_processor_any_of_1_params_one_of_2.go
 model_output_processor_any_of_1_params_one_of_3.go
+model_output_processor_any_of_1_params_one_of_4.go
 model_output_processor_any_of_2.go
 model_output_processor_any_of_2_params.go
 model_output_processor_any_of_3.go

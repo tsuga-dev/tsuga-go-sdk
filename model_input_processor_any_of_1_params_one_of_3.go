@@ -19,17 +19,13 @@ var _ MappedNullable = &InputProcessorAnyOf1ParamsOneOf3{}
 
 // InputProcessorAnyOf1ParamsOneOf3 struct for InputProcessorAnyOf1ParamsOneOf3
 type InputProcessorAnyOf1ParamsOneOf3 struct {
-	// Attribute containing the key/value string segment to parse
+	// Attribute containing the IP address to look up
 	SourceAttribute string `json:"sourceAttribute"`
-	// Target map attribute where extracted key/value pairs will be written
+	// Target map attribute where geolocation details will be written
 	TargetAttribute string `json:"targetAttribute"`
-	// Delimiter separating keys from values in the source string
-	KeyValueSplitter string `json:"keyValueSplitter"`
-	// Delimiter separating each key/value pair in the source string.
-	PairsSplitter string `json:"pairsSplitter"`
-	// Set to true to accept keys without explicit values.
-	AcceptStandaloneKey bool `json:"acceptStandaloneKey"`
-	// Parses delimited key/value text into attributes.
+	// Whether to replace a public IP address in the source attribute with `[REDACTED_IP]`. Private IP addresses and non-IP values are left unchanged.
+	RedactSource bool `json:"redactSource"`
+	// Resolves an IP address attribute to geolocation details.
 	Subtype              string `json:"subtype"`
 	AdditionalProperties map[string]interface{}
 }
@@ -40,13 +36,11 @@ type _InputProcessorAnyOf1ParamsOneOf3 InputProcessorAnyOf1ParamsOneOf3
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInputProcessorAnyOf1ParamsOneOf3(sourceAttribute string, targetAttribute string, keyValueSplitter string, pairsSplitter string, acceptStandaloneKey bool, subtype string) *InputProcessorAnyOf1ParamsOneOf3 {
+func NewInputProcessorAnyOf1ParamsOneOf3(sourceAttribute string, targetAttribute string, redactSource bool, subtype string) *InputProcessorAnyOf1ParamsOneOf3 {
 	this := InputProcessorAnyOf1ParamsOneOf3{}
 	this.SourceAttribute = sourceAttribute
 	this.TargetAttribute = targetAttribute
-	this.KeyValueSplitter = keyValueSplitter
-	this.PairsSplitter = pairsSplitter
-	this.AcceptStandaloneKey = acceptStandaloneKey
+	this.RedactSource = redactSource
 	this.Subtype = subtype
 	return &this
 }
@@ -107,76 +101,28 @@ func (o *InputProcessorAnyOf1ParamsOneOf3) SetTargetAttribute(v string) {
 	o.TargetAttribute = v
 }
 
-// GetKeyValueSplitter returns the KeyValueSplitter field value
-func (o *InputProcessorAnyOf1ParamsOneOf3) GetKeyValueSplitter() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.KeyValueSplitter
-}
-
-// GetKeyValueSplitterOk returns a tuple with the KeyValueSplitter field value
-// and a boolean to check if the value has been set.
-func (o *InputProcessorAnyOf1ParamsOneOf3) GetKeyValueSplitterOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.KeyValueSplitter, true
-}
-
-// SetKeyValueSplitter sets field value
-func (o *InputProcessorAnyOf1ParamsOneOf3) SetKeyValueSplitter(v string) {
-	o.KeyValueSplitter = v
-}
-
-// GetPairsSplitter returns the PairsSplitter field value
-func (o *InputProcessorAnyOf1ParamsOneOf3) GetPairsSplitter() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.PairsSplitter
-}
-
-// GetPairsSplitterOk returns a tuple with the PairsSplitter field value
-// and a boolean to check if the value has been set.
-func (o *InputProcessorAnyOf1ParamsOneOf3) GetPairsSplitterOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PairsSplitter, true
-}
-
-// SetPairsSplitter sets field value
-func (o *InputProcessorAnyOf1ParamsOneOf3) SetPairsSplitter(v string) {
-	o.PairsSplitter = v
-}
-
-// GetAcceptStandaloneKey returns the AcceptStandaloneKey field value
-func (o *InputProcessorAnyOf1ParamsOneOf3) GetAcceptStandaloneKey() bool {
+// GetRedactSource returns the RedactSource field value
+func (o *InputProcessorAnyOf1ParamsOneOf3) GetRedactSource() bool {
 	if o == nil {
 		var ret bool
 		return ret
 	}
 
-	return o.AcceptStandaloneKey
+	return o.RedactSource
 }
 
-// GetAcceptStandaloneKeyOk returns a tuple with the AcceptStandaloneKey field value
+// GetRedactSourceOk returns a tuple with the RedactSource field value
 // and a boolean to check if the value has been set.
-func (o *InputProcessorAnyOf1ParamsOneOf3) GetAcceptStandaloneKeyOk() (*bool, bool) {
+func (o *InputProcessorAnyOf1ParamsOneOf3) GetRedactSourceOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AcceptStandaloneKey, true
+	return &o.RedactSource, true
 }
 
-// SetAcceptStandaloneKey sets field value
-func (o *InputProcessorAnyOf1ParamsOneOf3) SetAcceptStandaloneKey(v bool) {
-	o.AcceptStandaloneKey = v
+// SetRedactSource sets field value
+func (o *InputProcessorAnyOf1ParamsOneOf3) SetRedactSource(v bool) {
+	o.RedactSource = v
 }
 
 // GetSubtype returns the Subtype field value
@@ -215,9 +161,7 @@ func (o InputProcessorAnyOf1ParamsOneOf3) ToMap() (map[string]interface{}, error
 	toSerialize := map[string]interface{}{}
 	toSerialize["sourceAttribute"] = o.SourceAttribute
 	toSerialize["targetAttribute"] = o.TargetAttribute
-	toSerialize["keyValueSplitter"] = o.KeyValueSplitter
-	toSerialize["pairsSplitter"] = o.PairsSplitter
-	toSerialize["acceptStandaloneKey"] = o.AcceptStandaloneKey
+	toSerialize["redactSource"] = o.RedactSource
 	toSerialize["subtype"] = o.Subtype
 
 	for key, value := range o.AdditionalProperties {
@@ -234,9 +178,7 @@ func (o *InputProcessorAnyOf1ParamsOneOf3) UnmarshalJSON(data []byte) (err error
 	requiredProperties := []string{
 		"sourceAttribute",
 		"targetAttribute",
-		"keyValueSplitter",
-		"pairsSplitter",
-		"acceptStandaloneKey",
+		"redactSource",
 		"subtype",
 	}
 
@@ -269,9 +211,7 @@ func (o *InputProcessorAnyOf1ParamsOneOf3) UnmarshalJSON(data []byte) (err error
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "sourceAttribute")
 		delete(additionalProperties, "targetAttribute")
-		delete(additionalProperties, "keyValueSplitter")
-		delete(additionalProperties, "pairsSplitter")
-		delete(additionalProperties, "acceptStandaloneKey")
+		delete(additionalProperties, "redactSource")
 		delete(additionalProperties, "subtype")
 		o.AdditionalProperties = additionalProperties
 	}

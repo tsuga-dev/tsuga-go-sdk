@@ -20,6 +20,7 @@ type InputProcessorAnyOf1Params struct {
 	InputProcessorAnyOf1ParamsOneOf1 *InputProcessorAnyOf1ParamsOneOf1
 	InputProcessorAnyOf1ParamsOneOf2 *InputProcessorAnyOf1ParamsOneOf2
 	InputProcessorAnyOf1ParamsOneOf3 *InputProcessorAnyOf1ParamsOneOf3
+	InputProcessorAnyOf1ParamsOneOf4 *InputProcessorAnyOf1ParamsOneOf4
 }
 
 // InputProcessorAnyOf1ParamsOneOfAsInputProcessorAnyOf1Params is a convenience function that returns InputProcessorAnyOf1ParamsOneOf wrapped in InputProcessorAnyOf1Params
@@ -47,6 +48,13 @@ func InputProcessorAnyOf1ParamsOneOf2AsInputProcessorAnyOf1Params(v *InputProces
 func InputProcessorAnyOf1ParamsOneOf3AsInputProcessorAnyOf1Params(v *InputProcessorAnyOf1ParamsOneOf3) InputProcessorAnyOf1Params {
 	return InputProcessorAnyOf1Params{
 		InputProcessorAnyOf1ParamsOneOf3: v,
+	}
+}
+
+// InputProcessorAnyOf1ParamsOneOf4AsInputProcessorAnyOf1Params is a convenience function that returns InputProcessorAnyOf1ParamsOneOf4 wrapped in InputProcessorAnyOf1Params
+func InputProcessorAnyOf1ParamsOneOf4AsInputProcessorAnyOf1Params(v *InputProcessorAnyOf1ParamsOneOf4) InputProcessorAnyOf1Params {
+	return InputProcessorAnyOf1Params{
+		InputProcessorAnyOf1ParamsOneOf4: v,
 	}
 }
 
@@ -108,6 +116,18 @@ func (dst *InputProcessorAnyOf1Params) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'InputProcessor_anyOf_1_params_oneOf_4'
+	if jsonDict["subtype"] == "InputProcessor_anyOf_1_params_oneOf_4" {
+		// try to unmarshal JSON data into InputProcessorAnyOf1ParamsOneOf4
+		err = json.Unmarshal(data, &dst.InputProcessorAnyOf1ParamsOneOf4)
+		if err == nil {
+			return nil // data stored in dst.InputProcessorAnyOf1ParamsOneOf4, return on the first match
+		} else {
+			dst.InputProcessorAnyOf1ParamsOneOf4 = nil
+			return fmt.Errorf("failed to unmarshal InputProcessorAnyOf1Params as InputProcessorAnyOf1ParamsOneOf4: %s", err.Error())
+		}
+	}
+
 	return nil
 }
 
@@ -127,6 +147,10 @@ func (src InputProcessorAnyOf1Params) MarshalJSON() ([]byte, error) {
 
 	if src.InputProcessorAnyOf1ParamsOneOf3 != nil {
 		return json.Marshal(&src.InputProcessorAnyOf1ParamsOneOf3)
+	}
+
+	if src.InputProcessorAnyOf1ParamsOneOf4 != nil {
+		return json.Marshal(&src.InputProcessorAnyOf1ParamsOneOf4)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -153,6 +177,10 @@ func (obj *InputProcessorAnyOf1Params) GetActualInstance() interface{} {
 		return obj.InputProcessorAnyOf1ParamsOneOf3
 	}
 
+	if obj.InputProcessorAnyOf1ParamsOneOf4 != nil {
+		return obj.InputProcessorAnyOf1ParamsOneOf4
+	}
+
 	// all schemas are nil
 	return nil
 }
@@ -173,6 +201,10 @@ func (obj InputProcessorAnyOf1Params) GetActualInstanceValue() interface{} {
 
 	if obj.InputProcessorAnyOf1ParamsOneOf3 != nil {
 		return *obj.InputProcessorAnyOf1ParamsOneOf3
+	}
+
+	if obj.InputProcessorAnyOf1ParamsOneOf4 != nil {
+		return *obj.InputProcessorAnyOf1ParamsOneOf4
 	}
 
 	// all schemas are nil

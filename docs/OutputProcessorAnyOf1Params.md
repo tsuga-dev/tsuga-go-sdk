@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Subtype** | **string** | Parses delimited key/value text into attributes. | 
 **SourceAttribute** | **string** | Attribute containing the key/value string segment to parse | 
 **TargetAttribute** | **string** | Target map attribute where extracted key/value pairs will be written | 
+**RedactSource** | **bool** | Whether to replace a public IP address in the source attribute with &#x60;[REDACTED_IP]&#x60;. Private IP addresses and non-IP values are left unchanged. | 
 **KeyValueSplitter** | **string** | Delimiter separating keys from values in the source string | 
 **PairsSplitter** | **string** | Delimiter separating each key/value pair in the source string. | 
 **AcceptStandaloneKey** | **bool** | Whether keys without explicit values are accepted by the parser. | 
@@ -18,7 +19,7 @@ Name | Type | Description | Notes
 
 ### NewOutputProcessorAnyOf1Params
 
-`func NewOutputProcessorAnyOf1Params(attributeName string, rules []string, subtype string, sourceAttribute string, targetAttribute string, keyValueSplitter string, pairsSplitter string, acceptStandaloneKey bool, ) *OutputProcessorAnyOf1Params`
+`func NewOutputProcessorAnyOf1Params(attributeName string, rules []string, subtype string, sourceAttribute string, targetAttribute string, redactSource bool, keyValueSplitter string, pairsSplitter string, acceptStandaloneKey bool, ) *OutputProcessorAnyOf1Params`
 
 NewOutputProcessorAnyOf1Params instantiates a new OutputProcessorAnyOf1Params object
 This constructor will assign default values to properties that have it defined,
@@ -156,6 +157,26 @@ and a boolean to check if the value has been set.
 `func (o *OutputProcessorAnyOf1Params) SetTargetAttribute(v string)`
 
 SetTargetAttribute sets TargetAttribute field to given value.
+
+
+### GetRedactSource
+
+`func (o *OutputProcessorAnyOf1Params) GetRedactSource() bool`
+
+GetRedactSource returns the RedactSource field if non-nil, zero value otherwise.
+
+### GetRedactSourceOk
+
+`func (o *OutputProcessorAnyOf1Params) GetRedactSourceOk() (*bool, bool)`
+
+GetRedactSourceOk returns a tuple with the RedactSource field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRedactSource
+
+`func (o *OutputProcessorAnyOf1Params) SetRedactSource(v bool)`
+
+SetRedactSource sets RedactSource field to given value.
 
 
 ### GetKeyValueSplitter

@@ -4,18 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**SourceAttribute** | **string** | Attribute containing the key/value string segment to parse | 
-**TargetAttribute** | **string** | Target map attribute where extracted key/value pairs will be written | 
-**KeyValueSplitter** | **string** | Delimiter separating keys from values in the source string | 
-**PairsSplitter** | **string** | Delimiter separating each key/value pair in the source string. | 
-**AcceptStandaloneKey** | **bool** | Whether keys without explicit values are accepted by the parser. | 
-**Subtype** | **string** | Parses delimited key/value text into attributes. | 
+**SourceAttribute** | **string** | Attribute containing the IP address to look up | 
+**TargetAttribute** | **string** | Target map attribute where geolocation details will be written | 
+**RedactSource** | **bool** | Whether to replace a public IP address in the source attribute with &#x60;[REDACTED_IP]&#x60;. Private IP addresses and non-IP values are left unchanged. | 
+**Subtype** | **string** | Resolves an IP address attribute to geolocation details. | 
 
 ## Methods
 
 ### NewOutputProcessorAnyOf1ParamsOneOf3
 
-`func NewOutputProcessorAnyOf1ParamsOneOf3(sourceAttribute string, targetAttribute string, keyValueSplitter string, pairsSplitter string, acceptStandaloneKey bool, subtype string, ) *OutputProcessorAnyOf1ParamsOneOf3`
+`func NewOutputProcessorAnyOf1ParamsOneOf3(sourceAttribute string, targetAttribute string, redactSource bool, subtype string, ) *OutputProcessorAnyOf1ParamsOneOf3`
 
 NewOutputProcessorAnyOf1ParamsOneOf3 instantiates a new OutputProcessorAnyOf1ParamsOneOf3 object
 This constructor will assign default values to properties that have it defined,
@@ -70,64 +68,24 @@ and a boolean to check if the value has been set.
 SetTargetAttribute sets TargetAttribute field to given value.
 
 
-### GetKeyValueSplitter
+### GetRedactSource
 
-`func (o *OutputProcessorAnyOf1ParamsOneOf3) GetKeyValueSplitter() string`
+`func (o *OutputProcessorAnyOf1ParamsOneOf3) GetRedactSource() bool`
 
-GetKeyValueSplitter returns the KeyValueSplitter field if non-nil, zero value otherwise.
+GetRedactSource returns the RedactSource field if non-nil, zero value otherwise.
 
-### GetKeyValueSplitterOk
+### GetRedactSourceOk
 
-`func (o *OutputProcessorAnyOf1ParamsOneOf3) GetKeyValueSplitterOk() (*string, bool)`
+`func (o *OutputProcessorAnyOf1ParamsOneOf3) GetRedactSourceOk() (*bool, bool)`
 
-GetKeyValueSplitterOk returns a tuple with the KeyValueSplitter field if it's non-nil, zero value otherwise
+GetRedactSourceOk returns a tuple with the RedactSource field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetKeyValueSplitter
+### SetRedactSource
 
-`func (o *OutputProcessorAnyOf1ParamsOneOf3) SetKeyValueSplitter(v string)`
+`func (o *OutputProcessorAnyOf1ParamsOneOf3) SetRedactSource(v bool)`
 
-SetKeyValueSplitter sets KeyValueSplitter field to given value.
-
-
-### GetPairsSplitter
-
-`func (o *OutputProcessorAnyOf1ParamsOneOf3) GetPairsSplitter() string`
-
-GetPairsSplitter returns the PairsSplitter field if non-nil, zero value otherwise.
-
-### GetPairsSplitterOk
-
-`func (o *OutputProcessorAnyOf1ParamsOneOf3) GetPairsSplitterOk() (*string, bool)`
-
-GetPairsSplitterOk returns a tuple with the PairsSplitter field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPairsSplitter
-
-`func (o *OutputProcessorAnyOf1ParamsOneOf3) SetPairsSplitter(v string)`
-
-SetPairsSplitter sets PairsSplitter field to given value.
-
-
-### GetAcceptStandaloneKey
-
-`func (o *OutputProcessorAnyOf1ParamsOneOf3) GetAcceptStandaloneKey() bool`
-
-GetAcceptStandaloneKey returns the AcceptStandaloneKey field if non-nil, zero value otherwise.
-
-### GetAcceptStandaloneKeyOk
-
-`func (o *OutputProcessorAnyOf1ParamsOneOf3) GetAcceptStandaloneKeyOk() (*bool, bool)`
-
-GetAcceptStandaloneKeyOk returns a tuple with the AcceptStandaloneKey field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAcceptStandaloneKey
-
-`func (o *OutputProcessorAnyOf1ParamsOneOf3) SetAcceptStandaloneKey(v bool)`
-
-SetAcceptStandaloneKey sets AcceptStandaloneKey field to given value.
+SetRedactSource sets RedactSource field to given value.
 
 
 ### GetSubtype
