@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261029.19.0+296073d
+  version: 20261029.47.0+e165519
 servers:
 - url: https://api.tsuga.com
 security:
@@ -24196,9 +24196,14 @@ components:
             \ standard threshold behavior: one window ending at evaluation time. Above\
             \ 1, each evaluation checks the last `consecutiveWindows` windows and\
             \ alerts only when every one meets the conditions, per group for grouped\
-            \ monitors. A window that does not meet the conditions breaks the run,\
-            \ and so does a window with no data unless `noDataBehavior` is `consider_zero`,\
-            \ which evaluates it as 0. At most 10, and above 1, `consecutiveWindows`\
+            \ monitors. A window that does not meet the conditions breaks the run.\
+            \ A window with no data, such as one where a query with `fill.mode.type`\
+            \ `null` returns nothing, breaks the run with `alert` or `resolve`, takes\
+            \ the result of the window before it with `keep_last_status`, and is compared\
+            \ as 0 with `consider_zero`. A query without `fill` counts an empty window\
+            \ as 0. When every window has no data (with `keep_last_status`, when the\
+            \ oldest window has none and no window breaks the run), the group follows\
+            \ `noDataBehavior` as a single window does. At most 10, and above 1, `consecutiveWindows`\
             \ × `timeframe` must not exceed 4320 minutes (3 days)."
           type: integer
         queries:
@@ -24273,9 +24278,14 @@ components:
             \ standard threshold behavior: one window ending at evaluation time. Above\
             \ 1, each evaluation checks the last `consecutiveWindows` windows and\
             \ alerts only when every one meets the conditions, per group for grouped\
-            \ monitors. A window that does not meet the conditions breaks the run,\
-            \ and so does a window with no data unless `noDataBehavior` is `consider_zero`,\
-            \ which evaluates it as 0. At most 10, and above 1, `consecutiveWindows`\
+            \ monitors. A window that does not meet the conditions breaks the run.\
+            \ A window with no data, such as one where a query with `fill.mode.type`\
+            \ `null` returns nothing, breaks the run with `alert` or `resolve`, takes\
+            \ the result of the window before it with `keep_last_status`, and is compared\
+            \ as 0 with `consider_zero`. A query without `fill` counts an empty window\
+            \ as 0. When every window has no data (with `keep_last_status`, when the\
+            \ oldest window has none and no window breaks the run), the group follows\
+            \ `noDataBehavior` as a single window does. At most 10, and above 1, `consecutiveWindows`\
             \ × `timeframe` must not exceed 4320 minutes (3 days)."
           type: integer
         queries:
@@ -24350,9 +24360,14 @@ components:
             \ standard threshold behavior: one window ending at evaluation time. Above\
             \ 1, each evaluation checks the last `consecutiveWindows` windows and\
             \ alerts only when every one meets the conditions, per group for grouped\
-            \ monitors. A window that does not meet the conditions breaks the run,\
-            \ and so does a window with no data unless `noDataBehavior` is `consider_zero`,\
-            \ which evaluates it as 0. At most 10, and above 1, `consecutiveWindows`\
+            \ monitors. A window that does not meet the conditions breaks the run.\
+            \ A window with no data, such as one where a query with `fill.mode.type`\
+            \ `null` returns nothing, breaks the run with `alert` or `resolve`, takes\
+            \ the result of the window before it with `keep_last_status`, and is compared\
+            \ as 0 with `consider_zero`. A query without `fill` counts an empty window\
+            \ as 0. When every window has no data (with `keep_last_status`, when the\
+            \ oldest window has none and no window breaks the run), the group follows\
+            \ `noDataBehavior` as a single window does. At most 10, and above 1, `consecutiveWindows`\
             \ × `timeframe` must not exceed 4320 minutes (3 days)."
           type: integer
         queries:
@@ -24746,9 +24761,14 @@ components:
             \ standard threshold behavior: one window ending at evaluation time. Above\
             \ 1, each evaluation checks the last `consecutiveWindows` windows and\
             \ alerts only when every one meets the conditions, per group for grouped\
-            \ monitors. A window that does not meet the conditions breaks the run,\
-            \ and so does a window with no data unless `noDataBehavior` is `consider_zero`,\
-            \ which evaluates it as 0. At most 10, and above 1, `consecutiveWindows`\
+            \ monitors. A window that does not meet the conditions breaks the run.\
+            \ A window with no data, such as one where a query with `fill.mode.type`\
+            \ `null` returns nothing, breaks the run with `alert` or `resolve`, takes\
+            \ the result of the window before it with `keep_last_status`, and is compared\
+            \ as 0 with `consider_zero`. A query without `fill` counts an empty window\
+            \ as 0. When every window has no data (with `keep_last_status`, when the\
+            \ oldest window has none and no window breaks the run), the group follows\
+            \ `noDataBehavior` as a single window does. At most 10, and above 1, `consecutiveWindows`\
             \ × `timeframe` must not exceed 4320 minutes (3 days)."
           maximum: 10
           minimum: 1
@@ -24837,9 +24857,14 @@ components:
             \ standard threshold behavior: one window ending at evaluation time. Above\
             \ 1, each evaluation checks the last `consecutiveWindows` windows and\
             \ alerts only when every one meets the conditions, per group for grouped\
-            \ monitors. A window that does not meet the conditions breaks the run,\
-            \ and so does a window with no data unless `noDataBehavior` is `consider_zero`,\
-            \ which evaluates it as 0. At most 10, and above 1, `consecutiveWindows`\
+            \ monitors. A window that does not meet the conditions breaks the run.\
+            \ A window with no data, such as one where a query with `fill.mode.type`\
+            \ `null` returns nothing, breaks the run with `alert` or `resolve`, takes\
+            \ the result of the window before it with `keep_last_status`, and is compared\
+            \ as 0 with `consider_zero`. A query without `fill` counts an empty window\
+            \ as 0. When every window has no data (with `keep_last_status`, when the\
+            \ oldest window has none and no window breaks the run), the group follows\
+            \ `noDataBehavior` as a single window does. At most 10, and above 1, `consecutiveWindows`\
             \ × `timeframe` must not exceed 4320 minutes (3 days)."
           maximum: 10
           minimum: 1
@@ -24928,9 +24953,14 @@ components:
             \ standard threshold behavior: one window ending at evaluation time. Above\
             \ 1, each evaluation checks the last `consecutiveWindows` windows and\
             \ alerts only when every one meets the conditions, per group for grouped\
-            \ monitors. A window that does not meet the conditions breaks the run,\
-            \ and so does a window with no data unless `noDataBehavior` is `consider_zero`,\
-            \ which evaluates it as 0. At most 10, and above 1, `consecutiveWindows`\
+            \ monitors. A window that does not meet the conditions breaks the run.\
+            \ A window with no data, such as one where a query with `fill.mode.type`\
+            \ `null` returns nothing, breaks the run with `alert` or `resolve`, takes\
+            \ the result of the window before it with `keep_last_status`, and is compared\
+            \ as 0 with `consider_zero`. A query without `fill` counts an empty window\
+            \ as 0. When every window has no data (with `keep_last_status`, when the\
+            \ oldest window has none and no window breaks the run), the group follows\
+            \ `noDataBehavior` as a single window does. At most 10, and above 1, `consecutiveWindows`\
             \ × `timeframe` must not exceed 4320 minutes (3 days)."
           maximum: 10
           minimum: 1
