@@ -304,7 +304,7 @@ Name | Type | Description  | Notes
 
 ## ListKubernetesDaemonSets
 
-> ListKubernetesDaemonSetsResponse ListKubernetesDaemonSets(ctx).ClusterId(clusterId).Search(search).Execute()
+> ListKubernetesDaemonSetsResponse ListKubernetesDaemonSets(ctx).ClusterId(clusterId).Search(search).SortBy(sortBy).SortDirection(sortDirection).Limit(limit).Offset(offset).Execute()
 
 
 
@@ -325,10 +325,14 @@ import (
 func main() {
 	clusterId := "clusterId_example" // string | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. (optional)
 	search := "search_example" // string | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, `.` and `-` are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. (optional)
+	sortBy := "sortBy_example" // string | Field to sort results by. (optional)
+	sortDirection := "sortDirection_example" // string | Sort direction: ascending or descending. (optional)
+	limit := int32(56) // int32 | Maximum number of items to return in this page. Omit to use the public API default of 100. (optional) (default to 100)
+	offset := int32(56) // int32 | Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KubernetesExplorerAPI.ListKubernetesDaemonSets(context.Background()).ClusterId(clusterId).Search(search).Execute()
+	resp, r, err := apiClient.KubernetesExplorerAPI.ListKubernetesDaemonSets(context.Background()).ClusterId(clusterId).Search(search).SortBy(sortBy).SortDirection(sortDirection).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KubernetesExplorerAPI.ListKubernetesDaemonSets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -351,6 +355,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **clusterId** | **string** | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. | 
  **search** | **string** | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, &#x60;.&#x60; and &#x60;-&#x60; are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. | 
+ **sortBy** | **string** | Field to sort results by. | 
+ **sortDirection** | **string** | Sort direction: ascending or descending. | 
+ **limit** | **int32** | Maximum number of items to return in this page. Omit to use the public API default of 100. | [default to 100]
+ **offset** | **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | 
 
 ### Return type
 
@@ -372,7 +380,7 @@ Name | Type | Description  | Notes
 
 ## ListKubernetesDeployments
 
-> ListKubernetesDeploymentsResponse ListKubernetesDeployments(ctx).ClusterId(clusterId).Search(search).Execute()
+> ListKubernetesDeploymentsResponse ListKubernetesDeployments(ctx).ClusterId(clusterId).Search(search).SortBy(sortBy).SortDirection(sortDirection).Limit(limit).Offset(offset).Execute()
 
 
 
@@ -393,10 +401,14 @@ import (
 func main() {
 	clusterId := "clusterId_example" // string | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. (optional)
 	search := "search_example" // string | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, `.` and `-` are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. (optional)
+	sortBy := "sortBy_example" // string | Field to sort results by. (optional)
+	sortDirection := "sortDirection_example" // string | Sort direction: ascending or descending. (optional)
+	limit := int32(56) // int32 | Maximum number of items to return in this page. Omit to use the public API default of 100. (optional) (default to 100)
+	offset := int32(56) // int32 | Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KubernetesExplorerAPI.ListKubernetesDeployments(context.Background()).ClusterId(clusterId).Search(search).Execute()
+	resp, r, err := apiClient.KubernetesExplorerAPI.ListKubernetesDeployments(context.Background()).ClusterId(clusterId).Search(search).SortBy(sortBy).SortDirection(sortDirection).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KubernetesExplorerAPI.ListKubernetesDeployments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -419,6 +431,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **clusterId** | **string** | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. | 
  **search** | **string** | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, &#x60;.&#x60; and &#x60;-&#x60; are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. | 
+ **sortBy** | **string** | Field to sort results by. | 
+ **sortDirection** | **string** | Sort direction: ascending or descending. | 
+ **limit** | **int32** | Maximum number of items to return in this page. Omit to use the public API default of 100. | [default to 100]
+ **offset** | **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | 
 
 ### Return type
 
@@ -440,7 +456,7 @@ Name | Type | Description  | Notes
 
 ## ListKubernetesEvents
 
-> ListKubernetesEventsResponse ListKubernetesEvents(ctx).ClusterId(clusterId).Search(search).Limit(limit).Execute()
+> ListKubernetesEventsResponse ListKubernetesEvents(ctx).ClusterId(clusterId).Search(search).IncludeInternalNamespaces(includeInternalNamespaces).Clusters(clusters).Namespaces(namespaces).ResourceKinds(resourceKinds).Types(types).Limit(limit).Execute()
 
 
 
@@ -461,11 +477,16 @@ import (
 func main() {
 	clusterId := "clusterId_example" // string | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. (optional)
 	search := "search_example" // string | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, `.` and `-` are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. (optional)
+	includeInternalNamespaces := true // bool | When false or omitted, resources in internal namespaces (kube-system, kube-public, kube-node-lease, local-path-storage, gke-managed-*) are excluded, even when `namespaces` names them. (optional)
+	clusters := []*string{"Inner_example"} // []*string | Restrict results to these Kubernetes cluster names. (optional)
+	namespaces := []string{"Inner_example"} // []string | Restrict results to these namespaces. (optional)
+	resourceKinds := []string{"Inner_example"} // []string | Restrict results to events about these resource kinds (Pod, Node, Deployment...). (optional)
+	types := []string{"Types_example"} // []string | Restrict results to events of these types. (optional)
 	limit := int32(56) // int32 | Maximum number of events to return, newest first. Defaults to 100. Valid values are 1 through 1000. (optional) (default to 100)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KubernetesExplorerAPI.ListKubernetesEvents(context.Background()).ClusterId(clusterId).Search(search).Limit(limit).Execute()
+	resp, r, err := apiClient.KubernetesExplorerAPI.ListKubernetesEvents(context.Background()).ClusterId(clusterId).Search(search).IncludeInternalNamespaces(includeInternalNamespaces).Clusters(clusters).Namespaces(namespaces).ResourceKinds(resourceKinds).Types(types).Limit(limit).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KubernetesExplorerAPI.ListKubernetesEvents``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -488,6 +509,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **clusterId** | **string** | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. | 
  **search** | **string** | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, &#x60;.&#x60; and &#x60;-&#x60; are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. | 
+ **includeInternalNamespaces** | **bool** | When false or omitted, resources in internal namespaces (kube-system, kube-public, kube-node-lease, local-path-storage, gke-managed-*) are excluded, even when &#x60;namespaces&#x60; names them. | 
+ **clusters** | **[]string** | Restrict results to these Kubernetes cluster names. | 
+ **namespaces** | **[]string** | Restrict results to these namespaces. | 
+ **resourceKinds** | **[]string** | Restrict results to events about these resource kinds (Pod, Node, Deployment...). | 
+ **types** | **[]string** | Restrict results to events of these types. | 
  **limit** | **int32** | Maximum number of events to return, newest first. Defaults to 100. Valid values are 1 through 1000. | [default to 100]
 
 ### Return type
@@ -510,7 +536,7 @@ Name | Type | Description  | Notes
 
 ## ListKubernetesNamespaces
 
-> ListKubernetesNamespacesResponse ListKubernetesNamespaces(ctx).ClusterId(clusterId).Search(search).Execute()
+> ListKubernetesNamespacesResponse ListKubernetesNamespaces(ctx).ClusterId(clusterId).Search(search).SortBy(sortBy).SortDirection(sortDirection).Limit(limit).Offset(offset).Execute()
 
 
 
@@ -531,10 +557,14 @@ import (
 func main() {
 	clusterId := "clusterId_example" // string | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. (optional)
 	search := "search_example" // string | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, `.` and `-` are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. (optional)
+	sortBy := "sortBy_example" // string | Field to sort results by. (optional)
+	sortDirection := "sortDirection_example" // string | Sort direction: ascending or descending. (optional)
+	limit := int32(56) // int32 | Maximum number of items to return in this page. Omit to use the public API default of 100. (optional) (default to 100)
+	offset := int32(56) // int32 | Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KubernetesExplorerAPI.ListKubernetesNamespaces(context.Background()).ClusterId(clusterId).Search(search).Execute()
+	resp, r, err := apiClient.KubernetesExplorerAPI.ListKubernetesNamespaces(context.Background()).ClusterId(clusterId).Search(search).SortBy(sortBy).SortDirection(sortDirection).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KubernetesExplorerAPI.ListKubernetesNamespaces``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -557,6 +587,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **clusterId** | **string** | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. | 
  **search** | **string** | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, &#x60;.&#x60; and &#x60;-&#x60; are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. | 
+ **sortBy** | **string** | Field to sort results by. | 
+ **sortDirection** | **string** | Sort direction: ascending or descending. | 
+ **limit** | **int32** | Maximum number of items to return in this page. Omit to use the public API default of 100. | [default to 100]
+ **offset** | **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | 
 
 ### Return type
 
@@ -578,7 +612,7 @@ Name | Type | Description  | Notes
 
 ## ListKubernetesNodes
 
-> ListKubernetesNodesResponse ListKubernetesNodes(ctx).ClusterId(clusterId).Search(search).Execute()
+> ListKubernetesNodesResponse ListKubernetesNodes(ctx).ClusterId(clusterId).Search(search).SortBy(sortBy).SortDirection(sortDirection).Limit(limit).Offset(offset).Execute()
 
 
 
@@ -599,10 +633,14 @@ import (
 func main() {
 	clusterId := "clusterId_example" // string | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. (optional)
 	search := "search_example" // string | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, `.` and `-` are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. (optional)
+	sortBy := "sortBy_example" // string | Field to sort results by. (optional)
+	sortDirection := "sortDirection_example" // string | Sort direction: ascending or descending. (optional)
+	limit := int32(56) // int32 | Maximum number of items to return in this page. Omit to use the public API default of 100. (optional) (default to 100)
+	offset := int32(56) // int32 | Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KubernetesExplorerAPI.ListKubernetesNodes(context.Background()).ClusterId(clusterId).Search(search).Execute()
+	resp, r, err := apiClient.KubernetesExplorerAPI.ListKubernetesNodes(context.Background()).ClusterId(clusterId).Search(search).SortBy(sortBy).SortDirection(sortDirection).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KubernetesExplorerAPI.ListKubernetesNodes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -625,6 +663,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **clusterId** | **string** | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. | 
  **search** | **string** | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, &#x60;.&#x60; and &#x60;-&#x60; are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. | 
+ **sortBy** | **string** | Field to sort results by. | 
+ **sortDirection** | **string** | Sort direction: ascending or descending. | 
+ **limit** | **int32** | Maximum number of items to return in this page. Omit to use the public API default of 100. | [default to 100]
+ **offset** | **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | 
 
 ### Return type
 
@@ -646,7 +688,7 @@ Name | Type | Description  | Notes
 
 ## ListKubernetesPods
 
-> ListKubernetesPodsResponse ListKubernetesPods(ctx).ClusterId(clusterId).Search(search).Execute()
+> ListKubernetesPodsResponse ListKubernetesPods(ctx).ClusterId(clusterId).Search(search).SortBy(sortBy).SortDirection(sortDirection).Limit(limit).Offset(offset).Execute()
 
 
 
@@ -667,10 +709,14 @@ import (
 func main() {
 	clusterId := "clusterId_example" // string | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. (optional)
 	search := "search_example" // string | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, `.` and `-` are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. (optional)
+	sortBy := "sortBy_example" // string | Field to sort results by. (optional)
+	sortDirection := "sortDirection_example" // string | Sort direction: ascending or descending. (optional)
+	limit := int32(56) // int32 | Maximum number of items to return in this page. Omit to use the public API default of 100. (optional) (default to 100)
+	offset := int32(56) // int32 | Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KubernetesExplorerAPI.ListKubernetesPods(context.Background()).ClusterId(clusterId).Search(search).Execute()
+	resp, r, err := apiClient.KubernetesExplorerAPI.ListKubernetesPods(context.Background()).ClusterId(clusterId).Search(search).SortBy(sortBy).SortDirection(sortDirection).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KubernetesExplorerAPI.ListKubernetesPods``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -693,6 +739,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **clusterId** | **string** | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. | 
  **search** | **string** | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, &#x60;.&#x60; and &#x60;-&#x60; are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. | 
+ **sortBy** | **string** | Field to sort results by. | 
+ **sortDirection** | **string** | Sort direction: ascending or descending. | 
+ **limit** | **int32** | Maximum number of items to return in this page. Omit to use the public API default of 100. | [default to 100]
+ **offset** | **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | 
 
 ### Return type
 
@@ -714,7 +764,7 @@ Name | Type | Description  | Notes
 
 ## ListKubernetesStatefulSets
 
-> ListKubernetesStatefulSetsResponse ListKubernetesStatefulSets(ctx).ClusterId(clusterId).Search(search).Execute()
+> ListKubernetesStatefulSetsResponse ListKubernetesStatefulSets(ctx).ClusterId(clusterId).Search(search).SortBy(sortBy).SortDirection(sortDirection).Limit(limit).Offset(offset).Execute()
 
 
 
@@ -735,10 +785,14 @@ import (
 func main() {
 	clusterId := "clusterId_example" // string | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. (optional)
 	search := "search_example" // string | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, `.` and `-` are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. (optional)
+	sortBy := "sortBy_example" // string | Field to sort results by. (optional)
+	sortDirection := "sortDirection_example" // string | Sort direction: ascending or descending. (optional)
+	limit := int32(56) // int32 | Maximum number of items to return in this page. Omit to use the public API default of 100. (optional) (default to 100)
+	offset := int32(56) // int32 | Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KubernetesExplorerAPI.ListKubernetesStatefulSets(context.Background()).ClusterId(clusterId).Search(search).Execute()
+	resp, r, err := apiClient.KubernetesExplorerAPI.ListKubernetesStatefulSets(context.Background()).ClusterId(clusterId).Search(search).SortBy(sortBy).SortDirection(sortDirection).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KubernetesExplorerAPI.ListKubernetesStatefulSets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -761,6 +815,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **clusterId** | **string** | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. | 
  **search** | **string** | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, &#x60;.&#x60; and &#x60;-&#x60; are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. | 
+ **sortBy** | **string** | Field to sort results by. | 
+ **sortDirection** | **string** | Sort direction: ascending or descending. | 
+ **limit** | **int32** | Maximum number of items to return in this page. Omit to use the public API default of 100. | [default to 100]
+ **offset** | **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | 
 
 ### Return type
 

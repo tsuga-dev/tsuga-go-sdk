@@ -15,6 +15,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"reflect"
 )
 
 type KubernetesExplorerAPI interface {
@@ -78,7 +79,7 @@ type KubernetesExplorerAPI interface {
 	/*
 		ListKubernetesDaemonSets Method for ListKubernetesDaemonSets
 
-		Lists Kubernetes DaemonSets observed across the organization with eligible-node readiness and aggregate resource usage.
+		Lists Kubernetes DaemonSets observed across the organization with eligible-node readiness and aggregate resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return KubernetesExplorerAPIListKubernetesDaemonSetsRequest
@@ -92,7 +93,7 @@ type KubernetesExplorerAPI interface {
 	/*
 		ListKubernetesDeployments Method for ListKubernetesDeployments
 
-		Lists Kubernetes deployments observed across the organization with replica counts and aggregate resource usage.
+		Lists Kubernetes deployments observed across the organization with replica counts and aggregate resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return KubernetesExplorerAPIListKubernetesDeploymentsRequest
@@ -120,7 +121,7 @@ type KubernetesExplorerAPI interface {
 	/*
 		ListKubernetesNamespaces Method for ListKubernetesNamespaces
 
-		Lists Kubernetes namespaces observed across the organization with pod counts and aggregate resource usage.
+		Lists Kubernetes namespaces observed across the organization with pod counts and aggregate resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return KubernetesExplorerAPIListKubernetesNamespacesRequest
@@ -134,7 +135,7 @@ type KubernetesExplorerAPI interface {
 	/*
 		ListKubernetesNodes Method for ListKubernetesNodes
 
-		Lists Kubernetes nodes observed across the organization with their readiness, instance type, and resource usage against allocatable capacity.
+		Lists Kubernetes nodes observed across the organization with their readiness, instance type, and resource usage against allocatable capacity. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return KubernetesExplorerAPIListKubernetesNodesRequest
@@ -148,7 +149,7 @@ type KubernetesExplorerAPI interface {
 	/*
 		ListKubernetesPods Method for ListKubernetesPods
 
-		Lists Kubernetes pods observed across the organization with their current phase, owning workload, and resource usage.
+		Lists Kubernetes pods observed across the organization with their current phase, owning workload, and resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return KubernetesExplorerAPIListKubernetesPodsRequest
@@ -162,7 +163,7 @@ type KubernetesExplorerAPI interface {
 	/*
 		ListKubernetesStatefulSets Method for ListKubernetesStatefulSets
 
-		Lists Kubernetes StatefulSets observed across the organization with replica counts and aggregate resource usage.
+		Lists Kubernetes StatefulSets observed across the organization with replica counts and aggregate resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return KubernetesExplorerAPIListKubernetesStatefulSetsRequest
@@ -865,10 +866,14 @@ func (a *KubernetesExplorerAPIService) ListKubernetesClustersExecute(r Kubernete
 }
 
 type KubernetesExplorerAPIListKubernetesDaemonSetsRequest struct {
-	ctx        context.Context
-	ApiService KubernetesExplorerAPI
-	clusterId  *string
-	search     *string
+	ctx           context.Context
+	ApiService    KubernetesExplorerAPI
+	clusterId     *string
+	search        *string
+	sortBy        *string
+	sortDirection *string
+	limit         *int32
+	offset        *int32
 }
 
 // Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster.
@@ -883,6 +888,30 @@ func (r KubernetesExplorerAPIListKubernetesDaemonSetsRequest) Search(search stri
 	return r
 }
 
+// Field to sort results by.
+func (r KubernetesExplorerAPIListKubernetesDaemonSetsRequest) SortBy(sortBy string) KubernetesExplorerAPIListKubernetesDaemonSetsRequest {
+	r.sortBy = &sortBy
+	return r
+}
+
+// Sort direction: ascending or descending.
+func (r KubernetesExplorerAPIListKubernetesDaemonSetsRequest) SortDirection(sortDirection string) KubernetesExplorerAPIListKubernetesDaemonSetsRequest {
+	r.sortDirection = &sortDirection
+	return r
+}
+
+// Maximum number of items to return in this page. Omit to use the public API default of 100.
+func (r KubernetesExplorerAPIListKubernetesDaemonSetsRequest) Limit(limit int32) KubernetesExplorerAPIListKubernetesDaemonSetsRequest {
+	r.limit = &limit
+	return r
+}
+
+// Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0.
+func (r KubernetesExplorerAPIListKubernetesDaemonSetsRequest) Offset(offset int32) KubernetesExplorerAPIListKubernetesDaemonSetsRequest {
+	r.offset = &offset
+	return r
+}
+
 func (r KubernetesExplorerAPIListKubernetesDaemonSetsRequest) Execute() (*ListKubernetesDaemonSetsResponse, *http.Response, error) {
 	return r.ApiService.ListKubernetesDaemonSetsExecute(r)
 }
@@ -890,7 +919,7 @@ func (r KubernetesExplorerAPIListKubernetesDaemonSetsRequest) Execute() (*ListKu
 /*
 ListKubernetesDaemonSets Method for ListKubernetesDaemonSets
 
-Lists Kubernetes DaemonSets observed across the organization with eligible-node readiness and aggregate resource usage.
+Lists Kubernetes DaemonSets observed across the organization with eligible-node readiness and aggregate resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KubernetesExplorerAPIListKubernetesDaemonSetsRequest
@@ -929,6 +958,22 @@ func (a *KubernetesExplorerAPIService) ListKubernetesDaemonSetsExecute(r Kuberne
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
+	}
+	if r.sortBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortBy", r.sortBy, "form", "")
+	}
+	if r.sortDirection != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortDirection", r.sortDirection, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 100
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
+		r.limit = &defaultValue
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1006,10 +1051,14 @@ func (a *KubernetesExplorerAPIService) ListKubernetesDaemonSetsExecute(r Kuberne
 }
 
 type KubernetesExplorerAPIListKubernetesDeploymentsRequest struct {
-	ctx        context.Context
-	ApiService KubernetesExplorerAPI
-	clusterId  *string
-	search     *string
+	ctx           context.Context
+	ApiService    KubernetesExplorerAPI
+	clusterId     *string
+	search        *string
+	sortBy        *string
+	sortDirection *string
+	limit         *int32
+	offset        *int32
 }
 
 // Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster.
@@ -1024,6 +1073,30 @@ func (r KubernetesExplorerAPIListKubernetesDeploymentsRequest) Search(search str
 	return r
 }
 
+// Field to sort results by.
+func (r KubernetesExplorerAPIListKubernetesDeploymentsRequest) SortBy(sortBy string) KubernetesExplorerAPIListKubernetesDeploymentsRequest {
+	r.sortBy = &sortBy
+	return r
+}
+
+// Sort direction: ascending or descending.
+func (r KubernetesExplorerAPIListKubernetesDeploymentsRequest) SortDirection(sortDirection string) KubernetesExplorerAPIListKubernetesDeploymentsRequest {
+	r.sortDirection = &sortDirection
+	return r
+}
+
+// Maximum number of items to return in this page. Omit to use the public API default of 100.
+func (r KubernetesExplorerAPIListKubernetesDeploymentsRequest) Limit(limit int32) KubernetesExplorerAPIListKubernetesDeploymentsRequest {
+	r.limit = &limit
+	return r
+}
+
+// Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0.
+func (r KubernetesExplorerAPIListKubernetesDeploymentsRequest) Offset(offset int32) KubernetesExplorerAPIListKubernetesDeploymentsRequest {
+	r.offset = &offset
+	return r
+}
+
 func (r KubernetesExplorerAPIListKubernetesDeploymentsRequest) Execute() (*ListKubernetesDeploymentsResponse, *http.Response, error) {
 	return r.ApiService.ListKubernetesDeploymentsExecute(r)
 }
@@ -1031,7 +1104,7 @@ func (r KubernetesExplorerAPIListKubernetesDeploymentsRequest) Execute() (*ListK
 /*
 ListKubernetesDeployments Method for ListKubernetesDeployments
 
-Lists Kubernetes deployments observed across the organization with replica counts and aggregate resource usage.
+Lists Kubernetes deployments observed across the organization with replica counts and aggregate resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KubernetesExplorerAPIListKubernetesDeploymentsRequest
@@ -1070,6 +1143,22 @@ func (a *KubernetesExplorerAPIService) ListKubernetesDeploymentsExecute(r Kubern
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
+	}
+	if r.sortBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortBy", r.sortBy, "form", "")
+	}
+	if r.sortDirection != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortDirection", r.sortDirection, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 100
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
+		r.limit = &defaultValue
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1147,11 +1236,16 @@ func (a *KubernetesExplorerAPIService) ListKubernetesDeploymentsExecute(r Kubern
 }
 
 type KubernetesExplorerAPIListKubernetesEventsRequest struct {
-	ctx        context.Context
-	ApiService KubernetesExplorerAPI
-	clusterId  *string
-	search     *string
-	limit      *int32
+	ctx                       context.Context
+	ApiService                KubernetesExplorerAPI
+	clusterId                 *string
+	search                    *string
+	includeInternalNamespaces *bool
+	clusters                  *[]*string
+	namespaces                *[]string
+	resourceKinds             *[]string
+	types                     *[]string
+	limit                     *int32
 }
 
 // Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster.
@@ -1163,6 +1257,36 @@ func (r KubernetesExplorerAPIListKubernetesEventsRequest) ClusterId(clusterId st
 // Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, &#x60;.&#x60; and &#x60;-&#x60; are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally.
 func (r KubernetesExplorerAPIListKubernetesEventsRequest) Search(search string) KubernetesExplorerAPIListKubernetesEventsRequest {
 	r.search = &search
+	return r
+}
+
+// When false or omitted, resources in internal namespaces (kube-system, kube-public, kube-node-lease, local-path-storage, gke-managed-*) are excluded, even when &#x60;namespaces&#x60; names them.
+func (r KubernetesExplorerAPIListKubernetesEventsRequest) IncludeInternalNamespaces(includeInternalNamespaces bool) KubernetesExplorerAPIListKubernetesEventsRequest {
+	r.includeInternalNamespaces = &includeInternalNamespaces
+	return r
+}
+
+// Restrict results to these Kubernetes cluster names.
+func (r KubernetesExplorerAPIListKubernetesEventsRequest) Clusters(clusters []*string) KubernetesExplorerAPIListKubernetesEventsRequest {
+	r.clusters = &clusters
+	return r
+}
+
+// Restrict results to these namespaces.
+func (r KubernetesExplorerAPIListKubernetesEventsRequest) Namespaces(namespaces []string) KubernetesExplorerAPIListKubernetesEventsRequest {
+	r.namespaces = &namespaces
+	return r
+}
+
+// Restrict results to events about these resource kinds (Pod, Node, Deployment...).
+func (r KubernetesExplorerAPIListKubernetesEventsRequest) ResourceKinds(resourceKinds []string) KubernetesExplorerAPIListKubernetesEventsRequest {
+	r.resourceKinds = &resourceKinds
+	return r
+}
+
+// Restrict results to events of these types.
+func (r KubernetesExplorerAPIListKubernetesEventsRequest) Types(types []string) KubernetesExplorerAPIListKubernetesEventsRequest {
+	r.types = &types
 	return r
 }
 
@@ -1218,6 +1342,53 @@ func (a *KubernetesExplorerAPIService) ListKubernetesEventsExecute(r KubernetesE
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
+	}
+	if r.includeInternalNamespaces != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "includeInternalNamespaces", r.includeInternalNamespaces, "form", "")
+	}
+	if r.clusters != nil {
+		t := *r.clusters
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "clusters", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "clusters", t, "form", "multi")
+		}
+	}
+	if r.namespaces != nil {
+		t := *r.namespaces
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "namespaces", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "namespaces", t, "form", "multi")
+		}
+	}
+	if r.resourceKinds != nil {
+		t := *r.resourceKinds
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "resourceKinds", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "resourceKinds", t, "form", "multi")
+		}
+	}
+	if r.types != nil {
+		t := *r.types
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "types", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "types", t, "form", "multi")
+		}
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
@@ -1302,10 +1473,14 @@ func (a *KubernetesExplorerAPIService) ListKubernetesEventsExecute(r KubernetesE
 }
 
 type KubernetesExplorerAPIListKubernetesNamespacesRequest struct {
-	ctx        context.Context
-	ApiService KubernetesExplorerAPI
-	clusterId  *string
-	search     *string
+	ctx           context.Context
+	ApiService    KubernetesExplorerAPI
+	clusterId     *string
+	search        *string
+	sortBy        *string
+	sortDirection *string
+	limit         *int32
+	offset        *int32
 }
 
 // Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster.
@@ -1320,6 +1495,30 @@ func (r KubernetesExplorerAPIListKubernetesNamespacesRequest) Search(search stri
 	return r
 }
 
+// Field to sort results by.
+func (r KubernetesExplorerAPIListKubernetesNamespacesRequest) SortBy(sortBy string) KubernetesExplorerAPIListKubernetesNamespacesRequest {
+	r.sortBy = &sortBy
+	return r
+}
+
+// Sort direction: ascending or descending.
+func (r KubernetesExplorerAPIListKubernetesNamespacesRequest) SortDirection(sortDirection string) KubernetesExplorerAPIListKubernetesNamespacesRequest {
+	r.sortDirection = &sortDirection
+	return r
+}
+
+// Maximum number of items to return in this page. Omit to use the public API default of 100.
+func (r KubernetesExplorerAPIListKubernetesNamespacesRequest) Limit(limit int32) KubernetesExplorerAPIListKubernetesNamespacesRequest {
+	r.limit = &limit
+	return r
+}
+
+// Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0.
+func (r KubernetesExplorerAPIListKubernetesNamespacesRequest) Offset(offset int32) KubernetesExplorerAPIListKubernetesNamespacesRequest {
+	r.offset = &offset
+	return r
+}
+
 func (r KubernetesExplorerAPIListKubernetesNamespacesRequest) Execute() (*ListKubernetesNamespacesResponse, *http.Response, error) {
 	return r.ApiService.ListKubernetesNamespacesExecute(r)
 }
@@ -1327,7 +1526,7 @@ func (r KubernetesExplorerAPIListKubernetesNamespacesRequest) Execute() (*ListKu
 /*
 ListKubernetesNamespaces Method for ListKubernetesNamespaces
 
-Lists Kubernetes namespaces observed across the organization with pod counts and aggregate resource usage.
+Lists Kubernetes namespaces observed across the organization with pod counts and aggregate resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KubernetesExplorerAPIListKubernetesNamespacesRequest
@@ -1366,6 +1565,22 @@ func (a *KubernetesExplorerAPIService) ListKubernetesNamespacesExecute(r Kuberne
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
+	}
+	if r.sortBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortBy", r.sortBy, "form", "")
+	}
+	if r.sortDirection != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortDirection", r.sortDirection, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 100
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
+		r.limit = &defaultValue
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1443,10 +1658,14 @@ func (a *KubernetesExplorerAPIService) ListKubernetesNamespacesExecute(r Kuberne
 }
 
 type KubernetesExplorerAPIListKubernetesNodesRequest struct {
-	ctx        context.Context
-	ApiService KubernetesExplorerAPI
-	clusterId  *string
-	search     *string
+	ctx           context.Context
+	ApiService    KubernetesExplorerAPI
+	clusterId     *string
+	search        *string
+	sortBy        *string
+	sortDirection *string
+	limit         *int32
+	offset        *int32
 }
 
 // Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster.
@@ -1461,6 +1680,30 @@ func (r KubernetesExplorerAPIListKubernetesNodesRequest) Search(search string) K
 	return r
 }
 
+// Field to sort results by.
+func (r KubernetesExplorerAPIListKubernetesNodesRequest) SortBy(sortBy string) KubernetesExplorerAPIListKubernetesNodesRequest {
+	r.sortBy = &sortBy
+	return r
+}
+
+// Sort direction: ascending or descending.
+func (r KubernetesExplorerAPIListKubernetesNodesRequest) SortDirection(sortDirection string) KubernetesExplorerAPIListKubernetesNodesRequest {
+	r.sortDirection = &sortDirection
+	return r
+}
+
+// Maximum number of items to return in this page. Omit to use the public API default of 100.
+func (r KubernetesExplorerAPIListKubernetesNodesRequest) Limit(limit int32) KubernetesExplorerAPIListKubernetesNodesRequest {
+	r.limit = &limit
+	return r
+}
+
+// Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0.
+func (r KubernetesExplorerAPIListKubernetesNodesRequest) Offset(offset int32) KubernetesExplorerAPIListKubernetesNodesRequest {
+	r.offset = &offset
+	return r
+}
+
 func (r KubernetesExplorerAPIListKubernetesNodesRequest) Execute() (*ListKubernetesNodesResponse, *http.Response, error) {
 	return r.ApiService.ListKubernetesNodesExecute(r)
 }
@@ -1468,7 +1711,7 @@ func (r KubernetesExplorerAPIListKubernetesNodesRequest) Execute() (*ListKuberne
 /*
 ListKubernetesNodes Method for ListKubernetesNodes
 
-Lists Kubernetes nodes observed across the organization with their readiness, instance type, and resource usage against allocatable capacity.
+Lists Kubernetes nodes observed across the organization with their readiness, instance type, and resource usage against allocatable capacity. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KubernetesExplorerAPIListKubernetesNodesRequest
@@ -1507,6 +1750,22 @@ func (a *KubernetesExplorerAPIService) ListKubernetesNodesExecute(r KubernetesEx
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
+	}
+	if r.sortBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortBy", r.sortBy, "form", "")
+	}
+	if r.sortDirection != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortDirection", r.sortDirection, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 100
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
+		r.limit = &defaultValue
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1584,10 +1843,14 @@ func (a *KubernetesExplorerAPIService) ListKubernetesNodesExecute(r KubernetesEx
 }
 
 type KubernetesExplorerAPIListKubernetesPodsRequest struct {
-	ctx        context.Context
-	ApiService KubernetesExplorerAPI
-	clusterId  *string
-	search     *string
+	ctx           context.Context
+	ApiService    KubernetesExplorerAPI
+	clusterId     *string
+	search        *string
+	sortBy        *string
+	sortDirection *string
+	limit         *int32
+	offset        *int32
 }
 
 // Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster.
@@ -1602,6 +1865,30 @@ func (r KubernetesExplorerAPIListKubernetesPodsRequest) Search(search string) Ku
 	return r
 }
 
+// Field to sort results by.
+func (r KubernetesExplorerAPIListKubernetesPodsRequest) SortBy(sortBy string) KubernetesExplorerAPIListKubernetesPodsRequest {
+	r.sortBy = &sortBy
+	return r
+}
+
+// Sort direction: ascending or descending.
+func (r KubernetesExplorerAPIListKubernetesPodsRequest) SortDirection(sortDirection string) KubernetesExplorerAPIListKubernetesPodsRequest {
+	r.sortDirection = &sortDirection
+	return r
+}
+
+// Maximum number of items to return in this page. Omit to use the public API default of 100.
+func (r KubernetesExplorerAPIListKubernetesPodsRequest) Limit(limit int32) KubernetesExplorerAPIListKubernetesPodsRequest {
+	r.limit = &limit
+	return r
+}
+
+// Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0.
+func (r KubernetesExplorerAPIListKubernetesPodsRequest) Offset(offset int32) KubernetesExplorerAPIListKubernetesPodsRequest {
+	r.offset = &offset
+	return r
+}
+
 func (r KubernetesExplorerAPIListKubernetesPodsRequest) Execute() (*ListKubernetesPodsResponse, *http.Response, error) {
 	return r.ApiService.ListKubernetesPodsExecute(r)
 }
@@ -1609,7 +1896,7 @@ func (r KubernetesExplorerAPIListKubernetesPodsRequest) Execute() (*ListKubernet
 /*
 ListKubernetesPods Method for ListKubernetesPods
 
-Lists Kubernetes pods observed across the organization with their current phase, owning workload, and resource usage.
+Lists Kubernetes pods observed across the organization with their current phase, owning workload, and resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KubernetesExplorerAPIListKubernetesPodsRequest
@@ -1648,6 +1935,22 @@ func (a *KubernetesExplorerAPIService) ListKubernetesPodsExecute(r KubernetesExp
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
+	}
+	if r.sortBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortBy", r.sortBy, "form", "")
+	}
+	if r.sortDirection != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortDirection", r.sortDirection, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 100
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
+		r.limit = &defaultValue
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1725,10 +2028,14 @@ func (a *KubernetesExplorerAPIService) ListKubernetesPodsExecute(r KubernetesExp
 }
 
 type KubernetesExplorerAPIListKubernetesStatefulSetsRequest struct {
-	ctx        context.Context
-	ApiService KubernetesExplorerAPI
-	clusterId  *string
-	search     *string
+	ctx           context.Context
+	ApiService    KubernetesExplorerAPI
+	clusterId     *string
+	search        *string
+	sortBy        *string
+	sortDirection *string
+	limit         *int32
+	offset        *int32
 }
 
 // Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster.
@@ -1743,6 +2050,30 @@ func (r KubernetesExplorerAPIListKubernetesStatefulSetsRequest) Search(search st
 	return r
 }
 
+// Field to sort results by.
+func (r KubernetesExplorerAPIListKubernetesStatefulSetsRequest) SortBy(sortBy string) KubernetesExplorerAPIListKubernetesStatefulSetsRequest {
+	r.sortBy = &sortBy
+	return r
+}
+
+// Sort direction: ascending or descending.
+func (r KubernetesExplorerAPIListKubernetesStatefulSetsRequest) SortDirection(sortDirection string) KubernetesExplorerAPIListKubernetesStatefulSetsRequest {
+	r.sortDirection = &sortDirection
+	return r
+}
+
+// Maximum number of items to return in this page. Omit to use the public API default of 100.
+func (r KubernetesExplorerAPIListKubernetesStatefulSetsRequest) Limit(limit int32) KubernetesExplorerAPIListKubernetesStatefulSetsRequest {
+	r.limit = &limit
+	return r
+}
+
+// Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0.
+func (r KubernetesExplorerAPIListKubernetesStatefulSetsRequest) Offset(offset int32) KubernetesExplorerAPIListKubernetesStatefulSetsRequest {
+	r.offset = &offset
+	return r
+}
+
 func (r KubernetesExplorerAPIListKubernetesStatefulSetsRequest) Execute() (*ListKubernetesStatefulSetsResponse, *http.Response, error) {
 	return r.ApiService.ListKubernetesStatefulSetsExecute(r)
 }
@@ -1750,7 +2081,7 @@ func (r KubernetesExplorerAPIListKubernetesStatefulSetsRequest) Execute() (*List
 /*
 ListKubernetesStatefulSets Method for ListKubernetesStatefulSets
 
-Lists Kubernetes StatefulSets observed across the organization with replica counts and aggregate resource usage.
+Lists Kubernetes StatefulSets observed across the organization with replica counts and aggregate resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KubernetesExplorerAPIListKubernetesStatefulSetsRequest
@@ -1789,6 +2120,22 @@ func (a *KubernetesExplorerAPIService) ListKubernetesStatefulSetsExecute(r Kuber
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
+	}
+	if r.sortBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortBy", r.sortBy, "form", "")
+	}
+	if r.sortDirection != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortDirection", r.sortDirection, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 100
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
+		r.limit = &defaultValue
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

@@ -30,9 +30,7 @@ type ListMetricsResponseDataInner struct {
 	// Metric temporality. `delta` reports changes per collection interval, `cumulative` reports running totals, and `none` means temporality is not applicable or unknown.
 	Temporality *string `json:"temporality,omitempty"`
 	// Aggregate function types (such as `max`, `min`, `sum`) supported when querying or graphing this metric. An empty or omitted array means all aggregate types are supported.
-	Capabilities []string `json:"capabilities,omitempty"`
-	// Metric attribute names available as dimensions for filtering or grouping.
-	Attributes           []string `json:"attributes,omitempty"`
+	Capabilities         []string `json:"capabilities,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -233,38 +231,6 @@ func (o *ListMetricsResponseDataInner) SetCapabilities(v []string) {
 	o.Capabilities = v
 }
 
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *ListMetricsResponseDataInner) GetAttributes() []string {
-	if o == nil || IsNil(o.Attributes) {
-		var ret []string
-		return ret
-	}
-	return o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ListMetricsResponseDataInner) GetAttributesOk() ([]string, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *ListMetricsResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given []string and assigns it to the Attributes field.
-func (o *ListMetricsResponseDataInner) SetAttributes(v []string) {
-	o.Attributes = v
-}
-
 func (o ListMetricsResponseDataInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -288,9 +254,6 @@ func (o ListMetricsResponseDataInner) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Capabilities) {
 		toSerialize["capabilities"] = o.Capabilities
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -342,7 +305,6 @@ func (o *ListMetricsResponseDataInner) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "unit")
 		delete(additionalProperties, "temporality")
 		delete(additionalProperties, "capabilities")
-		delete(additionalProperties, "attributes")
 		o.AdditionalProperties = additionalProperties
 	}
 

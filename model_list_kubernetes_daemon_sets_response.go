@@ -22,6 +22,7 @@ type ListKubernetesDaemonSetsResponse struct {
 	// Identifier used to trace the lifecycle of this API request
 	RequestId            string                                      `json:"requestId"`
 	Data                 []ListKubernetesDaemonSetsResponseDataInner `json:"data"`
+	Metadata             *ResponseMetadata                           `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -94,6 +95,38 @@ func (o *ListKubernetesDaemonSetsResponse) SetData(v []ListKubernetesDaemonSetsR
 	o.Data = v
 }
 
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *ListKubernetesDaemonSetsResponse) GetMetadata() ResponseMetadata {
+	if o == nil || IsNil(o.Metadata) {
+		var ret ResponseMetadata
+		return ret
+	}
+	return *o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListKubernetesDaemonSetsResponse) GetMetadataOk() (*ResponseMetadata, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *ListKubernetesDaemonSetsResponse) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given ResponseMetadata and assigns it to the Metadata field.
+func (o *ListKubernetesDaemonSetsResponse) SetMetadata(v ResponseMetadata) {
+	o.Metadata = &v
+}
+
 func (o ListKubernetesDaemonSetsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -106,6 +139,9 @@ func (o ListKubernetesDaemonSetsResponse) ToMap() (map[string]interface{}, error
 	toSerialize := map[string]interface{}{}
 	toSerialize["requestId"] = o.RequestId
 	toSerialize["data"] = o.Data
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -152,6 +188,7 @@ func (o *ListKubernetesDaemonSetsResponse) UnmarshalJSON(data []byte) (err error
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "requestId")
 		delete(additionalProperties, "data")
+		delete(additionalProperties, "metadata")
 		o.AdditionalProperties = additionalProperties
 	}
 

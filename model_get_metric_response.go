@@ -20,8 +20,8 @@ var _ MappedNullable = &GetMetricResponse{}
 // GetMetricResponse struct for GetMetricResponse
 type GetMetricResponse struct {
 	// Identifier used to trace the lifecycle of this API request
-	RequestId            string                       `json:"requestId"`
-	Data                 ListMetricsResponseDataInner `json:"data"`
+	RequestId            string                `json:"requestId"`
+	Data                 GetMetricResponseData `json:"data"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,7 +31,7 @@ type _GetMetricResponse GetMetricResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMetricResponse(requestId string, data ListMetricsResponseDataInner) *GetMetricResponse {
+func NewGetMetricResponse(requestId string, data GetMetricResponseData) *GetMetricResponse {
 	this := GetMetricResponse{}
 	this.RequestId = requestId
 	this.Data = data
@@ -71,9 +71,9 @@ func (o *GetMetricResponse) SetRequestId(v string) {
 }
 
 // GetData returns the Data field value
-func (o *GetMetricResponse) GetData() ListMetricsResponseDataInner {
+func (o *GetMetricResponse) GetData() GetMetricResponseData {
 	if o == nil {
-		var ret ListMetricsResponseDataInner
+		var ret GetMetricResponseData
 		return ret
 	}
 
@@ -82,7 +82,7 @@ func (o *GetMetricResponse) GetData() ListMetricsResponseDataInner {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *GetMetricResponse) GetDataOk() (*ListMetricsResponseDataInner, bool) {
+func (o *GetMetricResponse) GetDataOk() (*GetMetricResponseData, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -90,7 +90,7 @@ func (o *GetMetricResponse) GetDataOk() (*ListMetricsResponseDataInner, bool) {
 }
 
 // SetData sets field value
-func (o *GetMetricResponse) SetData(v ListMetricsResponseDataInner) {
+func (o *GetMetricResponse) SetData(v GetMetricResponseData) {
 	o.Data = v
 }
 

@@ -629,7 +629,7 @@ type TracesAPISummarizeTraceRequest struct {
 	to                                 *int64
 	traceId                            *string
 	clusterId                          *string
-	groupByAttributes                  *[]*string
+	groupByAttributes                  *[]string
 	minLeafSpansToAggregate            *int32
 	maxParentDepth                     *int32
 	aggregationHistogramBucketsSeconds *[]float32
@@ -661,7 +661,7 @@ func (r TracesAPISummarizeTraceRequest) ClusterId(clusterId string) TracesAPISum
 }
 
 // Glob patterns of span attribute keys to use as additional grouping dimensions. Use this when spans should be summarized separately for matching attributes, such as &#x60;db.*&#x60;. Matches flattened dotted span attribute keys; omitted by default.
-func (r TracesAPISummarizeTraceRequest) GroupByAttributes(groupByAttributes []*string) TracesAPISummarizeTraceRequest {
+func (r TracesAPISummarizeTraceRequest) GroupByAttributes(groupByAttributes []string) TracesAPISummarizeTraceRequest {
 	r.groupByAttributes = &groupByAttributes
 	return r
 }

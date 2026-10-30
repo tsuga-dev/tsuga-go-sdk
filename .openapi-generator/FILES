@@ -302,6 +302,7 @@ docs/GetLogPatternsResponseDataPatternsInnerGroupsInner.md
 docs/GetMeResponse.md
 docs/GetMeResponseData.md
 docs/GetMetricResponse.md
+docs/GetMetricResponseData.md
 docs/GetMetricRouteResponse.md
 docs/GetMonitorFolderResponse.md
 docs/GetMonitorResponse.md
@@ -1270,6 +1271,7 @@ model_get_log_patterns_response_data_patterns_inner_groups_inner.go
 model_get_me_response.go
 model_get_me_response_data.go
 model_get_metric_response.go
+model_get_metric_response_data.go
 model_get_metric_route_response.go
 model_get_monitor_folder_response.go
 model_get_monitor_response.go

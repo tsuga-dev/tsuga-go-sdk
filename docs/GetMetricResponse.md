@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RequestId** | **string** | Identifier used to trace the lifecycle of this API request | 
-**Data** | [**ListMetricsResponseDataInner**](ListMetricsResponseDataInner.md) |  | 
+**Data** | [**GetMetricResponseData**](GetMetricResponseData.md) |  | 
 
 ## Methods
 
 ### NewGetMetricResponse
 
-`func NewGetMetricResponse(requestId string, data ListMetricsResponseDataInner, ) *GetMetricResponse`
+`func NewGetMetricResponse(requestId string, data GetMetricResponseData, ) *GetMetricResponse`
 
 NewGetMetricResponse instantiates a new GetMetricResponse object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetRequestId sets RequestId field to given value.
 
 ### GetData
 
-`func (o *GetMetricResponse) GetData() ListMetricsResponseDataInner`
+`func (o *GetMetricResponse) GetData() GetMetricResponseData`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *GetMetricResponse) GetDataOk() (*ListMetricsResponseDataInner, bool)`
+`func (o *GetMetricResponse) GetDataOk() (*GetMetricResponseData, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *GetMetricResponse) SetData(v ListMetricsResponseDataInner)`
+`func (o *GetMetricResponse) SetData(v GetMetricResponseData)`
 
 SetData sets Data field to given value.
 

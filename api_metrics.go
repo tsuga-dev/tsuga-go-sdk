@@ -38,7 +38,7 @@ type MetricsAPI interface {
 	/*
 		ListMetrics Method for ListMetrics
 
-		Lists metric names with metadata such as type, unit, temporality, capabilities, and attributes. Use this to discover metric names before querying or graphing them. Results are sorted by name and paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`. This reads a cluster-wide catalog of names rather than the window: `from` and `to` are required but do not scope the result, and a name stays listed after the metric stops reporting. To find out whether a metric has data in a window, run a `count` aggregation over it. See [Metrics](/documentation/explore/metrics/index).
+		Lists metric names with metadata such as type, unit, temporality, and capabilities. Use this to discover metric names before querying or graphing them, then get one metric for its attributes. Results are sorted by name and paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`. This reads a cluster-wide catalog of names rather than the window: `from` and `to` are required but do not scope the result, and a name stays listed after the metric stops reporting. To find out whether a metric has data in a window, run a `count` aggregation over it. See [Metrics](/documentation/explore/metrics/index).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return MetricsAPIListMetricsRequest
@@ -282,7 +282,7 @@ func (r MetricsAPIListMetricsRequest) Execute() (*ListMetricsResponse, *http.Res
 /*
 ListMetrics Method for ListMetrics
 
-Lists metric names with metadata such as type, unit, temporality, capabilities, and attributes. Use this to discover metric names before querying or graphing them. Results are sorted by name and paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`. This reads a cluster-wide catalog of names rather than the window: `from` and `to` are required but do not scope the result, and a name stays listed after the metric stops reporting. To find out whether a metric has data in a window, run a `count` aggregation over it. See [Metrics](/documentation/explore/metrics/index).
+Lists metric names with metadata such as type, unit, temporality, and capabilities. Use this to discover metric names before querying or graphing them, then get one metric for its attributes. Results are sorted by name and paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`. This reads a cluster-wide catalog of names rather than the window: `from` and `to` are required but do not scope the result, and a name stays listed after the metric stops reporting. To find out whether a metric has data in a window, run a `count` aggregation over it. See [Metrics](/documentation/explore/metrics/index).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MetricsAPIListMetricsRequest
