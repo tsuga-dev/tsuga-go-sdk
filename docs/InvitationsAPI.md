@@ -30,7 +30,7 @@ import (
 )
 
 func main() {
-	inviteUsersRequestInner := []openapiclient.InviteUsersRequestInner{openapiclient.inviteUsers_request_inner{InviteUsersRequestInnerOneOf: openapiclient.NewInviteUsersRequestInnerOneOf("Email_example", "TeamId_example", "TeamRole_example", "UserRole_example")}} // []InviteUsersRequestInner | Invitations to create. Up to 10 invitations are accepted per request.
+	inviteUsersRequestInner := []openapiclient.InviteUsersRequestInner{openapiclient.inviteUsers_request_inner{InviteUsersRequestInnerOneOf: openapiclient.NewInviteUsersRequestInnerOneOf("Email_example", "TeamId_example", "TeamRole_example", "UserRole_example")}} // []InviteUsersRequestInner | Invitations to create.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -55,7 +55,7 @@ Other parameters are passed through a pointer to a apiInviteUsersRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inviteUsersRequestInner** | [**[]InviteUsersRequestInner**](InviteUsersRequestInner.md) | Invitations to create. Up to 10 invitations are accepted per request. | 
+ **inviteUsersRequestInner** | [**[]InviteUsersRequestInner**](InviteUsersRequestInner.md) | Invitations to create. | 
 
 ### Return type
 

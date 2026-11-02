@@ -23,7 +23,7 @@ type MetricsAPI interface {
 	/*
 		GetMetric Method for GetMetric
 
-		Retrieves metadata for one metric name. Use this to inspect available dimensions and supported query behavior for a metric. Like the list endpoint, this answers from a cluster-wide catalog rather than the window: `from` and `to` are required but do not scope the result. See [Metric details](/documentation/explore/metrics/metric-details).
+		Retrieves metadata for one metric name. Use this to inspect available dimensions, supported query behavior, and the estimated series and per-attribute cardinalities for a metric. The cardinalities are the periodically refreshed estimates shown in Metric details, not counts over the window. Like the list endpoint, this answers from a cluster-wide catalog rather than the window: `from` and `to` are required but do not scope the result. See [Metric details](/documentation/explore/metrics/metric-details).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param name Metric name to retrieve, for example `http.server.request.duration`.
@@ -36,9 +36,23 @@ type MetricsAPI interface {
 	GetMetricExecute(r MetricsAPIGetMetricRequest) (*GetMetricResponse, *http.Response, error)
 
 	/*
+		GetMetricAssetsUsage Method for GetMetricAssetsUsage
+
+		Lists the dashboards and monitors whose queries reference a metric. Use this before renaming or dropping a metric. An empty result does not prove the metric is unused: PromQL widgets, SLOs and assets you cannot read are not covered. It tells which assets use the metric, not how: read the aggregation from the dashboard or monitor itself. See [How to find which assets use a metric](/documentation/explore/guides/how-to-find-which-assets-use-a-metric).
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return MetricsAPIGetMetricAssetsUsageRequest
+	*/
+	GetMetricAssetsUsage(ctx context.Context) MetricsAPIGetMetricAssetsUsageRequest
+
+	// GetMetricAssetsUsageExecute executes the request
+	//  @return GetMetricAssetsUsageResponse
+	GetMetricAssetsUsageExecute(r MetricsAPIGetMetricAssetsUsageRequest) (*GetMetricAssetsUsageResponse, *http.Response, error)
+
+	/*
 		ListMetrics Method for ListMetrics
 
-		Lists metric names with metadata such as type, unit, temporality, and capabilities. Use this to discover metric names before querying or graphing them, then get one metric for its attributes. Results are sorted by name and paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`. This reads a cluster-wide catalog of names rather than the window: `from` and `to` are required but do not scope the result, and a name stays listed after the metric stops reporting. To find out whether a metric has data in a window, run a `count` aggregation over it. See [Metrics](/documentation/explore/metrics/index).
+		Lists metric names with metadata such as type, unit, temporality, capabilities, and estimated series cardinality. Use this to discover metric names before querying or graphing them, then get one metric for its attributes and their cardinalities. Results are sorted by name and paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`. This reads a cluster-wide catalog of names rather than the window: `from` and `to` are required but do not scope the result, and a name stays listed after the metric stops reporting. To find out whether a metric has data in a window, run a `count` aggregation over it. See [Metrics](/documentation/explore/metrics/index).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return MetricsAPIListMetricsRequest
@@ -87,7 +101,7 @@ func (r MetricsAPIGetMetricRequest) Execute() (*GetMetricResponse, *http.Respons
 /*
 GetMetric Method for GetMetric
 
-Retrieves metadata for one metric name. Use this to inspect available dimensions and supported query behavior for a metric. Like the list endpoint, this answers from a cluster-wide catalog rather than the window: `from` and `to` are required but do not scope the result. See [Metric details](/documentation/explore/metrics/metric-details).
+Retrieves metadata for one metric name. Use this to inspect available dimensions, supported query behavior, and the estimated series and per-attribute cardinalities for a metric. The cardinalities are the periodically refreshed estimates shown in Metric details, not counts over the window. Like the list endpoint, this answers from a cluster-wide catalog rather than the window: `from` and `to` are required but do not scope the result. See [Metric details](/documentation/explore/metrics/metric-details).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Metric name to retrieve, for example `http.server.request.duration`.
@@ -228,6 +242,144 @@ func (a *MetricsAPIService) GetMetricExecute(r MetricsAPIGetMetricRequest) (*Get
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type MetricsAPIGetMetricAssetsUsageRequest struct {
+	ctx        context.Context
+	ApiService MetricsAPI
+	metricName *string
+}
+
+// Metric name to look up, for example &#x60;http.server.request.duration&#x60;.
+func (r MetricsAPIGetMetricAssetsUsageRequest) MetricName(metricName string) MetricsAPIGetMetricAssetsUsageRequest {
+	r.metricName = &metricName
+	return r
+}
+
+func (r MetricsAPIGetMetricAssetsUsageRequest) Execute() (*GetMetricAssetsUsageResponse, *http.Response, error) {
+	return r.ApiService.GetMetricAssetsUsageExecute(r)
+}
+
+/*
+GetMetricAssetsUsage Method for GetMetricAssetsUsage
+
+Lists the dashboards and monitors whose queries reference a metric. Use this before renaming or dropping a metric. An empty result does not prove the metric is unused: PromQL widgets, SLOs and assets you cannot read are not covered. It tells which assets use the metric, not how: read the aggregation from the dashboard or monitor itself. See [How to find which assets use a metric](/documentation/explore/guides/how-to-find-which-assets-use-a-metric).
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MetricsAPIGetMetricAssetsUsageRequest
+*/
+func (a *MetricsAPIService) GetMetricAssetsUsage(ctx context.Context) MetricsAPIGetMetricAssetsUsageRequest {
+	return MetricsAPIGetMetricAssetsUsageRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GetMetricAssetsUsageResponse
+func (a *MetricsAPIService) GetMetricAssetsUsageExecute(r MetricsAPIGetMetricAssetsUsageRequest) (*GetMetricAssetsUsageResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetMetricAssetsUsageResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MetricsAPIService.GetMetricAssetsUsage")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/metrics/assets-usage"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.metricName == nil {
+		return localVarReturnValue, nil, reportError("metricName is required and must be specified")
+	}
+	if strlen(*r.metricName) < 1 {
+		return localVarReturnValue, nil, reportError("metricName must have at least 1 elements")
+	}
+	if strlen(*r.metricName) > 250 {
+		return localVarReturnValue, nil, reportError("metricName must have less than 250 elements")
+	}
+
+	parameterAddToHeaderOrQuery(localVarQueryParams, "metricName", r.metricName, "form", "")
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
+			var v ClientErrorEnvelope
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode >= 500 {
+			var v ServerErrorEnvelope
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type MetricsAPIListMetricsRequest struct {
 	ctx        context.Context
 	ApiService MetricsAPI
@@ -282,7 +434,7 @@ func (r MetricsAPIListMetricsRequest) Execute() (*ListMetricsResponse, *http.Res
 /*
 ListMetrics Method for ListMetrics
 
-Lists metric names with metadata such as type, unit, temporality, and capabilities. Use this to discover metric names before querying or graphing them, then get one metric for its attributes. Results are sorted by name and paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`. This reads a cluster-wide catalog of names rather than the window: `from` and `to` are required but do not scope the result, and a name stays listed after the metric stops reporting. To find out whether a metric has data in a window, run a `count` aggregation over it. See [Metrics](/documentation/explore/metrics/index).
+Lists metric names with metadata such as type, unit, temporality, capabilities, and estimated series cardinality. Use this to discover metric names before querying or graphing them, then get one metric for its attributes and their cardinalities. Results are sorted by name and paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`. This reads a cluster-wide catalog of names rather than the window: `from` and `to` are required but do not scope the result, and a name stays listed after the metric stops reporting. To find out whether a metric has data in a window, run a `count` aggregation over it. See [Metrics](/documentation/explore/metrics/index).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MetricsAPIListMetricsRequest

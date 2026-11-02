@@ -20,28 +20,32 @@ var _ MappedNullable = &SearchSpansResponseDataSpansInner{}
 // SearchSpansResponseDataSpansInner Distributed tracing span including timing, identifiers, OpenTelemetry attributes, events, and status metadata.
 type SearchSpansResponseDataSpansInner struct {
 	Context *SearchSpansResponseDataSpansInnerContext `json:"context,omitempty"`
-	// `spanId` of this span's parent within the same trace. Absent for the root span.
-	ParentSpanId *string `json:"parentSpanId,omitempty"`
+	// `span_id` of this span's parent within the same trace. Empty or absent for a root span.
+	ParentSpanId *string `json:"parent_span_id,omitempty"`
 	// OpenTelemetry resource attributes describing the process/host that emitted the span (e.g. `host.name`, `k8s.pod.name`), as a flat key-value map set by the instrumented service or its SDK.
-	ResourceAttributes map[string]interface{} `json:"resourceAttributes"`
+	ResourceAttributes map[string]interface{} `json:"resource_attributes"`
 	// OpenTelemetry span attributes describing this operation (e.g. HTTP method, DB statement), as a flat key-value map set by the instrumented code or auto-instrumentation.
-	SpanAttributes map[string]interface{} `json:"spanAttributes"`
-	// Span duration in milliseconds, derived from the nanosecond `startTime` and `endTime` values.
+	SpanAttributes map[string]interface{} `json:"span_attributes"`
+	// Span duration in milliseconds, derived from the nanosecond `start_time` and `end_time` values.
 	Duration float32 `json:"duration"`
+	// Span duration in nanoseconds, encoded as a string to preserve precision.
+	DurationNs string `json:"duration_ns"`
 	// Span start time as a Unix epoch timestamp in nanoseconds, encoded as a string to preserve precision.
-	StartTime string `json:"startTime"`
+	StartTime string `json:"start_time"`
 	// Span end time as a Unix epoch timestamp in nanoseconds, encoded as a string to preserve precision.
-	EndTime string                                  `json:"endTime"`
+	EndTime string                                  `json:"end_time"`
 	Error   *SearchSpansResponseDataSpansInnerError `json:"error,omitempty"`
 	// Events recorded on the span.
 	Events []SearchSpansResponseDataSpansInnerEventsInner `json:"events,omitempty"`
+	// OpenTelemetry span links to related spans, possibly in other traces.
+	Links []map[string]interface{} `json:"links,omitempty"`
 	// Unique span ID within the trace.
-	SpanId string                                `json:"spanId"`
+	SpanId string                                `json:"span_id"`
 	Span   SearchSpansResponseDataSpansInnerSpan `json:"span"`
 	// OpenTelemetry span status set by the instrumented code: `unset` (default, no explicit status), `ok`, or `error`. Absent if the source span never set a status.
-	StatusCode *string `json:"statusCode,omitempty"`
+	StatusCode *string `json:"status_code,omitempty"`
 	// Trace ID shared by all spans in the trace.
-	TraceId              string `json:"traceId"`
+	TraceId              string `json:"trace_id"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -51,11 +55,12 @@ type _SearchSpansResponseDataSpansInner SearchSpansResponseDataSpansInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSearchSpansResponseDataSpansInner(resourceAttributes map[string]interface{}, spanAttributes map[string]interface{}, duration float32, startTime string, endTime string, spanId string, span SearchSpansResponseDataSpansInnerSpan, traceId string) *SearchSpansResponseDataSpansInner {
+func NewSearchSpansResponseDataSpansInner(resourceAttributes map[string]interface{}, spanAttributes map[string]interface{}, duration float32, durationNs string, startTime string, endTime string, spanId string, span SearchSpansResponseDataSpansInnerSpan, traceId string) *SearchSpansResponseDataSpansInner {
 	this := SearchSpansResponseDataSpansInner{}
 	this.ResourceAttributes = resourceAttributes
 	this.SpanAttributes = spanAttributes
 	this.Duration = duration
+	this.DurationNs = durationNs
 	this.StartTime = startTime
 	this.EndTime = endTime
 	this.SpanId = spanId
@@ -208,6 +213,30 @@ func (o *SearchSpansResponseDataSpansInner) SetDuration(v float32) {
 	o.Duration = v
 }
 
+// GetDurationNs returns the DurationNs field value
+func (o *SearchSpansResponseDataSpansInner) GetDurationNs() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.DurationNs
+}
+
+// GetDurationNsOk returns a tuple with the DurationNs field value
+// and a boolean to check if the value has been set.
+func (o *SearchSpansResponseDataSpansInner) GetDurationNsOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.DurationNs, true
+}
+
+// SetDurationNs sets field value
+func (o *SearchSpansResponseDataSpansInner) SetDurationNs(v string) {
+	o.DurationNs = v
+}
+
 // GetStartTime returns the StartTime field value
 func (o *SearchSpansResponseDataSpansInner) GetStartTime() string {
 	if o == nil {
@@ -318,6 +347,38 @@ func (o *SearchSpansResponseDataSpansInner) HasEvents() bool {
 // SetEvents gets a reference to the given []SearchSpansResponseDataSpansInnerEventsInner and assigns it to the Events field.
 func (o *SearchSpansResponseDataSpansInner) SetEvents(v []SearchSpansResponseDataSpansInnerEventsInner) {
 	o.Events = v
+}
+
+// GetLinks returns the Links field value if set, zero value otherwise.
+func (o *SearchSpansResponseDataSpansInner) GetLinks() []map[string]interface{} {
+	if o == nil || IsNil(o.Links) {
+		var ret []map[string]interface{}
+		return ret
+	}
+	return o.Links
+}
+
+// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchSpansResponseDataSpansInner) GetLinksOk() ([]map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Links) {
+		return nil, false
+	}
+	return o.Links, true
+}
+
+// HasLinks returns a boolean if a field has been set.
+func (o *SearchSpansResponseDataSpansInner) HasLinks() bool {
+	if o != nil && !IsNil(o.Links) {
+		return true
+	}
+
+	return false
+}
+
+// SetLinks gets a reference to the given []map[string]interface{} and assigns it to the Links field.
+func (o *SearchSpansResponseDataSpansInner) SetLinks(v []map[string]interface{}) {
+	o.Links = v
 }
 
 // GetSpanId returns the SpanId field value
@@ -438,25 +499,29 @@ func (o SearchSpansResponseDataSpansInner) ToMap() (map[string]interface{}, erro
 		toSerialize["context"] = o.Context
 	}
 	if !IsNil(o.ParentSpanId) {
-		toSerialize["parentSpanId"] = o.ParentSpanId
+		toSerialize["parent_span_id"] = o.ParentSpanId
 	}
-	toSerialize["resourceAttributes"] = o.ResourceAttributes
-	toSerialize["spanAttributes"] = o.SpanAttributes
+	toSerialize["resource_attributes"] = o.ResourceAttributes
+	toSerialize["span_attributes"] = o.SpanAttributes
 	toSerialize["duration"] = o.Duration
-	toSerialize["startTime"] = o.StartTime
-	toSerialize["endTime"] = o.EndTime
+	toSerialize["duration_ns"] = o.DurationNs
+	toSerialize["start_time"] = o.StartTime
+	toSerialize["end_time"] = o.EndTime
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
 	if !IsNil(o.Events) {
 		toSerialize["events"] = o.Events
 	}
-	toSerialize["spanId"] = o.SpanId
+	if !IsNil(o.Links) {
+		toSerialize["links"] = o.Links
+	}
+	toSerialize["span_id"] = o.SpanId
 	toSerialize["span"] = o.Span
 	if !IsNil(o.StatusCode) {
-		toSerialize["statusCode"] = o.StatusCode
+		toSerialize["status_code"] = o.StatusCode
 	}
-	toSerialize["traceId"] = o.TraceId
+	toSerialize["trace_id"] = o.TraceId
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -470,14 +535,15 @@ func (o *SearchSpansResponseDataSpansInner) UnmarshalJSON(data []byte) (err erro
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"resourceAttributes",
-		"spanAttributes",
+		"resource_attributes",
+		"span_attributes",
 		"duration",
-		"startTime",
-		"endTime",
-		"spanId",
+		"duration_ns",
+		"start_time",
+		"end_time",
+		"span_id",
 		"span",
-		"traceId",
+		"trace_id",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -508,18 +574,20 @@ func (o *SearchSpansResponseDataSpansInner) UnmarshalJSON(data []byte) (err erro
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "context")
-		delete(additionalProperties, "parentSpanId")
-		delete(additionalProperties, "resourceAttributes")
-		delete(additionalProperties, "spanAttributes")
+		delete(additionalProperties, "parent_span_id")
+		delete(additionalProperties, "resource_attributes")
+		delete(additionalProperties, "span_attributes")
 		delete(additionalProperties, "duration")
-		delete(additionalProperties, "startTime")
-		delete(additionalProperties, "endTime")
+		delete(additionalProperties, "duration_ns")
+		delete(additionalProperties, "start_time")
+		delete(additionalProperties, "end_time")
 		delete(additionalProperties, "error")
 		delete(additionalProperties, "events")
-		delete(additionalProperties, "spanId")
+		delete(additionalProperties, "links")
+		delete(additionalProperties, "span_id")
 		delete(additionalProperties, "span")
-		delete(additionalProperties, "statusCode")
-		delete(additionalProperties, "traceId")
+		delete(additionalProperties, "status_code")
+		delete(additionalProperties, "trace_id")
 		o.AdditionalProperties = additionalProperties
 	}
 

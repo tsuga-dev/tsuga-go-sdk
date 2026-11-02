@@ -22,7 +22,7 @@ type DocsAPI interface {
 	/*
 		GetDocPage Method for GetDocPage
 
-		Retrieve the raw markdown content of a documentation or API-reference page by its path. Documentation pages use slug paths (e.g. `getting-started/send-your-first-logs`); API-reference pages use `api/<operationId>` (e.g. `api/aggregateScalar`).
+		Retrieve the raw markdown content of a documentation or API-reference page by its path or link. Documentation pages use slug paths (e.g. `getting-started/send-your-first-logs`); API-reference pages use `api/<operationId>` (e.g. `api/aggregateScalar`).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return DocsAPIGetDocPageRequest
@@ -57,7 +57,7 @@ type DocsAPIGetDocPageRequest struct {
 	path       *string
 }
 
-// Documentation path to fetch. Use page slug paths for docs or &#x60;api/&lt;operationId&gt;&#x60; for API-reference pages.
+// Page to fetch: a doc slug path, &#x60;api/&lt;operationId&gt;&#x60;, or a docs link with or without its host. A &#x60;/documentation/&lt;path&gt;&#x60; link returns the whole page, ignoring &#x60;?tab&#x3D;&#x60; and &#x60;#anchor&#x60;; an API-reference link &#x60;/documentation/api#tag/&lt;tag&gt;/&lt;METHOD&gt;&lt;path&gt;&#x60; returns that operation&#39;s page.
 func (r DocsAPIGetDocPageRequest) Path(path string) DocsAPIGetDocPageRequest {
 	r.path = &path
 	return r
@@ -70,7 +70,7 @@ func (r DocsAPIGetDocPageRequest) Execute() (*GetDocPageResponse, *http.Response
 /*
 GetDocPage Method for GetDocPage
 
-Retrieve the raw markdown content of a documentation or API-reference page by its path. Documentation pages use slug paths (e.g. `getting-started/send-your-first-logs`); API-reference pages use `api/<operationId>` (e.g. `api/aggregateScalar`).
+Retrieve the raw markdown content of a documentation or API-reference page by its path or link. Documentation pages use slug paths (e.g. `getting-started/send-your-first-logs`); API-reference pages use `api/<operationId>` (e.g. `api/aggregateScalar`).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DocsAPIGetDocPageRequest

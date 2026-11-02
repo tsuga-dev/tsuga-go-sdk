@@ -23,7 +23,7 @@ type GetTraceLatencySummaryResponseDataServiceTotalsInner struct {
 	ServiceKey string `json:"serviceKey"`
 	// Total wall-clock contribution of this service across the trace, in nanoseconds. Sum of `weight * durationNs` over every range the service contributes to; authoritative when it disagrees with rounded per-range values. Transmitted as a string to avoid losing precision.
 	DurationNs string `json:"durationNs"`
-	// Share of total trace duration attributed to this service, from `0` through `1`. Computed as `durationNs / totalDurationNs`; multiply by 100 for a percentage. Shares sum to less than `1` for two reasons: time where no span was running is credited to no service, and merging adjacent ranges truncates to the microsecond grid at each step, so the loss compounds with the number of ranges merged. A shortfall on a trace with no gap is that truncation; it is usually a few parts in 10,000, but a long run of very short adjacent ranges can make it large.
+	// Share of total trace duration attributed to this service, `durationNs / totalDurationNs`, from `0` through `1`. Shares sum to less than `1` because time where no span was running is credited to no service, and because of the merge truncation described on `ranges[].contributions[].weight`, which is the whole shortfall on a trace with no gap.
 	Share                float32 `json:"share"`
 	AdditionalProperties map[string]interface{}
 }

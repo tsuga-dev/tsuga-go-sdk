@@ -19,7 +19,7 @@ var _ MappedNullable = &FindContrastSetsResponseData{}
 
 // FindContrastSetsResponseData struct for FindContrastSetsResponseData
 type FindContrastSetsResponseData struct {
-	// One entry per attribute that separates the two groups, strongest first. Empty when nothing cleared the gates, which means the target and the baseline look alike on the attributes tested.
+	// One entry per attribute that separates the two groups, strongest first. An attribute with the same value strings as a stronger entry is left out, so two boolean attributes appear as one entry. Empty when nothing cleared the gates, which means the target and the baseline look alike on the attributes tested.
 	ContrastSets []ContrastSet `json:"contrastSets"`
 	// Number of spans matched by the target group filter over its time range. Not a sample: it is a plain count over the whole group.
 	TargetGroupCount float32 `json:"targetGroupCount"`

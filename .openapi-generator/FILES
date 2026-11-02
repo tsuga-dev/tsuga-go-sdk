@@ -301,6 +301,9 @@ docs/GetLogPatternsResponseDataPatternsInner.md
 docs/GetLogPatternsResponseDataPatternsInnerGroupsInner.md
 docs/GetMeResponse.md
 docs/GetMeResponseData.md
+docs/GetMetricAssetsUsageResponse.md
+docs/GetMetricAssetsUsageResponseData.md
+docs/GetMetricAssetsUsageResponseDataAssetsInner.md
 docs/GetMetricResponse.md
 docs/GetMetricResponseData.md
 docs/GetMetricRouteResponse.md
@@ -1270,6 +1273,9 @@ model_get_log_patterns_response_data_patterns_inner.go
 model_get_log_patterns_response_data_patterns_inner_groups_inner.go
 model_get_me_response.go
 model_get_me_response_data.go
+model_get_metric_assets_usage_response.go
+model_get_metric_assets_usage_response_data.go
+model_get_metric_assets_usage_response_data_assets_inner.go
 model_get_metric_response.go
 model_get_metric_response_data.go
 model_get_metric_route_response.go

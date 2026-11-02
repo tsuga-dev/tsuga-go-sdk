@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261030.13.0+9cd759b
+  version: 20261102.17.0+904b870
 servers:
 - url: https://api.tsuga.com
 security:
@@ -2335,8 +2335,9 @@ paths:
     post:
       description: "Creates a request to delete the events matching a query in a time\
         \ range. The cluster executes it 30 minutes after creation, leaving time to\
-        \ cancel it. Deleted events cannot be restored. Use `dryRun` to count the\
-        \ matching events first."
+        \ cancel it. Deleted events cannot be restored. When every event carrying\
+        \ an attribute is deleted, the attribute name is removed too, and attribute\
+        \ discovery stops listing it. Use `dryRun` to count the matching events first."
       operationId: createDataDeletionRequest
       requestBody:
         content:
@@ -3911,12 +3912,15 @@ paths:
   /v1/docs:
     get:
       description: Retrieve the raw markdown content of a documentation or API-reference
-        page by its path. Documentation pages use slug paths (e.g. `getting-started/send-your-first-logs`);
+        page by its path or link. Documentation pages use slug paths (e.g. `getting-started/send-your-first-logs`);
         API-reference pages use `api/<operationId>` (e.g. `api/aggregateScalar`).
       operationId: getDocPage
       parameters:
-      - description: Documentation path to fetch. Use page slug paths for docs or
-          `api/<operationId>` for API-reference pages.
+      - description: "Page to fetch: a doc slug path, `api/<operationId>`, or a docs\
+          \ link with or without its host. A `/documentation/<path>` link returns\
+          \ the whole page, ignoring `?tab=` and `#anchor`; an API-reference link\
+          \ `/documentation/api#tag/<tag>/<METHOD><path>` returns that operation's\
+          \ page."
         explode: true
         in: query
         name: path
@@ -4194,15 +4198,13 @@ paths:
               teamRole: viewer
               userRole: teams_only
             schema:
-              description: Invitations to create. Up to 10 invitations are accepted
-                per request.
+              description: Invitations to create.
               items:
                 $ref: "#/components/schemas/inviteUsers_request_inner"
               maxItems: 10
               type: array
               default: null
-        description: Invitations to create. Up to 10 invitations are accepted per
-          request.
+        description: Invitations to create.
         required: true
       responses:
         "200":
@@ -6648,17 +6650,87 @@ paths:
               style: simple
       tags:
       - logs
+  /v1/metrics/assets-usage:
+    get:
+      description: "Lists the dashboards and monitors whose queries reference a metric.\
+        \ Use this before renaming or dropping a metric. An empty result does not\
+        \ prove the metric is unused: PromQL widgets, SLOs and assets you cannot read\
+        \ are not covered. It tells which assets use the metric, not how: read the\
+        \ aggregation from the dashboard or monitor itself. See [How to find which\
+        \ assets use a metric](/documentation/explore/guides/how-to-find-which-assets-use-a-metric)."
+      operationId: getMetricAssetsUsage
+      parameters:
+      - description: "Metric name to look up, for example `http.server.request.duration`."
+        explode: true
+        in: query
+        name: metricName
+        required: true
+        schema:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetMetricAssetsUsageResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - metrics
   /v1/metrics:
     get:
       description: "Lists metric names with metadata such as type, unit, temporality,\
-        \ and capabilities. Use this to discover metric names before querying or graphing\
-        \ them, then get one metric for its attributes. Results are sorted by name\
-        \ and paged, 100 per page by default; when `totalCount` exceeds the page,\
-        \ narrow them with `search` or page through them with `limit` and `offset`.\
-        \ This reads a cluster-wide catalog of names rather than the window: `from`\
-        \ and `to` are required but do not scope the result, and a name stays listed\
-        \ after the metric stops reporting. To find out whether a metric has data\
-        \ in a window, run a `count` aggregation over it. See [Metrics](/documentation/explore/metrics/index)."
+        \ capabilities, and estimated series cardinality. Use this to discover metric\
+        \ names before querying or graphing them, then get one metric for its attributes\
+        \ and their cardinalities. Results are sorted by name and paged, 100 per page\
+        \ by default; when `totalCount` exceeds the page, narrow them with `search`\
+        \ or page through them with `limit` and `offset`. This reads a cluster-wide\
+        \ catalog of names rather than the window: `from` and `to` are required but\
+        \ do not scope the result, and a name stays listed after the metric stops\
+        \ reporting. To find out whether a metric has data in a window, run a `count`\
+        \ aggregation over it. See [Metrics](/documentation/explore/metrics/index)."
       operationId: listMetrics
       parameters:
       - description: "Unix timestamp in seconds. Required, but does not scope the\
@@ -6783,9 +6855,12 @@ paths:
   /v1/metrics/{name}:
     get:
       description: "Retrieves metadata for one metric name. Use this to inspect available\
-        \ dimensions and supported query behavior for a metric. Like the list endpoint,\
-        \ this answers from a cluster-wide catalog rather than the window: `from`\
-        \ and `to` are required but do not scope the result. See [Metric details](/documentation/explore/metrics/metric-details)."
+        \ dimensions, supported query behavior, and the estimated series and per-attribute\
+        \ cardinalities for a metric. The cardinalities are the periodically refreshed\
+        \ estimates shown in Metric details, not counts over the window. Like the\
+        \ list endpoint, this answers from a cluster-wide catalog rather than the\
+        \ window: `from` and `to` are required but do not scope the result. See [Metric\
+        \ details](/documentation/explore/metrics/metric-details)."
       operationId: getMetric
       parameters:
       - description: "Unix timestamp in seconds. Required, but does not scope the\
@@ -13081,7 +13156,7 @@ paths:
     get:
       description: "Summarizes a trace by aggregating groups of similar spans into\
         \ synthetic summary spans, producing a compact view of large traces. Summary\
-        \ spans are marked with `spanAttributes.aggregation.is_summary` and carry\
+        \ spans are marked with `span_attributes.aggregation.is_summary` and carry\
         \ span counts, duration statistics, and an optional latency histogram. See\
         \ [Traces](/documentation/explore/traces)."
       operationId: summarizeTrace
@@ -13110,7 +13185,7 @@ paths:
           minimum: 1456444800
           type: integer
         style: form
-      - description: "Trace ID to summarize. Use the `traceId` returned by span search,\
+      - description: "Trace ID to summarize. Use the `trace_id` returned by span search,\
           \ the trace details page, or your tracing instrumentation. Required; the\
           \ requested time range must include the trace."
         explode: true
@@ -13281,7 +13356,7 @@ paths:
           minimum: 1456444800
           type: integer
         style: form
-      - description: "Trace ID to summarize. Use the `traceId` returned by span search,\
+      - description: "Trace ID to summarize. Use the `trace_id` returned by span search,\
           \ the trace details page, or your tracing instrumentation. Required; the\
           \ requested time range must include the trace."
         explode: true
@@ -13380,10 +13455,7 @@ paths:
         \ it to answer \"what do these spans have in common that the others do not\"\
         : erroring spans against healthy ones for a service, slow spans against normal-latency\
         \ ones, or the same spans before and after a deployment. Each group carries\
-        \ its own time range, so a before/after comparison is one call. Each finding\
-        \ in `values` comes with its coverage in both groups and a p-value, plus a\
-        \ `lift` that is omitted when the value never appears in the baseline; `otherValues`\
-        \ carries coverage only, as context for reading the findings. See [Traces](/documentation/explore/traces)."
+        \ its own time range, so a before/after comparison is one call. See [Traces](/documentation/explore/traces)."
       operationId: findContrastSets
       parameters:
       - description: Telemetry cluster to target. Required when the organization has
@@ -18342,6 +18414,28 @@ components:
       required:
       - data
       - requestId
+    GetMetricAssetsUsageResponse:
+      example:
+        requestId: requestId
+        data:
+          assets:
+          - type: dashboard
+            id: id
+            name: name
+            owner: owner
+          - type: dashboard
+            id: id
+            name: name
+            owner: owner
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/GetMetricAssetsUsageResponse_data"
+      required:
+      - data
+      - requestId
     ListMetricsResponse:
       example:
         requestId: requestId
@@ -18354,6 +18448,7 @@ components:
           capabilities:
           - capabilities
           - capabilities
+          seriesCardinality: 0.8008281904610115
         - name: name
           type: counter
           description: description
@@ -18362,6 +18457,7 @@ components:
           capabilities:
           - capabilities
           - capabilities
+          seriesCardinality: 0.8008281904610115
         metadata:
           pagination:
             totalCount: 7
@@ -18395,6 +18491,9 @@ components:
           attributes:
           - attributes
           - attributes
+          seriesCardinality: 0.8008281904610115
+          attributeCardinalities:
+            key: 6.027456183070403
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -21005,13 +21104,12 @@ components:
             \ visible to the caller."
           type: integer
         evaluatedAt:
-          description: "ISO timestamp at which the rule evaluator produced this result.\
-            \ Set to the report generation time unless the evaluation failed during\
-            \ that generation; the row then carries the last successful result for\
-            \ the same rule and scope, and evaluatedAt is when that result was computed.\
-            \ Omitted when the rule has never been evaluated successfully for this\
-            \ scope, in which case status is ignored, and on rows stored before Tsuga\
-            \ recorded this timestamp."
+          description: "ISO timestamp at which the rule evaluator produced this result:\
+            \ the report generation time, or, when evaluation failed then, the time\
+            \ of the last successful result for the same rule and scope, which the\
+            \ row carries instead. Omitted when the rule never evaluated successfully\
+            \ for this scope (`status` is then ignored) and on rows stored before\
+            \ this field existed."
           type: string
         createdAt:
           description: ISO timestamp the row was generated at
@@ -23624,14 +23722,15 @@ components:
               service:
                 name: name
                 version: version
-            parentSpanId: parentSpanId
-            resourceAttributes:
+            parent_span_id: parent_span_id
+            resource_attributes:
               key: ""
-            spanAttributes:
+            span_attributes:
               key: ""
             duration: 0.8008281904610115
-            startTime: startTime
-            endTime: endTime
+            duration_ns: duration_ns
+            start_time: start_time
+            end_time: end_time
             error:
               message: message
             events:
@@ -23643,24 +23742,28 @@ components:
                 key: ""
               event_name: event_name
               event_timestamp_nanos: event_timestamp_nanos
-            spanId: spanId
+            links:
+            - key: ""
+            - key: ""
+            span_id: span_id
             span:
               kind: kind
               name: name
-            statusCode: statusCode
-            traceId: traceId
+            status_code: status_code
+            trace_id: trace_id
           - context:
               service:
                 name: name
                 version: version
-            parentSpanId: parentSpanId
-            resourceAttributes:
+            parent_span_id: parent_span_id
+            resource_attributes:
               key: ""
-            spanAttributes:
+            span_attributes:
               key: ""
             duration: 0.8008281904610115
-            startTime: startTime
-            endTime: endTime
+            duration_ns: duration_ns
+            start_time: start_time
+            end_time: end_time
             error:
               message: message
             events:
@@ -23672,12 +23775,15 @@ components:
                 key: ""
               event_name: event_name
               event_timestamp_nanos: event_timestamp_nanos
-            spanId: spanId
+            links:
+            - key: ""
+            - key: ""
+            span_id: span_id
             span:
               kind: kind
               name: name
-            statusCode: statusCode
-            traceId: traceId
+            status_code: status_code
+            trace_id: trace_id
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -23696,14 +23802,15 @@ components:
               service:
                 name: name
                 version: version
-            parentSpanId: parentSpanId
-            resourceAttributes:
+            parent_span_id: parent_span_id
+            resource_attributes:
               key: ""
-            spanAttributes:
+            span_attributes:
               key: ""
             duration: 0.8008281904610115
-            startTime: startTime
-            endTime: endTime
+            duration_ns: duration_ns
+            start_time: start_time
+            end_time: end_time
             error:
               message: message
             events:
@@ -23715,24 +23822,28 @@ components:
                 key: ""
               event_name: event_name
               event_timestamp_nanos: event_timestamp_nanos
-            spanId: spanId
+            links:
+            - key: ""
+            - key: ""
+            span_id: span_id
             span:
               kind: kind
               name: name
-            statusCode: statusCode
-            traceId: traceId
+            status_code: status_code
+            trace_id: trace_id
           - context:
               service:
                 name: name
                 version: version
-            parentSpanId: parentSpanId
-            resourceAttributes:
+            parent_span_id: parent_span_id
+            resource_attributes:
               key: ""
-            spanAttributes:
+            span_attributes:
               key: ""
             duration: 0.8008281904610115
-            startTime: startTime
-            endTime: endTime
+            duration_ns: duration_ns
+            start_time: start_time
+            end_time: end_time
             error:
               message: message
             events:
@@ -23744,12 +23855,15 @@ components:
                 key: ""
               event_name: event_name
               event_timestamp_nanos: event_timestamp_nanos
-            spanId: spanId
+            links:
+            - key: ""
+            - key: ""
+            span_id: span_id
             span:
               kind: kind
               name: name
-            statusCode: statusCode
-            traceId: traceId
+            status_code: status_code
+            trace_id: trace_id
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -24600,8 +24714,7 @@ components:
             \ 1."
           type: number
         groupByFields:
-          description: Monitor group by configuration. The `limit` setting is currently
-            ignored; evaluation applies a fixed limit of 100 groups per field.
+          description: Monitor group by configuration.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
           type: array
@@ -24621,20 +24734,18 @@ components:
           description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
           type: integer
         consecutiveWindows:
-          description: "Number of consecutive `timeframe`-minute windows that must\
-            \ all meet the conditions before the monitor alerts. 1 or omitted is the\
-            \ standard threshold behavior: one window ending at evaluation time. Above\
-            \ 1, each evaluation checks the last `consecutiveWindows` windows and\
-            \ alerts only when every one meets the conditions, per group for grouped\
-            \ monitors. A window that does not meet the conditions breaks the run.\
-            \ A window with no data, such as one where a query with `fill.mode.type`\
-            \ `null` returns nothing, breaks the run with `alert` or `resolve`, takes\
-            \ the result of the window before it with `keep_last_status`, and is compared\
-            \ as 0 with `consider_zero`. A query without `fill` counts an empty window\
-            \ as 0. When every window has no data (with `keep_last_status`, when the\
-            \ oldest window has none and no window breaks the run), the group follows\
-            \ `noDataBehavior` as a single window does. At most 10, and above 1, `consecutiveWindows`\
-            \ × `timeframe` must not exceed 4320 minutes (3 days)."
+          description: "Number of consecutive `timeframe`-minute windows, ending at\
+            \ evaluation time, that must all meet the conditions before the monitor\
+            \ alerts, per group for grouped monitors. 1 or omitted checks a single\
+            \ window. A window that does not meet the conditions breaks the run. An\
+            \ empty window, such as a query with `fill.mode.type` `null` returning\
+            \ nothing, breaks the run under `noDataBehavior` `alert` or `resolve`,\
+            \ takes the previous window's result under `keep_last_status`, and counts\
+            \ as 0 under `consider_zero`. A query without `fill` counts an empty window\
+            \ as 0. When every window is empty (with `keep_last_status`, when the\
+            \ oldest is empty and none breaks the run), `noDataBehavior` applies as\
+            \ for a single window. Above 1, `consecutiveWindows` × `timeframe` must\
+            \ not exceed 4320 minutes (3 days)."
           type: integer
         queries:
           description: "Aggregation queries used by alerting and SLO evaluation. Each\
@@ -24682,8 +24793,7 @@ components:
             \ 1."
           type: number
         groupByFields:
-          description: Monitor group by configuration. The `limit` setting is currently
-            ignored; evaluation applies a fixed limit of 100 groups per field.
+          description: Monitor group by configuration.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
           type: array
@@ -24703,20 +24813,18 @@ components:
           description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
           type: integer
         consecutiveWindows:
-          description: "Number of consecutive `timeframe`-minute windows that must\
-            \ all meet the conditions before the monitor alerts. 1 or omitted is the\
-            \ standard threshold behavior: one window ending at evaluation time. Above\
-            \ 1, each evaluation checks the last `consecutiveWindows` windows and\
-            \ alerts only when every one meets the conditions, per group for grouped\
-            \ monitors. A window that does not meet the conditions breaks the run.\
-            \ A window with no data, such as one where a query with `fill.mode.type`\
-            \ `null` returns nothing, breaks the run with `alert` or `resolve`, takes\
-            \ the result of the window before it with `keep_last_status`, and is compared\
-            \ as 0 with `consider_zero`. A query without `fill` counts an empty window\
-            \ as 0. When every window has no data (with `keep_last_status`, when the\
-            \ oldest window has none and no window breaks the run), the group follows\
-            \ `noDataBehavior` as a single window does. At most 10, and above 1, `consecutiveWindows`\
-            \ × `timeframe` must not exceed 4320 minutes (3 days)."
+          description: "Number of consecutive `timeframe`-minute windows, ending at\
+            \ evaluation time, that must all meet the conditions before the monitor\
+            \ alerts, per group for grouped monitors. 1 or omitted checks a single\
+            \ window. A window that does not meet the conditions breaks the run. An\
+            \ empty window, such as a query with `fill.mode.type` `null` returning\
+            \ nothing, breaks the run under `noDataBehavior` `alert` or `resolve`,\
+            \ takes the previous window's result under `keep_last_status`, and counts\
+            \ as 0 under `consider_zero`. A query without `fill` counts an empty window\
+            \ as 0. When every window is empty (with `keep_last_status`, when the\
+            \ oldest is empty and none breaks the run), `noDataBehavior` applies as\
+            \ for a single window. Above 1, `consecutiveWindows` × `timeframe` must\
+            \ not exceed 4320 minutes (3 days)."
           type: integer
         queries:
           description: "Aggregation queries used by alerting and SLO evaluation. Each\
@@ -24764,8 +24872,7 @@ components:
             \ 1."
           type: number
         groupByFields:
-          description: Monitor group by configuration. The `limit` setting is currently
-            ignored; evaluation applies a fixed limit of 100 groups per field.
+          description: Monitor group by configuration.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
           type: array
@@ -24785,20 +24892,18 @@ components:
           description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
           type: integer
         consecutiveWindows:
-          description: "Number of consecutive `timeframe`-minute windows that must\
-            \ all meet the conditions before the monitor alerts. 1 or omitted is the\
-            \ standard threshold behavior: one window ending at evaluation time. Above\
-            \ 1, each evaluation checks the last `consecutiveWindows` windows and\
-            \ alerts only when every one meets the conditions, per group for grouped\
-            \ monitors. A window that does not meet the conditions breaks the run.\
-            \ A window with no data, such as one where a query with `fill.mode.type`\
-            \ `null` returns nothing, breaks the run with `alert` or `resolve`, takes\
-            \ the result of the window before it with `keep_last_status`, and is compared\
-            \ as 0 with `consider_zero`. A query without `fill` counts an empty window\
-            \ as 0. When every window has no data (with `keep_last_status`, when the\
-            \ oldest window has none and no window breaks the run), the group follows\
-            \ `noDataBehavior` as a single window does. At most 10, and above 1, `consecutiveWindows`\
-            \ × `timeframe` must not exceed 4320 minutes (3 days)."
+          description: "Number of consecutive `timeframe`-minute windows, ending at\
+            \ evaluation time, that must all meet the conditions before the monitor\
+            \ alerts, per group for grouped monitors. 1 or omitted checks a single\
+            \ window. A window that does not meet the conditions breaks the run. An\
+            \ empty window, such as a query with `fill.mode.type` `null` returning\
+            \ nothing, breaks the run under `noDataBehavior` `alert` or `resolve`,\
+            \ takes the previous window's result under `keep_last_status`, and counts\
+            \ as 0 under `consider_zero`. A query without `fill` counts an empty window\
+            \ as 0. When every window is empty (with `keep_last_status`, when the\
+            \ oldest is empty and none breaks the run), `noDataBehavior` applies as\
+            \ for a single window. Above 1, `consecutiveWindows` × `timeframe` must\
+            \ not exceed 4320 minutes (3 days)."
           type: integer
         queries:
           description: "Aggregation queries used by alerting and SLO evaluation. Each\
@@ -24837,8 +24942,7 @@ components:
             \ aggregates over. Always a whole number from 5 through 1440."
           type: number
         groupByFields:
-          description: Monitor group by configuration. The `limit` setting is currently
-            ignored; evaluation applies a fixed limit of 100 groups per field.
+          description: Monitor group by configuration.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
           type: array
@@ -24894,8 +24998,7 @@ components:
             \ aggregates over. Always a whole number from 5 through 1440."
           type: number
         groupByFields:
-          description: Monitor group by configuration. The `limit` setting is currently
-            ignored; evaluation applies a fixed limit of 100 groups per field.
+          description: Monitor group by configuration.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
           type: array
@@ -25014,8 +25117,7 @@ components:
             \ aggregates over. Always a whole number from 5 through 1440."
           type: number
         groupByFields:
-          description: Monitor group by configuration. The `limit` setting is currently
-            ignored; evaluation applies a fixed limit of 100 groups per field.
+          description: Monitor group by configuration.
           items:
             $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
           type: array
@@ -25157,8 +25259,7 @@ components:
           minimum: 1
           type: integer
         groupByFields:
-          description: Monitor group by configuration. The `limit` setting is currently
-            ignored; evaluation applies a fixed limit of 100 groups per field.
+          description: Monitor group by configuration.
           items:
             $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
           maxItems: 1
@@ -25186,20 +25287,18 @@ components:
           minimum: 1
           type: integer
         consecutiveWindows:
-          description: "Number of consecutive `timeframe`-minute windows that must\
-            \ all meet the conditions before the monitor alerts. 1 or omitted is the\
-            \ standard threshold behavior: one window ending at evaluation time. Above\
-            \ 1, each evaluation checks the last `consecutiveWindows` windows and\
-            \ alerts only when every one meets the conditions, per group for grouped\
-            \ monitors. A window that does not meet the conditions breaks the run.\
-            \ A window with no data, such as one where a query with `fill.mode.type`\
-            \ `null` returns nothing, breaks the run with `alert` or `resolve`, takes\
-            \ the result of the window before it with `keep_last_status`, and is compared\
-            \ as 0 with `consider_zero`. A query without `fill` counts an empty window\
-            \ as 0. When every window has no data (with `keep_last_status`, when the\
-            \ oldest window has none and no window breaks the run), the group follows\
-            \ `noDataBehavior` as a single window does. At most 10, and above 1, `consecutiveWindows`\
-            \ × `timeframe` must not exceed 4320 minutes (3 days)."
+          description: "Number of consecutive `timeframe`-minute windows, ending at\
+            \ evaluation time, that must all meet the conditions before the monitor\
+            \ alerts, per group for grouped monitors. 1 or omitted checks a single\
+            \ window. A window that does not meet the conditions breaks the run. An\
+            \ empty window, such as a query with `fill.mode.type` `null` returning\
+            \ nothing, breaks the run under `noDataBehavior` `alert` or `resolve`,\
+            \ takes the previous window's result under `keep_last_status`, and counts\
+            \ as 0 under `consider_zero`. A query without `fill` counts an empty window\
+            \ as 0. When every window is empty (with `keep_last_status`, when the\
+            \ oldest is empty and none breaks the run), `noDataBehavior` applies as\
+            \ for a single window. Above 1, `consecutiveWindows` × `timeframe` must\
+            \ not exceed 4320 minutes (3 days)."
           maximum: 10
           minimum: 1
           type: integer
@@ -25253,8 +25352,7 @@ components:
           minimum: 1
           type: integer
         groupByFields:
-          description: Monitor group by configuration. The `limit` setting is currently
-            ignored; evaluation applies a fixed limit of 100 groups per field.
+          description: Monitor group by configuration.
           items:
             $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
           maxItems: 1
@@ -25282,20 +25380,18 @@ components:
           minimum: 1
           type: integer
         consecutiveWindows:
-          description: "Number of consecutive `timeframe`-minute windows that must\
-            \ all meet the conditions before the monitor alerts. 1 or omitted is the\
-            \ standard threshold behavior: one window ending at evaluation time. Above\
-            \ 1, each evaluation checks the last `consecutiveWindows` windows and\
-            \ alerts only when every one meets the conditions, per group for grouped\
-            \ monitors. A window that does not meet the conditions breaks the run.\
-            \ A window with no data, such as one where a query with `fill.mode.type`\
-            \ `null` returns nothing, breaks the run with `alert` or `resolve`, takes\
-            \ the result of the window before it with `keep_last_status`, and is compared\
-            \ as 0 with `consider_zero`. A query without `fill` counts an empty window\
-            \ as 0. When every window has no data (with `keep_last_status`, when the\
-            \ oldest window has none and no window breaks the run), the group follows\
-            \ `noDataBehavior` as a single window does. At most 10, and above 1, `consecutiveWindows`\
-            \ × `timeframe` must not exceed 4320 minutes (3 days)."
+          description: "Number of consecutive `timeframe`-minute windows, ending at\
+            \ evaluation time, that must all meet the conditions before the monitor\
+            \ alerts, per group for grouped monitors. 1 or omitted checks a single\
+            \ window. A window that does not meet the conditions breaks the run. An\
+            \ empty window, such as a query with `fill.mode.type` `null` returning\
+            \ nothing, breaks the run under `noDataBehavior` `alert` or `resolve`,\
+            \ takes the previous window's result under `keep_last_status`, and counts\
+            \ as 0 under `consider_zero`. A query without `fill` counts an empty window\
+            \ as 0. When every window is empty (with `keep_last_status`, when the\
+            \ oldest is empty and none breaks the run), `noDataBehavior` applies as\
+            \ for a single window. Above 1, `consecutiveWindows` × `timeframe` must\
+            \ not exceed 4320 minutes (3 days)."
           maximum: 10
           minimum: 1
           type: integer
@@ -25349,8 +25445,7 @@ components:
           minimum: 1
           type: integer
         groupByFields:
-          description: Monitor group by configuration. The `limit` setting is currently
-            ignored; evaluation applies a fixed limit of 100 groups per field.
+          description: Monitor group by configuration.
           items:
             $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
           maxItems: 1
@@ -25378,20 +25473,18 @@ components:
           minimum: 1
           type: integer
         consecutiveWindows:
-          description: "Number of consecutive `timeframe`-minute windows that must\
-            \ all meet the conditions before the monitor alerts. 1 or omitted is the\
-            \ standard threshold behavior: one window ending at evaluation time. Above\
-            \ 1, each evaluation checks the last `consecutiveWindows` windows and\
-            \ alerts only when every one meets the conditions, per group for grouped\
-            \ monitors. A window that does not meet the conditions breaks the run.\
-            \ A window with no data, such as one where a query with `fill.mode.type`\
-            \ `null` returns nothing, breaks the run with `alert` or `resolve`, takes\
-            \ the result of the window before it with `keep_last_status`, and is compared\
-            \ as 0 with `consider_zero`. A query without `fill` counts an empty window\
-            \ as 0. When every window has no data (with `keep_last_status`, when the\
-            \ oldest window has none and no window breaks the run), the group follows\
-            \ `noDataBehavior` as a single window does. At most 10, and above 1, `consecutiveWindows`\
-            \ × `timeframe` must not exceed 4320 minutes (3 days)."
+          description: "Number of consecutive `timeframe`-minute windows, ending at\
+            \ evaluation time, that must all meet the conditions before the monitor\
+            \ alerts, per group for grouped monitors. 1 or omitted checks a single\
+            \ window. A window that does not meet the conditions breaks the run. An\
+            \ empty window, such as a query with `fill.mode.type` `null` returning\
+            \ nothing, breaks the run under `noDataBehavior` `alert` or `resolve`,\
+            \ takes the previous window's result under `keep_last_status`, and counts\
+            \ as 0 under `consider_zero`. A query without `fill` counts an empty window\
+            \ as 0. When every window is empty (with `keep_last_status`, when the\
+            \ oldest is empty and none breaks the run), `noDataBehavior` applies as\
+            \ for a single window. Above 1, `consecutiveWindows` × `timeframe` must\
+            \ not exceed 4320 minutes (3 days)."
           maximum: 10
           minimum: 1
           type: integer
@@ -25436,8 +25529,7 @@ components:
           minimum: 5
           type: integer
         groupByFields:
-          description: Monitor group by configuration. The `limit` setting is currently
-            ignored; evaluation applies a fixed limit of 100 groups per field.
+          description: Monitor group by configuration.
           items:
             $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
           maxItems: 1
@@ -25505,8 +25597,7 @@ components:
           minimum: 5
           type: integer
         groupByFields:
-          description: Monitor group by configuration. The `limit` setting is currently
-            ignored; evaluation applies a fixed limit of 100 groups per field.
+          description: Monitor group by configuration.
           items:
             $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
           maxItems: 1
@@ -25576,8 +25667,7 @@ components:
           minimum: 5
           type: integer
         groupByFields:
-          description: Monitor group by configuration. The `limit` setting is currently
-            ignored; evaluation applies a fixed limit of 100 groups per field.
+          description: Monitor group by configuration.
           items:
             $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
           maxItems: 1
@@ -31177,6 +31267,9 @@ components:
       required:
       - type
       title: Aggregate
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: count, unique-count,\
+          \ average, max, min, sum, percentile"
     Function:
       description: "Post-processing function applied to an aggregation query result\
         \ after the aggregate is computed, selected by `type`."
@@ -31209,6 +31302,9 @@ components:
       required:
       - type
       title: Function
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: per-second, per-minute,\
+          \ per-hour, rate, increase, log, power, sqrt, last, time-offset, cumsum"
     MonitorAggregationQuery:
       description: Single aggregation query evaluated by a monitor or SLO.
       example:
@@ -31492,6 +31588,9 @@ components:
       required:
       - type
       title: Normalizer
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: duration, data, percent,\
+          \ percent-fraction, date, level, cpu, none, custom"
     TimeSliceSloConfiguration:
       properties:
         type:
@@ -31780,6 +31879,9 @@ components:
       required:
       - type
       title: InputAggregate
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: count, unique-count,\
+          \ average, max, min, sum, percentile"
     InputFunction:
       description: "Post-processing function applied to an aggregation query result\
         \ after the aggregate is computed, selected by `type`."
@@ -31812,6 +31914,9 @@ components:
       required:
       - type
       title: InputFunction
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: per-second, per-minute,\
+          \ per-hour, rate, increase, log, power, sqrt, last, time-offset, cumsum"
     InputMonitorAggregationQuery:
       description: Single aggregation query evaluated by a monitor.
       properties:
@@ -31932,6 +32037,9 @@ components:
       required:
       - type
       title: EventsOverlay
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: service-deployments,\
+          \ logs, ongoing-alerts"
     WidgetListColumn:
       description: List column pairing a displayed attribute with the formatting applied
         to its values.
@@ -32145,6 +32253,8 @@ components:
       required:
       - type
       title: SloWidgetOrganizeBy
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: team, key"
     InputThresholdMarker:
       description: "Marker line drawn across the chart at a fixed value, colored by\
         \ its level."
@@ -32190,6 +32300,9 @@ components:
       required:
       - type
       title: InputNormalizer
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: duration, data, percent,\
+          \ percent-fraction, date, level, cpu, none, custom"
     InputEventsOverlay:
       description: "Events displayed on top of the chart, over its time axis, so they\
         \ can be correlated with the plotted data. A widget carries at most one overlay,\
@@ -32207,6 +32320,9 @@ components:
       required:
       - type
       title: InputEventsOverlay
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: service-deployments,\
+          \ logs, ongoing-alerts"
     InputWidgetListColumn:
       description: List column pairing a displayed attribute with the formatting applied
         to its values.
@@ -32342,14 +32458,20 @@ components:
     InputAggregationGroupBy:
       properties:
         fields:
-          description: Telemetry attribute name to group aggregation results by. Currently
-            limited to one field per grouping level.
+          description: "Telemetry attribute name to group aggregation results by at\
+            \ this grouping level. To group by several attributes, send one `groupBy`\
+            \ entry per attribute: entries nest, outermost first."
           items:
             maxLength: 250
             minLength: 0
             type: string
           maxItems: 1
           type: array
+          errorMessage:
+            maxItems: "must hold one field. To group by several fields, send one groupBy\
+              \ entry per field: they nest, outermost first, such as [{\"fields\"\
+              : [\"context.service.name\"], \"limit\": 10}, {\"fields\": [\"level\"\
+              ], \"limit\": 5}]."
           default: null
         limit:
           description: "Maximum number of distinct values of `fields` to return for\
@@ -32485,6 +32607,8 @@ components:
       required:
       - type
       title: InputSloWidgetOrganizeBy
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: team, key"
     InputGraph:
       description: "Single dashboard widget, combining its identity, its visualization\
         \ configuration, and its position on the dashboard grid."
@@ -33078,8 +33202,7 @@ components:
         \ of fields or null."
       properties:
         name:
-          description: Kebab-case name for the ingestion API key. Maximum length is
-            100 characters.
+          description: Kebab-case name for the ingestion API key.
           format: kebab-case
           maxLength: 100
           minLength: 1
@@ -33099,7 +33222,7 @@ components:
           type: array
           default: null
         teamOverrideFields:
-          description: Array form. Up to 3 fields are allowed.
+          description: Array form.
           items:
             description: "Folder filter for dashboard query results. Optional; pass\
               \ a folder ID to return dashboards in that folder, or null to return\
@@ -33123,8 +33246,7 @@ components:
         \ including name, owner team, tags, and team override fields."
       properties:
         name:
-          description: Kebab-case name for the ingestion API key. Maximum length is
-            100 characters.
+          description: Kebab-case name for the ingestion API key.
           format: kebab-case
           maxLength: 100
           minLength: 1
@@ -33144,7 +33266,7 @@ components:
           type: array
           default: null
         teamOverrideFields:
-          description: Array form. Up to 3 fields are allowed.
+          description: Array form.
           items:
             maxLength: 250
             minLength: 1
@@ -33534,8 +33656,7 @@ components:
         \ fields as an array of fields or null."
       properties:
         name:
-          description: Kebab-case name for the RUM public token. Maximum length is
-            100 characters.
+          description: Kebab-case name for the RUM public token.
           format: kebab-case
           maxLength: 100
           minLength: 1
@@ -33574,7 +33695,7 @@ components:
           type: array
           default: null
         teamOverrideFields:
-          description: Array form. Up to 3 fields are allowed.
+          description: Array form.
           items:
             maxLength: 250
             minLength: 1
@@ -33598,8 +33719,7 @@ components:
         \ token and the token value itself never changes."
       properties:
         name:
-          description: Kebab-case name for the RUM public token. Maximum length is
-            100 characters.
+          description: Kebab-case name for the RUM public token.
           format: kebab-case
           maxLength: 100
           minLength: 1
@@ -33638,7 +33758,7 @@ components:
           type: array
           default: null
         teamOverrideFields:
-          description: Array form. Up to 3 fields are allowed.
+          description: Array form.
           items:
             maxLength: 250
             minLength: 1
@@ -33728,6 +33848,9 @@ components:
       - $ref: "#/components/schemas/createCustomRole_request_teamScope_oneOf_3"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: all, public, specific,\
+          \ all-except"
     createCustomRole_request_assets:
       description: "Access level granted per resource type, within the role team scope.\
         \ An omitted resource type grants no access."
@@ -34131,6 +34254,9 @@ components:
       - $ref: "#/components/schemas/createCustomRole_request_teamScope_oneOf_3"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: all, public, specific,\
+          \ all-except"
     updateCustomRole_request:
       description: "Custom role create or update request. Provide the role name, optional\
         \ description, team scope, resource type grants, readable telemetry signals,\
@@ -34412,7 +34538,6 @@ components:
           default: null
         filters:
           description: Dashboard-wide filters applied to every widget on the dashboard.
-            Up to 10 filters are allowed.
           items:
             $ref: "#/components/schemas/updateDashboard_request_filters_inner"
           maxItems: 10
@@ -34488,7 +34613,6 @@ components:
           default: null
         filters:
           description: Dashboard-wide filters applied to every widget on the dashboard.
-            Up to 10 filters are allowed.
           items:
             $ref: "#/components/schemas/updateDashboard_request_filters_inner"
           maxItems: 10
@@ -34616,6 +34740,14 @@ components:
       - $ref: "#/components/schemas/InputGraphVisualizationSlo"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: timeseries-connection,\
+          \ list-connection, top-list-connection, pie-connection, bar-connection,\
+          \ query-value-connection, timeseries-promql, query-value-promql, gauge-promql,\
+          \ top-list-promql, pie-promql, bar-promql, distribution-promql, heatmap-promql,\
+          \ timeseries, top-list, pie, query-value, gauge, bar, distribution, heatmap,\
+          \ table, list, note, list-log-patterns, list-spans, list-rum, slo-uptime,\
+          \ slo-over-time, slo"
     updateDashboardGraph_request_layout:
       description: "Grid position and size of the widget. Optional; when provided,\
         \ the size must be at least 2×2 (width×height) grid units, except note widgets\
@@ -35172,6 +35304,9 @@ components:
       - $ref: "#/components/schemas/inviteUsers_request_inner_oneOf_1"
       required:
       - userRole
+      errorMessage:
+        discriminator: "value of tag \"userRole\" must be one of: admin, public_editor,\
+          \ public_viewer, teams_only, custom"
     queryInvitations_request_filters_searchQuery:
       description: "Substring matched against the invitation email, team name, or\
         \ status"
@@ -35540,6 +35675,8 @@ components:
       - $ref: "#/components/schemas/AzureConnectionSettings"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: aws, gcp, azure"
     createCloudAccount_request:
       properties:
         cloudType:
@@ -35813,6 +35950,8 @@ components:
       - $ref: "#/components/schemas/createMetricRoute_request_processors_inner_oneOf_2_params_oneOf_1"
       required:
       - subtype
+      errorMessage:
+        discriminator: "value of tag \"subtype\" must be one of: format-string, category"
     createMetricRoute_request_processors_inner_oneOf_2:
       properties:
         id:
@@ -35861,6 +36000,9 @@ components:
       - $ref: "#/components/schemas/createMetricRoute_request_processors_inner_oneOf_2"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: mapper, parse-attribute,\
+          \ creator"
     createMetricRoute_request:
       description: "Metrics route create or update request. Provide the route metadata,\
         \ metric name regex, owner team, enabled state, tags, and ordered processors."
@@ -35912,9 +36054,9 @@ components:
           type: string
         processors:
           description: "Processors applied in array order to metrics that match the\
-            \ route, each transforming the output of the previous one. Up to 50 are\
-            \ accepted. Supported processors are create format-string, create category,\
-            \ map attributes, and parse grok."
+            \ route, each transforming the output of the previous one. Supported processors\
+            \ are create format-string, create category, map attributes, and parse\
+            \ grok."
           items:
             $ref: "#/components/schemas/createMetricRoute_request_processors_inner"
           maxItems: 50
@@ -36010,6 +36152,9 @@ components:
       - $ref: "#/components/schemas/createMetricRoute_request_processors_inner_oneOf_2"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: mapper, parse-attribute,\
+          \ creator"
     updateMetricRoute_request:
       description: "Metrics route create or update request. Provide the route metadata,\
         \ metric name regex, owner team, enabled state, tags, and ordered processors."
@@ -36061,9 +36206,9 @@ components:
           type: string
         processors:
           description: "Processors applied in array order to metrics that match the\
-            \ route, each transforming the output of the previous one. Up to 50 are\
-            \ accepted. Supported processors are create format-string, create category,\
-            \ map attributes, and parse grok."
+            \ route, each transforming the output of the previous one. Supported processors\
+            \ are create format-string, create category, map attributes, and parse\
+            \ grok."
           items:
             $ref: "#/components/schemas/updateMetricRoute_request_processors_inner"
           maxItems: 50
@@ -36308,6 +36453,10 @@ components:
       - $ref: "#/components/schemas/InputMonitorConfigurationFaultyDeployment"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: metric, log, trace,\
+          \ anomaly-log, anomaly-metric, anomaly-trace, log-error-pattern, log-error-pattern-increase,\
+          \ certificate-expiry, k8s-faulty-deployment, faulty-deployment"
     updateMonitor_request:
       description: "Monitor update request. Required fields and the submitted configuration\
         \ are overwritten; omitted `message`, `tags`, `clusterIds`, `pauseUntil`,\
@@ -36505,6 +36654,9 @@ components:
       - $ref: "#/components/schemas/InputAllPublicTeams"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: specific-teams, all-teams,\
+          \ all-public-teams"
     createNotificationRule_request_targets_inner_rateLimit:
       description: "Per-target rate limit used when sending notifications. If omitted,\
         \ Tsuga allows up to 1000 notifications every 10 minutes for this target."
@@ -36557,6 +36709,10 @@ components:
       - $ref: "#/components/schemas/RuleTargetInputJira"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: slack, incident-io,\
+          \ pagerduty, email, grafana-irm, microsoft-teams, webhook, servicenow, google-chat,\
+          \ squadcast, jira"
     createNotificationRule_request_targets_inner:
       properties:
         id:
@@ -37057,6 +37213,9 @@ components:
       - $ref: "#/components/schemas/createNotificationIntegration_request_setting_oneOf_4_authentication_oneOf_3"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: bearer, basic, custom-header,\
+          \ none"
     createNotificationIntegration_request_setting_oneOf_4_payloadTemplate_oneOf:
       properties:
         type:
@@ -37106,6 +37265,8 @@ components:
       - $ref: "#/components/schemas/createNotificationIntegration_request_setting_oneOf_4_payloadTemplate_oneOf_1"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: json, form"
     createNotificationIntegration_request_setting_oneOf_4_eventNameMapping:
       properties:
         ok:
@@ -37278,6 +37439,10 @@ components:
       - $ref: "#/components/schemas/createNotificationIntegration_request_setting_oneOf_8"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: incident-io, grafana-irm,\
+          \ pagerduty, microsoft-teams, webhook, servicenow, google-chat, squadcast,\
+          \ jira"
     createNotificationIntegration_request:
       description: "Notification integration create request containing the display\
         \ name, owning team, destination setting, and tags. `setting.type` cannot\
@@ -37416,6 +37581,9 @@ components:
       - $ref: "#/components/schemas/createNotificationIntegration_request_setting_oneOf_4_authentication_oneOf_3"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: bearer, basic, custom-header,\
+          \ none"
     updateNotificationIntegration_request_setting_oneOf_2_eventNameMapping:
       nullable: true
       properties:
@@ -37543,6 +37711,10 @@ components:
       - $ref: "#/components/schemas/updateNotificationIntegration_request_setting_oneOf_4"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: incident-io, grafana-irm,\
+          \ pagerduty, microsoft-teams, webhook, servicenow, google-chat, squadcast,\
+          \ jira"
     updateNotificationIntegration_request:
       description: Notification integration update request. `owner` has to be sent
         on every update; the other omitted fields keep their existing values.
@@ -37589,6 +37761,8 @@ components:
       - $ref: "#/components/schemas/InputSilenceScheduleRecurring"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: one-time, recurring"
     createNotificationSilence_request:
       description: "Notification silence create or update request. Provide the mute\
         \ reason, owner, schedule, filters, active state, and tags."
@@ -37955,9 +38129,9 @@ components:
           type: string
         processors:
           description: "Processors applied in array order to logs that match the log\
-            \ route, each transforming the output of the previous one. Up to 50 are\
-            \ accepted. A `split` processor forks the chain into branches and cannot\
-            \ be followed by another processor at the same level."
+            \ route, each transforming the output of the previous one. A `split` processor\
+            \ forks the chain into branches and cannot be followed by another processor\
+            \ at the same level."
           items:
             $ref: "#/components/schemas/InputProcessor"
           maxItems: 50
@@ -38015,9 +38189,9 @@ components:
           type: string
         processors:
           description: "Processors applied in array order to logs that match the log\
-            \ route, each transforming the output of the previous one. Up to 50 are\
-            \ accepted. A `split` processor forks the chain into branches and cannot\
-            \ be followed by another processor at the same level."
+            \ route, each transforming the output of the previous one. A `split` processor\
+            \ forks the chain into branches and cannot be followed by another processor\
+            \ at the same level."
           items:
             $ref: "#/components/schemas/InputProcessor"
           maxItems: 50
@@ -38444,6 +38618,8 @@ components:
       - $ref: "#/components/schemas/InputTimeSliceSloConfiguration"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: event, time"
     updateSlo_request_alerts_inner_configuration:
       description: "Alert trigger configuration: burn-rate or threshold"
       discriminator:
@@ -38453,6 +38629,8 @@ components:
       - $ref: "#/components/schemas/InputThresholdAlert"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: burn-rate, threshold"
     updateSlo_request_alerts_inner:
       properties:
         id:
@@ -38701,6 +38879,8 @@ components:
       - $ref: "#/components/schemas/InputTsugaAssetTagPolicy"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: telemetry, tsuga_asset"
     createTagPolicy_request:
       description: "Tag policy create or update request. Provide policy identity,\
         \ owner, enforced tag key, allowed values, team scope, active state, and asset\
@@ -38853,14 +39033,13 @@ components:
       properties:
         name:
           description: "Name to assign to the team. Must be kebab-case (lowercase\
-            \ letters, numbers, and dashes only) and unique in the organization. Maximum\
-            \ length is 100 characters."
+            \ letters, numbers, and dashes only) and unique in the organization."
           format: kebab-case
           maxLength: 100
           minLength: 1
           type: string
         description:
-          description: Optional team description. Maximum length is 250 characters.
+          description: Team description.
           maxLength: 250
           nullable: true
           type: string
@@ -39067,14 +39246,15 @@ components:
           $ref: "#/components/schemas/findContrastSets_request_baselineGroup"
         candidateAttrs:
           description: "Span attribute dot-paths to test, such as `context.service.name`\
-            \ or `span_attributes.http.route`. At most 20. Attributes referenced by\
-            \ either group filter are always excluded, along with their known sibling\
-            \ attributes for the same field, so the condition being contrasted does\
-            \ not come back as a finding under one of those names. Omit or pass an\
-            \ empty array to let Tsuga sample both groups and test the attributes,\
-            \ most frequent in the target first, that take more than one value across\
-            \ the two samples. When none varies, nothing is tested and `contrastSets`\
-            \ is empty."
+            \ or `span_attributes.http.route`. Attributes referenced by either group\
+            \ filter, and their known sibling attributes for the same field, are always\
+            \ excluded, so the contrasted condition does not come back as a finding.\
+            \ Omit or pass an empty array to let Tsuga test the attributes among `span_attributes.*`,\
+            \ `context.*`, `span.name`, `span.kind`, `status_code` and `is_root` that\
+            \ take more than one value across samples of both groups, most frequent\
+            \ in the target first; when none varies, `contrastSets` is empty. Span\
+            \ duration (`duration_ns`, even when named here) and discovered numeric\
+            \ attributes with near-unique values never appear in `contrastSets`."
           items:
             description: "Folder filter for dashboard query results. Optional; pass\
               \ a folder ID to return dashboards in that folder, or null to return\
@@ -39129,6 +39309,9 @@ components:
       - $ref: "#/components/schemas/InputProcessorParamsMapperMapTimestamp"
       required:
       - subtype
+      errorMessage:
+        discriminator: "value of tag \"subtype\" must be one of: map-attributes, map-level,\
+          \ map-timestamp"
     InputProcessor_anyOf:
       properties:
         id:
@@ -39315,6 +39498,9 @@ components:
       - $ref: "#/components/schemas/InputProcessor_anyOf_1_params_oneOf_4"
       required:
       - subtype
+      errorMessage:
+        discriminator: "value of tag \"subtype\" must be one of: grok, url, user-agent,\
+          \ geo-ip, key-value"
     InputProcessor_anyOf_1:
       properties:
         id:
@@ -39369,6 +39555,9 @@ components:
       - $ref: "#/components/schemas/InputProcessorParamsCreatorCategory"
       required:
       - subtype
+      errorMessage:
+        discriminator: "value of tag \"subtype\" must be one of: format-string, math-formula,\
+          \ category"
     InputProcessor_anyOf_2:
       properties:
         id:
@@ -39494,6 +39683,9 @@ components:
       - $ref: "#/components/schemas/ProcessorParamsMapperMapTimestamp"
       required:
       - subtype
+      errorMessage:
+        discriminator: "value of tag \"subtype\" must be one of: map-attributes, map-level,\
+          \ map-timestamp"
     OutputProcessor_anyOf:
       example:
         id: id
@@ -39669,6 +39861,9 @@ components:
       - $ref: "#/components/schemas/OutputProcessor_anyOf_1_params_oneOf_4"
       required:
       - subtype
+      errorMessage:
+        discriminator: "value of tag \"subtype\" must be one of: grok, url, user-agent,\
+          \ geo-ip, key-value"
     OutputProcessor_anyOf_1:
       properties:
         id:
@@ -39716,6 +39911,9 @@ components:
       - $ref: "#/components/schemas/ProcessorParamsCreatorCategory"
       required:
       - subtype
+      errorMessage:
+        discriminator: "value of tag \"subtype\" must be one of: format-string, math-formula,\
+          \ category"
     OutputProcessor_anyOf_2:
       properties:
         id:
@@ -39819,6 +40017,9 @@ components:
       - $ref: "#/components/schemas/GrokRuleErrorDetails"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: tag_policy_violation,\
+          \ grok_rule_error"
     ResponseMetadata_pagination:
       description: "Counts describing the full result set that the returned page was\
         \ taken from, for computing how many further pages remain."
@@ -39849,6 +40050,8 @@ components:
       - $ref: "#/components/schemas/OngoingSloAlert"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: monitor, slo"
     QueryOngoingAlertsResponse_data:
       description: Ongoing alert query response. The requested page is under `alertsPage`;
         `metadata.pagination` describes the full result set it was taken from.
@@ -40041,6 +40244,8 @@ components:
       - $ref: "#/components/schemas/UserIdentity"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: operation-api-key, user"
     SearchRumEventsResponse_data_events_inner:
       additionalProperties: true
       description: RUM event recorded by the browser or mobile SDK.
@@ -40094,6 +40299,9 @@ components:
       - $ref: "#/components/schemas/CustomRoleAllTeamsExcept"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: all, public, specific,\
+          \ all-except"
     CustomRole_telemetryQuery_inner:
       example:
         key: key
@@ -42615,6 +42823,54 @@ components:
           default: null
       required:
       - errorPatternIncreases
+    GetMetricAssetsUsageResponse_data_assets_inner:
+      description: A dashboard or monitor that queries this metric.
+      example:
+        type: dashboard
+        id: id
+        name: name
+        owner: owner
+      properties:
+        type:
+          description: Kind of asset referencing the metric.
+          enum:
+          - dashboard
+          - monitor
+          type: string
+        id:
+          description: Dashboard or monitor ID for the asset that queries this metric.
+          type: string
+        name:
+          description: Display name of the referencing dashboard or monitor.
+          type: string
+        owner:
+          description: Team ID that owns the referencing dashboard or monitor.
+          type: string
+      required:
+      - id
+      - name
+      - owner
+      - type
+    GetMetricAssetsUsageResponse_data:
+      example:
+        assets:
+        - type: dashboard
+          id: id
+          name: name
+          owner: owner
+        - type: dashboard
+          id: id
+          name: name
+          owner: owner
+      properties:
+        assets:
+          description: Dashboards and monitors that currently query this metric.
+          items:
+            $ref: "#/components/schemas/GetMetricAssetsUsageResponse_data_assets_inner"
+          type: array
+          default: null
+      required:
+      - assets
     ListMetricsResponse_data_inner:
       example:
         name: name
@@ -42625,6 +42881,7 @@ components:
         capabilities:
         - capabilities
         - capabilities
+        seriesCardinality: 0.8008281904610115
       properties:
         name:
           description: Metric name observed by Tsuga. Use this value in metric queries
@@ -42670,6 +42927,11 @@ components:
             type: string
           type: array
           default: null
+        seriesCardinality:
+          description: Estimated number of distinct series for this metric across
+            the most recent data generations kept by the metric catalog. Omitted when
+            the catalog has no statistics for the metric yet.
+          type: number
       required:
       - name
       - type
@@ -42686,6 +42948,9 @@ components:
         attributes:
         - attributes
         - attributes
+        seriesCardinality: 0.8008281904610115
+        attributeCardinalities:
+          key: 6.027456183070403
       properties:
         name:
           description: Metric name observed by Tsuga. Use this value in metric queries
@@ -42738,6 +43003,18 @@ components:
             type: string
           type: array
           default: null
+        seriesCardinality:
+          description: Estimated number of distinct series for this metric across
+            the most recent data generations kept by the metric catalog. Omitted when
+            the catalog has no statistics for the metric yet.
+          type: number
+        attributeCardinalities:
+          additionalProperties:
+            type: number
+          description: "Estimated number of distinct values per attribute over the\
+            \ same window as `seriesCardinality`, keyed like `attributes`. Omitted\
+            \ when the catalog has no statistics for the metric yet."
+          type: object
       required:
       - name
       - type
@@ -42963,6 +43240,8 @@ components:
       - $ref: "#/components/schemas/MetricRoute_processors_inner_oneOf_2_params_oneOf_1"
       required:
       - subtype
+      errorMessage:
+        discriminator: "value of tag \"subtype\" must be one of: format-string, category"
     MetricRoute_processors_inner_oneOf_2:
       properties:
         id:
@@ -43004,6 +43283,9 @@ components:
       - $ref: "#/components/schemas/MetricRoute_processors_inner_oneOf_2"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: mapper, parse-attribute,\
+          \ creator"
     Monitor_configuration:
       description: "Monitor evaluation configuration. The `type` discriminator determines\
         \ which telemetry source, condition shape, and evaluation rules Tsuga uses."
@@ -43035,6 +43317,10 @@ components:
       - $ref: "#/components/schemas/MonitorConfigurationFaultyDeployment"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: metric, log, trace,\
+          \ anomaly-log, anomaly-metric, log-error-pattern, log-error-pattern-increase,\
+          \ anomaly-trace, certificate-expiry, k8s-faulty-deployment, faulty-deployment"
     Rule_teamsFilter:
       description: Team visibility filter used when matching alert transitions. Tsuga
         validates create and update requests against the caller permissions.
@@ -43046,6 +43332,9 @@ components:
       - $ref: "#/components/schemas/AllPublicTeams"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: specific-teams, all-teams,\
+          \ all-public-teams"
     Rule_targets_inner_rateLimit:
       description: "Per-target rate limit used when sending notifications. If omitted,\
         \ Tsuga allows up to 1000 notifications every 10 minutes for this target."
@@ -43095,6 +43384,10 @@ components:
       - $ref: "#/components/schemas/RuleTargetConfigJira"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: slack, incident-io,\
+          \ email, grafana-irm, pagerduty, microsoft-teams, webhook, servicenow, google-chat,\
+          \ squadcast, jira"
     Rule_targets_inner:
       example:
         id: id
@@ -43224,6 +43517,9 @@ components:
       - $ref: "#/components/schemas/createNotificationIntegration_request_setting_oneOf_4_authentication_oneOf_3"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: bearer, basic, custom-header,\
+          \ none"
     NotificationIntegration_setting_oneOf_4_eventNameMapping:
       properties:
         ok:
@@ -43333,6 +43629,10 @@ components:
       - $ref: "#/components/schemas/NotificationIntegration_setting_oneOf_8"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: incident-io, grafana-irm,\
+          \ pagerduty, microsoft-teams, webhook, servicenow, google-chat, squadcast,\
+          \ jira"
     NotificationSilence_schedule:
       description: "Schedule defining when the silence is active. The `type` field\
         \ discriminates between a `one-time` window and a `recurring` weekly window.\
@@ -43349,6 +43649,8 @@ components:
       - $ref: "#/components/schemas/OutputSilenceScheduleRecurring"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: one-time, recurring"
     QualityReportRow_examples_inner_link:
       description: In-app deep link for inspecting the example. Returned when Tsuga
         can route from the quality-report row to a relevant product page.
@@ -43642,6 +43944,9 @@ components:
       - $ref: "#/components/schemas/InferredServiceGraphNode"
       required:
       - nodeType
+      errorMessage:
+        discriminator: "value of tag \"nodeType\" must be one of: observed, inferred_db,\
+          \ inferred"
     GetServiceGraphResponse_data_edges_inner_from:
       description: "Reference to the caller node, i.e. the service or dependency that\
         \ issued the request."
@@ -43800,6 +44105,8 @@ components:
       - $ref: "#/components/schemas/TimeSliceSloConfiguration"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: event, time"
     Slo_alerts_inner_configuration:
       description: "Alert trigger configuration: burn-rate or threshold"
       discriminator:
@@ -43809,6 +44116,8 @@ components:
       - $ref: "#/components/schemas/ThresholdAlert"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: burn-rate, threshold"
     Slo_alerts_inner:
       description: "Alert attached to an SLO, triggered on a burn-rate multiplier\
         \ or an SLO target threshold"
@@ -43877,6 +44186,8 @@ components:
       - $ref: "#/components/schemas/TsugaAssetTagPolicy"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: telemetry, tsuga_asset"
     BulkAddUsersToTeamResponse_data_results_inner:
       example:
         userId: userId
@@ -43977,13 +44288,14 @@ components:
         service:
           $ref: "#/components/schemas/SearchSpansResponse_data_spans_inner_context_service"
     SearchSpansResponse_data_spans_inner_error:
-      description: "Error details associated with the span, separate from the OpenTelemetry\
-        \ `statusCode` field."
+      description: OpenTelemetry span status description. `message` is set only when
+        `status_code` is `error` and the instrumentation recorded a description.
       example:
         message: message
       properties:
         message:
-          description: Error message associated with the span.
+          description: "OpenTelemetry span status description set by the instrumentation,\
+            \ such as the exception message."
           type: string
       required:
       - message
@@ -44041,14 +44353,15 @@ components:
           service:
             name: name
             version: version
-        parentSpanId: parentSpanId
-        resourceAttributes:
+        parent_span_id: parent_span_id
+        resource_attributes:
           key: ""
-        spanAttributes:
+        span_attributes:
           key: ""
         duration: 0.8008281904610115
-        startTime: startTime
-        endTime: endTime
+        duration_ns: duration_ns
+        start_time: start_time
+        end_time: end_time
         error:
           message: message
         events:
@@ -44060,27 +44373,30 @@ components:
             key: ""
           event_name: event_name
           event_timestamp_nanos: event_timestamp_nanos
-        spanId: spanId
+        links:
+        - key: ""
+        - key: ""
+        span_id: span_id
         span:
           kind: kind
           name: name
-        statusCode: statusCode
-        traceId: traceId
+        status_code: status_code
+        trace_id: trace_id
       properties:
         context:
           $ref: "#/components/schemas/SearchSpansResponse_data_spans_inner_context"
-        parentSpanId:
-          description: '`spanId` of this span''s parent within the same trace. Absent
-            for the root span.'
+        parent_span_id:
+          description: '`span_id` of this span''s parent within the same trace. Empty
+            or absent for a root span.'
           type: string
-        resourceAttributes:
+        resource_attributes:
           additionalProperties: true
           description: "OpenTelemetry resource attributes describing the process/host\
             \ that emitted the span (e.g. `host.name`, `k8s.pod.name`), as a flat\
             \ key-value map set by the instrumented service or its SDK."
           properties: {}
           type: object
-        spanAttributes:
+        span_attributes:
           additionalProperties: true
           description: "OpenTelemetry span attributes describing this operation (e.g.\
             \ HTTP method, DB statement), as a flat key-value map set by the instrumented\
@@ -44089,13 +44405,17 @@ components:
           type: object
         duration:
           description: "Span duration in milliseconds, derived from the nanosecond\
-            \ `startTime` and `endTime` values."
+            \ `start_time` and `end_time` values."
           type: number
-        startTime:
+        duration_ns:
+          description: "Span duration in nanoseconds, encoded as a string to preserve\
+            \ precision."
+          type: string
+        start_time:
           description: "Span start time as a Unix epoch timestamp in nanoseconds,\
             \ encoded as a string to preserve precision."
           type: string
-        endTime:
+        end_time:
           description: "Span end time as a Unix epoch timestamp in nanoseconds, encoded\
             \ as a string to preserve precision."
           type: string
@@ -44107,28 +44427,38 @@ components:
             $ref: "#/components/schemas/SearchSpansResponse_data_spans_inner_events_inner"
           type: array
           default: null
-        spanId:
+        links:
+          description: "OpenTelemetry span links to related spans, possibly in other\
+            \ traces."
+          items:
+            additionalProperties: true
+            properties: {}
+            type: object
+          type: array
+          default: null
+        span_id:
           description: Unique span ID within the trace.
           type: string
         span:
           $ref: "#/components/schemas/SearchSpansResponse_data_spans_inner_span"
-        statusCode:
+        status_code:
           description: "OpenTelemetry span status set by the instrumented code: `unset`\
             \ (default, no explicit status), `ok`, or `error`. Absent if the source\
             \ span never set a status."
           type: string
-        traceId:
+        trace_id:
           description: Trace ID shared by all spans in the trace.
           type: string
       required:
       - duration
-      - endTime
-      - resourceAttributes
+      - duration_ns
+      - end_time
+      - resource_attributes
       - span
-      - spanAttributes
-      - spanId
-      - startTime
-      - traceId
+      - span_attributes
+      - span_id
+      - start_time
+      - trace_id
     SearchSpansResponse_data:
       example:
         spans:
@@ -44136,14 +44466,15 @@ components:
             service:
               name: name
               version: version
-          parentSpanId: parentSpanId
-          resourceAttributes:
+          parent_span_id: parent_span_id
+          resource_attributes:
             key: ""
-          spanAttributes:
+          span_attributes:
             key: ""
           duration: 0.8008281904610115
-          startTime: startTime
-          endTime: endTime
+          duration_ns: duration_ns
+          start_time: start_time
+          end_time: end_time
           error:
             message: message
           events:
@@ -44155,24 +44486,28 @@ components:
               key: ""
             event_name: event_name
             event_timestamp_nanos: event_timestamp_nanos
-          spanId: spanId
+          links:
+          - key: ""
+          - key: ""
+          span_id: span_id
           span:
             kind: kind
             name: name
-          statusCode: statusCode
-          traceId: traceId
+          status_code: status_code
+          trace_id: trace_id
         - context:
             service:
               name: name
               version: version
-          parentSpanId: parentSpanId
-          resourceAttributes:
+          parent_span_id: parent_span_id
+          resource_attributes:
             key: ""
-          spanAttributes:
+          span_attributes:
             key: ""
           duration: 0.8008281904610115
-          startTime: startTime
-          endTime: endTime
+          duration_ns: duration_ns
+          start_time: start_time
+          end_time: end_time
           error:
             message: message
           events:
@@ -44184,12 +44519,15 @@ components:
               key: ""
             event_name: event_name
             event_timestamp_nanos: event_timestamp_nanos
-          spanId: spanId
+          links:
+          - key: ""
+          - key: ""
+          span_id: span_id
           span:
             kind: kind
             name: name
-          statusCode: statusCode
-          traceId: traceId
+          status_code: status_code
+          trace_id: trace_id
       properties:
         spans:
           description: Spans matching the query and time range.
@@ -44206,14 +44544,15 @@ components:
             service:
               name: name
               version: version
-          parentSpanId: parentSpanId
-          resourceAttributes:
+          parent_span_id: parent_span_id
+          resource_attributes:
             key: ""
-          spanAttributes:
+          span_attributes:
             key: ""
           duration: 0.8008281904610115
-          startTime: startTime
-          endTime: endTime
+          duration_ns: duration_ns
+          start_time: start_time
+          end_time: end_time
           error:
             message: message
           events:
@@ -44225,24 +44564,28 @@ components:
               key: ""
             event_name: event_name
             event_timestamp_nanos: event_timestamp_nanos
-          spanId: spanId
+          links:
+          - key: ""
+          - key: ""
+          span_id: span_id
           span:
             kind: kind
             name: name
-          statusCode: statusCode
-          traceId: traceId
+          status_code: status_code
+          trace_id: trace_id
         - context:
             service:
               name: name
               version: version
-          parentSpanId: parentSpanId
-          resourceAttributes:
+          parent_span_id: parent_span_id
+          resource_attributes:
             key: ""
-          spanAttributes:
+          span_attributes:
             key: ""
           duration: 0.8008281904610115
-          startTime: startTime
-          endTime: endTime
+          duration_ns: duration_ns
+          start_time: start_time
+          end_time: end_time
           error:
             message: message
           events:
@@ -44254,17 +44597,20 @@ components:
               key: ""
             event_name: event_name
             event_timestamp_nanos: event_timestamp_nanos
-          spanId: spanId
+          links:
+          - key: ""
+          - key: ""
+          span_id: span_id
           span:
             kind: kind
             name: name
-          statusCode: statusCode
-          traceId: traceId
+          status_code: status_code
+          trace_id: trace_id
       properties:
         spans:
           description: "Summarized trace spans, sorted by start time unless `sortSpans`\
             \ is false. Aggregated groups are replaced by synthetic summary spans\
-            \ marked with `spanAttributes.aggregation.is_summary`."
+            \ marked with `span_attributes.aggregation.is_summary`."
           items:
             $ref: "#/components/schemas/SearchSpansResponse_data_spans_inner"
           type: array
@@ -44319,14 +44665,12 @@ components:
           type: string
         weight:
           description: "Share of this range attributed to the service, from `0` through\
-            \ `1`. Tsuga computes the weight from active leaf spans in the range.\
-            \ Weights inside one range sum to `1`, except on a range merged from shorter\
-            \ ones. Each merge step truncates to the microsecond grid and merging\
-            \ is pairwise, so the loss compounds with the number of ranges merged\
-            \ rather than being bounded per range: it is a few parts in 10,000 on\
-            \ a typical trace, but a long run of very short adjacent ranges can fall\
-            \ well below `1`. `serviceTotals` is derived from the same merged ranges\
-            \ and carries the same loss."
+            \ `1`, computed from active leaf spans in the range. Weights in one range\
+            \ sum to `1`, except on a range merged from shorter ones: each pairwise\
+            \ merge truncates to the microsecond grid, so the loss grows with the\
+            \ number of merges, a few parts in 10,000 on a typical trace but well\
+            \ below `1` after a long run of very short adjacent ranges. `serviceTotals`\
+            \ carries the same loss."
           type: number
         durationNs:
           description: "Estimated duration attributed to this service in the range,\
@@ -44407,13 +44751,10 @@ components:
           type: string
         share:
           description: "Share of total trace duration attributed to this service,\
-            \ from `0` through `1`. Computed as `durationNs / totalDurationNs`; multiply\
-            \ by 100 for a percentage. Shares sum to less than `1` for two reasons:\
-            \ time where no span was running is credited to no service, and merging\
-            \ adjacent ranges truncates to the microsecond grid at each step, so the\
-            \ loss compounds with the number of ranges merged. A shortfall on a trace\
-            \ with no gap is that truncation; it is usually a few parts in 10,000,\
-            \ but a long run of very short adjacent ranges can make it large."
+            \ `durationNs / totalDurationNs`, from `0` through `1`. Shares sum to\
+            \ less than `1` because time where no span was running is credited to\
+            \ no service, and because of the merge truncation described on `ranges[].contributions[].weight`,\
+            \ which is the whole shortfall on a trace with no gap."
           type: number
       required:
       - durationNs
@@ -44577,8 +44918,10 @@ components:
       properties:
         contrastSets:
           description: "One entry per attribute that separates the two groups, strongest\
-            \ first. Empty when nothing cleared the gates, which means the target\
-            \ and the baseline look alike on the attributes tested."
+            \ first. An attribute with the same value strings as a stronger entry\
+            \ is left out, so two boolean attributes appear as one entry. Empty when\
+            \ nothing cleared the gates, which means the target and the baseline look\
+            \ alike on the attributes tested."
           items:
             $ref: "#/components/schemas/ContrastSet"
           type: array
@@ -44728,6 +45071,9 @@ components:
       - $ref: "#/components/schemas/GrokUnknownFilter"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: invalid-syntax, unknown-pattern,\
+          \ invalid-filter, unknown-filter"
     GrokRuleErrorDetails_ruleErrors_inner:
       description: "A single grok rule that failed to compile, with its position in\
         \ the submitted rules and the structured compile error."
@@ -44791,8 +45137,9 @@ components:
           type: array
           default: null
         limit:
-          description: Configured limit for this group by. Currently ignored; monitor
-            evaluation applies a fixed limit of 100 groups per field.
+          description: "Maximum number of groups evaluated per field. Anomaly monitors\
+            \ apply it, capped at 100. Threshold monitors ignore it and evaluate up\
+            \ to 100 groups per field."
           type: number
         sortOrder:
           description: "Sort direction: ascending or descending."
@@ -44973,11 +45320,13 @@ components:
             maxLength: 250
             minLength: 0
             type: string
+          maxItems: 4
           type: array
           default: null
         limit:
-          description: Configured limit for this group by. Currently ignored; monitor
-            evaluation applies a fixed limit of 100 groups per field.
+          description: "Maximum number of groups evaluated per field. Anomaly monitors\
+            \ apply it, capped at 100. Threshold monitors ignore it and evaluate up\
+            \ to 100 groups per field."
           type: number
         sortOrder:
           description: "Sort direction: ascending or descending."
@@ -45462,6 +45811,8 @@ components:
       - $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings_min_oneOf_1"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: auto, number"
     GraphVisualizationTimeseriesConnection_yAxisSettings_scale_oneOf:
       example:
         type: pow
@@ -45498,6 +45849,8 @@ components:
       - $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings_scale_oneOf_1"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: pow, linear, log, sqrt"
     GraphVisualizationTimeseriesConnection_yAxisSettings:
       description: Y-axis bounds and scale configuration for chart widgets.
       example:
@@ -45693,6 +46046,8 @@ components:
       - $ref: "#/components/schemas/GraphVisualizationTimeseriesConnection_yAxisSettings_scale_oneOf_1"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: pow, linear, log, sqrt"
     InputGraphVisualizationTimeseriesConnection_yAxisSettings:
       description: Y-axis bounds and scale configuration for chart widgets. Optional
         on create or update.
@@ -45866,6 +46221,10 @@ components:
       - $ref: "#/components/schemas/MonitorConfigurationFaultyDeployment"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: metric, log, trace,\
+          \ anomaly-log, anomaly-metric, anomaly-trace, certificate-expiry, log-error-pattern-increase,\
+          \ k8s-faulty-deployment, faulty-deployment"
     OngoingMonitorAlert_monitor:
       description: "Saved alert definition that evaluates telemetry and creates alert\
         \ transitions, restricted to the kinds that raise ongoing alerts. Same shape\
@@ -46055,6 +46414,8 @@ components:
       - $ref: "#/components/schemas/OngoingMonitorAlert_triggeredBy_inner_value_oneOf_2"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: number, string, timestamp"
     OngoingSloAlert_slo:
       description: "Service Level Objective definition: its SLI configuration, target\
         \ percentage, rolling timeframe, cluster scope, and attached alerts"
@@ -46237,6 +46598,14 @@ components:
       - $ref: "#/components/schemas/GraphVisualizationSlo"
       required:
       - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: timeseries-connection,\
+          \ list-connection, top-list-connection, pie-connection, bar-connection,\
+          \ query-value-connection, timeseries-promql, query-value-promql, gauge-promql,\
+          \ top-list-promql, pie-promql, bar-promql, distribution-promql, heatmap-promql,\
+          \ timeseries, top-list, pie, query-value, gauge, bar, distribution, heatmap,\
+          \ table, list, note, list-log-patterns, list-spans, list-rum, slo-uptime,\
+          \ slo-over-time, slo"
     Graph_layout:
       description: "Grid position and size of the widget. Optional; when provided,\
         \ the size must be at least 2×2 (width×height) grid units, except note widgets\

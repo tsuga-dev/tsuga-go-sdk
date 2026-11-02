@@ -19,13 +19,13 @@ var _ MappedNullable = &UpdateIngestionApiKeyRequest{}
 
 // UpdateIngestionApiKeyRequest Ingestion API key update request. Provide the full metadata definition, including name, owner team, tags, and team override fields.
 type UpdateIngestionApiKeyRequest struct {
-	// Kebab-case name for the ingestion API key. Maximum length is 100 characters.
+	// Kebab-case name for the ingestion API key.
 	Name string `json:"name"`
 	// Team ID that will own and manage the ingestion API key.
 	Owner string `json:"owner"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
 	Tags []InputTag `json:"tags"`
-	// Array form. Up to 3 fields are allowed.
+	// Array form.
 	TeamOverrideFields   []string `json:"teamOverrideFields"`
 	AdditionalProperties map[string]interface{}
 }

@@ -38,7 +38,7 @@ type DataDeletionRequestsAPI interface {
 	/*
 		CreateDataDeletionRequest Method for CreateDataDeletionRequest
 
-		Creates a request to delete the events matching a query in a time range. The cluster executes it 30 minutes after creation, leaving time to cancel it. Deleted events cannot be restored. Use `dryRun` to count the matching events first.
+		Creates a request to delete the events matching a query in a time range. The cluster executes it 30 minutes after creation, leaving time to cancel it. Deleted events cannot be restored. When every event carrying an attribute is deleted, the attribute name is removed too, and attribute discovery stops listing it. Use `dryRun` to count the matching events first.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return DataDeletionRequestsAPICreateDataDeletionRequestRequest
@@ -217,7 +217,7 @@ func (r DataDeletionRequestsAPICreateDataDeletionRequestRequest) Execute() (*Cre
 /*
 CreateDataDeletionRequest Method for CreateDataDeletionRequest
 
-Creates a request to delete the events matching a query in a time range. The cluster executes it 30 minutes after creation, leaving time to cancel it. Deleted events cannot be restored. Use `dryRun` to count the matching events first.
+Creates a request to delete the events matching a query in a time range. The cluster executes it 30 minutes after creation, leaving time to cancel it. Deleted events cannot be restored. When every event carrying an attribute is deleted, the attribute name is removed too, and attribute discovery stops listing it. Use `dryRun` to count the matching events first.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DataDeletionRequestsAPICreateDataDeletionRequestRequest

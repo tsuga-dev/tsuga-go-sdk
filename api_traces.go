@@ -23,7 +23,7 @@ type TracesAPI interface {
 	/*
 		FindContrastSets Method for FindContrastSets
 
-		Compares a target group of spans against a baseline group and returns the attribute values that are over-represented in the target. Use it to answer "what do these spans have in common that the others do not": erroring spans against healthy ones for a service, slow spans against normal-latency ones, or the same spans before and after a deployment. Each group carries its own time range, so a before/after comparison is one call. Each finding in `values` comes with its coverage in both groups and a p-value, plus a `lift` that is omitted when the value never appears in the baseline; `otherValues` carries coverage only, as context for reading the findings. See [Traces](/documentation/explore/traces).
+		Compares a target group of spans against a baseline group and returns the attribute values that are over-represented in the target. Use it to answer "what do these spans have in common that the others do not": erroring spans against healthy ones for a service, slow spans against normal-latency ones, or the same spans before and after a deployment. Each group carries its own time range, so a before/after comparison is one call. See [Traces](/documentation/explore/traces).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return TracesAPIFindContrastSetsRequest
@@ -65,7 +65,7 @@ type TracesAPI interface {
 	/*
 		SummarizeTrace Method for SummarizeTrace
 
-		Summarizes a trace by aggregating groups of similar spans into synthetic summary spans, producing a compact view of large traces. Summary spans are marked with `spanAttributes.aggregation.is_summary` and carry span counts, duration statistics, and an optional latency histogram. See [Traces](/documentation/explore/traces).
+		Summarizes a trace by aggregating groups of similar spans into synthetic summary spans, producing a compact view of large traces. Summary spans are marked with `span_attributes.aggregation.is_summary` and carry span counts, duration statistics, and an optional latency histogram. See [Traces](/documentation/explore/traces).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return TracesAPISummarizeTraceRequest
@@ -106,7 +106,7 @@ func (r TracesAPIFindContrastSetsRequest) Execute() (*FindContrastSetsResponse, 
 /*
 FindContrastSets Method for FindContrastSets
 
-Compares a target group of spans against a baseline group and returns the attribute values that are over-represented in the target. Use it to answer "what do these spans have in common that the others do not": erroring spans against healthy ones for a service, slow spans against normal-latency ones, or the same spans before and after a deployment. Each group carries its own time range, so a before/after comparison is one call. Each finding in `values` comes with its coverage in both groups and a p-value, plus a `lift` that is omitted when the value never appears in the baseline; `otherValues` carries coverage only, as context for reading the findings. See [Traces](/documentation/explore/traces).
+Compares a target group of spans against a baseline group and returns the attribute values that are over-represented in the target. Use it to answer "what do these spans have in common that the others do not": erroring spans against healthy ones for a service, slow spans against normal-latency ones, or the same spans before and after a deployment. Each group carries its own time range, so a before/after comparison is one call. See [Traces](/documentation/explore/traces).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TracesAPIFindContrastSetsRequest
@@ -246,7 +246,7 @@ func (r TracesAPIGetTraceLatencySummaryRequest) To(to int64) TracesAPIGetTraceLa
 	return r
 }
 
-// Trace ID to summarize. Use the &#x60;traceId&#x60; returned by span search, the trace details page, or your tracing instrumentation. Required; the requested time range must include the trace.
+// Trace ID to summarize. Use the &#x60;trace_id&#x60; returned by span search, the trace details page, or your tracing instrumentation. Required; the requested time range must include the trace.
 func (r TracesAPIGetTraceLatencySummaryRequest) TraceId(traceId string) TracesAPIGetTraceLatencySummaryRequest {
 	r.traceId = &traceId
 	return r
@@ -648,7 +648,7 @@ func (r TracesAPISummarizeTraceRequest) To(to int64) TracesAPISummarizeTraceRequ
 	return r
 }
 
-// Trace ID to summarize. Use the &#x60;traceId&#x60; returned by span search, the trace details page, or your tracing instrumentation. Required; the requested time range must include the trace.
+// Trace ID to summarize. Use the &#x60;trace_id&#x60; returned by span search, the trace details page, or your tracing instrumentation. Required; the requested time range must include the trace.
 func (r TracesAPISummarizeTraceRequest) TraceId(traceId string) TracesAPISummarizeTraceRequest {
 	r.traceId = &traceId
 	return r
@@ -697,7 +697,7 @@ func (r TracesAPISummarizeTraceRequest) Execute() (*SummarizeTraceResponse, *htt
 /*
 SummarizeTrace Method for SummarizeTrace
 
-Summarizes a trace by aggregating groups of similar spans into synthetic summary spans, producing a compact view of large traces. Summary spans are marked with `spanAttributes.aggregation.is_summary` and carry span counts, duration statistics, and an optional latency histogram. See [Traces](/documentation/explore/traces).
+Summarizes a trace by aggregating groups of similar spans into synthetic summary spans, producing a compact view of large traces. Summary spans are marked with `span_attributes.aggregation.is_summary` and carry span counts, duration statistics, and an optional latency histogram. See [Traces](/documentation/explore/traces).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TracesAPISummarizeTraceRequest

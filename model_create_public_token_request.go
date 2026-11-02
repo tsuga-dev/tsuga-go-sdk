@@ -19,7 +19,7 @@ var _ MappedNullable = &CreatePublicTokenRequest{}
 
 // CreatePublicTokenRequest RUM public token creation request. Provide a kebab-case name, owner team, application type, allowed URL prefixes (required for `web`, empty for `ios` and `android`), tags including an `env` tag, and team override fields as an array of fields or null.
 type CreatePublicTokenRequest struct {
-	// Kebab-case name for the RUM public token. Maximum length is 100 characters.
+	// Kebab-case name for the RUM public token.
 	Name string `json:"name"`
 	// Team ID that will own and manage the RUM public token.
 	Owner string `json:"owner"`
@@ -29,7 +29,7 @@ type CreatePublicTokenRequest struct {
 	AllowedUrlPrefixes []string `json:"allowedUrlPrefixes"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
 	Tags []InputTag `json:"tags"`
-	// Array form. Up to 3 fields are allowed.
+	// Array form.
 	TeamOverrideFields   []string `json:"teamOverrideFields"`
 	AdditionalProperties map[string]interface{}
 }

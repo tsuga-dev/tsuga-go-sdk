@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ContrastSets** | [**[]ContrastSet**](ContrastSet.md) | One entry per attribute that separates the two groups, strongest first. Empty when nothing cleared the gates, which means the target and the baseline look alike on the attributes tested. | 
+**ContrastSets** | [**[]ContrastSet**](ContrastSet.md) | One entry per attribute that separates the two groups, strongest first. An attribute with the same value strings as a stronger entry is left out, so two boolean attributes appear as one entry. Empty when nothing cleared the gates, which means the target and the baseline look alike on the attributes tested. | 
 **TargetGroupCount** | **float32** | Number of spans matched by the target group filter over its time range. Not a sample: it is a plain count over the whole group. | 
 **BaselineGroupCount** | **float32** | Number of spans matched by the baseline group filter over its time range. Not a sample: it is a plain count over the whole group. | 
 **FailedAttributeCount** | **float32** | Number of candidate attributes Tsuga dropped because a query for them failed. Those attributes were not tested at all, so a high count next to an empty &#x60;contrastSets&#x60; means the comparison was incomplete, not that the two groups are alike. | 

@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Kebab-case name for the RUM public token. Maximum length is 100 characters. | 
+**Name** | **string** | Kebab-case name for the RUM public token. | 
 **Owner** | **string** | Team ID that will own and manage the RUM public token. | 
 **ApplicationType** | **string** | Kind of application the token is issued for. Only &#x60;web&#x60; telemetry is checked against &#x60;allowedUrlPrefixes&#x60;, since mobile applications do not send an &#x60;Origin&#x60; header. Fixed at creation: an update must resend the token&#39;s current value. | 
 **AllowedUrlPrefixes** | **[]string** | URL prefixes which RUM telemetry data can be sent from. Supports wildcard matching. At least one prefix is required for &#x60;web&#x60; applications, and the array must be empty for &#x60;ios&#x60; and &#x60;android&#x60; applications. | 
 **Tags** | [**[]InputTag**](InputTag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | 
-**TeamOverrideFields** | **[]string** | Array form. Up to 3 fields are allowed. | 
+**TeamOverrideFields** | **[]string** | Array form. | 
 
 ## Methods
 

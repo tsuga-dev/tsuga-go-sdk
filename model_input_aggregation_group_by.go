@@ -19,7 +19,7 @@ var _ MappedNullable = &InputAggregationGroupBy{}
 
 // InputAggregationGroupBy struct for InputAggregationGroupBy
 type InputAggregationGroupBy struct {
-	// Telemetry attribute name to group aggregation results by. Currently limited to one field per grouping level.
+	// Telemetry attribute name to group aggregation results by at this grouping level. To group by several attributes, send one `groupBy` entry per attribute: entries nest, outermost first.
 	Fields []string `json:"fields"`
 	// Maximum number of distinct values of `fields` to return for this grouping level, ranked by aggregate value. Groups beyond the limit are truncated from the response, not merged into an \"other\" group.
 	Limit float32 `json:"limit"`

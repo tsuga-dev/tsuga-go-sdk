@@ -17,9 +17,9 @@ import (
 // checks if the SearchSpansResponseDataSpansInnerError type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SearchSpansResponseDataSpansInnerError{}
 
-// SearchSpansResponseDataSpansInnerError Error details associated with the span, separate from the OpenTelemetry `statusCode` field.
+// SearchSpansResponseDataSpansInnerError OpenTelemetry span status description. `message` is set only when `status_code` is `error` and the instrumentation recorded a description.
 type SearchSpansResponseDataSpansInnerError struct {
-	// Error message associated with the span.
+	// OpenTelemetry span status description set by the instrumentation, such as the exception message.
 	Message              string `json:"message"`
 	AdditionalProperties map[string]interface{}
 }

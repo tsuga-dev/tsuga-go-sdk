@@ -32,8 +32,12 @@ type GetMetricResponseData struct {
 	// Aggregate function types (such as `max`, `min`, `sum`) supported when querying or graphing this metric. An empty or omitted array means all aggregate types are supported.
 	Capabilities []string `json:"capabilities,omitempty"`
 	// Metric attribute names available as dimensions for filtering or grouping.
-	Attributes           []string `json:"attributes,omitempty"`
-	AdditionalProperties map[string]interface{}
+	Attributes []string `json:"attributes,omitempty"`
+	// Estimated number of distinct series for this metric across the most recent data generations kept by the metric catalog. Omitted when the catalog has no statistics for the metric yet.
+	SeriesCardinality *float32 `json:"seriesCardinality,omitempty"`
+	// Estimated number of distinct values per attribute over the same window as `seriesCardinality`, keyed like `attributes`. Omitted when the catalog has no statistics for the metric yet.
+	AttributeCardinalities map[string]float32 `json:"attributeCardinalities,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
 
 type _GetMetricResponseData GetMetricResponseData
@@ -265,6 +269,70 @@ func (o *GetMetricResponseData) SetAttributes(v []string) {
 	o.Attributes = v
 }
 
+// GetSeriesCardinality returns the SeriesCardinality field value if set, zero value otherwise.
+func (o *GetMetricResponseData) GetSeriesCardinality() float32 {
+	if o == nil || IsNil(o.SeriesCardinality) {
+		var ret float32
+		return ret
+	}
+	return *o.SeriesCardinality
+}
+
+// GetSeriesCardinalityOk returns a tuple with the SeriesCardinality field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetMetricResponseData) GetSeriesCardinalityOk() (*float32, bool) {
+	if o == nil || IsNil(o.SeriesCardinality) {
+		return nil, false
+	}
+	return o.SeriesCardinality, true
+}
+
+// HasSeriesCardinality returns a boolean if a field has been set.
+func (o *GetMetricResponseData) HasSeriesCardinality() bool {
+	if o != nil && !IsNil(o.SeriesCardinality) {
+		return true
+	}
+
+	return false
+}
+
+// SetSeriesCardinality gets a reference to the given float32 and assigns it to the SeriesCardinality field.
+func (o *GetMetricResponseData) SetSeriesCardinality(v float32) {
+	o.SeriesCardinality = &v
+}
+
+// GetAttributeCardinalities returns the AttributeCardinalities field value if set, zero value otherwise.
+func (o *GetMetricResponseData) GetAttributeCardinalities() map[string]float32 {
+	if o == nil || IsNil(o.AttributeCardinalities) {
+		var ret map[string]float32
+		return ret
+	}
+	return o.AttributeCardinalities
+}
+
+// GetAttributeCardinalitiesOk returns a tuple with the AttributeCardinalities field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetMetricResponseData) GetAttributeCardinalitiesOk() (map[string]float32, bool) {
+	if o == nil || IsNil(o.AttributeCardinalities) {
+		return map[string]float32{}, false
+	}
+	return o.AttributeCardinalities, true
+}
+
+// HasAttributeCardinalities returns a boolean if a field has been set.
+func (o *GetMetricResponseData) HasAttributeCardinalities() bool {
+	if o != nil && !IsNil(o.AttributeCardinalities) {
+		return true
+	}
+
+	return false
+}
+
+// SetAttributeCardinalities gets a reference to the given map[string]float32 and assigns it to the AttributeCardinalities field.
+func (o *GetMetricResponseData) SetAttributeCardinalities(v map[string]float32) {
+	o.AttributeCardinalities = v
+}
+
 func (o GetMetricResponseData) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -291,6 +359,12 @@ func (o GetMetricResponseData) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Attributes) {
 		toSerialize["attributes"] = o.Attributes
+	}
+	if !IsNil(o.SeriesCardinality) {
+		toSerialize["seriesCardinality"] = o.SeriesCardinality
+	}
+	if !IsNil(o.AttributeCardinalities) {
+		toSerialize["attributeCardinalities"] = o.AttributeCardinalities
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -343,6 +417,8 @@ func (o *GetMetricResponseData) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "temporality")
 		delete(additionalProperties, "capabilities")
 		delete(additionalProperties, "attributes")
+		delete(additionalProperties, "seriesCardinality")
+		delete(additionalProperties, "attributeCardinalities")
 		o.AdditionalProperties = additionalProperties
 	}
 

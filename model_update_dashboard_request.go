@@ -24,7 +24,7 @@ type UpdateDashboardRequest struct {
 	Owner *string `json:"owner,omitempty"`
 	// Ordered widgets that compose the dashboard
 	Graphs []InputGraph `json:"graphs,omitempty"`
-	// Dashboard-wide filters applied to every widget on the dashboard. Up to 10 filters are allowed.
+	// Dashboard-wide filters applied to every widget on the dashboard.
 	Filters []UpdateDashboardRequestFiltersInner `json:"filters,omitempty"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
 	Tags []InputTag `json:"tags,omitempty"`

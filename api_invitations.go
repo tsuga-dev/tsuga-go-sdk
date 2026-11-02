@@ -57,7 +57,7 @@ type InvitationsAPIInviteUsersRequest struct {
 	inviteUsersRequestInner *[]InviteUsersRequestInner
 }
 
-// Invitations to create. Up to 10 invitations are accepted per request.
+// Invitations to create.
 func (r InvitationsAPIInviteUsersRequest) InviteUsersRequestInner(inviteUsersRequestInner []InviteUsersRequestInner) InvitationsAPIInviteUsersRequest {
 	r.inviteUsersRequestInner = &inviteUsersRequestInner
 	return r

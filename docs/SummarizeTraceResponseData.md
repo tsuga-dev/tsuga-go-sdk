@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Spans** | [**[]SearchSpansResponseDataSpansInner**](SearchSpansResponseDataSpansInner.md) | Summarized trace spans, sorted by start time unless &#x60;sortSpans&#x60; is false. Aggregated groups are replaced by synthetic summary spans marked with &#x60;spanAttributes.aggregation.is_summary&#x60;. | 
+**Spans** | [**[]SearchSpansResponseDataSpansInner**](SearchSpansResponseDataSpansInner.md) | Summarized trace spans, sorted by start time unless &#x60;sortSpans&#x60; is false. Aggregated groups are replaced by synthetic summary spans marked with &#x60;span_attributes.aggregation.is_summary&#x60;. | 
 
 ## Methods
 

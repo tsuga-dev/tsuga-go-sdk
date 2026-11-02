@@ -21,7 +21,7 @@ var _ MappedNullable = &GetTraceLatencySummaryResponseDataRangesInnerContributio
 type GetTraceLatencySummaryResponseDataRangesInnerContributionsInner struct {
 	// Contributing service key for this range. References `services[].key` in the same response.
 	ServiceKey string `json:"serviceKey"`
-	// Share of this range attributed to the service, from `0` through `1`. Tsuga computes the weight from active leaf spans in the range. Weights inside one range sum to `1`, except on a range merged from shorter ones. Each merge step truncates to the microsecond grid and merging is pairwise, so the loss compounds with the number of ranges merged rather than being bounded per range: it is a few parts in 10,000 on a typical trace, but a long run of very short adjacent ranges can fall well below `1`. `serviceTotals` is derived from the same merged ranges and carries the same loss.
+	// Share of this range attributed to the service, from `0` through `1`, computed from active leaf spans in the range. Weights in one range sum to `1`, except on a range merged from shorter ones: each pairwise merge truncates to the microsecond grid, so the loss grows with the number of merges, a few parts in 10,000 on a typical trace but well below `1` after a long run of very short adjacent ranges. `serviceTotals` carries the same loss.
 	Weight float32 `json:"weight"`
 	// Estimated duration attributed to this service in the range, computed as `weight` times the range's own `durationNs` and rounded to whole nanoseconds. Use `serviceTotals` as authoritative when rounded range values do not add up exactly.
 	DurationNs           string `json:"durationNs"`

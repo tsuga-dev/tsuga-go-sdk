@@ -30,7 +30,7 @@ import (
 )
 
 func main() {
-	path := "path_example" // string | Documentation path to fetch. Use page slug paths for docs or `api/<operationId>` for API-reference pages.
+	path := "path_example" // string | Page to fetch: a doc slug path, `api/<operationId>`, or a docs link with or without its host. A `/documentation/<path>` link returns the whole page, ignoring `?tab=` and `#anchor`; an API-reference link `/documentation/api#tag/<tag>/<METHOD><path>` returns that operation's page.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -55,7 +55,7 @@ Other parameters are passed through a pointer to a apiGetDocPageRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **path** | **string** | Documentation path to fetch. Use page slug paths for docs or &#x60;api/&lt;operationId&gt;&#x60; for API-reference pages. | 
+ **path** | **string** | Page to fetch: a doc slug path, &#x60;api/&lt;operationId&gt;&#x60;, or a docs link with or without its host. A &#x60;/documentation/&lt;path&gt;&#x60; link returns the whole page, ignoring &#x60;?tab&#x3D;&#x60; and &#x60;#anchor&#x60;; an API-reference link &#x60;/documentation/api#tag/&lt;tag&gt;/&lt;METHOD&gt;&lt;path&gt;&#x60; returns that operation&#39;s page. | 
 
 ### Return type
 

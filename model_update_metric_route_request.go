@@ -31,7 +31,7 @@ type UpdateMetricRouteRequest struct {
 	Tags []InputTag `json:"tags,omitempty"`
 	// ID of the team that will own the metrics route, determining which team members can view and manage it and which tag policies apply. Only an org admin or an admin of this team may change fields other than `processors`, or delete the route.
 	Owner string `json:"owner"`
-	// Processors applied in array order to metrics that match the route, each transforming the output of the previous one. Up to 50 are accepted. Supported processors are create format-string, create category, map attributes, and parse grok.
+	// Processors applied in array order to metrics that match the route, each transforming the output of the previous one. Supported processors are create format-string, create category, map attributes, and parse grok.
 	Processors           []UpdateMetricRouteRequestProcessorsInner `json:"processors"`
 	AdditionalProperties map[string]interface{}
 }

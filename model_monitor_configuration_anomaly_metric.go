@@ -26,7 +26,7 @@ type MonitorConfigurationAnomalyMetric struct {
 	NoDataBehavior string `json:"noDataBehavior"`
 	// Lookback window, in minutes, that each anomaly monitor evaluation aggregates over. Always a whole number from 5 through 1440.
 	Timeframe float32 `json:"timeframe"`
-	// Monitor group by configuration. The `limit` setting is currently ignored; evaluation applies a fixed limit of 100 groups per field.
+	// Monitor group by configuration.
 	GroupByFields []MonitorConfigurationMetricGroupByFieldsInner `json:"groupByFields"`
 	// How grouped results are combined into alert state. Use `no_aggregation` only when `groupByFields` is empty; use `all`, `any`, `each`, or `proportion` with non-empty `groupByFields`. `proportion` also requires `proportionAlertThreshold`.
 	AggregationAlertLogic *string `json:"aggregationAlertLogic,omitempty"`

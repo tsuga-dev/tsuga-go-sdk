@@ -102,7 +102,7 @@ import (
 func main() {
 	from := int64(1704067200) // int64 | Start of the query window as a Unix timestamp in seconds
 	to := int64(1704067200) // int64 | End of the query window as a Unix timestamp in seconds
-	traceId := "traceId_example" // string | Trace ID to summarize. Use the `traceId` returned by span search, the trace details page, or your tracing instrumentation. Required; the requested time range must include the trace.
+	traceId := "traceId_example" // string | Trace ID to summarize. Use the `trace_id` returned by span search, the trace details page, or your tracing instrumentation. Required; the requested time range must include the trace.
 	clusterId := "clusterId_example" // string | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. (optional)
 	minRangeDurationMs := float32(8.14) // float32 | Minimum range duration in milliseconds. Shorter ranges are collapsed (absorbed into a neighbor or blended with adjacent shorts) to keep the timeline readable. When omitted, the default depends on the trace: max(1ms, 1% of the total trace duration), so e.g. a 10s trace collapses ranges shorter than 100ms. Pass 0 to disable collapsing. (optional)
 	includeRanges := true // bool | When false, omits the per-range timeline (returns `ranges: []`) and returns only `services` and `serviceTotals`. Cuts payload size for callers that only need the headline. Defaults to true. (optional) (default to true)
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **from** | **int64** | Start of the query window as a Unix timestamp in seconds | 
  **to** | **int64** | End of the query window as a Unix timestamp in seconds | 
- **traceId** | **string** | Trace ID to summarize. Use the &#x60;traceId&#x60; returned by span search, the trace details page, or your tracing instrumentation. Required; the requested time range must include the trace. | 
+ **traceId** | **string** | Trace ID to summarize. Use the &#x60;trace_id&#x60; returned by span search, the trace details page, or your tracing instrumentation. Required; the requested time range must include the trace. | 
  **clusterId** | **string** | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. | 
  **minRangeDurationMs** | **float32** | Minimum range duration in milliseconds. Shorter ranges are collapsed (absorbed into a neighbor or blended with adjacent shorts) to keep the timeline readable. When omitted, the default depends on the trace: max(1ms, 1% of the total trace duration), so e.g. a 10s trace collapses ranges shorter than 100ms. Pass 0 to disable collapsing. | 
  **includeRanges** | **bool** | When false, omits the per-range timeline (returns &#x60;ranges: []&#x60;) and returns only &#x60;services&#x60; and &#x60;serviceTotals&#x60;. Cuts payload size for callers that only need the headline. Defaults to true. | [default to true]
@@ -252,7 +252,7 @@ import (
 func main() {
 	from := int64(1704067200) // int64 | Start of the query window as a Unix timestamp in seconds
 	to := int64(1704067200) // int64 | End of the query window as a Unix timestamp in seconds
-	traceId := "traceId_example" // string | Trace ID to summarize. Use the `traceId` returned by span search, the trace details page, or your tracing instrumentation. Required; the requested time range must include the trace.
+	traceId := "traceId_example" // string | Trace ID to summarize. Use the `trace_id` returned by span search, the trace details page, or your tracing instrumentation. Required; the requested time range must include the trace.
 	clusterId := "clusterId_example" // string | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. (optional)
 	groupByAttributes := []string{"Inner_example"} // []string | Glob patterns of span attribute keys to use as additional grouping dimensions. Use this when spans should be summarized separately for matching attributes, such as `db.*`. Matches flattened dotted span attribute keys; omitted by default. (optional)
 	minLeafSpansToAggregate := int32(56) // int32 | Minimum number of similar leaf spans in a group before Tsuga replaces them with one synthetic summary span. Use higher values for less aggressive summarization. Optional; defaults to 5 and must be at least 2. (optional) (default to 5)
@@ -285,7 +285,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **from** | **int64** | Start of the query window as a Unix timestamp in seconds | 
  **to** | **int64** | End of the query window as a Unix timestamp in seconds | 
- **traceId** | **string** | Trace ID to summarize. Use the &#x60;traceId&#x60; returned by span search, the trace details page, or your tracing instrumentation. Required; the requested time range must include the trace. | 
+ **traceId** | **string** | Trace ID to summarize. Use the &#x60;trace_id&#x60; returned by span search, the trace details page, or your tracing instrumentation. Required; the requested time range must include the trace. | 
  **clusterId** | **string** | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. | 
  **groupByAttributes** | **[]string** | Glob patterns of span attribute keys to use as additional grouping dimensions. Use this when spans should be summarized separately for matching attributes, such as &#x60;db.*&#x60;. Matches flattened dotted span attribute keys; omitted by default. | 
  **minLeafSpansToAggregate** | **int32** | Minimum number of similar leaf spans in a group before Tsuga replaces them with one synthetic summary span. Use higher values for less aggressive summarization. Optional; defaults to 5 and must be at least 2. | [default to 5]

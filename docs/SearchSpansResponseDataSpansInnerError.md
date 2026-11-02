@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Message** | **string** | Error message associated with the span. | 
+**Message** | **string** | OpenTelemetry span status description set by the instrumentation, such as the exception message. | 
 
 ## Methods
 

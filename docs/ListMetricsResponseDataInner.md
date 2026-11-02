@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Unit** | Pointer to **string** | Metric unit reported by instrumentation or inferred metadata. | [optional] 
 **Temporality** | Pointer to **string** | Metric temporality. &#x60;delta&#x60; reports changes per collection interval, &#x60;cumulative&#x60; reports running totals, and &#x60;none&#x60; means temporality is not applicable or unknown. | [optional] 
 **Capabilities** | Pointer to **[]string** | Aggregate function types (such as &#x60;max&#x60;, &#x60;min&#x60;, &#x60;sum&#x60;) supported when querying or graphing this metric. An empty or omitted array means all aggregate types are supported. | [optional] 
+**SeriesCardinality** | Pointer to **float32** | Estimated number of distinct series for this metric across the most recent data generations kept by the metric catalog. Omitted when the catalog has no statistics for the metric yet. | [optional] 
 
 ## Methods
 
@@ -169,6 +170,31 @@ SetCapabilities sets Capabilities field to given value.
 `func (o *ListMetricsResponseDataInner) HasCapabilities() bool`
 
 HasCapabilities returns a boolean if a field has been set.
+
+### GetSeriesCardinality
+
+`func (o *ListMetricsResponseDataInner) GetSeriesCardinality() float32`
+
+GetSeriesCardinality returns the SeriesCardinality field if non-nil, zero value otherwise.
+
+### GetSeriesCardinalityOk
+
+`func (o *ListMetricsResponseDataInner) GetSeriesCardinalityOk() (*float32, bool)`
+
+GetSeriesCardinalityOk returns a tuple with the SeriesCardinality field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSeriesCardinality
+
+`func (o *ListMetricsResponseDataInner) SetSeriesCardinality(v float32)`
+
+SetSeriesCardinality sets SeriesCardinality field to given value.
+
+### HasSeriesCardinality
+
+`func (o *ListMetricsResponseDataInner) HasSeriesCardinality() bool`
+
+HasSeriesCardinality returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

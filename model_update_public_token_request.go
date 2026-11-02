@@ -19,7 +19,7 @@ var _ MappedNullable = &UpdatePublicTokenRequest{}
 
 // UpdatePublicTokenRequest RUM public token update request. Provide the full definition, including name, owner team, allowed URL prefixes, tags including an `env` tag, and team override fields. The application type must match the existing token and the token value itself never changes.
 type UpdatePublicTokenRequest struct {
-	// Kebab-case name for the RUM public token. Maximum length is 100 characters.
+	// Kebab-case name for the RUM public token.
 	Name string `json:"name"`
 	// Team ID that will own and manage the RUM public token.
 	Owner string `json:"owner"`
@@ -29,7 +29,7 @@ type UpdatePublicTokenRequest struct {
 	AllowedUrlPrefixes []string `json:"allowedUrlPrefixes"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
 	Tags []InputTag `json:"tags"`
-	// Array form. Up to 3 fields are allowed.
+	// Array form.
 	TeamOverrideFields   []string `json:"teamOverrideFields"`
 	AdditionalProperties map[string]interface{}
 }

@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **Temporality** | Pointer to **string** | Metric temporality. &#x60;delta&#x60; reports changes per collection interval, &#x60;cumulative&#x60; reports running totals, and &#x60;none&#x60; means temporality is not applicable or unknown. | [optional] 
 **Capabilities** | Pointer to **[]string** | Aggregate function types (such as &#x60;max&#x60;, &#x60;min&#x60;, &#x60;sum&#x60;) supported when querying or graphing this metric. An empty or omitted array means all aggregate types are supported. | [optional] 
 **Attributes** | Pointer to **[]string** | Metric attribute names available as dimensions for filtering or grouping. | [optional] 
+**SeriesCardinality** | Pointer to **float32** | Estimated number of distinct series for this metric across the most recent data generations kept by the metric catalog. Omitted when the catalog has no statistics for the metric yet. | [optional] 
+**AttributeCardinalities** | Pointer to **map[string]float32** | Estimated number of distinct values per attribute over the same window as &#x60;seriesCardinality&#x60;, keyed like &#x60;attributes&#x60;. Omitted when the catalog has no statistics for the metric yet. | [optional] 
 
 ## Methods
 
@@ -195,6 +197,56 @@ SetAttributes sets Attributes field to given value.
 `func (o *GetMetricResponseData) HasAttributes() bool`
 
 HasAttributes returns a boolean if a field has been set.
+
+### GetSeriesCardinality
+
+`func (o *GetMetricResponseData) GetSeriesCardinality() float32`
+
+GetSeriesCardinality returns the SeriesCardinality field if non-nil, zero value otherwise.
+
+### GetSeriesCardinalityOk
+
+`func (o *GetMetricResponseData) GetSeriesCardinalityOk() (*float32, bool)`
+
+GetSeriesCardinalityOk returns a tuple with the SeriesCardinality field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSeriesCardinality
+
+`func (o *GetMetricResponseData) SetSeriesCardinality(v float32)`
+
+SetSeriesCardinality sets SeriesCardinality field to given value.
+
+### HasSeriesCardinality
+
+`func (o *GetMetricResponseData) HasSeriesCardinality() bool`
+
+HasSeriesCardinality returns a boolean if a field has been set.
+
+### GetAttributeCardinalities
+
+`func (o *GetMetricResponseData) GetAttributeCardinalities() map[string]float32`
+
+GetAttributeCardinalities returns the AttributeCardinalities field if non-nil, zero value otherwise.
+
+### GetAttributeCardinalitiesOk
+
+`func (o *GetMetricResponseData) GetAttributeCardinalitiesOk() (*map[string]float32, bool)`
+
+GetAttributeCardinalitiesOk returns a tuple with the AttributeCardinalities field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAttributeCardinalities
+
+`func (o *GetMetricResponseData) SetAttributeCardinalities(v map[string]float32)`
+
+SetAttributeCardinalities sets AttributeCardinalities field to given value.
+
+### HasAttributeCardinalities
+
+`func (o *GetMetricResponseData) HasAttributeCardinalities() bool`
+
+HasAttributeCardinalities returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

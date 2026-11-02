@@ -19,7 +19,7 @@ var _ MappedNullable = &SummarizeTraceResponseData{}
 
 // SummarizeTraceResponseData struct for SummarizeTraceResponseData
 type SummarizeTraceResponseData struct {
-	// Summarized trace spans, sorted by start time unless `sortSpans` is false. Aggregated groups are replaced by synthetic summary spans marked with `spanAttributes.aggregation.is_summary`.
+	// Summarized trace spans, sorted by start time unless `sortSpans` is false. Aggregated groups are replaced by synthetic summary spans marked with `span_attributes.aggregation.is_summary`.
 	Spans                []SearchSpansResponseDataSpansInner `json:"spans"`
 	AdditionalProperties map[string]interface{}
 }

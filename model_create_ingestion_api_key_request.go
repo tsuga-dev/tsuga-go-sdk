@@ -19,13 +19,13 @@ var _ MappedNullable = &CreateIngestionApiKeyRequest{}
 
 // CreateIngestionApiKeyRequest Ingestion API key creation request. Provide a kebab-case name, owner team, required tags, and required team override fields as an array of fields or null.
 type CreateIngestionApiKeyRequest struct {
-	// Kebab-case name for the ingestion API key. Maximum length is 100 characters.
+	// Kebab-case name for the ingestion API key.
 	Name string `json:"name"`
 	// Team ID that will own and manage the ingestion API key.
 	Owner string `json:"owner"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
 	Tags []InputTag `json:"tags"`
-	// Array form. Up to 3 fields are allowed.
+	// Array form.
 	TeamOverrideFields   []*string `json:"teamOverrideFields"`
 	AdditionalProperties map[string]interface{}
 }

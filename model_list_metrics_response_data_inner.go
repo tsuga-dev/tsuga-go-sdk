@@ -30,7 +30,9 @@ type ListMetricsResponseDataInner struct {
 	// Metric temporality. `delta` reports changes per collection interval, `cumulative` reports running totals, and `none` means temporality is not applicable or unknown.
 	Temporality *string `json:"temporality,omitempty"`
 	// Aggregate function types (such as `max`, `min`, `sum`) supported when querying or graphing this metric. An empty or omitted array means all aggregate types are supported.
-	Capabilities         []string `json:"capabilities,omitempty"`
+	Capabilities []string `json:"capabilities,omitempty"`
+	// Estimated number of distinct series for this metric across the most recent data generations kept by the metric catalog. Omitted when the catalog has no statistics for the metric yet.
+	SeriesCardinality    *float32 `json:"seriesCardinality,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -231,6 +233,38 @@ func (o *ListMetricsResponseDataInner) SetCapabilities(v []string) {
 	o.Capabilities = v
 }
 
+// GetSeriesCardinality returns the SeriesCardinality field value if set, zero value otherwise.
+func (o *ListMetricsResponseDataInner) GetSeriesCardinality() float32 {
+	if o == nil || IsNil(o.SeriesCardinality) {
+		var ret float32
+		return ret
+	}
+	return *o.SeriesCardinality
+}
+
+// GetSeriesCardinalityOk returns a tuple with the SeriesCardinality field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListMetricsResponseDataInner) GetSeriesCardinalityOk() (*float32, bool) {
+	if o == nil || IsNil(o.SeriesCardinality) {
+		return nil, false
+	}
+	return o.SeriesCardinality, true
+}
+
+// HasSeriesCardinality returns a boolean if a field has been set.
+func (o *ListMetricsResponseDataInner) HasSeriesCardinality() bool {
+	if o != nil && !IsNil(o.SeriesCardinality) {
+		return true
+	}
+
+	return false
+}
+
+// SetSeriesCardinality gets a reference to the given float32 and assigns it to the SeriesCardinality field.
+func (o *ListMetricsResponseDataInner) SetSeriesCardinality(v float32) {
+	o.SeriesCardinality = &v
+}
+
 func (o ListMetricsResponseDataInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -254,6 +288,9 @@ func (o ListMetricsResponseDataInner) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Capabilities) {
 		toSerialize["capabilities"] = o.Capabilities
+	}
+	if !IsNil(o.SeriesCardinality) {
+		toSerialize["seriesCardinality"] = o.SeriesCardinality
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -305,6 +342,7 @@ func (o *ListMetricsResponseDataInner) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "unit")
 		delete(additionalProperties, "temporality")
 		delete(additionalProperties, "capabilities")
+		delete(additionalProperties, "seriesCardinality")
 		o.AdditionalProperties = additionalProperties
 	}
 

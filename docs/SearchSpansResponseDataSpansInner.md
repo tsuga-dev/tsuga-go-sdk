@@ -5,14 +5,16 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Context** | Pointer to [**SearchSpansResponseDataSpansInnerContext**](SearchSpansResponseDataSpansInnerContext.md) |  | [optional] 
-**ParentSpanId** | Pointer to **string** | &#x60;spanId&#x60; of this span&#39;s parent within the same trace. Absent for the root span. | [optional] 
+**ParentSpanId** | Pointer to **string** | &#x60;span_id&#x60; of this span&#39;s parent within the same trace. Empty or absent for a root span. | [optional] 
 **ResourceAttributes** | **map[string]interface{}** | OpenTelemetry resource attributes describing the process/host that emitted the span (e.g. &#x60;host.name&#x60;, &#x60;k8s.pod.name&#x60;), as a flat key-value map set by the instrumented service or its SDK. | 
 **SpanAttributes** | **map[string]interface{}** | OpenTelemetry span attributes describing this operation (e.g. HTTP method, DB statement), as a flat key-value map set by the instrumented code or auto-instrumentation. | 
-**Duration** | **float32** | Span duration in milliseconds, derived from the nanosecond &#x60;startTime&#x60; and &#x60;endTime&#x60; values. | 
+**Duration** | **float32** | Span duration in milliseconds, derived from the nanosecond &#x60;start_time&#x60; and &#x60;end_time&#x60; values. | 
+**DurationNs** | **string** | Span duration in nanoseconds, encoded as a string to preserve precision. | 
 **StartTime** | **string** | Span start time as a Unix epoch timestamp in nanoseconds, encoded as a string to preserve precision. | 
 **EndTime** | **string** | Span end time as a Unix epoch timestamp in nanoseconds, encoded as a string to preserve precision. | 
 **Error** | Pointer to [**SearchSpansResponseDataSpansInnerError**](SearchSpansResponseDataSpansInnerError.md) |  | [optional] 
 **Events** | Pointer to [**[]SearchSpansResponseDataSpansInnerEventsInner**](SearchSpansResponseDataSpansInnerEventsInner.md) | Events recorded on the span. | [optional] 
+**Links** | Pointer to **[]map[string]interface{}** | OpenTelemetry span links to related spans, possibly in other traces. | [optional] 
 **SpanId** | **string** | Unique span ID within the trace. | 
 **Span** | [**SearchSpansResponseDataSpansInnerSpan**](SearchSpansResponseDataSpansInnerSpan.md) |  | 
 **StatusCode** | Pointer to **string** | OpenTelemetry span status set by the instrumented code: &#x60;unset&#x60; (default, no explicit status), &#x60;ok&#x60;, or &#x60;error&#x60;. Absent if the source span never set a status. | [optional] 
@@ -22,7 +24,7 @@ Name | Type | Description | Notes
 
 ### NewSearchSpansResponseDataSpansInner
 
-`func NewSearchSpansResponseDataSpansInner(resourceAttributes map[string]interface{}, spanAttributes map[string]interface{}, duration float32, startTime string, endTime string, spanId string, span SearchSpansResponseDataSpansInnerSpan, traceId string, ) *SearchSpansResponseDataSpansInner`
+`func NewSearchSpansResponseDataSpansInner(resourceAttributes map[string]interface{}, spanAttributes map[string]interface{}, duration float32, durationNs string, startTime string, endTime string, spanId string, span SearchSpansResponseDataSpansInnerSpan, traceId string, ) *SearchSpansResponseDataSpansInner`
 
 NewSearchSpansResponseDataSpansInner instantiates a new SearchSpansResponseDataSpansInner object
 This constructor will assign default values to properties that have it defined,
@@ -147,6 +149,26 @@ and a boolean to check if the value has been set.
 SetDuration sets Duration field to given value.
 
 
+### GetDurationNs
+
+`func (o *SearchSpansResponseDataSpansInner) GetDurationNs() string`
+
+GetDurationNs returns the DurationNs field if non-nil, zero value otherwise.
+
+### GetDurationNsOk
+
+`func (o *SearchSpansResponseDataSpansInner) GetDurationNsOk() (*string, bool)`
+
+GetDurationNsOk returns a tuple with the DurationNs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDurationNs
+
+`func (o *SearchSpansResponseDataSpansInner) SetDurationNs(v string)`
+
+SetDurationNs sets DurationNs field to given value.
+
+
 ### GetStartTime
 
 `func (o *SearchSpansResponseDataSpansInner) GetStartTime() string`
@@ -236,6 +258,31 @@ SetEvents sets Events field to given value.
 `func (o *SearchSpansResponseDataSpansInner) HasEvents() bool`
 
 HasEvents returns a boolean if a field has been set.
+
+### GetLinks
+
+`func (o *SearchSpansResponseDataSpansInner) GetLinks() []map[string]interface{}`
+
+GetLinks returns the Links field if non-nil, zero value otherwise.
+
+### GetLinksOk
+
+`func (o *SearchSpansResponseDataSpansInner) GetLinksOk() (*[]map[string]interface{}, bool)`
+
+GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLinks
+
+`func (o *SearchSpansResponseDataSpansInner) SetLinks(v []map[string]interface{})`
+
+SetLinks sets Links field to given value.
+
+### HasLinks
+
+`func (o *SearchSpansResponseDataSpansInner) HasLinks() bool`
+
+HasLinks returns a boolean if a field has been set.
 
 ### GetSpanId
 

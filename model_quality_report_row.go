@@ -43,7 +43,7 @@ type QualityReportRow struct {
 	Examples []QualityReportRowExamplesInner `json:"examples,omitempty"`
 	// Total number of examples persisted for this row, before the preview truncation applied to examples. Returned whenever examples are visible to the caller.
 	ExampleCount *int32 `json:"exampleCount,omitempty"`
-	// ISO timestamp at which the rule evaluator produced this result. Set to the report generation time unless the evaluation failed during that generation; the row then carries the last successful result for the same rule and scope, and evaluatedAt is when that result was computed. Omitted when the rule has never been evaluated successfully for this scope, in which case status is ignored, and on rows stored before Tsuga recorded this timestamp.
+	// ISO timestamp at which the rule evaluator produced this result: the report generation time, or, when evaluation failed then, the time of the last successful result for the same rule and scope, which the row carries instead. Omitted when the rule never evaluated successfully for this scope (`status` is then ignored) and on rows stored before this field existed.
 	EvaluatedAt *string `json:"evaluatedAt,omitempty"`
 	// ISO timestamp the row was generated at
 	CreatedAt            string `json:"createdAt"`

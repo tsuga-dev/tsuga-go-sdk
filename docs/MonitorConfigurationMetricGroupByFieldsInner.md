@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Fields** | **[]string** | Attribute names the monitor splits results by, evaluating each resulting group independently. Empty means the monitor evaluates a single ungrouped series. | 
-**Limit** | **float32** | Configured limit for this group by. Currently ignored; monitor evaluation applies a fixed limit of 100 groups per field. | 
+**Limit** | **float32** | Maximum number of groups evaluated per field. Anomaly monitors apply it, capped at 100. Threshold monitors ignore it and evaluate up to 100 groups per field. | 
 **SortOrder** | Pointer to **string** | Sort direction: ascending or descending. | [optional] 
 **ReplaceNullWith** | Pointer to **string** | Value used to group documents that have no value for a grouped field. | [optional] 
 

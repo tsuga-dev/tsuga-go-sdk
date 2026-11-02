@@ -31,7 +31,7 @@ type CreateRouteRequest struct {
 	Tags []InputTag `json:"tags,omitempty"`
 	// ID of the team that will own the log route, determining which team members can view and manage it and which tag policies apply. Only an org admin or an admin of this team may change fields other than `processors`, or delete the route.
 	Owner string `json:"owner"`
-	// Processors applied in array order to logs that match the log route, each transforming the output of the previous one. Up to 50 are accepted. A `split` processor forks the chain into branches and cannot be followed by another processor at the same level.
+	// Processors applied in array order to logs that match the log route, each transforming the output of the previous one. A `split` processor forks the chain into branches and cannot be followed by another processor at the same level.
 	Processors           []InputProcessor `json:"processors"`
 	AdditionalProperties map[string]interface{}
 }

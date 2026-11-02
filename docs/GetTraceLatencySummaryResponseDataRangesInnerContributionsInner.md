@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ServiceKey** | **string** | Contributing service key for this range. References &#x60;services[].key&#x60; in the same response. | 
-**Weight** | **float32** | Share of this range attributed to the service, from &#x60;0&#x60; through &#x60;1&#x60;. Tsuga computes the weight from active leaf spans in the range. Weights inside one range sum to &#x60;1&#x60;, except on a range merged from shorter ones. Each merge step truncates to the microsecond grid and merging is pairwise, so the loss compounds with the number of ranges merged rather than being bounded per range: it is a few parts in 10,000 on a typical trace, but a long run of very short adjacent ranges can fall well below &#x60;1&#x60;. &#x60;serviceTotals&#x60; is derived from the same merged ranges and carries the same loss. | 
+**Weight** | **float32** | Share of this range attributed to the service, from &#x60;0&#x60; through &#x60;1&#x60;, computed from active leaf spans in the range. Weights in one range sum to &#x60;1&#x60;, except on a range merged from shorter ones: each pairwise merge truncates to the microsecond grid, so the loss grows with the number of merges, a few parts in 10,000 on a typical trace but well below &#x60;1&#x60; after a long run of very short adjacent ranges. &#x60;serviceTotals&#x60; carries the same loss. | 
 **DurationNs** | **string** | Estimated duration attributed to this service in the range, computed as &#x60;weight&#x60; times the range&#39;s own &#x60;durationNs&#x60; and rounded to whole nanoseconds. Use &#x60;serviceTotals&#x60; as authoritative when rounded range values do not add up exactly. | 
 
 ## Methods

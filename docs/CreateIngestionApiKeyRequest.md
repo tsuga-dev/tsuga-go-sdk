@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Kebab-case name for the ingestion API key. Maximum length is 100 characters. | 
+**Name** | **string** | Kebab-case name for the ingestion API key. | 
 **Owner** | **string** | Team ID that will own and manage the ingestion API key. | 
 **Tags** | [**[]InputTag**](InputTag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | 
-**TeamOverrideFields** | **[]string** | Array form. Up to 3 fields are allowed. | 
+**TeamOverrideFields** | **[]string** | Array form. | 
 
 ## Methods
 

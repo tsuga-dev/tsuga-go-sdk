@@ -21,7 +21,7 @@ var _ MappedNullable = &InputMonitorConfigurationMetricGroupByFieldsInner{}
 type InputMonitorConfigurationMetricGroupByFieldsInner struct {
 	// Attribute names the monitor splits results by, evaluating each resulting group independently. Empty or omitted means the monitor evaluates a single ungrouped series.
 	Fields []string `json:"fields"`
-	// Configured limit for this group by. Currently ignored; monitor evaluation applies a fixed limit of 100 groups per field.
+	// Maximum number of groups evaluated per field. Anomaly monitors apply it, capped at 100. Threshold monitors ignore it and evaluate up to 100 groups per field.
 	Limit float32 `json:"limit"`
 	// Sort direction: ascending or descending.
 	SortOrder *string `json:"sortOrder,omitempty"`

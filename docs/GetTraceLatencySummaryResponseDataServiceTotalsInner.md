@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ServiceKey** | **string** | Contributing service key for this aggregate total. References &#x60;services[].key&#x60; in the same response. | 
 **DurationNs** | **string** | Total wall-clock contribution of this service across the trace, in nanoseconds. Sum of &#x60;weight * durationNs&#x60; over every range the service contributes to; authoritative when it disagrees with rounded per-range values. Transmitted as a string to avoid losing precision. | 
-**Share** | **float32** | Share of total trace duration attributed to this service, from &#x60;0&#x60; through &#x60;1&#x60;. Computed as &#x60;durationNs / totalDurationNs&#x60;; multiply by 100 for a percentage. Shares sum to less than &#x60;1&#x60; for two reasons: time where no span was running is credited to no service, and merging adjacent ranges truncates to the microsecond grid at each step, so the loss compounds with the number of ranges merged. A shortfall on a trace with no gap is that truncation; it is usually a few parts in 10,000, but a long run of very short adjacent ranges can make it large. | 
+**Share** | **float32** | Share of total trace duration attributed to this service, &#x60;durationNs / totalDurationNs&#x60;, from &#x60;0&#x60; through &#x60;1&#x60;. Shares sum to less than &#x60;1&#x60; because time where no span was running is credited to no service, and because of the merge truncation described on &#x60;ranges[].contributions[].weight&#x60;, which is the whole shortfall on a trace with no gap. | 
 
 ## Methods
 

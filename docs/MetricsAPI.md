@@ -5,6 +5,7 @@ All URIs are relative to *https://api.tsuga.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetMetric**](MetricsAPI.md#GetMetric) | **Get** /v1/metrics/{name} | 
+[**GetMetricAssetsUsage**](MetricsAPI.md#GetMetricAssetsUsage) | **Get** /v1/metrics/assets-usage | 
 [**ListMetrics**](MetricsAPI.md#ListMetrics) | **Get** /v1/metrics | 
 
 
@@ -70,6 +71,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**GetMetricResponse**](GetMetricResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMetricAssetsUsage
+
+> GetMetricAssetsUsageResponse GetMetricAssetsUsage(ctx).MetricName(metricName).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/tsuga-dev/tsuga-go-sdk"
+)
+
+func main() {
+	metricName := "metricName_example" // string | Metric name to look up, for example `http.server.request.duration`.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MetricsAPI.GetMetricAssetsUsage(context.Background()).MetricName(metricName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MetricsAPI.GetMetricAssetsUsage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMetricAssetsUsage`: GetMetricAssetsUsageResponse
+	fmt.Fprintf(os.Stdout, "Response from `MetricsAPI.GetMetricAssetsUsage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMetricAssetsUsageRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **metricName** | **string** | Metric name to look up, for example &#x60;http.server.request.duration&#x60;. | 
+
+### Return type
+
+[**GetMetricAssetsUsageResponse**](GetMetricAssetsUsageResponse.md)
 
 ### Authorization
 
