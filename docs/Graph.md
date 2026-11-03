@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **DescriptionJustifyContent** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
 **Visualization** | [**GraphVisualization**](GraphVisualization.md) |  | 
 **Layout** | Pointer to [**GraphLayout**](GraphLayout.md) |  | [optional] 
+**TabId** | Pointer to **string** | ID of the dashboard tab that shows the widget. Widgets without a tab, or whose tab no longer exists, are shown in the first tab. | [optional] 
 
 ## Methods
 
@@ -195,6 +196,31 @@ SetLayout sets Layout field to given value.
 `func (o *Graph) HasLayout() bool`
 
 HasLayout returns a boolean if a field has been set.
+
+### GetTabId
+
+`func (o *Graph) GetTabId() string`
+
+GetTabId returns the TabId field if non-nil, zero value otherwise.
+
+### GetTabIdOk
+
+`func (o *Graph) GetTabIdOk() (*string, bool)`
+
+GetTabIdOk returns a tuple with the TabId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTabId
+
+`func (o *Graph) SetTabId(v string)`
+
+SetTabId sets TabId field to given value.
+
+### HasTabId
+
+`func (o *Graph) HasTabId() bool`
+
+HasTabId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

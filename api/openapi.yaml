@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261102.17.0+904b870
+  version: 20261102.33.0+16ae808
 servers:
 - url: https://api.tsuga.com
 security:
@@ -13769,6 +13769,7 @@ components:
           - CLUSTER_AGGREGATION_BUCKET_LIMIT_EXCEEDED
           - CLUSTER_AGGREGATION_FORMULA
           - CLUSTER_AGGREGATION_INTERVAL_PARSE_ERROR
+          - CLUSTER_AGGREGATION_PROMQL
           - CLUSTER_AGGREGATION_STRUCTURE
           - CLUSTER_AGGREGATION_SYNTAX
           - ABORT_ERROR
@@ -15934,6 +15935,7 @@ components:
             "y": 5.962133916683182
             w: 5.637376656633329
             h: 2.3021358869347655
+          tabId: tabId
         - id: id
           name: name
           description: description
@@ -15980,6 +15982,7 @@ components:
             "y": 5.962133916683182
             w: 5.637376656633329
             h: 2.3021358869347655
+          tabId: tabId
         filters:
         - key: key
           values:
@@ -16123,6 +16126,7 @@ components:
               "y": 5.962133916683182
               w: 5.637376656633329
               h: 2.3021358869347655
+            tabId: tabId
           - id: id
             name: name
             description: description
@@ -16169,6 +16173,7 @@ components:
               "y": 5.962133916683182
               w: 5.637376656633329
               h: 2.3021358869347655
+            tabId: tabId
           filters:
           - key: key
             values:
@@ -16237,6 +16242,7 @@ components:
               "y": 5.962133916683182
               w: 5.637376656633329
               h: 2.3021358869347655
+            tabId: tabId
           - id: id
             name: name
             description: description
@@ -16283,6 +16289,7 @@ components:
               "y": 5.962133916683182
               w: 5.637376656633329
               h: 2.3021358869347655
+            tabId: tabId
           filters:
           - key: key
             values:
@@ -16373,6 +16380,7 @@ components:
               "y": 5.962133916683182
               w: 5.637376656633329
               h: 2.3021358869347655
+            tabId: tabId
           - id: id
             name: name
             description: description
@@ -16419,6 +16427,7 @@ components:
               "y": 5.962133916683182
               w: 5.637376656633329
               h: 2.3021358869347655
+            tabId: tabId
           filters:
           - key: key
             values:
@@ -16500,6 +16509,7 @@ components:
               "y": 5.962133916683182
               w: 5.637376656633329
               h: 2.3021358869347655
+            tabId: tabId
           - id: id
             name: name
             description: description
@@ -16546,6 +16556,7 @@ components:
               "y": 5.962133916683182
               w: 5.637376656633329
               h: 2.3021358869347655
+            tabId: tabId
           filters:
           - key: key
             values:
@@ -16627,6 +16638,7 @@ components:
               "y": 5.962133916683182
               w: 5.637376656633329
               h: 2.3021358869347655
+            tabId: tabId
           - id: id
             name: name
             description: description
@@ -16673,6 +16685,7 @@ components:
               "y": 5.962133916683182
               w: 5.637376656633329
               h: 2.3021358869347655
+            tabId: tabId
           filters:
           - key: key
             values:
@@ -16750,6 +16763,7 @@ components:
             "y": 5.962133916683182
             w: 5.637376656633329
             h: 2.3021358869347655
+          tabId: tabId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -31161,6 +31175,7 @@ components:
           "y": 5.962133916683182
           w: 5.637376656633329
           h: 2.3021358869347655
+        tabId: tabId
       properties:
         id:
           description: Unique identifier of the graph widget inside the dashboard.
@@ -31191,6 +31206,10 @@ components:
           $ref: "#/components/schemas/Graph_visualization"
         layout:
           $ref: "#/components/schemas/Graph_layout"
+        tabId:
+          description: "ID of the dashboard tab that shows the widget. Widgets without\
+            \ a tab, or whose tab no longer exists, are shown in the first tab."
+          type: string
       required:
       - id
       - visualization
@@ -32648,6 +32667,12 @@ components:
           $ref: "#/components/schemas/updateDashboardGraph_request_visualization"
         layout:
           $ref: "#/components/schemas/Graph_layout"
+        tabId:
+          description: "ID of the dashboard tab that shows the widget. Widgets without\
+            \ a tab, or whose tab no longer exists, are shown in the first tab."
+          maxLength: 250
+          minLength: 0
+          type: string
       required:
       - id
       - visualization

@@ -31,7 +31,9 @@ type Graph struct {
 	DescriptionJustifyContent *string            `json:"descriptionJustifyContent,omitempty"`
 	Visualization             GraphVisualization `json:"visualization"`
 	Layout                    *GraphLayout       `json:"layout,omitempty"`
-	AdditionalProperties      map[string]interface{}
+	// ID of the dashboard tab that shows the widget. Widgets without a tab, or whose tab no longer exists, are shown in the first tab.
+	TabId                *string `json:"tabId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Graph Graph
@@ -263,6 +265,38 @@ func (o *Graph) SetLayout(v GraphLayout) {
 	o.Layout = &v
 }
 
+// GetTabId returns the TabId field value if set, zero value otherwise.
+func (o *Graph) GetTabId() string {
+	if o == nil || IsNil(o.TabId) {
+		var ret string
+		return ret
+	}
+	return *o.TabId
+}
+
+// GetTabIdOk returns a tuple with the TabId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Graph) GetTabIdOk() (*string, bool) {
+	if o == nil || IsNil(o.TabId) {
+		return nil, false
+	}
+	return o.TabId, true
+}
+
+// HasTabId returns a boolean if a field has been set.
+func (o *Graph) HasTabId() bool {
+	if o != nil && !IsNil(o.TabId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTabId gets a reference to the given string and assigns it to the TabId field.
+func (o *Graph) SetTabId(v string) {
+	o.TabId = &v
+}
+
 func (o Graph) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -289,6 +323,9 @@ func (o Graph) ToMap() (map[string]interface{}, error) {
 	toSerialize["visualization"] = o.Visualization
 	if !IsNil(o.Layout) {
 		toSerialize["layout"] = o.Layout
+	}
+	if !IsNil(o.TabId) {
+		toSerialize["tabId"] = o.TabId
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -341,6 +378,7 @@ func (o *Graph) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "descriptionJustifyContent")
 		delete(additionalProperties, "visualization")
 		delete(additionalProperties, "layout")
+		delete(additionalProperties, "tabId")
 		o.AdditionalProperties = additionalProperties
 	}
 
