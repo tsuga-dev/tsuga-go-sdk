@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Owner** | **string** | Team ID that owns and manages the RUM public token. | 
 **ApplicationType** | **string** | Kind of application the token is issued for. Only &#x60;web&#x60; telemetry is checked against &#x60;allowedUrlPrefixes&#x60;, since mobile applications do not send an &#x60;Origin&#x60; header. | 
 **AllowedUrlPrefixes** | **[]string** | URL prefixes which RUM telemetry data can be sent from. Supports wildcard matching. Always empty for &#x60;ios&#x60; and &#x60;android&#x60; applications. | 
+**CollectClientIp** | **bool** | Whether intake records the IP address each request comes from as &#x60;client.address&#x60; on RUM records, and derives the &#x60;geo&#x60; location from it. | 
 **Tags** | [**[]Tag**](Tag.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | 
 **TeamOverrideFields** | Pointer to **[]string** | Telemetry attribute names used to override ownership for data sent with this token. | [optional] 
 
@@ -17,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewPublicToken
 
-`func NewPublicToken(id string, name string, token string, owner string, applicationType string, allowedUrlPrefixes []string, tags []Tag, ) *PublicToken`
+`func NewPublicToken(id string, name string, token string, owner string, applicationType string, allowedUrlPrefixes []string, collectClientIp bool, tags []Tag, ) *PublicToken`
 
 NewPublicToken instantiates a new PublicToken object
 This constructor will assign default values to properties that have it defined,
@@ -150,6 +151,26 @@ and a boolean to check if the value has been set.
 `func (o *PublicToken) SetAllowedUrlPrefixes(v []string)`
 
 SetAllowedUrlPrefixes sets AllowedUrlPrefixes field to given value.
+
+
+### GetCollectClientIp
+
+`func (o *PublicToken) GetCollectClientIp() bool`
+
+GetCollectClientIp returns the CollectClientIp field if non-nil, zero value otherwise.
+
+### GetCollectClientIpOk
+
+`func (o *PublicToken) GetCollectClientIpOk() (*bool, bool)`
+
+GetCollectClientIpOk returns a tuple with the CollectClientIp field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCollectClientIp
+
+`func (o *PublicToken) SetCollectClientIp(v bool)`
+
+SetCollectClientIp sets CollectClientIp field to given value.
 
 
 ### GetTags

@@ -38,8 +38,6 @@ type UpdateDashboardGraphRequestVisualization struct {
 	InputGraphVisualizationQueryValueConnection *InputGraphVisualizationQueryValueConnection
 	InputGraphVisualizationQueryValuePromql     *InputGraphVisualizationQueryValuePromql
 	InputGraphVisualizationSlo                  *InputGraphVisualizationSlo
-	InputGraphVisualizationSloOverTime          *InputGraphVisualizationSloOverTime
-	InputGraphVisualizationSloUptime            *InputGraphVisualizationSloUptime
 	InputGraphVisualizationTable                *InputGraphVisualizationTable
 	InputGraphVisualizationTimeseries           *InputGraphVisualizationTimeseries
 	InputGraphVisualizationTimeseriesConnection *InputGraphVisualizationTimeseriesConnection
@@ -200,20 +198,6 @@ func InputGraphVisualizationQueryValuePromqlAsUpdateDashboardGraphRequestVisuali
 func InputGraphVisualizationSloAsUpdateDashboardGraphRequestVisualization(v *InputGraphVisualizationSlo) UpdateDashboardGraphRequestVisualization {
 	return UpdateDashboardGraphRequestVisualization{
 		InputGraphVisualizationSlo: v,
-	}
-}
-
-// InputGraphVisualizationSloOverTimeAsUpdateDashboardGraphRequestVisualization is a convenience function that returns InputGraphVisualizationSloOverTime wrapped in UpdateDashboardGraphRequestVisualization
-func InputGraphVisualizationSloOverTimeAsUpdateDashboardGraphRequestVisualization(v *InputGraphVisualizationSloOverTime) UpdateDashboardGraphRequestVisualization {
-	return UpdateDashboardGraphRequestVisualization{
-		InputGraphVisualizationSloOverTime: v,
-	}
-}
-
-// InputGraphVisualizationSloUptimeAsUpdateDashboardGraphRequestVisualization is a convenience function that returns InputGraphVisualizationSloUptime wrapped in UpdateDashboardGraphRequestVisualization
-func InputGraphVisualizationSloUptimeAsUpdateDashboardGraphRequestVisualization(v *InputGraphVisualizationSloUptime) UpdateDashboardGraphRequestVisualization {
-	return UpdateDashboardGraphRequestVisualization{
-		InputGraphVisualizationSloUptime: v,
 	}
 }
 
@@ -540,30 +524,6 @@ func (dst *UpdateDashboardGraphRequestVisualization) UnmarshalJSON(data []byte) 
 		}
 	}
 
-	// check if the discriminator value is 'slo-over-time'
-	if jsonDict["type"] == "slo-over-time" {
-		// try to unmarshal JSON data into InputGraphVisualizationSloOverTime
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationSloOverTime)
-		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationSloOverTime, return on the first match
-		} else {
-			dst.InputGraphVisualizationSloOverTime = nil
-			return fmt.Errorf("failed to unmarshal UpdateDashboardGraphRequestVisualization as InputGraphVisualizationSloOverTime: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'slo-uptime'
-	if jsonDict["type"] == "slo-uptime" {
-		// try to unmarshal JSON data into InputGraphVisualizationSloUptime
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationSloUptime)
-		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationSloUptime, return on the first match
-		} else {
-			dst.InputGraphVisualizationSloUptime = nil
-			return fmt.Errorf("failed to unmarshal UpdateDashboardGraphRequestVisualization as InputGraphVisualizationSloUptime: %s", err.Error())
-		}
-	}
-
 	// check if the discriminator value is 'table'
 	if jsonDict["type"] == "table" {
 		// try to unmarshal JSON data into InputGraphVisualizationTable
@@ -741,14 +701,6 @@ func (src UpdateDashboardGraphRequestVisualization) MarshalJSON() ([]byte, error
 		return json.Marshal(&src.InputGraphVisualizationSlo)
 	}
 
-	if src.InputGraphVisualizationSloOverTime != nil {
-		return json.Marshal(&src.InputGraphVisualizationSloOverTime)
-	}
-
-	if src.InputGraphVisualizationSloUptime != nil {
-		return json.Marshal(&src.InputGraphVisualizationSloUptime)
-	}
-
 	if src.InputGraphVisualizationTable != nil {
 		return json.Marshal(&src.InputGraphVisualizationTable)
 	}
@@ -873,14 +825,6 @@ func (obj *UpdateDashboardGraphRequestVisualization) GetActualInstance() interfa
 		return obj.InputGraphVisualizationSlo
 	}
 
-	if obj.InputGraphVisualizationSloOverTime != nil {
-		return obj.InputGraphVisualizationSloOverTime
-	}
-
-	if obj.InputGraphVisualizationSloUptime != nil {
-		return obj.InputGraphVisualizationSloUptime
-	}
-
 	if obj.InputGraphVisualizationTable != nil {
 		return obj.InputGraphVisualizationTable
 	}
@@ -1001,14 +945,6 @@ func (obj UpdateDashboardGraphRequestVisualization) GetActualInstanceValue() int
 
 	if obj.InputGraphVisualizationSlo != nil {
 		return *obj.InputGraphVisualizationSlo
-	}
-
-	if obj.InputGraphVisualizationSloOverTime != nil {
-		return *obj.InputGraphVisualizationSloOverTime
-	}
-
-	if obj.InputGraphVisualizationSloUptime != nil {
-		return *obj.InputGraphVisualizationSloUptime
 	}
 
 	if obj.InputGraphVisualizationTable != nil {

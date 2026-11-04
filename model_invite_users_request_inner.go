@@ -14,105 +14,55 @@ import (
 	"fmt"
 )
 
-// InviteUsersRequestInner - struct for InviteUsersRequestInner
+// InviteUsersRequestInner struct for InviteUsersRequestInner
 type InviteUsersRequestInner struct {
-	InviteUsersRequestInnerOneOf  *InviteUsersRequestInnerOneOf
-	InviteUsersRequestInnerOneOf1 *InviteUsersRequestInnerOneOf1
+	InviteUsersRequestInnerAnyOf  *InviteUsersRequestInnerAnyOf
+	InviteUsersRequestInnerAnyOf1 *InviteUsersRequestInnerAnyOf1
 }
 
-// InviteUsersRequestInnerOneOfAsInviteUsersRequestInner is a convenience function that returns InviteUsersRequestInnerOneOf wrapped in InviteUsersRequestInner
-func InviteUsersRequestInnerOneOfAsInviteUsersRequestInner(v *InviteUsersRequestInnerOneOf) InviteUsersRequestInner {
-	return InviteUsersRequestInner{
-		InviteUsersRequestInnerOneOf: v,
-	}
-}
-
-// InviteUsersRequestInnerOneOf1AsInviteUsersRequestInner is a convenience function that returns InviteUsersRequestInnerOneOf1 wrapped in InviteUsersRequestInner
-func InviteUsersRequestInnerOneOf1AsInviteUsersRequestInner(v *InviteUsersRequestInnerOneOf1) InviteUsersRequestInner {
-	return InviteUsersRequestInner{
-		InviteUsersRequestInnerOneOf1: v,
-	}
-}
-
-// Unmarshal JSON data into one of the pointers in the struct
+// Unmarshal JSON data into any of the pointers in the struct
 func (dst *InviteUsersRequestInner) UnmarshalJSON(data []byte) error {
 	var err error
-	// use discriminator value to speed up the lookup
-	var jsonDict map[string]interface{}
-	err = newStrictDecoder(data).Decode(&jsonDict)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
-	}
-
-	// check if the discriminator value is 'inviteUsers_request_inner_oneOf'
-	if jsonDict["userRole"] == "inviteUsers_request_inner_oneOf" {
-		// try to unmarshal JSON data into InviteUsersRequestInnerOneOf
-		err = json.Unmarshal(data, &dst.InviteUsersRequestInnerOneOf)
-		if err == nil {
-			return nil // data stored in dst.InviteUsersRequestInnerOneOf, return on the first match
+	// try to unmarshal JSON data into InviteUsersRequestInnerAnyOf
+	err = json.Unmarshal(data, &dst.InviteUsersRequestInnerAnyOf)
+	if err == nil {
+		jsonInviteUsersRequestInnerAnyOf, _ := json.Marshal(dst.InviteUsersRequestInnerAnyOf)
+		if string(jsonInviteUsersRequestInnerAnyOf) == "{}" { // empty struct
+			dst.InviteUsersRequestInnerAnyOf = nil
 		} else {
-			dst.InviteUsersRequestInnerOneOf = nil
-			return fmt.Errorf("failed to unmarshal InviteUsersRequestInner as InviteUsersRequestInnerOneOf: %s", err.Error())
+			return nil // data stored in dst.InviteUsersRequestInnerAnyOf, return on the first match
 		}
+	} else {
+		dst.InviteUsersRequestInnerAnyOf = nil
 	}
 
-	// check if the discriminator value is 'inviteUsers_request_inner_oneOf_1'
-	if jsonDict["userRole"] == "inviteUsers_request_inner_oneOf_1" {
-		// try to unmarshal JSON data into InviteUsersRequestInnerOneOf1
-		err = json.Unmarshal(data, &dst.InviteUsersRequestInnerOneOf1)
-		if err == nil {
-			return nil // data stored in dst.InviteUsersRequestInnerOneOf1, return on the first match
+	// try to unmarshal JSON data into InviteUsersRequestInnerAnyOf1
+	err = json.Unmarshal(data, &dst.InviteUsersRequestInnerAnyOf1)
+	if err == nil {
+		jsonInviteUsersRequestInnerAnyOf1, _ := json.Marshal(dst.InviteUsersRequestInnerAnyOf1)
+		if string(jsonInviteUsersRequestInnerAnyOf1) == "{}" { // empty struct
+			dst.InviteUsersRequestInnerAnyOf1 = nil
 		} else {
-			dst.InviteUsersRequestInnerOneOf1 = nil
-			return fmt.Errorf("failed to unmarshal InviteUsersRequestInner as InviteUsersRequestInnerOneOf1: %s", err.Error())
+			return nil // data stored in dst.InviteUsersRequestInnerAnyOf1, return on the first match
 		}
+	} else {
+		dst.InviteUsersRequestInnerAnyOf1 = nil
 	}
 
-	return nil
+	return fmt.Errorf("data failed to match schemas in anyOf(InviteUsersRequestInner)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src InviteUsersRequestInner) MarshalJSON() ([]byte, error) {
-	if src.InviteUsersRequestInnerOneOf != nil {
-		return json.Marshal(&src.InviteUsersRequestInnerOneOf)
+	if src.InviteUsersRequestInnerAnyOf != nil {
+		return json.Marshal(&src.InviteUsersRequestInnerAnyOf)
 	}
 
-	if src.InviteUsersRequestInnerOneOf1 != nil {
-		return json.Marshal(&src.InviteUsersRequestInnerOneOf1)
+	if src.InviteUsersRequestInnerAnyOf1 != nil {
+		return json.Marshal(&src.InviteUsersRequestInnerAnyOf1)
 	}
 
-	return nil, nil // no data in oneOf schemas
-}
-
-// Get the actual instance
-func (obj *InviteUsersRequestInner) GetActualInstance() interface{} {
-	if obj == nil {
-		return nil
-	}
-	if obj.InviteUsersRequestInnerOneOf != nil {
-		return obj.InviteUsersRequestInnerOneOf
-	}
-
-	if obj.InviteUsersRequestInnerOneOf1 != nil {
-		return obj.InviteUsersRequestInnerOneOf1
-	}
-
-	// all schemas are nil
-	return nil
-}
-
-// Get the actual instance value
-func (obj InviteUsersRequestInner) GetActualInstanceValue() interface{} {
-	if obj.InviteUsersRequestInnerOneOf != nil {
-		return *obj.InviteUsersRequestInnerOneOf
-	}
-
-	if obj.InviteUsersRequestInnerOneOf1 != nil {
-		return *obj.InviteUsersRequestInnerOneOf1
-	}
-
-	// all schemas are nil
-	return nil
+	return nil, nil // no data in anyOf schemas
 }
 
 type NullableInviteUsersRequestInner struct {

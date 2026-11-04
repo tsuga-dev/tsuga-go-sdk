@@ -97,7 +97,7 @@ import (
 
 func main() {
 	from := int64(1704067200) // int64 | Start of the query window as a Unix timestamp in seconds
-	to := int64(1704067200) // int64 | End of the query window as a Unix timestamp in seconds
+	to := int64(1704070800) // int64 | End of the query window as a Unix timestamp in seconds
 	query := "query_example" // string | Tsuga query selecting RUM events to return. Prefix every field with the stream it belongs to (`measurements.`, `events.`, or `exceptions.`), e.g. `events.view.name:/checkout`, and filter on a single stream per query. A query without stream-prefixed fields, including the default `*`, searches the `events` stream. (optional) (default to "*")
 	maxResults := int32(56) // int32 | Maximum number of RUM events to return. (optional) (default to 100)
 	clusterId := "clusterId_example" // string | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. (optional)

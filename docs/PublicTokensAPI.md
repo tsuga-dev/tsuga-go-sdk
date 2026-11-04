@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	createPublicTokenRequest := *openapiclient.NewCreatePublicTokenRequest("Name_example", "Owner_example", "ApplicationType_example", []string{"AllowedUrlPrefixes_example"}, []openapiclient.InputTag{*openapiclient.NewInputTag("Key_example", "Value_example")}, []string{"TeamOverrideFields_example"}) // CreatePublicTokenRequest | RUM public token creation request. Provide a kebab-case name, owner team, application type, allowed URL prefixes (required for `web`, empty for `ios` and `android`), tags including an `env` tag, and team override fields as an array of fields or null.
+	createPublicTokenRequest := *openapiclient.NewCreatePublicTokenRequest("Name_example", "Owner_example", "ApplicationType_example", []string{"AllowedUrlPrefixes_example"}, []openapiclient.InputTag{*openapiclient.NewInputTag("Key_example", "Value_example")}, []string{"TeamOverrideFields_example"}) // CreatePublicTokenRequest | RUM public token creation request. Provide a kebab-case name, owner team, application type, allowed URL prefixes (required for `web`, empty for `ios` and `android`), tags including an `env` tag, and team override fields as an array of fields or null. Set `collectClientIp` to record client IP addresses.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -58,7 +58,7 @@ Other parameters are passed through a pointer to a apiCreatePublicTokenRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createPublicTokenRequest** | [**CreatePublicTokenRequest**](CreatePublicTokenRequest.md) | RUM public token creation request. Provide a kebab-case name, owner team, application type, allowed URL prefixes (required for &#x60;web&#x60;, empty for &#x60;ios&#x60; and &#x60;android&#x60;), tags including an &#x60;env&#x60; tag, and team override fields as an array of fields or null. | 
+ **createPublicTokenRequest** | [**CreatePublicTokenRequest**](CreatePublicTokenRequest.md) | RUM public token creation request. Provide a kebab-case name, owner team, application type, allowed URL prefixes (required for &#x60;web&#x60;, empty for &#x60;ios&#x60; and &#x60;android&#x60;), tags including an &#x60;env&#x60; tag, and team override fields as an array of fields or null. Set &#x60;collectClientIp&#x60; to record client IP addresses. | 
 
 ### Return type
 
@@ -308,7 +308,7 @@ import (
 
 func main() {
 	id := "id_example" // string | Identifier of the public token to update. Use the `id` returned by public token list, get, or create responses.
-	updatePublicTokenRequest := *openapiclient.NewUpdatePublicTokenRequest("Name_example", "Owner_example", "ApplicationType_example", []string{"AllowedUrlPrefixes_example"}, []openapiclient.InputTag{*openapiclient.NewInputTag("Key_example", "Value_example")}, []string{"TeamOverrideFields_example"}) // UpdatePublicTokenRequest | RUM public token update request. Provide the full definition, including name, owner team, allowed URL prefixes, tags including an `env` tag, and team override fields. The application type must match the existing token and the token value itself never changes.
+	updatePublicTokenRequest := *openapiclient.NewUpdatePublicTokenRequest("Name_example", "Owner_example", "ApplicationType_example", []string{"AllowedUrlPrefixes_example"}, []openapiclient.InputTag{*openapiclient.NewInputTag("Key_example", "Value_example")}, []string{"TeamOverrideFields_example"}) // UpdatePublicTokenRequest | RUM public token update request. Provide the full definition, including name, owner team, allowed URL prefixes, tags including an `env` tag, and team override fields. `collectClientIp` is optional and keeps its current value when omitted. The application type must match the existing token and the token value itself never changes.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -338,7 +338,7 @@ Other parameters are passed through a pointer to a apiUpdatePublicTokenRequest s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **updatePublicTokenRequest** | [**UpdatePublicTokenRequest**](UpdatePublicTokenRequest.md) | RUM public token update request. Provide the full definition, including name, owner team, allowed URL prefixes, tags including an &#x60;env&#x60; tag, and team override fields. The application type must match the existing token and the token value itself never changes. | 
+ **updatePublicTokenRequest** | [**UpdatePublicTokenRequest**](UpdatePublicTokenRequest.md) | RUM public token update request. Provide the full definition, including name, owner team, allowed URL prefixes, tags including an &#x60;env&#x60; tag, and team override fields. &#x60;collectClientIp&#x60; is optional and keeps its current value when omitted. The application type must match the existing token and the token value itself never changes. | 
 
 ### Return type
 

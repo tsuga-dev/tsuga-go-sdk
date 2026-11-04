@@ -375,8 +375,6 @@ docs/GraphVisualizationSloFiltersKeysInner.md
 docs/GraphVisualizationSloFiltersOwners.md
 docs/GraphVisualizationSloFiltersStatuses.md
 docs/GraphVisualizationSloFiltersTags.md
-docs/GraphVisualizationSloOverTime.md
-docs/GraphVisualizationSloUptime.md
 docs/GraphVisualizationTable.md
 docs/GraphVisualizationTimeseries.md
 docs/GraphVisualizationTimeseriesConnection.md
@@ -459,8 +457,6 @@ docs/InputGraphVisualizationSlo.md
 docs/InputGraphVisualizationSloFilters.md
 docs/InputGraphVisualizationSloFiltersKeysInner.md
 docs/InputGraphVisualizationSloFiltersStatuses.md
-docs/InputGraphVisualizationSloOverTime.md
-docs/InputGraphVisualizationSloUptime.md
 docs/InputGraphVisualizationTable.md
 docs/InputGraphVisualizationTimeseries.md
 docs/InputGraphVisualizationTimeseriesConnection.md
@@ -532,6 +528,7 @@ docs/InputThresholdMarker.md
 docs/InputTimeRange.md
 docs/InputTimeSliceSloConfiguration.md
 docs/InputTsugaAssetTagPolicy.md
+docs/InputV2TimeRange.md
 docs/InputWidgetListColumn.md
 docs/InputWidgetLogsOverlay.md
 docs/InputWidgetOngoingAlertsOverlay.md
@@ -541,8 +538,13 @@ docs/InterestingFieldsAPI.md
 docs/InventoryAPI.md
 docs/InvitationsAPI.md
 docs/InviteUsersRequestInner.md
-docs/InviteUsersRequestInnerOneOf.md
-docs/InviteUsersRequestInnerOneOf1.md
+docs/InviteUsersRequestInnerAnyOf.md
+docs/InviteUsersRequestInnerAnyOf1.md
+docs/InviteUsersRequestInnerAnyOf1UserRole.md
+docs/InviteUsersRequestInnerAnyOf1UserRoleOneOf.md
+docs/InviteUsersRequestInnerAnyOf1UserRoleOneOf1.md
+docs/InviteUsersRequestInnerAnyOfOneOf.md
+docs/InviteUsersRequestInnerAnyOfOneOf1.md
 docs/InviteUsersResponse.md
 docs/InviteUsersResponseData.md
 docs/KubernetesExplorerAPI.md
@@ -821,6 +823,8 @@ docs/QueryOngoingAlertsResponseData.md
 docs/QueryOngoingAlertsResponseDataAlertsPageInner.md
 docs/QueryPromqlRequest.md
 docs/QueryPromqlResponse.md
+docs/QueryPromqlV2Request.md
+docs/QueryPromqlV2Response.md
 docs/QueryServicesRequest.md
 docs/QueryServicesRequestFilters.md
 docs/QueryServicesRequestFiltersEnvs.md
@@ -898,6 +902,7 @@ docs/SearchSpansResponseDataSpansInnerSpan.md
 docs/Series.md
 docs/SeriesGroupValue.md
 docs/SeriesPointsInner.md
+docs/SeriesV2.md
 docs/ServerErrorEnvelope.md
 docs/ServerErrorResponse.md
 docs/Service.md
@@ -944,6 +949,7 @@ docs/ThresholdMarker.md
 docs/TimeSliceSloConfiguration.md
 docs/TimeSliceSloConfigurationThreshold.md
 docs/TimeseriesAggregationResponse.md
+docs/TimeseriesAggregationResponseV2.md
 docs/TracesAPI.md
 docs/TsugaAssetTagPolicy.md
 docs/UpdateAdaptiveNotificationRuleRequest.md
@@ -1018,6 +1024,9 @@ docs/UpdateTeamResponse.md
 docs/User.md
 docs/UserIdentity.md
 docs/UserInvitation.md
+docs/UserRole.md
+docs/UserRoleAnyOf.md
+docs/UserRoleAnyOfOneOf.md
 docs/UsersAPI.md
 docs/WidgetListColumn.md
 docs/WidgetLogsOverlay.md
@@ -1347,8 +1356,6 @@ model_graph_visualization_slo_filters_keys_inner.go
 model_graph_visualization_slo_filters_owners.go
 model_graph_visualization_slo_filters_statuses.go
 model_graph_visualization_slo_filters_tags.go
-model_graph_visualization_slo_over_time.go
-model_graph_visualization_slo_uptime.go
 model_graph_visualization_table.go
 model_graph_visualization_timeseries.go
 model_graph_visualization_timeseries_connection.go
@@ -1429,8 +1436,6 @@ model_input_graph_visualization_slo.go
 model_input_graph_visualization_slo_filters.go
 model_input_graph_visualization_slo_filters_keys_inner.go
 model_input_graph_visualization_slo_filters_statuses.go
-model_input_graph_visualization_slo_over_time.go
-model_input_graph_visualization_slo_uptime.go
 model_input_graph_visualization_table.go
 model_input_graph_visualization_timeseries.go
 model_input_graph_visualization_timeseries_connection.go
@@ -1502,14 +1507,20 @@ model_input_threshold_marker.go
 model_input_time_range.go
 model_input_time_slice_slo_configuration.go
 model_input_tsuga_asset_tag_policy.go
+model_input_v2_time_range.go
 model_input_widget_list_column.go
 model_input_widget_logs_overlay.go
 model_input_widget_ongoing_alerts_overlay.go
 model_input_widget_ongoing_alerts_overlay_filters.go
 model_input_widget_service_deployments_overlay.go
 model_invite_users_request_inner.go
-model_invite_users_request_inner_one_of.go
-model_invite_users_request_inner_one_of_1.go
+model_invite_users_request_inner_any_of.go
+model_invite_users_request_inner_any_of_1.go
+model_invite_users_request_inner_any_of_1_user_role.go
+model_invite_users_request_inner_any_of_1_user_role_one_of.go
+model_invite_users_request_inner_any_of_1_user_role_one_of_1.go
+model_invite_users_request_inner_any_of_one_of.go
+model_invite_users_request_inner_any_of_one_of_1.go
 model_invite_users_response.go
 model_invite_users_response_data.go
 model_list_adaptive_notification_rules_response.go
@@ -1774,6 +1785,8 @@ model_query_ongoing_alerts_response_data.go
 model_query_ongoing_alerts_response_data_alerts_page_inner.go
 model_query_promql_request.go
 model_query_promql_response.go
+model_query_promql_v2_request.go
+model_query_promql_v2_response.go
 model_query_services_request.go
 model_query_services_request_filters.go
 model_query_services_request_filters_envs.go
@@ -1847,6 +1860,7 @@ model_search_spans_response_data_spans_inner_span.go
 model_series.go
 model_series_group_value.go
 model_series_points_inner.go
+model_series_v2.go
 model_server_error_envelope.go
 model_server_error_response.go
 model_service.go
@@ -1887,6 +1901,7 @@ model_threshold_marker.go
 model_time_slice_slo_configuration.go
 model_time_slice_slo_configuration_threshold.go
 model_timeseries_aggregation_response.go
+model_timeseries_aggregation_response_v2.go
 model_tsuga_asset_tag_policy.go
 model_update_adaptive_notification_rule_request.go
 model_update_adaptive_notification_rule_response.go
@@ -1960,6 +1975,9 @@ model_update_team_response.go
 model_user.go
 model_user_identity.go
 model_user_invitation.go
+model_user_role.go
+model_user_role_any_of.go
+model_user_role_any_of_one_of.go
 model_widget_list_column.go
 model_widget_logs_overlay.go
 model_widget_ongoing_alerts_overlay.go

@@ -32,6 +32,7 @@ Name | Type | Description | Notes
 **Investigation** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **LogRoute** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **MetricRoute** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
+**SpanRoute** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **Monitor** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **Notebook** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **NotificationIntegration** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
@@ -765,6 +766,31 @@ SetMetricRoute sets MetricRoute field to given value.
 `func (o *CreateCustomRoleRequestAssets) HasMetricRoute() bool`
 
 HasMetricRoute returns a boolean if a field has been set.
+
+### GetSpanRoute
+
+`func (o *CreateCustomRoleRequestAssets) GetSpanRoute() string`
+
+GetSpanRoute returns the SpanRoute field if non-nil, zero value otherwise.
+
+### GetSpanRouteOk
+
+`func (o *CreateCustomRoleRequestAssets) GetSpanRouteOk() (*string, bool)`
+
+GetSpanRouteOk returns a tuple with the SpanRoute field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSpanRoute
+
+`func (o *CreateCustomRoleRequestAssets) SetSpanRoute(v string)`
+
+SetSpanRoute sets SpanRoute field to given value.
+
+### HasSpanRoute
+
+`func (o *CreateCustomRoleRequestAssets) HasSpanRoute() bool`
+
+HasSpanRoute returns a boolean if a field has been set.
 
 ### GetMonitor
 

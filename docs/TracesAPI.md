@@ -101,7 +101,7 @@ import (
 
 func main() {
 	from := int64(1704067200) // int64 | Start of the query window as a Unix timestamp in seconds
-	to := int64(1704067200) // int64 | End of the query window as a Unix timestamp in seconds
+	to := int64(1704070800) // int64 | End of the query window as a Unix timestamp in seconds
 	traceId := "traceId_example" // string | Trace ID to summarize. Use the `trace_id` returned by span search, the trace details page, or your tracing instrumentation. Required; the requested time range must include the trace.
 	clusterId := "clusterId_example" // string | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. (optional)
 	minRangeDurationMs := float32(8.14) // float32 | Minimum range duration in milliseconds. Shorter ranges are collapsed (absorbed into a neighbor or blended with adjacent shorts) to keep the timeline readable. When omitted, the default depends on the trace: max(1ms, 1% of the total trace duration), so e.g. a 10s trace collapses ranges shorter than 100ms. Pass 0 to disable collapsing. (optional)
@@ -177,7 +177,7 @@ import (
 
 func main() {
 	from := int64(1704067200) // int64 | Start of the query window as a Unix timestamp in seconds
-	to := int64(1704067200) // int64 | End of the query window as a Unix timestamp in seconds
+	to := int64(1704070800) // int64 | End of the query window as a Unix timestamp in seconds
 	query := "query_example" // string | Tsuga query selecting spans to return. Omit to search all spans in the range with `*`. (optional) (default to "*")
 	maxResults := int32(56) // int32 | Maximum number of spans to return. Defaults to 100. Valid values are 1 through 10000. (optional) (default to 100)
 	clusterId := "clusterId_example" // string | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. (optional)
@@ -251,7 +251,7 @@ import (
 
 func main() {
 	from := int64(1704067200) // int64 | Start of the query window as a Unix timestamp in seconds
-	to := int64(1704067200) // int64 | End of the query window as a Unix timestamp in seconds
+	to := int64(1704070800) // int64 | End of the query window as a Unix timestamp in seconds
 	traceId := "traceId_example" // string | Trace ID to summarize. Use the `trace_id` returned by span search, the trace details page, or your tracing instrumentation. Required; the requested time range must include the trace.
 	clusterId := "clusterId_example" // string | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. (optional)
 	groupByAttributes := []string{"Inner_example"} // []string | Glob patterns of span attribute keys to use as additional grouping dimensions. Use this when spans should be summarized separately for matching attributes, such as `db.*`. Matches flattened dotted span attribute keys; omitted by default. (optional)

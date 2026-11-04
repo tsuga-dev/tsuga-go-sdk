@@ -38,8 +38,6 @@ type GraphVisualization struct {
 	GraphVisualizationQueryValueConnection *GraphVisualizationQueryValueConnection
 	GraphVisualizationQueryValuePromql     *GraphVisualizationQueryValuePromql
 	GraphVisualizationSlo                  *GraphVisualizationSlo
-	GraphVisualizationSloOverTime          *GraphVisualizationSloOverTime
-	GraphVisualizationSloUptime            *GraphVisualizationSloUptime
 	GraphVisualizationTable                *GraphVisualizationTable
 	GraphVisualizationTimeseries           *GraphVisualizationTimeseries
 	GraphVisualizationTimeseriesConnection *GraphVisualizationTimeseriesConnection
@@ -200,20 +198,6 @@ func GraphVisualizationQueryValuePromqlAsGraphVisualization(v *GraphVisualizatio
 func GraphVisualizationSloAsGraphVisualization(v *GraphVisualizationSlo) GraphVisualization {
 	return GraphVisualization{
 		GraphVisualizationSlo: v,
-	}
-}
-
-// GraphVisualizationSloOverTimeAsGraphVisualization is a convenience function that returns GraphVisualizationSloOverTime wrapped in GraphVisualization
-func GraphVisualizationSloOverTimeAsGraphVisualization(v *GraphVisualizationSloOverTime) GraphVisualization {
-	return GraphVisualization{
-		GraphVisualizationSloOverTime: v,
-	}
-}
-
-// GraphVisualizationSloUptimeAsGraphVisualization is a convenience function that returns GraphVisualizationSloUptime wrapped in GraphVisualization
-func GraphVisualizationSloUptimeAsGraphVisualization(v *GraphVisualizationSloUptime) GraphVisualization {
-	return GraphVisualization{
-		GraphVisualizationSloUptime: v,
 	}
 }
 
@@ -540,30 +524,6 @@ func (dst *GraphVisualization) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'slo-over-time'
-	if jsonDict["type"] == "slo-over-time" {
-		// try to unmarshal JSON data into GraphVisualizationSloOverTime
-		err = json.Unmarshal(data, &dst.GraphVisualizationSloOverTime)
-		if err == nil {
-			return nil // data stored in dst.GraphVisualizationSloOverTime, return on the first match
-		} else {
-			dst.GraphVisualizationSloOverTime = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationSloOverTime: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'slo-uptime'
-	if jsonDict["type"] == "slo-uptime" {
-		// try to unmarshal JSON data into GraphVisualizationSloUptime
-		err = json.Unmarshal(data, &dst.GraphVisualizationSloUptime)
-		if err == nil {
-			return nil // data stored in dst.GraphVisualizationSloUptime, return on the first match
-		} else {
-			dst.GraphVisualizationSloUptime = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationSloUptime: %s", err.Error())
-		}
-	}
-
 	// check if the discriminator value is 'table'
 	if jsonDict["type"] == "table" {
 		// try to unmarshal JSON data into GraphVisualizationTable
@@ -741,14 +701,6 @@ func (src GraphVisualization) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.GraphVisualizationSlo)
 	}
 
-	if src.GraphVisualizationSloOverTime != nil {
-		return json.Marshal(&src.GraphVisualizationSloOverTime)
-	}
-
-	if src.GraphVisualizationSloUptime != nil {
-		return json.Marshal(&src.GraphVisualizationSloUptime)
-	}
-
 	if src.GraphVisualizationTable != nil {
 		return json.Marshal(&src.GraphVisualizationTable)
 	}
@@ -873,14 +825,6 @@ func (obj *GraphVisualization) GetActualInstance() interface{} {
 		return obj.GraphVisualizationSlo
 	}
 
-	if obj.GraphVisualizationSloOverTime != nil {
-		return obj.GraphVisualizationSloOverTime
-	}
-
-	if obj.GraphVisualizationSloUptime != nil {
-		return obj.GraphVisualizationSloUptime
-	}
-
 	if obj.GraphVisualizationTable != nil {
 		return obj.GraphVisualizationTable
 	}
@@ -1001,14 +945,6 @@ func (obj GraphVisualization) GetActualInstanceValue() interface{} {
 
 	if obj.GraphVisualizationSlo != nil {
 		return *obj.GraphVisualizationSlo
-	}
-
-	if obj.GraphVisualizationSloOverTime != nil {
-		return *obj.GraphVisualizationSloOverTime
-	}
-
-	if obj.GraphVisualizationSloUptime != nil {
-		return *obj.GraphVisualizationSloUptime
 	}
 
 	if obj.GraphVisualizationTable != nil {

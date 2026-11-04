@@ -17,7 +17,7 @@ import (
 // checks if the UpdatePublicTokenRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &UpdatePublicTokenRequest{}
 
-// UpdatePublicTokenRequest RUM public token update request. Provide the full definition, including name, owner team, allowed URL prefixes, tags including an `env` tag, and team override fields. The application type must match the existing token and the token value itself never changes.
+// UpdatePublicTokenRequest RUM public token update request. Provide the full definition, including name, owner team, allowed URL prefixes, tags including an `env` tag, and team override fields. `collectClientIp` is optional and keeps its current value when omitted. The application type must match the existing token and the token value itself never changes.
 type UpdatePublicTokenRequest struct {
 	// Kebab-case name for the RUM public token.
 	Name string `json:"name"`
@@ -27,6 +27,8 @@ type UpdatePublicTokenRequest struct {
 	ApplicationType string `json:"applicationType"`
 	// URL prefixes which RUM telemetry data can be sent from. Supports wildcard matching. At least one prefix is required for `web` applications, and the array must be empty for `ios` and `android` applications.
 	AllowedUrlPrefixes []string `json:"allowedUrlPrefixes"`
+	// Whether intake records the IP address each request comes from as `client.address` on RUM records, and derives the `geo` location from it. Defaults to false on creation. Omit it on update to keep the current value.
+	CollectClientIp *bool `json:"collectClientIp,omitempty"`
 	// Key/value tags to apply to the resource. Tag policies may require specific keys or values.
 	Tags []InputTag `json:"tags"`
 	// Array form.
@@ -155,6 +157,38 @@ func (o *UpdatePublicTokenRequest) SetAllowedUrlPrefixes(v []string) {
 	o.AllowedUrlPrefixes = v
 }
 
+// GetCollectClientIp returns the CollectClientIp field value if set, zero value otherwise.
+func (o *UpdatePublicTokenRequest) GetCollectClientIp() bool {
+	if o == nil || IsNil(o.CollectClientIp) {
+		var ret bool
+		return ret
+	}
+	return *o.CollectClientIp
+}
+
+// GetCollectClientIpOk returns a tuple with the CollectClientIp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdatePublicTokenRequest) GetCollectClientIpOk() (*bool, bool) {
+	if o == nil || IsNil(o.CollectClientIp) {
+		return nil, false
+	}
+	return o.CollectClientIp, true
+}
+
+// HasCollectClientIp returns a boolean if a field has been set.
+func (o *UpdatePublicTokenRequest) HasCollectClientIp() bool {
+	if o != nil && !IsNil(o.CollectClientIp) {
+		return true
+	}
+
+	return false
+}
+
+// SetCollectClientIp gets a reference to the given bool and assigns it to the CollectClientIp field.
+func (o *UpdatePublicTokenRequest) SetCollectClientIp(v bool) {
+	o.CollectClientIp = &v
+}
+
 // GetTags returns the Tags field value
 func (o *UpdatePublicTokenRequest) GetTags() []InputTag {
 	if o == nil {
@@ -219,6 +253,9 @@ func (o UpdatePublicTokenRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["owner"] = o.Owner
 	toSerialize["applicationType"] = o.ApplicationType
 	toSerialize["allowedUrlPrefixes"] = o.AllowedUrlPrefixes
+	if !IsNil(o.CollectClientIp) {
+		toSerialize["collectClientIp"] = o.CollectClientIp
+	}
 	toSerialize["tags"] = o.Tags
 	if o.TeamOverrideFields != nil {
 		toSerialize["teamOverrideFields"] = o.TeamOverrideFields
@@ -275,6 +312,7 @@ func (o *UpdatePublicTokenRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "owner")
 		delete(additionalProperties, "applicationType")
 		delete(additionalProperties, "allowedUrlPrefixes")
+		delete(additionalProperties, "collectClientIp")
 		delete(additionalProperties, "tags")
 		delete(additionalProperties, "teamOverrideFields")
 		o.AdditionalProperties = additionalProperties

@@ -32,6 +32,20 @@ type PromqlAPI interface {
 	// QueryPromqlExecute executes the request
 	//  @return QueryPromqlResponse
 	QueryPromqlExecute(r PromqlAPIQueryPromqlRequest) (*QueryPromqlResponse, *http.Response, error)
+
+	/*
+		QueryPromqlV2 Method for QueryPromqlV2
+
+		Runs a PromQL range query over Tsuga metric data and returns one shared time axis in milliseconds with one series per group aligned to it. Same request and authentication as `POST /v1/promql`, with `timeRange` in milliseconds. See [How to write PromQL queries](/documentation/visualize/guides/how-to-write-promql-queries) for query syntax and examples.
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return PromqlAPIQueryPromqlV2Request
+	*/
+	QueryPromqlV2(ctx context.Context) PromqlAPIQueryPromqlV2Request
+
+	// QueryPromqlV2Execute executes the request
+	//  @return QueryPromqlV2Response
+	QueryPromqlV2Execute(r PromqlAPIQueryPromqlV2Request) (*QueryPromqlV2Response, *http.Response, error)
 }
 
 // PromqlAPIService PromqlAPI service
@@ -122,6 +136,149 @@ func (a *PromqlAPIService) QueryPromqlExecute(r PromqlAPIQueryPromqlRequest) (*Q
 	}
 	// body params
 	localVarPostBody = r.queryPromqlRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
+			var v ClientErrorEnvelope
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode >= 500 {
+			var v ServerErrorEnvelope
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PromqlAPIQueryPromqlV2Request struct {
+	ctx                  context.Context
+	ApiService           PromqlAPI
+	queryPromqlV2Request *QueryPromqlV2Request
+	clusterId            *string
+}
+
+// PromQL range-query request with the time range in milliseconds. Send clusterId as a query parameter, not in this JSON body.
+func (r PromqlAPIQueryPromqlV2Request) QueryPromqlV2Request(queryPromqlV2Request QueryPromqlV2Request) PromqlAPIQueryPromqlV2Request {
+	r.queryPromqlV2Request = &queryPromqlV2Request
+	return r
+}
+
+// Telemetry cluster to query. Set by the client as the clusterId query parameter, not in the JSON body. Required when the organization has multiple clusters; omit only for single-cluster organizations. Unknown cluster IDs return 404.
+func (r PromqlAPIQueryPromqlV2Request) ClusterId(clusterId string) PromqlAPIQueryPromqlV2Request {
+	r.clusterId = &clusterId
+	return r
+}
+
+func (r PromqlAPIQueryPromqlV2Request) Execute() (*QueryPromqlV2Response, *http.Response, error) {
+	return r.ApiService.QueryPromqlV2Execute(r)
+}
+
+/*
+QueryPromqlV2 Method for QueryPromqlV2
+
+Runs a PromQL range query over Tsuga metric data and returns one shared time axis in milliseconds with one series per group aligned to it. Same request and authentication as `POST /v1/promql`, with `timeRange` in milliseconds. See [How to write PromQL queries](/documentation/visualize/guides/how-to-write-promql-queries) for query syntax and examples.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return PromqlAPIQueryPromqlV2Request
+*/
+func (a *PromqlAPIService) QueryPromqlV2(ctx context.Context) PromqlAPIQueryPromqlV2Request {
+	return PromqlAPIQueryPromqlV2Request{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return QueryPromqlV2Response
+func (a *PromqlAPIService) QueryPromqlV2Execute(r PromqlAPIQueryPromqlV2Request) (*QueryPromqlV2Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *QueryPromqlV2Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PromqlAPIService.QueryPromqlV2")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v2/promql"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.queryPromqlV2Request == nil {
+		return localVarReturnValue, nil, reportError("queryPromqlV2Request is required and must be specified")
+	}
+
+	if r.clusterId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "clusterId", r.clusterId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.queryPromqlV2Request
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

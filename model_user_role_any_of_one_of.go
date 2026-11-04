@@ -14,41 +14,41 @@ import (
 	"fmt"
 )
 
-// checks if the GraphVisualizationSloUptime type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &GraphVisualizationSloUptime{}
+// checks if the UserRoleAnyOfOneOf type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserRoleAnyOfOneOf{}
 
-// GraphVisualizationSloUptime struct for GraphVisualizationSloUptime
-type GraphVisualizationSloUptime struct {
-	// Displays the SLI percentage of an SLO computed over the dashboard time range, colored against the SLO target. Experimental.
+// UserRoleAnyOfOneOf struct for UserRoleAnyOfOneOf
+type UserRoleAnyOfOneOf struct {
+	// The user holds a custom role.
 	Type string `json:"type"`
-	// Id of the SLO to display
-	SloId                string `json:"sloId"`
+	// Identifier of the custom role. Use it with the custom role endpoints to read what the role grants.
+	CustomRoleId         string `json:"customRoleId"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _GraphVisualizationSloUptime GraphVisualizationSloUptime
+type _UserRoleAnyOfOneOf UserRoleAnyOfOneOf
 
-// NewGraphVisualizationSloUptime instantiates a new GraphVisualizationSloUptime object
+// NewUserRoleAnyOfOneOf instantiates a new UserRoleAnyOfOneOf object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGraphVisualizationSloUptime(type_ string, sloId string) *GraphVisualizationSloUptime {
-	this := GraphVisualizationSloUptime{}
+func NewUserRoleAnyOfOneOf(type_ string, customRoleId string) *UserRoleAnyOfOneOf {
+	this := UserRoleAnyOfOneOf{}
 	this.Type = type_
-	this.SloId = sloId
+	this.CustomRoleId = customRoleId
 	return &this
 }
 
-// NewGraphVisualizationSloUptimeWithDefaults instantiates a new GraphVisualizationSloUptime object
+// NewUserRoleAnyOfOneOfWithDefaults instantiates a new UserRoleAnyOfOneOf object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewGraphVisualizationSloUptimeWithDefaults() *GraphVisualizationSloUptime {
-	this := GraphVisualizationSloUptime{}
+func NewUserRoleAnyOfOneOfWithDefaults() *UserRoleAnyOfOneOf {
+	this := UserRoleAnyOfOneOf{}
 	return &this
 }
 
 // GetType returns the Type field value
-func (o *GraphVisualizationSloUptime) GetType() string {
+func (o *UserRoleAnyOfOneOf) GetType() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -59,7 +59,7 @@ func (o *GraphVisualizationSloUptime) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationSloUptime) GetTypeOk() (*string, bool) {
+func (o *UserRoleAnyOfOneOf) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -67,35 +67,35 @@ func (o *GraphVisualizationSloUptime) GetTypeOk() (*string, bool) {
 }
 
 // SetType sets field value
-func (o *GraphVisualizationSloUptime) SetType(v string) {
+func (o *UserRoleAnyOfOneOf) SetType(v string) {
 	o.Type = v
 }
 
-// GetSloId returns the SloId field value
-func (o *GraphVisualizationSloUptime) GetSloId() string {
+// GetCustomRoleId returns the CustomRoleId field value
+func (o *UserRoleAnyOfOneOf) GetCustomRoleId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.SloId
+	return o.CustomRoleId
 }
 
-// GetSloIdOk returns a tuple with the SloId field value
+// GetCustomRoleIdOk returns a tuple with the CustomRoleId field value
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationSloUptime) GetSloIdOk() (*string, bool) {
+func (o *UserRoleAnyOfOneOf) GetCustomRoleIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SloId, true
+	return &o.CustomRoleId, true
 }
 
-// SetSloId sets field value
-func (o *GraphVisualizationSloUptime) SetSloId(v string) {
-	o.SloId = v
+// SetCustomRoleId sets field value
+func (o *UserRoleAnyOfOneOf) SetCustomRoleId(v string) {
+	o.CustomRoleId = v
 }
 
-func (o GraphVisualizationSloUptime) MarshalJSON() ([]byte, error) {
+func (o UserRoleAnyOfOneOf) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -103,10 +103,10 @@ func (o GraphVisualizationSloUptime) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o GraphVisualizationSloUptime) ToMap() (map[string]interface{}, error) {
+func (o UserRoleAnyOfOneOf) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
-	toSerialize["sloId"] = o.SloId
+	toSerialize["customRoleId"] = o.CustomRoleId
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,13 +115,13 @@ func (o GraphVisualizationSloUptime) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *GraphVisualizationSloUptime) UnmarshalJSON(data []byte) (err error) {
+func (o *UserRoleAnyOfOneOf) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"type",
-		"sloId",
+		"customRoleId",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -138,59 +138,59 @@ func (o *GraphVisualizationSloUptime) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varGraphVisualizationSloUptime := _GraphVisualizationSloUptime{}
+	varUserRoleAnyOfOneOf := _UserRoleAnyOfOneOf{}
 
-	err = json.Unmarshal(data, &varGraphVisualizationSloUptime)
+	err = json.Unmarshal(data, &varUserRoleAnyOfOneOf)
 
 	if err != nil {
 		return err
 	}
 
-	*o = GraphVisualizationSloUptime(varGraphVisualizationSloUptime)
+	*o = UserRoleAnyOfOneOf(varUserRoleAnyOfOneOf)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
-		delete(additionalProperties, "sloId")
+		delete(additionalProperties, "customRoleId")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
 }
 
-type NullableGraphVisualizationSloUptime struct {
-	value *GraphVisualizationSloUptime
+type NullableUserRoleAnyOfOneOf struct {
+	value *UserRoleAnyOfOneOf
 	isSet bool
 }
 
-func (v NullableGraphVisualizationSloUptime) Get() *GraphVisualizationSloUptime {
+func (v NullableUserRoleAnyOfOneOf) Get() *UserRoleAnyOfOneOf {
 	return v.value
 }
 
-func (v *NullableGraphVisualizationSloUptime) Set(val *GraphVisualizationSloUptime) {
+func (v *NullableUserRoleAnyOfOneOf) Set(val *UserRoleAnyOfOneOf) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableGraphVisualizationSloUptime) IsSet() bool {
+func (v NullableUserRoleAnyOfOneOf) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableGraphVisualizationSloUptime) Unset() {
+func (v *NullableUserRoleAnyOfOneOf) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableGraphVisualizationSloUptime(val *GraphVisualizationSloUptime) *NullableGraphVisualizationSloUptime {
-	return &NullableGraphVisualizationSloUptime{value: val, isSet: true}
+func NewNullableUserRoleAnyOfOneOf(val *UserRoleAnyOfOneOf) *NullableUserRoleAnyOfOneOf {
+	return &NullableUserRoleAnyOfOneOf{value: val, isSet: true}
 }
 
-func (v NullableGraphVisualizationSloUptime) MarshalJSON() ([]byte, error) {
+func (v NullableUserRoleAnyOfOneOf) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableGraphVisualizationSloUptime) UnmarshalJSON(src []byte) error {
+func (v *NullableUserRoleAnyOfOneOf) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261102.33.0+16ae808
+  version: 20261104.19.0+dd69676
 servers:
 - url: https://api.tsuga.com
 security:
@@ -1038,7 +1038,7 @@ paths:
           type: integer
         style: form
       - description: End of the query window as a Unix timestamp in seconds
-        example: 1704067200
+        example: 1704070800
         explode: true
         in: query
         name: to
@@ -1289,6 +1289,7 @@ paths:
               applicationType: web
               allowedUrlPrefixes:
               - https://app.example.com
+              collectClientIp: false
               tags:
               - key: env
                 value: production
@@ -1298,7 +1299,8 @@ paths:
         description: "RUM public token creation request. Provide a kebab-case name,\
           \ owner team, application type, allowed URL prefixes (required for `web`,\
           \ empty for `ios` and `android`), tags including an `env` tag, and team\
-          \ override fields as an array of fields or null."
+          \ override fields as an array of fields or null. Set `collectClientIp` to\
+          \ record client IP addresses."
         required: true
       responses:
         "200":
@@ -1478,9 +1480,10 @@ paths:
       - public-tokens
     put:
       description: "Updates RUM public token metadata by ID, including name, owner,\
-        \ application type, allowed URL prefixes, tags, and team override fields.\
-        \ Every field is required: the application type is fixed at creation, so resend\
-        \ the token's current value. The token value is not rotated by this operation."
+        \ application type, allowed URL prefixes, client IP collection, tags, and\
+        \ team override fields. Every field except `collectClientIp` is required:\
+        \ the application type is fixed at creation, so resend the token's current\
+        \ value. The token value is not rotated by this operation."
       operationId: updatePublicToken
       parameters:
       - description: "Identifier of the public token to update. Use the `id` returned\
@@ -1507,6 +1510,7 @@ paths:
               applicationType: web
               allowedUrlPrefixes:
               - https://app.example.com
+              collectClientIp: false
               tags:
               - key: env
                 value: production
@@ -1515,7 +1519,8 @@ paths:
               $ref: "#/components/schemas/updatePublicToken_request"
         description: "RUM public token update request. Provide the full definition,\
           \ including name, owner team, allowed URL prefixes, tags including an `env`\
-          \ tag, and team override fields. The application type must match the existing\
+          \ tag, and team override fields. `collectClientIp` is optional and keeps\
+          \ its current value when omitted. The application type must match the existing\
           \ token and the token value itself never changes."
         required: true
       responses:
@@ -4196,7 +4201,8 @@ paths:
             - email: new.member@example.com
               teamId: team-123-abc
               teamRole: viewer
-              userRole: teams_only
+              userRole:
+                type: teams_only
             schema:
               description: Invitations to create.
               items:
@@ -6152,7 +6158,7 @@ paths:
           type: integer
         style: form
       - description: End of the query window as a Unix timestamp in seconds
-        example: 1704067200
+        example: 1704070800
         explode: true
         in: query
         name: to
@@ -6228,7 +6234,7 @@ paths:
           type: integer
         style: form
       - description: End of the query window as a Unix timestamp in seconds
-        example: 1704067200
+        example: 1704070800
         explode: true
         in: query
         name: to
@@ -6326,7 +6332,7 @@ paths:
           type: integer
         style: form
       - description: End of the query window as a Unix timestamp in seconds
-        example: 1704067200
+        example: 1704070800
         explode: true
         in: query
         name: to
@@ -6450,7 +6456,7 @@ paths:
           type: integer
         style: form
       - description: End of the query window as a Unix timestamp in seconds
-        example: 1704067200
+        example: 1704070800
         explode: true
         in: query
         name: to
@@ -6552,7 +6558,7 @@ paths:
           type: integer
         style: form
       - description: End of the query window as a Unix timestamp in seconds
-        example: 1704067200
+        example: 1704070800
         explode: true
         in: query
         name: to
@@ -9798,6 +9804,88 @@ paths:
               style: simple
       tags:
       - promql
+  /v2/promql:
+    post:
+      description: "Runs a PromQL range query over Tsuga metric data and returns one\
+        \ shared time axis in milliseconds with one series per group aligned to it.\
+        \ Same request and authentication as `POST /v1/promql`, with `timeRange` in\
+        \ milliseconds. See [How to write PromQL queries](/documentation/visualize/guides/how-to-write-promql-queries)\
+        \ for query syntax and examples."
+      operationId: queryPromqlV2
+      parameters:
+      - description: "Telemetry cluster to query. Set by the client as the clusterId\
+          \ query parameter, not in the JSON body. Required when the organization\
+          \ has multiple clusters; omit only for single-cluster organizations. Unknown\
+          \ cluster IDs return 404."
+        explode: true
+        in: query
+        name: clusterId
+        required: false
+        schema:
+          maxLength: 250
+          minLength: 1
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            example:
+              query: "sum by (\"context.service.name\") (sum_over_time({\"traces.span.metrics.calls\"\
+                , \"span.kind\"=\"SPAN_KIND_SERVER\"}[5m]))"
+              timeRange:
+                from: 1782201500000
+                to: 1782203400000
+              step: 1m
+            schema:
+              $ref: "#/components/schemas/queryPromqlV2_request"
+        description: "PromQL range-query request with the time range in milliseconds.\
+          \ Send clusterId as a query parameter, not in this JSON body."
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueryPromqlV2Response"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - promql
   /v1/quality-reports/latest:
     get:
       description: "Retrieves the latest persisted quality-report rows for a cluster,\
@@ -11326,7 +11414,7 @@ paths:
       - description: End of the service graph query window as a Unix timestamp in
           seconds. Provide both `from` and `to` for a deterministic graph window;
           otherwise Tsuga uses backend graph defaults.
-        example: 1704067200
+        example: 1704070800
         explode: true
         in: query
         name: to
@@ -13060,7 +13148,7 @@ paths:
           type: integer
         style: form
       - description: End of the query window as a Unix timestamp in seconds
-        example: 1704067200
+        example: 1704070800
         explode: true
         in: query
         name: to
@@ -13174,7 +13262,7 @@ paths:
           type: integer
         style: form
       - description: End of the query window as a Unix timestamp in seconds
-        example: 1704067200
+        example: 1704070800
         explode: true
         in: query
         name: to
@@ -13345,7 +13433,7 @@ paths:
           type: integer
         style: form
       - description: End of the query window as a Unix timestamp in seconds
-        example: 1704067200
+        example: 1704070800
         explode: true
         in: query
         name: to
@@ -13932,6 +14020,47 @@ components:
       required:
       - series
       title: TimeseriesAggregationResponse
+    TimeseriesAggregationResponseV2:
+      description: "Timeseries aggregation response: a shared time axis and one series\
+        \ per group aligned to it."
+      example:
+        timestamps:
+        - 0
+        - 0
+        series:
+        - group:
+            key: Series_group_value
+          values:
+            key:
+            - 6.027456183070403
+            - 6.027456183070403
+        - group:
+            key: Series_group_value
+          values:
+            key:
+            - 6.027456183070403
+            - 6.027456183070403
+      properties:
+        timestamps:
+          description: "Start of each time bucket as a Unix timestamp in milliseconds,\
+            \ ascending, spaced by `aggregationWindow` (`step` for PromQL) from the\
+            \ first bucket with data to the last. Every `values` array in `series`\
+            \ aligns with it index by index."
+          items:
+            type: integer
+          type: array
+          default: null
+        series:
+          description: "One series per group, in group-by sort order for aggregation\
+            \ queries and in no particular order for PromQL."
+          items:
+            $ref: "#/components/schemas/SeriesV2"
+          type: array
+          default: null
+      required:
+      - series
+      - timestamps
+      title: TimeseriesAggregationResponseV2
     ResponseMetadata:
       description: "Metadata accompanying `data` on paginated operations, describing\
         \ the full result set the page was taken from."
@@ -14353,6 +14482,7 @@ components:
             log-route: read
             metrics: read
             metric-route: read
+            span-route: read
             monitor: read
             allowed-domains: read
             queue: read
@@ -14416,6 +14546,7 @@ components:
           log-route: read
           metrics: read
           metric-route: read
+          span-route: read
           monitor: read
           allowed-domains: read
           queue: read
@@ -14523,6 +14654,7 @@ components:
             log-route: read
             metrics: read
             metric-route: read
+            span-route: read
             monitor: read
             allowed-domains: read
             queue: read
@@ -14572,6 +14704,7 @@ components:
             log-route: read
             metrics: read
             metric-route: read
+            span-route: read
             monitor: read
             allowed-domains: read
             queue: read
@@ -14643,6 +14776,7 @@ components:
             log-route: read
             metrics: read
             metric-route: read
+            span-route: read
             monitor: read
             allowed-domains: read
             queue: read
@@ -14731,6 +14865,7 @@ components:
             log-route: read
             metrics: read
             metric-route: read
+            span-route: read
             monitor: read
             allowed-domains: read
             queue: read
@@ -14822,6 +14957,7 @@ components:
         allowedUrlPrefixes:
         - allowedUrlPrefixes
         - allowedUrlPrefixes
+        collectClientIp: true
         tags:
         - key: key
           value: value
@@ -14864,6 +15000,11 @@ components:
             type: string
           type: array
           default: null
+        collectClientIp:
+          description: "Whether intake records the IP address each request comes from\
+            \ as `client.address` on RUM records, and derives the `geo` location from\
+            \ it."
+          type: boolean
         tags:
           description: Key/value tags applied to the resource. Use them to organize
             resources and to satisfy tag policies.
@@ -14882,6 +15023,7 @@ components:
       required:
       - allowedUrlPrefixes
       - applicationType
+      - collectClientIp
       - id
       - name
       - owner
@@ -14899,6 +15041,7 @@ components:
           allowedUrlPrefixes:
           - allowedUrlPrefixes
           - allowedUrlPrefixes
+          collectClientIp: true
           tags:
           - key: key
             value: value
@@ -14928,6 +15071,7 @@ components:
           allowedUrlPrefixes:
           - allowedUrlPrefixes
           - allowedUrlPrefixes
+          collectClientIp: true
           tags:
           - key: key
             value: value
@@ -14957,6 +15101,7 @@ components:
           allowedUrlPrefixes:
           - allowedUrlPrefixes
           - allowedUrlPrefixes
+          collectClientIp: true
           tags:
           - key: key
             value: value
@@ -14973,6 +15118,7 @@ components:
           allowedUrlPrefixes:
           - allowedUrlPrefixes
           - allowedUrlPrefixes
+          collectClientIp: true
           tags:
           - key: key
             value: value
@@ -15011,6 +15157,7 @@ components:
           allowedUrlPrefixes:
           - allowedUrlPrefixes
           - allowedUrlPrefixes
+          collectClientIp: true
           tags:
           - key: key
             value: value
@@ -15146,6 +15293,7 @@ components:
           investigation: read
           log-route: read
           metric-route: read
+          span-route: read
           monitor: read
           notebook: read
           notification-integration: read
@@ -15250,6 +15398,7 @@ components:
             investigation: read
             log-route: read
             metric-route: read
+            span-route: read
             monitor: read
             notebook: read
             notification-integration: read
@@ -15310,6 +15459,7 @@ components:
             investigation: read
             log-route: read
             metric-route: read
+            span-route: read
             monitor: read
             notebook: read
             notification-integration: read
@@ -15386,6 +15536,7 @@ components:
             investigation: read
             log-route: read
             metric-route: read
+            span-route: read
             monitor: read
             notebook: read
             notification-integration: read
@@ -15459,6 +15610,7 @@ components:
             investigation: read
             log-route: read
             metric-route: read
+            span-route: read
             monitor: read
             notebook: read
             notification-integration: read
@@ -15532,6 +15684,7 @@ components:
             investigation: read
             log-route: read
             metric-route: read
+            span-route: read
             monitor: read
             notebook: read
             notification-integration: read
@@ -20929,6 +21082,35 @@ components:
       required:
       - data
       - requestId
+    QueryPromqlV2Response:
+      example:
+        requestId: requestId
+        data:
+          timestamps:
+          - 0
+          - 0
+          series:
+          - group:
+              key: Series_group_value
+            values:
+              key:
+              - 6.027456183070403
+              - 6.027456183070403
+          - group:
+              key: Series_group_value
+            values:
+              key:
+              - 6.027456183070403
+              - 6.027456183070403
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/TimeseriesAggregationResponseV2"
+      required:
+      - data
+      - requestId
     QualityReportRow:
       description: "Persisted evaluation of one telemetry-quality rule for a team\
         \ or cluster-wide scope. See [Quality reports](/documentation/account-and-settings/quality-reports)."
@@ -24026,20 +24208,11 @@ components:
           description: Display name of the user.
           type: string
         role:
-          description: "Organization role for the user: `admin`, `public_editor`,\
-            \ `public_viewer`, `teams_only`, or `custom` when the user holds a custom\
-            \ role."
-          enum:
-          - admin
-          - public_editor
-          - public_viewer
-          - teams_only
-          - custom
-          type: string
+          $ref: "#/components/schemas/User_role"
         customRoleId:
           description: "Identifier of the custom role held by the user, when `role`\
-            \ is `custom`. Use it with the custom role endpoints to read what the\
-            \ role grants."
+            \ is the `custom` key. The object form of `role` carries it instead. Use\
+            \ it with the custom role endpoints to read what the role grants."
           type: string
       required:
       - email
@@ -28334,36 +28507,6 @@ components:
       - query
       - type
       title: ListRum
-    GraphVisualizationSloUptime:
-      properties:
-        type:
-          description: "Displays the SLI percentage of an SLO computed over the dashboard\
-            \ time range, colored against the SLO target. Experimental."
-          enum:
-          - slo-uptime
-          type: string
-        sloId:
-          description: Id of the SLO to display
-          type: string
-      required:
-      - sloId
-      - type
-      title: SloUptime
-    GraphVisualizationSloOverTime:
-      properties:
-        type:
-          description: "Displays the good and bad events, or the per-slice status,\
-            \ of an SLO over the dashboard time range. Experimental."
-          enum:
-          - slo-over-time
-          type: string
-        sloId:
-          description: Id of the SLO to display
-          type: string
-      required:
-      - sloId
-      - type
-      title: SloOverTime
     GraphVisualizationSlo:
       properties:
         type:
@@ -30034,40 +30177,6 @@ components:
       - query
       - type
       title: InputListRum
-    InputGraphVisualizationSloUptime:
-      properties:
-        type:
-          description: "Displays the SLI percentage of an SLO computed over the dashboard\
-            \ time range, colored against the SLO target. Experimental."
-          enum:
-          - slo-uptime
-          type: string
-        sloId:
-          description: Id of the SLO to display
-          maxLength: 250
-          minLength: 1
-          type: string
-      required:
-      - sloId
-      - type
-      title: InputSloUptime
-    InputGraphVisualizationSloOverTime:
-      properties:
-        type:
-          description: "Displays the good and bad events, or the per-slice status,\
-            \ of an SLO over the dashboard time range. Experimental."
-          enum:
-          - slo-over-time
-          type: string
-        sloId:
-          description: Id of the SLO to display
-          maxLength: 250
-          minLength: 1
-          type: string
-      required:
-      - sloId
-      - type
-      title: InputSloOverTime
     InputGraphVisualizationSlo:
       properties:
         type:
@@ -30718,6 +30827,7 @@ components:
           log-route: read
           metrics: read
           metric-route: read
+          span-route: read
           monitor: read
           allowed-domains: read
           queue: read
@@ -30820,16 +30930,7 @@ components:
           description: Display name of the user.
           type: string
         role:
-          description: "Organization role for the user: `admin`, `public_editor`,\
-            \ `public_viewer`, `teams_only`, or `custom` when the user holds a custom\
-            \ role."
-          enum:
-          - admin
-          - public_editor
-          - public_viewer
-          - teams_only
-          - custom
-          type: string
+          $ref: "#/components/schemas/User_role"
         orgId:
           description: Identifier of the Tsuga organization the user belongs to.
           type: string
@@ -30923,7 +31024,7 @@ components:
       properties:
         id:
           description: "Result identifier. Query results use `q1`, `q2`, and so on;\
-            \ formula results use `formula`."
+            \ formula results use `value`."
           type: string
         group:
           additionalProperties:
@@ -30942,6 +31043,37 @@ components:
       - id
       - points
       title: Series
+    SeriesV2:
+      example:
+        group:
+          key: Series_group_value
+        values:
+          key:
+          - 6.027456183070403
+          - 6.027456183070403
+      properties:
+        group:
+          additionalProperties:
+            $ref: "#/components/schemas/Series_group_value"
+          description: "Group-by field values for this row, keyed by field name. Empty\
+            \ when no group-by is requested."
+          type: object
+        values:
+          additionalProperties:
+            items:
+              nullable: true
+              type: number
+            type: array
+            default: null
+          description: "One value per entry of `timestamps`, `null` where the bucket\
+            \ has none. Keyed by result id: `q1`, `q2`, and so on for each query in\
+            \ submission order, plus `formula` when a computed formula is given, or\
+            \ `value` for a PromQL query. Every row has the same keys."
+          type: object
+      required:
+      - group
+      - values
+      title: SeriesV2
     IngestionApiKeyCreated:
       example:
         id: 123-456-abc
@@ -31763,6 +31895,7 @@ components:
             - notification-rule
             - notification-silence
             - slo
+            - span-route
             type: string
           type: array
           default: null
@@ -32743,6 +32876,26 @@ components:
       - from
       - to
       title: InputTimeRange
+    InputV2TimeRange:
+      description: Inclusive time range for telemetry queries using Unix timestamps
+        in milliseconds.
+      properties:
+        from:
+          description: Start of the query window as a Unix timestamp in milliseconds
+          format: int64
+          maximum: 4927737600000
+          minimum: 1456444800000
+          type: integer
+        to:
+          description: End of the query window as a Unix timestamp in milliseconds
+          format: int64
+          maximum: 4927737600000
+          minimum: 1456444800000
+          type: integer
+      required:
+      - from
+      - to
+      title: InputV2TimeRange
     InputSloAggregationQuery:
       description: Single aggregation query evaluated by an SLO.
       properties:
@@ -33029,6 +33182,7 @@ components:
             - notification-rule
             - notification-silence
             - slo
+            - span-route
             type: string
           type: array
           default: null
@@ -33327,6 +33481,7 @@ components:
         log-route: read
         metrics: read
         metric-route: read
+        span-route: read
         monitor: read
         allowed-domains: read
         queue: read
@@ -33445,6 +33600,13 @@ components:
         metric-route:
           description: "Metric routes, which select newly ingested metrics by name\
             \ and apply processors to them."
+          enum:
+          - read
+          - write
+          type: string
+        span-route:
+          description: "Span routes, which select newly ingested spans and apply processors\
+            \ to them."
           enum:
           - read
           - write
@@ -33678,7 +33840,8 @@ components:
       description: "RUM public token creation request. Provide a kebab-case name,\
         \ owner team, application type, allowed URL prefixes (required for `web`,\
         \ empty for `ios` and `android`), tags including an `env` tag, and team override\
-        \ fields as an array of fields or null."
+        \ fields as an array of fields or null. Set `collectClientIp` to record client\
+        \ IP addresses."
       properties:
         name:
           description: Kebab-case name for the RUM public token.
@@ -33710,6 +33873,12 @@ components:
             type: string
           type: array
           default: null
+        collectClientIp:
+          description: "Whether intake records the IP address each request comes from\
+            \ as `client.address` on RUM records, and derives the `geo` location from\
+            \ it. Defaults to false on creation. Omit it on update to keep the current\
+            \ value."
+          type: boolean
         tags:
           description: Key/value tags to apply to the resource. Tag policies may require
             specific keys or values.
@@ -33740,7 +33909,8 @@ components:
     updatePublicToken_request:
       description: "RUM public token update request. Provide the full definition,\
         \ including name, owner team, allowed URL prefixes, tags including an `env`\
-        \ tag, and team override fields. The application type must match the existing\
+        \ tag, and team override fields. `collectClientIp` is optional and keeps its\
+        \ current value when omitted. The application type must match the existing\
         \ token and the token value itself never changes."
       properties:
         name:
@@ -33773,6 +33943,12 @@ components:
             type: string
           type: array
           default: null
+        collectClientIp:
+          description: "Whether intake records the IP address each request comes from\
+            \ as `client.address` on RUM records, and derives the `geo` location from\
+            \ it. Defaults to false on creation. Omit it on update to keep the current\
+            \ value."
+          type: boolean
         tags:
           description: Key/value tags to apply to the resource. Tag policies may require
             specific keys or values.
@@ -33908,6 +34084,7 @@ components:
         investigation: read
         log-route: read
         metric-route: read
+        span-route: read
         monitor: read
         notebook: read
         notification-integration: read
@@ -34081,6 +34258,12 @@ components:
           - write
           type: string
         metric-route:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        span-route:
           description: Access granted on this resource type. `write` implies `read`.
           enum:
           - read
@@ -34727,8 +34910,6 @@ components:
           list-log-patterns: "#/components/schemas/InputGraphVisualizationListLogPatterns"
           list-spans: "#/components/schemas/InputGraphVisualizationListSpans"
           list-rum: "#/components/schemas/InputGraphVisualizationListRum"
-          slo-uptime: "#/components/schemas/InputGraphVisualizationSloUptime"
-          slo-over-time: "#/components/schemas/InputGraphVisualizationSloOverTime"
           slo: "#/components/schemas/InputGraphVisualizationSlo"
         propertyName: type
       oneOf:
@@ -34760,8 +34941,6 @@ components:
       - $ref: "#/components/schemas/InputGraphVisualizationListLogPatterns"
       - $ref: "#/components/schemas/InputGraphVisualizationListSpans"
       - $ref: "#/components/schemas/InputGraphVisualizationListRum"
-      - $ref: "#/components/schemas/InputGraphVisualizationSloUptime"
-      - $ref: "#/components/schemas/InputGraphVisualizationSloOverTime"
       - $ref: "#/components/schemas/InputGraphVisualizationSlo"
       required:
       - type
@@ -34771,8 +34950,7 @@ components:
           \ query-value-connection, timeseries-promql, query-value-promql, gauge-promql,\
           \ top-list-promql, pie-promql, bar-promql, distribution-promql, heatmap-promql,\
           \ timeseries, top-list, pie, query-value, gauge, bar, distribution, heatmap,\
-          \ table, list, note, list-log-patterns, list-spans, list-rum, slo-uptime,\
-          \ slo-over-time, slo"
+          \ table, list, note, list-log-patterns, list-spans, list-rum, slo"
     updateDashboardGraph_request_layout:
       description: "Grid position and size of the widget. Optional; when provided,\
         \ the size must be at least 2×2 (width×height) grid units, except note widgets\
@@ -35243,7 +35421,7 @@ components:
           default: null
       required:
       - scope
-    inviteUsers_request_inner_oneOf:
+    inviteUsers_request_inner_anyOf_oneOf:
       properties:
         email:
           description: Lowercase email address to invite into the organization.
@@ -35280,7 +35458,7 @@ components:
       - teamId
       - teamRole
       - userRole
-    inviteUsers_request_inner_oneOf_1:
+    inviteUsers_request_inner_anyOf_oneOf_1:
       properties:
         email:
           description: Lowercase email address to invite into the organization.
@@ -35321,17 +35499,93 @@ components:
       - teamId
       - teamRole
       - userRole
-    inviteUsers_request_inner:
+    inviteUsers_request_inner_anyOf:
       discriminator:
         propertyName: userRole
       oneOf:
-      - $ref: "#/components/schemas/inviteUsers_request_inner_oneOf"
-      - $ref: "#/components/schemas/inviteUsers_request_inner_oneOf_1"
+      - $ref: "#/components/schemas/inviteUsers_request_inner_anyOf_oneOf"
+      - $ref: "#/components/schemas/inviteUsers_request_inner_anyOf_oneOf_1"
       required:
       - userRole
       errorMessage:
         discriminator: "value of tag \"userRole\" must be one of: admin, public_editor,\
           \ public_viewer, teams_only, custom"
+    inviteUsers_request_inner_anyOf_1_userRole_oneOf:
+      properties:
+        type:
+          description: "Built-in organization role: `admin`, `public_editor`, `public_viewer`,\
+            \ or `teams_only`."
+          enum:
+          - admin
+          - public_editor
+          - public_viewer
+          - teams_only
+          type: string
+      required:
+      - type
+    inviteUsers_request_inner_anyOf_1_userRole_oneOf_1:
+      properties:
+        type:
+          description: Assigns the custom role `customRoleId`.
+          enum:
+          - custom
+          type: string
+        customRoleId:
+          description: Identifier of the custom role to assign. Use the `id` returned
+            by the custom role endpoints.
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - customRoleId
+      - type
+    inviteUsers_request_inner_anyOf_1_userRole:
+      description: "Organization role to assign: a built-in role `type`, or `custom`\
+        \ with the `customRoleId` of a custom role."
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/inviteUsers_request_inner_anyOf_1_userRole_oneOf"
+      - $ref: "#/components/schemas/inviteUsers_request_inner_anyOf_1_userRole_oneOf_1"
+      required:
+      - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: admin, public_editor,\
+          \ public_viewer, teams_only, custom"
+    inviteUsers_request_inner_anyOf_1:
+      properties:
+        email:
+          description: Lowercase email address to invite into the organization.
+          format: lowercase-email
+          maxLength: 254
+          minLength: 0
+          type: string
+          errorMessage:
+            format: Must be a valid lowercase email address.
+        teamId:
+          description: Team ID to add the invited user to after acceptance.
+          maxLength: 250
+          minLength: 0
+          type: string
+        teamRole:
+          description: "Role the invited user receives in the target team once accepted:\
+            \ `admin`, `editor`, or `viewer`."
+          enum:
+          - admin
+          - editor
+          - viewer
+          type: string
+        userRole:
+          $ref: "#/components/schemas/inviteUsers_request_inner_anyOf_1_userRole"
+      required:
+      - email
+      - teamId
+      - teamRole
+      - userRole
+    inviteUsers_request_inner:
+      anyOf:
+      - $ref: "#/components/schemas/inviteUsers_request_inner_anyOf"
+      - $ref: "#/components/schemas/inviteUsers_request_inner_anyOf_1"
     queryInvitations_request_filters_searchQuery:
       description: "Substring matched against the invitation email, team name, or\
         \ status"
@@ -38024,6 +38278,27 @@ components:
           type: string
         timeRange:
           $ref: "#/components/schemas/InputTimeRange"
+      required:
+      - query
+      - step
+      - timeRange
+    queryPromqlV2_request:
+      description: "PromQL range-query request with the time range in milliseconds.\
+        \ Send clusterId as a query parameter, not in this JSON body."
+      properties:
+        query:
+          description: PromQL expression to evaluate.
+          maxLength: 50000
+          minLength: 1
+          type: string
+        step:
+          description: "Evaluation step interval (e.g. `1m`, `5m`, `1h`). Must be\
+            \ a valid Prometheus duration string."
+          maxLength: 250
+          minLength: 1
+          type: string
+        timeRange:
+          $ref: "#/components/schemas/InputV2TimeRange"
       required:
       - query
       - step
@@ -44970,6 +45245,46 @@ components:
       - contrastSets
       - failedAttributeCount
       - targetGroupCount
+    User_role_anyOf_oneOf:
+      properties:
+        type:
+          description: The user holds a custom role.
+          enum:
+          - custom
+          type: string
+        customRoleId:
+          description: Identifier of the custom role. Use it with the custom role
+            endpoints to read what the role grants.
+          type: string
+      required:
+      - customRoleId
+      - type
+    User_role_anyOf:
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/inviteUsers_request_inner_anyOf_1_userRole_oneOf"
+      - $ref: "#/components/schemas/User_role_anyOf_oneOf"
+      required:
+      - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: admin, public_editor,\
+          \ public_viewer, teams_only, custom"
+    User_role:
+      anyOf:
+      - description: "Organization role for the user: `admin`, `public_editor`, `public_viewer`,\
+          \ `teams_only`, or `custom` when the user holds a custom role."
+        enum:
+        - admin
+        - public_editor
+        - public_viewer
+        - teams_only
+        - custom
+        type: string
+      - $ref: "#/components/schemas/User_role_anyOf"
+      description: "Organization role for the user, either as a role key or as an\
+        \ object with the role `type` and, for a custom role, its `customRoleId`.\
+        \ Handle both forms: the object form replaces the role key."
     GrokInvalidSyntax_error:
       description: Position and parser message for the syntax failure.
       properties:
@@ -45060,6 +45375,7 @@ components:
           - notification-rule
           - notification-silence
           - slo
+          - span-route
           type: string
         tagPolicyId:
           description: Identifier of the active tag policy that was violated. Generated
@@ -46585,8 +46901,6 @@ components:
           list-log-patterns: "#/components/schemas/GraphVisualizationListLogPatterns"
           list-spans: "#/components/schemas/GraphVisualizationListSpans"
           list-rum: "#/components/schemas/GraphVisualizationListRum"
-          slo-uptime: "#/components/schemas/GraphVisualizationSloUptime"
-          slo-over-time: "#/components/schemas/GraphVisualizationSloOverTime"
           slo: "#/components/schemas/GraphVisualizationSlo"
         propertyName: type
       oneOf:
@@ -46618,8 +46932,6 @@ components:
       - $ref: "#/components/schemas/GraphVisualizationListLogPatterns"
       - $ref: "#/components/schemas/GraphVisualizationListSpans"
       - $ref: "#/components/schemas/GraphVisualizationListRum"
-      - $ref: "#/components/schemas/GraphVisualizationSloUptime"
-      - $ref: "#/components/schemas/GraphVisualizationSloOverTime"
       - $ref: "#/components/schemas/GraphVisualizationSlo"
       required:
       - type
@@ -46629,8 +46941,7 @@ components:
           \ query-value-connection, timeseries-promql, query-value-promql, gauge-promql,\
           \ top-list-promql, pie-promql, bar-promql, distribution-promql, heatmap-promql,\
           \ timeseries, top-list, pie, query-value, gauge, bar, distribution, heatmap,\
-          \ table, list, note, list-log-patterns, list-spans, list-rum, slo-uptime,\
-          \ slo-over-time, slo"
+          \ table, list, note, list-log-patterns, list-spans, list-rum, slo"
     Graph_layout:
       description: "Grid position and size of the widget. Optional; when provided,\
         \ the size must be at least 2×2 (width×height) grid units, except note widgets\

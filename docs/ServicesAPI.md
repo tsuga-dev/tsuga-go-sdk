@@ -252,7 +252,7 @@ import (
 func main() {
 	serviceId := "serviceId_example" // string | Identifier of the service to use as the graph root. Use the `id` returned by service list or get responses.
 	from := int64(1704067200) // int64 | Start of the service graph query window as a Unix timestamp in seconds. Provide both `from` and `to` for a deterministic graph window; otherwise Tsuga uses backend graph defaults. (optional)
-	to := int64(1704067200) // int64 | End of the service graph query window as a Unix timestamp in seconds. Provide both `from` and `to` for a deterministic graph window; otherwise Tsuga uses backend graph defaults. (optional)
+	to := int64(1704070800) // int64 | End of the service graph query window as a Unix timestamp in seconds. Provide both `from` and `to` for a deterministic graph window; otherwise Tsuga uses backend graph defaults. (optional)
 	query := "query_example" // string | Tsuga query used to filter spans considered for the graph. Defaults to `*`, which applies no additional filter beyond the service identity. (optional) (default to "*")
 
 	configuration := openapiclient.NewConfiguration()

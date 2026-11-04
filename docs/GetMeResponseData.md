@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **KeyLastCharacters** | **string** | Last characters of the operation API key secret. Set by Tsuga from the generated secret and returned because the full secret is only shown once at creation. Use this to distinguish saved keys without exposing the secret. | 
 **ExpiresAt** | Pointer to **string** | Timestamp after which the operation API key stops authenticating. Set when the key is created or updated. Returned only for keys that have an expiration date. | [optional] 
 **Email** | **string** | Lowercase email address for the user. Use this for display and invitation matching, not as a stable identifier. | 
-**Role** | **string** | Organization role for the user: &#x60;admin&#x60;, &#x60;public_editor&#x60;, &#x60;public_viewer&#x60;, &#x60;teams_only&#x60;, or &#x60;custom&#x60; when the user holds a custom role. | 
+**Role** | [**UserRole**](UserRole.md) |  | 
 **OrgId** | **string** | Identifier of the Tsuga organization the user belongs to. | 
 **OrgName** | Pointer to **string** | Display name of the Tsuga organization the user belongs to. Absent when the organization record cannot be resolved. | [optional] 
 **FavoriteDashboards** | **[]string** | Dashboard IDs the user marked as favorites. Not pruned when a dashboard is deleted, so an ID may no longer resolve. | 
@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 
 ### NewGetMeResponseData
 
-`func NewGetMeResponseData(type_ string, id string, name string, owner string, scope string, permissions CreateOperationApiKeyRequestPermissions, keyLastCharacters string, email string, role string, orgId string, favoriteDashboards []string, favoriteFolders []string, ) *GetMeResponseData`
+`func NewGetMeResponseData(type_ string, id string, name string, owner string, scope string, permissions CreateOperationApiKeyRequestPermissions, keyLastCharacters string, email string, role UserRole, orgId string, favoriteDashboards []string, favoriteFolders []string, ) *GetMeResponseData`
 
 NewGetMeResponseData instantiates a new GetMeResponseData object
 This constructor will assign default values to properties that have it defined,
@@ -225,20 +225,20 @@ SetEmail sets Email field to given value.
 
 ### GetRole
 
-`func (o *GetMeResponseData) GetRole() string`
+`func (o *GetMeResponseData) GetRole() UserRole`
 
 GetRole returns the Role field if non-nil, zero value otherwise.
 
 ### GetRoleOk
 
-`func (o *GetMeResponseData) GetRoleOk() (*string, bool)`
+`func (o *GetMeResponseData) GetRoleOk() (*UserRole, bool)`
 
 GetRoleOk returns a tuple with the Role field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRole
 
-`func (o *GetMeResponseData) SetRole(v string)`
+`func (o *GetMeResponseData) SetRole(v UserRole)`
 
 SetRole sets Role field to given value.
 

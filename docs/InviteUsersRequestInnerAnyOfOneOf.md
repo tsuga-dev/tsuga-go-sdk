@@ -1,4 +1,4 @@
-# InviteUsersRequestInnerOneOf
+# InviteUsersRequestInnerAnyOfOneOf
 
 ## Properties
 
@@ -11,99 +11,99 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewInviteUsersRequestInnerOneOf
+### NewInviteUsersRequestInnerAnyOfOneOf
 
-`func NewInviteUsersRequestInnerOneOf(email string, teamId string, teamRole string, userRole string, ) *InviteUsersRequestInnerOneOf`
+`func NewInviteUsersRequestInnerAnyOfOneOf(email string, teamId string, teamRole string, userRole string, ) *InviteUsersRequestInnerAnyOfOneOf`
 
-NewInviteUsersRequestInnerOneOf instantiates a new InviteUsersRequestInnerOneOf object
+NewInviteUsersRequestInnerAnyOfOneOf instantiates a new InviteUsersRequestInnerAnyOfOneOf object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewInviteUsersRequestInnerOneOfWithDefaults
+### NewInviteUsersRequestInnerAnyOfOneOfWithDefaults
 
-`func NewInviteUsersRequestInnerOneOfWithDefaults() *InviteUsersRequestInnerOneOf`
+`func NewInviteUsersRequestInnerAnyOfOneOfWithDefaults() *InviteUsersRequestInnerAnyOfOneOf`
 
-NewInviteUsersRequestInnerOneOfWithDefaults instantiates a new InviteUsersRequestInnerOneOf object
+NewInviteUsersRequestInnerAnyOfOneOfWithDefaults instantiates a new InviteUsersRequestInnerAnyOfOneOf object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetEmail
 
-`func (o *InviteUsersRequestInnerOneOf) GetEmail() string`
+`func (o *InviteUsersRequestInnerAnyOfOneOf) GetEmail() string`
 
 GetEmail returns the Email field if non-nil, zero value otherwise.
 
 ### GetEmailOk
 
-`func (o *InviteUsersRequestInnerOneOf) GetEmailOk() (*string, bool)`
+`func (o *InviteUsersRequestInnerAnyOfOneOf) GetEmailOk() (*string, bool)`
 
 GetEmailOk returns a tuple with the Email field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEmail
 
-`func (o *InviteUsersRequestInnerOneOf) SetEmail(v string)`
+`func (o *InviteUsersRequestInnerAnyOfOneOf) SetEmail(v string)`
 
 SetEmail sets Email field to given value.
 
 
 ### GetTeamId
 
-`func (o *InviteUsersRequestInnerOneOf) GetTeamId() string`
+`func (o *InviteUsersRequestInnerAnyOfOneOf) GetTeamId() string`
 
 GetTeamId returns the TeamId field if non-nil, zero value otherwise.
 
 ### GetTeamIdOk
 
-`func (o *InviteUsersRequestInnerOneOf) GetTeamIdOk() (*string, bool)`
+`func (o *InviteUsersRequestInnerAnyOfOneOf) GetTeamIdOk() (*string, bool)`
 
 GetTeamIdOk returns a tuple with the TeamId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTeamId
 
-`func (o *InviteUsersRequestInnerOneOf) SetTeamId(v string)`
+`func (o *InviteUsersRequestInnerAnyOfOneOf) SetTeamId(v string)`
 
 SetTeamId sets TeamId field to given value.
 
 
 ### GetTeamRole
 
-`func (o *InviteUsersRequestInnerOneOf) GetTeamRole() string`
+`func (o *InviteUsersRequestInnerAnyOfOneOf) GetTeamRole() string`
 
 GetTeamRole returns the TeamRole field if non-nil, zero value otherwise.
 
 ### GetTeamRoleOk
 
-`func (o *InviteUsersRequestInnerOneOf) GetTeamRoleOk() (*string, bool)`
+`func (o *InviteUsersRequestInnerAnyOfOneOf) GetTeamRoleOk() (*string, bool)`
 
 GetTeamRoleOk returns a tuple with the TeamRole field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTeamRole
 
-`func (o *InviteUsersRequestInnerOneOf) SetTeamRole(v string)`
+`func (o *InviteUsersRequestInnerAnyOfOneOf) SetTeamRole(v string)`
 
 SetTeamRole sets TeamRole field to given value.
 
 
 ### GetUserRole
 
-`func (o *InviteUsersRequestInnerOneOf) GetUserRole() string`
+`func (o *InviteUsersRequestInnerAnyOfOneOf) GetUserRole() string`
 
 GetUserRole returns the UserRole field if non-nil, zero value otherwise.
 
 ### GetUserRoleOk
 
-`func (o *InviteUsersRequestInnerOneOf) GetUserRoleOk() (*string, bool)`
+`func (o *InviteUsersRequestInnerAnyOfOneOf) GetUserRoleOk() (*string, bool)`
 
 GetUserRoleOk returns a tuple with the UserRole field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUserRole
 
-`func (o *InviteUsersRequestInnerOneOf) SetUserRole(v string)`
+`func (o *InviteUsersRequestInnerAnyOfOneOf) SetUserRole(v string)`
 
 SetUserRole sets UserRole field to given value.
 

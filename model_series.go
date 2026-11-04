@@ -19,7 +19,7 @@ var _ MappedNullable = &Series{}
 
 // Series struct for Series
 type Series struct {
-	// Result identifier. Query results use `q1`, `q2`, and so on; formula results use `formula`.
+	// Result identifier. Query results use `q1`, `q2`, and so on; formula results use `value`.
 	Id string `json:"id"`
 	// Group-by field values for this result. Empty when no group-by is requested.
 	Group map[string]SeriesGroupValue `json:"group"`

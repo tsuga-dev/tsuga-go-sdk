@@ -81,7 +81,7 @@ type PublicTokensAPI interface {
 	/*
 		UpdatePublicToken Method for UpdatePublicToken
 
-		Updates RUM public token metadata by ID, including name, owner, application type, allowed URL prefixes, tags, and team override fields. Every field is required: the application type is fixed at creation, so resend the token's current value. The token value is not rotated by this operation.
+		Updates RUM public token metadata by ID, including name, owner, application type, allowed URL prefixes, client IP collection, tags, and team override fields. Every field except `collectClientIp` is required: the application type is fixed at creation, so resend the token's current value. The token value is not rotated by this operation.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Identifier of the public token to update. Use the `id` returned by public token list, get, or create responses.
@@ -103,7 +103,7 @@ type PublicTokensAPICreatePublicTokenRequest struct {
 	createPublicTokenRequest *CreatePublicTokenRequest
 }
 
-// RUM public token creation request. Provide a kebab-case name, owner team, application type, allowed URL prefixes (required for &#x60;web&#x60;, empty for &#x60;ios&#x60; and &#x60;android&#x60;), tags including an &#x60;env&#x60; tag, and team override fields as an array of fields or null.
+// RUM public token creation request. Provide a kebab-case name, owner team, application type, allowed URL prefixes (required for &#x60;web&#x60;, empty for &#x60;ios&#x60; and &#x60;android&#x60;), tags including an &#x60;env&#x60; tag, and team override fields as an array of fields or null. Set &#x60;collectClientIp&#x60; to record client IP addresses.
 func (r PublicTokensAPICreatePublicTokenRequest) CreatePublicTokenRequest(createPublicTokenRequest CreatePublicTokenRequest) PublicTokensAPICreatePublicTokenRequest {
 	r.createPublicTokenRequest = &createPublicTokenRequest
 	return r
@@ -644,7 +644,7 @@ type PublicTokensAPIUpdatePublicTokenRequest struct {
 	updatePublicTokenRequest *UpdatePublicTokenRequest
 }
 
-// RUM public token update request. Provide the full definition, including name, owner team, allowed URL prefixes, tags including an &#x60;env&#x60; tag, and team override fields. The application type must match the existing token and the token value itself never changes.
+// RUM public token update request. Provide the full definition, including name, owner team, allowed URL prefixes, tags including an &#x60;env&#x60; tag, and team override fields. &#x60;collectClientIp&#x60; is optional and keeps its current value when omitted. The application type must match the existing token and the token value itself never changes.
 func (r PublicTokensAPIUpdatePublicTokenRequest) UpdatePublicTokenRequest(updatePublicTokenRequest UpdatePublicTokenRequest) PublicTokensAPIUpdatePublicTokenRequest {
 	r.updatePublicTokenRequest = &updatePublicTokenRequest
 	return r
@@ -657,7 +657,7 @@ func (r PublicTokensAPIUpdatePublicTokenRequest) Execute() (*UpdatePublicTokenRe
 /*
 UpdatePublicToken Method for UpdatePublicToken
 
-Updates RUM public token metadata by ID, including name, owner, application type, allowed URL prefixes, tags, and team override fields. Every field is required: the application type is fixed at creation, so resend the token's current value. The token value is not rotated by this operation.
+Updates RUM public token metadata by ID, including name, owner, application type, allowed URL prefixes, client IP collection, tags, and team override fields. Every field except `collectClientIp` is required: the application type is fixed at creation, so resend the token's current value. The token value is not rotated by this operation.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Identifier of the public token to update. Use the `id` returned by public token list, get, or create responses.

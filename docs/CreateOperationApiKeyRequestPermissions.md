@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **LogRoute** | Pointer to **string** | Log routes, which select newly ingested logs and apply processors to them. | [optional] 
 **Metrics** | Pointer to **string** | Ingested metrics, through query and aggregation endpoints. | [optional] 
 **MetricRoute** | Pointer to **string** | Metric routes, which select newly ingested metrics by name and apply processors to them. | [optional] 
+**SpanRoute** | Pointer to **string** | Span routes, which select newly ingested spans and apply processors to them. | [optional] 
 **Monitor** | Pointer to **string** | Monitors, the alert definitions evaluated against telemetry. | [optional] 
 **AllowedDomains** | Pointer to **string** | Email domains whose users are allowed to join the organization. | [optional] 
 **Queue** | Pointer to **string** | Message queues of the catalog, inferred from telemetry. | [optional] 
@@ -460,6 +461,31 @@ SetMetricRoute sets MetricRoute field to given value.
 `func (o *CreateOperationApiKeyRequestPermissions) HasMetricRoute() bool`
 
 HasMetricRoute returns a boolean if a field has been set.
+
+### GetSpanRoute
+
+`func (o *CreateOperationApiKeyRequestPermissions) GetSpanRoute() string`
+
+GetSpanRoute returns the SpanRoute field if non-nil, zero value otherwise.
+
+### GetSpanRouteOk
+
+`func (o *CreateOperationApiKeyRequestPermissions) GetSpanRouteOk() (*string, bool)`
+
+GetSpanRouteOk returns a tuple with the SpanRoute field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSpanRoute
+
+`func (o *CreateOperationApiKeyRequestPermissions) SetSpanRoute(v string)`
+
+SetSpanRoute sets SpanRoute field to given value.
+
+### HasSpanRoute
+
+`func (o *CreateOperationApiKeyRequestPermissions) HasSpanRoute() bool`
+
+HasSpanRoute returns a boolean if a field has been set.
 
 ### GetMonitor
 

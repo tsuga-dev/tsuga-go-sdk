@@ -76,6 +76,8 @@ type CreateCustomRoleRequestAssets struct {
 	// Access granted on this resource type. `write` implies `read`.
 	MetricRoute *string `json:"metric-route,omitempty"`
 	// Access granted on this resource type. `write` implies `read`.
+	SpanRoute *string `json:"span-route,omitempty"`
+	// Access granted on this resource type. `write` implies `read`.
 	Monitor *string `json:"monitor,omitempty"`
 	// Access granted on this resource type. `write` implies `read`.
 	Notebook *string `json:"notebook,omitempty"`
@@ -1022,6 +1024,38 @@ func (o *CreateCustomRoleRequestAssets) SetMetricRoute(v string) {
 	o.MetricRoute = &v
 }
 
+// GetSpanRoute returns the SpanRoute field value if set, zero value otherwise.
+func (o *CreateCustomRoleRequestAssets) GetSpanRoute() string {
+	if o == nil || IsNil(o.SpanRoute) {
+		var ret string
+		return ret
+	}
+	return *o.SpanRoute
+}
+
+// GetSpanRouteOk returns a tuple with the SpanRoute field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCustomRoleRequestAssets) GetSpanRouteOk() (*string, bool) {
+	if o == nil || IsNil(o.SpanRoute) {
+		return nil, false
+	}
+	return o.SpanRoute, true
+}
+
+// HasSpanRoute returns a boolean if a field has been set.
+func (o *CreateCustomRoleRequestAssets) HasSpanRoute() bool {
+	if o != nil && !IsNil(o.SpanRoute) {
+		return true
+	}
+
+	return false
+}
+
+// SetSpanRoute gets a reference to the given string and assigns it to the SpanRoute field.
+func (o *CreateCustomRoleRequestAssets) SetSpanRoute(v string) {
+	o.SpanRoute = &v
+}
+
 // GetMonitor returns the Monitor field value if set, zero value otherwise.
 func (o *CreateCustomRoleRequestAssets) GetMonitor() string {
 	if o == nil || IsNil(o.Monitor) {
@@ -1556,6 +1590,9 @@ func (o CreateCustomRoleRequestAssets) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MetricRoute) {
 		toSerialize["metric-route"] = o.MetricRoute
 	}
+	if !IsNil(o.SpanRoute) {
+		toSerialize["span-route"] = o.SpanRoute
+	}
 	if !IsNil(o.Monitor) {
 		toSerialize["monitor"] = o.Monitor
 	}
@@ -1667,6 +1704,7 @@ func (o *CreateCustomRoleRequestAssets) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "investigation")
 		delete(additionalProperties, "log-route")
 		delete(additionalProperties, "metric-route")
+		delete(additionalProperties, "span-route")
 		delete(additionalProperties, "monitor")
 		delete(additionalProperties, "notebook")
 		delete(additionalProperties, "notification-integration")

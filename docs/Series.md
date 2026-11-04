@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | Result identifier. Query results use &#x60;q1&#x60;, &#x60;q2&#x60;, and so on; formula results use &#x60;formula&#x60;. | 
+**Id** | **string** | Result identifier. Query results use &#x60;q1&#x60;, &#x60;q2&#x60;, and so on; formula results use &#x60;value&#x60;. | 
 **Group** | [**map[string]SeriesGroupValue**](SeriesGroupValue.md) | Group-by field values for this result. Empty when no group-by is requested. | 
 **Points** | [**[]SeriesPointsInner**](SeriesPointsInner.md) | Ordered data points for this query or formula and group. | 
 

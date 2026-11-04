@@ -31,6 +31,8 @@ type PublicToken struct {
 	ApplicationType string `json:"applicationType"`
 	// URL prefixes which RUM telemetry data can be sent from. Supports wildcard matching. Always empty for `ios` and `android` applications.
 	AllowedUrlPrefixes []string `json:"allowedUrlPrefixes"`
+	// Whether intake records the IP address each request comes from as `client.address` on RUM records, and derives the `geo` location from it.
+	CollectClientIp bool `json:"collectClientIp"`
 	// Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies.
 	Tags []Tag `json:"tags"`
 	// Telemetry attribute names used to override ownership for data sent with this token.
@@ -44,7 +46,7 @@ type _PublicToken PublicToken
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicToken(id string, name string, token string, owner string, applicationType string, allowedUrlPrefixes []string, tags []Tag) *PublicToken {
+func NewPublicToken(id string, name string, token string, owner string, applicationType string, allowedUrlPrefixes []string, collectClientIp bool, tags []Tag) *PublicToken {
 	this := PublicToken{}
 	this.Id = id
 	this.Name = name
@@ -52,6 +54,7 @@ func NewPublicToken(id string, name string, token string, owner string, applicat
 	this.Owner = owner
 	this.ApplicationType = applicationType
 	this.AllowedUrlPrefixes = allowedUrlPrefixes
+	this.CollectClientIp = collectClientIp
 	this.Tags = tags
 	return &this
 }
@@ -208,6 +211,30 @@ func (o *PublicToken) SetAllowedUrlPrefixes(v []string) {
 	o.AllowedUrlPrefixes = v
 }
 
+// GetCollectClientIp returns the CollectClientIp field value
+func (o *PublicToken) GetCollectClientIp() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.CollectClientIp
+}
+
+// GetCollectClientIpOk returns a tuple with the CollectClientIp field value
+// and a boolean to check if the value has been set.
+func (o *PublicToken) GetCollectClientIpOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CollectClientIp, true
+}
+
+// SetCollectClientIp sets field value
+func (o *PublicToken) SetCollectClientIp(v bool) {
+	o.CollectClientIp = v
+}
+
 // GetTags returns the Tags field value
 func (o *PublicToken) GetTags() []Tag {
 	if o == nil {
@@ -280,6 +307,7 @@ func (o PublicToken) ToMap() (map[string]interface{}, error) {
 	toSerialize["owner"] = o.Owner
 	toSerialize["applicationType"] = o.ApplicationType
 	toSerialize["allowedUrlPrefixes"] = o.AllowedUrlPrefixes
+	toSerialize["collectClientIp"] = o.CollectClientIp
 	toSerialize["tags"] = o.Tags
 	if !IsNil(o.TeamOverrideFields) {
 		toSerialize["teamOverrideFields"] = o.TeamOverrideFields
@@ -303,6 +331,7 @@ func (o *PublicToken) UnmarshalJSON(data []byte) (err error) {
 		"owner",
 		"applicationType",
 		"allowedUrlPrefixes",
+		"collectClientIp",
 		"tags",
 	}
 
@@ -339,6 +368,7 @@ func (o *PublicToken) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "owner")
 		delete(additionalProperties, "applicationType")
 		delete(additionalProperties, "allowedUrlPrefixes")
+		delete(additionalProperties, "collectClientIp")
 		delete(additionalProperties, "tags")
 		delete(additionalProperties, "teamOverrideFields")
 		o.AdditionalProperties = additionalProperties

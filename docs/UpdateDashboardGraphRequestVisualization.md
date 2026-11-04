@@ -44,7 +44,7 @@ Name | Type | Description | Notes
 **NoteAlign** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
 **NoteJustifyContent** | Pointer to **string** | Flex alignment keyword used for widget layout | [optional] 
 **Layout** | Pointer to **string** | Layout used to render log patterns | [optional] 
-**SloId** | **string** | Id of the SLO to display. Omit it to cover every SLO that matches &#x60;filters&#x60;. | 
+**SloId** | Pointer to **string** | Id of the SLO to display. Omit it to cover every SLO that matches &#x60;filters&#x60;. | [optional] 
 **Filters** | Pointer to [**InputGraphVisualizationSloFilters**](InputGraphVisualizationSloFilters.md) |  | [optional] 
 **OrganizeBy** | Pointer to [**InputSloWidgetOrganizeBy**](InputSloWidgetOrganizeBy.md) |  | [optional] 
 **Display** | **[]string** | Sections to show: &#x60;summary&#x60; for the result count per status, &#x60;table&#x60; for the list of results. | 
@@ -53,7 +53,7 @@ Name | Type | Description | Notes
 
 ### NewUpdateDashboardGraphRequestVisualization
 
-`func NewUpdateDashboardGraphRequestVisualization(type_ string, connectionId string, queries []InputAggregationQuery, query string, source string, columns []InputTableColumn, sloId string, display []string, ) *UpdateDashboardGraphRequestVisualization`
+`func NewUpdateDashboardGraphRequestVisualization(type_ string, connectionId string, queries []InputAggregationQuery, query string, source string, columns []InputTableColumn, display []string, ) *UpdateDashboardGraphRequestVisualization`
 
 NewUpdateDashboardGraphRequestVisualization instantiates a new UpdateDashboardGraphRequestVisualization object
 This constructor will assign default values to properties that have it defined,
@@ -1057,6 +1057,11 @@ and a boolean to check if the value has been set.
 
 SetSloId sets SloId field to given value.
 
+### HasSloId
+
+`func (o *UpdateDashboardGraphRequestVisualization) HasSloId() bool`
+
+HasSloId returns a boolean if a field has been set.
 
 ### GetFilters
 

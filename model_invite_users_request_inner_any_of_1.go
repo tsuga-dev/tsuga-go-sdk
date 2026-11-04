@@ -14,50 +14,46 @@ import (
 	"fmt"
 )
 
-// checks if the InviteUsersRequestInnerOneOf1 type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &InviteUsersRequestInnerOneOf1{}
+// checks if the InviteUsersRequestInnerAnyOf1 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InviteUsersRequestInnerAnyOf1{}
 
-// InviteUsersRequestInnerOneOf1 struct for InviteUsersRequestInnerOneOf1
-type InviteUsersRequestInnerOneOf1 struct {
+// InviteUsersRequestInnerAnyOf1 struct for InviteUsersRequestInnerAnyOf1
+type InviteUsersRequestInnerAnyOf1 struct {
 	// Lowercase email address to invite into the organization.
 	Email string `json:"email"`
 	// Team ID to add the invited user to after acceptance.
 	TeamId string `json:"teamId"`
 	// Role the invited user receives in the target team once accepted: `admin`, `editor`, or `viewer`.
-	TeamRole string `json:"teamRole"`
-	// Assigns the custom role identified by `customRoleId` after acceptance.
-	UserRole string `json:"userRole"`
-	// Identifier of the custom role to assign. Use the `id` returned by the custom role endpoints.
-	CustomRoleId         string `json:"customRoleId"`
+	TeamRole             string                                `json:"teamRole"`
+	UserRole             InviteUsersRequestInnerAnyOf1UserRole `json:"userRole"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _InviteUsersRequestInnerOneOf1 InviteUsersRequestInnerOneOf1
+type _InviteUsersRequestInnerAnyOf1 InviteUsersRequestInnerAnyOf1
 
-// NewInviteUsersRequestInnerOneOf1 instantiates a new InviteUsersRequestInnerOneOf1 object
+// NewInviteUsersRequestInnerAnyOf1 instantiates a new InviteUsersRequestInnerAnyOf1 object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInviteUsersRequestInnerOneOf1(email string, teamId string, teamRole string, userRole string, customRoleId string) *InviteUsersRequestInnerOneOf1 {
-	this := InviteUsersRequestInnerOneOf1{}
+func NewInviteUsersRequestInnerAnyOf1(email string, teamId string, teamRole string, userRole InviteUsersRequestInnerAnyOf1UserRole) *InviteUsersRequestInnerAnyOf1 {
+	this := InviteUsersRequestInnerAnyOf1{}
 	this.Email = email
 	this.TeamId = teamId
 	this.TeamRole = teamRole
 	this.UserRole = userRole
-	this.CustomRoleId = customRoleId
 	return &this
 }
 
-// NewInviteUsersRequestInnerOneOf1WithDefaults instantiates a new InviteUsersRequestInnerOneOf1 object
+// NewInviteUsersRequestInnerAnyOf1WithDefaults instantiates a new InviteUsersRequestInnerAnyOf1 object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewInviteUsersRequestInnerOneOf1WithDefaults() *InviteUsersRequestInnerOneOf1 {
-	this := InviteUsersRequestInnerOneOf1{}
+func NewInviteUsersRequestInnerAnyOf1WithDefaults() *InviteUsersRequestInnerAnyOf1 {
+	this := InviteUsersRequestInnerAnyOf1{}
 	return &this
 }
 
 // GetEmail returns the Email field value
-func (o *InviteUsersRequestInnerOneOf1) GetEmail() string {
+func (o *InviteUsersRequestInnerAnyOf1) GetEmail() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -68,7 +64,7 @@ func (o *InviteUsersRequestInnerOneOf1) GetEmail() string {
 
 // GetEmailOk returns a tuple with the Email field value
 // and a boolean to check if the value has been set.
-func (o *InviteUsersRequestInnerOneOf1) GetEmailOk() (*string, bool) {
+func (o *InviteUsersRequestInnerAnyOf1) GetEmailOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -76,12 +72,12 @@ func (o *InviteUsersRequestInnerOneOf1) GetEmailOk() (*string, bool) {
 }
 
 // SetEmail sets field value
-func (o *InviteUsersRequestInnerOneOf1) SetEmail(v string) {
+func (o *InviteUsersRequestInnerAnyOf1) SetEmail(v string) {
 	o.Email = v
 }
 
 // GetTeamId returns the TeamId field value
-func (o *InviteUsersRequestInnerOneOf1) GetTeamId() string {
+func (o *InviteUsersRequestInnerAnyOf1) GetTeamId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -92,7 +88,7 @@ func (o *InviteUsersRequestInnerOneOf1) GetTeamId() string {
 
 // GetTeamIdOk returns a tuple with the TeamId field value
 // and a boolean to check if the value has been set.
-func (o *InviteUsersRequestInnerOneOf1) GetTeamIdOk() (*string, bool) {
+func (o *InviteUsersRequestInnerAnyOf1) GetTeamIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -100,12 +96,12 @@ func (o *InviteUsersRequestInnerOneOf1) GetTeamIdOk() (*string, bool) {
 }
 
 // SetTeamId sets field value
-func (o *InviteUsersRequestInnerOneOf1) SetTeamId(v string) {
+func (o *InviteUsersRequestInnerAnyOf1) SetTeamId(v string) {
 	o.TeamId = v
 }
 
 // GetTeamRole returns the TeamRole field value
-func (o *InviteUsersRequestInnerOneOf1) GetTeamRole() string {
+func (o *InviteUsersRequestInnerAnyOf1) GetTeamRole() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -116,7 +112,7 @@ func (o *InviteUsersRequestInnerOneOf1) GetTeamRole() string {
 
 // GetTeamRoleOk returns a tuple with the TeamRole field value
 // and a boolean to check if the value has been set.
-func (o *InviteUsersRequestInnerOneOf1) GetTeamRoleOk() (*string, bool) {
+func (o *InviteUsersRequestInnerAnyOf1) GetTeamRoleOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -124,14 +120,14 @@ func (o *InviteUsersRequestInnerOneOf1) GetTeamRoleOk() (*string, bool) {
 }
 
 // SetTeamRole sets field value
-func (o *InviteUsersRequestInnerOneOf1) SetTeamRole(v string) {
+func (o *InviteUsersRequestInnerAnyOf1) SetTeamRole(v string) {
 	o.TeamRole = v
 }
 
 // GetUserRole returns the UserRole field value
-func (o *InviteUsersRequestInnerOneOf1) GetUserRole() string {
+func (o *InviteUsersRequestInnerAnyOf1) GetUserRole() InviteUsersRequestInnerAnyOf1UserRole {
 	if o == nil {
-		var ret string
+		var ret InviteUsersRequestInnerAnyOf1UserRole
 		return ret
 	}
 
@@ -140,7 +136,7 @@ func (o *InviteUsersRequestInnerOneOf1) GetUserRole() string {
 
 // GetUserRoleOk returns a tuple with the UserRole field value
 // and a boolean to check if the value has been set.
-func (o *InviteUsersRequestInnerOneOf1) GetUserRoleOk() (*string, bool) {
+func (o *InviteUsersRequestInnerAnyOf1) GetUserRoleOk() (*InviteUsersRequestInnerAnyOf1UserRole, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -148,35 +144,11 @@ func (o *InviteUsersRequestInnerOneOf1) GetUserRoleOk() (*string, bool) {
 }
 
 // SetUserRole sets field value
-func (o *InviteUsersRequestInnerOneOf1) SetUserRole(v string) {
+func (o *InviteUsersRequestInnerAnyOf1) SetUserRole(v InviteUsersRequestInnerAnyOf1UserRole) {
 	o.UserRole = v
 }
 
-// GetCustomRoleId returns the CustomRoleId field value
-func (o *InviteUsersRequestInnerOneOf1) GetCustomRoleId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.CustomRoleId
-}
-
-// GetCustomRoleIdOk returns a tuple with the CustomRoleId field value
-// and a boolean to check if the value has been set.
-func (o *InviteUsersRequestInnerOneOf1) GetCustomRoleIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CustomRoleId, true
-}
-
-// SetCustomRoleId sets field value
-func (o *InviteUsersRequestInnerOneOf1) SetCustomRoleId(v string) {
-	o.CustomRoleId = v
-}
-
-func (o InviteUsersRequestInnerOneOf1) MarshalJSON() ([]byte, error) {
+func (o InviteUsersRequestInnerAnyOf1) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -184,13 +156,12 @@ func (o InviteUsersRequestInnerOneOf1) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o InviteUsersRequestInnerOneOf1) ToMap() (map[string]interface{}, error) {
+func (o InviteUsersRequestInnerAnyOf1) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["email"] = o.Email
 	toSerialize["teamId"] = o.TeamId
 	toSerialize["teamRole"] = o.TeamRole
 	toSerialize["userRole"] = o.UserRole
-	toSerialize["customRoleId"] = o.CustomRoleId
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -199,7 +170,7 @@ func (o InviteUsersRequestInnerOneOf1) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *InviteUsersRequestInnerOneOf1) UnmarshalJSON(data []byte) (err error) {
+func (o *InviteUsersRequestInnerAnyOf1) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -208,7 +179,6 @@ func (o *InviteUsersRequestInnerOneOf1) UnmarshalJSON(data []byte) (err error) {
 		"teamId",
 		"teamRole",
 		"userRole",
-		"customRoleId",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -225,15 +195,15 @@ func (o *InviteUsersRequestInnerOneOf1) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varInviteUsersRequestInnerOneOf1 := _InviteUsersRequestInnerOneOf1{}
+	varInviteUsersRequestInnerAnyOf1 := _InviteUsersRequestInnerAnyOf1{}
 
-	err = json.Unmarshal(data, &varInviteUsersRequestInnerOneOf1)
+	err = json.Unmarshal(data, &varInviteUsersRequestInnerAnyOf1)
 
 	if err != nil {
 		return err
 	}
 
-	*o = InviteUsersRequestInnerOneOf1(varInviteUsersRequestInnerOneOf1)
+	*o = InviteUsersRequestInnerAnyOf1(varInviteUsersRequestInnerAnyOf1)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -242,45 +212,44 @@ func (o *InviteUsersRequestInnerOneOf1) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "teamId")
 		delete(additionalProperties, "teamRole")
 		delete(additionalProperties, "userRole")
-		delete(additionalProperties, "customRoleId")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
 }
 
-type NullableInviteUsersRequestInnerOneOf1 struct {
-	value *InviteUsersRequestInnerOneOf1
+type NullableInviteUsersRequestInnerAnyOf1 struct {
+	value *InviteUsersRequestInnerAnyOf1
 	isSet bool
 }
 
-func (v NullableInviteUsersRequestInnerOneOf1) Get() *InviteUsersRequestInnerOneOf1 {
+func (v NullableInviteUsersRequestInnerAnyOf1) Get() *InviteUsersRequestInnerAnyOf1 {
 	return v.value
 }
 
-func (v *NullableInviteUsersRequestInnerOneOf1) Set(val *InviteUsersRequestInnerOneOf1) {
+func (v *NullableInviteUsersRequestInnerAnyOf1) Set(val *InviteUsersRequestInnerAnyOf1) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableInviteUsersRequestInnerOneOf1) IsSet() bool {
+func (v NullableInviteUsersRequestInnerAnyOf1) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableInviteUsersRequestInnerOneOf1) Unset() {
+func (v *NullableInviteUsersRequestInnerAnyOf1) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableInviteUsersRequestInnerOneOf1(val *InviteUsersRequestInnerOneOf1) *NullableInviteUsersRequestInnerOneOf1 {
-	return &NullableInviteUsersRequestInnerOneOf1{value: val, isSet: true}
+func NewNullableInviteUsersRequestInnerAnyOf1(val *InviteUsersRequestInnerAnyOf1) *NullableInviteUsersRequestInnerAnyOf1 {
+	return &NullableInviteUsersRequestInnerAnyOf1{value: val, isSet: true}
 }
 
-func (v NullableInviteUsersRequestInnerOneOf1) MarshalJSON() ([]byte, error) {
+func (v NullableInviteUsersRequestInnerAnyOf1) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableInviteUsersRequestInnerOneOf1) UnmarshalJSON(src []byte) error {
+func (v *NullableInviteUsersRequestInnerAnyOf1) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

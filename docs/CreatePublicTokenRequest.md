@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Owner** | **string** | Team ID that will own and manage the RUM public token. | 
 **ApplicationType** | **string** | Kind of application the token is issued for. Only &#x60;web&#x60; telemetry is checked against &#x60;allowedUrlPrefixes&#x60;, since mobile applications do not send an &#x60;Origin&#x60; header. Fixed at creation: an update must resend the token&#39;s current value. | 
 **AllowedUrlPrefixes** | **[]string** | URL prefixes which RUM telemetry data can be sent from. Supports wildcard matching. At least one prefix is required for &#x60;web&#x60; applications, and the array must be empty for &#x60;ios&#x60; and &#x60;android&#x60; applications. | 
+**CollectClientIp** | Pointer to **bool** | Whether intake records the IP address each request comes from as &#x60;client.address&#x60; on RUM records, and derives the &#x60;geo&#x60; location from it. Defaults to false on creation. Omit it on update to keep the current value. | [optional] 
 **Tags** | [**[]InputTag**](InputTag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | 
 **TeamOverrideFields** | **[]string** | Array form. | 
 
@@ -109,6 +110,31 @@ and a boolean to check if the value has been set.
 
 SetAllowedUrlPrefixes sets AllowedUrlPrefixes field to given value.
 
+
+### GetCollectClientIp
+
+`func (o *CreatePublicTokenRequest) GetCollectClientIp() bool`
+
+GetCollectClientIp returns the CollectClientIp field if non-nil, zero value otherwise.
+
+### GetCollectClientIpOk
+
+`func (o *CreatePublicTokenRequest) GetCollectClientIpOk() (*bool, bool)`
+
+GetCollectClientIpOk returns a tuple with the CollectClientIp field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCollectClientIp
+
+`func (o *CreatePublicTokenRequest) SetCollectClientIp(v bool)`
+
+SetCollectClientIp sets CollectClientIp field to given value.
+
+### HasCollectClientIp
+
+`func (o *CreatePublicTokenRequest) HasCollectClientIp() bool`
+
+HasCollectClientIp returns a boolean if a field has been set.
 
 ### GetTags
 

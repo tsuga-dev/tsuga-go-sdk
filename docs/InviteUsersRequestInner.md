@@ -7,14 +7,13 @@ Name | Type | Description | Notes
 **Email** | **string** | Lowercase email address to invite into the organization. | 
 **TeamId** | **string** | Team ID to add the invited user to after acceptance. | 
 **TeamRole** | **string** | Role the invited user receives in the target team once accepted: &#x60;admin&#x60;, &#x60;editor&#x60;, or &#x60;viewer&#x60;. | 
-**UserRole** | **string** | Assigns the custom role identified by &#x60;customRoleId&#x60; after acceptance. | 
-**CustomRoleId** | **string** | Identifier of the custom role to assign. Use the &#x60;id&#x60; returned by the custom role endpoints. | 
+**UserRole** | [**InviteUsersRequestInnerAnyOf1UserRole**](InviteUsersRequestInnerAnyOf1UserRole.md) |  | 
 
 ## Methods
 
 ### NewInviteUsersRequestInner
 
-`func NewInviteUsersRequestInner(email string, teamId string, teamRole string, userRole string, customRoleId string, ) *InviteUsersRequestInner`
+`func NewInviteUsersRequestInner(email string, teamId string, teamRole string, userRole InviteUsersRequestInnerAnyOf1UserRole, ) *InviteUsersRequestInner`
 
 NewInviteUsersRequestInner instantiates a new InviteUsersRequestInner object
 This constructor will assign default values to properties that have it defined,
@@ -91,42 +90,22 @@ SetTeamRole sets TeamRole field to given value.
 
 ### GetUserRole
 
-`func (o *InviteUsersRequestInner) GetUserRole() string`
+`func (o *InviteUsersRequestInner) GetUserRole() InviteUsersRequestInnerAnyOf1UserRole`
 
 GetUserRole returns the UserRole field if non-nil, zero value otherwise.
 
 ### GetUserRoleOk
 
-`func (o *InviteUsersRequestInner) GetUserRoleOk() (*string, bool)`
+`func (o *InviteUsersRequestInner) GetUserRoleOk() (*InviteUsersRequestInnerAnyOf1UserRole, bool)`
 
 GetUserRoleOk returns a tuple with the UserRole field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUserRole
 
-`func (o *InviteUsersRequestInner) SetUserRole(v string)`
+`func (o *InviteUsersRequestInner) SetUserRole(v InviteUsersRequestInnerAnyOf1UserRole)`
 
 SetUserRole sets UserRole field to given value.
-
-
-### GetCustomRoleId
-
-`func (o *InviteUsersRequestInner) GetCustomRoleId() string`
-
-GetCustomRoleId returns the CustomRoleId field if non-nil, zero value otherwise.
-
-### GetCustomRoleIdOk
-
-`func (o *InviteUsersRequestInner) GetCustomRoleIdOk() (*string, bool)`
-
-GetCustomRoleIdOk returns a tuple with the CustomRoleId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCustomRoleId
-
-`func (o *InviteUsersRequestInner) SetCustomRoleId(v string)`
-
-SetCustomRoleId sets CustomRoleId field to given value.
 
 
 

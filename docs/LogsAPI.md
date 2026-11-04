@@ -34,7 +34,7 @@ import (
 
 func main() {
 	from := int64(1704067200) // int64 | Start of the query window as a Unix timestamp in seconds
-	to := int64(1704067200) // int64 | End of the query window as a Unix timestamp in seconds
+	to := int64(1704070800) // int64 | End of the query window as a Unix timestamp in seconds
 	team := "team_example" // string | Team name to analyze for pattern increases. Required; match it to the `context.team` value on the logs you want Tsuga to inspect.
 	env := "env_example" // string | Environment to restrict the analysis to. Optional; match it to the `context.env` value on the logs, or omit it to analyze all environments for the team. (optional)
 	clusterId := "clusterId_example" // string | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. (optional)
@@ -108,7 +108,7 @@ import (
 
 func main() {
 	from := int64(1704067200) // int64 | Start of the query window as a Unix timestamp in seconds
-	to := int64(1704067200) // int64 | End of the query window as a Unix timestamp in seconds
+	to := int64(1704070800) // int64 | End of the query window as a Unix timestamp in seconds
 	clusterId := "clusterId_example" // string | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. (optional)
 	search := "search_example" // string | Return only attribute dot-paths containing this text, case-insensitively, e.g. `k8s` or `http.status`. (optional)
 
@@ -180,7 +180,7 @@ import (
 
 func main() {
 	from := int64(1704067200) // int64 | Start of the query window as a Unix timestamp in seconds
-	to := int64(1704067200) // int64 | End of the query window as a Unix timestamp in seconds
+	to := int64(1704070800) // int64 | End of the query window as a Unix timestamp in seconds
 	query := "query_example" // string | Tsuga query selecting logs to cluster into patterns.
 	clusterId := "clusterId_example" // string | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. (optional)
 
@@ -252,7 +252,7 @@ import (
 
 func main() {
 	from := int64(1704067200) // int64 | Start of the query window as a Unix timestamp in seconds
-	to := int64(1704067200) // int64 | End of the query window as a Unix timestamp in seconds
+	to := int64(1704070800) // int64 | End of the query window as a Unix timestamp in seconds
 	team := "team_example" // string | Team name to restrict pattern detection to. (optional)
 	env := "env_example" // string | Environment to restrict pattern detection to. (optional)
 	service := "service_example" // string | Service name to restrict pattern detection to. (optional)
@@ -328,7 +328,7 @@ import (
 
 func main() {
 	from := int64(1704067200) // int64 | Start of the query window as a Unix timestamp in seconds
-	to := int64(1704067200) // int64 | End of the query window as a Unix timestamp in seconds
+	to := int64(1704070800) // int64 | End of the query window as a Unix timestamp in seconds
 	query := "query_example" // string | Tsuga query selecting logs to return. Omit to search all logs with `*`. (optional) (default to "*")
 	maxResults := int32(56) // int32 | Maximum number of logs to return. Defaults to 100. Valid values are 1 through 1000. (optional) (default to 100)
 	clusterId := "clusterId_example" // string | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. (optional)
