@@ -20,9 +20,9 @@ var _ MappedNullable = &QueryDashboardsResponse{}
 // QueryDashboardsResponse struct for QueryDashboardsResponse
 type QueryDashboardsResponse struct {
 	// Identifier used to trace the lifecycle of this API request
-	RequestId            string            `json:"requestId"`
-	Data                 []Dashboard       `json:"data"`
-	Metadata             *ResponseMetadata `json:"metadata,omitempty"`
+	RequestId            string             `json:"requestId"`
+	Data                 []DashboardSummary `json:"data"`
+	Metadata             *ResponseMetadata  `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,7 +32,7 @@ type _QueryDashboardsResponse QueryDashboardsResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewQueryDashboardsResponse(requestId string, data []Dashboard) *QueryDashboardsResponse {
+func NewQueryDashboardsResponse(requestId string, data []DashboardSummary) *QueryDashboardsResponse {
 	this := QueryDashboardsResponse{}
 	this.RequestId = requestId
 	this.Data = data
@@ -72,9 +72,9 @@ func (o *QueryDashboardsResponse) SetRequestId(v string) {
 }
 
 // GetData returns the Data field value
-func (o *QueryDashboardsResponse) GetData() []Dashboard {
+func (o *QueryDashboardsResponse) GetData() []DashboardSummary {
 	if o == nil {
-		var ret []Dashboard
+		var ret []DashboardSummary
 		return ret
 	}
 
@@ -83,7 +83,7 @@ func (o *QueryDashboardsResponse) GetData() []Dashboard {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *QueryDashboardsResponse) GetDataOk() ([]Dashboard, bool) {
+func (o *QueryDashboardsResponse) GetDataOk() ([]DashboardSummary, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -91,7 +91,7 @@ func (o *QueryDashboardsResponse) GetDataOk() ([]Dashboard, bool) {
 }
 
 // SetData sets field value
-func (o *QueryDashboardsResponse) SetData(v []Dashboard) {
+func (o *QueryDashboardsResponse) SetData(v []DashboardSummary) {
 	o.Data = v
 }
 

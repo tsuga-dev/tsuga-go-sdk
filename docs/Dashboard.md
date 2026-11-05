@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Name** | **string** | Display name of the dashboard. Set by the caller on create or update. | 
 **Owner** | **string** | ID of the team that owns the dashboard. Set by the caller on create or update and used for dashboard access control. | 
 **Graphs** | [**[]Graph**](Graph.md) | Ordered widgets that compose the dashboard | 
-**Filters** | Pointer to [**[]DashboardFiltersInner**](DashboardFiltersInner.md) | Dashboard-wide filters applied to every widget on the dashboard. | [optional] 
+**Filters** | Pointer to [**[]DashboardSummaryFiltersInner**](DashboardSummaryFiltersInner.md) | Dashboard-wide filters applied to every widget on the dashboard. | [optional] 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
 **TimePreset** | Pointer to **string** | Relative time preset used when opening the dashboard. | [optional] 
 **FolderId** | Pointer to **string** | Folder that contains the dashboard. Set from the dashboard&#39;s saved folder relationship. Returned when the dashboard is in a folder; omitted when it is not. | [optional] 
@@ -114,20 +114,20 @@ SetGraphs sets Graphs field to given value.
 
 ### GetFilters
 
-`func (o *Dashboard) GetFilters() []DashboardFiltersInner`
+`func (o *Dashboard) GetFilters() []DashboardSummaryFiltersInner`
 
 GetFilters returns the Filters field if non-nil, zero value otherwise.
 
 ### GetFiltersOk
 
-`func (o *Dashboard) GetFiltersOk() (*[]DashboardFiltersInner, bool)`
+`func (o *Dashboard) GetFiltersOk() (*[]DashboardSummaryFiltersInner, bool)`
 
 GetFiltersOk returns a tuple with the Filters field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFilters
 
-`func (o *Dashboard) SetFilters(v []DashboardFiltersInner)`
+`func (o *Dashboard) SetFilters(v []DashboardSummaryFiltersInner)`
 
 SetFilters sets Filters field to given value.
 

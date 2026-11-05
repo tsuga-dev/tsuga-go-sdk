@@ -14,11 +14,11 @@ import (
 	"fmt"
 )
 
-// checks if the DashboardFiltersInner type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &DashboardFiltersInner{}
+// checks if the DashboardSummaryFiltersInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DashboardSummaryFiltersInner{}
 
-// DashboardFiltersInner struct for DashboardFiltersInner
-type DashboardFiltersInner struct {
+// DashboardSummaryFiltersInner struct for DashboardSummaryFiltersInner
+type DashboardSummaryFiltersInner struct {
 	// Dashboard-wide filter key, usually a telemetry attribute name.
 	Key string `json:"key"`
 	// Allowed values for this dashboard-wide filter.
@@ -28,29 +28,29 @@ type DashboardFiltersInner struct {
 	AdditionalProperties map[string]interface{}
 }
 
-type _DashboardFiltersInner DashboardFiltersInner
+type _DashboardSummaryFiltersInner DashboardSummaryFiltersInner
 
-// NewDashboardFiltersInner instantiates a new DashboardFiltersInner object
+// NewDashboardSummaryFiltersInner instantiates a new DashboardSummaryFiltersInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDashboardFiltersInner(key string, values []string) *DashboardFiltersInner {
-	this := DashboardFiltersInner{}
+func NewDashboardSummaryFiltersInner(key string, values []string) *DashboardSummaryFiltersInner {
+	this := DashboardSummaryFiltersInner{}
 	this.Key = key
 	this.Values = values
 	return &this
 }
 
-// NewDashboardFiltersInnerWithDefaults instantiates a new DashboardFiltersInner object
+// NewDashboardSummaryFiltersInnerWithDefaults instantiates a new DashboardSummaryFiltersInner object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewDashboardFiltersInnerWithDefaults() *DashboardFiltersInner {
-	this := DashboardFiltersInner{}
+func NewDashboardSummaryFiltersInnerWithDefaults() *DashboardSummaryFiltersInner {
+	this := DashboardSummaryFiltersInner{}
 	return &this
 }
 
 // GetKey returns the Key field value
-func (o *DashboardFiltersInner) GetKey() string {
+func (o *DashboardSummaryFiltersInner) GetKey() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -61,7 +61,7 @@ func (o *DashboardFiltersInner) GetKey() string {
 
 // GetKeyOk returns a tuple with the Key field value
 // and a boolean to check if the value has been set.
-func (o *DashboardFiltersInner) GetKeyOk() (*string, bool) {
+func (o *DashboardSummaryFiltersInner) GetKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -69,12 +69,12 @@ func (o *DashboardFiltersInner) GetKeyOk() (*string, bool) {
 }
 
 // SetKey sets field value
-func (o *DashboardFiltersInner) SetKey(v string) {
+func (o *DashboardSummaryFiltersInner) SetKey(v string) {
 	o.Key = v
 }
 
 // GetValues returns the Values field value
-func (o *DashboardFiltersInner) GetValues() []string {
+func (o *DashboardSummaryFiltersInner) GetValues() []string {
 	if o == nil {
 		var ret []string
 		return ret
@@ -85,7 +85,7 @@ func (o *DashboardFiltersInner) GetValues() []string {
 
 // GetValuesOk returns a tuple with the Values field value
 // and a boolean to check if the value has been set.
-func (o *DashboardFiltersInner) GetValuesOk() ([]string, bool) {
+func (o *DashboardSummaryFiltersInner) GetValuesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -93,12 +93,12 @@ func (o *DashboardFiltersInner) GetValuesOk() ([]string, bool) {
 }
 
 // SetValues sets field value
-func (o *DashboardFiltersInner) SetValues(v []string) {
+func (o *DashboardSummaryFiltersInner) SetValues(v []string) {
 	o.Values = v
 }
 
 // GetExclude returns the Exclude field value if set, zero value otherwise.
-func (o *DashboardFiltersInner) GetExclude() bool {
+func (o *DashboardSummaryFiltersInner) GetExclude() bool {
 	if o == nil || IsNil(o.Exclude) {
 		var ret bool
 		return ret
@@ -108,7 +108,7 @@ func (o *DashboardFiltersInner) GetExclude() bool {
 
 // GetExcludeOk returns a tuple with the Exclude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DashboardFiltersInner) GetExcludeOk() (*bool, bool) {
+func (o *DashboardSummaryFiltersInner) GetExcludeOk() (*bool, bool) {
 	if o == nil || IsNil(o.Exclude) {
 		return nil, false
 	}
@@ -116,7 +116,7 @@ func (o *DashboardFiltersInner) GetExcludeOk() (*bool, bool) {
 }
 
 // HasExclude returns a boolean if a field has been set.
-func (o *DashboardFiltersInner) HasExclude() bool {
+func (o *DashboardSummaryFiltersInner) HasExclude() bool {
 	if o != nil && !IsNil(o.Exclude) {
 		return true
 	}
@@ -125,11 +125,11 @@ func (o *DashboardFiltersInner) HasExclude() bool {
 }
 
 // SetExclude gets a reference to the given bool and assigns it to the Exclude field.
-func (o *DashboardFiltersInner) SetExclude(v bool) {
+func (o *DashboardSummaryFiltersInner) SetExclude(v bool) {
 	o.Exclude = &v
 }
 
-func (o DashboardFiltersInner) MarshalJSON() ([]byte, error) {
+func (o DashboardSummaryFiltersInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -137,7 +137,7 @@ func (o DashboardFiltersInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o DashboardFiltersInner) ToMap() (map[string]interface{}, error) {
+func (o DashboardSummaryFiltersInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["key"] = o.Key
 	toSerialize["values"] = o.Values
@@ -152,7 +152,7 @@ func (o DashboardFiltersInner) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *DashboardFiltersInner) UnmarshalJSON(data []byte) (err error) {
+func (o *DashboardSummaryFiltersInner) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -175,15 +175,15 @@ func (o *DashboardFiltersInner) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varDashboardFiltersInner := _DashboardFiltersInner{}
+	varDashboardSummaryFiltersInner := _DashboardSummaryFiltersInner{}
 
-	err = json.Unmarshal(data, &varDashboardFiltersInner)
+	err = json.Unmarshal(data, &varDashboardSummaryFiltersInner)
 
 	if err != nil {
 		return err
 	}
 
-	*o = DashboardFiltersInner(varDashboardFiltersInner)
+	*o = DashboardSummaryFiltersInner(varDashboardSummaryFiltersInner)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -197,38 +197,38 @@ func (o *DashboardFiltersInner) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableDashboardFiltersInner struct {
-	value *DashboardFiltersInner
+type NullableDashboardSummaryFiltersInner struct {
+	value *DashboardSummaryFiltersInner
 	isSet bool
 }
 
-func (v NullableDashboardFiltersInner) Get() *DashboardFiltersInner {
+func (v NullableDashboardSummaryFiltersInner) Get() *DashboardSummaryFiltersInner {
 	return v.value
 }
 
-func (v *NullableDashboardFiltersInner) Set(val *DashboardFiltersInner) {
+func (v *NullableDashboardSummaryFiltersInner) Set(val *DashboardSummaryFiltersInner) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableDashboardFiltersInner) IsSet() bool {
+func (v NullableDashboardSummaryFiltersInner) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableDashboardFiltersInner) Unset() {
+func (v *NullableDashboardSummaryFiltersInner) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableDashboardFiltersInner(val *DashboardFiltersInner) *NullableDashboardFiltersInner {
-	return &NullableDashboardFiltersInner{value: val, isSet: true}
+func NewNullableDashboardSummaryFiltersInner(val *DashboardSummaryFiltersInner) *NullableDashboardSummaryFiltersInner {
+	return &NullableDashboardSummaryFiltersInner{value: val, isSet: true}
 }
 
-func (v NullableDashboardFiltersInner) MarshalJSON() ([]byte, error) {
+func (v NullableDashboardSummaryFiltersInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableDashboardFiltersInner) UnmarshalJSON(src []byte) error {
+func (v *NullableDashboardSummaryFiltersInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

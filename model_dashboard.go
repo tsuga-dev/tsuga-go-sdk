@@ -28,7 +28,7 @@ type Dashboard struct {
 	// Ordered widgets that compose the dashboard
 	Graphs []Graph `json:"graphs"`
 	// Dashboard-wide filters applied to every widget on the dashboard.
-	Filters []DashboardFiltersInner `json:"filters,omitempty"`
+	Filters []DashboardSummaryFiltersInner `json:"filters,omitempty"`
 	// Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies.
 	Tags []Tag `json:"tags,omitempty"`
 	// Relative time preset used when opening the dashboard.
@@ -158,9 +158,9 @@ func (o *Dashboard) SetGraphs(v []Graph) {
 }
 
 // GetFilters returns the Filters field value if set, zero value otherwise.
-func (o *Dashboard) GetFilters() []DashboardFiltersInner {
+func (o *Dashboard) GetFilters() []DashboardSummaryFiltersInner {
 	if o == nil || IsNil(o.Filters) {
-		var ret []DashboardFiltersInner
+		var ret []DashboardSummaryFiltersInner
 		return ret
 	}
 	return o.Filters
@@ -168,7 +168,7 @@ func (o *Dashboard) GetFilters() []DashboardFiltersInner {
 
 // GetFiltersOk returns a tuple with the Filters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Dashboard) GetFiltersOk() ([]DashboardFiltersInner, bool) {
+func (o *Dashboard) GetFiltersOk() ([]DashboardSummaryFiltersInner, bool) {
 	if o == nil || IsNil(o.Filters) {
 		return nil, false
 	}
@@ -184,8 +184,8 @@ func (o *Dashboard) HasFilters() bool {
 	return false
 }
 
-// SetFilters gets a reference to the given []DashboardFiltersInner and assigns it to the Filters field.
-func (o *Dashboard) SetFilters(v []DashboardFiltersInner) {
+// SetFilters gets a reference to the given []DashboardSummaryFiltersInner and assigns it to the Filters field.
+func (o *Dashboard) SetFilters(v []DashboardSummaryFiltersInner) {
 	o.Filters = v
 }
 

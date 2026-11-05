@@ -67,7 +67,7 @@ type DashboardsAPI interface {
 	/*
 		QueryDashboards Method for QueryDashboards
 
-		Queries dashboards visible to the authenticated operation key. Use this endpoint to build dashboard inventories or synchronize dashboard metadata. Pagination fields limit the returned page; use the response metadata to request additional pages. See [Dashboards](/documentation/visualize/dashboards/index).
+		Queries dashboards visible to the authenticated operation key. Use this endpoint to build dashboard inventories or synchronize dashboard metadata. Pagination fields limit the returned page; use the response metadata to request additional pages. Each dashboard is returned without its `graphs`; use `getDashboard` to read its widgets. See [Dashboards](/documentation/visualize/dashboards/index).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return DashboardsAPIQueryDashboardsRequest
@@ -527,7 +527,7 @@ func (r DashboardsAPIQueryDashboardsRequest) Execute() (*QueryDashboardsResponse
 /*
 QueryDashboards Method for QueryDashboards
 
-Queries dashboards visible to the authenticated operation key. Use this endpoint to build dashboard inventories or synchronize dashboard metadata. Pagination fields limit the returned page; use the response metadata to request additional pages. See [Dashboards](/documentation/visualize/dashboards/index).
+Queries dashboards visible to the authenticated operation key. Use this endpoint to build dashboard inventories or synchronize dashboard metadata. Pagination fields limit the returned page; use the response metadata to request additional pages. Each dashboard is returned without its `graphs`; use `getDashboard` to read its widgets. See [Dashboards](/documentation/visualize/dashboards/index).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DashboardsAPIQueryDashboardsRequest

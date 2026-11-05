@@ -193,10 +193,11 @@ docs/CustomRolesAPI.md
 docs/CustomUsageTag.md
 docs/CustomUsageTagsAPI.md
 docs/Dashboard.md
-docs/DashboardFiltersInner.md
 docs/DashboardFolder.md
 docs/DashboardFolderWithDashboardCount.md
 docs/DashboardFoldersAPI.md
+docs/DashboardSummary.md
+docs/DashboardSummaryFiltersInner.md
 docs/DashboardsAPI.md
 docs/DataDeletionRequest.md
 docs/DataDeletionRequestExecution.md
@@ -1179,9 +1180,10 @@ model_custom_role_team_scope.go
 model_custom_role_telemetry_query_inner.go
 model_custom_usage_tag.go
 model_dashboard.go
-model_dashboard_filters_inner.go
 model_dashboard_folder.go
 model_dashboard_folder_with_dashboard_count.go
+model_dashboard_summary.go
+model_dashboard_summary_filters_inner.go
 model_data_deletion_request.go
 model_data_deletion_request_execution.go
 model_data_deletion_request_execution_progress.go

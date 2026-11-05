@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RequestId** | **string** | Identifier used to trace the lifecycle of this API request | 
-**Data** | [**[]Dashboard**](Dashboard.md) |  | 
+**Data** | [**[]DashboardSummary**](DashboardSummary.md) |  | 
 **Metadata** | Pointer to [**ResponseMetadata**](ResponseMetadata.md) |  | [optional] 
 
 ## Methods
 
 ### NewQueryDashboardsResponse
 
-`func NewQueryDashboardsResponse(requestId string, data []Dashboard, ) *QueryDashboardsResponse`
+`func NewQueryDashboardsResponse(requestId string, data []DashboardSummary, ) *QueryDashboardsResponse`
 
 NewQueryDashboardsResponse instantiates a new QueryDashboardsResponse object
 This constructor will assign default values to properties that have it defined,
@@ -49,20 +49,20 @@ SetRequestId sets RequestId field to given value.
 
 ### GetData
 
-`func (o *QueryDashboardsResponse) GetData() []Dashboard`
+`func (o *QueryDashboardsResponse) GetData() []DashboardSummary`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *QueryDashboardsResponse) GetDataOk() (*[]Dashboard, bool)`
+`func (o *QueryDashboardsResponse) GetDataOk() (*[]DashboardSummary, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *QueryDashboardsResponse) SetData(v []Dashboard)`
+`func (o *QueryDashboardsResponse) SetData(v []DashboardSummary)`
 
 SetData sets Data field to given value.
 

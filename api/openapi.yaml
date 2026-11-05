@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261104.40.0+ee8785c
+  version: 20261105.4.0+dccf50c
 servers:
 - url: https://api.tsuga.com
 security:
@@ -2476,7 +2476,8 @@ paths:
       description: "Queries dashboards visible to the authenticated operation key.\
         \ Use this endpoint to build dashboard inventories or synchronize dashboard\
         \ metadata. Pagination fields limit the returned page; use the response metadata\
-        \ to request additional pages. See [Dashboards](/documentation/visualize/dashboards/index)."
+        \ to request additional pages. Each dashboard is returned without its `graphs`;\
+        \ use `getDashboard` to read its widgets. See [Dashboards](/documentation/visualize/dashboards/index)."
       operationId: queryDashboards
       requestBody:
         content:
@@ -16022,6 +16023,167 @@ components:
       required:
       - data
       - requestId
+    DashboardSummary:
+      description: "Dashboard as listed by the dashboard query: its fields without\
+        \ `graphs`, plus the number of widgets. Retrieve the dashboard by ID to read\
+        \ its widgets."
+      example:
+        id: id
+        name: name
+        owner: owner
+        filters:
+        - key: key
+          values:
+          - values
+          - values
+          exclude: true
+        - key: key
+          values:
+          - values
+          - values
+          exclude: true
+        tags:
+        - key: key
+          value: value
+        - key: key
+          value: value
+        timePreset: past-5-minutes
+        folderId: folderId
+        widgetCount: 0.8008281904610115
+      properties:
+        id:
+          description: Tsuga-generated dashboard ID assigned when the dashboard is
+            created.
+          type: string
+        name:
+          description: Display name of the dashboard. Set by the caller on create
+            or update.
+          type: string
+        owner:
+          description: ID of the team that owns the dashboard. Set by the caller on
+            create or update and used for dashboard access control.
+          type: string
+        filters:
+          description: Dashboard-wide filters applied to every widget on the dashboard.
+          items:
+            $ref: "#/components/schemas/DashboardSummary_filters_inner"
+          type: array
+          default: null
+        tags:
+          description: Key/value tags applied to the resource. Use them to organize
+            resources and to satisfy tag policies.
+          items:
+            $ref: "#/components/schemas/Tag"
+          title: Tags
+          type: array
+          default: null
+        timePreset:
+          description: Relative time preset used when opening the dashboard.
+          enum:
+          - past-5-minutes
+          - past-15-minutes
+          - past-30-minutes
+          - past-1-hour
+          - past-2-hours
+          - past-4-hours
+          - past-6-hours
+          - past-12-hours
+          - past-24-hours
+          - past-2-days
+          - past-3-days
+          - past-7-days
+          - past-15-days
+          - past-30-days
+          - past-3-months
+          - current-day
+          - current-week
+          - current-month
+          - current-year
+          - previous-day
+          - previous-week
+          - previous-month
+          - previous-3-months
+          - previous-year
+          type: string
+        folderId:
+          description: Folder that contains the dashboard. Set from the dashboard's
+            saved folder relationship. Returned when the dashboard is in a folder;
+            omitted when it is not.
+          type: string
+        widgetCount:
+          description: Number of widgets on the dashboard.
+          type: number
+      required:
+      - id
+      - name
+      - owner
+      - widgetCount
+    QueryDashboardsResponse:
+      example:
+        requestId: requestId
+        data:
+        - id: id
+          name: name
+          owner: owner
+          filters:
+          - key: key
+            values:
+            - values
+            - values
+            exclude: true
+          - key: key
+            values:
+            - values
+            - values
+            exclude: true
+          tags:
+          - key: key
+            value: value
+          - key: key
+            value: value
+          timePreset: past-5-minutes
+          folderId: folderId
+          widgetCount: 0.8008281904610115
+        - id: id
+          name: name
+          owner: owner
+          filters:
+          - key: key
+            values:
+            - values
+            - values
+            exclude: true
+          - key: key
+            values:
+            - values
+            - values
+            exclude: true
+          tags:
+          - key: key
+            value: value
+          - key: key
+            value: value
+          timePreset: past-5-minutes
+          folderId: folderId
+          widgetCount: 0.8008281904610115
+        metadata:
+          pagination:
+            totalCount: 7
+            pageCount: 9
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/DashboardSummary"
+          type: array
+          default: null
+        metadata:
+          $ref: "#/components/schemas/ResponseMetadata"
+      required:
+      - data
+      - requestId
     Dashboard:
       description: "Saved visualization made of dashboard-wide filters and ordered\
         \ graphs. Use dashboards to preserve reusable views for a team or workflow.\
@@ -16165,7 +16327,7 @@ components:
         filters:
           description: Dashboard-wide filters applied to every widget on the dashboard.
           items:
-            $ref: "#/components/schemas/Dashboard_filters_inner"
+            $ref: "#/components/schemas/DashboardSummary_filters_inner"
           type: array
           default: null
         tags:
@@ -16214,260 +16376,6 @@ components:
       - id
       - name
       - owner
-    QueryDashboardsResponse:
-      example:
-        requestId: requestId
-        data:
-        - id: id
-          name: name
-          owner: owner
-          graphs:
-          - id: id
-            name: name
-            description: description
-            descriptionAlign: flex-start
-            descriptionJustifyContent: flex-start
-            visualization:
-              type: timeseries-connection
-              connectionId: connectionId
-              queries:
-              - queries
-              - queries
-              legendMode: table
-              thresholds:
-              - value: 0.8008281904610115
-                level: alert
-              - value: 0.8008281904610115
-                level: alert
-              yAxisSettings:
-                min:
-                  type: auto
-                max: null
-                scale:
-                  type: pow
-                  exponent: 6.027456183070403
-                alwaysIncludeZero: true
-              lineStyleOptions:
-                key:
-                  groupId: groupId
-                  lineStyle: regular
-              normalizer:
-                type: duration
-                unit: ns
-              eventsOverlay:
-                type: service-deployments
-                teams:
-                - teams
-                - teams
-                services:
-                - services
-                - services
-                env: env
-            layout:
-              x: 1.4658129805029452
-              "y": 5.962133916683182
-              w: 5.637376656633329
-              h: 2.3021358869347655
-            tabId: tabId
-          - id: id
-            name: name
-            description: description
-            descriptionAlign: flex-start
-            descriptionJustifyContent: flex-start
-            visualization:
-              type: timeseries-connection
-              connectionId: connectionId
-              queries:
-              - queries
-              - queries
-              legendMode: table
-              thresholds:
-              - value: 0.8008281904610115
-                level: alert
-              - value: 0.8008281904610115
-                level: alert
-              yAxisSettings:
-                min:
-                  type: auto
-                max: null
-                scale:
-                  type: pow
-                  exponent: 6.027456183070403
-                alwaysIncludeZero: true
-              lineStyleOptions:
-                key:
-                  groupId: groupId
-                  lineStyle: regular
-              normalizer:
-                type: duration
-                unit: ns
-              eventsOverlay:
-                type: service-deployments
-                teams:
-                - teams
-                - teams
-                services:
-                - services
-                - services
-                env: env
-            layout:
-              x: 1.4658129805029452
-              "y": 5.962133916683182
-              w: 5.637376656633329
-              h: 2.3021358869347655
-            tabId: tabId
-          filters:
-          - key: key
-            values:
-            - values
-            - values
-            exclude: true
-          - key: key
-            values:
-            - values
-            - values
-            exclude: true
-          tags:
-          - key: key
-            value: value
-          - key: key
-            value: value
-          timePreset: past-5-minutes
-          folderId: folderId
-        - id: id
-          name: name
-          owner: owner
-          graphs:
-          - id: id
-            name: name
-            description: description
-            descriptionAlign: flex-start
-            descriptionJustifyContent: flex-start
-            visualization:
-              type: timeseries-connection
-              connectionId: connectionId
-              queries:
-              - queries
-              - queries
-              legendMode: table
-              thresholds:
-              - value: 0.8008281904610115
-                level: alert
-              - value: 0.8008281904610115
-                level: alert
-              yAxisSettings:
-                min:
-                  type: auto
-                max: null
-                scale:
-                  type: pow
-                  exponent: 6.027456183070403
-                alwaysIncludeZero: true
-              lineStyleOptions:
-                key:
-                  groupId: groupId
-                  lineStyle: regular
-              normalizer:
-                type: duration
-                unit: ns
-              eventsOverlay:
-                type: service-deployments
-                teams:
-                - teams
-                - teams
-                services:
-                - services
-                - services
-                env: env
-            layout:
-              x: 1.4658129805029452
-              "y": 5.962133916683182
-              w: 5.637376656633329
-              h: 2.3021358869347655
-            tabId: tabId
-          - id: id
-            name: name
-            description: description
-            descriptionAlign: flex-start
-            descriptionJustifyContent: flex-start
-            visualization:
-              type: timeseries-connection
-              connectionId: connectionId
-              queries:
-              - queries
-              - queries
-              legendMode: table
-              thresholds:
-              - value: 0.8008281904610115
-                level: alert
-              - value: 0.8008281904610115
-                level: alert
-              yAxisSettings:
-                min:
-                  type: auto
-                max: null
-                scale:
-                  type: pow
-                  exponent: 6.027456183070403
-                alwaysIncludeZero: true
-              lineStyleOptions:
-                key:
-                  groupId: groupId
-                  lineStyle: regular
-              normalizer:
-                type: duration
-                unit: ns
-              eventsOverlay:
-                type: service-deployments
-                teams:
-                - teams
-                - teams
-                services:
-                - services
-                - services
-                env: env
-            layout:
-              x: 1.4658129805029452
-              "y": 5.962133916683182
-              w: 5.637376656633329
-              h: 2.3021358869347655
-            tabId: tabId
-          filters:
-          - key: key
-            values:
-            - values
-            - values
-            exclude: true
-          - key: key
-            values:
-            - values
-            - values
-            exclude: true
-          tags:
-          - key: key
-            value: value
-          - key: key
-            value: value
-          timePreset: past-5-minutes
-          folderId: folderId
-        metadata:
-          pagination:
-            totalCount: 7
-            pageCount: 9
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          items:
-            $ref: "#/components/schemas/Dashboard"
-          type: array
-          default: null
-        metadata:
-          $ref: "#/components/schemas/ResponseMetadata"
-      required:
-      - data
-      - requestId
     GetDashboardResponse:
       example:
         requestId: requestId
@@ -40648,7 +40556,7 @@ components:
           $ref: "#/components/schemas/DataDeletionRequest_execution_progress"
       required:
       - progress
-    Dashboard_filters_inner:
+    DashboardSummary_filters_inner:
       example:
         key: key
         values:
