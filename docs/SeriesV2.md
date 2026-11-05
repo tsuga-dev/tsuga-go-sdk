@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Group** | [**map[string]SeriesGroupValue**](SeriesGroupValue.md) | Group-by field values for this row, keyed by field name. Empty when no group-by is requested. | 
-**Values** | **map[string][]*float32** | One value per entry of &#x60;timestamps&#x60;, &#x60;null&#x60; where the bucket has none. Keyed by result id: &#x60;q1&#x60;, &#x60;q2&#x60;, and so on for each query in submission order, plus &#x60;formula&#x60; when a computed formula is given, or &#x60;value&#x60; for a PromQL query. Every row has the same keys. | 
+**Values** | **map[string][]*float32** | One value per entry of &#x60;timestamps&#x60;, &#x60;null&#x60; where the bucket has none. Keyed by result id: &#x60;q1&#x60;, &#x60;q2&#x60;, and so on for each query in submission order, plus &#x60;f1&#x60;, &#x60;f2&#x60;, and so on for each entry of &#x60;formulas&#x60; in submission order, or &#x60;value&#x60; for a PromQL query. Every row has the same keys. | 
 
 ## Methods
 

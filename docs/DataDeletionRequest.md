@@ -11,7 +11,6 @@ Name | Type | Description | Notes
 **From** | **string** | Inclusive start of the event time range. | 
 **To** | **string** | Exclusive end of the event time range. | 
 **Reason** | **string** | Why the deletion was requested, kept for audit. | 
-**DryRun** | **bool** | Whether the cluster only counts the events the request matches, without deleting them. | 
 **Status** | **string** | Status of the request: &#x60;cancelled&#x60; once cancelled, which is final. Otherwise the status the cluster executes it with: &#x60;pending&#x60; until the cluster starts it, then &#x60;running&#x60;, then &#x60;done&#x60;, or &#x60;failed&#x60; if it cannot be executed. A &#x60;done&#x60; request goes back to &#x60;running&#x60; when late events arrive. Also &#x60;pending&#x60; when the cluster could not be reached. | 
 **Execution** | Pointer to [**DataDeletionRequestExecution**](DataDeletionRequestExecution.md) |  | [optional] 
 **MatchedEventCount** | **int32** | Number of events the request matched at creation. The cluster deletes the events matching when it executes the request, which can differ. | 
@@ -22,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewDataDeletionRequest
 
-`func NewDataDeletionRequest(id string, clusterId string, dataSource string, query string, from string, to string, reason string, dryRun bool, status string, matchedEventCount int32, dueAt string, owner string, ) *DataDeletionRequest`
+`func NewDataDeletionRequest(id string, clusterId string, dataSource string, query string, from string, to string, reason string, status string, matchedEventCount int32, dueAt string, owner string, ) *DataDeletionRequest`
 
 NewDataDeletionRequest instantiates a new DataDeletionRequest object
 This constructor will assign default values to properties that have it defined,
@@ -175,26 +174,6 @@ and a boolean to check if the value has been set.
 `func (o *DataDeletionRequest) SetReason(v string)`
 
 SetReason sets Reason field to given value.
-
-
-### GetDryRun
-
-`func (o *DataDeletionRequest) GetDryRun() bool`
-
-GetDryRun returns the DryRun field if non-nil, zero value otherwise.
-
-### GetDryRunOk
-
-`func (o *DataDeletionRequest) GetDryRunOk() (*bool, bool)`
-
-GetDryRunOk returns a tuple with the DryRun field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDryRun
-
-`func (o *DataDeletionRequest) SetDryRun(v bool)`
-
-SetDryRun sets DryRun field to given value.
 
 
 ### GetStatus

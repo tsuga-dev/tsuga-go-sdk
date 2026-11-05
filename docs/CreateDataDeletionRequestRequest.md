@@ -10,14 +10,13 @@ Name | Type | Description | Notes
 **From** | **int64** | Start of the query window as a Unix timestamp in seconds | 
 **To** | **int64** | End of the query window as a Unix timestamp in seconds | 
 **Reason** | **string** | Why the deletion is requested, for example the reference of a GDPR request. Kept for audit. | 
-**DryRun** | **bool** | Set to true to only count the events the request matches, without deleting them. | 
 **Owner** | **string** | ID of the team that owns the request. | 
 
 ## Methods
 
 ### NewCreateDataDeletionRequestRequest
 
-`func NewCreateDataDeletionRequestRequest(clusterId string, dataSource string, query string, from int64, to int64, reason string, dryRun bool, owner string, ) *CreateDataDeletionRequestRequest`
+`func NewCreateDataDeletionRequestRequest(clusterId string, dataSource string, query string, from int64, to int64, reason string, owner string, ) *CreateDataDeletionRequestRequest`
 
 NewCreateDataDeletionRequestRequest instantiates a new CreateDataDeletionRequestRequest object
 This constructor will assign default values to properties that have it defined,
@@ -150,26 +149,6 @@ and a boolean to check if the value has been set.
 `func (o *CreateDataDeletionRequestRequest) SetReason(v string)`
 
 SetReason sets Reason field to given value.
-
-
-### GetDryRun
-
-`func (o *CreateDataDeletionRequestRequest) GetDryRun() bool`
-
-GetDryRun returns the DryRun field if non-nil, zero value otherwise.
-
-### GetDryRunOk
-
-`func (o *CreateDataDeletionRequestRequest) GetDryRunOk() (*bool, bool)`
-
-GetDryRunOk returns a tuple with the DryRun field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDryRun
-
-`func (o *CreateDataDeletionRequestRequest) SetDryRun(v bool)`
-
-SetDryRun sets DryRun field to given value.
 
 
 ### GetOwner

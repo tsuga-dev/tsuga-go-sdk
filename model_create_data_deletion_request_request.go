@@ -31,8 +31,6 @@ type CreateDataDeletionRequestRequest struct {
 	To int64 `json:"to"`
 	// Why the deletion is requested, for example the reference of a GDPR request. Kept for audit.
 	Reason string `json:"reason"`
-	// Set to true to only count the events the request matches, without deleting them.
-	DryRun bool `json:"dryRun"`
 	// ID of the team that owns the request.
 	Owner                string `json:"owner"`
 	AdditionalProperties map[string]interface{}
@@ -44,7 +42,7 @@ type _CreateDataDeletionRequestRequest CreateDataDeletionRequestRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateDataDeletionRequestRequest(clusterId string, dataSource string, query string, from int64, to int64, reason string, dryRun bool, owner string) *CreateDataDeletionRequestRequest {
+func NewCreateDataDeletionRequestRequest(clusterId string, dataSource string, query string, from int64, to int64, reason string, owner string) *CreateDataDeletionRequestRequest {
 	this := CreateDataDeletionRequestRequest{}
 	this.ClusterId = clusterId
 	this.DataSource = dataSource
@@ -52,7 +50,6 @@ func NewCreateDataDeletionRequestRequest(clusterId string, dataSource string, qu
 	this.From = from
 	this.To = to
 	this.Reason = reason
-	this.DryRun = dryRun
 	this.Owner = owner
 	return &this
 }
@@ -209,30 +206,6 @@ func (o *CreateDataDeletionRequestRequest) SetReason(v string) {
 	o.Reason = v
 }
 
-// GetDryRun returns the DryRun field value
-func (o *CreateDataDeletionRequestRequest) GetDryRun() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.DryRun
-}
-
-// GetDryRunOk returns a tuple with the DryRun field value
-// and a boolean to check if the value has been set.
-func (o *CreateDataDeletionRequestRequest) GetDryRunOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.DryRun, true
-}
-
-// SetDryRun sets field value
-func (o *CreateDataDeletionRequestRequest) SetDryRun(v bool) {
-	o.DryRun = v
-}
-
 // GetOwner returns the Owner field value
 func (o *CreateDataDeletionRequestRequest) GetOwner() string {
 	if o == nil {
@@ -273,7 +246,6 @@ func (o CreateDataDeletionRequestRequest) ToMap() (map[string]interface{}, error
 	toSerialize["from"] = o.From
 	toSerialize["to"] = o.To
 	toSerialize["reason"] = o.Reason
-	toSerialize["dryRun"] = o.DryRun
 	toSerialize["owner"] = o.Owner
 
 	for key, value := range o.AdditionalProperties {
@@ -294,7 +266,6 @@ func (o *CreateDataDeletionRequestRequest) UnmarshalJSON(data []byte) (err error
 		"from",
 		"to",
 		"reason",
-		"dryRun",
 		"owner",
 	}
 
@@ -331,7 +302,6 @@ func (o *CreateDataDeletionRequestRequest) UnmarshalJSON(data []byte) (err error
 		delete(additionalProperties, "from")
 		delete(additionalProperties, "to")
 		delete(additionalProperties, "reason")
-		delete(additionalProperties, "dryRun")
 		delete(additionalProperties, "owner")
 		o.AdditionalProperties = additionalProperties
 	}

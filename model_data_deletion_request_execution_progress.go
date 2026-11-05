@@ -19,7 +19,7 @@ var _ MappedNullable = &DataDeletionRequestExecutionProgress{}
 
 // DataDeletionRequestExecutionProgress struct for DataDeletionRequestExecutionProgress
 type DataDeletionRequestExecutionProgress struct {
-	// Events matching the request. A dry run counts them without deleting them.
+	// Events matching the request.
 	MatchedRows int32 `json:"matchedRows"`
 	// Events the cluster scanned for matching ones.
 	ScannedRows          int32 `json:"scannedRows"`

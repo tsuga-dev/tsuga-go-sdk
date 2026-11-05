@@ -101,7 +101,7 @@ import (
 )
 
 func main() {
-	createDataDeletionRequestRequest := *openapiclient.NewCreateDataDeletionRequestRequest("ClusterId_example", "DataSource_example", "Query_example", int64(123), int64(123), "Reason_example", false, "Owner_example") // CreateDataDeletionRequestRequest | Data deletion request to create: the cluster and telemetry signal to delete from, the query and time range selecting the events, the reason kept for audit, and the owning team.
+	createDataDeletionRequestRequest := *openapiclient.NewCreateDataDeletionRequestRequest("ClusterId_example", "DataSource_example", "Query_example", int64(123), int64(123), "Reason_example", "Owner_example") // CreateDataDeletionRequestRequest | Data deletion request to create: the cluster and telemetry signal to delete from, the query and time range selecting the events, the reason kept for audit, and the owning team.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

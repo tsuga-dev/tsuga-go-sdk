@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MatchedRows** | **int32** | Events matching the request. A dry run counts them without deleting them. | 
+**MatchedRows** | **int32** | Events matching the request. | 
 **ScannedRows** | **int32** | Events the cluster scanned for matching ones. | 
 
 ## Methods

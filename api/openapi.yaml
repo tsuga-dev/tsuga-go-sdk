@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261104.19.0+dd69676
+  version: 20261104.40.0+ee8785c
 servers:
 - url: https://api.tsuga.com
 security:
@@ -2342,7 +2342,7 @@ paths:
         \ range. The cluster executes it 30 minutes after creation, leaving time to\
         \ cancel it. Deleted events cannot be restored. When every event carrying\
         \ an attribute is deleted, the attribute name is removed too, and attribute\
-        \ discovery stops listing it. Use `dryRun` to count the matching events first."
+        \ discovery stops listing it."
       operationId: createDataDeletionRequest
       requestBody:
         content:
@@ -2354,7 +2354,6 @@ paths:
               from: 1767225600
               to: 1769904000
               reason: "GDPR request #42"
-              dryRun: true
               owner: team-123-abc
             schema:
               $ref: "#/components/schemas/createDataDeletionRequest_request"
@@ -15826,7 +15825,6 @@ components:
         from: from
         to: to
         reason: reason
-        dryRun: true
         status: pending
         execution:
           failureReason: failureReason
@@ -15864,10 +15862,6 @@ components:
         reason:
           description: "Why the deletion was requested, kept for audit."
           type: string
-        dryRun:
-          description: "Whether the cluster only counts the events the request matches,\
-            \ without deleting them."
-          type: boolean
         status:
           description: "Status of the request: `cancelled` once cancelled, which is\
             \ final. Otherwise the status the cluster executes it with: `pending`\
@@ -15899,7 +15893,6 @@ components:
       required:
       - clusterId
       - dataSource
-      - dryRun
       - dueAt
       - from
       - id
@@ -15920,7 +15913,6 @@ components:
           from: from
           to: to
           reason: reason
-          dryRun: true
           status: pending
           execution:
             failureReason: failureReason
@@ -15939,7 +15931,6 @@ components:
           from: from
           to: to
           reason: reason
-          dryRun: true
           status: pending
           execution:
             failureReason: failureReason
@@ -15980,7 +15971,6 @@ components:
           from: from
           to: to
           reason: reason
-          dryRun: true
           status: pending
           execution:
             failureReason: failureReason
@@ -16012,7 +16002,6 @@ components:
           from: from
           to: to
           reason: reason
-          dryRun: true
           status: pending
           execution:
             failureReason: failureReason
@@ -31067,8 +31056,9 @@ components:
             default: null
           description: "One value per entry of `timestamps`, `null` where the bucket\
             \ has none. Keyed by result id: `q1`, `q2`, and so on for each query in\
-            \ submission order, plus `formula` when a computed formula is given, or\
-            \ `value` for a PromQL query. Every row has the same keys."
+            \ submission order, plus `f1`, `f2`, and so on for each entry of `formulas`\
+            \ in submission order, or `value` for a PromQL query. Every row has the\
+            \ same keys."
           type: object
       required:
       - group
@@ -34568,10 +34558,6 @@ components:
           maxLength: 50000
           minLength: 1
           type: string
-        dryRun:
-          description: "Set to true to only count the events the request matches,\
-            \ without deleting them."
-          type: boolean
         owner:
           description: ID of the team that owns the request.
           maxLength: 250
@@ -34580,7 +34566,6 @@ components:
       required:
       - clusterId
       - dataSource
-      - dryRun
       - from
       - owner
       - query
@@ -40629,8 +40614,7 @@ components:
         scannedRows: 6
       properties:
         matchedRows:
-          description: Events matching the request. A dry run counts them without
-            deleting them.
+          description: Events matching the request.
           type: integer
         scannedRows:
           description: Events the cluster scanned for matching ones.

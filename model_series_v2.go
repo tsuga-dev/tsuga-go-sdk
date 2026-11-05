@@ -21,7 +21,7 @@ var _ MappedNullable = &SeriesV2{}
 type SeriesV2 struct {
 	// Group-by field values for this row, keyed by field name. Empty when no group-by is requested.
 	Group map[string]SeriesGroupValue `json:"group"`
-	// One value per entry of `timestamps`, `null` where the bucket has none. Keyed by result id: `q1`, `q2`, and so on for each query in submission order, plus `formula` when a computed formula is given, or `value` for a PromQL query. Every row has the same keys.
+	// One value per entry of `timestamps`, `null` where the bucket has none. Keyed by result id: `q1`, `q2`, and so on for each query in submission order, plus `f1`, `f2`, and so on for each entry of `formulas` in submission order, or `value` for a PromQL query. Every row has the same keys.
 	Values               map[string][]*float32 `json:"values"`
 	AdditionalProperties map[string]interface{}
 }

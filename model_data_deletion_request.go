@@ -33,8 +33,6 @@ type DataDeletionRequest struct {
 	To string `json:"to"`
 	// Why the deletion was requested, kept for audit.
 	Reason string `json:"reason"`
-	// Whether the cluster only counts the events the request matches, without deleting them.
-	DryRun bool `json:"dryRun"`
 	// Status of the request: `cancelled` once cancelled, which is final. Otherwise the status the cluster executes it with: `pending` until the cluster starts it, then `running`, then `done`, or `failed` if it cannot be executed. A `done` request goes back to `running` when late events arrive. Also `pending` when the cluster could not be reached.
 	Status    string                        `json:"status"`
 	Execution *DataDeletionRequestExecution `json:"execution,omitempty"`
@@ -53,7 +51,7 @@ type _DataDeletionRequest DataDeletionRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDataDeletionRequest(id string, clusterId string, dataSource string, query string, from string, to string, reason string, dryRun bool, status string, matchedEventCount int32, dueAt string, owner string) *DataDeletionRequest {
+func NewDataDeletionRequest(id string, clusterId string, dataSource string, query string, from string, to string, reason string, status string, matchedEventCount int32, dueAt string, owner string) *DataDeletionRequest {
 	this := DataDeletionRequest{}
 	this.Id = id
 	this.ClusterId = clusterId
@@ -62,7 +60,6 @@ func NewDataDeletionRequest(id string, clusterId string, dataSource string, quer
 	this.From = from
 	this.To = to
 	this.Reason = reason
-	this.DryRun = dryRun
 	this.Status = status
 	this.MatchedEventCount = matchedEventCount
 	this.DueAt = dueAt
@@ -246,30 +243,6 @@ func (o *DataDeletionRequest) SetReason(v string) {
 	o.Reason = v
 }
 
-// GetDryRun returns the DryRun field value
-func (o *DataDeletionRequest) GetDryRun() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.DryRun
-}
-
-// GetDryRunOk returns a tuple with the DryRun field value
-// and a boolean to check if the value has been set.
-func (o *DataDeletionRequest) GetDryRunOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.DryRun, true
-}
-
-// SetDryRun sets field value
-func (o *DataDeletionRequest) SetDryRun(v bool) {
-	o.DryRun = v
-}
-
 // GetStatus returns the Status field value
 func (o *DataDeletionRequest) GetStatus() string {
 	if o == nil {
@@ -415,7 +388,6 @@ func (o DataDeletionRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["from"] = o.From
 	toSerialize["to"] = o.To
 	toSerialize["reason"] = o.Reason
-	toSerialize["dryRun"] = o.DryRun
 	toSerialize["status"] = o.Status
 	if !IsNil(o.Execution) {
 		toSerialize["execution"] = o.Execution
@@ -443,7 +415,6 @@ func (o *DataDeletionRequest) UnmarshalJSON(data []byte) (err error) {
 		"from",
 		"to",
 		"reason",
-		"dryRun",
 		"status",
 		"matchedEventCount",
 		"dueAt",
@@ -484,7 +455,6 @@ func (o *DataDeletionRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "from")
 		delete(additionalProperties, "to")
 		delete(additionalProperties, "reason")
-		delete(additionalProperties, "dryRun")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "execution")
 		delete(additionalProperties, "matchedEventCount")
