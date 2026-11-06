@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261105.30.0+1d62fa7
+  version: 20261106.9.0+777affd
 servers:
 - url: https://api.tsuga.com
 security:
@@ -15279,6 +15279,7 @@ components:
           sandbox-configuration: read
           slo: read
           synthetic-test: read
+          synthetic-variable: read
           tag-policy: read
           user-invitation: read
           team: read
@@ -15384,6 +15385,7 @@ components:
             sandbox-configuration: read
             slo: read
             synthetic-test: read
+            synthetic-variable: read
             tag-policy: read
             user-invitation: read
             team: read
@@ -15445,6 +15447,7 @@ components:
             sandbox-configuration: read
             slo: read
             synthetic-test: read
+            synthetic-variable: read
             tag-policy: read
             user-invitation: read
             team: read
@@ -15522,6 +15525,7 @@ components:
             sandbox-configuration: read
             slo: read
             synthetic-test: read
+            synthetic-variable: read
             tag-policy: read
             user-invitation: read
             team: read
@@ -15596,6 +15600,7 @@ components:
             sandbox-configuration: read
             slo: read
             synthetic-test: read
+            synthetic-variable: read
             tag-policy: read
             user-invitation: read
             team: read
@@ -15670,6 +15675,7 @@ components:
             sandbox-configuration: read
             slo: read
             synthetic-test: read
+            synthetic-variable: read
             tag-policy: read
             user-invitation: read
             team: read
@@ -16214,6 +16220,7 @@ components:
             w: 5.637376656633329
             h: 2.3021358869347655
           tabId: tabId
+          groupId: groupId
         - id: id
           name: name
           description: description
@@ -16261,6 +16268,7 @@ components:
             w: 5.637376656633329
             h: 2.3021358869347655
           tabId: tabId
+          groupId: groupId
         filters:
         - key: key
           values:
@@ -16405,6 +16413,7 @@ components:
               w: 5.637376656633329
               h: 2.3021358869347655
             tabId: tabId
+            groupId: groupId
           - id: id
             name: name
             description: description
@@ -16452,6 +16461,7 @@ components:
               w: 5.637376656633329
               h: 2.3021358869347655
             tabId: tabId
+            groupId: groupId
           filters:
           - key: key
             values:
@@ -16534,6 +16544,7 @@ components:
               w: 5.637376656633329
               h: 2.3021358869347655
             tabId: tabId
+            groupId: groupId
           - id: id
             name: name
             description: description
@@ -16581,6 +16592,7 @@ components:
               w: 5.637376656633329
               h: 2.3021358869347655
             tabId: tabId
+            groupId: groupId
           filters:
           - key: key
             values:
@@ -16663,6 +16675,7 @@ components:
               w: 5.637376656633329
               h: 2.3021358869347655
             tabId: tabId
+            groupId: groupId
           - id: id
             name: name
             description: description
@@ -16710,6 +16723,7 @@ components:
               w: 5.637376656633329
               h: 2.3021358869347655
             tabId: tabId
+            groupId: groupId
           filters:
           - key: key
             values:
@@ -16788,6 +16802,7 @@ components:
             w: 5.637376656633329
             h: 2.3021358869347655
           tabId: tabId
+          groupId: groupId
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -28277,6 +28292,17 @@ components:
       required:
       - type
       title: Note
+    GraphVisualizationGroup:
+      properties:
+        type:
+          description: Full-width header that groups the widgets referencing it through
+            `groupId`. Its name is the widget `name`.
+          enum:
+          - group
+          type: string
+      required:
+      - type
+      title: Group
     GraphVisualizationListLogPatterns:
       properties:
         type:
@@ -31180,6 +31206,7 @@ components:
           w: 5.637376656633329
           h: 2.3021358869347655
         tabId: tabId
+        groupId: groupId
       properties:
         id:
           description: Unique identifier of the graph widget inside the dashboard.
@@ -31213,6 +31240,10 @@ components:
         tabId:
           description: "ID of the dashboard tab that shows the widget. Widgets without\
             \ a tab, or whose tab no longer exists, are shown in the first tab."
+          type: string
+        groupId:
+          description: "ID of the group widget the widget belongs to. The group must\
+            \ be in the same tab, and cannot itself belong to a group."
           type: string
       required:
       - id
@@ -32680,6 +32711,12 @@ components:
           maxLength: 250
           minLength: 0
           type: string
+        groupId:
+          description: "ID of the group widget the widget belongs to. The group must\
+            \ be in the same tab, and cannot itself belong to a group."
+          maxLength: 250
+          minLength: 0
+          type: string
       required:
       - id
       - visualization
@@ -33970,6 +34007,7 @@ components:
         sandbox-configuration: read
         slo: read
         synthetic-test: read
+        synthetic-variable: read
         tag-policy: read
         user-invitation: read
         team: read
@@ -34204,6 +34242,12 @@ components:
           - write
           type: string
         synthetic-test:
+          description: Access granted on this resource type. `write` implies `read`.
+          enum:
+          - read
+          - write
+          type: string
+        synthetic-variable:
           description: Access granted on this resource type. `write` implies `read`.
           enum:
           - read
@@ -34776,6 +34820,7 @@ components:
           table: "#/components/schemas/InputGraphVisualizationTable"
           list: "#/components/schemas/InputGraphVisualizationList"
           note: "#/components/schemas/InputGraphVisualizationNote"
+          group: "#/components/schemas/GraphVisualizationGroup"
           list-log-patterns: "#/components/schemas/InputGraphVisualizationListLogPatterns"
           list-spans: "#/components/schemas/InputGraphVisualizationListSpans"
           list-rum: "#/components/schemas/InputGraphVisualizationListRum"
@@ -34807,6 +34852,7 @@ components:
       - $ref: "#/components/schemas/InputGraphVisualizationTable"
       - $ref: "#/components/schemas/InputGraphVisualizationList"
       - $ref: "#/components/schemas/InputGraphVisualizationNote"
+      - $ref: "#/components/schemas/GraphVisualizationGroup"
       - $ref: "#/components/schemas/InputGraphVisualizationListLogPatterns"
       - $ref: "#/components/schemas/InputGraphVisualizationListSpans"
       - $ref: "#/components/schemas/InputGraphVisualizationListRum"
@@ -34819,11 +34865,11 @@ components:
           \ query-value-connection, timeseries-promql, query-value-promql, gauge-promql,\
           \ top-list-promql, pie-promql, bar-promql, distribution-promql, heatmap-promql,\
           \ timeseries, top-list, pie, query-value, gauge, bar, distribution, heatmap,\
-          \ table, list, note, list-log-patterns, list-spans, list-rum, slo"
+          \ table, list, note, group, list-log-patterns, list-spans, list-rum, slo"
     updateDashboardGraph_request_layout:
       description: "Grid position and size of the widget. Optional; when provided,\
         \ the size must be at least 2×2 (width×height) grid units, except note widgets\
-        \ which can go down to 1×1."
+        \ which can go down to 1×1, and group widgets which span the full 12 columns."
       nullable: true
       properties:
         x:
@@ -46766,6 +46812,7 @@ components:
           table: "#/components/schemas/GraphVisualizationTable"
           list: "#/components/schemas/GraphVisualizationList"
           note: "#/components/schemas/GraphVisualizationNote"
+          group: "#/components/schemas/GraphVisualizationGroup"
           list-log-patterns: "#/components/schemas/GraphVisualizationListLogPatterns"
           list-spans: "#/components/schemas/GraphVisualizationListSpans"
           list-rum: "#/components/schemas/GraphVisualizationListRum"
@@ -46797,6 +46844,7 @@ components:
       - $ref: "#/components/schemas/GraphVisualizationTable"
       - $ref: "#/components/schemas/GraphVisualizationList"
       - $ref: "#/components/schemas/GraphVisualizationNote"
+      - $ref: "#/components/schemas/GraphVisualizationGroup"
       - $ref: "#/components/schemas/GraphVisualizationListLogPatterns"
       - $ref: "#/components/schemas/GraphVisualizationListSpans"
       - $ref: "#/components/schemas/GraphVisualizationListRum"
@@ -46809,11 +46857,11 @@ components:
           \ query-value-connection, timeseries-promql, query-value-promql, gauge-promql,\
           \ top-list-promql, pie-promql, bar-promql, distribution-promql, heatmap-promql,\
           \ timeseries, top-list, pie, query-value, gauge, bar, distribution, heatmap,\
-          \ table, list, note, list-log-patterns, list-spans, list-rum, slo"
+          \ table, list, note, group, list-log-patterns, list-spans, list-rum, slo"
     Graph_layout:
       description: "Grid position and size of the widget. Optional; when provided,\
         \ the size must be at least 2×2 (width×height) grid units, except note widgets\
-        \ which can go down to 1×1."
+        \ which can go down to 1×1, and group widgets which span the full 12 columns."
       example:
         x: 1.4658129805029452
         "y": 5.962133916683182

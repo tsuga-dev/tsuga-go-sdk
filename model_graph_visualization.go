@@ -23,6 +23,7 @@ type GraphVisualization struct {
 	GraphVisualizationDistributionPromql   *GraphVisualizationDistributionPromql
 	GraphVisualizationGauge                *GraphVisualizationGauge
 	GraphVisualizationGaugePromql          *GraphVisualizationGaugePromql
+	GraphVisualizationGroup                *GraphVisualizationGroup
 	GraphVisualizationHeatmap              *GraphVisualizationHeatmap
 	GraphVisualizationHeatmapPromql        *GraphVisualizationHeatmapPromql
 	GraphVisualizationList                 *GraphVisualizationList
@@ -93,6 +94,13 @@ func GraphVisualizationGaugeAsGraphVisualization(v *GraphVisualizationGauge) Gra
 func GraphVisualizationGaugePromqlAsGraphVisualization(v *GraphVisualizationGaugePromql) GraphVisualization {
 	return GraphVisualization{
 		GraphVisualizationGaugePromql: v,
+	}
+}
+
+// GraphVisualizationGroupAsGraphVisualization is a convenience function that returns GraphVisualizationGroup wrapped in GraphVisualization
+func GraphVisualizationGroupAsGraphVisualization(v *GraphVisualizationGroup) GraphVisualization {
+	return GraphVisualization{
+		GraphVisualizationGroup: v,
 	}
 }
 
@@ -341,6 +349,18 @@ func (dst *GraphVisualization) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.GraphVisualizationGaugePromql = nil
 			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationGaugePromql: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'group'
+	if jsonDict["type"] == "group" {
+		// try to unmarshal JSON data into GraphVisualizationGroup
+		err = json.Unmarshal(data, &dst.GraphVisualizationGroup)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationGroup, return on the first match
+		} else {
+			dst.GraphVisualizationGroup = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationGroup: %s", err.Error())
 		}
 	}
 
@@ -641,6 +661,10 @@ func (src GraphVisualization) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.GraphVisualizationGaugePromql)
 	}
 
+	if src.GraphVisualizationGroup != nil {
+		return json.Marshal(&src.GraphVisualizationGroup)
+	}
+
 	if src.GraphVisualizationHeatmap != nil {
 		return json.Marshal(&src.GraphVisualizationHeatmap)
 	}
@@ -765,6 +789,10 @@ func (obj *GraphVisualization) GetActualInstance() interface{} {
 		return obj.GraphVisualizationGaugePromql
 	}
 
+	if obj.GraphVisualizationGroup != nil {
+		return obj.GraphVisualizationGroup
+	}
+
 	if obj.GraphVisualizationHeatmap != nil {
 		return obj.GraphVisualizationHeatmap
 	}
@@ -885,6 +913,10 @@ func (obj GraphVisualization) GetActualInstanceValue() interface{} {
 
 	if obj.GraphVisualizationGaugePromql != nil {
 		return *obj.GraphVisualizationGaugePromql
+	}
+
+	if obj.GraphVisualizationGroup != nil {
+		return *obj.GraphVisualizationGroup
 	}
 
 	if obj.GraphVisualizationHeatmap != nil {

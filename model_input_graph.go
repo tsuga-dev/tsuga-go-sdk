@@ -32,7 +32,9 @@ type InputGraph struct {
 	Visualization             UpdateDashboardGraphRequestVisualization `json:"visualization"`
 	Layout                    *GraphLayout                             `json:"layout,omitempty"`
 	// ID of the dashboard tab that shows the widget. Widgets without a tab, or whose tab no longer exists, are shown in the first tab.
-	TabId                *string `json:"tabId,omitempty"`
+	TabId *string `json:"tabId,omitempty"`
+	// ID of the group widget the widget belongs to. The group must be in the same tab, and cannot itself belong to a group.
+	GroupId              *string `json:"groupId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -297,6 +299,38 @@ func (o *InputGraph) SetTabId(v string) {
 	o.TabId = &v
 }
 
+// GetGroupId returns the GroupId field value if set, zero value otherwise.
+func (o *InputGraph) GetGroupId() string {
+	if o == nil || IsNil(o.GroupId) {
+		var ret string
+		return ret
+	}
+	return *o.GroupId
+}
+
+// GetGroupIdOk returns a tuple with the GroupId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputGraph) GetGroupIdOk() (*string, bool) {
+	if o == nil || IsNil(o.GroupId) {
+		return nil, false
+	}
+	return o.GroupId, true
+}
+
+// HasGroupId returns a boolean if a field has been set.
+func (o *InputGraph) HasGroupId() bool {
+	if o != nil && !IsNil(o.GroupId) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupId gets a reference to the given string and assigns it to the GroupId field.
+func (o *InputGraph) SetGroupId(v string) {
+	o.GroupId = &v
+}
+
 func (o InputGraph) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -326,6 +360,9 @@ func (o InputGraph) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.TabId) {
 		toSerialize["tabId"] = o.TabId
+	}
+	if !IsNil(o.GroupId) {
+		toSerialize["groupId"] = o.GroupId
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -379,6 +416,7 @@ func (o *InputGraph) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "visualization")
 		delete(additionalProperties, "layout")
 		delete(additionalProperties, "tabId")
+		delete(additionalProperties, "groupId")
 		o.AdditionalProperties = additionalProperties
 	}
 

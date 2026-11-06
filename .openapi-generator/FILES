@@ -355,6 +355,7 @@ docs/GraphVisualizationDistribution.md
 docs/GraphVisualizationDistributionPromql.md
 docs/GraphVisualizationGauge.md
 docs/GraphVisualizationGaugePromql.md
+docs/GraphVisualizationGroup.md
 docs/GraphVisualizationHeatmap.md
 docs/GraphVisualizationHeatmapPromql.md
 docs/GraphVisualizationList.md
@@ -1337,6 +1338,7 @@ model_graph_visualization_distribution.go
 model_graph_visualization_distribution_promql.go
 model_graph_visualization_gauge.go
 model_graph_visualization_gauge_promql.go
+model_graph_visualization_group.go
 model_graph_visualization_heatmap.go
 model_graph_visualization_heatmap_promql.go
 model_graph_visualization_list.go

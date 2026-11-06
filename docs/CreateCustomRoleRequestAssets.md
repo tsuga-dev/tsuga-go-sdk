@@ -44,6 +44,7 @@ Name | Type | Description | Notes
 **SandboxConfiguration** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **Slo** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **SyntheticTest** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
+**SyntheticVariable** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **TagPolicy** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **UserInvitation** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **Team** | **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | 
@@ -1066,6 +1067,31 @@ SetSyntheticTest sets SyntheticTest field to given value.
 `func (o *CreateCustomRoleRequestAssets) HasSyntheticTest() bool`
 
 HasSyntheticTest returns a boolean if a field has been set.
+
+### GetSyntheticVariable
+
+`func (o *CreateCustomRoleRequestAssets) GetSyntheticVariable() string`
+
+GetSyntheticVariable returns the SyntheticVariable field if non-nil, zero value otherwise.
+
+### GetSyntheticVariableOk
+
+`func (o *CreateCustomRoleRequestAssets) GetSyntheticVariableOk() (*string, bool)`
+
+GetSyntheticVariableOk returns a tuple with the SyntheticVariable field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSyntheticVariable
+
+`func (o *CreateCustomRoleRequestAssets) SetSyntheticVariable(v string)`
+
+SetSyntheticVariable sets SyntheticVariable field to given value.
+
+### HasSyntheticVariable
+
+`func (o *CreateCustomRoleRequestAssets) HasSyntheticVariable() bool`
+
+HasSyntheticVariable returns a boolean if a field has been set.
 
 ### GetTagPolicy
 

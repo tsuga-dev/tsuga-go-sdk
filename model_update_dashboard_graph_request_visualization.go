@@ -16,6 +16,7 @@ import (
 
 // UpdateDashboardGraphRequestVisualization - Widget visualization configuration. The `type` discriminator selects the widget kind and its required fields.
 type UpdateDashboardGraphRequestVisualization struct {
+	GraphVisualizationGroup                     *GraphVisualizationGroup
 	InputGraphVisualizationBar                  *InputGraphVisualizationBar
 	InputGraphVisualizationBarConnection        *InputGraphVisualizationBarConnection
 	InputGraphVisualizationBarPromql            *InputGraphVisualizationBarPromql
@@ -45,6 +46,13 @@ type UpdateDashboardGraphRequestVisualization struct {
 	InputGraphVisualizationTopList              *InputGraphVisualizationTopList
 	InputGraphVisualizationTopListConnection    *InputGraphVisualizationTopListConnection
 	InputGraphVisualizationTopListPromql        *InputGraphVisualizationTopListPromql
+}
+
+// GraphVisualizationGroupAsUpdateDashboardGraphRequestVisualization is a convenience function that returns GraphVisualizationGroup wrapped in UpdateDashboardGraphRequestVisualization
+func GraphVisualizationGroupAsUpdateDashboardGraphRequestVisualization(v *GraphVisualizationGroup) UpdateDashboardGraphRequestVisualization {
+	return UpdateDashboardGraphRequestVisualization{
+		GraphVisualizationGroup: v,
+	}
 }
 
 // InputGraphVisualizationBarAsUpdateDashboardGraphRequestVisualization is a convenience function that returns InputGraphVisualizationBar wrapped in UpdateDashboardGraphRequestVisualization
@@ -344,6 +352,18 @@ func (dst *UpdateDashboardGraphRequestVisualization) UnmarshalJSON(data []byte) 
 		}
 	}
 
+	// check if the discriminator value is 'group'
+	if jsonDict["type"] == "group" {
+		// try to unmarshal JSON data into GraphVisualizationGroup
+		err = json.Unmarshal(data, &dst.GraphVisualizationGroup)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationGroup, return on the first match
+		} else {
+			dst.GraphVisualizationGroup = nil
+			return fmt.Errorf("failed to unmarshal UpdateDashboardGraphRequestVisualization as GraphVisualizationGroup: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'heatmap'
 	if jsonDict["type"] == "heatmap" {
 		// try to unmarshal JSON data into InputGraphVisualizationHeatmap
@@ -613,6 +633,10 @@ func (dst *UpdateDashboardGraphRequestVisualization) UnmarshalJSON(data []byte) 
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src UpdateDashboardGraphRequestVisualization) MarshalJSON() ([]byte, error) {
+	if src.GraphVisualizationGroup != nil {
+		return json.Marshal(&src.GraphVisualizationGroup)
+	}
+
 	if src.InputGraphVisualizationBar != nil {
 		return json.Marshal(&src.InputGraphVisualizationBar)
 	}
@@ -737,6 +761,10 @@ func (obj *UpdateDashboardGraphRequestVisualization) GetActualInstance() interfa
 	if obj == nil {
 		return nil
 	}
+	if obj.GraphVisualizationGroup != nil {
+		return obj.GraphVisualizationGroup
+	}
+
 	if obj.InputGraphVisualizationBar != nil {
 		return obj.InputGraphVisualizationBar
 	}
@@ -859,6 +887,10 @@ func (obj *UpdateDashboardGraphRequestVisualization) GetActualInstance() interfa
 
 // Get the actual instance value
 func (obj UpdateDashboardGraphRequestVisualization) GetActualInstanceValue() interface{} {
+	if obj.GraphVisualizationGroup != nil {
+		return *obj.GraphVisualizationGroup
+	}
+
 	if obj.InputGraphVisualizationBar != nil {
 		return *obj.InputGraphVisualizationBar
 	}

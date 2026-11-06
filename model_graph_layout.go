@@ -17,7 +17,7 @@ import (
 // checks if the GraphLayout type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GraphLayout{}
 
-// GraphLayout Grid position and size of the widget. Optional; when provided, the size must be at least 2×2 (width×height) grid units, except note widgets which can go down to 1×1.
+// GraphLayout Grid position and size of the widget. Optional; when provided, the size must be at least 2×2 (width×height) grid units, except note widgets which can go down to 1×1, and group widgets which span the full 12 columns.
 type GraphLayout struct {
 	// Column position of the widget on the 12-column dashboard grid. 0 is the leftmost column; increasing values move right.
 	X float32 `json:"x"`

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **Visualization** | [**GraphVisualization**](GraphVisualization.md) |  | 
 **Layout** | Pointer to [**GraphLayout**](GraphLayout.md) |  | [optional] 
 **TabId** | Pointer to **string** | ID of the dashboard tab that shows the widget. Widgets without a tab, or whose tab no longer exists, are shown in the first tab. | [optional] 
+**GroupId** | Pointer to **string** | ID of the group widget the widget belongs to. The group must be in the same tab, and cannot itself belong to a group. | [optional] 
 
 ## Methods
 
@@ -221,6 +222,31 @@ SetTabId sets TabId field to given value.
 `func (o *Graph) HasTabId() bool`
 
 HasTabId returns a boolean if a field has been set.
+
+### GetGroupId
+
+`func (o *Graph) GetGroupId() string`
+
+GetGroupId returns the GroupId field if non-nil, zero value otherwise.
+
+### GetGroupIdOk
+
+`func (o *Graph) GetGroupIdOk() (*string, bool)`
+
+GetGroupIdOk returns a tuple with the GroupId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGroupId
+
+`func (o *Graph) SetGroupId(v string)`
+
+SetGroupId sets GroupId field to given value.
+
+### HasGroupId
+
+`func (o *Graph) HasGroupId() bool`
+
+HasGroupId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

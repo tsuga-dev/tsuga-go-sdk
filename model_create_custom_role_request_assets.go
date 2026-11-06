@@ -100,6 +100,8 @@ type CreateCustomRoleRequestAssets struct {
 	// Access granted on this resource type. `write` implies `read`.
 	SyntheticTest *string `json:"synthetic-test,omitempty"`
 	// Access granted on this resource type. `write` implies `read`.
+	SyntheticVariable *string `json:"synthetic-variable,omitempty"`
+	// Access granted on this resource type. `write` implies `read`.
 	TagPolicy *string `json:"tag-policy,omitempty"`
 	// Access granted on this resource type. `write` implies `read`.
 	UserInvitation *string `json:"user-invitation,omitempty"`
@@ -1408,6 +1410,38 @@ func (o *CreateCustomRoleRequestAssets) SetSyntheticTest(v string) {
 	o.SyntheticTest = &v
 }
 
+// GetSyntheticVariable returns the SyntheticVariable field value if set, zero value otherwise.
+func (o *CreateCustomRoleRequestAssets) GetSyntheticVariable() string {
+	if o == nil || IsNil(o.SyntheticVariable) {
+		var ret string
+		return ret
+	}
+	return *o.SyntheticVariable
+}
+
+// GetSyntheticVariableOk returns a tuple with the SyntheticVariable field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCustomRoleRequestAssets) GetSyntheticVariableOk() (*string, bool) {
+	if o == nil || IsNil(o.SyntheticVariable) {
+		return nil, false
+	}
+	return o.SyntheticVariable, true
+}
+
+// HasSyntheticVariable returns a boolean if a field has been set.
+func (o *CreateCustomRoleRequestAssets) HasSyntheticVariable() bool {
+	if o != nil && !IsNil(o.SyntheticVariable) {
+		return true
+	}
+
+	return false
+}
+
+// SetSyntheticVariable gets a reference to the given string and assigns it to the SyntheticVariable field.
+func (o *CreateCustomRoleRequestAssets) SetSyntheticVariable(v string) {
+	o.SyntheticVariable = &v
+}
+
 // GetTagPolicy returns the TagPolicy field value if set, zero value otherwise.
 func (o *CreateCustomRoleRequestAssets) GetTagPolicy() string {
 	if o == nil || IsNil(o.TagPolicy) {
@@ -1626,6 +1660,9 @@ func (o CreateCustomRoleRequestAssets) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SyntheticTest) {
 		toSerialize["synthetic-test"] = o.SyntheticTest
 	}
+	if !IsNil(o.SyntheticVariable) {
+		toSerialize["synthetic-variable"] = o.SyntheticVariable
+	}
 	if !IsNil(o.TagPolicy) {
 		toSerialize["tag-policy"] = o.TagPolicy
 	}
@@ -1716,6 +1753,7 @@ func (o *CreateCustomRoleRequestAssets) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "sandbox-configuration")
 		delete(additionalProperties, "slo")
 		delete(additionalProperties, "synthetic-test")
+		delete(additionalProperties, "synthetic-variable")
 		delete(additionalProperties, "tag-policy")
 		delete(additionalProperties, "user-invitation")
 		delete(additionalProperties, "team")

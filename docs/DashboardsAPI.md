@@ -34,7 +34,7 @@ import (
 )
 
 func main() {
-	createDashboardRequest := *openapiclient.NewCreateDashboardRequest("Name_example", "Owner_example", []openapiclient.InputGraph{*openapiclient.NewInputGraph("Id_example", openapiclient.updateDashboardGraph_request_visualization{InputGraphVisualizationBar: openapiclient.NewInputGraphVisualizationBar("Type_example", "Source_example", []openapiclient.InputAggregationQuery{*openapiclient.NewInputAggregationQuery(openapiclient.InputAggregate{InputAggregateAverage: openapiclient.NewInputAggregateAverage("Type_example", "Field_example")})})})}) // CreateDashboardRequest | Dashboard create or update request. Provide the dashboard identity, owner team, widgets, filters, tags, and optional time preset.
+	createDashboardRequest := *openapiclient.NewCreateDashboardRequest("Name_example", "Owner_example", []openapiclient.InputGraph{*openapiclient.NewInputGraph("Id_example", openapiclient.updateDashboardGraph_request_visualization{GraphVisualizationGroup: openapiclient.NewGraphVisualizationGroup("Type_example")})}) // CreateDashboardRequest | Dashboard create or update request. Provide the dashboard identity, owner team, widgets, filters, tags, and optional time preset.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
