@@ -22,7 +22,7 @@ type LogsAPI interface {
 	/*
 		GetErrorPatternIncrease Method for GetErrorPatternIncrease
 
-		Finds error patterns whose occurrence increased for a team in the requested time range. Use this to identify growing failure modes without retrieving raw log events. See [Logs](/documentation/explore/logs).
+		Finds a team's error log patterns whose count increased in the time range: spikes in existing errors. For errors first seen in the range, use new error patterns. See [Logs](/documentation/explore/logs).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return LogsAPIGetErrorPatternIncreaseRequest
@@ -36,7 +36,7 @@ type LogsAPI interface {
 	/*
 		GetLogAttributes Method for GetLogAttributes
 
-		Lists log attribute dot-paths observed in the requested time range. This endpoint requires a public API credential that can read all relevant teams because attribute discovery is not team-filtered. Use this to discover fields for Tsuga queries, filters, and grouping. See [Logs](/documentation/explore/logs).
+		Lists log attribute (field, key) names seen in a time range, to find the key to filter or group logs by. Requires a credential that can read all teams: attribute discovery is not team-filtered. To rank fields by their use in dashboards and monitors, use interesting fields. See [Logs](/documentation/explore/logs).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return LogsAPIGetLogAttributesRequest
@@ -50,7 +50,7 @@ type LogsAPI interface {
 	/*
 		GetLogPatterns Method for GetLogPatterns
 
-		Clusters matching logs into readable patterns for the requested time range. Use this to summarize common log shapes before drilling into raw events. See [Logs](/documentation/explore/logs).
+		Groups similar log messages into patterns with counts over a time range: the top messages or errors without reading raw lines. For patterns first seen in the range, use new error patterns; for growing ones, error pattern increases. See [Logs](/documentation/explore/logs).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return LogsAPIGetLogPatternsRequest
@@ -64,7 +64,7 @@ type LogsAPI interface {
 	/*
 		GetNewErrorPatterns Method for GetNewErrorPatterns
 
-		Finds error patterns first seen in the requested time range, optionally filtered by team, environment, or service. Use this to detect newly appearing failures. See [Logs](/documentation/explore/logs).
+		Finds error log patterns first seen in the time range: new errors or exceptions, for example after a change. Optionally filtered by team, environment or service. See [Logs](/documentation/explore/logs).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return LogsAPIGetNewErrorPatternsRequest
@@ -78,7 +78,7 @@ type LogsAPI interface {
 	/*
 		SearchLogs Method for SearchLogs
 
-		Searches logs in a required time range using Tsuga query syntax. Use this endpoint to retrieve raw log events for investigations or automation. See [Logs](/documentation/explore/logs) and [Query syntax](/documentation/explore/query-syntax).
+		Searches raw log lines in a time range with Tsuga query syntax: error messages, exceptions, stack traces, the logs of one request or pod. For counts or rates, use an aggregation; to group similar messages, use log patterns. See [Logs](/documentation/explore/logs) and [Query syntax](/documentation/explore/query-syntax).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return LogsAPISearchLogsRequest
@@ -140,7 +140,7 @@ func (r LogsAPIGetErrorPatternIncreaseRequest) Execute() (*GetErrorPatternIncrea
 /*
 GetErrorPatternIncrease Method for GetErrorPatternIncrease
 
-Finds error patterns whose occurrence increased for a team in the requested time range. Use this to identify growing failure modes without retrieving raw log events. See [Logs](/documentation/explore/logs).
+Finds a team's error log patterns whose count increased in the time range: spikes in existing errors. For errors first seen in the range, use new error patterns. See [Logs](/documentation/explore/logs).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return LogsAPIGetErrorPatternIncreaseRequest
@@ -325,7 +325,7 @@ func (r LogsAPIGetLogAttributesRequest) Execute() (*GetLogAttributesResponse, *h
 /*
 GetLogAttributes Method for GetLogAttributes
 
-Lists log attribute dot-paths observed in the requested time range. This endpoint requires a public API credential that can read all relevant teams because attribute discovery is not team-filtered. Use this to discover fields for Tsuga queries, filters, and grouping. See [Logs](/documentation/explore/logs).
+Lists log attribute (field, key) names seen in a time range, to find the key to filter or group logs by. Requires a credential that can read all teams: attribute discovery is not team-filtered. To rank fields by their use in dashboards and monitors, use interesting fields. See [Logs](/documentation/explore/logs).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return LogsAPIGetLogAttributesRequest
@@ -500,7 +500,7 @@ func (r LogsAPIGetLogPatternsRequest) Execute() (*GetLogPatternsResponse, *http.
 /*
 GetLogPatterns Method for GetLogPatterns
 
-Clusters matching logs into readable patterns for the requested time range. Use this to summarize common log shapes before drilling into raw events. See [Logs](/documentation/explore/logs).
+Groups similar log messages into patterns with counts over a time range: the top messages or errors without reading raw lines. For patterns first seen in the range, use new error patterns; for growing ones, error pattern increases. See [Logs](/documentation/explore/logs).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return LogsAPIGetLogPatternsRequest
@@ -696,7 +696,7 @@ func (r LogsAPIGetNewErrorPatternsRequest) Execute() (*GetNewErrorPatternsRespon
 /*
 GetNewErrorPatterns Method for GetNewErrorPatterns
 
-Finds error patterns first seen in the requested time range, optionally filtered by team, environment, or service. Use this to detect newly appearing failures. See [Logs](/documentation/explore/logs).
+Finds error log patterns first seen in the time range: new errors or exceptions, for example after a change. Optionally filtered by team, environment or service. See [Logs](/documentation/explore/logs).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return LogsAPIGetNewErrorPatternsRequest
@@ -884,7 +884,7 @@ func (r LogsAPISearchLogsRequest) Execute() (*SearchLogsResponse, *http.Response
 /*
 SearchLogs Method for SearchLogs
 
-Searches logs in a required time range using Tsuga query syntax. Use this endpoint to retrieve raw log events for investigations or automation. See [Logs](/documentation/explore/logs) and [Query syntax](/documentation/explore/query-syntax).
+Searches raw log lines in a time range with Tsuga query syntax: error messages, exceptions, stack traces, the logs of one request or pod. For counts or rates, use an aggregation; to group similar messages, use log patterns. See [Logs](/documentation/explore/logs) and [Query syntax](/documentation/explore/query-syntax).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return LogsAPISearchLogsRequest

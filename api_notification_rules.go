@@ -23,7 +23,7 @@ type NotificationRulesAPI interface {
 	/*
 		CreateNotificationRule Method for CreateNotificationRule
 
-		Creates a notification rule that matches alert transitions and sends notifications to configured targets. Monitors keep evaluating separately from notification rules.
+		Creates a notification rule that sends matching alert transitions to destinations such as Slack, PagerDuty, email or webhooks. Monitors evaluate independently of notification rules.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return NotificationRulesAPICreateNotificationRuleRequest
@@ -67,7 +67,7 @@ type NotificationRulesAPI interface {
 	/*
 		ListNotificationRules Method for ListNotificationRules
 
-		Lists notification rules visible to the authenticated operation key. Use this endpoint to audit alert delivery routing. Pagination fields limit the returned page.
+		Lists notification rules (alert routing): which alerts, matched by query, team, priority, transition or cluster, are sent to which destinations, such as Slack, PagerDuty, email or webhooks. Adaptive notification rules, which page service owners, have their own endpoint.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return NotificationRulesAPIListNotificationRulesRequest
@@ -116,7 +116,7 @@ func (r NotificationRulesAPICreateNotificationRuleRequest) Execute() (*CreateNot
 /*
 CreateNotificationRule Method for CreateNotificationRule
 
-Creates a notification rule that matches alert transitions and sends notifications to configured targets. Monitors keep evaluating separately from notification rules.
+Creates a notification rule that sends matching alert transitions to destinations such as Slack, PagerDuty, email or webhooks. Monitors evaluate independently of notification rules.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return NotificationRulesAPICreateNotificationRuleRequest
@@ -518,7 +518,7 @@ func (r NotificationRulesAPIListNotificationRulesRequest) Execute() (*ListNotifi
 /*
 ListNotificationRules Method for ListNotificationRules
 
-Lists notification rules visible to the authenticated operation key. Use this endpoint to audit alert delivery routing. Pagination fields limit the returned page.
+Lists notification rules (alert routing): which alerts, matched by query, team, priority, transition or cluster, are sent to which destinations, such as Slack, PagerDuty, email or webhooks. Adaptive notification rules, which page service owners, have their own endpoint.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return NotificationRulesAPIListNotificationRulesRequest

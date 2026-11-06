@@ -54,7 +54,7 @@ type ServicesAPI interface {
 	/*
 		GetService Method for GetService
 
-		Retrieves one telemetry-inferred service by service ID.
+		Retrieves one telemetry-inferred service (service catalog entry) by the service ID the services query returns.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param serviceId Identifier of the service to retrieve. Use the `id` returned by service query responses.
@@ -69,7 +69,7 @@ type ServicesAPI interface {
 	/*
 		GetServiceGraph Method for GetServiceGraph
 
-		Retrieves a dependency graph for one service over an optional time range and query filter. Provide an explicit time range for deterministic results. Use this to inspect observed downstream and upstream service relationships. See [Service page](/documentation/categorize/services/service-page).
+		Returns the dependency graph (service map) of one service: the upstream and downstream services and databases seen in its spans, as nodes and edges with call and error counts. Pass both `from` and `to` for a deterministic window; `query` filters the spans. See [Service page](/documentation/categorize/services/service-page).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param serviceId Identifier of the service to use as the graph root. Use the `id` returned by service list or get responses.
@@ -84,7 +84,7 @@ type ServicesAPI interface {
 	/*
 		ListServiceNotificationTargets Method for ListServiceNotificationTargets
 
-		Lists the notification targets attached to one service. Use this to discover target IDs before updating or deleting a target.
+		Lists the notification targets attached to one service: where adaptive notification rules page its owners. Each target has an ID, a destination and a rate limit.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param serviceId Identifier of the service the notification target belongs to. Use the `id` returned by service list or get responses.
@@ -99,7 +99,7 @@ type ServicesAPI interface {
 	/*
 		QueryServices Method for QueryServices
 
-		Queries services inferred from telemetry. Use this endpoint to inventory service ownership, environments, versions, runtimes, and recent activity. A service is returned for each environment where its trace span metrics have data in `statsWindow`, including services the service catalog has not recorded yet; those carry no `id`, `firstSeenAt`, or `lastSeenAt`, and empty observed-metadata arrays other than `teams`. At most 1000 service names are returned per query, keeping those with the most span calls. Use `filters.searchQuery` and the other filters to narrow the results, and pagination fields to limit the returned page.
+		Lists or searches services seen in traces (APM service catalog) with owner teams, environments, versions with faulty deployment detection, languages, frameworks, request rate and error rate. One row per service and environment with span data in `statsWindow`, including services the catalog has not recorded yet, which carry no `id`, `firstSeenAt` or `lastSeenAt` and only `teams` in observed metadata. At most 1000 service names, keeping those with the most span calls.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return ServicesAPIQueryServicesRequest
@@ -427,7 +427,7 @@ func (r ServicesAPIGetServiceRequest) Execute() (*GetServiceResponse, *http.Resp
 /*
 GetService Method for GetService
 
-Retrieves one telemetry-inferred service by service ID.
+Retrieves one telemetry-inferred service (service catalog entry) by the service ID the services query returns.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param serviceId Identifier of the service to retrieve. Use the `id` returned by service query responses.
@@ -579,7 +579,7 @@ func (r ServicesAPIGetServiceGraphRequest) Execute() (*GetServiceGraphResponse, 
 /*
 GetServiceGraph Method for GetServiceGraph
 
-Retrieves a dependency graph for one service over an optional time range and query filter. Provide an explicit time range for deterministic results. Use this to inspect observed downstream and upstream service relationships. See [Service page](/documentation/categorize/services/service-page).
+Returns the dependency graph (service map) of one service: the upstream and downstream services and databases seen in its spans, as nodes and edges with call and error counts. Pass both `from` and `to` for a deterministic window; `query` filters the spans. See [Service page](/documentation/categorize/services/service-page).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param serviceId Identifier of the service to use as the graph root. Use the `id` returned by service list or get responses.
@@ -723,7 +723,7 @@ func (r ServicesAPIListServiceNotificationTargetsRequest) Execute() (*ListServic
 /*
 ListServiceNotificationTargets Method for ListServiceNotificationTargets
 
-Lists the notification targets attached to one service. Use this to discover target IDs before updating or deleting a target.
+Lists the notification targets attached to one service: where adaptive notification rules page its owners. Each target has an ID, a destination and a rate limit.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param serviceId Identifier of the service the notification target belongs to. Use the `id` returned by service list or get responses.
@@ -860,7 +860,7 @@ func (r ServicesAPIQueryServicesRequest) Execute() (*QueryServicesResponse, *htt
 /*
 QueryServices Method for QueryServices
 
-Queries services inferred from telemetry. Use this endpoint to inventory service ownership, environments, versions, runtimes, and recent activity. A service is returned for each environment where its trace span metrics have data in `statsWindow`, including services the service catalog has not recorded yet; those carry no `id`, `firstSeenAt`, or `lastSeenAt`, and empty observed-metadata arrays other than `teams`. At most 1000 service names are returned per query, keeping those with the most span calls. Use `filters.searchQuery` and the other filters to narrow the results, and pagination fields to limit the returned page.
+Lists or searches services seen in traces (APM service catalog) with owner teams, environments, versions with faulty deployment detection, languages, frameworks, request rate and error rate. One row per service and environment with span data in `statsWindow`, including services the catalog has not recorded yet, which carry no `id`, `firstSeenAt` or `lastSeenAt` and only `teams` in observed metadata. At most 1000 service names, keeping those with the most span calls.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ServicesAPIQueryServicesRequest

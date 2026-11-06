@@ -36,7 +36,7 @@ type InvitationsAPI interface {
 	/*
 		QueryInvitations Method for QueryInvitations
 
-		Queries organization invitations. Use this to audit pending, expired, or revoked invitations; accepted invitations are not returned, query users instead to list the people who joined.
+		Lists or searches organization invitations (pending, expired or revoked) by email, team name or status, with the team and role each grants. Accepted invitations are not returned: list users for the people who joined.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return InvitationsAPIQueryInvitationsRequest
@@ -206,7 +206,7 @@ func (r InvitationsAPIQueryInvitationsRequest) Execute() (*QueryInvitationsRespo
 /*
 QueryInvitations Method for QueryInvitations
 
-Queries organization invitations. Use this to audit pending, expired, or revoked invitations; accepted invitations are not returned, query users instead to list the people who joined.
+Lists or searches organization invitations (pending, expired or revoked) by email, team name or status, with the team and role each grants. Accepted invitations are not returned: list users for the people who joined.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return InvitationsAPIQueryInvitationsRequest

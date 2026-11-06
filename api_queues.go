@@ -22,7 +22,7 @@ type QueuesAPI interface {
 	/*
 		GetQueue Method for GetQueue
 
-		Retrieves one message queue by name, messaging system, and environment. Searches the last hour first, then the last 24 hours.
+		Retrieves one message queue or topic by name, messaging system and environment, with its rates. Searches the last hour first, then the last 24 hours.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return QueuesAPIGetQueueRequest
@@ -36,7 +36,7 @@ type QueuesAPI interface {
 	/*
 		ListQueues Method for ListQueues
 
-		Lists message queues inferred from producer and consumer messaging spans, with their publish, consume, and consumer error rates over the stats window.
+		Lists message queues and topics (Kafka, SQS, RabbitMQ and other messaging systems) inferred from producer and consumer messaging spans, with per-second publish, consume and consumer error rates and p90 processing duration over the stats window.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return QueuesAPIListQueuesRequest
@@ -91,7 +91,7 @@ func (r QueuesAPIGetQueueRequest) Execute() (*GetQueueResponse, *http.Response, 
 /*
 GetQueue Method for GetQueue
 
-Retrieves one message queue by name, messaging system, and environment. Searches the last hour first, then the last 24 hours.
+Retrieves one message queue or topic by name, messaging system and environment, with its rates. Searches the last hour first, then the last 24 hours.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return QueuesAPIGetQueueRequest
@@ -280,7 +280,7 @@ func (r QueuesAPIListQueuesRequest) Execute() (*ListQueuesResponse, *http.Respon
 /*
 ListQueues Method for ListQueues
 
-Lists message queues inferred from producer and consumer messaging spans, with their publish, consume, and consumer error rates over the stats window.
+Lists message queues and topics (Kafka, SQS, RabbitMQ and other messaging systems) inferred from producer and consumer messaging spans, with per-second publish, consume and consumer error rates and p90 processing duration over the stats window.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return QueuesAPIListQueuesRequest

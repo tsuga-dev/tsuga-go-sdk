@@ -23,7 +23,7 @@ type DashboardsAPI interface {
 	/*
 		CreateDashboard Method for CreateDashboard
 
-		Creates a dashboard owned by the specified team. Use this to provision dashboards from automation or templates. The response returns the saved dashboard definition.
+		Creates a dashboard owned by the specified team, with its widgets (graphs). The response returns the saved dashboard definition.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return DashboardsAPICreateDashboardRequest
@@ -52,7 +52,7 @@ type DashboardsAPI interface {
 	/*
 		GetDashboard Method for GetDashboard
 
-		Retrieves one dashboard by ID.
+		Retrieves one dashboard by ID, with its widgets (graphs, charts) and their queries.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Identifier of the saved dashboard to retrieve. Use the `id` returned by dashboard query, create, or update responses.
@@ -67,7 +67,7 @@ type DashboardsAPI interface {
 	/*
 		QueryDashboards Method for QueryDashboards
 
-		Queries dashboards visible to the authenticated operation key. Use this endpoint to build dashboard inventories or synchronize dashboard metadata. Pagination fields limit the returned page; use the response metadata to request additional pages. Each dashboard is returned without its `graphs`; use `getDashboard` to read its widgets. See [Dashboards](/documentation/visualize/dashboards/index).
+		Lists or searches dashboards by name or ID substring, owning team, tags or folder. Results omit widgets (`graphs`) and give `widgetCount`; get a dashboard by ID to read its widgets. See [Dashboards](/documentation/visualize/dashboards/index).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return DashboardsAPIQueryDashboardsRequest
@@ -81,7 +81,7 @@ type DashboardsAPI interface {
 	/*
 		UpdateDashboard Method for UpdateDashboard
 
-		Updates an existing dashboard by ID. Top-level fields are patched from the request body and omitted ones keep their current values, but a sent array replaces the stored one whole: a `graphs` array missing a widget deletes that widget. Read the dashboard first and send back every widget you keep, or use `updateDashboardGraph` to change one widget.
+		Updates a dashboard by ID, such as its widgets (graphs, charts), filters or folder. Top-level fields are patched and omitted ones keep their values, but a sent array replaces the stored one whole: a `graphs` array missing a widget deletes that widget. Read the dashboard first and send back every widget you keep, or change one widget with the dashboard graph update.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Identifier of the saved dashboard to update. Use the `id` returned by dashboard query, get, or create responses.
@@ -96,7 +96,7 @@ type DashboardsAPI interface {
 	/*
 		UpdateDashboardGraph Method for UpdateDashboardGraph
 
-		Updates one graph inside a dashboard without replacing the full dashboard. Use this for targeted widget edits when you already know the dashboard ID and graph ID. Fields are patched from the request body; omitted fields keep their current values and null clears them. A sent `visualization` or `layout` replaces the stored one whole rather than merging into it.
+		Updates one widget (graph, chart) of a dashboard by dashboard ID and graph ID, without resending the dashboard. Sent fields are patched and null clears them; a sent `visualization` or `layout` replaces the stored one whole.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Identifier of the dashboard that contains the graph to update. Use the `id` returned by dashboard responses.
@@ -132,7 +132,7 @@ func (r DashboardsAPICreateDashboardRequest) Execute() (*CreateDashboardResponse
 /*
 CreateDashboard Method for CreateDashboard
 
-Creates a dashboard owned by the specified team. Use this to provision dashboards from automation or templates. The response returns the saved dashboard definition.
+Creates a dashboard owned by the specified team, with its widgets (graphs). The response returns the saved dashboard definition.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DashboardsAPICreateDashboardRequest
@@ -390,7 +390,7 @@ func (r DashboardsAPIGetDashboardRequest) Execute() (*GetDashboardResponse, *htt
 /*
 GetDashboard Method for GetDashboard
 
-Retrieves one dashboard by ID.
+Retrieves one dashboard by ID, with its widgets (graphs, charts) and their queries.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Identifier of the saved dashboard to retrieve. Use the `id` returned by dashboard query, create, or update responses.
@@ -527,7 +527,7 @@ func (r DashboardsAPIQueryDashboardsRequest) Execute() (*QueryDashboardsResponse
 /*
 QueryDashboards Method for QueryDashboards
 
-Queries dashboards visible to the authenticated operation key. Use this endpoint to build dashboard inventories or synchronize dashboard metadata. Pagination fields limit the returned page; use the response metadata to request additional pages. Each dashboard is returned without its `graphs`; use `getDashboard` to read its widgets. See [Dashboards](/documentation/visualize/dashboards/index).
+Lists or searches dashboards by name or ID substring, owning team, tags or folder. Results omit widgets (`graphs`) and give `widgetCount`; get a dashboard by ID to read its widgets. See [Dashboards](/documentation/visualize/dashboards/index).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DashboardsAPIQueryDashboardsRequest
@@ -660,7 +660,7 @@ func (r DashboardsAPIUpdateDashboardRequest) Execute() (*UpdateDashboardResponse
 /*
 UpdateDashboard Method for UpdateDashboard
 
-Updates an existing dashboard by ID. Top-level fields are patched from the request body and omitted ones keep their current values, but a sent array replaces the stored one whole: a `graphs` array missing a widget deletes that widget. Read the dashboard first and send back every widget you keep, or use `updateDashboardGraph` to change one widget.
+Updates a dashboard by ID, such as its widgets (graphs, charts), filters or folder. Top-level fields are patched and omitted ones keep their values, but a sent array replaces the stored one whole: a `graphs` array missing a widget deletes that widget. Read the dashboard first and send back every widget you keep, or change one widget with the dashboard graph update.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Identifier of the saved dashboard to update. Use the `id` returned by dashboard query, get, or create responses.
@@ -804,7 +804,7 @@ func (r DashboardsAPIUpdateDashboardGraphRequest) Execute() (*UpdateDashboardGra
 /*
 UpdateDashboardGraph Method for UpdateDashboardGraph
 
-Updates one graph inside a dashboard without replacing the full dashboard. Use this for targeted widget edits when you already know the dashboard ID and graph ID. Fields are patched from the request body; omitted fields keep their current values and null clears them. A sent `visualization` or `layout` replaces the stored one whole rather than merging into it.
+Updates one widget (graph, chart) of a dashboard by dashboard ID and graph ID, without resending the dashboard. Sent fields are patched and null clears them; a sent `visualization` or `layout` replaces the stored one whole.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Identifier of the dashboard that contains the graph to update. Use the `id` returned by dashboard responses.

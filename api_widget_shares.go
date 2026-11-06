@@ -23,7 +23,7 @@ type WidgetSharesAPI interface {
 	/*
 		GetWidgetShare Method for GetWidgetShare
 
-		Retrieves the query behind a widget share link. Use this to recover the widget title, Analytics search, and dashboard of a link whose unfurl only shows an image. An expired or unknown code returns 404.
+		Resolves a widget share link, whose unfurl only shows an image, to the query behind it: widget title, Analytics search and dashboard. An expired or unknown code returns 404.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Code of the share link, the last path segment of `https://api.tsuga.com/v0/widget-shares/<orgId>/<id>`.
@@ -52,7 +52,7 @@ func (r WidgetSharesAPIGetWidgetShareRequest) Execute() (*GetWidgetShareResponse
 /*
 GetWidgetShare Method for GetWidgetShare
 
-Retrieves the query behind a widget share link. Use this to recover the widget title, Analytics search, and dashboard of a link whose unfurl only shows an image. An expired or unknown code returns 404.
+Resolves a widget share link, whose unfurl only shows an image, to the query behind it: widget title, Analytics search and dashboard. An expired or unknown code returns 404.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Code of the share link, the last path segment of `https://api.tsuga.com/v0/widget-shares/<orgId>/<id>`.

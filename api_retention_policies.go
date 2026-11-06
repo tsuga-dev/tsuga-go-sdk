@@ -67,7 +67,7 @@ type RetentionPoliciesAPI interface {
 	/*
 		ListRetentionPolicies Method for ListRetentionPolicies
 
-		Lists retention policy rows visible to the authenticated operation key. Use this to audit retention duration by signal, environment, and team.
+		Lists retention policies: how long logs, traces and other telemetry are kept, by signal, environment and team.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return RetentionPoliciesAPIListRetentionPoliciesRequest
@@ -504,7 +504,7 @@ func (r RetentionPoliciesAPIListRetentionPoliciesRequest) Execute() (*ListRetent
 /*
 ListRetentionPolicies Method for ListRetentionPolicies
 
-Lists retention policy rows visible to the authenticated operation key. Use this to audit retention duration by signal, environment, and team.
+Lists retention policies: how long logs, traces and other telemetry are kept, by signal, environment and team.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return RetentionPoliciesAPIListRetentionPoliciesRequest

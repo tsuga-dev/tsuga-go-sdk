@@ -22,7 +22,7 @@ type InterestingFieldsAPI interface {
 	/*
 		GetInterestingFields Method for GetInterestingFields
 
-		Ranks the telemetry fields most relevant to a scope, mined from how the org already uses them in dashboards and monitors, bucketed by logs, traces, and metrics. Use this before guessing a field or metric name: a field that many scope-matching dashboards group or filter on is the one an operator would reach for. Ranking is TF-IDF style, so a field used everywhere in the org scores below one that is distinctive to the scope. Dashboards and monitors the caller cannot read never contribute field names, only the anonymous frequency baseline. The operation requires public API read access to dashboards and monitors.
+		Ranks the log, trace and metric fields most used for a scope, such as one service, in the organization's dashboards and monitors: which attribute to filter or group by, which metric to chart. Ranking is TF-IDF style, so a field used everywhere scores below one distinctive to the scope. Assets the caller cannot read only feed an anonymous frequency baseline. Requires public API read access to dashboards and monitors.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return InterestingFieldsAPIGetInterestingFieldsRequest
@@ -56,7 +56,7 @@ func (r InterestingFieldsAPIGetInterestingFieldsRequest) Execute() (*GetInterest
 /*
 GetInterestingFields Method for GetInterestingFields
 
-Ranks the telemetry fields most relevant to a scope, mined from how the org already uses them in dashboards and monitors, bucketed by logs, traces, and metrics. Use this before guessing a field or metric name: a field that many scope-matching dashboards group or filter on is the one an operator would reach for. Ranking is TF-IDF style, so a field used everywhere in the org scores below one that is distinctive to the scope. Dashboards and monitors the caller cannot read never contribute field names, only the anonymous frequency baseline. The operation requires public API read access to dashboards and monitors.
+Ranks the log, trace and metric fields most used for a scope, such as one service, in the organization's dashboards and monitors: which attribute to filter or group by, which metric to chart. Ranking is TF-IDF style, so a field used everywhere scores below one distinctive to the scope. Assets the caller cannot read only feed an anonymous frequency baseline. Requires public API read access to dashboards and monitors.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return InterestingFieldsAPIGetInterestingFieldsRequest

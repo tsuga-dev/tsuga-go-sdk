@@ -23,7 +23,7 @@ type RoutesAPI interface {
 	/*
 		CreateRoute Method for CreateRoute
 
-		Creates a log route at the end of the evaluation order. Routes affect only newly ingested logs after the cluster receives the updated configuration.
+		Creates a log route, an ingest pipeline that parses, maps and enriches incoming logs, at the end of the evaluation order. It applies only to logs ingested after the cluster receives the updated configuration. Test Grok rules before saving with the Grok parse endpoint.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return RoutesAPICreateRouteRequest
@@ -67,7 +67,7 @@ type RoutesAPI interface {
 	/*
 		ListRoutes Method for ListRoutes
 
-		Lists log routes visible to the authenticated operation key. Returned routes are ordered by evaluation order, with earlier routes evaluated first. Use this to inventory ingest-time processing definitions and owners. Pagination fields limit the returned page.
+		Lists log routes: ingest pipelines of log processors that parse (Grok, key-value, URL, user agent, GeoIP), map and enrich incoming logs, in evaluation order, earlier routes first.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return RoutesAPIListRoutesRequest
@@ -116,7 +116,7 @@ func (r RoutesAPICreateRouteRequest) Execute() (*CreateRouteResponse, *http.Resp
 /*
 CreateRoute Method for CreateRoute
 
-Creates a log route at the end of the evaluation order. Routes affect only newly ingested logs after the cluster receives the updated configuration.
+Creates a log route, an ingest pipeline that parses, maps and enriches incoming logs, at the end of the evaluation order. It applies only to logs ingested after the cluster receives the updated configuration. Test Grok rules before saving with the Grok parse endpoint.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return RoutesAPICreateRouteRequest
@@ -518,7 +518,7 @@ func (r RoutesAPIListRoutesRequest) Execute() (*ListRoutesResponse, *http.Respon
 /*
 ListRoutes Method for ListRoutes
 
-Lists log routes visible to the authenticated operation key. Returned routes are ordered by evaluation order, with earlier routes evaluated first. Use this to inventory ingest-time processing definitions and owners. Pagination fields limit the returned page.
+Lists log routes: ingest pipelines of log processors that parse (Grok, key-value, URL, user agent, GeoIP), map and enrich incoming logs, in evaluation order, earlier routes first.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return RoutesAPIListRoutesRequest

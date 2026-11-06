@@ -23,7 +23,7 @@ type NotificationIntegrationsAPI interface {
 	/*
 		CreateNotificationIntegration Method for CreateNotificationIntegration
 
-		Creates a non-OAuth notification integration that notification rules can target as a destination.
+		Creates a non-OAuth notification destination, such as PagerDuty or a webhook, that notification rules can target. Slack is connected through OAuth in the app instead.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return NotificationIntegrationsAPICreateNotificationIntegrationRequest
@@ -67,7 +67,7 @@ type NotificationIntegrationsAPI interface {
 	/*
 		ListNotificationIntegrations Method for ListNotificationIntegrations
 
-		Lists non-OAuth notification integrations visible to the authenticated operation key. Slack integrations do not appear here because they are OAuth-based. Pagination fields limit the returned page.
+		Lists notification destinations (integrations, contact points) such as PagerDuty, incident.io, Grafana IRM, Squadcast, ServiceNow, Jira, Microsoft Teams, Google Chat or webhooks. Slack integrations do not appear here because they are OAuth-based.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return NotificationIntegrationsAPIListNotificationIntegrationsRequest
@@ -116,7 +116,7 @@ func (r NotificationIntegrationsAPICreateNotificationIntegrationRequest) Execute
 /*
 CreateNotificationIntegration Method for CreateNotificationIntegration
 
-Creates a non-OAuth notification integration that notification rules can target as a destination.
+Creates a non-OAuth notification destination, such as PagerDuty or a webhook, that notification rules can target. Slack is connected through OAuth in the app instead.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return NotificationIntegrationsAPICreateNotificationIntegrationRequest
@@ -518,7 +518,7 @@ func (r NotificationIntegrationsAPIListNotificationIntegrationsRequest) Execute(
 /*
 ListNotificationIntegrations Method for ListNotificationIntegrations
 
-Lists non-OAuth notification integrations visible to the authenticated operation key. Slack integrations do not appear here because they are OAuth-based. Pagination fields limit the returned page.
+Lists notification destinations (integrations, contact points) such as PagerDuty, incident.io, Grafana IRM, Squadcast, ServiceNow, Jira, Microsoft Teams, Google Chat or webhooks. Slack integrations do not appear here because they are OAuth-based.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return NotificationIntegrationsAPIListNotificationIntegrationsRequest

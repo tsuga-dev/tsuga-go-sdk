@@ -23,7 +23,7 @@ type SlosAPI interface {
 	/*
 		CreateSlo Method for CreateSlo
 
-		Creates an SLO owned by the specified team. The SLO can be event-based (good/total queries) or time-based (a thresholded query over evaluation slices) depending on its configuration.
+		Creates an SLO (service level objective) owned by the specified team, with its alerts: event-based (good and total queries) or time-based (a thresholded query over evaluation slices).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return SlosAPICreateSloRequest
@@ -67,7 +67,7 @@ type SlosAPI interface {
 	/*
 		QuerySlos Method for QuerySlos
 
-		Queries SLOs visible to the authenticated operation key. Use this endpoint to inventory SLO definitions, filter by owner, tag, status, or cluster, and page through results.
+		Lists or searches SLOs (service level objectives, error budgets) by owner, tag, status or cluster.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return SlosAPIQuerySlosRequest
@@ -116,7 +116,7 @@ func (r SlosAPICreateSloRequest) Execute() (*CreateSloResponse, *http.Response, 
 /*
 CreateSlo Method for CreateSlo
 
-Creates an SLO owned by the specified team. The SLO can be event-based (good/total queries) or time-based (a thresholded query over evaluation slices) depending on its configuration.
+Creates an SLO (service level objective) owned by the specified team, with its alerts: event-based (good and total queries) or time-based (a thresholded query over evaluation slices).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return SlosAPICreateSloRequest
@@ -511,7 +511,7 @@ func (r SlosAPIQuerySlosRequest) Execute() (*QuerySlosResponse, *http.Response, 
 /*
 QuerySlos Method for QuerySlos
 
-Queries SLOs visible to the authenticated operation key. Use this endpoint to inventory SLO definitions, filter by owner, tag, status, or cluster, and page through results.
+Lists or searches SLOs (service level objectives, error budgets) by owner, tag, status or cluster.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return SlosAPIQuerySlosRequest

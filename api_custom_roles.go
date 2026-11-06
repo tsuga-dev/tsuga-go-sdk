@@ -67,7 +67,7 @@ type CustomRolesAPI interface {
 	/*
 		ListCustomRoles Method for ListCustomRoles
 
-		Lists every custom global role of the organization, ordered by name, with what each role grants.
+		Lists every custom global role (RBAC permissions, access control) of the organization, ordered by name, with what each role grants.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return CustomRolesAPIListCustomRolesRequest
@@ -504,7 +504,7 @@ func (r CustomRolesAPIListCustomRolesRequest) Execute() (*ListCustomRolesRespons
 /*
 ListCustomRoles Method for ListCustomRoles
 
-Lists every custom global role of the organization, ordered by name, with what each role grants.
+Lists every custom global role (RBAC permissions, access control) of the organization, ordered by name, with what each role grants.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CustomRolesAPIListCustomRolesRequest

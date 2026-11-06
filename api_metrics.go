@@ -23,7 +23,7 @@ type MetricsAPI interface {
 	/*
 		GetMetric Method for GetMetric
 
-		Retrieves metadata for one metric name. Use this to inspect available dimensions, supported query behavior, and the estimated series and per-attribute cardinalities for a metric. The cardinalities are the periodically refreshed estimates shown in Metric details, not counts over the window. Like the list endpoint, this answers from a cluster-wide catalog rather than the window: `from` and `to` are required but do not scope the result. See [Metric details](/documentation/explore/metrics/metric-details).
+		Returns one metric's metadata: its attributes (labels, dimensions, tags) with estimated cardinality, type, unit and supported query behavior. `from` and `to` are required but do not scope the result: it reads a cluster-wide catalog whose cardinalities are periodically refreshed estimates. See [Metric details](/documentation/explore/metrics/metric-details).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param name Metric name to retrieve, for example `http.server.request.duration`.
@@ -38,7 +38,7 @@ type MetricsAPI interface {
 	/*
 		GetMetricAssetsUsage Method for GetMetricAssetsUsage
 
-		Lists the dashboards and monitors whose queries reference a metric. Use this before renaming or dropping a metric. An empty result does not prove the metric is unused: PromQL widgets, SLOs and assets you cannot read are not covered. It tells which assets use the metric, not how: read the aggregation from the dashboard or monitor itself. See [How to find which assets use a metric](/documentation/explore/guides/how-to-find-which-assets-use-a-metric).
+		Lists the dashboards and monitors whose queries use a metric, before renaming or dropping it. An empty result does not prove the metric unused: PromQL widgets, SLOs and assets the caller cannot read are not covered. See [How to find which assets use a metric](/documentation/explore/guides/how-to-find-which-assets-use-a-metric).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return MetricsAPIGetMetricAssetsUsageRequest
@@ -52,7 +52,7 @@ type MetricsAPI interface {
 	/*
 		ListMetrics Method for ListMetrics
 
-		Lists metric names with metadata such as type, unit, temporality, capabilities, and estimated series cardinality. Use this to discover metric names before querying or graphing them, then get one metric for its attributes and their cardinalities. Results are sorted by name and paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`. This reads a cluster-wide catalog of names rather than the window: `from` and `to` are required but do not scope the result, and a name stays listed after the metric stops reporting. To find out whether a metric has data in a window, run a `count` aggregation over it. See [Metrics](/documentation/explore/metrics/index).
+		Lists or searches metric names with type, unit, temporality and estimated series cardinality, to find the metric to query. Metrics come from OpenTelemetry, Prometheus or cloud provider integrations (AWS CloudWatch, GCP Cloud Monitoring, Azure Monitor). `search` keeps the names containing a substring. `from` and `to` are required but do not scope the result, and a name stays listed after the metric stops reporting; to check for data in a window, run a `count` aggregation. Get one metric for its attributes. See [Metrics](/documentation/explore/metrics/index).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return MetricsAPIListMetricsRequest
@@ -101,7 +101,7 @@ func (r MetricsAPIGetMetricRequest) Execute() (*GetMetricResponse, *http.Respons
 /*
 GetMetric Method for GetMetric
 
-Retrieves metadata for one metric name. Use this to inspect available dimensions, supported query behavior, and the estimated series and per-attribute cardinalities for a metric. The cardinalities are the periodically refreshed estimates shown in Metric details, not counts over the window. Like the list endpoint, this answers from a cluster-wide catalog rather than the window: `from` and `to` are required but do not scope the result. See [Metric details](/documentation/explore/metrics/metric-details).
+Returns one metric's metadata: its attributes (labels, dimensions, tags) with estimated cardinality, type, unit and supported query behavior. `from` and `to` are required but do not scope the result: it reads a cluster-wide catalog whose cardinalities are periodically refreshed estimates. See [Metric details](/documentation/explore/metrics/metric-details).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Metric name to retrieve, for example `http.server.request.duration`.
@@ -261,7 +261,7 @@ func (r MetricsAPIGetMetricAssetsUsageRequest) Execute() (*GetMetricAssetsUsageR
 /*
 GetMetricAssetsUsage Method for GetMetricAssetsUsage
 
-Lists the dashboards and monitors whose queries reference a metric. Use this before renaming or dropping a metric. An empty result does not prove the metric is unused: PromQL widgets, SLOs and assets you cannot read are not covered. It tells which assets use the metric, not how: read the aggregation from the dashboard or monitor itself. See [How to find which assets use a metric](/documentation/explore/guides/how-to-find-which-assets-use-a-metric).
+Lists the dashboards and monitors whose queries use a metric, before renaming or dropping it. An empty result does not prove the metric unused: PromQL widgets, SLOs and assets the caller cannot read are not covered. See [How to find which assets use a metric](/documentation/explore/guides/how-to-find-which-assets-use-a-metric).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MetricsAPIGetMetricAssetsUsageRequest
@@ -434,7 +434,7 @@ func (r MetricsAPIListMetricsRequest) Execute() (*ListMetricsResponse, *http.Res
 /*
 ListMetrics Method for ListMetrics
 
-Lists metric names with metadata such as type, unit, temporality, capabilities, and estimated series cardinality. Use this to discover metric names before querying or graphing them, then get one metric for its attributes and their cardinalities. Results are sorted by name and paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`. This reads a cluster-wide catalog of names rather than the window: `from` and `to` are required but do not scope the result, and a name stays listed after the metric stops reporting. To find out whether a metric has data in a window, run a `count` aggregation over it. See [Metrics](/documentation/explore/metrics/index).
+Lists or searches metric names with type, unit, temporality and estimated series cardinality, to find the metric to query. Metrics come from OpenTelemetry, Prometheus or cloud provider integrations (AWS CloudWatch, GCP Cloud Monitoring, Azure Monitor). `search` keeps the names containing a substring. `from` and `to` are required but do not scope the result, and a name stays listed after the metric stops reporting; to check for data in a window, run a `count` aggregation. Get one metric for its attributes. See [Metrics](/documentation/explore/metrics/index).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MetricsAPIListMetricsRequest

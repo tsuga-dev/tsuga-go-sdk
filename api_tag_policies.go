@@ -67,7 +67,7 @@ type TagPoliciesAPI interface {
 	/*
 		ListTagPolicies Method for ListTagPolicies
 
-		Lists tag policies visible to the authenticated operation key. Use this to audit required tags, allowed values, team scope, and whether each policy applies to assets or telemetry.
+		Lists tag policies: required tags and allowed values enforced on assets or telemetry, with their team scope.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return TagPoliciesAPIListTagPoliciesRequest
@@ -504,7 +504,7 @@ func (r TagPoliciesAPIListTagPoliciesRequest) Execute() (*ListTagPoliciesRespons
 /*
 ListTagPolicies Method for ListTagPolicies
 
-Lists tag policies visible to the authenticated operation key. Use this to audit required tags, allowed values, team scope, and whether each policy applies to assets or telemetry.
+Lists tag policies: required tags and allowed values enforced on assets or telemetry, with their team scope.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TagPoliciesAPIListTagPoliciesRequest

@@ -67,7 +67,7 @@ type OperationApiKeysAPI interface {
 	/*
 		ListOperationApiKeys Method for ListOperationApiKeys
 
-		Lists operation API keys visible to the caller. Use this to inventory machine clients, with their owners, scopes, and permissions. Pagination fields limit the returned page.
+		Lists operation API keys, the machine credentials of the public API, with their owner team, scope, permissions, tags and expiry. Only the last characters of each secret are returned. Keys that send telemetry are ingestion API keys.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return OperationApiKeysAPIListOperationApiKeysRequest
@@ -518,7 +518,7 @@ func (r OperationApiKeysAPIListOperationApiKeysRequest) Execute() (*ListOperatio
 /*
 ListOperationApiKeys Method for ListOperationApiKeys
 
-Lists operation API keys visible to the caller. Use this to inventory machine clients, with their owners, scopes, and permissions. Pagination fields limit the returned page.
+Lists operation API keys, the machine credentials of the public API, with their owner team, scope, permissions, tags and expiry. Only the last characters of each secret are returned. Keys that send telemetry are ingestion API keys.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return OperationApiKeysAPIListOperationApiKeysRequest

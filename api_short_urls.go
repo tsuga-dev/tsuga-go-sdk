@@ -23,7 +23,7 @@ type ShortUrlsAPI interface {
 	/*
 		GetShortUrl Method for GetShortUrl
 
-		Resolves a short link to the app URL it opens. Use this to recover the query, filters, and time range behind a link copied from the Logs or Traces page. An expired or unknown code returns 404.
+		Resolves a short link copied from the Logs or Traces page to the app URL it opens, which carries the query, filters and time range. An expired or unknown code returns 404.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Code of the short link, the last path segment of `https://app.tsuga.com/l/<id>`.
@@ -52,7 +52,7 @@ func (r ShortUrlsAPIGetShortUrlRequest) Execute() (*GetShortUrlResponse, *http.R
 /*
 GetShortUrl Method for GetShortUrl
 
-Resolves a short link to the app URL it opens. Use this to recover the query, filters, and time range behind a link copied from the Logs or Traces page. An expired or unknown code returns 404.
+Resolves a short link copied from the Logs or Traces page to the app URL it opens, which carries the query, filters and time range. An expired or unknown code returns 404.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Code of the short link, the last path segment of `https://app.tsuga.com/l/<id>`.

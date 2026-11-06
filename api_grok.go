@@ -22,7 +22,7 @@ type GrokAPI interface {
 	/*
 		ParseGrok Method for ParseGrok
 
-		Parses sample log lines with Grok rules and returns extracted fields, using the same Grok engine as the log route processor. Use this endpoint to author and test route Grok rules before saving them. The operation requires public API read access to log routes. A rule that fails to compile returns a 400 response with error code `GROK_RULE_VALIDATION_ERROR` and structured details in `error.details.ruleErrors`.
+		Tests Grok parsing rules on sample log lines and returns the extracted fields, with the engine log routes use. Requires read access to log routes. A rule that fails to compile returns a 400 with error code `GROK_RULE_VALIDATION_ERROR` and per-rule details in `error.details.ruleErrors`.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return GrokAPIParseGrokRequest
@@ -56,7 +56,7 @@ func (r GrokAPIParseGrokRequest) Execute() (*ParseGrokResponse, *http.Response, 
 /*
 ParseGrok Method for ParseGrok
 
-Parses sample log lines with Grok rules and returns extracted fields, using the same Grok engine as the log route processor. Use this endpoint to author and test route Grok rules before saving them. The operation requires public API read access to log routes. A rule that fails to compile returns a 400 response with error code `GROK_RULE_VALIDATION_ERROR` and structured details in `error.details.ruleErrors`.
+Tests Grok parsing rules on sample log lines and returns the extracted fields, with the engine log routes use. Requires read access to log routes. A rule that fails to compile returns a 400 with error code `GROK_RULE_VALIDATION_ERROR` and per-rule details in `error.details.ruleErrors`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return GrokAPIParseGrokRequest

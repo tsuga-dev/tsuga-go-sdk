@@ -67,7 +67,7 @@ type CustomUsageTagsAPI interface {
 	/*
 		ListCustomUsageTags Method for ListCustomUsageTags
 
-		Lists custom usage tag keys configured for the organization. Use this to understand which telemetry tags are available for usage reporting.
+		Lists the custom usage tag keys of the organization: telemetry tag keys tracked as extra dimensions for usage reporting and allocation.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return CustomUsageTagsAPIListCustomUsageTagsRequest
@@ -489,7 +489,7 @@ func (r CustomUsageTagsAPIListCustomUsageTagsRequest) Execute() (*ListCustomUsag
 /*
 ListCustomUsageTags Method for ListCustomUsageTags
 
-Lists custom usage tag keys configured for the organization. Use this to understand which telemetry tags are available for usage reporting.
+Lists the custom usage tag keys of the organization: telemetry tag keys tracked as extra dimensions for usage reporting and allocation.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CustomUsageTagsAPIListCustomUsageTagsRequest

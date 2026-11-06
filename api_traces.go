@@ -23,7 +23,7 @@ type TracesAPI interface {
 	/*
 		FindContrastSets Method for FindContrastSets
 
-		Compares a target group of spans against a baseline group and returns the attribute values that are over-represented in the target. Use it to answer "what do these spans have in common that the others do not": erroring spans against healthy ones for a service, slow spans against normal-latency ones, or the same spans before and after a deployment. Each group carries its own time range, so a before/after comparison is one call. See [Traces](/documentation/explore/traces).
+		Finds what failing or slow requests have in common that healthy ones do not, for example errors against successes, or before and after a change: compares a target span group with a baseline and returns the attribute values over-represented in the target. Each group has its own time range, so a before/after comparison is one call. See [Traces](/documentation/explore/traces).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return TracesAPIFindContrastSetsRequest
@@ -37,7 +37,7 @@ type TracesAPI interface {
 	/*
 		GetTraceLatencySummary Method for GetTraceLatencySummary
 
-		Summarizes where wall-clock time is spent in a trace, attributing each slice of the trace timeline to the services with active leaf spans. Returns per-service totals and an optional sequential range timeline. See [Traces](/documentation/explore/traces).
+		Finds where the time went in one trace (bottleneck, critical path): wall-clock time attributed to the services with active leaf spans, as per-service totals and an optional sequential timeline. For the spans themselves, use the trace summary. See [Traces](/documentation/explore/traces).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return TracesAPIGetTraceLatencySummaryRequest
@@ -51,7 +51,7 @@ type TracesAPI interface {
 	/*
 		SearchSpans Method for SearchSpans
 
-		Searches spans in a required time range using Tsuga query syntax. Use this endpoint to retrieve trace spans for investigations or automation. See [Traces](/documentation/explore/traces) and [Query syntax](/documentation/explore/query-syntax).
+		Searches trace spans (APM requests and operations) in a time range with Tsuga query syntax, for example the slow or failing requests of a service. For one whole trace, use the trace summary; for counts or latency percentiles, an aggregation. See [Traces](/documentation/explore/traces) and [Query syntax](/documentation/explore/query-syntax).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return TracesAPISearchSpansRequest
@@ -65,7 +65,7 @@ type TracesAPI interface {
 	/*
 		SummarizeTrace Method for SummarizeTrace
 
-		Summarizes a trace by aggregating groups of similar spans into synthetic summary spans, producing a compact view of large traces. Summary spans are marked with `span_attributes.aggregation.is_summary` and carry span counts, duration statistics, and an optional latency histogram. See [Traces](/documentation/explore/traces).
+		Returns one trace by trace ID as a compact set of spans: similar spans are merged into summary spans with counts and duration statistics, so large traces fit. Summary spans carry `span_attributes.aggregation.is_summary`. For where the time went, use the trace latency summary. See [Traces](/documentation/explore/traces).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return TracesAPISummarizeTraceRequest
@@ -106,7 +106,7 @@ func (r TracesAPIFindContrastSetsRequest) Execute() (*FindContrastSetsResponse, 
 /*
 FindContrastSets Method for FindContrastSets
 
-Compares a target group of spans against a baseline group and returns the attribute values that are over-represented in the target. Use it to answer "what do these spans have in common that the others do not": erroring spans against healthy ones for a service, slow spans against normal-latency ones, or the same spans before and after a deployment. Each group carries its own time range, so a before/after comparison is one call. See [Traces](/documentation/explore/traces).
+Finds what failing or slow requests have in common that healthy ones do not, for example errors against successes, or before and after a change: compares a target span group with a baseline and returns the attribute values over-represented in the target. Each group has its own time range, so a before/after comparison is one call. See [Traces](/documentation/explore/traces).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TracesAPIFindContrastSetsRequest
@@ -277,7 +277,7 @@ func (r TracesAPIGetTraceLatencySummaryRequest) Execute() (*GetTraceLatencySumma
 /*
 GetTraceLatencySummary Method for GetTraceLatencySummary
 
-Summarizes where wall-clock time is spent in a trace, attributing each slice of the trace timeline to the services with active leaf spans. Returns per-service totals and an optional sequential range timeline. See [Traces](/documentation/explore/traces).
+Finds where the time went in one trace (bottleneck, critical path): wall-clock time attributed to the services with active leaf spans, as per-service totals and an optional sequential timeline. For the spans themselves, use the trace summary. See [Traces](/documentation/explore/traces).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TracesAPIGetTraceLatencySummaryRequest
@@ -476,7 +476,7 @@ func (r TracesAPISearchSpansRequest) Execute() (*SearchSpansResponse, *http.Resp
 /*
 SearchSpans Method for SearchSpans
 
-Searches spans in a required time range using Tsuga query syntax. Use this endpoint to retrieve trace spans for investigations or automation. See [Traces](/documentation/explore/traces) and [Query syntax](/documentation/explore/query-syntax).
+Searches trace spans (APM requests and operations) in a time range with Tsuga query syntax, for example the slow or failing requests of a service. For one whole trace, use the trace summary; for counts or latency percentiles, an aggregation. See [Traces](/documentation/explore/traces) and [Query syntax](/documentation/explore/query-syntax).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TracesAPISearchSpansRequest
@@ -697,7 +697,7 @@ func (r TracesAPISummarizeTraceRequest) Execute() (*SummarizeTraceResponse, *htt
 /*
 SummarizeTrace Method for SummarizeTrace
 
-Summarizes a trace by aggregating groups of similar spans into synthetic summary spans, producing a compact view of large traces. Summary spans are marked with `span_attributes.aggregation.is_summary` and carry span counts, duration statistics, and an optional latency histogram. See [Traces](/documentation/explore/traces).
+Returns one trace by trace ID as a compact set of spans: similar spans are merged into summary spans with counts and duration statistics, so large traces fit. Summary spans carry `span_attributes.aggregation.is_summary`. For where the time went, use the trace latency summary. See [Traces](/documentation/explore/traces).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TracesAPISummarizeTraceRequest

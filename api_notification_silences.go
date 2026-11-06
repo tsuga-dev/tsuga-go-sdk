@@ -23,7 +23,7 @@ type NotificationSilencesAPI interface {
 	/*
 		CreateNotificationSilence Method for CreateNotificationSilence
 
-		Creates a notification silence. Matching notifications that have not yet been sent are suppressed as soon as the schedule becomes active, including ones already queued when the silence is created; monitor evaluation itself is not paused, so alerts still transition and are visible in the UI.
+		Creates a notification silence to mute alerts, for example during a maintenance window. Matching notifications not yet sent are suppressed while the schedule is active, including queued ones; monitors keep evaluating, so alerts still transition and show in the UI.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return NotificationSilencesAPICreateNotificationSilenceRequest
@@ -67,7 +67,7 @@ type NotificationSilencesAPI interface {
 	/*
 		ListNotificationSilences Method for ListNotificationSilences
 
-		Lists notification silences visible to the authenticated operation key. Use this endpoint to audit maintenance windows and notification muting rules.
+		Lists notification silences: muted alerts and maintenance windows, one-time or recurring weekly, matched by query, team, priority, transition or notification rule.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return NotificationSilencesAPIListNotificationSilencesRequest
@@ -116,7 +116,7 @@ func (r NotificationSilencesAPICreateNotificationSilenceRequest) Execute() (*Cre
 /*
 CreateNotificationSilence Method for CreateNotificationSilence
 
-Creates a notification silence. Matching notifications that have not yet been sent are suppressed as soon as the schedule becomes active, including ones already queued when the silence is created; monitor evaluation itself is not paused, so alerts still transition and are visible in the UI.
+Creates a notification silence to mute alerts, for example during a maintenance window. Matching notifications not yet sent are suppressed while the schedule is active, including queued ones; monitors keep evaluating, so alerts still transition and show in the UI.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return NotificationSilencesAPICreateNotificationSilenceRequest
@@ -504,7 +504,7 @@ func (r NotificationSilencesAPIListNotificationSilencesRequest) Execute() (*List
 /*
 ListNotificationSilences Method for ListNotificationSilences
 
-Lists notification silences visible to the authenticated operation key. Use this endpoint to audit maintenance windows and notification muting rules.
+Lists notification silences: muted alerts and maintenance windows, one-time or recurring weekly, matched by query, team, priority, transition or notification rule.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return NotificationSilencesAPIListNotificationSilencesRequest

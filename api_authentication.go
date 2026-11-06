@@ -22,7 +22,7 @@ type AuthenticationAPI interface {
 	/*
 		GetMe Method for GetMe
 
-		Retrieves the identity and access of the credential the request authenticated with. Use this to check which scope and permissions an operation API key carries before calling other endpoints, or to confirm which user an OAuth access token belongs to. Any valid public API credential can call this endpoint without additional resource permissions.
+		Returns who the request is authenticated as: for an operation API key, its name, owner team, scope, permissions and expiry; for an OAuth access token, the user, organization and role. Any valid public API credential can call it, without resource permissions.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return AuthenticationAPIGetMeRequest
@@ -49,7 +49,7 @@ func (r AuthenticationAPIGetMeRequest) Execute() (*GetMeResponse, *http.Response
 /*
 GetMe Method for GetMe
 
-Retrieves the identity and access of the credential the request authenticated with. Use this to check which scope and permissions an operation API key carries before calling other endpoints, or to confirm which user an OAuth access token belongs to. Any valid public API credential can call this endpoint without additional resource permissions.
+Returns who the request is authenticated as: for an operation API key, its name, owner team, scope, permissions and expiry; for an OAuth access token, the user, organization and role. Any valid public API credential can call it, without resource permissions.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AuthenticationAPIGetMeRequest

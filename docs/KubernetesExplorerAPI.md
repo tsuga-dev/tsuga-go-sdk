@@ -325,7 +325,7 @@ import (
 func main() {
 	clusterId := "clusterId_example" // string | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. (optional)
 	search := "search_example" // string | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, `.` and `-` are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. (optional)
-	sortBy := "sortBy_example" // string | Field to sort results by. (optional)
+	sortBy := "sortBy_example" // string | Field to sort results by. Without it the order is not stable between requests, so set it when paging with `offset`. (optional)
 	sortDirection := "sortDirection_example" // string | Sort direction: ascending or descending. (optional)
 	limit := int32(56) // int32 | Maximum number of items to return in this page. Omit to use the public API default of 100. (optional) (default to 100)
 	offset := int32(56) // int32 | Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0. (optional)
@@ -355,7 +355,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **clusterId** | **string** | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. | 
  **search** | **string** | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, &#x60;.&#x60; and &#x60;-&#x60; are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. | 
- **sortBy** | **string** | Field to sort results by. | 
+ **sortBy** | **string** | Field to sort results by. Without it the order is not stable between requests, so set it when paging with &#x60;offset&#x60;. | 
  **sortDirection** | **string** | Sort direction: ascending or descending. | 
  **limit** | **int32** | Maximum number of items to return in this page. Omit to use the public API default of 100. | [default to 100]
  **offset** | **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | 
@@ -401,7 +401,7 @@ import (
 func main() {
 	clusterId := "clusterId_example" // string | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. (optional)
 	search := "search_example" // string | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, `.` and `-` are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. (optional)
-	sortBy := "sortBy_example" // string | Field to sort results by. (optional)
+	sortBy := "sortBy_example" // string | Field to sort results by. Without it the order is not stable between requests, so set it when paging with `offset`. (optional)
 	sortDirection := "sortDirection_example" // string | Sort direction: ascending or descending. (optional)
 	limit := int32(56) // int32 | Maximum number of items to return in this page. Omit to use the public API default of 100. (optional) (default to 100)
 	offset := int32(56) // int32 | Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0. (optional)
@@ -431,7 +431,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **clusterId** | **string** | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. | 
  **search** | **string** | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, &#x60;.&#x60; and &#x60;-&#x60; are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. | 
- **sortBy** | **string** | Field to sort results by. | 
+ **sortBy** | **string** | Field to sort results by. Without it the order is not stable between requests, so set it when paging with &#x60;offset&#x60;. | 
  **sortDirection** | **string** | Sort direction: ascending or descending. | 
  **limit** | **int32** | Maximum number of items to return in this page. Omit to use the public API default of 100. | [default to 100]
  **offset** | **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | 
@@ -557,7 +557,7 @@ import (
 func main() {
 	clusterId := "clusterId_example" // string | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. (optional)
 	search := "search_example" // string | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, `.` and `-` are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. (optional)
-	sortBy := "sortBy_example" // string | Field to sort results by. (optional)
+	sortBy := "sortBy_example" // string | Field to sort results by. Without it the order is not stable between requests, so set it when paging with `offset`. (optional)
 	sortDirection := "sortDirection_example" // string | Sort direction: ascending or descending. (optional)
 	limit := int32(56) // int32 | Maximum number of items to return in this page. Omit to use the public API default of 100. (optional) (default to 100)
 	offset := int32(56) // int32 | Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0. (optional)
@@ -587,7 +587,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **clusterId** | **string** | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. | 
  **search** | **string** | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, &#x60;.&#x60; and &#x60;-&#x60; are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. | 
- **sortBy** | **string** | Field to sort results by. | 
+ **sortBy** | **string** | Field to sort results by. Without it the order is not stable between requests, so set it when paging with &#x60;offset&#x60;. | 
  **sortDirection** | **string** | Sort direction: ascending or descending. | 
  **limit** | **int32** | Maximum number of items to return in this page. Omit to use the public API default of 100. | [default to 100]
  **offset** | **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | 
@@ -633,7 +633,7 @@ import (
 func main() {
 	clusterId := "clusterId_example" // string | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. (optional)
 	search := "search_example" // string | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, `.` and `-` are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. (optional)
-	sortBy := "sortBy_example" // string | Field to sort results by. (optional)
+	sortBy := "sortBy_example" // string | Field to sort results by. Without it the order is not stable between requests, so set it when paging with `offset`. (optional)
 	sortDirection := "sortDirection_example" // string | Sort direction: ascending or descending. (optional)
 	limit := int32(56) // int32 | Maximum number of items to return in this page. Omit to use the public API default of 100. (optional) (default to 100)
 	offset := int32(56) // int32 | Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0. (optional)
@@ -663,7 +663,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **clusterId** | **string** | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. | 
  **search** | **string** | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, &#x60;.&#x60; and &#x60;-&#x60; are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. | 
- **sortBy** | **string** | Field to sort results by. | 
+ **sortBy** | **string** | Field to sort results by. Without it the order is not stable between requests, so set it when paging with &#x60;offset&#x60;. | 
  **sortDirection** | **string** | Sort direction: ascending or descending. | 
  **limit** | **int32** | Maximum number of items to return in this page. Omit to use the public API default of 100. | [default to 100]
  **offset** | **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | 
@@ -709,7 +709,7 @@ import (
 func main() {
 	clusterId := "clusterId_example" // string | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. (optional)
 	search := "search_example" // string | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, `.` and `-` are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. (optional)
-	sortBy := "sortBy_example" // string | Field to sort results by. (optional)
+	sortBy := "sortBy_example" // string | Field to sort results by. Without it the order is not stable between requests, so set it when paging with `offset`. (optional)
 	sortDirection := "sortDirection_example" // string | Sort direction: ascending or descending. (optional)
 	limit := int32(56) // int32 | Maximum number of items to return in this page. Omit to use the public API default of 100. (optional) (default to 100)
 	offset := int32(56) // int32 | Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0. (optional)
@@ -739,7 +739,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **clusterId** | **string** | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. | 
  **search** | **string** | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, &#x60;.&#x60; and &#x60;-&#x60; are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. | 
- **sortBy** | **string** | Field to sort results by. | 
+ **sortBy** | **string** | Field to sort results by. Without it the order is not stable between requests, so set it when paging with &#x60;offset&#x60;. | 
  **sortDirection** | **string** | Sort direction: ascending or descending. | 
  **limit** | **int32** | Maximum number of items to return in this page. Omit to use the public API default of 100. | [default to 100]
  **offset** | **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | 
@@ -785,7 +785,7 @@ import (
 func main() {
 	clusterId := "clusterId_example" // string | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. (optional)
 	search := "search_example" // string | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, `.` and `-` are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. (optional)
-	sortBy := "sortBy_example" // string | Field to sort results by. (optional)
+	sortBy := "sortBy_example" // string | Field to sort results by. Without it the order is not stable between requests, so set it when paging with `offset`. (optional)
 	sortDirection := "sortDirection_example" // string | Sort direction: ascending or descending. (optional)
 	limit := int32(56) // int32 | Maximum number of items to return in this page. Omit to use the public API default of 100. (optional) (default to 100)
 	offset := int32(56) // int32 | Zero-based index of the first matching item to return. Increase it with `limit` to request later pages. If `limit` is provided without `offset`, the offset defaults to 0. (optional)
@@ -815,7 +815,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **clusterId** | **string** | Tsuga cluster ID to target. Tsuga assigns it when a cluster is connected to the organization. Optional for single-cluster organizations and required for organizations with multiple clusters to scope the request to one cluster. | 
  **search** | **string** | Substring matched against the resource name. Kubernetes names are lowercase RFC 1123, so only lowercase letters, digits, &#x60;.&#x60; and &#x60;-&#x60; are accepted; uppercase and other characters are rejected. Wildcard and other query-syntax characters are treated literally. | 
- **sortBy** | **string** | Field to sort results by. | 
+ **sortBy** | **string** | Field to sort results by. Without it the order is not stable between requests, so set it when paging with &#x60;offset&#x60;. | 
  **sortDirection** | **string** | Sort direction: ascending or descending. | 
  **limit** | **int32** | Maximum number of items to return in this page. Omit to use the public API default of 100. | [default to 100]
  **offset** | **int32** | Zero-based index of the first matching item to return. Increase it with &#x60;limit&#x60; to request later pages. If &#x60;limit&#x60; is provided without &#x60;offset&#x60;, the offset defaults to 0. | 

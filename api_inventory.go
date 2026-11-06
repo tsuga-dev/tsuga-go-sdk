@@ -67,7 +67,7 @@ type InventoryAPI interface {
 	/*
 		ListCloudAccounts Method for ListCloudAccounts
 
-		Lists cloud accounts connected to Tsuga that the authenticated operation key can read.
+		Lists the cloud accounts connected to Tsuga (AWS accounts, GCP projects, Azure subscriptions), with provider and display name.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return InventoryAPIListCloudAccountsRequest
@@ -81,7 +81,7 @@ type InventoryAPI interface {
 	/*
 		QueryInventoryResources Method for QueryInventoryResources
 
-		Queries cloud resources discovered by inventory scans, with optional filters, sorting, and pagination. Use this endpoint to build infrastructure inventories across connected cloud accounts.
+		Lists or searches cloud resources (AWS, GCP or Azure, for example EC2 instances or S3 buckets) found by inventory scans of connected cloud accounts, by platform, account, region, resource type, tag or infrastructure-as-code coverage.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return InventoryAPIQueryInventoryResourcesRequest
@@ -517,7 +517,7 @@ func (r InventoryAPIListCloudAccountsRequest) Execute() (*ListCloudAccountsRespo
 /*
 ListCloudAccounts Method for ListCloudAccounts
 
-Lists cloud accounts connected to Tsuga that the authenticated operation key can read.
+Lists the cloud accounts connected to Tsuga (AWS accounts, GCP projects, Azure subscriptions), with provider and display name.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return InventoryAPIListCloudAccountsRequest
@@ -645,7 +645,7 @@ func (r InventoryAPIQueryInventoryResourcesRequest) Execute() (*QueryInventoryRe
 /*
 QueryInventoryResources Method for QueryInventoryResources
 
-Queries cloud resources discovered by inventory scans, with optional filters, sorting, and pagination. Use this endpoint to build infrastructure inventories across connected cloud accounts.
+Lists or searches cloud resources (AWS, GCP or Azure, for example EC2 instances or S3 buckets) found by inventory scans of connected cloud accounts, by platform, account, region, resource type, tag or infrastructure-as-code coverage.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return InventoryAPIQueryInventoryResourcesRequest

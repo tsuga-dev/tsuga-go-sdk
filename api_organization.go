@@ -22,7 +22,7 @@ type OrganizationAPI interface {
 	/*
 		GetAllowedDomains Method for GetAllowedDomains
 
-		Retrieves the email domains whose users are allowed to join the organization. Use this to audit domain-based membership controls.
+		Returns the email domains whose users are allowed to join the organization.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return OrganizationAPIGetAllowedDomainsRequest
@@ -63,7 +63,7 @@ func (r OrganizationAPIGetAllowedDomainsRequest) Execute() (*GetAllowedDomainsRe
 /*
 GetAllowedDomains Method for GetAllowedDomains
 
-Retrieves the email domains whose users are allowed to join the organization. Use this to audit domain-based membership controls.
+Returns the email domains whose users are allowed to join the organization.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return OrganizationAPIGetAllowedDomainsRequest

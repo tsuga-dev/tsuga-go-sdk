@@ -67,7 +67,7 @@ type IngestionApiKeysAPI interface {
 	/*
 		ListIngestionApiKeys Method for ListIngestionApiKeys
 
-		Lists ingestion API keys visible to the authenticated operation key. Use this to inventory telemetry intake keys, owners, tags, and team override fields. Pagination fields limit the returned page.
+		Lists ingestion API keys, the credentials collectors, agents, SDKs and HTTP clients use to send telemetry to Tsuga, with their owners, tags and team override fields.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return IngestionApiKeysAPIListIngestionApiKeysRequest
@@ -518,7 +518,7 @@ func (r IngestionApiKeysAPIListIngestionApiKeysRequest) Execute() (*ListIngestio
 /*
 ListIngestionApiKeys Method for ListIngestionApiKeys
 
-Lists ingestion API keys visible to the authenticated operation key. Use this to inventory telemetry intake keys, owners, tags, and team override fields. Pagination fields limit the returned page.
+Lists ingestion API keys, the credentials collectors, agents, SDKs and HTTP clients use to send telemetry to Tsuga, with their owners, tags and team override fields.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IngestionApiKeysAPIListIngestionApiKeysRequest

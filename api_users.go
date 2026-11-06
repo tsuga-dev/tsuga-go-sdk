@@ -38,7 +38,7 @@ type UsersAPI interface {
 	/*
 		ListUsers Method for ListUsers
 
-		Lists users visible to the authenticated operation key. Use this to resolve user IDs before managing team memberships or invitations.
+		Lists the users of the organization with their ID, email, name and organization role. Team memberships have their own endpoint.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return UsersAPIListUsersRequest
@@ -196,7 +196,7 @@ func (r UsersAPIListUsersRequest) Execute() (*ListUsersResponse, *http.Response,
 /*
 ListUsers Method for ListUsers
 
-Lists users visible to the authenticated operation key. Use this to resolve user IDs before managing team memberships or invitations.
+Lists the users of the organization with their ID, email, name and organization role. Team memberships have their own endpoint.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return UsersAPIListUsersRequest

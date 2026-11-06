@@ -22,7 +22,7 @@ type ClustersAPI interface {
 	/*
 		ListClusters Method for ListClusters
 
-		Lists Tsuga clusters available to the organization. Use cluster IDs with public API requests that accept `clusterId`, such as telemetry, service, Kubernetes Explorer, and quality-report requests.
+		Lists the Tsuga clusters of the organization, with cloud provider and region: the `clusterId` values other requests accept. These are not Kubernetes clusters.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return ClustersAPIListClustersRequest
@@ -49,7 +49,7 @@ func (r ClustersAPIListClustersRequest) Execute() (*ListClustersResponse, *http.
 /*
 ListClusters Method for ListClusters
 
-Lists Tsuga clusters available to the organization. Use cluster IDs with public API requests that accept `clusterId`, such as telemetry, service, Kubernetes Explorer, and quality-report requests.
+Lists the Tsuga clusters of the organization, with cloud provider and region: the `clusterId` values other requests accept. These are not Kubernetes clusters.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ClustersAPIListClustersRequest

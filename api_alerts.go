@@ -22,7 +22,7 @@ type AlertsAPI interface {
 	/*
 		QueryOngoingAlerts Method for QueryOngoingAlerts
 
-		Queries alerts that are currently open and visible to the authenticated user. Each monitor alert embeds the monitor configuration and the group-by values that triggered it, which together are enough to rebuild the aggregation or log query behind the alert. Alerts resolve on their own, so a transition ID that stops appearing has returned to OK. This operation requires an OAuth access token: alert visibility is resolved against the monitors and SLOs each user can read, and operation API keys carry no equivalent permission, so they are rejected with 403.
+		Lists the alerts currently open (firing) on the monitors and SLOs the user can read. Each monitor alert embeds the monitor configuration and the group-by values that triggered it, which together are enough to rebuild the aggregation or log query behind the alert. Alerts resolve on their own, so a transition ID that stops appearing has returned to OK. This operation requires an OAuth access token: alert visibility is resolved against the monitors and SLOs each user can read, and operation API keys carry no equivalent permission, so they are rejected with 403.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return AlertsAPIQueryOngoingAlertsRequest
@@ -56,7 +56,7 @@ func (r AlertsAPIQueryOngoingAlertsRequest) Execute() (*QueryOngoingAlertsRespon
 /*
 QueryOngoingAlerts Method for QueryOngoingAlerts
 
-Queries alerts that are currently open and visible to the authenticated user. Each monitor alert embeds the monitor configuration and the group-by values that triggered it, which together are enough to rebuild the aggregation or log query behind the alert. Alerts resolve on their own, so a transition ID that stops appearing has returned to OK. This operation requires an OAuth access token: alert visibility is resolved against the monitors and SLOs each user can read, and operation API keys carry no equivalent permission, so they are rejected with 403.
+Lists the alerts currently open (firing) on the monitors and SLOs the user can read. Each monitor alert embeds the monitor configuration and the group-by values that triggered it, which together are enough to rebuild the aggregation or log query behind the alert. Alerts resolve on their own, so a transition ID that stops appearing has returned to OK. This operation requires an OAuth access token: alert visibility is resolved against the monitors and SLOs each user can read, and operation API keys carry no equivalent permission, so they are rejected with 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AlertsAPIQueryOngoingAlertsRequest

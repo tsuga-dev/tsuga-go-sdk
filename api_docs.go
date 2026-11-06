@@ -22,7 +22,7 @@ type DocsAPI interface {
 	/*
 		GetDocPage Method for GetDocPage
 
-		Retrieve the raw markdown content of a documentation or API-reference page by its path or link. Documentation pages use slug paths (e.g. `getting-started/send-your-first-logs`); API-reference pages use `api/<operationId>` (e.g. `api/aggregateScalar`).
+		Retrieves the raw markdown of a documentation or API-reference page by path or link. Documentation pages use slug paths such as `getting-started/send-your-first-logs`; API-reference pages use `api/<operationId>`.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return DocsAPIGetDocPageRequest
@@ -36,7 +36,7 @@ type DocsAPI interface {
 	/*
 		SearchDocs Method for SearchDocs
 
-		Searches public documentation pages and API-reference endpoints. Use this to build help search or route users to Tsuga docs and API reference results. Results are ranked by relevance; an empty array means no page or endpoint matched the query.
+		Searches Tsuga documentation and API reference, covering product behavior, query syntax (Tsuga queries, PromQL), API fields, dashboard and widget schemas, setup, limits, gotchas and more. Results are ranked by relevance; an empty array means nothing matched.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return DocsAPISearchDocsRequest
@@ -70,7 +70,7 @@ func (r DocsAPIGetDocPageRequest) Execute() (*GetDocPageResponse, *http.Response
 /*
 GetDocPage Method for GetDocPage
 
-Retrieve the raw markdown content of a documentation or API-reference page by its path or link. Documentation pages use slug paths (e.g. `getting-started/send-your-first-logs`); API-reference pages use `api/<operationId>` (e.g. `api/aggregateScalar`).
+Retrieves the raw markdown of a documentation or API-reference page by path or link. Documentation pages use slug paths such as `getting-started/send-your-first-logs`; API-reference pages use `api/<operationId>`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DocsAPIGetDocPageRequest
@@ -208,7 +208,7 @@ func (r DocsAPISearchDocsRequest) Execute() (*SearchDocsResponse, *http.Response
 /*
 SearchDocs Method for SearchDocs
 
-Searches public documentation pages and API-reference endpoints. Use this to build help search or route users to Tsuga docs and API reference results. Results are ranked by relevance; an empty array means no page or endpoint matched the query.
+Searches Tsuga documentation and API reference, covering product behavior, query syntax (Tsuga queries, PromQL), API fields, dashboard and widget schemas, setup, limits, gotchas and more. Results are ranked by relevance; an empty array means nothing matched.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DocsAPISearchDocsRequest

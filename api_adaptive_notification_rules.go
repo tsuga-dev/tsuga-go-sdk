@@ -23,7 +23,7 @@ type AdaptiveNotificationRulesAPI interface {
 	/*
 		CreateAdaptiveNotificationRule Method for CreateAdaptiveNotificationRule
 
-		Creates an adaptive notification rule. Only trace monitors, metric monitors over OTel span metrics, and SLOs over traces or OTel span metrics are eligible.
+		Creates an adaptive notification rule that pages the owners of the failing service when a selected monitor or SLO fires. Only trace monitors, metric monitors over OTel span metrics, and SLOs over traces or OTel span metrics are eligible.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return AdaptiveNotificationRulesAPICreateAdaptiveNotificationRuleRequest
@@ -67,7 +67,7 @@ type AdaptiveNotificationRulesAPI interface {
 	/*
 		ListAdaptiveNotificationRules Method for ListAdaptiveNotificationRules
 
-		Lists adaptive notification rules visible to the authenticated operation key. Standard notification rules are listed by the notification rules endpoint. Pagination fields limit the returned page.
+		Lists adaptive notification rules: when a selected monitor or SLO fires, they page the owners of the failing service found in sampled traces, or a fallback target. Standard notification rules have their own endpoint.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return AdaptiveNotificationRulesAPIListAdaptiveNotificationRulesRequest
@@ -116,7 +116,7 @@ func (r AdaptiveNotificationRulesAPICreateAdaptiveNotificationRuleRequest) Execu
 /*
 CreateAdaptiveNotificationRule Method for CreateAdaptiveNotificationRule
 
-Creates an adaptive notification rule. Only trace monitors, metric monitors over OTel span metrics, and SLOs over traces or OTel span metrics are eligible.
+Creates an adaptive notification rule that pages the owners of the failing service when a selected monitor or SLO fires. Only trace monitors, metric monitors over OTel span metrics, and SLOs over traces or OTel span metrics are eligible.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AdaptiveNotificationRulesAPICreateAdaptiveNotificationRuleRequest
@@ -518,7 +518,7 @@ func (r AdaptiveNotificationRulesAPIListAdaptiveNotificationRulesRequest) Execut
 /*
 ListAdaptiveNotificationRules Method for ListAdaptiveNotificationRules
 
-Lists adaptive notification rules visible to the authenticated operation key. Standard notification rules are listed by the notification rules endpoint. Pagination fields limit the returned page.
+Lists adaptive notification rules: when a selected monitor or SLO fires, they page the owners of the failing service found in sampled traces, or a fallback target. Standard notification rules have their own endpoint.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AdaptiveNotificationRulesAPIListAdaptiveNotificationRulesRequest

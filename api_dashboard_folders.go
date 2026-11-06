@@ -67,7 +67,7 @@ type DashboardFoldersAPI interface {
 	/*
 		QueryDashboardFolders Method for QueryDashboardFolders
 
-		Queries dashboard folders visible to the authenticated operation key. Returns all folders unless the `parentFolderId` filter is set: pass a folder ID to select the children of that folder, or null to return only top-level folders. Results are ordered by most recently updated folder first unless `sort` is set, and include the number of readable dashboards in each folder and its readable subfolders. Use filters to narrow by owning team, name or ID substring, or tags.
+		Lists or searches dashboard folders by owning team, name or ID substring, tags or parent folder, with the number of readable dashboards in each folder and its readable subfolders. Returns every folder unless `parentFolderId` is set: a folder ID selects its children, null only top-level folders. Most recently updated first unless `sort` is set.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return DashboardFoldersAPIQueryDashboardFoldersRequest
@@ -511,7 +511,7 @@ func (r DashboardFoldersAPIQueryDashboardFoldersRequest) Execute() (*QueryDashbo
 /*
 QueryDashboardFolders Method for QueryDashboardFolders
 
-Queries dashboard folders visible to the authenticated operation key. Returns all folders unless the `parentFolderId` filter is set: pass a folder ID to select the children of that folder, or null to return only top-level folders. Results are ordered by most recently updated folder first unless `sort` is set, and include the number of readable dashboards in each folder and its readable subfolders. Use filters to narrow by owning team, name or ID substring, or tags.
+Lists or searches dashboard folders by owning team, name or ID substring, tags or parent folder, with the number of readable dashboards in each folder and its readable subfolders. Returns every folder unless `parentFolderId` is set: a folder ID selects its children, null only top-level folders. Most recently updated first unless `sort` is set.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DashboardFoldersAPIQueryDashboardFoldersRequest

@@ -23,7 +23,7 @@ type QualityReportsAPI interface {
 	/*
 		GetLatestQualityReport Method for GetLatestQualityReport
 
-		Retrieves the latest persisted quality-report rows for a cluster, optionally scoped to one team. Use this to audit telemetry hygiene and routing recommendations. A cluster holds one row per rule per team, so pagination fields limit the returned page.
+		Returns a cluster's latest quality report on telemetry and observability assets, optionally for one team: a score, findings and a recommendation per rule, covering telemetry hygiene, collection coverage, usage, and checks on routes, dashboards, monitors, API keys and tag policies. A cluster holds one row per rule per team.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return QualityReportsAPIGetLatestQualityReportRequest
@@ -37,7 +37,7 @@ type QualityReportsAPI interface {
 	/*
 		GetQualityReportExamples Method for GetQualityReportExamples
 
-		Retrieves a page of the examples stored for one quality-report row. The latest-report endpoint returns only a preview of each row's examples, so use this to page past that preview when exampleCount exceeds the number of examples returned there. The row's full example count is in `metadata.pagination.totalCount`.
+		Pages through the stored examples of one quality-report row, past the preview the latest report returns. The row's full example count is in `metadata.pagination.totalCount`.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Identifier of the quality-report row whose examples are returned. Use the id from the latest-report endpoint. Unknown ids, rows the caller cannot access, and cluster-wide rows requested by a non-admin all return RESOURCE_NOT_FOUND.
@@ -93,7 +93,7 @@ func (r QualityReportsAPIGetLatestQualityReportRequest) Execute() (*GetLatestQua
 /*
 GetLatestQualityReport Method for GetLatestQualityReport
 
-Retrieves the latest persisted quality-report rows for a cluster, optionally scoped to one team. Use this to audit telemetry hygiene and routing recommendations. A cluster holds one row per rule per team, so pagination fields limit the returned page.
+Returns a cluster's latest quality report on telemetry and observability assets, optionally for one team: a score, findings and a recommendation per rule, covering telemetry hygiene, collection coverage, usage, and checks on routes, dashboards, monitors, API keys and tag policies. A cluster holds one row per rule per team.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return QualityReportsAPIGetLatestQualityReportRequest
@@ -245,7 +245,7 @@ func (r QualityReportsAPIGetQualityReportExamplesRequest) Execute() (*GetQuality
 /*
 GetQualityReportExamples Method for GetQualityReportExamples
 
-Retrieves a page of the examples stored for one quality-report row. The latest-report endpoint returns only a preview of each row's examples, so use this to page past that preview when exampleCount exceeds the number of examples returned there. The row's full example count is in `metadata.pagination.totalCount`.
+Pages through the stored examples of one quality-report row, past the preview the latest report returns. The row's full example count is in `metadata.pagination.totalCount`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Identifier of the quality-report row whose examples are returned. Use the id from the latest-report endpoint. Unknown ids, rows the caller cannot access, and cluster-wide rows requested by a non-admin all return RESOURCE_NOT_FOUND.

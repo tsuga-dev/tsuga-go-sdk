@@ -22,7 +22,7 @@ type PromqlAPI interface {
 	/*
 		QueryPromql Method for QueryPromql
 
-		Runs a PromQL range query over Tsuga metric data and returns timeseries results. Authenticate with a bearer operation API key or OAuth access token that can read metrics. Send clusterId as a query parameter; multi-cluster organizations must provide it. See [How to write PromQL queries](/documentation/visualize/guides/how-to-write-promql-queries) for query syntax and examples.
+		Runs a PromQL (Prometheus query language) range query over metrics and returns timeseries. Use a metric name exactly as the metrics list returns it: names are not translated between OpenTelemetry dots and Prometheus underscores, and a dotted metric or label name must be quoted, as in `{"k8s.pod.memory.working_set"}`. See [How to write PromQL queries](/documentation/visualize/guides/how-to-write-promql-queries).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return PromqlAPIQueryPromqlRequest
@@ -36,7 +36,7 @@ type PromqlAPI interface {
 	/*
 		QueryPromqlV2 Method for QueryPromqlV2
 
-		Runs a PromQL range query over Tsuga metric data and returns one shared time axis in milliseconds with one series per group aligned to it. Same request and authentication as `POST /v1/promql`, with `timeRange` in milliseconds. See [How to write PromQL queries](/documentation/visualize/guides/how-to-write-promql-queries) for query syntax and examples.
+		Runs a PromQL range query over Tsuga metric data and returns one shared time axis in milliseconds with one series per group aligned to it. Same request as `POST /v1/promql`, with `timeRange` in milliseconds. See [How to write PromQL queries](/documentation/visualize/guides/how-to-write-promql-queries) for query syntax and examples.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return PromqlAPIQueryPromqlV2Request
@@ -77,7 +77,7 @@ func (r PromqlAPIQueryPromqlRequest) Execute() (*QueryPromqlResponse, *http.Resp
 /*
 QueryPromql Method for QueryPromql
 
-Runs a PromQL range query over Tsuga metric data and returns timeseries results. Authenticate with a bearer operation API key or OAuth access token that can read metrics. Send clusterId as a query parameter; multi-cluster organizations must provide it. See [How to write PromQL queries](/documentation/visualize/guides/how-to-write-promql-queries) for query syntax and examples.
+Runs a PromQL (Prometheus query language) range query over metrics and returns timeseries. Use a metric name exactly as the metrics list returns it: names are not translated between OpenTelemetry dots and Prometheus underscores, and a dotted metric or label name must be quoted, as in `{"k8s.pod.memory.working_set"}`. See [How to write PromQL queries](/documentation/visualize/guides/how-to-write-promql-queries).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return PromqlAPIQueryPromqlRequest
@@ -220,7 +220,7 @@ func (r PromqlAPIQueryPromqlV2Request) Execute() (*QueryPromqlV2Response, *http.
 /*
 QueryPromqlV2 Method for QueryPromqlV2
 
-Runs a PromQL range query over Tsuga metric data and returns one shared time axis in milliseconds with one series per group aligned to it. Same request and authentication as `POST /v1/promql`, with `timeRange` in milliseconds. See [How to write PromQL queries](/documentation/visualize/guides/how-to-write-promql-queries) for query syntax and examples.
+Runs a PromQL range query over Tsuga metric data and returns one shared time axis in milliseconds with one series per group aligned to it. Same request as `POST /v1/promql`, with `timeRange` in milliseconds. See [How to write PromQL queries](/documentation/visualize/guides/how-to-write-promql-queries) for query syntax and examples.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return PromqlAPIQueryPromqlV2Request

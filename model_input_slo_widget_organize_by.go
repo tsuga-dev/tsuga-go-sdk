@@ -14,7 +14,7 @@ import (
 	"fmt"
 )
 
-// InputSloWidgetOrganizeBy - Groups the results by owning team, or by the value of a tag key or group-by field. Omit it to list results ungrouped.
+// InputSloWidgetOrganizeBy - Groups the results by owning team, or by the value of a tag key or group-by field. Omit it to list results ungrouped. Only the `table` section is grouped, so include `table` in `display`.
 type InputSloWidgetOrganizeBy struct {
 	InputSloWidgetOrganizeByKey *InputSloWidgetOrganizeByKey
 	SloWidgetOrganizeByTeam     *SloWidgetOrganizeByTeam

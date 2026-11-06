@@ -23,7 +23,7 @@ type KubernetesExplorerAPI interface {
 	/*
 		GetKubernetesDeploymentDetails Method for GetKubernetesDeploymentDetails
 
-		Retrieves detailed information for a single Kubernetes deployment: replica status, backing pods, and rollout revisions with ready-to-use log filters.
+		Returns one Kubernetes deployment's replica status, backing pods and rollout revisions, with ready-to-use log filters.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return KubernetesExplorerAPIGetKubernetesDeploymentDetailsRequest
@@ -37,7 +37,7 @@ type KubernetesExplorerAPI interface {
 	/*
 		GetKubernetesPodDetails Method for GetKubernetesPodDetails
 
-		Retrieves metrics-derived information for a single Kubernetes pod: status, owning workload, CPU/memory metric identifiers, and ready-to-use log and trace filters. Manifest configuration, labels, and annotations are served by the pod-manifest endpoint.
+		Returns one Kubernetes pod's status, owning workload, CPU and memory metric names, and ready-to-use log and trace filters. The pod manifest endpoint serves its manifest, labels and annotations.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return KubernetesExplorerAPIGetKubernetesPodDetailsRequest
@@ -51,7 +51,7 @@ type KubernetesExplorerAPI interface {
 	/*
 		GetKubernetesPodManifest Method for GetKubernetesPodManifest
 
-		Retrieves the manifest-derived details for a single Kubernetes pod: the pod manifest spec, labels, and annotations from the pod's most recently observed manifest.
+		Returns one Kubernetes pod's manifest from its latest observation: the pod spec (containers, resource requests and limits), labels and annotations.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return KubernetesExplorerAPIGetKubernetesPodManifestRequest
@@ -65,7 +65,7 @@ type KubernetesExplorerAPI interface {
 	/*
 		ListKubernetesClusters Method for ListKubernetesClusters
 
-		Lists Kubernetes clusters observed across the organization with aggregate resource usage, node readiness, and pod phase counts.
+		Lists Kubernetes (k8s) clusters with node readiness, pod phase counts and resource usage. These are not Tsuga clusters, which the clusters list returns.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return KubernetesExplorerAPIListKubernetesClustersRequest
@@ -79,7 +79,7 @@ type KubernetesExplorerAPI interface {
 	/*
 		ListKubernetesDaemonSets Method for ListKubernetesDaemonSets
 
-		Lists Kubernetes DaemonSets observed across the organization with eligible-node readiness and aggregate resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
+		Lists Kubernetes (k8s) DaemonSets with eligible-node readiness and resource usage.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return KubernetesExplorerAPIListKubernetesDaemonSetsRequest
@@ -93,7 +93,7 @@ type KubernetesExplorerAPI interface {
 	/*
 		ListKubernetesDeployments Method for ListKubernetesDeployments
 
-		Lists Kubernetes deployments observed across the organization with replica counts and aggregate resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
+		Lists Kubernetes (k8s) deployments with replica counts and resource usage. For rollout history, get the deployment details.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return KubernetesExplorerAPIListKubernetesDeploymentsRequest
@@ -107,7 +107,7 @@ type KubernetesExplorerAPI interface {
 	/*
 		ListKubernetesEvents Method for ListKubernetesEvents
 
-		Lists the most recent Kubernetes events of the last 24 hours (from the latest 1000 event observations), newest first, with their type, reason, message, and the resource they are about. `search` matches the name of the resource the event is about.
+		Lists Kubernetes (k8s) events of the last 24 hours, newest first, such as BackOff or FailedScheduling warnings, with type, reason, message and the resource concerned. Reads the latest 1000 event observations; `search` matches the resource name.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return KubernetesExplorerAPIListKubernetesEventsRequest
@@ -121,7 +121,7 @@ type KubernetesExplorerAPI interface {
 	/*
 		ListKubernetesNamespaces Method for ListKubernetesNamespaces
 
-		Lists Kubernetes namespaces observed across the organization with pod counts and aggregate resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
+		Lists Kubernetes (k8s) namespaces with pod counts and resource usage.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return KubernetesExplorerAPIListKubernetesNamespacesRequest
@@ -135,7 +135,7 @@ type KubernetesExplorerAPI interface {
 	/*
 		ListKubernetesNodes Method for ListKubernetesNodes
 
-		Lists Kubernetes nodes observed across the organization with their readiness, instance type, and resource usage against allocatable capacity. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
+		Lists Kubernetes (k8s) nodes with readiness, instance type and resource usage against allocatable capacity.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return KubernetesExplorerAPIListKubernetesNodesRequest
@@ -149,7 +149,7 @@ type KubernetesExplorerAPI interface {
 	/*
 		ListKubernetesPods Method for ListKubernetesPods
 
-		Lists Kubernetes pods observed across the organization with their current phase, owning workload, and resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
+		Lists Kubernetes (k8s) pods with phase, ready containers, restarts, node, owning workload and CPU and memory usage against limits: find crashing, pending or restarting pods.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return KubernetesExplorerAPIListKubernetesPodsRequest
@@ -163,7 +163,7 @@ type KubernetesExplorerAPI interface {
 	/*
 		ListKubernetesStatefulSets Method for ListKubernetesStatefulSets
 
-		Lists Kubernetes StatefulSets observed across the organization with replica counts and aggregate resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
+		Lists Kubernetes (k8s) StatefulSets with replica counts and resource usage.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return KubernetesExplorerAPIListKubernetesStatefulSetsRequest
@@ -218,7 +218,7 @@ func (r KubernetesExplorerAPIGetKubernetesDeploymentDetailsRequest) Execute() (*
 /*
 GetKubernetesDeploymentDetails Method for GetKubernetesDeploymentDetails
 
-Retrieves detailed information for a single Kubernetes deployment: replica status, backing pods, and rollout revisions with ready-to-use log filters.
+Returns one Kubernetes deployment's replica status, backing pods and rollout revisions, with ready-to-use log filters.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KubernetesExplorerAPIGetKubernetesDeploymentDetailsRequest
@@ -400,7 +400,7 @@ func (r KubernetesExplorerAPIGetKubernetesPodDetailsRequest) Execute() (*GetKube
 /*
 GetKubernetesPodDetails Method for GetKubernetesPodDetails
 
-Retrieves metrics-derived information for a single Kubernetes pod: status, owning workload, CPU/memory metric identifiers, and ready-to-use log and trace filters. Manifest configuration, labels, and annotations are served by the pod-manifest endpoint.
+Returns one Kubernetes pod's status, owning workload, CPU and memory metric names, and ready-to-use log and trace filters. The pod manifest endpoint serves its manifest, labels and annotations.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KubernetesExplorerAPIGetKubernetesPodDetailsRequest
@@ -582,7 +582,7 @@ func (r KubernetesExplorerAPIGetKubernetesPodManifestRequest) Execute() (*GetKub
 /*
 GetKubernetesPodManifest Method for GetKubernetesPodManifest
 
-Retrieves the manifest-derived details for a single Kubernetes pod: the pod manifest spec, labels, and annotations from the pod's most recently observed manifest.
+Returns one Kubernetes pod's manifest from its latest observation: the pod spec (containers, resource requests and limits), labels and annotations.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KubernetesExplorerAPIGetKubernetesPodManifestRequest
@@ -750,7 +750,7 @@ func (r KubernetesExplorerAPIListKubernetesClustersRequest) Execute() (*ListKube
 /*
 ListKubernetesClusters Method for ListKubernetesClusters
 
-Lists Kubernetes clusters observed across the organization with aggregate resource usage, node readiness, and pod phase counts.
+Lists Kubernetes (k8s) clusters with node readiness, pod phase counts and resource usage. These are not Tsuga clusters, which the clusters list returns.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KubernetesExplorerAPIListKubernetesClustersRequest
@@ -888,7 +888,7 @@ func (r KubernetesExplorerAPIListKubernetesDaemonSetsRequest) Search(search stri
 	return r
 }
 
-// Field to sort results by.
+// Field to sort results by. Without it the order is not stable between requests, so set it when paging with &#x60;offset&#x60;.
 func (r KubernetesExplorerAPIListKubernetesDaemonSetsRequest) SortBy(sortBy string) KubernetesExplorerAPIListKubernetesDaemonSetsRequest {
 	r.sortBy = &sortBy
 	return r
@@ -919,7 +919,7 @@ func (r KubernetesExplorerAPIListKubernetesDaemonSetsRequest) Execute() (*ListKu
 /*
 ListKubernetesDaemonSets Method for ListKubernetesDaemonSets
 
-Lists Kubernetes DaemonSets observed across the organization with eligible-node readiness and aggregate resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
+Lists Kubernetes (k8s) DaemonSets with eligible-node readiness and resource usage.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KubernetesExplorerAPIListKubernetesDaemonSetsRequest
@@ -1073,7 +1073,7 @@ func (r KubernetesExplorerAPIListKubernetesDeploymentsRequest) Search(search str
 	return r
 }
 
-// Field to sort results by.
+// Field to sort results by. Without it the order is not stable between requests, so set it when paging with &#x60;offset&#x60;.
 func (r KubernetesExplorerAPIListKubernetesDeploymentsRequest) SortBy(sortBy string) KubernetesExplorerAPIListKubernetesDeploymentsRequest {
 	r.sortBy = &sortBy
 	return r
@@ -1104,7 +1104,7 @@ func (r KubernetesExplorerAPIListKubernetesDeploymentsRequest) Execute() (*ListK
 /*
 ListKubernetesDeployments Method for ListKubernetesDeployments
 
-Lists Kubernetes deployments observed across the organization with replica counts and aggregate resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
+Lists Kubernetes (k8s) deployments with replica counts and resource usage. For rollout history, get the deployment details.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KubernetesExplorerAPIListKubernetesDeploymentsRequest
@@ -1303,7 +1303,7 @@ func (r KubernetesExplorerAPIListKubernetesEventsRequest) Execute() (*ListKubern
 /*
 ListKubernetesEvents Method for ListKubernetesEvents
 
-Lists the most recent Kubernetes events of the last 24 hours (from the latest 1000 event observations), newest first, with their type, reason, message, and the resource they are about. `search` matches the name of the resource the event is about.
+Lists Kubernetes (k8s) events of the last 24 hours, newest first, such as BackOff or FailedScheduling warnings, with type, reason, message and the resource concerned. Reads the latest 1000 event observations; `search` matches the resource name.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KubernetesExplorerAPIListKubernetesEventsRequest
@@ -1495,7 +1495,7 @@ func (r KubernetesExplorerAPIListKubernetesNamespacesRequest) Search(search stri
 	return r
 }
 
-// Field to sort results by.
+// Field to sort results by. Without it the order is not stable between requests, so set it when paging with &#x60;offset&#x60;.
 func (r KubernetesExplorerAPIListKubernetesNamespacesRequest) SortBy(sortBy string) KubernetesExplorerAPIListKubernetesNamespacesRequest {
 	r.sortBy = &sortBy
 	return r
@@ -1526,7 +1526,7 @@ func (r KubernetesExplorerAPIListKubernetesNamespacesRequest) Execute() (*ListKu
 /*
 ListKubernetesNamespaces Method for ListKubernetesNamespaces
 
-Lists Kubernetes namespaces observed across the organization with pod counts and aggregate resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
+Lists Kubernetes (k8s) namespaces with pod counts and resource usage.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KubernetesExplorerAPIListKubernetesNamespacesRequest
@@ -1680,7 +1680,7 @@ func (r KubernetesExplorerAPIListKubernetesNodesRequest) Search(search string) K
 	return r
 }
 
-// Field to sort results by.
+// Field to sort results by. Without it the order is not stable between requests, so set it when paging with &#x60;offset&#x60;.
 func (r KubernetesExplorerAPIListKubernetesNodesRequest) SortBy(sortBy string) KubernetesExplorerAPIListKubernetesNodesRequest {
 	r.sortBy = &sortBy
 	return r
@@ -1711,7 +1711,7 @@ func (r KubernetesExplorerAPIListKubernetesNodesRequest) Execute() (*ListKuberne
 /*
 ListKubernetesNodes Method for ListKubernetesNodes
 
-Lists Kubernetes nodes observed across the organization with their readiness, instance type, and resource usage against allocatable capacity. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
+Lists Kubernetes (k8s) nodes with readiness, instance type and resource usage against allocatable capacity.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KubernetesExplorerAPIListKubernetesNodesRequest
@@ -1865,7 +1865,7 @@ func (r KubernetesExplorerAPIListKubernetesPodsRequest) Search(search string) Ku
 	return r
 }
 
-// Field to sort results by.
+// Field to sort results by. Without it the order is not stable between requests, so set it when paging with &#x60;offset&#x60;.
 func (r KubernetesExplorerAPIListKubernetesPodsRequest) SortBy(sortBy string) KubernetesExplorerAPIListKubernetesPodsRequest {
 	r.sortBy = &sortBy
 	return r
@@ -1896,7 +1896,7 @@ func (r KubernetesExplorerAPIListKubernetesPodsRequest) Execute() (*ListKubernet
 /*
 ListKubernetesPods Method for ListKubernetesPods
 
-Lists Kubernetes pods observed across the organization with their current phase, owning workload, and resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
+Lists Kubernetes (k8s) pods with phase, ready containers, restarts, node, owning workload and CPU and memory usage against limits: find crashing, pending or restarting pods.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KubernetesExplorerAPIListKubernetesPodsRequest
@@ -2050,7 +2050,7 @@ func (r KubernetesExplorerAPIListKubernetesStatefulSetsRequest) Search(search st
 	return r
 }
 
-// Field to sort results by.
+// Field to sort results by. Without it the order is not stable between requests, so set it when paging with &#x60;offset&#x60;.
 func (r KubernetesExplorerAPIListKubernetesStatefulSetsRequest) SortBy(sortBy string) KubernetesExplorerAPIListKubernetesStatefulSetsRequest {
 	r.sortBy = &sortBy
 	return r
@@ -2081,7 +2081,7 @@ func (r KubernetesExplorerAPIListKubernetesStatefulSetsRequest) Execute() (*List
 /*
 ListKubernetesStatefulSets Method for ListKubernetesStatefulSets
 
-Lists Kubernetes StatefulSets observed across the organization with replica counts and aggregate resource usage. Results are paged, 100 per page by default; when `totalCount` exceeds the page, narrow them with `search` or page through them with `limit` and `offset`, and set `sortBy` so the order stays the same across pages.
+Lists Kubernetes (k8s) StatefulSets with replica counts and resource usage.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KubernetesExplorerAPIListKubernetesStatefulSetsRequest

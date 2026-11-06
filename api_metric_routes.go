@@ -23,7 +23,7 @@ type MetricRoutesAPI interface {
 	/*
 		CreateMetricRoute Method for CreateMetricRoute
 
-		Creates a metric route at the end of the evaluation order. Metric routes affect only newly ingested metrics after the cluster receives the updated configuration.
+		Creates a metric route, an ingest pipeline that renames, parses or creates attributes on incoming metrics, at the end of the evaluation order. It applies only to metrics ingested after the cluster receives the updated configuration.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return MetricRoutesAPICreateMetricRouteRequest
@@ -67,7 +67,7 @@ type MetricRoutesAPI interface {
 	/*
 		ListMetricRoutes Method for ListMetricRoutes
 
-		Lists metric routes visible to the authenticated operation key. Returned routes are ordered by evaluation order, with earlier routes evaluated first. Use this to inventory ingest-time metric processing definitions and owners. Pagination fields limit the returned page.
+		Lists metric routes: ingest pipelines that rename, parse or create attributes on incoming metrics, in evaluation order, earlier routes first.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return MetricRoutesAPIListMetricRoutesRequest
@@ -116,7 +116,7 @@ func (r MetricRoutesAPICreateMetricRouteRequest) Execute() (*CreateMetricRouteRe
 /*
 CreateMetricRoute Method for CreateMetricRoute
 
-Creates a metric route at the end of the evaluation order. Metric routes affect only newly ingested metrics after the cluster receives the updated configuration.
+Creates a metric route, an ingest pipeline that renames, parses or creates attributes on incoming metrics, at the end of the evaluation order. It applies only to metrics ingested after the cluster receives the updated configuration.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MetricRoutesAPICreateMetricRouteRequest
@@ -518,7 +518,7 @@ func (r MetricRoutesAPIListMetricRoutesRequest) Execute() (*ListMetricRoutesResp
 /*
 ListMetricRoutes Method for ListMetricRoutes
 
-Lists metric routes visible to the authenticated operation key. Returned routes are ordered by evaluation order, with earlier routes evaluated first. Use this to inventory ingest-time metric processing definitions and owners. Pagination fields limit the returned page.
+Lists metric routes: ingest pipelines that rename, parse or create attributes on incoming metrics, in evaluation order, earlier routes first.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MetricRoutesAPIListMetricRoutesRequest

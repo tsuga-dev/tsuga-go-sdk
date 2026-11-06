@@ -23,7 +23,7 @@ type MonitorsAPI interface {
 	/*
 		CreateMonitor Method for CreateMonitor
 
-		Creates a monitor owned by the specified team. The monitor can evaluate logs, metrics, traces, anomaly behavior, certificate expiry, new error patterns, error pattern increases, Kubernetes faulty deployments, or faulty service deployments depending on its configuration.
+		Creates a monitor (alert, alert rule) owned by the specified team, on logs, metrics, traces, anomalies, certificate expiry, new or increasing error patterns, or faulty Kubernetes or service deployments. Notification rules decide where its alerts are sent.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return MonitorsAPICreateMonitorRequest
@@ -37,7 +37,7 @@ type MonitorsAPI interface {
 	/*
 		DeleteMonitor Method for DeleteMonitor
 
-		Deletes a monitor by ID. Deleting a monitor stops future evaluations and alert transitions for that monitor.
+		Deletes a monitor (alert) by ID: it stops evaluating and alerting.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Identifier of the saved monitor to delete. Use the `id` returned by monitor query, create, or update responses.
@@ -52,7 +52,7 @@ type MonitorsAPI interface {
 	/*
 		GetMonitor Method for GetMonitor
 
-		Retrieves one monitor definition by ID.
+		Retrieves one monitor (alert rule) definition by ID.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Monitor ID returned by monitor query, create, or update operations.
@@ -67,7 +67,7 @@ type MonitorsAPI interface {
 	/*
 		QueryMonitors Method for QueryMonitors
 
-		Queries monitors visible to the authenticated operation key. Use this endpoint to inventory monitor definitions, filter by owner, tag, priority, type, activity, cluster, or folder, and page through results. See [Monitors](/documentation/alert/monitors/index).
+		Lists or searches monitors (alerts, alert rules) by name, ID or query text, owner team, tag, priority, type, activity (active or snoozed), cluster or folder. See [Monitors](/documentation/alert/monitors/index).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return MonitorsAPIQueryMonitorsRequest
@@ -81,7 +81,7 @@ type MonitorsAPI interface {
 	/*
 		UpdateMonitor Method for UpdateMonitor
 
-		Updates an existing monitor definition by ID. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, `clusterIds`, `pauseUntil`, and `folderId` keep their existing values. Omitted `dashboardId` keeps the dashboard link; send `null` to clear it.
+		Updates a monitor (alert) by ID, such as its query, thresholds or snooze (`pauseUntil`, which pauses evaluation). Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, `clusterIds`, `pauseUntil`, and `folderId` keep their existing values. Omitted `dashboardId` keeps the dashboard link; send `null` to clear it.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Identifier of the saved monitor to update. Use the `id` returned by monitor query or create responses.
@@ -116,7 +116,7 @@ func (r MonitorsAPICreateMonitorRequest) Execute() (*CreateMonitorResponse, *htt
 /*
 CreateMonitor Method for CreateMonitor
 
-Creates a monitor owned by the specified team. The monitor can evaluate logs, metrics, traces, anomaly behavior, certificate expiry, new error patterns, error pattern increases, Kubernetes faulty deployments, or faulty service deployments depending on its configuration.
+Creates a monitor (alert, alert rule) owned by the specified team, on logs, metrics, traces, anomalies, certificate expiry, new or increasing error patterns, or faulty Kubernetes or service deployments. Notification rules decide where its alerts are sent.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MonitorsAPICreateMonitorRequest
@@ -243,7 +243,7 @@ func (r MonitorsAPIDeleteMonitorRequest) Execute() (*DeleteMonitorResponse, *htt
 /*
 DeleteMonitor Method for DeleteMonitor
 
-Deletes a monitor by ID. Deleting a monitor stops future evaluations and alert transitions for that monitor.
+Deletes a monitor (alert) by ID: it stops evaluating and alerting.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Identifier of the saved monitor to delete. Use the `id` returned by monitor query, create, or update responses.
@@ -374,7 +374,7 @@ func (r MonitorsAPIGetMonitorRequest) Execute() (*GetMonitorResponse, *http.Resp
 /*
 GetMonitor Method for GetMonitor
 
-Retrieves one monitor definition by ID.
+Retrieves one monitor (alert rule) definition by ID.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Monitor ID returned by monitor query, create, or update operations.
@@ -511,7 +511,7 @@ func (r MonitorsAPIQueryMonitorsRequest) Execute() (*QueryMonitorsResponse, *htt
 /*
 QueryMonitors Method for QueryMonitors
 
-Queries monitors visible to the authenticated operation key. Use this endpoint to inventory monitor definitions, filter by owner, tag, priority, type, activity, cluster, or folder, and page through results. See [Monitors](/documentation/alert/monitors/index).
+Lists or searches monitors (alerts, alert rules) by name, ID or query text, owner team, tag, priority, type, activity (active or snoozed), cluster or folder. See [Monitors](/documentation/alert/monitors/index).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MonitorsAPIQueryMonitorsRequest
@@ -645,7 +645,7 @@ func (r MonitorsAPIUpdateMonitorRequest) Execute() (*UpdateMonitorResponse, *htt
 /*
 UpdateMonitor Method for UpdateMonitor
 
-Updates an existing monitor definition by ID. Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, `clusterIds`, `pauseUntil`, and `folderId` keep their existing values. Omitted `dashboardId` keeps the dashboard link; send `null` to clear it.
+Updates a monitor (alert) by ID, such as its query, thresholds or snooze (`pauseUntil`, which pauses evaluation). Required fields and the submitted configuration are overwritten; omitted `message`, `tags`, `clusterIds`, `pauseUntil`, and `folderId` keep their existing values. Omitted `dashboardId` keeps the dashboard link; send `null` to clear it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Identifier of the saved monitor to update. Use the `id` returned by monitor query or create responses.

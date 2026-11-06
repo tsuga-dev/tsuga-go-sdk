@@ -64,7 +64,7 @@ type TeamMembershipsAPI interface {
 	/*
 		GetTeamMemberships Method for GetTeamMemberships
 
-		Lists team memberships, optionally filtered by user ID or team ID. Use this to synchronize team membership and role assignments.
+		Lists team memberships, which users belong to which teams with which team role, optionally for one user or one team.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return TeamMembershipsAPIGetTeamMembershipsRequest
@@ -532,7 +532,7 @@ func (r TeamMembershipsAPIGetTeamMembershipsRequest) Execute() (*GetTeamMembersh
 /*
 GetTeamMemberships Method for GetTeamMemberships
 
-Lists team memberships, optionally filtered by user ID or team ID. Use this to synchronize team membership and role assignments.
+Lists team memberships, which users belong to which teams with which team role, optionally for one user or one team.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TeamMembershipsAPIGetTeamMembershipsRequest

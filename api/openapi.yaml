@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261105.4.0+dccf50c
+  version: 20261105.30.0+1d62fa7
 servers:
 - url: https://api.tsuga.com
 security:
@@ -157,14 +157,14 @@ tags:
 paths:
   /v1/alerts/ongoing/query:
     post:
-      description: "Queries alerts that are currently open and visible to the authenticated\
-        \ user. Each monitor alert embeds the monitor configuration and the group-by\
-        \ values that triggered it, which together are enough to rebuild the aggregation\
-        \ or log query behind the alert. Alerts resolve on their own, so a transition\
-        \ ID that stops appearing has returned to OK. This operation requires an OAuth\
-        \ access token: alert visibility is resolved against the monitors and SLOs\
-        \ each user can read, and operation API keys carry no equivalent permission,\
-        \ so they are rejected with 403."
+      description: "Lists the alerts currently open (firing) on the monitors and SLOs\
+        \ the user can read. Each monitor alert embeds the monitor configuration and\
+        \ the group-by values that triggered it, which together are enough to rebuild\
+        \ the aggregation or log query behind the alert. Alerts resolve on their own,\
+        \ so a transition ID that stops appearing has returned to OK. This operation\
+        \ requires an OAuth access token: alert visibility is resolved against the\
+        \ monitors and SLOs each user can read, and operation API keys carry no equivalent\
+        \ permission, so they are rejected with 403."
       operationId: queryOngoingAlerts
       requestBody:
         content:
@@ -241,9 +241,9 @@ paths:
       - alerts
   /v1/ingestion-api-keys:
     get:
-      description: "Lists ingestion API keys visible to the authenticated operation\
-        \ key. Use this to inventory telemetry intake keys, owners, tags, and team\
-        \ override fields. Pagination fields limit the returned page."
+      description: "Lists ingestion API keys, the credentials collectors, agents,\
+        \ SDKs and HTTP clients use to send telemetry to Tsuga, with their owners,\
+        \ tags and team override fields."
       operationId: listIngestionApiKeys
       parameters:
       - description: Maximum number of items to return in this page. Omit to use the
@@ -595,11 +595,10 @@ paths:
       - ingestion-api-keys
   /v1/me:
     get:
-      description: "Retrieves the identity and access of the credential the request\
-        \ authenticated with. Use this to check which scope and permissions an operation\
-        \ API key carries before calling other endpoints, or to confirm which user\
-        \ an OAuth access token belongs to. Any valid public API credential can call\
-        \ this endpoint without additional resource permissions."
+      description: "Returns who the request is authenticated as: for an operation\
+        \ API key, its name, owner team, scope, permissions and expiry; for an OAuth\
+        \ access token, the user, organization and role. Any valid public API credential\
+        \ can call it, without resource permissions."
       operationId: getMe
       responses:
         "200":
@@ -648,9 +647,10 @@ paths:
       - authentication
   /v1/operation-api-keys:
     get:
-      description: "Lists operation API keys visible to the caller. Use this to inventory\
-        \ machine clients, with their owners, scopes, and permissions. Pagination\
-        \ fields limit the returned page."
+      description: "Lists operation API keys, the machine credentials of the public\
+        \ API, with their owner team, scope, permissions, tags and expiry. Only the\
+        \ last characters of each secret are returned. Keys that send telemetry are\
+        \ ingestion API keys."
       operationId: listOperationApiKeys
       parameters:
       - description: Maximum number of items to return in this page. Omit to use the
@@ -1018,11 +1018,11 @@ paths:
       - operation-api-keys
   /v1/rum/search:
     get:
-      description: "Searches Real User Monitoring (RUM) events in a required time\
-        \ range using Tsuga query syntax, most recent first. Use this endpoint to\
-        \ retrieve raw browser and mobile events, such as web vitals, navigations,\
-        \ resource timings, and exceptions, for investigations or automation. See\
-        \ [RUM views](/documentation/categorize/rum-views/index) and [Query syntax](/documentation/explore/query-syntax)."
+      description: "Searches Real User Monitoring (RUM) events in a time range with\
+        \ Tsuga query syntax, newest first: raw browser and mobile events such as\
+        \ web vitals, navigations, resource timings and exceptions. For counts or\
+        \ rates, use an aggregation. See [RUM views](/documentation/categorize/rum-views/index)\
+        \ and [Query syntax](/documentation/explore/query-syntax)."
       operationId: searchRumEvents
       parameters:
       - description: Start of the query window as a Unix timestamp in seconds
@@ -1138,9 +1138,8 @@ paths:
       - rum
   /v1/rum/attributes:
     get:
-      description: "Lists the RUM attribute dot-paths that can be queried. Use this\
-        \ to discover fields for RUM search queries, filters, and grouping. See [RUM\
-        \ views](/documentation/categorize/rum-views/index)."
+      description: "Lists the RUM attribute dot-paths that can be queried: the fields\
+        \ to search, filter or group RUM events by. See [RUM views](/documentation/categorize/rum-views/index)."
       operationId: getRumAttributes
       parameters:
       - description: Telemetry cluster to target. Required when the organization has
@@ -1201,10 +1200,9 @@ paths:
       - rum
   /v1/public-tokens:
     get:
-      description: "Lists RUM public tokens visible to the authenticated operation\
-        \ key. Use this to inventory the tokens configured in browser and mobile applications,\
-        \ with their owners, allowed URL prefixes, and tags. Pagination fields limit\
-        \ the returned page."
+      description: "Lists RUM public tokens, used by browser and mobile applications\
+        \ to send real user monitoring data, with their owners, allowed URL prefixes\
+        \ and tags."
       operationId: listPublicTokens
       parameters:
       - description: Maximum number of items to return in this page. Omit to use the
@@ -1570,9 +1568,9 @@ paths:
       - public-tokens
   /v1/clusters:
     get:
-      description: "Lists Tsuga clusters available to the organization. Use cluster\
-        \ IDs with public API requests that accept `clusterId`, such as telemetry,\
-        \ service, Kubernetes Explorer, and quality-report requests."
+      description: "Lists the Tsuga clusters of the organization, with cloud provider\
+        \ and region: the `clusterId` values other requests accept. These are not\
+        \ Kubernetes clusters."
       operationId: listClusters
       responses:
         "200":
@@ -1621,8 +1619,8 @@ paths:
       - clusters
   /v1/custom-roles:
     get:
-      description: "Lists every custom global role of the organization, ordered by\
-        \ name, with what each role grants."
+      description: "Lists every custom global role (RBAC permissions, access control)\
+        \ of the organization, ordered by name, with what each role grants."
       operationId: listCustomRoles
       responses:
         "200":
@@ -1979,8 +1977,8 @@ paths:
       - custom-roles
   /v1/custom-usage-tags:
     get:
-      description: Lists custom usage tag keys configured for the organization. Use
-        this to understand which telemetry tags are available for usage reporting.
+      description: "Lists the custom usage tag keys of the organization: telemetry\
+        \ tag keys tracked as extra dimensions for usage reporting and allocation."
       operationId: listCustomUsageTags
       responses:
         "200":
@@ -2342,7 +2340,9 @@ paths:
         \ range. The cluster executes it 30 minutes after creation, leaving time to\
         \ cancel it. Deleted events cannot be restored. When every event carrying\
         \ an attribute is deleted, the attribute name is removed too, and attribute\
-        \ discovery stops listing it."
+        \ discovery stops listing it. A request matching more events than the organization's\
+        \ data deletion limit is rejected with 400 `DATA_DELETION_LIMIT_EXCEEDED`;\
+        \ a Global admin changes the limit in Settings > Organization."
       operationId: createDataDeletionRequest
       requestBody:
         content:
@@ -2473,11 +2473,9 @@ paths:
       - data-deletion-requests
   /v1/dashboards/query:
     post:
-      description: "Queries dashboards visible to the authenticated operation key.\
-        \ Use this endpoint to build dashboard inventories or synchronize dashboard\
-        \ metadata. Pagination fields limit the returned page; use the response metadata\
-        \ to request additional pages. Each dashboard is returned without its `graphs`;\
-        \ use `getDashboard` to read its widgets. See [Dashboards](/documentation/visualize/dashboards/index)."
+      description: "Lists or searches dashboards by name or ID substring, owning team,\
+        \ tags or folder. Results omit widgets (`graphs`) and give `widgetCount`;\
+        \ get a dashboard by ID to read its widgets. See [Dashboards](/documentation/visualize/dashboards/index)."
       operationId: queryDashboards
       requestBody:
         content:
@@ -2616,7 +2614,8 @@ paths:
       tags:
       - dashboards
     get:
-      description: Retrieves one dashboard by ID.
+      description: "Retrieves one dashboard by ID, with its widgets (graphs, charts)\
+        \ and their queries."
       operationId: getDashboard
       parameters:
       - description: "Identifier of the saved dashboard to retrieve. Use the `id`\
@@ -2680,11 +2679,12 @@ paths:
       tags:
       - dashboards
     put:
-      description: "Updates an existing dashboard by ID. Top-level fields are patched\
-        \ from the request body and omitted ones keep their current values, but a\
-        \ sent array replaces the stored one whole: a `graphs` array missing a widget\
-        \ deletes that widget. Read the dashboard first and send back every widget\
-        \ you keep, or use `updateDashboardGraph` to change one widget."
+      description: "Updates a dashboard by ID, such as its widgets (graphs, charts),\
+        \ filters or folder. Top-level fields are patched and omitted ones keep their\
+        \ values, but a sent array replaces the stored one whole: a `graphs` array\
+        \ missing a widget deletes that widget. Read the dashboard first and send\
+        \ back every widget you keep, or change one widget with the dashboard graph\
+        \ update."
       operationId: updateDashboard
       parameters:
       - description: "Identifier of the saved dashboard to update. Use the `id` returned\
@@ -2784,9 +2784,8 @@ paths:
       - dashboards
   /v1/dashboards:
     post:
-      description: Creates a dashboard owned by the specified team. Use this to provision
-        dashboards from automation or templates. The response returns the saved dashboard
-        definition.
+      description: "Creates a dashboard owned by the specified team, with its widgets\
+        \ (graphs). The response returns the saved dashboard definition."
       operationId: createDashboard
       requestBody:
         content:
@@ -2872,11 +2871,10 @@ paths:
       - dashboards
   /v1/dashboards/{id}/graphs/{graphId}:
     put:
-      description: Updates one graph inside a dashboard without replacing the full
-        dashboard. Use this for targeted widget edits when you already know the dashboard
-        ID and graph ID. Fields are patched from the request body; omitted fields
-        keep their current values and null clears them. A sent `visualization` or
-        `layout` replaces the stored one whole rather than merging into it.
+      description: "Updates one widget (graph, chart) of a dashboard by dashboard\
+        \ ID and graph ID, without resending the dashboard. Sent fields are patched\
+        \ and null clears them; a sent `visualization` or `layout` replaces the stored\
+        \ one whole."
       operationId: updateDashboardGraph
       parameters:
       - description: Identifier of the dashboard that contains the graph to update.
@@ -2982,13 +2980,11 @@ paths:
       - dashboards
   /v1/dashboard-folders/query:
     post:
-      description: "Queries dashboard folders visible to the authenticated operation\
-        \ key. Returns all folders unless the `parentFolderId` filter is set: pass\
-        \ a folder ID to select the children of that folder, or null to return only\
-        \ top-level folders. Results are ordered by most recently updated folder first\
-        \ unless `sort` is set, and include the number of readable dashboards in each\
-        \ folder and its readable subfolders. Use filters to narrow by owning team,\
-        \ name or ID substring, or tags."
+      description: "Lists or searches dashboard folders by owning team, name or ID\
+        \ substring, tags or parent folder, with the number of readable dashboards\
+        \ in each folder and its readable subfolders. Returns every folder unless\
+        \ `parentFolderId` is set: a folder ID selects its children, null only top-level\
+        \ folders. Most recently updated first unless `sort` is set."
       operationId: queryDashboardFolders
       requestBody:
         content:
@@ -3338,13 +3334,11 @@ paths:
       - dashboard-folders
   /v1/monitor-folders/query:
     post:
-      description: "Queries monitor folders visible to the authenticated operation\
-        \ key. Returns all folders unless the `parentFolderId` filter is set: pass\
-        \ a folder ID to select the children of that folder, or null to return only\
-        \ top-level folders. Results are ordered by most recently updated folder first\
-        \ unless `sort` is set, and include the number of readable monitors in each\
-        \ folder and its readable subfolders. Use filters to narrow by owning team,\
-        \ name or ID substring, or tags."
+      description: "Lists or searches monitor folders by owning team, name or ID substring,\
+        \ tags or parent folder, with the number of readable monitors in each folder\
+        \ and its readable subfolders. Returns every folder unless `parentFolderId`\
+        \ is set: a folder ID selects its children, null only top-level folders. Most\
+        \ recently updated first unless `sort` is set."
       operationId: queryMonitorFolders
       requestBody:
         content:
@@ -3694,9 +3688,10 @@ paths:
       - monitor-folders
   /v1/queues:
     get:
-      description: "Lists message queues inferred from producer and consumer messaging\
-        \ spans, with their publish, consume, and consumer error rates over the stats\
-        \ window."
+      description: "Lists message queues and topics (Kafka, SQS, RabbitMQ and other\
+        \ messaging systems) inferred from producer and consumer messaging spans,\
+        \ with per-second publish, consume and consumer error rates and p90 processing\
+        \ duration over the stats window."
       operationId: listQueues
       parameters:
       - description: Maximum number of items to return in this page. Omit to use the
@@ -3811,8 +3806,9 @@ paths:
       - queues
   /v1/queues/by-name:
     get:
-      description: "Retrieves one message queue by name, messaging system, and environment.\
-        \ Searches the last hour first, then the last 24 hours."
+      description: "Retrieves one message queue or topic by name, messaging system\
+        \ and environment, with its rates. Searches the last hour first, then the\
+        \ last 24 hours."
       operationId: getQueue
       parameters:
       - description: Queue name (`messaging.destination.name`).
@@ -3916,9 +3912,9 @@ paths:
       - queues
   /v1/docs:
     get:
-      description: Retrieve the raw markdown content of a documentation or API-reference
-        page by its path or link. Documentation pages use slug paths (e.g. `getting-started/send-your-first-logs`);
-        API-reference pages use `api/<operationId>` (e.g. `api/aggregateScalar`).
+      description: Retrieves the raw markdown of a documentation or API-reference
+        page by path or link. Documentation pages use slug paths such as `getting-started/send-your-first-logs`;
+        API-reference pages use `api/<operationId>`.
       operationId: getDocPage
       parameters:
       - description: "Page to fetch: a doc slug path, `api/<operationId>`, or a docs\
@@ -3986,10 +3982,10 @@ paths:
       - docs
   /v1/docs/search:
     get:
-      description: Searches public documentation pages and API-reference endpoints.
-        Use this to build help search or route users to Tsuga docs and API reference
-        results. Results are ranked by relevance; an empty array means no page or
-        endpoint matched the query.
+      description: "Searches Tsuga documentation and API reference, covering product\
+        \ behavior, query syntax (Tsuga queries, PromQL), API fields, dashboard and\
+        \ widget schemas, setup, limits, gotchas and more. Results are ranked by relevance;\
+        \ an empty array means nothing matched."
       operationId: searchDocs
       parameters:
       - description: Search text to match against documentation and API-reference
@@ -4113,15 +4109,12 @@ paths:
       - feedback
   /v1/interesting-fields:
     post:
-      description: "Ranks the telemetry fields most relevant to a scope, mined from\
-        \ how the org already uses them in dashboards and monitors, bucketed by logs,\
-        \ traces, and metrics. Use this before guessing a field or metric name: a\
-        \ field that many scope-matching dashboards group or filter on is the one\
-        \ an operator would reach for. Ranking is TF-IDF style, so a field used everywhere\
-        \ in the org scores below one that is distinctive to the scope. Dashboards\
-        \ and monitors the caller cannot read never contribute field names, only the\
-        \ anonymous frequency baseline. The operation requires public API read access\
-        \ to dashboards and monitors."
+      description: "Ranks the log, trace and metric fields most used for a scope,\
+        \ such as one service, in the organization's dashboards and monitors: which\
+        \ attribute to filter or group by, which metric to chart. Ranking is TF-IDF\
+        \ style, so a field used everywhere scores below one distinctive to the scope.\
+        \ Assets the caller cannot read only feed an anonymous frequency baseline.\
+        \ Requires public API read access to dashboards and monitors."
       operationId: getInterestingFields
       requestBody:
         content:
@@ -4259,9 +4252,9 @@ paths:
       - invitations
   /v1/invitations/query:
     post:
-      description: "Queries organization invitations. Use this to audit pending, expired,\
-        \ or revoked invitations; accepted invitations are not returned, query users\
-        \ instead to list the people who joined."
+      description: "Lists or searches organization invitations (pending, expired or\
+        \ revoked) by email, team name or status, with the team and role each grants.\
+        \ Accepted invitations are not returned: list users for the people who joined."
       operationId: queryInvitations
       requestBody:
         content:
@@ -4327,9 +4320,10 @@ paths:
       - invitations
   /v1/inventory/resources/query:
     post:
-      description: "Queries cloud resources discovered by inventory scans, with optional\
-        \ filters, sorting, and pagination. Use this endpoint to build infrastructure\
-        \ inventories across connected cloud accounts."
+      description: "Lists or searches cloud resources (AWS, GCP or Azure, for example\
+        \ EC2 instances or S3 buckets) found by inventory scans of connected cloud\
+        \ accounts, by platform, account, region, resource type, tag or infrastructure-as-code\
+        \ coverage."
       operationId: queryInventoryResources
       requestBody:
         content:
@@ -4415,8 +4409,8 @@ paths:
       - inventory
   /v1/inventory/cloud-accounts:
     get:
-      description: Lists cloud accounts connected to Tsuga that the authenticated
-        operation key can read.
+      description: "Lists the cloud accounts connected to Tsuga (AWS accounts, GCP\
+        \ projects, Azure subscriptions), with provider and display name."
       operationId: listCloudAccounts
       responses:
         "200":
@@ -4733,11 +4727,9 @@ paths:
       - inventory
   /v1/kubernetes-explorer/pods:
     get:
-      description: "Lists Kubernetes pods observed across the organization with their\
-        \ current phase, owning workload, and resource usage. Results are paged, 100\
-        \ per page by default; when `totalCount` exceeds the page, narrow them with\
-        \ `search` or page through them with `limit` and `offset`, and set `sortBy`\
-        \ so the order stays the same across pages."
+      description: "Lists Kubernetes (k8s) pods with phase, ready containers, restarts,\
+        \ node, owning workload and CPU and memory usage against limits: find crashing,\
+        \ pending or restarting pods."
       operationId: listKubernetesPods
       parameters:
       - description: Tsuga cluster ID to target. Tsuga assigns it when a cluster is
@@ -4771,7 +4763,8 @@ paths:
           pattern: "^[a-z0-9.-]+$"
           type: string
         style: form
-      - description: Field to sort results by.
+      - description: "Field to sort results by. Without it the order is not stable\
+          \ between requests, so set it when paging with `offset`."
         explode: true
         in: query
         name: sortBy
@@ -4876,8 +4869,9 @@ paths:
       - kubernetes-explorer
   /v1/kubernetes-explorer/clusters:
     get:
-      description: "Lists Kubernetes clusters observed across the organization with\
-        \ aggregate resource usage, node readiness, and pod phase counts."
+      description: "Lists Kubernetes (k8s) clusters with node readiness, pod phase\
+        \ counts and resource usage. These are not Tsuga clusters, which the clusters\
+        \ list returns."
       operationId: listKubernetesClusters
       parameters:
       - description: Tsuga cluster ID to target. Tsuga assigns it when a cluster is
@@ -4954,11 +4948,8 @@ paths:
       - kubernetes-explorer
   /v1/kubernetes-explorer/namespaces:
     get:
-      description: "Lists Kubernetes namespaces observed across the organization with\
-        \ pod counts and aggregate resource usage. Results are paged, 100 per page\
-        \ by default; when `totalCount` exceeds the page, narrow them with `search`\
-        \ or page through them with `limit` and `offset`, and set `sortBy` so the\
-        \ order stays the same across pages."
+      description: Lists Kubernetes (k8s) namespaces with pod counts and resource
+        usage.
       operationId: listKubernetesNamespaces
       parameters:
       - description: Tsuga cluster ID to target. Tsuga assigns it when a cluster is
@@ -4988,7 +4979,8 @@ paths:
           pattern: "^[a-z0-9.-]+$"
           type: string
         style: form
-      - description: Field to sort results by.
+      - description: "Field to sort results by. Without it the order is not stable\
+          \ between requests, so set it when paging with `offset`."
         explode: true
         in: query
         name: sortBy
@@ -5085,11 +5077,8 @@ paths:
       - kubernetes-explorer
   /v1/kubernetes-explorer/nodes:
     get:
-      description: "Lists Kubernetes nodes observed across the organization with their\
-        \ readiness, instance type, and resource usage against allocatable capacity.\
-        \ Results are paged, 100 per page by default; when `totalCount` exceeds the\
-        \ page, narrow them with `search` or page through them with `limit` and `offset`,\
-        \ and set `sortBy` so the order stays the same across pages."
+      description: "Lists Kubernetes (k8s) nodes with readiness, instance type and\
+        \ resource usage against allocatable capacity."
       operationId: listKubernetesNodes
       parameters:
       - description: Tsuga cluster ID to target. Tsuga assigns it when a cluster is
@@ -5119,7 +5108,8 @@ paths:
           pattern: "^[a-z0-9.-]+$"
           type: string
         style: form
-      - description: Field to sort results by.
+      - description: "Field to sort results by. Without it the order is not stable\
+          \ between requests, so set it when paging with `offset`."
         explode: true
         in: query
         name: sortBy
@@ -5221,11 +5211,8 @@ paths:
       - kubernetes-explorer
   /v1/kubernetes-explorer/deployments:
     get:
-      description: "Lists Kubernetes deployments observed across the organization\
-        \ with replica counts and aggregate resource usage. Results are paged, 100\
-        \ per page by default; when `totalCount` exceeds the page, narrow them with\
-        \ `search` or page through them with `limit` and `offset`, and set `sortBy`\
-        \ so the order stays the same across pages."
+      description: "Lists Kubernetes (k8s) deployments with replica counts and resource\
+        \ usage. For rollout history, get the deployment details."
       operationId: listKubernetesDeployments
       parameters:
       - description: Tsuga cluster ID to target. Tsuga assigns it when a cluster is
@@ -5255,7 +5242,8 @@ paths:
           pattern: "^[a-z0-9.-]+$"
           type: string
         style: form
-      - description: Field to sort results by.
+      - description: "Field to sort results by. Without it the order is not stable\
+          \ between requests, so set it when paging with `offset`."
         explode: true
         in: query
         name: sortBy
@@ -5354,11 +5342,8 @@ paths:
       - kubernetes-explorer
   /v1/kubernetes-explorer/statefulsets:
     get:
-      description: "Lists Kubernetes StatefulSets observed across the organization\
-        \ with replica counts and aggregate resource usage. Results are paged, 100\
-        \ per page by default; when `totalCount` exceeds the page, narrow them with\
-        \ `search` or page through them with `limit` and `offset`, and set `sortBy`\
-        \ so the order stays the same across pages."
+      description: Lists Kubernetes (k8s) StatefulSets with replica counts and resource
+        usage.
       operationId: listKubernetesStatefulSets
       parameters:
       - description: Tsuga cluster ID to target. Tsuga assigns it when a cluster is
@@ -5388,7 +5373,8 @@ paths:
           pattern: "^[a-z0-9.-]+$"
           type: string
         style: form
-      - description: Field to sort results by.
+      - description: "Field to sort results by. Without it the order is not stable\
+          \ between requests, so set it when paging with `offset`."
         explode: true
         in: query
         name: sortBy
@@ -5486,11 +5472,8 @@ paths:
       - kubernetes-explorer
   /v1/kubernetes-explorer/daemonsets:
     get:
-      description: "Lists Kubernetes DaemonSets observed across the organization with\
-        \ eligible-node readiness and aggregate resource usage. Results are paged,\
-        \ 100 per page by default; when `totalCount` exceeds the page, narrow them\
-        \ with `search` or page through them with `limit` and `offset`, and set `sortBy`\
-        \ so the order stays the same across pages."
+      description: Lists Kubernetes (k8s) DaemonSets with eligible-node readiness
+        and resource usage.
       operationId: listKubernetesDaemonSets
       parameters:
       - description: Tsuga cluster ID to target. Tsuga assigns it when a cluster is
@@ -5520,7 +5503,8 @@ paths:
           pattern: "^[a-z0-9.-]+$"
           type: string
         style: form
-      - description: Field to sort results by.
+      - description: "Field to sort results by. Without it the order is not stable\
+          \ between requests, so set it when paging with `offset`."
         explode: true
         in: query
         name: sortBy
@@ -5619,10 +5603,10 @@ paths:
       - kubernetes-explorer
   /v1/kubernetes-explorer/events:
     get:
-      description: "Lists the most recent Kubernetes events of the last 24 hours (from\
-        \ the latest 1000 event observations), newest first, with their type, reason,\
-        \ message, and the resource they are about. `search` matches the name of the\
-        \ resource the event is about."
+      description: "Lists Kubernetes (k8s) events of the last 24 hours, newest first,\
+        \ such as BackOff or FailedScheduling warnings, with type, reason, message\
+        \ and the resource concerned. Reads the latest 1000 event observations; `search`\
+        \ matches the resource name."
       operationId: listKubernetesEvents
       parameters:
       - description: Tsuga cluster ID to target. Tsuga assigns it when a cluster is
@@ -5779,10 +5763,9 @@ paths:
       - kubernetes-explorer
   /v1/kubernetes-explorer/pod-details:
     get:
-      description: "Retrieves metrics-derived information for a single Kubernetes\
-        \ pod: status, owning workload, CPU/memory metric identifiers, and ready-to-use\
-        \ log and trace filters. Manifest configuration, labels, and annotations are\
-        \ served by the pod-manifest endpoint."
+      description: "Returns one Kubernetes pod's status, owning workload, CPU and\
+        \ memory metric names, and ready-to-use log and trace filters. The pod manifest\
+        \ endpoint serves its manifest, labels and annotations."
       operationId: getKubernetesPodDetails
       parameters:
       - description: Tsuga cluster ID to target. Tsuga assigns it when a cluster is
@@ -5892,9 +5875,8 @@ paths:
       - kubernetes-explorer
   /v1/kubernetes-explorer/pod-manifest:
     get:
-      description: "Retrieves the manifest-derived details for a single Kubernetes\
-        \ pod: the pod manifest spec, labels, and annotations from the pod's most\
-        \ recently observed manifest."
+      description: "Returns one Kubernetes pod's manifest from its latest observation:\
+        \ the pod spec (containers, resource requests and limits), labels and annotations."
       operationId: getKubernetesPodManifest
       parameters:
       - description: Tsuga cluster ID to target. Tsuga assigns it when a cluster is
@@ -5992,9 +5974,8 @@ paths:
       - kubernetes-explorer
   /v1/kubernetes-explorer/deployment-details:
     get:
-      description: "Retrieves detailed information for a single Kubernetes deployment:\
-        \ replica status, backing pods, and rollout revisions with ready-to-use log\
-        \ filters."
+      description: "Returns one Kubernetes deployment's replica status, backing pods\
+        \ and rollout revisions, with ready-to-use log filters."
       operationId: getKubernetesDeploymentDetails
       parameters:
       - description: Tsuga cluster ID to target. Tsuga assigns it when a cluster is
@@ -6104,9 +6085,10 @@ paths:
       - kubernetes-explorer
   /v1/logs/search:
     get:
-      description: "Searches logs in a required time range using Tsuga query syntax.\
-        \ Use this endpoint to retrieve raw log events for investigations or automation.\
-        \ See [Logs](/documentation/explore/logs) and [Query syntax](/documentation/explore/query-syntax)."
+      description: "Searches raw log lines in a time range with Tsuga query syntax:\
+        \ error messages, exceptions, stack traces, the logs of one request or pod.\
+        \ For counts or rates, use an aggregation; to group similar messages, use\
+        \ log patterns. See [Logs](/documentation/explore/logs) and [Query syntax](/documentation/explore/query-syntax)."
       operationId: searchLogs
       parameters:
       - description: Tsuga query selecting logs to return. Omit to search all logs
@@ -6216,9 +6198,10 @@ paths:
       - logs
   /v1/logs/patterns:
     get:
-      description: "Clusters matching logs into readable patterns for the requested\
-        \ time range. Use this to summarize common log shapes before drilling into\
-        \ raw events. See [Logs](/documentation/explore/logs)."
+      description: "Groups similar log messages into patterns with counts over a time\
+        \ range: the top messages or errors without reading raw lines. For patterns\
+        \ first seen in the range, use new error patterns; for growing ones, error\
+        \ pattern increases. See [Logs](/documentation/explore/logs)."
       operationId: getLogPatterns
       parameters:
       - description: Start of the query window as a Unix timestamp in seconds
@@ -6314,9 +6297,9 @@ paths:
       - logs
   /v1/logs/patterns/new:
     get:
-      description: "Finds error patterns first seen in the requested time range, optionally\
-        \ filtered by team, environment, or service. Use this to detect newly appearing\
-        \ failures. See [Logs](/documentation/explore/logs)."
+      description: "Finds error log patterns first seen in the time range: new errors\
+        \ or exceptions, for example after a change. Optionally filtered by team,\
+        \ environment or service. See [Logs](/documentation/explore/logs)."
       operationId: getNewErrorPatterns
       parameters:
       - description: Start of the query window as a Unix timestamp in seconds
@@ -6437,10 +6420,10 @@ paths:
       - logs
   /v1/logs/attributes:
     get:
-      description: "Lists log attribute dot-paths observed in the requested time range.\
-        \ This endpoint requires a public API credential that can read all relevant\
-        \ teams because attribute discovery is not team-filtered. Use this to discover\
-        \ fields for Tsuga queries, filters, and grouping. See [Logs](/documentation/explore/logs)."
+      description: "Lists log attribute (field, key) names seen in a time range, to\
+        \ find the key to filter or group logs by. Requires a credential that can\
+        \ read all teams: attribute discovery is not team-filtered. To rank fields\
+        \ by their use in dashboards and monitors, use interesting fields. See [Logs](/documentation/explore/logs)."
       operationId: getLogAttributes
       parameters:
       - description: Start of the query window as a Unix timestamp in seconds
@@ -6540,9 +6523,9 @@ paths:
       - logs
   /v1/logs/patterns/increase:
     get:
-      description: "Finds error patterns whose occurrence increased for a team in\
-        \ the requested time range. Use this to identify growing failure modes without\
-        \ retrieving raw log events. See [Logs](/documentation/explore/logs)."
+      description: "Finds a team's error log patterns whose count increased in the\
+        \ time range: spikes in existing errors. For errors first seen in the range,\
+        \ use new error patterns. See [Logs](/documentation/explore/logs)."
       operationId: getErrorPatternIncrease
       parameters:
       - description: Start of the query window as a Unix timestamp in seconds
@@ -6658,12 +6641,10 @@ paths:
       - logs
   /v1/metrics/assets-usage:
     get:
-      description: "Lists the dashboards and monitors whose queries reference a metric.\
-        \ Use this before renaming or dropping a metric. An empty result does not\
-        \ prove the metric is unused: PromQL widgets, SLOs and assets you cannot read\
-        \ are not covered. It tells which assets use the metric, not how: read the\
-        \ aggregation from the dashboard or monitor itself. See [How to find which\
-        \ assets use a metric](/documentation/explore/guides/how-to-find-which-assets-use-a-metric)."
+      description: "Lists the dashboards and monitors whose queries use a metric,\
+        \ before renaming or dropping it. An empty result does not prove the metric\
+        \ unused: PromQL widgets, SLOs and assets the caller cannot read are not covered.\
+        \ See [How to find which assets use a metric](/documentation/explore/guides/how-to-find-which-assets-use-a-metric)."
       operationId: getMetricAssetsUsage
       parameters:
       - description: "Metric name to look up, for example `http.server.request.duration`."
@@ -6727,16 +6708,14 @@ paths:
       - metrics
   /v1/metrics:
     get:
-      description: "Lists metric names with metadata such as type, unit, temporality,\
-        \ capabilities, and estimated series cardinality. Use this to discover metric\
-        \ names before querying or graphing them, then get one metric for its attributes\
-        \ and their cardinalities. Results are sorted by name and paged, 100 per page\
-        \ by default; when `totalCount` exceeds the page, narrow them with `search`\
-        \ or page through them with `limit` and `offset`. This reads a cluster-wide\
-        \ catalog of names rather than the window: `from` and `to` are required but\
-        \ do not scope the result, and a name stays listed after the metric stops\
-        \ reporting. To find out whether a metric has data in a window, run a `count`\
-        \ aggregation over it. See [Metrics](/documentation/explore/metrics/index)."
+      description: "Lists or searches metric names with type, unit, temporality and\
+        \ estimated series cardinality, to find the metric to query. Metrics come\
+        \ from OpenTelemetry, Prometheus or cloud provider integrations (AWS CloudWatch,\
+        \ GCP Cloud Monitoring, Azure Monitor). `search` keeps the names containing\
+        \ a substring. `from` and `to` are required but do not scope the result, and\
+        \ a name stays listed after the metric stops reporting; to check for data\
+        \ in a window, run a `count` aggregation. Get one metric for its attributes.\
+        \ See [Metrics](/documentation/explore/metrics/index)."
       operationId: listMetrics
       parameters:
       - description: "Unix timestamp in seconds. Required, but does not scope the\
@@ -6860,12 +6839,10 @@ paths:
       - metrics
   /v1/metrics/{name}:
     get:
-      description: "Retrieves metadata for one metric name. Use this to inspect available\
-        \ dimensions, supported query behavior, and the estimated series and per-attribute\
-        \ cardinalities for a metric. The cardinalities are the periodically refreshed\
-        \ estimates shown in Metric details, not counts over the window. Like the\
-        \ list endpoint, this answers from a cluster-wide catalog rather than the\
-        \ window: `from` and `to` are required but do not scope the result. See [Metric\
+      description: "Returns one metric's metadata: its attributes (labels, dimensions,\
+        \ tags) with estimated cardinality, type, unit and supported query behavior.\
+        \ `from` and `to` are required but do not scope the result: it reads a cluster-wide\
+        \ catalog whose cardinalities are periodically refreshed estimates. See [Metric\
         \ details](/documentation/explore/metrics/metric-details)."
       operationId: getMetric
       parameters:
@@ -6967,10 +6944,8 @@ paths:
       - metrics
   /v1/metrics/routes:
     get:
-      description: "Lists metric routes visible to the authenticated operation key.\
-        \ Returned routes are ordered by evaluation order, with earlier routes evaluated\
-        \ first. Use this to inventory ingest-time metric processing definitions and\
-        \ owners. Pagination fields limit the returned page."
+      description: "Lists metric routes: ingest pipelines that rename, parse or create\
+        \ attributes on incoming metrics, in evaluation order, earlier routes first."
       operationId: listMetricRoutes
       parameters:
       - description: Maximum number of items to return in this page. Omit to use the
@@ -7042,9 +7017,10 @@ paths:
       tags:
       - metric-routes
     post:
-      description: Creates a metric route at the end of the evaluation order. Metric
-        routes affect only newly ingested metrics after the cluster receives the updated
-        configuration.
+      description: "Creates a metric route, an ingest pipeline that renames, parses\
+        \ or creates attributes on incoming metrics, at the end of the evaluation\
+        \ order. It applies only to metrics ingested after the cluster receives the\
+        \ updated configuration."
       operationId: createMetricRoute
       requestBody:
         content:
@@ -7347,9 +7323,9 @@ paths:
       - metric-routes
   /v1/monitors/query:
     post:
-      description: "Queries monitors visible to the authenticated operation key. Use\
-        \ this endpoint to inventory monitor definitions, filter by owner, tag, priority,\
-        \ type, activity, cluster, or folder, and page through results. See [Monitors](/documentation/alert/monitors/index)."
+      description: "Lists or searches monitors (alerts, alert rules) by name, ID or\
+        \ query text, owner team, tag, priority, type, activity (active or snoozed),\
+        \ cluster or folder. See [Monitors](/documentation/alert/monitors/index)."
       operationId: queryMonitors
       requestBody:
         content:
@@ -7435,8 +7411,7 @@ paths:
       - monitors
   /v1/monitors/{id}:
     delete:
-      description: Deletes a monitor by ID. Deleting a monitor stops future evaluations
-        and alert transitions for that monitor.
+      description: "Deletes a monitor (alert) by ID: it stops evaluating and alerting."
       operationId: deleteMonitor
       parameters:
       - description: "Identifier of the saved monitor to delete. Use the `id` returned\
@@ -7500,7 +7475,7 @@ paths:
       tags:
       - monitors
     get:
-      description: Retrieves one monitor definition by ID.
+      description: Retrieves one monitor (alert rule) definition by ID.
       operationId: getMonitor
       parameters:
       - description: "Monitor ID returned by monitor query, create, or update operations."
@@ -7563,10 +7538,11 @@ paths:
       tags:
       - monitors
     put:
-      description: "Updates an existing monitor definition by ID. Required fields\
-        \ and the submitted configuration are overwritten; omitted `message`, `tags`,\
-        \ `clusterIds`, `pauseUntil`, and `folderId` keep their existing values. Omitted\
-        \ `dashboardId` keeps the dashboard link; send `null` to clear it."
+      description: "Updates a monitor (alert) by ID, such as its query, thresholds\
+        \ or snooze (`pauseUntil`, which pauses evaluation). Required fields and the\
+        \ submitted configuration are overwritten; omitted `message`, `tags`, `clusterIds`,\
+        \ `pauseUntil`, and `folderId` keep their existing values. Omitted `dashboardId`\
+        \ keeps the dashboard link; send `null` to clear it."
       operationId: updateMonitor
       parameters:
       - description: Identifier of the saved monitor to update. Use the `id` returned
@@ -7813,10 +7789,10 @@ paths:
       - monitors
   /v1/monitors:
     post:
-      description: "Creates a monitor owned by the specified team. The monitor can\
-        \ evaluate logs, metrics, traces, anomaly behavior, certificate expiry, new\
-        \ error patterns, error pattern increases, Kubernetes faulty deployments,\
-        \ or faulty service deployments depending on its configuration."
+      description: "Creates a monitor (alert, alert rule) owned by the specified team,\
+        \ on logs, metrics, traces, anomalies, certificate expiry, new or increasing\
+        \ error patterns, or faulty Kubernetes or service deployments. Notification\
+        \ rules decide where its alerts are sent."
       operationId: createMonitor
       requestBody:
         content:
@@ -8045,9 +8021,10 @@ paths:
       - monitors
   /v1/notification-rules:
     get:
-      description: Lists notification rules visible to the authenticated operation
-        key. Use this endpoint to audit alert delivery routing. Pagination fields
-        limit the returned page.
+      description: "Lists notification rules (alert routing): which alerts, matched\
+        \ by query, team, priority, transition or cluster, are sent to which destinations,\
+        \ such as Slack, PagerDuty, email or webhooks. Adaptive notification rules,\
+        \ which page service owners, have their own endpoint."
       operationId: listNotificationRules
       parameters:
       - description: Maximum number of items to return in this page. Omit to use the
@@ -8119,9 +8096,9 @@ paths:
       tags:
       - notification-rules
     post:
-      description: Creates a notification rule that matches alert transitions and
-        sends notifications to configured targets. Monitors keep evaluating separately
-        from notification rules.
+      description: "Creates a notification rule that sends matching alert transitions\
+        \ to destinations such as Slack, PagerDuty, email or webhooks. Monitors evaluate\
+        \ independently of notification rules."
       operationId: createNotificationRule
       requestBody:
         content:
@@ -8444,9 +8421,10 @@ paths:
       - notification-rules
   /v1/adaptive-notification-rules:
     get:
-      description: Lists adaptive notification rules visible to the authenticated
-        operation key. Standard notification rules are listed by the notification
-        rules endpoint. Pagination fields limit the returned page.
+      description: "Lists adaptive notification rules: when a selected monitor or\
+        \ SLO fires, they page the owners of the failing service found in sampled\
+        \ traces, or a fallback target. Standard notification rules have their own\
+        \ endpoint."
       operationId: listAdaptiveNotificationRules
       parameters:
       - description: Maximum number of items to return in this page. Omit to use the
@@ -8518,9 +8496,10 @@ paths:
       tags:
       - adaptive-notification-rules
     post:
-      description: "Creates an adaptive notification rule. Only trace monitors, metric\
-        \ monitors over OTel span metrics, and SLOs over traces or OTel span metrics\
-        \ are eligible."
+      description: "Creates an adaptive notification rule that pages the owners of\
+        \ the failing service when a selected monitor or SLO fires. Only trace monitors,\
+        \ metric monitors over OTel span metrics, and SLOs over traces or OTel span\
+        \ metrics are eligible."
       operationId: createAdaptiveNotificationRule
       requestBody:
         content:
@@ -8837,9 +8816,10 @@ paths:
       - adaptive-notification-rules
   /v1/notification-integrations:
     get:
-      description: Lists non-OAuth notification integrations visible to the authenticated
-        operation key. Slack integrations do not appear here because they are OAuth-based.
-        Pagination fields limit the returned page.
+      description: "Lists notification destinations (integrations, contact points)\
+        \ such as PagerDuty, incident.io, Grafana IRM, Squadcast, ServiceNow, Jira,\
+        \ Microsoft Teams, Google Chat or webhooks. Slack integrations do not appear\
+        \ here because they are OAuth-based."
       operationId: listNotificationIntegrations
       parameters:
       - description: Maximum number of items to return in this page. Omit to use the
@@ -8911,8 +8891,9 @@ paths:
       tags:
       - notification-integrations
     post:
-      description: Creates a non-OAuth notification integration that notification
-        rules can target as a destination.
+      description: "Creates a non-OAuth notification destination, such as PagerDuty\
+        \ or a webhook, that notification rules can target. Slack is connected through\
+        \ OAuth in the app instead."
       operationId: createNotificationIntegration
       requestBody:
         content:
@@ -9188,9 +9169,9 @@ paths:
       - notification-integrations
   /v1/notification-silences:
     get:
-      description: Lists notification silences visible to the authenticated operation
-        key. Use this endpoint to audit maintenance windows and notification muting
-        rules.
+      description: "Lists notification silences: muted alerts and maintenance windows,\
+        \ one-time or recurring weekly, matched by query, team, priority, transition\
+        \ or notification rule."
       operationId: listNotificationSilences
       responses:
         "200":
@@ -9238,11 +9219,10 @@ paths:
       tags:
       - notification-silences
     post:
-      description: "Creates a notification silence. Matching notifications that have\
-        \ not yet been sent are suppressed as soon as the schedule becomes active,\
-        \ including ones already queued when the silence is created; monitor evaluation\
-        \ itself is not paused, so alerts still transition and are visible in the\
-        \ UI."
+      description: "Creates a notification silence to mute alerts, for example during\
+        \ a maintenance window. Matching notifications not yet sent are suppressed\
+        \ while the schedule is active, including queued ones; monitors keep evaluating,\
+        \ so alerts still transition and show in the UI."
       operationId: createNotificationSilence
       requestBody:
         content:
@@ -9609,8 +9589,7 @@ paths:
       - notification-silences
   /v1/allowed-domains:
     get:
-      description: Retrieves the email domains whose users are allowed to join the
-        organization. Use this to audit domain-based membership controls.
+      description: Returns the email domains whose users are allowed to join the organization.
       operationId: getAllowedDomains
       responses:
         "200":
@@ -9720,11 +9699,11 @@ paths:
       - organization
   /v1/promql:
     post:
-      description: "Runs a PromQL range query over Tsuga metric data and returns timeseries\
-        \ results. Authenticate with a bearer operation API key or OAuth access token\
-        \ that can read metrics. Send clusterId as a query parameter; multi-cluster\
-        \ organizations must provide it. See [How to write PromQL queries](/documentation/visualize/guides/how-to-write-promql-queries)\
-        \ for query syntax and examples."
+      description: "Runs a PromQL (Prometheus query language) range query over metrics\
+        \ and returns timeseries. Use a metric name exactly as the metrics list returns\
+        \ it: names are not translated between OpenTelemetry dots and Prometheus underscores,\
+        \ and a dotted metric or label name must be quoted, as in `{\"k8s.pod.memory.working_set\"\
+        }`. See [How to write PromQL queries](/documentation/visualize/guides/how-to-write-promql-queries)."
       operationId: queryPromql
       parameters:
       - description: "Telemetry cluster to query. Set by the client as the clusterId\
@@ -9808,8 +9787,8 @@ paths:
     post:
       description: "Runs a PromQL range query over Tsuga metric data and returns one\
         \ shared time axis in milliseconds with one series per group aligned to it.\
-        \ Same request and authentication as `POST /v1/promql`, with `timeRange` in\
-        \ milliseconds. See [How to write PromQL queries](/documentation/visualize/guides/how-to-write-promql-queries)\
+        \ Same request as `POST /v1/promql`, with `timeRange` in milliseconds. See\
+        \ [How to write PromQL queries](/documentation/visualize/guides/how-to-write-promql-queries)\
         \ for query syntax and examples."
       operationId: queryPromqlV2
       parameters:
@@ -9888,10 +9867,11 @@ paths:
       - promql
   /v1/quality-reports/latest:
     get:
-      description: "Retrieves the latest persisted quality-report rows for a cluster,\
-        \ optionally scoped to one team. Use this to audit telemetry hygiene and routing\
-        \ recommendations. A cluster holds one row per rule per team, so pagination\
-        \ fields limit the returned page."
+      description: "Returns a cluster's latest quality report on telemetry and observability\
+        \ assets, optionally for one team: a score, findings and a recommendation\
+        \ per rule, covering telemetry hygiene, collection coverage, usage, and checks\
+        \ on routes, dashboards, monitors, API keys and tag policies. A cluster holds\
+        \ one row per rule per team."
       operationId: getLatestQualityReport
       parameters:
       - description: Identifier of the cluster whose latest quality-report rows are
@@ -9998,10 +9978,9 @@ paths:
       - quality-reports
   /v1/quality-reports/{id}/examples:
     get:
-      description: "Retrieves a page of the examples stored for one quality-report\
-        \ row. The latest-report endpoint returns only a preview of each row's examples,\
-        \ so use this to page past that preview when exampleCount exceeds the number\
-        \ of examples returned there. The row's full example count is in `metadata.pagination.totalCount`."
+      description: "Pages through the stored examples of one quality-report row, past\
+        \ the preview the latest report returns. The row's full example count is in\
+        \ `metadata.pagination.totalCount`."
       operationId: getQualityReportExamples
       parameters:
       - description: Maximum number of items to return in this page. Omit to use the
@@ -10091,8 +10070,8 @@ paths:
       - quality-reports
   /v1/retention-policies:
     get:
-      description: "Lists retention policy rows visible to the authenticated operation\
-        \ key. Use this to audit retention duration by signal, environment, and team."
+      description: "Lists retention policies: how long logs, traces and other telemetry\
+        \ are kept, by signal, environment and team."
       operationId: listRetentionPolicies
       responses:
         "200":
@@ -10417,10 +10396,9 @@ paths:
       - retention-policies
   /v1/routes:
     get:
-      description: "Lists log routes visible to the authenticated operation key. Returned\
-        \ routes are ordered by evaluation order, with earlier routes evaluated first.\
-        \ Use this to inventory ingest-time processing definitions and owners. Pagination\
-        \ fields limit the returned page."
+      description: "Lists log routes: ingest pipelines of log processors that parse\
+        \ (Grok, key-value, URL, user agent, GeoIP), map and enrich incoming logs,\
+        \ in evaluation order, earlier routes first."
       operationId: listRoutes
       parameters:
       - description: Maximum number of items to return in this page. Omit to use the
@@ -10492,8 +10470,10 @@ paths:
       tags:
       - routes
     post:
-      description: Creates a log route at the end of the evaluation order. Routes
-        affect only newly ingested logs after the cluster receives the updated configuration.
+      description: "Creates a log route, an ingest pipeline that parses, maps and\
+        \ enriches incoming logs, at the end of the evaluation order. It applies only\
+        \ to logs ingested after the cluster receives the updated configuration. Test\
+        \ Grok rules before saving with the Grok parse endpoint."
       operationId: createRoute
       requestBody:
         content:
@@ -10857,12 +10837,10 @@ paths:
       - routes
   /v1/grok/parse:
     post:
-      description: "Parses sample log lines with Grok rules and returns extracted\
-        \ fields, using the same Grok engine as the log route processor. Use this\
-        \ endpoint to author and test route Grok rules before saving them. The operation\
-        \ requires public API read access to log routes. A rule that fails to compile\
-        \ returns a 400 response with error code `GROK_RULE_VALIDATION_ERROR` and\
-        \ structured details in `error.details.ruleErrors`."
+      description: "Tests Grok parsing rules on sample log lines and returns the extracted\
+        \ fields, with the engine log routes use. Requires read access to log routes.\
+        \ A rule that fails to compile returns a 400 with error code `GROK_RULE_VALIDATION_ERROR`\
+        \ and per-rule details in `error.details.ruleErrors`."
       operationId: parseGrok
       requestBody:
         content:
@@ -10927,15 +10905,13 @@ paths:
       - grok
   /v1/services/query:
     post:
-      description: "Queries services inferred from telemetry. Use this endpoint to\
-        \ inventory service ownership, environments, versions, runtimes, and recent\
-        \ activity. A service is returned for each environment where its trace span\
-        \ metrics have data in `statsWindow`, including services the service catalog\
-        \ has not recorded yet; those carry no `id`, `firstSeenAt`, or `lastSeenAt`,\
-        \ and empty observed-metadata arrays other than `teams`. At most 1000 service\
-        \ names are returned per query, keeping those with the most span calls. Use\
-        \ `filters.searchQuery` and the other filters to narrow the results, and pagination\
-        \ fields to limit the returned page."
+      description: "Lists or searches services seen in traces (APM service catalog)\
+        \ with owner teams, environments, versions with faulty deployment detection,\
+        \ languages, frameworks, request rate and error rate. One row per service\
+        \ and environment with span data in `statsWindow`, including services the\
+        \ catalog has not recorded yet, which carry no `id`, `firstSeenAt` or `lastSeenAt`\
+        \ and only `teams` in observed metadata. At most 1000 service names, keeping\
+        \ those with the most span calls."
       operationId: queryServices
       requestBody:
         content:
@@ -11005,7 +10981,8 @@ paths:
       - services
   /v1/services/{serviceId}:
     get:
-      description: Retrieves one telemetry-inferred service by service ID.
+      description: Retrieves one telemetry-inferred service (service catalog entry)
+        by the service ID the services query returns.
       operationId: getService
       parameters:
       - description: Identifier of the service to retrieve. Use the `id` returned
@@ -11070,8 +11047,9 @@ paths:
       - services
   /v1/services/{serviceId}/notification-targets:
     get:
-      description: Lists the notification targets attached to one service. Use this
-        to discover target IDs before updating or deleting a target.
+      description: "Lists the notification targets attached to one service: where\
+        \ adaptive notification rules page its owners. Each target has an ID, a destination\
+        \ and a rate limit."
       operationId: listServiceNotificationTargets
       parameters:
       - description: Identifier of the service the notification target belongs to.
@@ -11391,10 +11369,10 @@ paths:
       - services
   /v1/services/{serviceId}/graph:
     get:
-      description: "Retrieves a dependency graph for one service over an optional\
-        \ time range and query filter. Provide an explicit time range for deterministic\
-        \ results. Use this to inspect observed downstream and upstream service relationships.\
-        \ See [Service page](/documentation/categorize/services/service-page)."
+      description: "Returns the dependency graph (service map) of one service: the\
+        \ upstream and downstream services and databases seen in its spans, as nodes\
+        \ and edges with call and error counts. Pass both `from` and `to` for a deterministic\
+        \ window; `query` filters the spans. See [Service page](/documentation/categorize/services/service-page)."
       operationId: getServiceGraph
       parameters:
       - description: Start of the service graph query window as a Unix timestamp in
@@ -11500,9 +11478,9 @@ paths:
       - services
   /v1/short-urls/{id}:
     get:
-      description: "Resolves a short link to the app URL it opens. Use this to recover\
-        \ the query, filters, and time range behind a link copied from the Logs or\
-        \ Traces page. An expired or unknown code returns 404."
+      description: "Resolves a short link copied from the Logs or Traces page to the\
+        \ app URL it opens, which carries the query, filters and time range. An expired\
+        \ or unknown code returns 404."
       operationId: getShortUrl
       parameters:
       - description: "Code of the short link, the last path segment of `https://app.tsuga.com/l/<id>`."
@@ -11566,9 +11544,8 @@ paths:
       - short-urls
   /v1/slos/query:
     post:
-      description: "Queries SLOs visible to the authenticated operation key. Use this\
-        \ endpoint to inventory SLO definitions, filter by owner, tag, status, or\
-        \ cluster, and page through results."
+      description: "Lists or searches SLOs (service level objectives, error budgets)\
+        \ by owner, tag, status or cluster."
       operationId: querySlos
       requestBody:
         content:
@@ -11889,9 +11866,9 @@ paths:
       - slos
   /v1/slos:
     post:
-      description: Creates an SLO owned by the specified team. The SLO can be event-based
-        (good/total queries) or time-based (a thresholded query over evaluation slices)
-        depending on its configuration.
+      description: "Creates an SLO (service level objective) owned by the specified\
+        \ team, with its alerts: event-based (good and total queries) or time-based\
+        \ (a thresholded query over evaluation slices)."
       operationId: createSlo
       requestBody:
         content:
@@ -11980,9 +11957,8 @@ paths:
       - slos
   /v1/tag-policies:
     get:
-      description: "Lists tag policies visible to the authenticated operation key.\
-        \ Use this to audit required tags, allowed values, team scope, and whether\
-        \ each policy applies to assets or telemetry."
+      description: "Lists tag policies: required tags and allowed values enforced\
+        \ on assets or telemetry, with their team scope."
       operationId: listTagPolicies
       responses:
         "200":
@@ -12374,9 +12350,8 @@ paths:
       - tag-policies
   /v1/teams:
     get:
-      description: "Lists teams visible to the authenticated operation key. Use this\
-        \ endpoint to inventory owners for resources, dashboards, monitors, routes,\
-        \ and policies. Pagination fields limit the returned page."
+      description: "Lists teams, the groups of users that own services, dashboards,\
+        \ monitors, routes, keys and policies."
       operationId: listTeams
       parameters:
       - description: Maximum number of items to return in this page. Omit to use the
@@ -12463,10 +12438,10 @@ paths:
       tags:
       - teams
     post:
-      description: "Creates a team for ownership and access control. Use this before\
-        \ assigning resources to a new owner team. A new team sits outside every existing\
-        \ team, so the operation key must be scoped to all teams: a key scoped to\
-        \ its owning team cannot create teams, even with write access to teams."
+      description: "Creates a team for ownership and access control: assets and keys\
+        \ name a team as their owner. A new team sits outside every existing team,\
+        \ so the operation key must be scoped to all teams: a key scoped to its owning\
+        \ team cannot create teams, even with write access to teams."
       operationId: createTeam
       requestBody:
         content:
@@ -12799,8 +12774,8 @@ paths:
       tags:
       - team-memberships
     get:
-      description: "Lists team memberships, optionally filtered by user ID or team\
-        \ ID. Use this to synchronize team membership and role assignments."
+      description: "Lists team memberships, which users belong to which teams with\
+        \ which team role, optionally for one user or one team."
       operationId: getTeamMemberships
       parameters:
       - description: Restrict results to memberships for the user with this ID. Omit
@@ -13130,9 +13105,10 @@ paths:
       - team-memberships
   /v1/traces/search:
     get:
-      description: "Searches spans in a required time range using Tsuga query syntax.\
-        \ Use this endpoint to retrieve trace spans for investigations or automation.\
-        \ See [Traces](/documentation/explore/traces) and [Query syntax](/documentation/explore/query-syntax)."
+      description: "Searches trace spans (APM requests and operations) in a time range\
+        \ with Tsuga query syntax, for example the slow or failing requests of a service.\
+        \ For one whole trace, use the trace summary; for counts or latency percentiles,\
+        \ an aggregation. See [Traces](/documentation/explore/traces) and [Query syntax](/documentation/explore/query-syntax)."
       operationId: searchSpans
       parameters:
       - description: Start of the query window as a Unix timestamp in seconds
@@ -13242,11 +13218,10 @@ paths:
       - traces
   /v1/traces/summarize:
     get:
-      description: "Summarizes a trace by aggregating groups of similar spans into\
-        \ synthetic summary spans, producing a compact view of large traces. Summary\
-        \ spans are marked with `span_attributes.aggregation.is_summary` and carry\
-        \ span counts, duration statistics, and an optional latency histogram. See\
-        \ [Traces](/documentation/explore/traces)."
+      description: "Returns one trace by trace ID as a compact set of spans: similar\
+        \ spans are merged into summary spans with counts and duration statistics,\
+        \ so large traces fit. Summary spans carry `span_attributes.aggregation.is_summary`.\
+        \ For where the time went, use the trace latency summary. See [Traces](/documentation/explore/traces)."
       operationId: summarizeTrace
       parameters:
       - description: Start of the query window as a Unix timestamp in seconds
@@ -13414,10 +13389,10 @@ paths:
       - traces
   /v1/traces/latency-summary:
     get:
-      description: "Summarizes where wall-clock time is spent in a trace, attributing\
-        \ each slice of the trace timeline to the services with active leaf spans.\
-        \ Returns per-service totals and an optional sequential range timeline. See\
-        \ [Traces](/documentation/explore/traces)."
+      description: "Finds where the time went in one trace (bottleneck, critical path):\
+        \ wall-clock time attributed to the services with active leaf spans, as per-service\
+        \ totals and an optional sequential timeline. For the spans themselves, use\
+        \ the trace summary. See [Traces](/documentation/explore/traces)."
       operationId: getTraceLatencySummary
       parameters:
       - description: Start of the query window as a Unix timestamp in seconds
@@ -13538,12 +13513,11 @@ paths:
       - traces
   /v1/traces/contrast-sets:
     post:
-      description: "Compares a target group of spans against a baseline group and\
-        \ returns the attribute values that are over-represented in the target. Use\
-        \ it to answer \"what do these spans have in common that the others do not\"\
-        : erroring spans against healthy ones for a service, slow spans against normal-latency\
-        \ ones, or the same spans before and after a deployment. Each group carries\
-        \ its own time range, so a before/after comparison is one call. See [Traces](/documentation/explore/traces)."
+      description: "Finds what failing or slow requests have in common that healthy\
+        \ ones do not, for example errors against successes, or before and after a\
+        \ change: compares a target span group with a baseline and returns the attribute\
+        \ values over-represented in the target. Each group has its own time range,\
+        \ so a before/after comparison is one call. See [Traces](/documentation/explore/traces)."
       operationId: findContrastSets
       parameters:
       - description: Telemetry cluster to target. Required when the organization has
@@ -13624,8 +13598,8 @@ paths:
       - traces
   /v1/users:
     get:
-      description: Lists users visible to the authenticated operation key. Use this
-        to resolve user IDs before managing team memberships or invitations.
+      description: "Lists the users of the organization with their ID, email, name\
+        \ and organization role. Team memberships have their own endpoint."
       operationId: listUsers
       responses:
         "200":
@@ -13739,9 +13713,9 @@ paths:
       - users
   /v1/widget-shares/{id}:
     get:
-      description: "Retrieves the query behind a widget share link. Use this to recover\
-        \ the widget title, Analytics search, and dashboard of a link whose unfurl\
-        \ only shows an image. An expired or unknown code returns 404."
+      description: "Resolves a widget share link, whose unfurl only shows an image,\
+        \ to the query behind it: widget title, Analytics search and dashboard. An\
+        \ expired or unknown code returns 404."
       operationId: getWidgetShare
       parameters:
       - description: "Code of the share link, the last path segment of `https://api.tsuga.com/v0/widget-shares/<orgId>/<id>`."
@@ -32291,7 +32265,8 @@ components:
       title: TableDefaultSorting
     SloWidgetOrganizeBy:
       description: "Groups the results by owning team, or by the value of a tag key\
-        \ or group-by field. Omit it to list results ungrouped."
+        \ or group-by field. Omit it to list results ungrouped. Only the `table` section\
+        \ is grouped, so include `table` in `display`."
       discriminator:
         mapping:
           team: "#/components/schemas/SloWidgetOrganizeByTeam"
@@ -32645,7 +32620,8 @@ components:
       title: InputTableDefaultSorting
     InputSloWidgetOrganizeBy:
       description: "Groups the results by owning team, or by the value of a tag key\
-        \ or group-by field. Omit it to list results ungrouped."
+        \ or group-by field. Omit it to list results ungrouped. Only the `table` section\
+        \ is grouped, so include `table` in `display`."
       discriminator:
         mapping:
           team: "#/components/schemas/SloWidgetOrganizeByTeam"

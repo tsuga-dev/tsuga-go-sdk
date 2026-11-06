@@ -67,7 +67,7 @@ type PublicTokensAPI interface {
 	/*
 		ListPublicTokens Method for ListPublicTokens
 
-		Lists RUM public tokens visible to the authenticated operation key. Use this to inventory the tokens configured in browser and mobile applications, with their owners, allowed URL prefixes, and tags. Pagination fields limit the returned page.
+		Lists RUM public tokens, used by browser and mobile applications to send real user monitoring data, with their owners, allowed URL prefixes and tags.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return PublicTokensAPIListPublicTokensRequest
@@ -518,7 +518,7 @@ func (r PublicTokensAPIListPublicTokensRequest) Execute() (*ListPublicTokensResp
 /*
 ListPublicTokens Method for ListPublicTokens
 
-Lists RUM public tokens visible to the authenticated operation key. Use this to inventory the tokens configured in browser and mobile applications, with their owners, allowed URL prefixes, and tags. Pagination fields limit the returned page.
+Lists RUM public tokens, used by browser and mobile applications to send real user monitoring data, with their owners, allowed URL prefixes and tags.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return PublicTokensAPIListPublicTokensRequest

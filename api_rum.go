@@ -22,7 +22,7 @@ type RumAPI interface {
 	/*
 		GetRumAttributes Method for GetRumAttributes
 
-		Lists the RUM attribute dot-paths that can be queried. Use this to discover fields for RUM search queries, filters, and grouping. See [RUM views](/documentation/categorize/rum-views/index).
+		Lists the RUM attribute dot-paths that can be queried: the fields to search, filter or group RUM events by. See [RUM views](/documentation/categorize/rum-views/index).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return RumAPIGetRumAttributesRequest
@@ -36,7 +36,7 @@ type RumAPI interface {
 	/*
 		SearchRumEvents Method for SearchRumEvents
 
-		Searches Real User Monitoring (RUM) events in a required time range using Tsuga query syntax, most recent first. Use this endpoint to retrieve raw browser and mobile events, such as web vitals, navigations, resource timings, and exceptions, for investigations or automation. See [RUM views](/documentation/categorize/rum-views/index) and [Query syntax](/documentation/explore/query-syntax).
+		Searches Real User Monitoring (RUM) events in a time range with Tsuga query syntax, newest first: raw browser and mobile events such as web vitals, navigations, resource timings and exceptions. For counts or rates, use an aggregation. See [RUM views](/documentation/categorize/rum-views/index) and [Query syntax](/documentation/explore/query-syntax).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return RumAPISearchRumEventsRequest
@@ -70,7 +70,7 @@ func (r RumAPIGetRumAttributesRequest) Execute() (*GetRumAttributesResponse, *ht
 /*
 GetRumAttributes Method for GetRumAttributes
 
-Lists the RUM attribute dot-paths that can be queried. Use this to discover fields for RUM search queries, filters, and grouping. See [RUM views](/documentation/categorize/rum-views/index).
+Lists the RUM attribute dot-paths that can be queried: the fields to search, filter or group RUM events by. See [RUM views](/documentation/categorize/rum-views/index).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return RumAPIGetRumAttributesRequest
@@ -229,7 +229,7 @@ func (r RumAPISearchRumEventsRequest) Execute() (*SearchRumEventsResponse, *http
 /*
 SearchRumEvents Method for SearchRumEvents
 
-Searches Real User Monitoring (RUM) events in a required time range using Tsuga query syntax, most recent first. Use this endpoint to retrieve raw browser and mobile events, such as web vitals, navigations, resource timings, and exceptions, for investigations or automation. See [RUM views](/documentation/categorize/rum-views/index) and [Query syntax](/documentation/explore/query-syntax).
+Searches Real User Monitoring (RUM) events in a time range with Tsuga query syntax, newest first: raw browser and mobile events such as web vitals, navigations, resource timings and exceptions. For counts or rates, use an aggregation. See [RUM views](/documentation/categorize/rum-views/index) and [Query syntax](/documentation/explore/query-syntax).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return RumAPISearchRumEventsRequest

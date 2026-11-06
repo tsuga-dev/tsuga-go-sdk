@@ -23,7 +23,7 @@ type TeamsAPI interface {
 	/*
 		CreateTeam Method for CreateTeam
 
-		Creates a team for ownership and access control. Use this before assigning resources to a new owner team. A new team sits outside every existing team, so the operation key must be scoped to all teams: a key scoped to its owning team cannot create teams, even with write access to teams.
+		Creates a team for ownership and access control: assets and keys name a team as their owner. A new team sits outside every existing team, so the operation key must be scoped to all teams: a key scoped to its owning team cannot create teams, even with write access to teams.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return TeamsAPICreateTeamRequest
@@ -67,7 +67,7 @@ type TeamsAPI interface {
 	/*
 		ListTeams Method for ListTeams
 
-		Lists teams visible to the authenticated operation key. Use this endpoint to inventory owners for resources, dashboards, monitors, routes, and policies. Pagination fields limit the returned page.
+		Lists teams, the groups of users that own services, dashboards, monitors, routes, keys and policies.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return TeamsAPIListTeamsRequest
@@ -116,7 +116,7 @@ func (r TeamsAPICreateTeamRequest) Execute() (*CreateTeamResponse, *http.Respons
 /*
 CreateTeam Method for CreateTeam
 
-Creates a team for ownership and access control. Use this before assigning resources to a new owner team. A new team sits outside every existing team, so the operation key must be scoped to all teams: a key scoped to its owning team cannot create teams, even with write access to teams.
+Creates a team for ownership and access control: assets and keys name a team as their owner. A new team sits outside every existing team, so the operation key must be scoped to all teams: a key scoped to its owning team cannot create teams, even with write access to teams.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TeamsAPICreateTeamRequest
@@ -525,7 +525,7 @@ func (r TeamsAPIListTeamsRequest) Execute() (*ListTeamsResponse, *http.Response,
 /*
 ListTeams Method for ListTeams
 
-Lists teams visible to the authenticated operation key. Use this endpoint to inventory owners for resources, dashboards, monitors, routes, and policies. Pagination fields limit the returned page.
+Lists teams, the groups of users that own services, dashboards, monitors, routes, keys and policies.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TeamsAPIListTeamsRequest
