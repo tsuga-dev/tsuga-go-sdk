@@ -19,6 +19,8 @@ var _ MappedNullable = &SummarizeTraceResponseData{}
 
 // SummarizeTraceResponseData struct for SummarizeTraceResponseData
 type SummarizeTraceResponseData struct {
+	// Distinct resource contexts of the trace, keyed by the `resource_id` each span carries. Emitted once per resource instead of on every span.
+	Resources map[string]map[string]interface{} `json:"resources"`
 	// Summarized trace spans, sorted by start time unless `sortSpans` is false. Aggregated groups are replaced by synthetic summary spans marked with `span_attributes.aggregation.is_summary`.
 	Spans                []SearchSpansResponseDataSpansInner `json:"spans"`
 	AdditionalProperties map[string]interface{}
@@ -30,8 +32,9 @@ type _SummarizeTraceResponseData SummarizeTraceResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSummarizeTraceResponseData(spans []SearchSpansResponseDataSpansInner) *SummarizeTraceResponseData {
+func NewSummarizeTraceResponseData(resources map[string]map[string]interface{}, spans []SearchSpansResponseDataSpansInner) *SummarizeTraceResponseData {
 	this := SummarizeTraceResponseData{}
+	this.Resources = resources
 	this.Spans = spans
 	return &this
 }
@@ -42,6 +45,30 @@ func NewSummarizeTraceResponseData(spans []SearchSpansResponseDataSpansInner) *S
 func NewSummarizeTraceResponseDataWithDefaults() *SummarizeTraceResponseData {
 	this := SummarizeTraceResponseData{}
 	return &this
+}
+
+// GetResources returns the Resources field value
+func (o *SummarizeTraceResponseData) GetResources() map[string]map[string]interface{} {
+	if o == nil {
+		var ret map[string]map[string]interface{}
+		return ret
+	}
+
+	return o.Resources
+}
+
+// GetResourcesOk returns a tuple with the Resources field value
+// and a boolean to check if the value has been set.
+func (o *SummarizeTraceResponseData) GetResourcesOk() (map[string]map[string]interface{}, bool) {
+	if o == nil {
+		return map[string]map[string]interface{}{}, false
+	}
+	return o.Resources, true
+}
+
+// SetResources sets field value
+func (o *SummarizeTraceResponseData) SetResources(v map[string]map[string]interface{}) {
+	o.Resources = v
 }
 
 // GetSpans returns the Spans field value
@@ -78,6 +105,7 @@ func (o SummarizeTraceResponseData) MarshalJSON() ([]byte, error) {
 
 func (o SummarizeTraceResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["resources"] = o.Resources
 	toSerialize["spans"] = o.Spans
 
 	for key, value := range o.AdditionalProperties {
@@ -92,6 +120,7 @@ func (o *SummarizeTraceResponseData) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"resources",
 		"spans",
 	}
 
@@ -122,6 +151,7 @@ func (o *SummarizeTraceResponseData) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "resources")
 		delete(additionalProperties, "spans")
 		o.AdditionalProperties = additionalProperties
 	}

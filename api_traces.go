@@ -65,7 +65,7 @@ type TracesAPI interface {
 	/*
 		SummarizeTrace Method for SummarizeTrace
 
-		Returns one trace by trace ID as a compact set of spans: similar spans are merged into summary spans with counts and duration statistics, so large traces fit. Summary spans carry `span_attributes.aggregation.is_summary`. For where the time went, use the trace latency summary. See [Traces](/documentation/explore/traces).
+		Returns one trace by trace ID as a compact set of spans: similar spans are merged into summary spans with counts and duration statistics, so large traces fit. Summary spans carry `span_attributes.aggregation.is_summary`. The resource context of each span (host, cloud, process, SDK) is emitted once under `resources`; a span points at its entry with `resource_id` and keeps only `context.service` and `context.env` inline. For where the time went, use the trace latency summary. See [Traces](/documentation/explore/traces).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return TracesAPISummarizeTraceRequest
@@ -697,7 +697,7 @@ func (r TracesAPISummarizeTraceRequest) Execute() (*SummarizeTraceResponse, *htt
 /*
 SummarizeTrace Method for SummarizeTrace
 
-Returns one trace by trace ID as a compact set of spans: similar spans are merged into summary spans with counts and duration statistics, so large traces fit. Summary spans carry `span_attributes.aggregation.is_summary`. For where the time went, use the trace latency summary. See [Traces](/documentation/explore/traces).
+Returns one trace by trace ID as a compact set of spans: similar spans are merged into summary spans with counts and duration statistics, so large traces fit. Summary spans carry `span_attributes.aggregation.is_summary`. The resource context of each span (host, cloud, process, SDK) is emitted once under `resources`; a span points at its entry with `resource_id` and keeps only `context.service` and `context.env` inline. For where the time went, use the trace latency summary. See [Traces](/documentation/explore/traces).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TracesAPISummarizeTraceRequest

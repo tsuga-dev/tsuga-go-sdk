@@ -34,7 +34,7 @@ import (
 )
 
 func main() {
-	createDashboardRequest := *openapiclient.NewCreateDashboardRequest("Name_example", "Owner_example", []openapiclient.InputGraph{*openapiclient.NewInputGraph("Id_example", openapiclient.updateDashboardGraph_request_visualization{GraphVisualizationGroup: openapiclient.NewGraphVisualizationGroup("Type_example")})}) // CreateDashboardRequest | Dashboard create or update request. Provide the dashboard identity, owner team, widgets, filters, tags, and optional time preset.
+	createDashboardRequest := *openapiclient.NewCreateDashboardRequest("Name_example", "Owner_example", []openapiclient.InputGraph{*openapiclient.NewInputGraph("Id_example", openapiclient.updateDashboardGraph_request_visualization{GraphVisualizationGroup: openapiclient.NewGraphVisualizationGroup("Type_example")})}) // CreateDashboardRequest | Dashboard create or update request. Provide the dashboard identity, owner team, widgets, filters, tags, and optional time preset and default clusters.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiCreateDashboardRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createDashboardRequest** | [**CreateDashboardRequest**](CreateDashboardRequest.md) | Dashboard create or update request. Provide the dashboard identity, owner team, widgets, filters, tags, and optional time preset. | 
+ **createDashboardRequest** | [**CreateDashboardRequest**](CreateDashboardRequest.md) | Dashboard create or update request. Provide the dashboard identity, owner team, widgets, filters, tags, and optional time preset and default clusters. | 
 
 ### Return type
 

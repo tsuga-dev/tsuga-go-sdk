@@ -119,7 +119,7 @@ type DashboardsAPICreateDashboardRequest struct {
 	createDashboardRequest *CreateDashboardRequest
 }
 
-// Dashboard create or update request. Provide the dashboard identity, owner team, widgets, filters, tags, and optional time preset.
+// Dashboard create or update request. Provide the dashboard identity, owner team, widgets, filters, tags, and optional time preset and default clusters.
 func (r DashboardsAPICreateDashboardRequest) CreateDashboardRequest(createDashboardRequest CreateDashboardRequest) DashboardsAPICreateDashboardRequest {
 	r.createDashboardRequest = &createDashboardRequest
 	return r

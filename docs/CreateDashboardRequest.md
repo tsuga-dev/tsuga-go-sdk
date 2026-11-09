@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Filters** | Pointer to [**[]UpdateDashboardRequestFiltersInner**](UpdateDashboardRequestFiltersInner.md) | Dashboard-wide filters applied to every widget on the dashboard. | [optional] 
 **Tags** | Pointer to [**[]InputTag**](InputTag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **TimePreset** | Pointer to **string** | Relative time preset used when opening the dashboard. Optional; create defaults to &#x60;past-30-minutes&#x60; when omitted, and update omission preserves the current value. | [optional] 
+**ClusterIds** | Pointer to **[]string** | IDs of the clusters to query, without duplicates. Mutually exclusive with &#x60;clusterId&#x60;. Omit both to use the default cluster. | [optional] 
 **FolderId** | Pointer to **NullableString** | Folder that should contain the dashboard. Optional; omit on update to keep the current folder, pass null to clear the folder, or pass a readable dashboard-folder ID to move it. | [optional] 
 
 ## Methods
@@ -166,6 +167,41 @@ SetTimePreset sets TimePreset field to given value.
 
 HasTimePreset returns a boolean if a field has been set.
 
+### GetClusterIds
+
+`func (o *CreateDashboardRequest) GetClusterIds() []string`
+
+GetClusterIds returns the ClusterIds field if non-nil, zero value otherwise.
+
+### GetClusterIdsOk
+
+`func (o *CreateDashboardRequest) GetClusterIdsOk() (*[]string, bool)`
+
+GetClusterIdsOk returns a tuple with the ClusterIds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClusterIds
+
+`func (o *CreateDashboardRequest) SetClusterIds(v []string)`
+
+SetClusterIds sets ClusterIds field to given value.
+
+### HasClusterIds
+
+`func (o *CreateDashboardRequest) HasClusterIds() bool`
+
+HasClusterIds returns a boolean if a field has been set.
+
+### SetClusterIdsNil
+
+`func (o *CreateDashboardRequest) SetClusterIdsNil(b bool)`
+
+ SetClusterIdsNil sets the value for ClusterIds to be an explicit nil
+
+### UnsetClusterIds
+`func (o *CreateDashboardRequest) UnsetClusterIds()`
+
+UnsetClusterIds ensures that no value is present for ClusterIds, not even an explicit nil
 ### GetFolderId
 
 `func (o *CreateDashboardRequest) GetFolderId() string`

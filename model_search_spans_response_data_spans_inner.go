@@ -22,6 +22,8 @@ type SearchSpansResponseDataSpansInner struct {
 	Context *SearchSpansResponseDataSpansInnerContext `json:"context,omitempty"`
 	// `span_id` of this span's parent within the same trace. Empty or absent for a root span.
 	ParentSpanId *string `json:"parent_span_id,omitempty"`
+	// Only on summarized traces: key into the response `resources` map holding the resource context (host, cloud, process, SDK) hoisted off this span. `context` keeps `service` and `env` inline.
+	ResourceId *string `json:"resource_id,omitempty"`
 	// OpenTelemetry resource attributes describing the process/host that emitted the span (e.g. `host.name`, `k8s.pod.name`), as a flat key-value map set by the instrumented service or its SDK.
 	ResourceAttributes map[string]interface{} `json:"resource_attributes"`
 	// OpenTelemetry span attributes describing this operation (e.g. HTTP method, DB statement), as a flat key-value map set by the instrumented code or auto-instrumentation.
@@ -139,6 +141,38 @@ func (o *SearchSpansResponseDataSpansInner) HasParentSpanId() bool {
 // SetParentSpanId gets a reference to the given string and assigns it to the ParentSpanId field.
 func (o *SearchSpansResponseDataSpansInner) SetParentSpanId(v string) {
 	o.ParentSpanId = &v
+}
+
+// GetResourceId returns the ResourceId field value if set, zero value otherwise.
+func (o *SearchSpansResponseDataSpansInner) GetResourceId() string {
+	if o == nil || IsNil(o.ResourceId) {
+		var ret string
+		return ret
+	}
+	return *o.ResourceId
+}
+
+// GetResourceIdOk returns a tuple with the ResourceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchSpansResponseDataSpansInner) GetResourceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ResourceId) {
+		return nil, false
+	}
+	return o.ResourceId, true
+}
+
+// HasResourceId returns a boolean if a field has been set.
+func (o *SearchSpansResponseDataSpansInner) HasResourceId() bool {
+	if o != nil && !IsNil(o.ResourceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceId gets a reference to the given string and assigns it to the ResourceId field.
+func (o *SearchSpansResponseDataSpansInner) SetResourceId(v string) {
+	o.ResourceId = &v
 }
 
 // GetResourceAttributes returns the ResourceAttributes field value
@@ -501,6 +535,9 @@ func (o SearchSpansResponseDataSpansInner) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.ParentSpanId) {
 		toSerialize["parent_span_id"] = o.ParentSpanId
 	}
+	if !IsNil(o.ResourceId) {
+		toSerialize["resource_id"] = o.ResourceId
+	}
 	toSerialize["resource_attributes"] = o.ResourceAttributes
 	toSerialize["span_attributes"] = o.SpanAttributes
 	toSerialize["duration"] = o.Duration
@@ -575,6 +612,7 @@ func (o *SearchSpansResponseDataSpansInner) UnmarshalJSON(data []byte) (err erro
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "context")
 		delete(additionalProperties, "parent_span_id")
+		delete(additionalProperties, "resource_id")
 		delete(additionalProperties, "resource_attributes")
 		delete(additionalProperties, "span_attributes")
 		delete(additionalProperties, "duration")

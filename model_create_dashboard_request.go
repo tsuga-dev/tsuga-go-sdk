@@ -17,7 +17,7 @@ import (
 // checks if the CreateDashboardRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CreateDashboardRequest{}
 
-// CreateDashboardRequest Dashboard create or update request. Provide the dashboard identity, owner team, widgets, filters, tags, and optional time preset.
+// CreateDashboardRequest Dashboard create or update request. Provide the dashboard identity, owner team, widgets, filters, tags, and optional time preset and default clusters.
 type CreateDashboardRequest struct {
 	// Display name of the dashboard.
 	Name string `json:"name"`
@@ -31,6 +31,8 @@ type CreateDashboardRequest struct {
 	Tags []InputTag `json:"tags,omitempty"`
 	// Relative time preset used when opening the dashboard. Optional; create defaults to `past-30-minutes` when omitted, and update omission preserves the current value.
 	TimePreset *string `json:"timePreset,omitempty"`
+	// IDs of the clusters to query, without duplicates. Mutually exclusive with `clusterId`. Omit both to use the default cluster.
+	ClusterIds []string `json:"clusterIds,omitempty"`
 	// Folder that should contain the dashboard. Optional; omit on update to keep the current folder, pass null to clear the folder, or pass a readable dashboard-folder ID to move it.
 	FolderId             NullableString `json:"folderId,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -226,6 +228,39 @@ func (o *CreateDashboardRequest) SetTimePreset(v string) {
 	o.TimePreset = &v
 }
 
+// GetClusterIds returns the ClusterIds field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateDashboardRequest) GetClusterIds() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+	return o.ClusterIds
+}
+
+// GetClusterIdsOk returns a tuple with the ClusterIds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateDashboardRequest) GetClusterIdsOk() ([]string, bool) {
+	if o == nil || IsNil(o.ClusterIds) {
+		return nil, false
+	}
+	return o.ClusterIds, true
+}
+
+// HasClusterIds returns a boolean if a field has been set.
+func (o *CreateDashboardRequest) HasClusterIds() bool {
+	if o != nil && !IsNil(o.ClusterIds) {
+		return true
+	}
+
+	return false
+}
+
+// SetClusterIds gets a reference to the given []string and assigns it to the ClusterIds field.
+func (o *CreateDashboardRequest) SetClusterIds(v []string) {
+	o.ClusterIds = v
+}
+
 // GetFolderId returns the FolderId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateDashboardRequest) GetFolderId() string {
 	if o == nil || IsNil(o.FolderId.Get()) {
@@ -291,6 +326,9 @@ func (o CreateDashboardRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TimePreset) {
 		toSerialize["timePreset"] = o.TimePreset
 	}
+	if o.ClusterIds != nil {
+		toSerialize["clusterIds"] = o.ClusterIds
+	}
 	if o.FolderId.IsSet() {
 		toSerialize["folderId"] = o.FolderId.Get()
 	}
@@ -345,6 +383,7 @@ func (o *CreateDashboardRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "filters")
 		delete(additionalProperties, "tags")
 		delete(additionalProperties, "timePreset")
+		delete(additionalProperties, "clusterIds")
 		delete(additionalProperties, "folderId")
 		o.AdditionalProperties = additionalProperties
 	}

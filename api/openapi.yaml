@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261106.9.0+777affd
+  version: 20261109.12.0+5cca474
 servers:
 - url: https://api.tsuga.com
 security:
@@ -2733,6 +2733,8 @@ paths:
               - key: team
                 value: platform
               timePreset: past-1-hour
+              clusterIds:
+              - cluster-123-abc
               folderId: null
             schema:
               $ref: "#/components/schemas/updateDashboard_request"
@@ -2818,11 +2820,14 @@ paths:
               - key: team
                 value: platform
               timePreset: past-1-hour
+              clusterIds:
+              - cluster-123-abc
               folderId: null
             schema:
               $ref: "#/components/schemas/createDashboard_request"
         description: "Dashboard create or update request. Provide the dashboard identity,\
-          \ owner team, widgets, filters, tags, and optional time preset."
+          \ owner team, widgets, filters, tags, and optional time preset and default\
+          \ clusters."
         required: true
       responses:
         "200":
@@ -13221,7 +13226,10 @@ paths:
       description: "Returns one trace by trace ID as a compact set of spans: similar\
         \ spans are merged into summary spans with counts and duration statistics,\
         \ so large traces fit. Summary spans carry `span_attributes.aggregation.is_summary`.\
-        \ For where the time went, use the trace latency summary. See [Traces](/documentation/explore/traces)."
+        \ The resource context of each span (host, cloud, process, SDK) is emitted\
+        \ once under `resources`; a span points at its entry with `resource_id` and\
+        \ keeps only `context.service` and `context.env` inline. For where the time\
+        \ went, use the trace latency summary. See [Traces](/documentation/explore/traces)."
       operationId: summarizeTrace
       parameters:
       - description: Start of the query window as a Unix timestamp in seconds
@@ -16028,6 +16036,9 @@ components:
         - key: key
           value: value
         timePreset: past-5-minutes
+        clusterIds:
+        - clusterIds
+        - clusterIds
         folderId: folderId
         widgetCount: 0.8008281904610115
       properties:
@@ -16085,6 +16096,12 @@ components:
           - previous-3-months
           - previous-year
           type: string
+        clusterIds:
+          description: Clusters selected when opening the dashboard.
+          items:
+            type: string
+          type: array
+          default: null
         folderId:
           description: Folder that contains the dashboard. Set from the dashboard's
             saved folder relationship. Returned when the dashboard is in a folder;
@@ -16122,6 +16139,9 @@ components:
           - key: key
             value: value
           timePreset: past-5-minutes
+          clusterIds:
+          - clusterIds
+          - clusterIds
           folderId: folderId
           widgetCount: 0.8008281904610115
         - id: id
@@ -16144,6 +16164,9 @@ components:
           - key: key
             value: value
           timePreset: past-5-minutes
+          clusterIds:
+          - clusterIds
+          - clusterIds
           folderId: folderId
           widgetCount: 0.8008281904610115
         metadata:
@@ -16286,6 +16309,9 @@ components:
         - key: key
           value: value
         timePreset: past-5-minutes
+        clusterIds:
+        - clusterIds
+        - clusterIds
         folderId: folderId
       properties:
         id:
@@ -16348,6 +16374,12 @@ components:
           - previous-3-months
           - previous-year
           type: string
+        clusterIds:
+          description: Clusters selected when opening the dashboard.
+          items:
+            type: string
+          type: array
+          default: null
         folderId:
           description: Folder that contains the dashboard. Set from the dashboard's
             saved folder relationship. Returned when the dashboard is in a folder;
@@ -16479,6 +16511,9 @@ components:
           - key: key
             value: value
           timePreset: past-5-minutes
+          clusterIds:
+          - clusterIds
+          - clusterIds
           folderId: folderId
       properties:
         requestId:
@@ -16610,6 +16645,9 @@ components:
           - key: key
             value: value
           timePreset: past-5-minutes
+          clusterIds:
+          - clusterIds
+          - clusterIds
           folderId: folderId
       properties:
         requestId:
@@ -16741,6 +16779,9 @@ components:
           - key: key
             value: value
           timePreset: past-5-minutes
+          clusterIds:
+          - clusterIds
+          - clusterIds
           folderId: folderId
       properties:
         requestId:
@@ -23805,6 +23846,7 @@ components:
                 name: name
                 version: version
             parent_span_id: parent_span_id
+            resource_id: resource_id
             resource_attributes:
               key: ""
             span_attributes:
@@ -23838,6 +23880,7 @@ components:
                 name: name
                 version: version
             parent_span_id: parent_span_id
+            resource_id: resource_id
             resource_attributes:
               key: ""
             span_attributes:
@@ -23879,12 +23922,16 @@ components:
       example:
         requestId: requestId
         data:
+          resources:
+            key:
+              key: ""
           spans:
           - context:
               service:
                 name: name
                 version: version
             parent_span_id: parent_span_id
+            resource_id: resource_id
             resource_attributes:
               key: ""
             span_attributes:
@@ -23918,6 +23965,7 @@ components:
                 name: name
                 version: version
             parent_span_id: parent_span_id
+            resource_id: resource_id
             resource_attributes:
               key: ""
             span_attributes:
@@ -34703,6 +34751,23 @@ components:
           - previous-3-months
           - previous-year
           type: string
+        clusterIds:
+          description: "IDs of the clusters to query, without duplicates. Mutually\
+            \ exclusive with `clusterId`. Omit both to use the default cluster."
+          items:
+            description: "Folder filter for dashboard query results. Optional; pass\
+              \ a folder ID to return dashboards in that folder, or null to return\
+              \ only dashboards that are not in any folder."
+            maxLength: 250
+            minLength: 1
+            nullable: true
+            type: string
+          maxItems: 5
+          minItems: 1
+          nullable: true
+          type: array
+          uniqueItems: true
+          default: null
         folderId:
           description: "Folder filter for dashboard query results. Optional; pass\
             \ a folder ID to return dashboards in that folder, or null to return only\
@@ -34713,7 +34778,8 @@ components:
           type: string
     createDashboard_request:
       description: "Dashboard create or update request. Provide the dashboard identity,\
-        \ owner team, widgets, filters, tags, and optional time preset."
+        \ owner team, widgets, filters, tags, and optional time preset and default\
+        \ clusters."
       properties:
         name:
           description: Display name of the dashboard.
@@ -34778,6 +34844,19 @@ components:
           - previous-3-months
           - previous-year
           type: string
+        clusterIds:
+          description: "IDs of the clusters to query, without duplicates. Mutually\
+            \ exclusive with `clusterId`. Omit both to use the default cluster."
+          items:
+            maxLength: 250
+            minLength: 1
+            type: string
+          maxItems: 5
+          minItems: 1
+          nullable: true
+          type: array
+          uniqueItems: true
+          default: null
         folderId:
           description: "Folder that should contain the dashboard. Optional; omit on\
             \ update to keep the current folder, pass null to clear the folder, or\
@@ -44568,6 +44647,7 @@ components:
             name: name
             version: version
         parent_span_id: parent_span_id
+        resource_id: resource_id
         resource_attributes:
           key: ""
         span_attributes:
@@ -44602,6 +44682,11 @@ components:
         parent_span_id:
           description: '`span_id` of this span''s parent within the same trace. Empty
             or absent for a root span.'
+          type: string
+        resource_id:
+          description: "Only on summarized traces: key into the response `resources`\
+            \ map holding the resource context (host, cloud, process, SDK) hoisted\
+            \ off this span. `context` keeps `service` and `env` inline."
           type: string
         resource_attributes:
           additionalProperties: true
@@ -44681,6 +44766,7 @@ components:
               name: name
               version: version
           parent_span_id: parent_span_id
+          resource_id: resource_id
           resource_attributes:
             key: ""
           span_attributes:
@@ -44714,6 +44800,7 @@ components:
               name: name
               version: version
           parent_span_id: parent_span_id
+          resource_id: resource_id
           resource_attributes:
             key: ""
           span_attributes:
@@ -44753,12 +44840,16 @@ components:
       - spans
     SummarizeTraceResponse_data:
       example:
+        resources:
+          key:
+            key: ""
         spans:
         - context:
             service:
               name: name
               version: version
           parent_span_id: parent_span_id
+          resource_id: resource_id
           resource_attributes:
             key: ""
           span_attributes:
@@ -44792,6 +44883,7 @@ components:
               name: name
               version: version
           parent_span_id: parent_span_id
+          resource_id: resource_id
           resource_attributes:
             key: ""
           span_attributes:
@@ -44821,6 +44913,14 @@ components:
           status_code: status_code
           trace_id: trace_id
       properties:
+        resources:
+          additionalProperties:
+            additionalProperties: true
+            properties: {}
+            type: object
+          description: "Distinct resource contexts of the trace, keyed by the `resource_id`\
+            \ each span carries. Emitted once per resource instead of on every span."
+          type: object
         spans:
           description: "Summarized trace spans, sorted by start time unless `sortSpans`\
             \ is false. Aggregated groups are replaced by synthetic summary spans\
@@ -44830,6 +44930,7 @@ components:
           type: array
           default: null
       required:
+      - resources
       - spans
     GetTraceLatencySummaryResponse_data_services_inner:
       example:

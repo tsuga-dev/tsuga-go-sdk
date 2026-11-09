@@ -33,6 +33,8 @@ type Dashboard struct {
 	Tags []Tag `json:"tags,omitempty"`
 	// Relative time preset used when opening the dashboard.
 	TimePreset *string `json:"timePreset,omitempty"`
+	// Clusters selected when opening the dashboard.
+	ClusterIds []string `json:"clusterIds,omitempty"`
 	// Folder that contains the dashboard. Set from the dashboard's saved folder relationship. Returned when the dashboard is in a folder; omitted when it is not.
 	FolderId             *string `json:"folderId,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -253,6 +255,38 @@ func (o *Dashboard) SetTimePreset(v string) {
 	o.TimePreset = &v
 }
 
+// GetClusterIds returns the ClusterIds field value if set, zero value otherwise.
+func (o *Dashboard) GetClusterIds() []string {
+	if o == nil || IsNil(o.ClusterIds) {
+		var ret []string
+		return ret
+	}
+	return o.ClusterIds
+}
+
+// GetClusterIdsOk returns a tuple with the ClusterIds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Dashboard) GetClusterIdsOk() ([]string, bool) {
+	if o == nil || IsNil(o.ClusterIds) {
+		return nil, false
+	}
+	return o.ClusterIds, true
+}
+
+// HasClusterIds returns a boolean if a field has been set.
+func (o *Dashboard) HasClusterIds() bool {
+	if o != nil && !IsNil(o.ClusterIds) {
+		return true
+	}
+
+	return false
+}
+
+// SetClusterIds gets a reference to the given []string and assigns it to the ClusterIds field.
+func (o *Dashboard) SetClusterIds(v []string) {
+	o.ClusterIds = v
+}
+
 // GetFolderId returns the FolderId field value if set, zero value otherwise.
 func (o *Dashboard) GetFolderId() string {
 	if o == nil || IsNil(o.FolderId) {
@@ -307,6 +341,9 @@ func (o Dashboard) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.TimePreset) {
 		toSerialize["timePreset"] = o.TimePreset
+	}
+	if !IsNil(o.ClusterIds) {
+		toSerialize["clusterIds"] = o.ClusterIds
 	}
 	if !IsNil(o.FolderId) {
 		toSerialize["folderId"] = o.FolderId
@@ -364,6 +401,7 @@ func (o *Dashboard) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "filters")
 		delete(additionalProperties, "tags")
 		delete(additionalProperties, "timePreset")
+		delete(additionalProperties, "clusterIds")
 		delete(additionalProperties, "folderId")
 		o.AdditionalProperties = additionalProperties
 	}

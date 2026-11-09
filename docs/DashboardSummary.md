@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Filters** | Pointer to [**[]DashboardSummaryFiltersInner**](DashboardSummaryFiltersInner.md) | Dashboard-wide filters applied to every widget on the dashboard. | [optional] 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
 **TimePreset** | Pointer to **string** | Relative time preset used when opening the dashboard. | [optional] 
+**ClusterIds** | Pointer to **[]string** | Clusters selected when opening the dashboard. | [optional] 
 **FolderId** | Pointer to **string** | Folder that contains the dashboard. Set from the dashboard&#39;s saved folder relationship. Returned when the dashboard is in a folder; omitted when it is not. | [optional] 
 **WidgetCount** | **float32** | Number of widgets on the dashboard. | 
 
@@ -166,6 +167,31 @@ SetTimePreset sets TimePreset field to given value.
 `func (o *DashboardSummary) HasTimePreset() bool`
 
 HasTimePreset returns a boolean if a field has been set.
+
+### GetClusterIds
+
+`func (o *DashboardSummary) GetClusterIds() []string`
+
+GetClusterIds returns the ClusterIds field if non-nil, zero value otherwise.
+
+### GetClusterIdsOk
+
+`func (o *DashboardSummary) GetClusterIdsOk() (*[]string, bool)`
+
+GetClusterIdsOk returns a tuple with the ClusterIds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClusterIds
+
+`func (o *DashboardSummary) SetClusterIds(v []string)`
+
+SetClusterIds sets ClusterIds field to given value.
+
+### HasClusterIds
+
+`func (o *DashboardSummary) HasClusterIds() bool`
+
+HasClusterIds returns a boolean if a field has been set.
 
 ### GetFolderId
 

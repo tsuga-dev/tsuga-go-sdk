@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Context** | Pointer to [**SearchSpansResponseDataSpansInnerContext**](SearchSpansResponseDataSpansInnerContext.md) |  | [optional] 
 **ParentSpanId** | Pointer to **string** | &#x60;span_id&#x60; of this span&#39;s parent within the same trace. Empty or absent for a root span. | [optional] 
+**ResourceId** | Pointer to **string** | Only on summarized traces: key into the response &#x60;resources&#x60; map holding the resource context (host, cloud, process, SDK) hoisted off this span. &#x60;context&#x60; keeps &#x60;service&#x60; and &#x60;env&#x60; inline. | [optional] 
 **ResourceAttributes** | **map[string]interface{}** | OpenTelemetry resource attributes describing the process/host that emitted the span (e.g. &#x60;host.name&#x60;, &#x60;k8s.pod.name&#x60;), as a flat key-value map set by the instrumented service or its SDK. | 
 **SpanAttributes** | **map[string]interface{}** | OpenTelemetry span attributes describing this operation (e.g. HTTP method, DB statement), as a flat key-value map set by the instrumented code or auto-instrumentation. | 
 **Duration** | **float32** | Span duration in milliseconds, derived from the nanosecond &#x60;start_time&#x60; and &#x60;end_time&#x60; values. | 
@@ -88,6 +89,31 @@ SetParentSpanId sets ParentSpanId field to given value.
 `func (o *SearchSpansResponseDataSpansInner) HasParentSpanId() bool`
 
 HasParentSpanId returns a boolean if a field has been set.
+
+### GetResourceId
+
+`func (o *SearchSpansResponseDataSpansInner) GetResourceId() string`
+
+GetResourceId returns the ResourceId field if non-nil, zero value otherwise.
+
+### GetResourceIdOk
+
+`func (o *SearchSpansResponseDataSpansInner) GetResourceIdOk() (*string, bool)`
+
+GetResourceIdOk returns a tuple with the ResourceId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResourceId
+
+`func (o *SearchSpansResponseDataSpansInner) SetResourceId(v string)`
+
+SetResourceId sets ResourceId field to given value.
+
+### HasResourceId
+
+`func (o *SearchSpansResponseDataSpansInner) HasResourceId() bool`
+
+HasResourceId returns a boolean if a field has been set.
 
 ### GetResourceAttributes
 
