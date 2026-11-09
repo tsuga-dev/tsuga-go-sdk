@@ -30,8 +30,8 @@ type GraphVisualizationTable struct {
 	// Default sorting applied to a table widget. Column IDs are `label` for the grouping column and `col-<index>` for each entry in `columns`. Users can still change sorting by selecting columns in the rendered table.
 	DefaultSorting []TableDefaultSorting `json:"defaultSorting,omitempty"`
 	// Table column widths in pixels, keyed by column id: `label` for the grouping column and `col-<index>` for each entry in `columns`. Columns without an entry keep their default width.
-	ColumnSizes          map[string]float32 `json:"columnSizes,omitempty"`
-	CustomLink           *CustomLink        `json:"customLink,omitempty"`
+	ColumnSizes          *map[string]float32 `json:"columnSizes,omitempty"`
+	CustomLink           *CustomLink         `json:"customLink,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -206,14 +206,14 @@ func (o *GraphVisualizationTable) GetColumnSizes() map[string]float32 {
 		var ret map[string]float32
 		return ret
 	}
-	return o.ColumnSizes
+	return *o.ColumnSizes
 }
 
 // GetColumnSizesOk returns a tuple with the ColumnSizes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationTable) GetColumnSizesOk() (map[string]float32, bool) {
+func (o *GraphVisualizationTable) GetColumnSizesOk() (*map[string]float32, bool) {
 	if o == nil || IsNil(o.ColumnSizes) {
-		return map[string]float32{}, false
+		return nil, false
 	}
 	return o.ColumnSizes, true
 }
@@ -229,7 +229,7 @@ func (o *GraphVisualizationTable) HasColumnSizes() bool {
 
 // SetColumnSizes gets a reference to the given map[string]float32 and assigns it to the ColumnSizes field.
 func (o *GraphVisualizationTable) SetColumnSizes(v map[string]float32) {
-	o.ColumnSizes = v
+	o.ColumnSizes = &v
 }
 
 // GetCustomLink returns the CustomLink field value if set, zero value otherwise.

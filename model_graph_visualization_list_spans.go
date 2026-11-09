@@ -26,7 +26,7 @@ type GraphVisualizationListSpans struct {
 	// Custom columns to display for each span
 	ListColumns []WidgetListColumn `json:"listColumns,omitempty"`
 	// List column widths in pixels, keyed by the `attribute` of the matching `listColumns` entry. Columns without an entry keep their default width.
-	ListColumnsSize map[string]float32 `json:"listColumnsSize,omitempty"`
+	ListColumnsSize *map[string]float32 `json:"listColumnsSize,omitempty"`
 	// Whether list widget cell text wraps instead of truncating. Applies to span list widgets.
 	IsCellWrapped *bool `json:"isCellWrapped,omitempty"`
 	// Default sorting applied to a list widget. Applies to log, span, RUM event, or connection list widgets. Users can still change sorting by selecting columns in the rendered list.
@@ -141,14 +141,14 @@ func (o *GraphVisualizationListSpans) GetListColumnsSize() map[string]float32 {
 		var ret map[string]float32
 		return ret
 	}
-	return o.ListColumnsSize
+	return *o.ListColumnsSize
 }
 
 // GetListColumnsSizeOk returns a tuple with the ListColumnsSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationListSpans) GetListColumnsSizeOk() (map[string]float32, bool) {
+func (o *GraphVisualizationListSpans) GetListColumnsSizeOk() (*map[string]float32, bool) {
 	if o == nil || IsNil(o.ListColumnsSize) {
-		return map[string]float32{}, false
+		return nil, false
 	}
 	return o.ListColumnsSize, true
 }
@@ -164,7 +164,7 @@ func (o *GraphVisualizationListSpans) HasListColumnsSize() bool {
 
 // SetListColumnsSize gets a reference to the given map[string]float32 and assigns it to the ListColumnsSize field.
 func (o *GraphVisualizationListSpans) SetListColumnsSize(v map[string]float32) {
-	o.ListColumnsSize = v
+	o.ListColumnsSize = &v
 }
 
 // GetIsCellWrapped returns the IsCellWrapped field value if set, zero value otherwise.

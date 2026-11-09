@@ -23,7 +23,7 @@ type NotificationIntegrationSettingOneOf4 struct {
 	UrlLastChars         string                                                           `json:"urlLastChars"`
 	Method               string                                                           `json:"method"`
 	Authentication       NotificationIntegrationSettingOneOf4Authentication               `json:"authentication"`
-	CustomHeaders        map[string]string                                                `json:"customHeaders,omitempty"`
+	CustomHeaders        *map[string]string                                               `json:"customHeaders,omitempty"`
 	PayloadTemplate      CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate `json:"payloadTemplate"`
 	EventNameMapping     *NotificationIntegrationSettingOneOf4EventNameMapping            `json:"eventNameMapping,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -155,14 +155,14 @@ func (o *NotificationIntegrationSettingOneOf4) GetCustomHeaders() map[string]str
 		var ret map[string]string
 		return ret
 	}
-	return o.CustomHeaders
+	return *o.CustomHeaders
 }
 
 // GetCustomHeadersOk returns a tuple with the CustomHeaders field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationIntegrationSettingOneOf4) GetCustomHeadersOk() (map[string]string, bool) {
+func (o *NotificationIntegrationSettingOneOf4) GetCustomHeadersOk() (*map[string]string, bool) {
 	if o == nil || IsNil(o.CustomHeaders) {
-		return map[string]string{}, false
+		return nil, false
 	}
 	return o.CustomHeaders, true
 }
@@ -178,7 +178,7 @@ func (o *NotificationIntegrationSettingOneOf4) HasCustomHeaders() bool {
 
 // SetCustomHeaders gets a reference to the given map[string]string and assigns it to the CustomHeaders field.
 func (o *NotificationIntegrationSettingOneOf4) SetCustomHeaders(v map[string]string) {
-	o.CustomHeaders = v
+	o.CustomHeaders = &v
 }
 
 // GetPayloadTemplate returns the PayloadTemplate field value

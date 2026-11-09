@@ -36,7 +36,7 @@ type GetMetricResponseData struct {
 	// Estimated number of distinct series for this metric across the most recent data generations kept by the metric catalog. Omitted when the catalog has no statistics for the metric yet.
 	SeriesCardinality *float32 `json:"seriesCardinality,omitempty"`
 	// Estimated number of distinct values per attribute over the same window as `seriesCardinality`, keyed like `attributes`. Omitted when the catalog has no statistics for the metric yet.
-	AttributeCardinalities map[string]float32 `json:"attributeCardinalities,omitempty"`
+	AttributeCardinalities *map[string]float32 `json:"attributeCardinalities,omitempty"`
 	AdditionalProperties   map[string]interface{}
 }
 
@@ -307,14 +307,14 @@ func (o *GetMetricResponseData) GetAttributeCardinalities() map[string]float32 {
 		var ret map[string]float32
 		return ret
 	}
-	return o.AttributeCardinalities
+	return *o.AttributeCardinalities
 }
 
 // GetAttributeCardinalitiesOk returns a tuple with the AttributeCardinalities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetMetricResponseData) GetAttributeCardinalitiesOk() (map[string]float32, bool) {
+func (o *GetMetricResponseData) GetAttributeCardinalitiesOk() (*map[string]float32, bool) {
 	if o == nil || IsNil(o.AttributeCardinalities) {
-		return map[string]float32{}, false
+		return nil, false
 	}
 	return o.AttributeCardinalities, true
 }
@@ -330,7 +330,7 @@ func (o *GetMetricResponseData) HasAttributeCardinalities() bool {
 
 // SetAttributeCardinalities gets a reference to the given map[string]float32 and assigns it to the AttributeCardinalities field.
 func (o *GetMetricResponseData) SetAttributeCardinalities(v map[string]float32) {
-	o.AttributeCardinalities = v
+	o.AttributeCardinalities = &v
 }
 
 func (o GetMetricResponseData) MarshalJSON() ([]byte, error) {

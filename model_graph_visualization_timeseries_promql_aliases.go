@@ -21,7 +21,7 @@ type GraphVisualizationTimeseriesPromqlAliases struct {
 	// Optional alias for formula (only used for display in the UI)
 	Formula *string `json:"formula,omitempty"`
 	// Display names for individual query series, keyed by the zero-based query index as a string.
-	Queries              map[string]string `json:"queries,omitempty"`
+	Queries              *map[string]string `json:"queries,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -82,14 +82,14 @@ func (o *GraphVisualizationTimeseriesPromqlAliases) GetQueries() map[string]stri
 		var ret map[string]string
 		return ret
 	}
-	return o.Queries
+	return *o.Queries
 }
 
 // GetQueriesOk returns a tuple with the Queries field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVisualizationTimeseriesPromqlAliases) GetQueriesOk() (map[string]string, bool) {
+func (o *GraphVisualizationTimeseriesPromqlAliases) GetQueriesOk() (*map[string]string, bool) {
 	if o == nil || IsNil(o.Queries) {
-		return map[string]string{}, false
+		return nil, false
 	}
 	return o.Queries, true
 }
@@ -105,7 +105,7 @@ func (o *GraphVisualizationTimeseriesPromqlAliases) HasQueries() bool {
 
 // SetQueries gets a reference to the given map[string]string and assigns it to the Queries field.
 func (o *GraphVisualizationTimeseriesPromqlAliases) SetQueries(v map[string]string) {
-	o.Queries = v
+	o.Queries = &v
 }
 
 func (o GraphVisualizationTimeseriesPromqlAliases) MarshalJSON() ([]byte, error) {

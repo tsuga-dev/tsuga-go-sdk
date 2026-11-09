@@ -162,11 +162,11 @@ func (o *CreateNotificationIntegrationRequestSettingOneOf4) GetCustomHeaders() m
 
 // GetCustomHeadersOk returns a tuple with the CustomHeaders field value
 // and a boolean to check if the value has been set.
-func (o *CreateNotificationIntegrationRequestSettingOneOf4) GetCustomHeadersOk() (map[string]*string, bool) {
+func (o *CreateNotificationIntegrationRequestSettingOneOf4) GetCustomHeadersOk() (*map[string]*string, bool) {
 	if o == nil {
-		return map[string]*string{}, false
+		return nil, false
 	}
-	return o.CustomHeaders, true
+	return &o.CustomHeaders, true
 }
 
 // SetCustomHeaders sets field value

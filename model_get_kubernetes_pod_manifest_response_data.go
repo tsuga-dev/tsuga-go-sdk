@@ -94,11 +94,11 @@ func (o *GetKubernetesPodManifestResponseData) GetLabels() map[string]string {
 
 // GetLabelsOk returns a tuple with the Labels field value
 // and a boolean to check if the value has been set.
-func (o *GetKubernetesPodManifestResponseData) GetLabelsOk() (map[string]string, bool) {
+func (o *GetKubernetesPodManifestResponseData) GetLabelsOk() (*map[string]string, bool) {
 	if o == nil {
-		return map[string]string{}, false
+		return nil, false
 	}
-	return o.Labels, true
+	return &o.Labels, true
 }
 
 // SetLabels sets field value
@@ -118,11 +118,11 @@ func (o *GetKubernetesPodManifestResponseData) GetAnnotations() map[string]strin
 
 // GetAnnotationsOk returns a tuple with the Annotations field value
 // and a boolean to check if the value has been set.
-func (o *GetKubernetesPodManifestResponseData) GetAnnotationsOk() (map[string]string, bool) {
+func (o *GetKubernetesPodManifestResponseData) GetAnnotationsOk() (*map[string]string, bool) {
 	if o == nil {
-		return map[string]string{}, false
+		return nil, false
 	}
-	return o.Annotations, true
+	return &o.Annotations, true
 }
 
 // SetAnnotations sets field value

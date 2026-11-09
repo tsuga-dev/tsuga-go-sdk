@@ -23,7 +23,7 @@ type UpdateNotificationIntegrationRequestSettingOneOf2 struct {
 	Url                  *string                                                                   `json:"url,omitempty" validate:"regexp=^https://[^/?#@]*([/?#]|$)"`
 	Method               *string                                                                   `json:"method,omitempty"`
 	Authentication       *UpdateNotificationIntegrationRequestSettingOneOf2Authentication          `json:"authentication,omitempty"`
-	CustomHeaders        map[string]string                                                         `json:"customHeaders,omitempty"`
+	CustomHeaders        *map[string]string                                                        `json:"customHeaders,omitempty"`
 	PayloadTemplate      *CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate         `json:"payloadTemplate,omitempty"`
 	EventNameMapping     NullableUpdateNotificationIntegrationRequestSettingOneOf2EventNameMapping `json:"eventNameMapping,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -175,14 +175,14 @@ func (o *UpdateNotificationIntegrationRequestSettingOneOf2) GetCustomHeaders() m
 		var ret map[string]string
 		return ret
 	}
-	return o.CustomHeaders
+	return *o.CustomHeaders
 }
 
 // GetCustomHeadersOk returns a tuple with the CustomHeaders field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateNotificationIntegrationRequestSettingOneOf2) GetCustomHeadersOk() (map[string]string, bool) {
+func (o *UpdateNotificationIntegrationRequestSettingOneOf2) GetCustomHeadersOk() (*map[string]string, bool) {
 	if o == nil || IsNil(o.CustomHeaders) {
-		return map[string]string{}, false
+		return nil, false
 	}
 	return o.CustomHeaders, true
 }
@@ -198,7 +198,7 @@ func (o *UpdateNotificationIntegrationRequestSettingOneOf2) HasCustomHeaders() b
 
 // SetCustomHeaders gets a reference to the given map[string]string and assigns it to the CustomHeaders field.
 func (o *UpdateNotificationIntegrationRequestSettingOneOf2) SetCustomHeaders(v map[string]string) {
-	o.CustomHeaders = v
+	o.CustomHeaders = &v
 }
 
 // GetPayloadTemplate returns the PayloadTemplate field value if set, zero value otherwise.
