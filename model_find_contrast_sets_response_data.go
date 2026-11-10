@@ -19,8 +19,8 @@ var _ MappedNullable = &FindContrastSetsResponseData{}
 
 // FindContrastSetsResponseData struct for FindContrastSetsResponseData
 type FindContrastSetsResponseData struct {
-	// One entry per attribute that separates the two groups, strongest first. An attribute with the same value strings as a stronger entry is left out, so two boolean attributes appear as one entry. Empty when nothing cleared the gates, which means the target and the baseline look alike on the attributes tested.
-	ContrastSets []ContrastSet `json:"contrastSets"`
+	// One entry per attribute that separates the two groups, strongest first. Read `type` first: a categorical entry lists values, a distribution entry describes how a numeric attribute shifted. An attribute with the same value strings as a stronger entry is left out, so two boolean attributes appear as one entry. Empty when nothing cleared the gates, which means the target and the baseline look alike on the attributes tested.
+	ContrastSets []FindContrastSetsResponseDataContrastSetsInner `json:"contrastSets"`
 	// Number of spans matched by the target group filter over its time range. Not a sample: it is a plain count over the whole group.
 	TargetGroupCount float32 `json:"targetGroupCount"`
 	// Number of spans matched by the baseline group filter over its time range. Not a sample: it is a plain count over the whole group.
@@ -36,7 +36,7 @@ type _FindContrastSetsResponseData FindContrastSetsResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindContrastSetsResponseData(contrastSets []ContrastSet, targetGroupCount float32, baselineGroupCount float32, failedAttributeCount float32) *FindContrastSetsResponseData {
+func NewFindContrastSetsResponseData(contrastSets []FindContrastSetsResponseDataContrastSetsInner, targetGroupCount float32, baselineGroupCount float32, failedAttributeCount float32) *FindContrastSetsResponseData {
 	this := FindContrastSetsResponseData{}
 	this.ContrastSets = contrastSets
 	this.TargetGroupCount = targetGroupCount
@@ -54,9 +54,9 @@ func NewFindContrastSetsResponseDataWithDefaults() *FindContrastSetsResponseData
 }
 
 // GetContrastSets returns the ContrastSets field value
-func (o *FindContrastSetsResponseData) GetContrastSets() []ContrastSet {
+func (o *FindContrastSetsResponseData) GetContrastSets() []FindContrastSetsResponseDataContrastSetsInner {
 	if o == nil {
-		var ret []ContrastSet
+		var ret []FindContrastSetsResponseDataContrastSetsInner
 		return ret
 	}
 
@@ -65,7 +65,7 @@ func (o *FindContrastSetsResponseData) GetContrastSets() []ContrastSet {
 
 // GetContrastSetsOk returns a tuple with the ContrastSets field value
 // and a boolean to check if the value has been set.
-func (o *FindContrastSetsResponseData) GetContrastSetsOk() ([]ContrastSet, bool) {
+func (o *FindContrastSetsResponseData) GetContrastSetsOk() ([]FindContrastSetsResponseDataContrastSetsInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -73,7 +73,7 @@ func (o *FindContrastSetsResponseData) GetContrastSetsOk() ([]ContrastSet, bool)
 }
 
 // SetContrastSets sets field value
-func (o *FindContrastSetsResponseData) SetContrastSets(v []ContrastSet) {
+func (o *FindContrastSetsResponseData) SetContrastSets(v []FindContrastSetsResponseDataContrastSetsInner) {
 	o.ContrastSets = v
 }
 

@@ -76,6 +76,7 @@ docs/BulkRemoveUsersFromTeamResponseData.md
 docs/BulkRemoveUsersFromTeamResponseDataResultsInner.md
 docs/BurnRateAlert.md
 docs/CancelDataDeletionRequestResponse.md
+docs/CategoricalContrastSet.md
 docs/ClientErrorEnvelope.md
 docs/ClientErrorResponse.md
 docs/ClientErrorResponseDetails.md
@@ -83,8 +84,9 @@ docs/CloudAccount.md
 docs/Cluster.md
 docs/ClustersAPI.md
 docs/ConditionalFormatting.md
-docs/ContrastSet.md
+docs/ContrastSetHistogram.md
 docs/ContrastSetOtherValue.md
+docs/ContrastSetShift.md
 docs/ContrastSetValue.md
 docs/CreateAdaptiveNotificationRuleRequest.md
 docs/CreateAdaptiveNotificationRuleResponse.md
@@ -234,6 +236,7 @@ docs/DeleteServiceNotificationTargetResponse.md
 docs/DeleteSloResponse.md
 docs/DeleteTagPolicyResponse.md
 docs/DeleteTeamResponse.md
+docs/DistributionContrastSet.md
 docs/DocPage.md
 docs/DocSearchResult.md
 docs/DocsAPI.md
@@ -246,6 +249,7 @@ docs/FindContrastSetsRequestBaselineGroup.md
 docs/FindContrastSetsRequestTargetGroup.md
 docs/FindContrastSetsResponse.md
 docs/FindContrastSetsResponseData.md
+docs/FindContrastSetsResponseDataContrastSetsInner.md
 docs/Function.md
 docs/FunctionCumsum.md
 docs/FunctionIncrease.md
@@ -1067,14 +1071,16 @@ model_bulk_remove_users_from_team_response_data.go
 model_bulk_remove_users_from_team_response_data_results_inner.go
 model_burn_rate_alert.go
 model_cancel_data_deletion_request_response.go
+model_categorical_contrast_set.go
 model_client_error_envelope.go
 model_client_error_response.go
 model_client_error_response_details.go
 model_cloud_account.go
 model_cluster.go
 model_conditional_formatting.go
-model_contrast_set.go
+model_contrast_set_histogram.go
 model_contrast_set_other_value.go
+model_contrast_set_shift.go
 model_contrast_set_value.go
 model_create_adaptive_notification_rule_request.go
 model_create_adaptive_notification_rule_response.go
@@ -1219,6 +1225,7 @@ model_delete_service_notification_target_response.go
 model_delete_slo_response.go
 model_delete_tag_policy_response.go
 model_delete_team_response.go
+model_distribution_contrast_set.go
 model_doc_page.go
 model_doc_search_result.go
 model_event_slo_configuration.go
@@ -1229,6 +1236,7 @@ model_find_contrast_sets_request_baseline_group.go
 model_find_contrast_sets_request_target_group.go
 model_find_contrast_sets_response.go
 model_find_contrast_sets_response_data.go
+model_find_contrast_sets_response_data_contrast_sets_inner.go
 model_function.go
 model_function_cumsum.go
 model_function_increase.go

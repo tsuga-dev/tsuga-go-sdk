@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ContrastSets** | [**[]ContrastSet**](ContrastSet.md) | One entry per attribute that separates the two groups, strongest first. An attribute with the same value strings as a stronger entry is left out, so two boolean attributes appear as one entry. Empty when nothing cleared the gates, which means the target and the baseline look alike on the attributes tested. | 
+**ContrastSets** | [**[]FindContrastSetsResponseDataContrastSetsInner**](FindContrastSetsResponseDataContrastSetsInner.md) | One entry per attribute that separates the two groups, strongest first. Read &#x60;type&#x60; first: a categorical entry lists values, a distribution entry describes how a numeric attribute shifted. An attribute with the same value strings as a stronger entry is left out, so two boolean attributes appear as one entry. Empty when nothing cleared the gates, which means the target and the baseline look alike on the attributes tested. | 
 **TargetGroupCount** | **float32** | Number of spans matched by the target group filter over its time range. Not a sample: it is a plain count over the whole group. | 
 **BaselineGroupCount** | **float32** | Number of spans matched by the baseline group filter over its time range. Not a sample: it is a plain count over the whole group. | 
 **FailedAttributeCount** | **float32** | Number of candidate attributes Tsuga dropped because a query for them failed. Those attributes were not tested at all, so a high count next to an empty &#x60;contrastSets&#x60; means the comparison was incomplete, not that the two groups are alike. | 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewFindContrastSetsResponseData
 
-`func NewFindContrastSetsResponseData(contrastSets []ContrastSet, targetGroupCount float32, baselineGroupCount float32, failedAttributeCount float32, ) *FindContrastSetsResponseData`
+`func NewFindContrastSetsResponseData(contrastSets []FindContrastSetsResponseDataContrastSetsInner, targetGroupCount float32, baselineGroupCount float32, failedAttributeCount float32, ) *FindContrastSetsResponseData`
 
 NewFindContrastSetsResponseData instantiates a new FindContrastSetsResponseData object
 This constructor will assign default values to properties that have it defined,
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetContrastSets
 
-`func (o *FindContrastSetsResponseData) GetContrastSets() []ContrastSet`
+`func (o *FindContrastSetsResponseData) GetContrastSets() []FindContrastSetsResponseDataContrastSetsInner`
 
 GetContrastSets returns the ContrastSets field if non-nil, zero value otherwise.
 
 ### GetContrastSetsOk
 
-`func (o *FindContrastSetsResponseData) GetContrastSetsOk() (*[]ContrastSet, bool)`
+`func (o *FindContrastSetsResponseData) GetContrastSetsOk() (*[]FindContrastSetsResponseDataContrastSetsInner, bool)`
 
 GetContrastSetsOk returns a tuple with the ContrastSets field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetContrastSets
 
-`func (o *FindContrastSetsResponseData) SetContrastSets(v []ContrastSet)`
+`func (o *FindContrastSetsResponseData) SetContrastSets(v []FindContrastSetsResponseDataContrastSetsInner)`
 
 SetContrastSets sets ContrastSets field to given value.
 

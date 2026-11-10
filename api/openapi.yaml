@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261109.35.0+06e8714
+  version: 20261110.3.0+e3b9715
 servers:
 - url: https://api.tsuga.com
 security:
@@ -13524,7 +13524,8 @@ paths:
       description: "Finds what failing or slow requests have in common that healthy\
         \ ones do not, for example errors against successes, or before and after a\
         \ change: compares a target span group with a baseline and returns the attribute\
-        \ values over-represented in the target. Each group has its own time range,\
+        \ values over-represented in the target, and the numeric attributes, such\
+        \ as durations, whose distribution shifted. Each group has its own time range,\
         \ so a before/after comparison is one call. See [Traces](/documentation/explore/traces)."
       operationId: findContrastSets
       parameters:
@@ -24071,7 +24072,8 @@ components:
         requestId: requestId
         data:
           contrastSets:
-          - attr: attr
+          - type: categorical
+            attr: attr
             values:
             - value: value
               targetSupport: 0.8008281904610115
@@ -24090,7 +24092,8 @@ components:
             - value: value
               targetSupport: 5.637376656633329
               baselineSupport: 2.3021358869347655
-          - attr: attr
+          - type: categorical
+            attr: attr
             values:
             - value: value
               targetSupport: 0.8008281904610115
@@ -31910,8 +31913,9 @@ components:
       - targetSupport
       - value
       title: ContrastSetOtherValue
-    ContrastSet:
+    CategoricalContrastSet:
       example:
+        type: categorical
         attr: attr
         values:
         - value: value
@@ -31932,6 +31936,11 @@ components:
           targetSupport: 5.637376656633329
           baselineSupport: 2.3021358869347655
       properties:
+        type:
+          description: The attribute is compared value by value.
+          enum:
+          - categorical
+          type: string
         attr:
           description: "Span attribute dot-path this contrast set is about, such as\
             \ `context.env`."
@@ -31955,8 +31964,86 @@ components:
       required:
       - attr
       - otherValues
+      - type
       - values
-      title: ContrastSet
+      title: CategoricalContrastSet
+    ContrastSetHistogram:
+      properties:
+        bounds:
+          description: "Bin edges, in the unit of the attribute. One more item than\
+            \ each count list. The bins go from the 2nd to the 98th percentile of\
+            \ both groups, so they do not hold all samples."
+          items:
+            type: number
+          type: array
+          default: null
+        targetCounts:
+          description: Number of target samples in each bin.
+          items:
+            type: number
+          type: array
+          default: null
+        baselineCounts:
+          description: Number of baseline samples in each bin.
+          items:
+            type: number
+          type: array
+          default: null
+      required:
+      - baselineCounts
+      - bounds
+      - targetCounts
+      title: ContrastSetHistogram
+    ContrastSetShift:
+      properties:
+        quantileLift:
+          description: "How far apart the two groups are, as a ratio: 1 means no change,\
+            \ 3 means about three times apart. It does not tell which group is larger.\
+            \ Read `histogram` for the direction."
+          type: number
+        ks:
+          description: "Kolmogorov-Smirnov statistic, from 0 to 1: the largest gap\
+            \ between the two cumulative distributions."
+          type: number
+        pValue:
+          description: Probability that a difference this large would occur if the
+            two groups had the same distribution. Smaller is stronger.
+          type: number
+        targetSampleCount:
+          description: Number of target spans that carry the attribute.
+          type: number
+        baselineSampleCount:
+          description: Number of baseline spans that carry the attribute.
+          type: number
+        histogram:
+          $ref: "#/components/schemas/ContrastSetHistogram"
+      required:
+      - baselineSampleCount
+      - histogram
+      - ks
+      - pValue
+      - quantileLift
+      - targetSampleCount
+      title: ContrastSetShift
+    DistributionContrastSet:
+      properties:
+        type:
+          description: "The attribute is numeric, such as a duration, and is compared\
+            \ by the shape of its values."
+          enum:
+          - distribution
+          type: string
+        attr:
+          description: "Span attribute dot-path this contrast set is about, such as\
+            \ `context.env`."
+          type: string
+        shift:
+          $ref: "#/components/schemas/ContrastSetShift"
+      required:
+      - attr
+      - shift
+      - type
+      title: DistributionContrastSet
     InputAggregate:
       description: "Aggregation operation for this query. Required for every query;\
         \ `field` is required by all aggregate types except `count`, which needs it\
@@ -39546,9 +39633,10 @@ components:
             \ Omit or pass an empty array to let Tsuga test the attributes among `span_attributes.*`,\
             \ `context.*`, `span.name`, `span.kind`, `status_code` and `is_root` that\
             \ take more than one value across samples of both groups, most frequent\
-            \ in the target first; when none varies, `contrastSets` is empty. Span\
-            \ duration (`duration_ns`, even when named here) and discovered numeric\
-            \ attributes with near-unique values never appear in `contrastSets`."
+            \ in the target first; when none varies, `contrastSets` is empty. Numeric\
+            \ attributes with mostly distinct values, such as `duration_ns`, come\
+            \ back as `distribution` entries. Span duration is excluded when a group\
+            \ filter uses it."
           items:
             description: "Folder filter for dashboard query results. Optional; pass\
               \ a folder ID to return dashboards in that folder, or null to return\
@@ -45186,10 +45274,21 @@ components:
       - totalDurationNs
       - traceId
       - truncated
+    FindContrastSetsResponse_data_contrastSets_inner:
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/CategoricalContrastSet"
+      - $ref: "#/components/schemas/DistributionContrastSet"
+      required:
+      - type
+      errorMessage:
+        discriminator: "value of tag \"type\" must be one of: categorical, distribution"
     FindContrastSetsResponse_data:
       example:
         contrastSets:
-        - attr: attr
+        - type: categorical
+          attr: attr
           values:
           - value: value
             targetSupport: 0.8008281904610115
@@ -45208,7 +45307,8 @@ components:
           - value: value
             targetSupport: 5.637376656633329
             baselineSupport: 2.3021358869347655
-        - attr: attr
+        - type: categorical
+          attr: attr
           values:
           - value: value
             targetSupport: 0.8008281904610115
@@ -45233,12 +45333,13 @@ components:
       properties:
         contrastSets:
           description: "One entry per attribute that separates the two groups, strongest\
-            \ first. An attribute with the same value strings as a stronger entry\
-            \ is left out, so two boolean attributes appear as one entry. Empty when\
-            \ nothing cleared the gates, which means the target and the baseline look\
-            \ alike on the attributes tested."
+            \ first. Read `type` first: a categorical entry lists values, a distribution\
+            \ entry describes how a numeric attribute shifted. An attribute with the\
+            \ same value strings as a stronger entry is left out, so two boolean attributes\
+            \ appear as one entry. Empty when nothing cleared the gates, which means\
+            \ the target and the baseline look alike on the attributes tested."
           items:
-            $ref: "#/components/schemas/ContrastSet"
+            $ref: "#/components/schemas/FindContrastSetsResponse_data_contrastSets_inner"
           type: array
           default: null
         targetGroupCount:

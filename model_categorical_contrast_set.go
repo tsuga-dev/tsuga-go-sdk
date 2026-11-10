@@ -14,11 +14,13 @@ import (
 	"fmt"
 )
 
-// checks if the ContrastSet type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ContrastSet{}
+// checks if the CategoricalContrastSet type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CategoricalContrastSet{}
 
-// ContrastSet struct for ContrastSet
-type ContrastSet struct {
+// CategoricalContrastSet struct for CategoricalContrastSet
+type CategoricalContrastSet struct {
+	// The attribute is compared value by value.
+	Type string `json:"type"`
 	// Span attribute dot-path this contrast set is about, such as `context.env`.
 	Attr string `json:"attr"`
 	// Values over-represented in the target group that cleared the lift, support, and significance gates, strongest first. These are the findings.
@@ -28,30 +30,55 @@ type ContrastSet struct {
 	AdditionalProperties map[string]interface{}
 }
 
-type _ContrastSet ContrastSet
+type _CategoricalContrastSet CategoricalContrastSet
 
-// NewContrastSet instantiates a new ContrastSet object
+// NewCategoricalContrastSet instantiates a new CategoricalContrastSet object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewContrastSet(attr string, values []ContrastSetValue, otherValues []ContrastSetOtherValue) *ContrastSet {
-	this := ContrastSet{}
+func NewCategoricalContrastSet(type_ string, attr string, values []ContrastSetValue, otherValues []ContrastSetOtherValue) *CategoricalContrastSet {
+	this := CategoricalContrastSet{}
+	this.Type = type_
 	this.Attr = attr
 	this.Values = values
 	this.OtherValues = otherValues
 	return &this
 }
 
-// NewContrastSetWithDefaults instantiates a new ContrastSet object
+// NewCategoricalContrastSetWithDefaults instantiates a new CategoricalContrastSet object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewContrastSetWithDefaults() *ContrastSet {
-	this := ContrastSet{}
+func NewCategoricalContrastSetWithDefaults() *CategoricalContrastSet {
+	this := CategoricalContrastSet{}
 	return &this
 }
 
+// GetType returns the Type field value
+func (o *CategoricalContrastSet) GetType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *CategoricalContrastSet) GetTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *CategoricalContrastSet) SetType(v string) {
+	o.Type = v
+}
+
 // GetAttr returns the Attr field value
-func (o *ContrastSet) GetAttr() string {
+func (o *CategoricalContrastSet) GetAttr() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -62,7 +89,7 @@ func (o *ContrastSet) GetAttr() string {
 
 // GetAttrOk returns a tuple with the Attr field value
 // and a boolean to check if the value has been set.
-func (o *ContrastSet) GetAttrOk() (*string, bool) {
+func (o *CategoricalContrastSet) GetAttrOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -70,12 +97,12 @@ func (o *ContrastSet) GetAttrOk() (*string, bool) {
 }
 
 // SetAttr sets field value
-func (o *ContrastSet) SetAttr(v string) {
+func (o *CategoricalContrastSet) SetAttr(v string) {
 	o.Attr = v
 }
 
 // GetValues returns the Values field value
-func (o *ContrastSet) GetValues() []ContrastSetValue {
+func (o *CategoricalContrastSet) GetValues() []ContrastSetValue {
 	if o == nil {
 		var ret []ContrastSetValue
 		return ret
@@ -86,7 +113,7 @@ func (o *ContrastSet) GetValues() []ContrastSetValue {
 
 // GetValuesOk returns a tuple with the Values field value
 // and a boolean to check if the value has been set.
-func (o *ContrastSet) GetValuesOk() ([]ContrastSetValue, bool) {
+func (o *CategoricalContrastSet) GetValuesOk() ([]ContrastSetValue, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -94,12 +121,12 @@ func (o *ContrastSet) GetValuesOk() ([]ContrastSetValue, bool) {
 }
 
 // SetValues sets field value
-func (o *ContrastSet) SetValues(v []ContrastSetValue) {
+func (o *CategoricalContrastSet) SetValues(v []ContrastSetValue) {
 	o.Values = v
 }
 
 // GetOtherValues returns the OtherValues field value
-func (o *ContrastSet) GetOtherValues() []ContrastSetOtherValue {
+func (o *CategoricalContrastSet) GetOtherValues() []ContrastSetOtherValue {
 	if o == nil {
 		var ret []ContrastSetOtherValue
 		return ret
@@ -110,7 +137,7 @@ func (o *ContrastSet) GetOtherValues() []ContrastSetOtherValue {
 
 // GetOtherValuesOk returns a tuple with the OtherValues field value
 // and a boolean to check if the value has been set.
-func (o *ContrastSet) GetOtherValuesOk() ([]ContrastSetOtherValue, bool) {
+func (o *CategoricalContrastSet) GetOtherValuesOk() ([]ContrastSetOtherValue, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -118,11 +145,11 @@ func (o *ContrastSet) GetOtherValuesOk() ([]ContrastSetOtherValue, bool) {
 }
 
 // SetOtherValues sets field value
-func (o *ContrastSet) SetOtherValues(v []ContrastSetOtherValue) {
+func (o *CategoricalContrastSet) SetOtherValues(v []ContrastSetOtherValue) {
 	o.OtherValues = v
 }
 
-func (o ContrastSet) MarshalJSON() ([]byte, error) {
+func (o CategoricalContrastSet) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -130,8 +157,9 @@ func (o ContrastSet) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ContrastSet) ToMap() (map[string]interface{}, error) {
+func (o CategoricalContrastSet) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
 	toSerialize["attr"] = o.Attr
 	toSerialize["values"] = o.Values
 	toSerialize["otherValues"] = o.OtherValues
@@ -143,11 +171,12 @@ func (o ContrastSet) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *ContrastSet) UnmarshalJSON(data []byte) (err error) {
+func (o *CategoricalContrastSet) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"type",
 		"attr",
 		"values",
 		"otherValues",
@@ -167,19 +196,20 @@ func (o *ContrastSet) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varContrastSet := _ContrastSet{}
+	varCategoricalContrastSet := _CategoricalContrastSet{}
 
-	err = json.Unmarshal(data, &varContrastSet)
+	err = json.Unmarshal(data, &varCategoricalContrastSet)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ContrastSet(varContrastSet)
+	*o = CategoricalContrastSet(varCategoricalContrastSet)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
 		delete(additionalProperties, "attr")
 		delete(additionalProperties, "values")
 		delete(additionalProperties, "otherValues")
@@ -189,38 +219,38 @@ func (o *ContrastSet) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableContrastSet struct {
-	value *ContrastSet
+type NullableCategoricalContrastSet struct {
+	value *CategoricalContrastSet
 	isSet bool
 }
 
-func (v NullableContrastSet) Get() *ContrastSet {
+func (v NullableCategoricalContrastSet) Get() *CategoricalContrastSet {
 	return v.value
 }
 
-func (v *NullableContrastSet) Set(val *ContrastSet) {
+func (v *NullableCategoricalContrastSet) Set(val *CategoricalContrastSet) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableContrastSet) IsSet() bool {
+func (v NullableCategoricalContrastSet) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableContrastSet) Unset() {
+func (v *NullableCategoricalContrastSet) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableContrastSet(val *ContrastSet) *NullableContrastSet {
-	return &NullableContrastSet{value: val, isSet: true}
+func NewNullableCategoricalContrastSet(val *CategoricalContrastSet) *NullableCategoricalContrastSet {
+	return &NullableCategoricalContrastSet{value: val, isSet: true}
 }
 
-func (v NullableContrastSet) MarshalJSON() ([]byte, error) {
+func (v NullableCategoricalContrastSet) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableContrastSet) UnmarshalJSON(src []byte) error {
+func (v *NullableCategoricalContrastSet) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

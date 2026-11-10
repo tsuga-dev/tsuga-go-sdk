@@ -23,7 +23,7 @@ type TracesAPI interface {
 	/*
 		FindContrastSets Method for FindContrastSets
 
-		Finds what failing or slow requests have in common that healthy ones do not, for example errors against successes, or before and after a change: compares a target span group with a baseline and returns the attribute values over-represented in the target. Each group has its own time range, so a before/after comparison is one call. See [Traces](/documentation/explore/traces).
+		Finds what failing or slow requests have in common that healthy ones do not, for example errors against successes, or before and after a change: compares a target span group with a baseline and returns the attribute values over-represented in the target, and the numeric attributes, such as durations, whose distribution shifted. Each group has its own time range, so a before/after comparison is one call. See [Traces](/documentation/explore/traces).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return TracesAPIFindContrastSetsRequest
@@ -106,7 +106,7 @@ func (r TracesAPIFindContrastSetsRequest) Execute() (*FindContrastSetsResponse, 
 /*
 FindContrastSets Method for FindContrastSets
 
-Finds what failing or slow requests have in common that healthy ones do not, for example errors against successes, or before and after a change: compares a target span group with a baseline and returns the attribute values over-represented in the target. Each group has its own time range, so a before/after comparison is one call. See [Traces](/documentation/explore/traces).
+Finds what failing or slow requests have in common that healthy ones do not, for example errors against successes, or before and after a change: compares a target span group with a baseline and returns the attribute values over-represented in the target, and the numeric attributes, such as durations, whose distribution shifted. Each group has its own time range, so a before/after comparison is one call. See [Traces](/documentation/explore/traces).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TracesAPIFindContrastSetsRequest
