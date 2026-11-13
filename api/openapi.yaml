@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261110.3.0+e3b9715
+  version: 20261112.38.0+6ec54d3
 servers:
 - url: https://api.tsuga.com
 security:
@@ -25043,6 +25043,85 @@ components:
       - queries
       - timeframe
       - type
+    MonitorConfigurationRum:
+      properties:
+        type:
+          description: Threshold monitor over RUM aggregations.
+          enum:
+          - rum
+          type: string
+        conditions:
+          description: Threshold conditions evaluated against query and formula results.
+            All listed conditions must match for a non-grouped threshold monitor to
+            alert.
+          items:
+            $ref: "#/components/schemas/MonitorConfigurationMetric_conditions_inner"
+          type: array
+          default: null
+        noDataBehavior:
+          description: "How the monitor updates state when no data is returned. `alert`\
+            \ enters no-data alert state, `resolve` resolves, `keep_last_status` preserves\
+            \ the previous state, and `consider_zero` evaluates missing values as\
+            \ zero."
+          enum:
+          - alert
+          - resolve
+          - keep_last_status
+          - consider_zero
+          type: string
+        timeframe:
+          description: "Lookback window, in minutes, that each query-backed threshold\
+            \ monitor evaluation aggregates over. Always a whole number, at least\
+            \ 1."
+          type: number
+        groupByFields:
+          description: Monitor group by configuration.
+          items:
+            $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
+          type: array
+          default: null
+        aggregationAlertLogic:
+          description: "How grouped results are combined into alert state. Use `no_aggregation`\
+            \ only when `groupByFields` is empty; use `all`, `any`, `each`, or `proportion`\
+            \ with non-empty `groupByFields`. `proportion` also requires `proportionAlertThreshold`."
+          enum:
+          - no_aggregation
+          - all
+          - any
+          - each
+          - proportion
+          type: string
+        proportionAlertThreshold:
+          description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
+          type: integer
+        consecutiveWindows:
+          description: "Number of consecutive `timeframe`-minute windows, ending at\
+            \ evaluation time, that must all meet the conditions before the monitor\
+            \ alerts, per group for grouped monitors. 1 or omitted checks a single\
+            \ window. A window that does not meet the conditions breaks the run. An\
+            \ empty window, such as a query with `fill.mode.type` `null` returning\
+            \ nothing, breaks the run under `noDataBehavior` `alert` or `resolve`,\
+            \ takes the previous window's result under `keep_last_status`, and counts\
+            \ as 0 under `consider_zero`. A query without `fill` counts an empty window\
+            \ as 0. When every window is empty (with `keep_last_status`, when the\
+            \ oldest is empty and none breaks the run), `noDataBehavior` applies as\
+            \ for a single window. Above 1, `consecutiveWindows` × `timeframe` must\
+            \ not exceed 4320 minutes (3 days)."
+          type: integer
+        queries:
+          description: "Aggregation queries used by alerting and SLO evaluation. Each\
+            \ query is referenced from formulas as q1, q2, and so on."
+          items:
+            $ref: "#/components/schemas/MonitorAggregationQuery"
+          type: array
+          default: null
+      required:
+      - conditions
+      - groupByFields
+      - noDataBehavior
+      - queries
+      - timeframe
+      - type
     MonitorConfigurationAnomalyLog:
       properties:
         type:
@@ -25224,6 +25303,64 @@ components:
             movement in trace-derived values.
           enum:
           - anomaly-trace
+          type: string
+        condition:
+          $ref: "#/components/schemas/MonitorConfigurationAnomalyLog_condition"
+        noDataBehavior:
+          description: "How the anomaly monitor updates state when no data is returned.\
+            \ `alert` enters no-data alert state, `resolve` resolves, and `keep_last_status`\
+            \ preserves the previous state."
+          enum:
+          - alert
+          - resolve
+          - keep_last_status
+          type: string
+        timeframe:
+          description: "Lookback window, in minutes, that each anomaly monitor evaluation\
+            \ aggregates over. Always a whole number from 5 through 1440."
+          type: number
+        groupByFields:
+          description: Monitor group by configuration.
+          items:
+            $ref: "#/components/schemas/MonitorConfigurationMetric_groupByFields_inner"
+          type: array
+          default: null
+        aggregationAlertLogic:
+          description: "How grouped results are combined into alert state. Use `no_aggregation`\
+            \ only when `groupByFields` is empty; use `all`, `any`, `each`, or `proportion`\
+            \ with non-empty `groupByFields`. `proportion` also requires `proportionAlertThreshold`."
+          enum:
+          - no_aggregation
+          - all
+          - any
+          - each
+          - proportion
+          type: string
+        proportionAlertThreshold:
+          description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
+          type: integer
+        queries:
+          description: "Aggregation queries used by alerting and SLO evaluation. Each\
+            \ query is referenced from formulas as q1, q2, and so on."
+          items:
+            $ref: "#/components/schemas/MonitorAggregationQuery"
+          type: array
+          default: null
+      required:
+      - condition
+      - groupByFields
+      - noDataBehavior
+      - queries
+      - timeframe
+      - type
+    MonitorConfigurationAnomalyRum:
+      properties:
+        type:
+          description: Anomaly monitor over RUM aggregations. Use this configuration
+            when Tsuga should learn historical RUM query behavior and alert on unusual
+            movement in RUM-derived values.
+          enum:
+          - anomaly-rum
           type: string
         condition:
           $ref: "#/components/schemas/MonitorConfigurationAnomalyLog_condition"
@@ -25628,6 +25765,103 @@ components:
       - queries
       - timeframe
       - type
+    InputMonitorConfigurationRum:
+      properties:
+        type:
+          description: "Threshold monitor over RUM aggregations. The monitor reads\
+            \ a single RUM stream: fields in `queries` and `groupByFields` that carry\
+            \ a stream prefix (`events.`, `measurements.` or `exceptions.`) must all\
+            \ name the same stream, and unprefixed fields are read from that stream\
+            \ (`events` when no field names one)."
+          enum:
+          - rum
+          type: string
+        conditions:
+          description: Threshold conditions evaluated against query and formula results.
+            All listed conditions must match for a non-grouped threshold monitor to
+            alert.
+          items:
+            $ref: "#/components/schemas/InputMonitorConfigurationMetric_conditions_inner"
+          maxItems: 5
+          minItems: 1
+          type: array
+          default: null
+        noDataBehavior:
+          description: "How the monitor updates state when no data is returned. `alert`\
+            \ enters no-data alert state, `resolve` resolves, `keep_last_status` preserves\
+            \ the previous state, and `consider_zero` evaluates missing values as\
+            \ zero."
+          enum:
+          - alert
+          - resolve
+          - keep_last_status
+          - consider_zero
+          type: string
+        timeframe:
+          description: "Lookback window, in minutes, that each query-backed threshold\
+            \ monitor evaluation aggregates over."
+          minimum: 1
+          type: integer
+        groupByFields:
+          description: Monitor group by configuration.
+          items:
+            $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
+          maxItems: 1
+          type: array
+          default: null
+        aggregationAlertLogic:
+          description: "How grouped results are combined into alert state. Use `no_aggregation`\
+            \ only when `groupByFields` is empty; use `all`, `any`, `each`, or `proportion`\
+            \ with non-empty `groupByFields`. `proportion` also requires `proportionAlertThreshold`.\
+            \ With `groupByFields`, send `each` so every group opens and resolves\
+            \ its own alert, as the app does by default; `all`, `any`, and `proportion`\
+            \ raise one alert for the whole monitor. On create, omitted query-monitor\
+            \ values default to `no_aggregation`; on update, omitted values keep the\
+            \ existing aggregation logic."
+          enum:
+          - no_aggregation
+          - all
+          - any
+          - each
+          - proportion
+          type: string
+        proportionAlertThreshold:
+          description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
+          maximum: 99
+          minimum: 1
+          type: integer
+        consecutiveWindows:
+          description: "Number of consecutive `timeframe`-minute windows, ending at\
+            \ evaluation time, that must all meet the conditions before the monitor\
+            \ alerts, per group for grouped monitors. 1 or omitted checks a single\
+            \ window. A window that does not meet the conditions breaks the run. An\
+            \ empty window, such as a query with `fill.mode.type` `null` returning\
+            \ nothing, breaks the run under `noDataBehavior` `alert` or `resolve`,\
+            \ takes the previous window's result under `keep_last_status`, and counts\
+            \ as 0 under `consider_zero`. A query without `fill` counts an empty window\
+            \ as 0. When every window is empty (with `keep_last_status`, when the\
+            \ oldest is empty and none breaks the run), `noDataBehavior` applies as\
+            \ for a single window. Above 1, `consecutiveWindows` × `timeframe` must\
+            \ not exceed 4320 minutes (3 days)."
+          maximum: 10
+          minimum: 1
+          type: integer
+        queries:
+          description: "Aggregation queries used by alerting. Each query is referenced\
+            \ from formulas as q1, q2, and so on."
+          items:
+            $ref: "#/components/schemas/InputMonitorAggregationQuery"
+          maxItems: 15
+          minItems: 1
+          type: array
+          default: null
+      required:
+      - conditions
+      - groupByFields
+      - noDataBehavior
+      - queries
+      - timeframe
+      - type
     InputMonitorConfigurationAnomalyLog:
       properties:
         type:
@@ -25772,6 +26006,80 @@ components:
             behavior and alerts on unusual movement in trace-derived values.
           enum:
           - anomaly-trace
+          type: string
+        condition:
+          $ref: "#/components/schemas/InputMonitorConfigurationAnomalyLog_condition"
+        noDataBehavior:
+          description: "How the anomaly monitor updates state when no data is returned.\
+            \ `alert` enters no-data alert state, `resolve` resolves, and `keep_last_status`\
+            \ preserves the previous state."
+          enum:
+          - alert
+          - resolve
+          - keep_last_status
+          type: string
+        timeframe:
+          description: "Lookback window, in minutes, that each anomaly monitor evaluation\
+            \ aggregates over."
+          maximum: 1440
+          minimum: 5
+          type: integer
+        groupByFields:
+          description: Monitor group by configuration.
+          items:
+            $ref: "#/components/schemas/InputMonitorConfigurationMetric_groupByFields_inner"
+          maxItems: 1
+          type: array
+          default: null
+        aggregationAlertLogic:
+          description: "How grouped results are combined into alert state. Use `no_aggregation`\
+            \ only when `groupByFields` is empty; use `all`, `any`, `each`, or `proportion`\
+            \ with non-empty `groupByFields`. `proportion` also requires `proportionAlertThreshold`.\
+            \ With `groupByFields`, send `each` so every group opens and resolves\
+            \ its own alert, as the app does by default; `all`, `any`, and `proportion`\
+            \ raise one alert for the whole monitor. On create, omitted query-monitor\
+            \ values default to `no_aggregation`; on update, omitted values keep the\
+            \ existing aggregation logic."
+          enum:
+          - no_aggregation
+          - all
+          - any
+          - each
+          - proportion
+          type: string
+        proportionAlertThreshold:
+          description: Percentage threshold used when `aggregationAlertLogic` is `proportion`.
+          maximum: 99
+          minimum: 1
+          type: integer
+        queries:
+          description: "Aggregation queries used by alerting. Each query is referenced\
+            \ from formulas as q1, q2, and so on."
+          items:
+            $ref: "#/components/schemas/InputMonitorAggregationQuery"
+          maxItems: 15
+          minItems: 1
+          type: array
+          default: null
+      required:
+      - condition
+      - groupByFields
+      - noDataBehavior
+      - queries
+      - timeframe
+      - type
+    InputMonitorConfigurationAnomalyRum:
+      properties:
+        type:
+          description: "Anomaly monitor over RUM aggregations. Set this value to create\
+            \ or update an anomaly monitor that learns historical RUM query behavior\
+            \ and alerts on unusual movement in RUM-derived values. The monitor reads\
+            \ a single RUM stream: fields in `queries` and `groupByFields` that carry\
+            \ a stream prefix (`events.`, `measurements.` or `exceptions.`) must all\
+            \ name the same stream, and unprefixed fields are read from that stream\
+            \ (`events` when no field names one)."
+          enum:
+          - anomaly-rum
           type: string
         condition:
           $ref: "#/components/schemas/InputMonitorConfigurationAnomalyLog_condition"
@@ -26807,16 +27115,16 @@ components:
           - service-deployments
           type: string
         teams:
-          description: "IDs of the teams whose services are drawn. The set is resolved\
-            \ when the widget renders, so a service joining one of these teams later\
-            \ is picked up automatically. Every service is drawn when omitted."
+          description: "IDs of the teams whose services the app offers in its Services\
+            \ picker. It does not select what is drawn: the overlay draws only the\
+            \ services listed in `services`."
           items:
             type: string
           type: array
           default: null
         services:
-          description: "OpenTelemetry service names to draw, narrowing `teams` down\
-            \ to an explicit list. Every service matching `teams` is drawn when omitted."
+          description: OpenTelemetry service names whose deployments are drawn. Nothing
+            is drawn until at least one service is set.
           items:
             type: string
           type: array
@@ -26837,7 +27145,8 @@ components:
           type: string
         query:
           description: Tsuga query selecting the log events drawn over the chart.
-            All log events in the time range are drawn when omitted.
+            Nothing is drawn when omitted. An empty string draws every log event in
+            the time range.
           type: string
       required:
       - type
@@ -26850,8 +27159,9 @@ components:
           - ongoing-alerts
           type: string
         alertTypes:
-          description: Kinds of alert drawn over the chart. Both monitor and SLO alerts
-            are drawn when omitted.
+          description: "Kinds of alert drawn over the chart. Both monitor and SLO\
+            \ alerts are drawn when omitted. On its own, it does not make the overlay\
+            \ draw: set `query` or a filter too."
           items:
             enum:
             - monitor
@@ -26861,8 +27171,9 @@ components:
           default: null
         query:
           description: "Case-insensitive substring matched against the alert, the\
-            \ same way the Ongoing alerts page matches its search box. Every alert\
-            \ is drawn when omitted."
+            \ same way the Ongoing alerts page matches its search box. An empty string\
+            \ matches every alert. Nothing is drawn unless `query` or at least one\
+            \ filter is set."
           type: string
         filters:
           $ref: "#/components/schemas/WidgetOngoingAlertsOverlay_filters"
@@ -26878,9 +27189,9 @@ components:
           - service-deployments
           type: string
         teams:
-          description: "IDs of the teams whose services are drawn. The set is resolved\
-            \ when the widget renders, so a service joining one of these teams later\
-            \ is picked up automatically. Every service is drawn when omitted."
+          description: "IDs of the teams whose services the app offers in its Services\
+            \ picker. It does not select what is drawn: the overlay draws only the\
+            \ services listed in `services`."
           items:
             maxLength: 250
             minLength: 1
@@ -26889,8 +27200,8 @@ components:
           type: array
           default: null
         services:
-          description: "OpenTelemetry service names to draw, narrowing `teams` down\
-            \ to an explicit list. Every service matching `teams` is drawn when omitted."
+          description: OpenTelemetry service names whose deployments are drawn. Nothing
+            is drawn until at least one service is set.
           items:
             maxLength: 250
             minLength: 1
@@ -26916,7 +27227,8 @@ components:
           type: string
         query:
           description: Tsuga query selecting the log events drawn over the chart.
-            All log events in the time range are drawn when omitted.
+            Nothing is drawn when omitted. An empty string draws every log event in
+            the time range.
           format: tsuga-query
           maxLength: 10000
           minLength: 0
@@ -26932,8 +27244,9 @@ components:
           - ongoing-alerts
           type: string
         alertTypes:
-          description: Kinds of alert drawn over the chart. Both monitor and SLO alerts
-            are drawn when omitted.
+          description: "Kinds of alert drawn over the chart. Both monitor and SLO\
+            \ alerts are drawn when omitted. On its own, it does not make the overlay\
+            \ draw: set `query` or a filter too."
           items:
             enum:
             - monitor
@@ -26944,8 +27257,9 @@ components:
           default: null
         query:
           description: "Case-insensitive substring matched against the alert, the\
-            \ same way the Ongoing alerts page matches its search box. Every alert\
-            \ is drawn when omitted."
+            \ same way the Ongoing alerts page matches its search box. An empty string\
+            \ matches every alert. Nothing is drawn unless `query` or at least one\
+            \ filter is set."
           maxLength: 250
           minLength: 0
           type: string
@@ -27782,6 +28096,90 @@ components:
       - source
       - type
       title: TopList
+    GraphVisualizationTimeline:
+      properties:
+        type:
+          description: "Displays each group as a row of time buckets, colored by the\
+            \ section their value falls in"
+          enum:
+          - timeline
+          type: string
+        source:
+          description: "Telemetry source queried by this aggregation: `logs`, `metrics`,\
+            \ `traces`, or `rum`."
+          enum:
+          - logs
+          - metrics
+          - traces
+          - rum
+          type: string
+        queries:
+          description: "Aggregations that may be combined together in the same query.\
+            \ Each item is referenced from `formula` as q1, q2, and so on, in submission\
+            \ order."
+          items:
+            $ref: "#/components/schemas/AggregationQuery"
+          type: array
+          default: null
+        formula:
+          description: "Formula referencing submitted query outputs, such as `q1 +\
+            \ q2`. References must be within `q1` through `qN` for the submitted queries."
+          type: string
+        aliases:
+          $ref: "#/components/schemas/GraphVisualizationTimeseriesPromql_aliases"
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+          default: null
+        groupBy:
+          description: "Nested grouping levels applied to the results, outermost first\
+            \ (e.g. group by service, then by level within each service). Each level\
+            \ splits results further, so the response contains one result per unique\
+            \ combination of group values."
+          items:
+            $ref: "#/components/schemas/AggregationGroupBy"
+          type: array
+          default: null
+        groupByMode:
+          description: '`absolute` keeps each group at its own value; `relative` shows
+            it as a percentage of the ungrouped total (defaults to absolute)'
+          enum:
+          - relative
+          - absolute
+          type: string
+        timeBucket:
+          $ref: "#/components/schemas/GraphVisualizationTimeseriesPromql_timeBucket"
+        normalizer:
+          $ref: "#/components/schemas/Normalizer"
+        precision:
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
+        sections:
+          description: "Rules that assign each time bucket to a state. Among the sections\
+            \ whose condition the value matches, the one whose `value` is closest\
+            \ to it applies, so `> 5` overrides `> 0` above 5 regardless of order.\
+            \ `not_equal` sections apply only when nothing else matches, and ties\
+            \ go to the earlier section. Buckets that match no section are shown in\
+            \ a neutral color."
+          items:
+            $ref: "#/components/schemas/TimelineSection"
+          type: array
+          default: null
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
+      required:
+      - queries
+      - sections
+      - source
+      - type
+      title: Timeline
     GraphVisualizationPie:
       properties:
         type:
@@ -29333,6 +29731,108 @@ components:
       - source
       - type
       title: InputTopList
+    InputGraphVisualizationTimeline:
+      properties:
+        type:
+          description: "Displays each group as a row of time buckets, colored by the\
+            \ section their value falls in"
+          enum:
+          - timeline
+          type: string
+        source:
+          description: "Telemetry source queried by this aggregation: `logs`, `metrics`,\
+            \ `traces`, or `rum`."
+          enum:
+          - logs
+          - metrics
+          - traces
+          - rum
+          type: string
+        queries:
+          description: "Aggregations that may be combined together in the same query.\
+            \ Each item is referenced from `formula` as q1, q2, and so on, in submission\
+            \ order. For dataSource \"metrics\", each aggregate's `field` is the metric\
+            \ name, not an attribute; to count distinct values of an attribute use\
+            \ unique-count with field \"<metricName>.context.<attribute>\" (e.g. \"\
+            system.cpu.utilization.context.host.name\")."
+          items:
+            $ref: "#/components/schemas/InputAggregationQuery"
+          maxItems: 15
+          minItems: 1
+          type: array
+          default: null
+        formula:
+          description: "Formula referencing query outputs, such as `q1 + q2`, to compute\
+            \ derived results. Defaults to `q1`. Formulas may reference only submitted\
+            \ queries (`q1` through `qN`); undefined query references return 400.\
+            \ Only `+`, `-`, `*`, `/` and parentheses over query references and numbers\
+            \ are supported, with no functions such as `max()`."
+          format: tsuga-formula
+          maxLength: 250
+          minLength: 0
+          type: string
+          errorMessage:
+            format: "Must be a simple mathematical formula, and all variables in it\
+              \ should refer to queries (q1, q2, etc.). The formula you provided is\
+              \ invalid: ${0}"
+        aliases:
+          $ref: "#/components/schemas/InputGraphVisualizationTimeseriesPromql_aliases"
+        visibleSeries:
+          description: Flags indicating whether each query or formula series is visible
+          items:
+            type: boolean
+          type: array
+          default: null
+        groupBy:
+          description: "Nested grouping levels applied to aggregation results, outermost\
+            \ first (e.g. group by service, then by level within each service). Each\
+            \ level splits results further, so the response contains one result per\
+            \ unique combination of group values instead of one aggregated total.\
+            \ Defaults to an empty array (one ungrouped result) when omitted."
+          items:
+            $ref: "#/components/schemas/InputAggregationGroupBy"
+          maxItems: 7
+          type: array
+          default: null
+        groupByMode:
+          description: '`absolute` keeps each group at its own value; `relative` shows
+            it as a percentage of the ungrouped total (defaults to absolute)'
+          enum:
+          - relative
+          - absolute
+          type: string
+        timeBucket:
+          $ref: "#/components/schemas/GraphVisualizationTimeseriesPromql_timeBucket"
+        normalizer:
+          $ref: "#/components/schemas/InputNormalizer"
+        precision:
+          $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
+        sections:
+          description: "Rules that assign each time bucket to a state. Among the sections\
+            \ whose condition the value matches, the one whose `value` is closest\
+            \ to it applies, so `> 5` overrides `> 0` above 5 regardless of order.\
+            \ `not_equal` sections apply only when nothing else matches, and ties\
+            \ go to the earlier section. Buckets that match no section are shown in\
+            \ a neutral color."
+          items:
+            $ref: "#/components/schemas/InputTimelineSection"
+          maxItems: 10
+          type: array
+          default: null
+        legendMode:
+          description: "Controls whether and how the widget displays legend or series\
+            \ details (e.g. table, legend-only, or no legend)"
+          enum:
+          - table
+          - legend-only
+          - no-legend
+          type: string
+      required:
+      - queries
+      - sections
+      - source
+      - type
+      title: InputTimeline
     InputGraphVisualizationPie:
       properties:
         type:
@@ -32371,6 +32871,44 @@ components:
       required:
       - url
       title: CustomLink
+    TimelineSection:
+      description: "Range of values shown as one state, evaluated against the raw\
+        \ value of each time bucket, before the unit is applied."
+      properties:
+        operator:
+          description: Comparator used to evaluate each time bucket value against
+            `value`
+          enum:
+          - greater_than
+          - less_than
+          - equal
+          - not_equal
+          - greater_than_or_equal
+          - less_than_or_equal
+          type: string
+        value:
+          description: "Bound of the section, compared with `operator`"
+          type: number
+        color:
+          description: Color of the time buckets in this section
+          enum:
+          - red
+          - pink
+          - violet
+          - blue
+          - cyan
+          - green
+          - yellow
+          - orange
+          type: string
+        name:
+          description: "Name of the state, shown in the legend"
+          type: string
+      required:
+      - color
+      - operator
+      - value
+      title: TimelineSection
     TableColumn:
       description: "Table column backed by its own aggregation. `defaultSorting` and\
         \ `columnSizes` reference it as `col-<index>`, using its zero-based position\
@@ -32706,6 +33244,46 @@ components:
       required:
       - url
       title: InputCustomLink
+    InputTimelineSection:
+      description: "Range of values shown as one state, evaluated against the raw\
+        \ value of each time bucket, before the unit is applied."
+      properties:
+        operator:
+          description: Comparator used to evaluate each time bucket value against
+            `value`
+          enum:
+          - greater_than
+          - less_than
+          - equal
+          - not_equal
+          - greater_than_or_equal
+          - less_than_or_equal
+          type: string
+        value:
+          description: "Bound of the section, compared with `operator`"
+          type: number
+        color:
+          description: Color of the time buckets in this section
+          enum:
+          - red
+          - pink
+          - violet
+          - blue
+          - cyan
+          - green
+          - yellow
+          - orange
+          type: string
+        name:
+          description: "Name of the state, shown in the legend"
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - color
+      - operator
+      - value
+      title: InputTimelineSection
     InputTableColumn:
       description: "Table column backed by its own aggregation. `defaultSorting` and\
         \ `columnSizes` reference it as `col-<index>`, using its zero-based position\
@@ -34977,6 +35555,7 @@ components:
           heatmap-promql: "#/components/schemas/InputGraphVisualizationHeatmapPromql"
           timeseries: "#/components/schemas/InputGraphVisualizationTimeseries"
           top-list: "#/components/schemas/InputGraphVisualizationTopList"
+          timeline: "#/components/schemas/InputGraphVisualizationTimeline"
           pie: "#/components/schemas/InputGraphVisualizationPie"
           query-value: "#/components/schemas/InputGraphVisualizationQueryValue"
           gauge: "#/components/schemas/InputGraphVisualizationGauge"
@@ -35009,6 +35588,7 @@ components:
       - $ref: "#/components/schemas/InputGraphVisualizationHeatmapPromql"
       - $ref: "#/components/schemas/InputGraphVisualizationTimeseries"
       - $ref: "#/components/schemas/InputGraphVisualizationTopList"
+      - $ref: "#/components/schemas/InputGraphVisualizationTimeline"
       - $ref: "#/components/schemas/InputGraphVisualizationPie"
       - $ref: "#/components/schemas/InputGraphVisualizationQueryValue"
       - $ref: "#/components/schemas/InputGraphVisualizationGauge"
@@ -35030,8 +35610,9 @@ components:
           \ list-connection, top-list-connection, pie-connection, bar-connection,\
           \ query-value-connection, timeseries-promql, query-value-promql, gauge-promql,\
           \ top-list-promql, pie-promql, bar-promql, distribution-promql, heatmap-promql,\
-          \ timeseries, top-list, pie, query-value, gauge, bar, distribution, heatmap,\
-          \ table, list, note, group, list-log-patterns, list-spans, list-rum, slo"
+          \ timeseries, top-list, timeline, pie, query-value, gauge, bar, distribution,\
+          \ heatmap, table, list, note, group, list-log-patterns, list-spans, list-rum,\
+          \ slo"
     updateDashboardGraph_request_layout:
       description: "Grid position and size of the widget. Optional; when provided,\
         \ the size must be at least 2×2 (width×height) grid units, except note widgets\
@@ -36707,6 +37288,7 @@ components:
       required:
       - values
     queryMonitors_request_filters:
+      description: Filters applied to narrow the returned monitors
       properties:
         folderId:
           description: "Folder filter for dashboard query results. Optional; pass\
@@ -36790,9 +37372,11 @@ components:
           metric: "#/components/schemas/InputMonitorConfigurationMetric"
           log: "#/components/schemas/InputMonitorConfigurationLog"
           trace: "#/components/schemas/InputMonitorConfigurationTrace"
+          rum: "#/components/schemas/InputMonitorConfigurationRum"
           anomaly-log: "#/components/schemas/InputMonitorConfigurationAnomalyLog"
           anomaly-metric: "#/components/schemas/InputMonitorConfigurationAnomalyMetric"
           anomaly-trace: "#/components/schemas/InputMonitorConfigurationAnomalyTrace"
+          anomaly-rum: "#/components/schemas/InputMonitorConfigurationAnomalyRum"
           log-error-pattern: "#/components/schemas/InputMonitorConfigurationLogErrorPattern"
           log-error-pattern-increase: "#/components/schemas/InputMonitorConfigurationLogErrorPatternIncrease"
           certificate-expiry: "#/components/schemas/InputMonitorConfigurationCertificateExpiry"
@@ -36803,9 +37387,11 @@ components:
       - $ref: "#/components/schemas/InputMonitorConfigurationMetric"
       - $ref: "#/components/schemas/InputMonitorConfigurationLog"
       - $ref: "#/components/schemas/InputMonitorConfigurationTrace"
+      - $ref: "#/components/schemas/InputMonitorConfigurationRum"
       - $ref: "#/components/schemas/InputMonitorConfigurationAnomalyLog"
       - $ref: "#/components/schemas/InputMonitorConfigurationAnomalyMetric"
       - $ref: "#/components/schemas/InputMonitorConfigurationAnomalyTrace"
+      - $ref: "#/components/schemas/InputMonitorConfigurationAnomalyRum"
       - $ref: "#/components/schemas/InputMonitorConfigurationLogErrorPattern"
       - $ref: "#/components/schemas/InputMonitorConfigurationLogErrorPatternIncrease"
       - $ref: "#/components/schemas/InputMonitorConfigurationCertificateExpiry"
@@ -36815,8 +37401,9 @@ components:
       - type
       errorMessage:
         discriminator: "value of tag \"type\" must be one of: metric, log, trace,\
-          \ anomaly-log, anomaly-metric, anomaly-trace, log-error-pattern, log-error-pattern-increase,\
-          \ certificate-expiry, k8s-faulty-deployment, faulty-deployment"
+          \ rum, anomaly-log, anomaly-metric, anomaly-trace, anomaly-rum, log-error-pattern,\
+          \ log-error-pattern-increase, certificate-expiry, k8s-faulty-deployment,\
+          \ faulty-deployment"
     updateMonitor_request:
       description: "Monitor update request. Required fields and the submitted configuration\
         \ are overwritten; omitted `message`, `tags`, `clusterIds`, `pauseUntil`,\
@@ -38352,8 +38939,9 @@ components:
           minLength: 1
           type: string
         step:
-          description: "Evaluation step interval (e.g. `1m`, `5m`, `1h`). Must be\
-            \ a valid Prometheus duration string."
+          description: "Evaluation step interval: a positive whole number followed\
+            \ by one unit, `s`, `m`, `h`, `d`, or `w`, such as `60s`, `1m`, or `1h`.\
+            \ A number without a unit, such as `60`, is not accepted."
           maxLength: 250
           minLength: 1
           type: string
@@ -38373,8 +38961,9 @@ components:
           minLength: 1
           type: string
         step:
-          description: "Evaluation step interval (e.g. `1m`, `5m`, `1h`). Must be\
-            \ a valid Prometheus duration string."
+          description: "Evaluation step interval: a positive whole number followed\
+            \ by one unit, `s`, `m`, `h`, `d`, or `w`, such as `60s`, `1m`, or `1h`.\
+            \ A number without a unit, such as `60`, is not accepted."
           maxLength: 250
           minLength: 1
           type: string
@@ -43675,11 +44264,13 @@ components:
           metric: "#/components/schemas/MonitorConfigurationMetric"
           log: "#/components/schemas/MonitorConfigurationLog"
           trace: "#/components/schemas/MonitorConfigurationTrace"
+          rum: "#/components/schemas/MonitorConfigurationRum"
           anomaly-log: "#/components/schemas/MonitorConfigurationAnomalyLog"
           anomaly-metric: "#/components/schemas/MonitorConfigurationAnomalyMetric"
           log-error-pattern: "#/components/schemas/MonitorConfigurationLogErrorPattern"
           log-error-pattern-increase: "#/components/schemas/MonitorConfigurationLogErrorPatternIncrease"
           anomaly-trace: "#/components/schemas/MonitorConfigurationAnomalyTrace"
+          anomaly-rum: "#/components/schemas/MonitorConfigurationAnomalyRum"
           certificate-expiry: "#/components/schemas/MonitorConfigurationCertificateExpiry"
           k8s-faulty-deployment: "#/components/schemas/MonitorConfigurationK8sFaultyDeployment"
           faulty-deployment: "#/components/schemas/MonitorConfigurationFaultyDeployment"
@@ -43688,11 +44279,13 @@ components:
       - $ref: "#/components/schemas/MonitorConfigurationMetric"
       - $ref: "#/components/schemas/MonitorConfigurationLog"
       - $ref: "#/components/schemas/MonitorConfigurationTrace"
+      - $ref: "#/components/schemas/MonitorConfigurationRum"
       - $ref: "#/components/schemas/MonitorConfigurationAnomalyLog"
       - $ref: "#/components/schemas/MonitorConfigurationAnomalyMetric"
       - $ref: "#/components/schemas/MonitorConfigurationLogErrorPattern"
       - $ref: "#/components/schemas/MonitorConfigurationLogErrorPatternIncrease"
       - $ref: "#/components/schemas/MonitorConfigurationAnomalyTrace"
+      - $ref: "#/components/schemas/MonitorConfigurationAnomalyRum"
       - $ref: "#/components/schemas/MonitorConfigurationCertificateExpiry"
       - $ref: "#/components/schemas/MonitorConfigurationK8sFaultyDeployment"
       - $ref: "#/components/schemas/MonitorConfigurationFaultyDeployment"
@@ -43700,8 +44293,9 @@ components:
       - type
       errorMessage:
         discriminator: "value of tag \"type\" must be one of: metric, log, trace,\
-          \ anomaly-log, anomaly-metric, log-error-pattern, log-error-pattern-increase,\
-          \ anomaly-trace, certificate-expiry, k8s-faulty-deployment, faulty-deployment"
+          \ rum, anomaly-log, anomaly-metric, log-error-pattern, log-error-pattern-increase,\
+          \ anomaly-trace, anomaly-rum, certificate-expiry, k8s-faulty-deployment,\
+          \ faulty-deployment"
     Rule_teamsFilter:
       description: Team visibility filter used when matching alert transitions. Tsuga
         validates create and update requests against the caller permissions.
@@ -46657,9 +47251,11 @@ components:
           metric: "#/components/schemas/MonitorConfigurationMetric"
           log: "#/components/schemas/MonitorConfigurationLog"
           trace: "#/components/schemas/MonitorConfigurationTrace"
+          rum: "#/components/schemas/MonitorConfigurationRum"
           anomaly-log: "#/components/schemas/MonitorConfigurationAnomalyLog"
           anomaly-metric: "#/components/schemas/MonitorConfigurationAnomalyMetric"
           anomaly-trace: "#/components/schemas/MonitorConfigurationAnomalyTrace"
+          anomaly-rum: "#/components/schemas/MonitorConfigurationAnomalyRum"
           certificate-expiry: "#/components/schemas/MonitorConfigurationCertificateExpiry"
           log-error-pattern-increase: "#/components/schemas/MonitorConfigurationLogErrorPatternIncrease"
           k8s-faulty-deployment: "#/components/schemas/MonitorConfigurationK8sFaultyDeployment"
@@ -46669,9 +47265,11 @@ components:
       - $ref: "#/components/schemas/MonitorConfigurationMetric"
       - $ref: "#/components/schemas/MonitorConfigurationLog"
       - $ref: "#/components/schemas/MonitorConfigurationTrace"
+      - $ref: "#/components/schemas/MonitorConfigurationRum"
       - $ref: "#/components/schemas/MonitorConfigurationAnomalyLog"
       - $ref: "#/components/schemas/MonitorConfigurationAnomalyMetric"
       - $ref: "#/components/schemas/MonitorConfigurationAnomalyTrace"
+      - $ref: "#/components/schemas/MonitorConfigurationAnomalyRum"
       - $ref: "#/components/schemas/MonitorConfigurationCertificateExpiry"
       - $ref: "#/components/schemas/MonitorConfigurationLogErrorPatternIncrease"
       - $ref: "#/components/schemas/MonitorConfigurationK8sFaultyDeployment"
@@ -46680,8 +47278,8 @@ components:
       - type
       errorMessage:
         discriminator: "value of tag \"type\" must be one of: metric, log, trace,\
-          \ anomaly-log, anomaly-metric, anomaly-trace, certificate-expiry, log-error-pattern-increase,\
-          \ k8s-faulty-deployment, faulty-deployment"
+          \ rum, anomaly-log, anomaly-metric, anomaly-trace, anomaly-rum, certificate-expiry,\
+          \ log-error-pattern-increase, k8s-faulty-deployment, faulty-deployment"
     OngoingMonitorAlert_monitor:
       description: "Saved alert definition that evaluates telemetry and creates alert\
         \ transitions, restricted to the kinds that raise ongoing alerts. Same shape\
@@ -47005,6 +47603,7 @@ components:
           heatmap-promql: "#/components/schemas/GraphVisualizationHeatmapPromql"
           timeseries: "#/components/schemas/GraphVisualizationTimeseries"
           top-list: "#/components/schemas/GraphVisualizationTopList"
+          timeline: "#/components/schemas/GraphVisualizationTimeline"
           pie: "#/components/schemas/GraphVisualizationPie"
           query-value: "#/components/schemas/GraphVisualizationQueryValue"
           gauge: "#/components/schemas/GraphVisualizationGauge"
@@ -47037,6 +47636,7 @@ components:
       - $ref: "#/components/schemas/GraphVisualizationHeatmapPromql"
       - $ref: "#/components/schemas/GraphVisualizationTimeseries"
       - $ref: "#/components/schemas/GraphVisualizationTopList"
+      - $ref: "#/components/schemas/GraphVisualizationTimeline"
       - $ref: "#/components/schemas/GraphVisualizationPie"
       - $ref: "#/components/schemas/GraphVisualizationQueryValue"
       - $ref: "#/components/schemas/GraphVisualizationGauge"
@@ -47058,8 +47658,9 @@ components:
           \ list-connection, top-list-connection, pie-connection, bar-connection,\
           \ query-value-connection, timeseries-promql, query-value-promql, gauge-promql,\
           \ top-list-promql, pie-promql, bar-promql, distribution-promql, heatmap-promql,\
-          \ timeseries, top-list, pie, query-value, gauge, bar, distribution, heatmap,\
-          \ table, list, note, group, list-log-patterns, list-spans, list-rum, slo"
+          \ timeseries, top-list, timeline, pie, query-value, gauge, bar, distribution,\
+          \ heatmap, table, list, note, group, list-log-patterns, list-spans, list-rum,\
+          \ slo"
     Graph_layout:
       description: "Grid position and size of the widget. Optional; when provided,\
         \ the size must be at least 2×2 (width×height) grid units, except note widgets\

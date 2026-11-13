@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Draws monitor and SLO alerts over the chart | 
-**AlertTypes** | Pointer to **[]string** | Kinds of alert drawn over the chart. Both monitor and SLO alerts are drawn when omitted. | [optional] 
-**Query** | Pointer to **string** | Case-insensitive substring matched against the alert, the same way the Ongoing alerts page matches its search box. Every alert is drawn when omitted. | [optional] 
+**AlertTypes** | Pointer to **[]string** | Kinds of alert drawn over the chart. Both monitor and SLO alerts are drawn when omitted. On its own, it does not make the overlay draw: set &#x60;query&#x60; or a filter too. | [optional] 
+**Query** | Pointer to **string** | Case-insensitive substring matched against the alert, the same way the Ongoing alerts page matches its search box. An empty string matches every alert. Nothing is drawn unless &#x60;query&#x60; or at least one filter is set. | [optional] 
 **Filters** | Pointer to [**WidgetOngoingAlertsOverlayFilters**](WidgetOngoingAlertsOverlayFilters.md) |  | [optional] 
 
 ## Methods

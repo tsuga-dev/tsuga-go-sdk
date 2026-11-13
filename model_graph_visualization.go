@@ -40,6 +40,7 @@ type GraphVisualization struct {
 	GraphVisualizationQueryValuePromql     *GraphVisualizationQueryValuePromql
 	GraphVisualizationSlo                  *GraphVisualizationSlo
 	GraphVisualizationTable                *GraphVisualizationTable
+	GraphVisualizationTimeline             *GraphVisualizationTimeline
 	GraphVisualizationTimeseries           *GraphVisualizationTimeseries
 	GraphVisualizationTimeseriesConnection *GraphVisualizationTimeseriesConnection
 	GraphVisualizationTimeseriesPromql     *GraphVisualizationTimeseriesPromql
@@ -213,6 +214,13 @@ func GraphVisualizationSloAsGraphVisualization(v *GraphVisualizationSlo) GraphVi
 func GraphVisualizationTableAsGraphVisualization(v *GraphVisualizationTable) GraphVisualization {
 	return GraphVisualization{
 		GraphVisualizationTable: v,
+	}
+}
+
+// GraphVisualizationTimelineAsGraphVisualization is a convenience function that returns GraphVisualizationTimeline wrapped in GraphVisualization
+func GraphVisualizationTimelineAsGraphVisualization(v *GraphVisualizationTimeline) GraphVisualization {
+	return GraphVisualization{
+		GraphVisualizationTimeline: v,
 	}
 }
 
@@ -556,6 +564,18 @@ func (dst *GraphVisualization) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'timeline'
+	if jsonDict["type"] == "timeline" {
+		// try to unmarshal JSON data into GraphVisualizationTimeline
+		err = json.Unmarshal(data, &dst.GraphVisualizationTimeline)
+		if err == nil {
+			return nil // data stored in dst.GraphVisualizationTimeline, return on the first match
+		} else {
+			dst.GraphVisualizationTimeline = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualization as GraphVisualizationTimeline: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'timeseries'
 	if jsonDict["type"] == "timeseries" {
 		// try to unmarshal JSON data into GraphVisualizationTimeseries
@@ -729,6 +749,10 @@ func (src GraphVisualization) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.GraphVisualizationTable)
 	}
 
+	if src.GraphVisualizationTimeline != nil {
+		return json.Marshal(&src.GraphVisualizationTimeline)
+	}
+
 	if src.GraphVisualizationTimeseries != nil {
 		return json.Marshal(&src.GraphVisualizationTimeseries)
 	}
@@ -857,6 +881,10 @@ func (obj *GraphVisualization) GetActualInstance() interface{} {
 		return obj.GraphVisualizationTable
 	}
 
+	if obj.GraphVisualizationTimeline != nil {
+		return obj.GraphVisualizationTimeline
+	}
+
 	if obj.GraphVisualizationTimeseries != nil {
 		return obj.GraphVisualizationTimeseries
 	}
@@ -981,6 +1009,10 @@ func (obj GraphVisualization) GetActualInstanceValue() interface{} {
 
 	if obj.GraphVisualizationTable != nil {
 		return *obj.GraphVisualizationTable
+	}
+
+	if obj.GraphVisualizationTimeline != nil {
+		return *obj.GraphVisualizationTimeline
 	}
 
 	if obj.GraphVisualizationTimeseries != nil {

@@ -18,6 +18,7 @@ import (
 type UpdateMonitorRequestConfiguration struct {
 	InputMonitorConfigurationAnomalyLog              *InputMonitorConfigurationAnomalyLog
 	InputMonitorConfigurationAnomalyMetric           *InputMonitorConfigurationAnomalyMetric
+	InputMonitorConfigurationAnomalyRum              *InputMonitorConfigurationAnomalyRum
 	InputMonitorConfigurationAnomalyTrace            *InputMonitorConfigurationAnomalyTrace
 	InputMonitorConfigurationCertificateExpiry       *InputMonitorConfigurationCertificateExpiry
 	InputMonitorConfigurationFaultyDeployment        *InputMonitorConfigurationFaultyDeployment
@@ -26,6 +27,7 @@ type UpdateMonitorRequestConfiguration struct {
 	InputMonitorConfigurationLogErrorPattern         *InputMonitorConfigurationLogErrorPattern
 	InputMonitorConfigurationLogErrorPatternIncrease *InputMonitorConfigurationLogErrorPatternIncrease
 	InputMonitorConfigurationMetric                  *InputMonitorConfigurationMetric
+	InputMonitorConfigurationRum                     *InputMonitorConfigurationRum
 	InputMonitorConfigurationTrace                   *InputMonitorConfigurationTrace
 }
 
@@ -40,6 +42,13 @@ func InputMonitorConfigurationAnomalyLogAsUpdateMonitorRequestConfiguration(v *I
 func InputMonitorConfigurationAnomalyMetricAsUpdateMonitorRequestConfiguration(v *InputMonitorConfigurationAnomalyMetric) UpdateMonitorRequestConfiguration {
 	return UpdateMonitorRequestConfiguration{
 		InputMonitorConfigurationAnomalyMetric: v,
+	}
+}
+
+// InputMonitorConfigurationAnomalyRumAsUpdateMonitorRequestConfiguration is a convenience function that returns InputMonitorConfigurationAnomalyRum wrapped in UpdateMonitorRequestConfiguration
+func InputMonitorConfigurationAnomalyRumAsUpdateMonitorRequestConfiguration(v *InputMonitorConfigurationAnomalyRum) UpdateMonitorRequestConfiguration {
+	return UpdateMonitorRequestConfiguration{
+		InputMonitorConfigurationAnomalyRum: v,
 	}
 }
 
@@ -99,6 +108,13 @@ func InputMonitorConfigurationMetricAsUpdateMonitorRequestConfiguration(v *Input
 	}
 }
 
+// InputMonitorConfigurationRumAsUpdateMonitorRequestConfiguration is a convenience function that returns InputMonitorConfigurationRum wrapped in UpdateMonitorRequestConfiguration
+func InputMonitorConfigurationRumAsUpdateMonitorRequestConfiguration(v *InputMonitorConfigurationRum) UpdateMonitorRequestConfiguration {
+	return UpdateMonitorRequestConfiguration{
+		InputMonitorConfigurationRum: v,
+	}
+}
+
 // InputMonitorConfigurationTraceAsUpdateMonitorRequestConfiguration is a convenience function that returns InputMonitorConfigurationTrace wrapped in UpdateMonitorRequestConfiguration
 func InputMonitorConfigurationTraceAsUpdateMonitorRequestConfiguration(v *InputMonitorConfigurationTrace) UpdateMonitorRequestConfiguration {
 	return UpdateMonitorRequestConfiguration{
@@ -137,6 +153,18 @@ func (dst *UpdateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.InputMonitorConfigurationAnomalyMetric = nil
 			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as InputMonitorConfigurationAnomalyMetric: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'anomaly-rum'
+	if jsonDict["type"] == "anomaly-rum" {
+		// try to unmarshal JSON data into InputMonitorConfigurationAnomalyRum
+		err = json.Unmarshal(data, &dst.InputMonitorConfigurationAnomalyRum)
+		if err == nil {
+			return nil // data stored in dst.InputMonitorConfigurationAnomalyRum, return on the first match
+		} else {
+			dst.InputMonitorConfigurationAnomalyRum = nil
+			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as InputMonitorConfigurationAnomalyRum: %s", err.Error())
 		}
 	}
 
@@ -236,6 +264,18 @@ func (dst *UpdateMonitorRequestConfiguration) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'rum'
+	if jsonDict["type"] == "rum" {
+		// try to unmarshal JSON data into InputMonitorConfigurationRum
+		err = json.Unmarshal(data, &dst.InputMonitorConfigurationRum)
+		if err == nil {
+			return nil // data stored in dst.InputMonitorConfigurationRum, return on the first match
+		} else {
+			dst.InputMonitorConfigurationRum = nil
+			return fmt.Errorf("failed to unmarshal UpdateMonitorRequestConfiguration as InputMonitorConfigurationRum: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'trace'
 	if jsonDict["type"] == "trace" {
 		// try to unmarshal JSON data into InputMonitorConfigurationTrace
@@ -259,6 +299,10 @@ func (src UpdateMonitorRequestConfiguration) MarshalJSON() ([]byte, error) {
 
 	if src.InputMonitorConfigurationAnomalyMetric != nil {
 		return json.Marshal(&src.InputMonitorConfigurationAnomalyMetric)
+	}
+
+	if src.InputMonitorConfigurationAnomalyRum != nil {
+		return json.Marshal(&src.InputMonitorConfigurationAnomalyRum)
 	}
 
 	if src.InputMonitorConfigurationAnomalyTrace != nil {
@@ -293,6 +337,10 @@ func (src UpdateMonitorRequestConfiguration) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.InputMonitorConfigurationMetric)
 	}
 
+	if src.InputMonitorConfigurationRum != nil {
+		return json.Marshal(&src.InputMonitorConfigurationRum)
+	}
+
 	if src.InputMonitorConfigurationTrace != nil {
 		return json.Marshal(&src.InputMonitorConfigurationTrace)
 	}
@@ -311,6 +359,10 @@ func (obj *UpdateMonitorRequestConfiguration) GetActualInstance() interface{} {
 
 	if obj.InputMonitorConfigurationAnomalyMetric != nil {
 		return obj.InputMonitorConfigurationAnomalyMetric
+	}
+
+	if obj.InputMonitorConfigurationAnomalyRum != nil {
+		return obj.InputMonitorConfigurationAnomalyRum
 	}
 
 	if obj.InputMonitorConfigurationAnomalyTrace != nil {
@@ -345,6 +397,10 @@ func (obj *UpdateMonitorRequestConfiguration) GetActualInstance() interface{} {
 		return obj.InputMonitorConfigurationMetric
 	}
 
+	if obj.InputMonitorConfigurationRum != nil {
+		return obj.InputMonitorConfigurationRum
+	}
+
 	if obj.InputMonitorConfigurationTrace != nil {
 		return obj.InputMonitorConfigurationTrace
 	}
@@ -361,6 +417,10 @@ func (obj UpdateMonitorRequestConfiguration) GetActualInstanceValue() interface{
 
 	if obj.InputMonitorConfigurationAnomalyMetric != nil {
 		return *obj.InputMonitorConfigurationAnomalyMetric
+	}
+
+	if obj.InputMonitorConfigurationAnomalyRum != nil {
+		return *obj.InputMonitorConfigurationAnomalyRum
 	}
 
 	if obj.InputMonitorConfigurationAnomalyTrace != nil {
@@ -393,6 +453,10 @@ func (obj UpdateMonitorRequestConfiguration) GetActualInstanceValue() interface{
 
 	if obj.InputMonitorConfigurationMetric != nil {
 		return *obj.InputMonitorConfigurationMetric
+	}
+
+	if obj.InputMonitorConfigurationRum != nil {
+		return *obj.InputMonitorConfigurationRum
 	}
 
 	if obj.InputMonitorConfigurationTrace != nil {

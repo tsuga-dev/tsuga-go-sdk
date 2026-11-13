@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Draws the deployments contained in the time range over the chart | 
-**Teams** | Pointer to **[]string** | IDs of the teams whose services are drawn. The set is resolved when the widget renders, so a service joining one of these teams later is picked up automatically. Every service is drawn when omitted. | [optional] 
-**Services** | Pointer to **[]string** | OpenTelemetry service names to draw, narrowing &#x60;teams&#x60; down to an explicit list. Every service matching &#x60;teams&#x60; is drawn when omitted. | [optional] 
+**Teams** | Pointer to **[]string** | IDs of the teams whose services the app offers in its Services picker. It does not select what is drawn: the overlay draws only the services listed in &#x60;services&#x60;. | [optional] 
+**Services** | Pointer to **[]string** | OpenTelemetry service names whose deployments are drawn. Nothing is drawn until at least one service is set. | [optional] 
 **Env** | Pointer to **string** | Environment whose deployments are drawn. Deployments from every environment are drawn when omitted. | [optional] 
-**Query** | Pointer to **string** | Case-insensitive substring matched against the alert, the same way the Ongoing alerts page matches its search box. Every alert is drawn when omitted. | [optional] 
-**AlertTypes** | Pointer to **[]string** | Kinds of alert drawn over the chart. Both monitor and SLO alerts are drawn when omitted. | [optional] 
+**Query** | Pointer to **string** | Case-insensitive substring matched against the alert, the same way the Ongoing alerts page matches its search box. An empty string matches every alert. Nothing is drawn unless &#x60;query&#x60; or at least one filter is set. | [optional] 
+**AlertTypes** | Pointer to **[]string** | Kinds of alert drawn over the chart. Both monitor and SLO alerts are drawn when omitted. On its own, it does not make the overlay draw: set &#x60;query&#x60; or a filter too. | [optional] 
 **Filters** | Pointer to [**WidgetOngoingAlertsOverlayFilters**](WidgetOngoingAlertsOverlayFilters.md) |  | [optional] 
 
 ## Methods

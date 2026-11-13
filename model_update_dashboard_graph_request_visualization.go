@@ -40,6 +40,7 @@ type UpdateDashboardGraphRequestVisualization struct {
 	InputGraphVisualizationQueryValuePromql     *InputGraphVisualizationQueryValuePromql
 	InputGraphVisualizationSlo                  *InputGraphVisualizationSlo
 	InputGraphVisualizationTable                *InputGraphVisualizationTable
+	InputGraphVisualizationTimeline             *InputGraphVisualizationTimeline
 	InputGraphVisualizationTimeseries           *InputGraphVisualizationTimeseries
 	InputGraphVisualizationTimeseriesConnection *InputGraphVisualizationTimeseriesConnection
 	InputGraphVisualizationTimeseriesPromql     *InputGraphVisualizationTimeseriesPromql
@@ -213,6 +214,13 @@ func InputGraphVisualizationSloAsUpdateDashboardGraphRequestVisualization(v *Inp
 func InputGraphVisualizationTableAsUpdateDashboardGraphRequestVisualization(v *InputGraphVisualizationTable) UpdateDashboardGraphRequestVisualization {
 	return UpdateDashboardGraphRequestVisualization{
 		InputGraphVisualizationTable: v,
+	}
+}
+
+// InputGraphVisualizationTimelineAsUpdateDashboardGraphRequestVisualization is a convenience function that returns InputGraphVisualizationTimeline wrapped in UpdateDashboardGraphRequestVisualization
+func InputGraphVisualizationTimelineAsUpdateDashboardGraphRequestVisualization(v *InputGraphVisualizationTimeline) UpdateDashboardGraphRequestVisualization {
+	return UpdateDashboardGraphRequestVisualization{
+		InputGraphVisualizationTimeline: v,
 	}
 }
 
@@ -556,6 +564,18 @@ func (dst *UpdateDashboardGraphRequestVisualization) UnmarshalJSON(data []byte) 
 		}
 	}
 
+	// check if the discriminator value is 'timeline'
+	if jsonDict["type"] == "timeline" {
+		// try to unmarshal JSON data into InputGraphVisualizationTimeline
+		err = json.Unmarshal(data, &dst.InputGraphVisualizationTimeline)
+		if err == nil {
+			return nil // data stored in dst.InputGraphVisualizationTimeline, return on the first match
+		} else {
+			dst.InputGraphVisualizationTimeline = nil
+			return fmt.Errorf("failed to unmarshal UpdateDashboardGraphRequestVisualization as InputGraphVisualizationTimeline: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'timeseries'
 	if jsonDict["type"] == "timeseries" {
 		// try to unmarshal JSON data into InputGraphVisualizationTimeseries
@@ -729,6 +749,10 @@ func (src UpdateDashboardGraphRequestVisualization) MarshalJSON() ([]byte, error
 		return json.Marshal(&src.InputGraphVisualizationTable)
 	}
 
+	if src.InputGraphVisualizationTimeline != nil {
+		return json.Marshal(&src.InputGraphVisualizationTimeline)
+	}
+
 	if src.InputGraphVisualizationTimeseries != nil {
 		return json.Marshal(&src.InputGraphVisualizationTimeseries)
 	}
@@ -857,6 +881,10 @@ func (obj *UpdateDashboardGraphRequestVisualization) GetActualInstance() interfa
 		return obj.InputGraphVisualizationTable
 	}
 
+	if obj.InputGraphVisualizationTimeline != nil {
+		return obj.InputGraphVisualizationTimeline
+	}
+
 	if obj.InputGraphVisualizationTimeseries != nil {
 		return obj.InputGraphVisualizationTimeseries
 	}
@@ -981,6 +1009,10 @@ func (obj UpdateDashboardGraphRequestVisualization) GetActualInstanceValue() int
 
 	if obj.InputGraphVisualizationTable != nil {
 		return *obj.InputGraphVisualizationTable
+	}
+
+	if obj.InputGraphVisualizationTimeline != nil {
+		return *obj.InputGraphVisualizationTimeline
 	}
 
 	if obj.InputGraphVisualizationTimeseries != nil {

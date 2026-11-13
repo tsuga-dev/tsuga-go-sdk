@@ -21,7 +21,7 @@ var _ MappedNullable = &InputWidgetLogsOverlay{}
 type InputWidgetLogsOverlay struct {
 	// Draws log events over the chart
 	Type string `json:"type"`
-	// Tsuga query selecting the log events drawn over the chart. All log events in the time range are drawn when omitted.
+	// Tsuga query selecting the log events drawn over the chart. Nothing is drawn when omitted. An empty string draws every log event in the time range.
 	Query                *string `json:"query,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

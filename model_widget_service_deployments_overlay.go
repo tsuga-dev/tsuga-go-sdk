@@ -21,9 +21,9 @@ var _ MappedNullable = &WidgetServiceDeploymentsOverlay{}
 type WidgetServiceDeploymentsOverlay struct {
 	// Draws the deployments contained in the time range over the chart
 	Type string `json:"type"`
-	// IDs of the teams whose services are drawn. The set is resolved when the widget renders, so a service joining one of these teams later is picked up automatically. Every service is drawn when omitted.
+	// IDs of the teams whose services the app offers in its Services picker. It does not select what is drawn: the overlay draws only the services listed in `services`.
 	Teams []string `json:"teams,omitempty"`
-	// OpenTelemetry service names to draw, narrowing `teams` down to an explicit list. Every service matching `teams` is drawn when omitted.
+	// OpenTelemetry service names whose deployments are drawn. Nothing is drawn until at least one service is set.
 	Services []string `json:"services,omitempty"`
 	// Environment whose deployments are drawn. Deployments from every environment are drawn when omitted.
 	Env                  *string `json:"env,omitempty"`

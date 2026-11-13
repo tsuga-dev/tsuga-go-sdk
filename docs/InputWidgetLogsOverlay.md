@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Draws log events over the chart | 
-**Query** | Pointer to **string** | Tsuga query selecting the log events drawn over the chart. All log events in the time range are drawn when omitted. | [optional] 
+**Query** | Pointer to **string** | Tsuga query selecting the log events drawn over the chart. Nothing is drawn when omitted. An empty string draws every log event in the time range. | [optional] 
 
 ## Methods
 

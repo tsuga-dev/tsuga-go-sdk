@@ -1,0 +1,208 @@
+# InputMonitorConfigurationAnomalyRum
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Type** | **string** | Anomaly monitor over RUM aggregations. Set this value to create or update an anomaly monitor that learns historical RUM query behavior and alerts on unusual movement in RUM-derived values. The monitor reads a single RUM stream: fields in &#x60;queries&#x60; and &#x60;groupByFields&#x60; that carry a stream prefix (&#x60;events.&#x60;, &#x60;measurements.&#x60; or &#x60;exceptions.&#x60;) must all name the same stream, and unprefixed fields are read from that stream (&#x60;events&#x60; when no field names one). | 
+**Condition** | [**InputMonitorConfigurationAnomalyLogCondition**](InputMonitorConfigurationAnomalyLogCondition.md) |  | 
+**NoDataBehavior** | **string** | How the anomaly monitor updates state when no data is returned. &#x60;alert&#x60; enters no-data alert state, &#x60;resolve&#x60; resolves, and &#x60;keep_last_status&#x60; preserves the previous state. | 
+**Timeframe** | **int32** | Lookback window, in minutes, that each anomaly monitor evaluation aggregates over. | 
+**GroupByFields** | [**[]InputMonitorConfigurationMetricGroupByFieldsInner**](InputMonitorConfigurationMetricGroupByFieldsInner.md) | Monitor group by configuration. | 
+**AggregationAlertLogic** | Pointer to **string** | How grouped results are combined into alert state. Use &#x60;no_aggregation&#x60; only when &#x60;groupByFields&#x60; is empty; use &#x60;all&#x60;, &#x60;any&#x60;, &#x60;each&#x60;, or &#x60;proportion&#x60; with non-empty &#x60;groupByFields&#x60;. &#x60;proportion&#x60; also requires &#x60;proportionAlertThreshold&#x60;. With &#x60;groupByFields&#x60;, send &#x60;each&#x60; so every group opens and resolves its own alert, as the app does by default; &#x60;all&#x60;, &#x60;any&#x60;, and &#x60;proportion&#x60; raise one alert for the whole monitor. On create, omitted query-monitor values default to &#x60;no_aggregation&#x60;; on update, omitted values keep the existing aggregation logic. | [optional] 
+**ProportionAlertThreshold** | Pointer to **int32** | Percentage threshold used when &#x60;aggregationAlertLogic&#x60; is &#x60;proportion&#x60;. | [optional] 
+**Queries** | [**[]InputMonitorAggregationQuery**](InputMonitorAggregationQuery.md) | Aggregation queries used by alerting. Each query is referenced from formulas as q1, q2, and so on. | 
+
+## Methods
+
+### NewInputMonitorConfigurationAnomalyRum
+
+`func NewInputMonitorConfigurationAnomalyRum(type_ string, condition InputMonitorConfigurationAnomalyLogCondition, noDataBehavior string, timeframe int32, groupByFields []InputMonitorConfigurationMetricGroupByFieldsInner, queries []InputMonitorAggregationQuery, ) *InputMonitorConfigurationAnomalyRum`
+
+NewInputMonitorConfigurationAnomalyRum instantiates a new InputMonitorConfigurationAnomalyRum object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewInputMonitorConfigurationAnomalyRumWithDefaults
+
+`func NewInputMonitorConfigurationAnomalyRumWithDefaults() *InputMonitorConfigurationAnomalyRum`
+
+NewInputMonitorConfigurationAnomalyRumWithDefaults instantiates a new InputMonitorConfigurationAnomalyRum object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetType
+
+`func (o *InputMonitorConfigurationAnomalyRum) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *InputMonitorConfigurationAnomalyRum) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *InputMonitorConfigurationAnomalyRum) SetType(v string)`
+
+SetType sets Type field to given value.
+
+
+### GetCondition
+
+`func (o *InputMonitorConfigurationAnomalyRum) GetCondition() InputMonitorConfigurationAnomalyLogCondition`
+
+GetCondition returns the Condition field if non-nil, zero value otherwise.
+
+### GetConditionOk
+
+`func (o *InputMonitorConfigurationAnomalyRum) GetConditionOk() (*InputMonitorConfigurationAnomalyLogCondition, bool)`
+
+GetConditionOk returns a tuple with the Condition field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCondition
+
+`func (o *InputMonitorConfigurationAnomalyRum) SetCondition(v InputMonitorConfigurationAnomalyLogCondition)`
+
+SetCondition sets Condition field to given value.
+
+
+### GetNoDataBehavior
+
+`func (o *InputMonitorConfigurationAnomalyRum) GetNoDataBehavior() string`
+
+GetNoDataBehavior returns the NoDataBehavior field if non-nil, zero value otherwise.
+
+### GetNoDataBehaviorOk
+
+`func (o *InputMonitorConfigurationAnomalyRum) GetNoDataBehaviorOk() (*string, bool)`
+
+GetNoDataBehaviorOk returns a tuple with the NoDataBehavior field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNoDataBehavior
+
+`func (o *InputMonitorConfigurationAnomalyRum) SetNoDataBehavior(v string)`
+
+SetNoDataBehavior sets NoDataBehavior field to given value.
+
+
+### GetTimeframe
+
+`func (o *InputMonitorConfigurationAnomalyRum) GetTimeframe() int32`
+
+GetTimeframe returns the Timeframe field if non-nil, zero value otherwise.
+
+### GetTimeframeOk
+
+`func (o *InputMonitorConfigurationAnomalyRum) GetTimeframeOk() (*int32, bool)`
+
+GetTimeframeOk returns a tuple with the Timeframe field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTimeframe
+
+`func (o *InputMonitorConfigurationAnomalyRum) SetTimeframe(v int32)`
+
+SetTimeframe sets Timeframe field to given value.
+
+
+### GetGroupByFields
+
+`func (o *InputMonitorConfigurationAnomalyRum) GetGroupByFields() []InputMonitorConfigurationMetricGroupByFieldsInner`
+
+GetGroupByFields returns the GroupByFields field if non-nil, zero value otherwise.
+
+### GetGroupByFieldsOk
+
+`func (o *InputMonitorConfigurationAnomalyRum) GetGroupByFieldsOk() (*[]InputMonitorConfigurationMetricGroupByFieldsInner, bool)`
+
+GetGroupByFieldsOk returns a tuple with the GroupByFields field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGroupByFields
+
+`func (o *InputMonitorConfigurationAnomalyRum) SetGroupByFields(v []InputMonitorConfigurationMetricGroupByFieldsInner)`
+
+SetGroupByFields sets GroupByFields field to given value.
+
+
+### GetAggregationAlertLogic
+
+`func (o *InputMonitorConfigurationAnomalyRum) GetAggregationAlertLogic() string`
+
+GetAggregationAlertLogic returns the AggregationAlertLogic field if non-nil, zero value otherwise.
+
+### GetAggregationAlertLogicOk
+
+`func (o *InputMonitorConfigurationAnomalyRum) GetAggregationAlertLogicOk() (*string, bool)`
+
+GetAggregationAlertLogicOk returns a tuple with the AggregationAlertLogic field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAggregationAlertLogic
+
+`func (o *InputMonitorConfigurationAnomalyRum) SetAggregationAlertLogic(v string)`
+
+SetAggregationAlertLogic sets AggregationAlertLogic field to given value.
+
+### HasAggregationAlertLogic
+
+`func (o *InputMonitorConfigurationAnomalyRum) HasAggregationAlertLogic() bool`
+
+HasAggregationAlertLogic returns a boolean if a field has been set.
+
+### GetProportionAlertThreshold
+
+`func (o *InputMonitorConfigurationAnomalyRum) GetProportionAlertThreshold() int32`
+
+GetProportionAlertThreshold returns the ProportionAlertThreshold field if non-nil, zero value otherwise.
+
+### GetProportionAlertThresholdOk
+
+`func (o *InputMonitorConfigurationAnomalyRum) GetProportionAlertThresholdOk() (*int32, bool)`
+
+GetProportionAlertThresholdOk returns a tuple with the ProportionAlertThreshold field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProportionAlertThreshold
+
+`func (o *InputMonitorConfigurationAnomalyRum) SetProportionAlertThreshold(v int32)`
+
+SetProportionAlertThreshold sets ProportionAlertThreshold field to given value.
+
+### HasProportionAlertThreshold
+
+`func (o *InputMonitorConfigurationAnomalyRum) HasProportionAlertThreshold() bool`
+
+HasProportionAlertThreshold returns a boolean if a field has been set.
+
+### GetQueries
+
+`func (o *InputMonitorConfigurationAnomalyRum) GetQueries() []InputMonitorAggregationQuery`
+
+GetQueries returns the Queries field if non-nil, zero value otherwise.
+
+### GetQueriesOk
+
+`func (o *InputMonitorConfigurationAnomalyRum) GetQueriesOk() (*[]InputMonitorAggregationQuery, bool)`
+
+GetQueriesOk returns a tuple with the Queries field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQueries
+
+`func (o *InputMonitorConfigurationAnomalyRum) SetQueries(v []InputMonitorAggregationQuery)`
+
+SetQueries sets Queries field to given value.
+
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

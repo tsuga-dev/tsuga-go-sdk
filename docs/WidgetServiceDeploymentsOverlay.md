@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Draws the deployments contained in the time range over the chart | 
-**Teams** | Pointer to **[]string** | IDs of the teams whose services are drawn. The set is resolved when the widget renders, so a service joining one of these teams later is picked up automatically. Every service is drawn when omitted. | [optional] 
-**Services** | Pointer to **[]string** | OpenTelemetry service names to draw, narrowing &#x60;teams&#x60; down to an explicit list. Every service matching &#x60;teams&#x60; is drawn when omitted. | [optional] 
+**Teams** | Pointer to **[]string** | IDs of the teams whose services the app offers in its Services picker. It does not select what is drawn: the overlay draws only the services listed in &#x60;services&#x60;. | [optional] 
+**Services** | Pointer to **[]string** | OpenTelemetry service names whose deployments are drawn. Nothing is drawn until at least one service is set. | [optional] 
 **Env** | Pointer to **string** | Environment whose deployments are drawn. Deployments from every environment are drawn when omitted. | [optional] 
 
 ## Methods

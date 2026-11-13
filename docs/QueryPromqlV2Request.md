@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Query** | **string** | PromQL expression to evaluate. | 
-**Step** | **string** | Evaluation step interval (e.g. &#x60;1m&#x60;, &#x60;5m&#x60;, &#x60;1h&#x60;). Must be a valid Prometheus duration string. | 
+**Step** | **string** | Evaluation step interval: a positive whole number followed by one unit, &#x60;s&#x60;, &#x60;m&#x60;, &#x60;h&#x60;, &#x60;d&#x60;, or &#x60;w&#x60;, such as &#x60;60s&#x60;, &#x60;1m&#x60;, or &#x60;1h&#x60;. A number without a unit, such as &#x60;60&#x60;, is not accepted. | 
 **TimeRange** | [**InputV2TimeRange**](InputV2TimeRange.md) |  | 
 
 ## Methods

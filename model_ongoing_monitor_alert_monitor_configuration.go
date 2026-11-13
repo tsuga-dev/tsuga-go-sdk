@@ -18,6 +18,7 @@ import (
 type OngoingMonitorAlertMonitorConfiguration struct {
 	MonitorConfigurationAnomalyLog              *MonitorConfigurationAnomalyLog
 	MonitorConfigurationAnomalyMetric           *MonitorConfigurationAnomalyMetric
+	MonitorConfigurationAnomalyRum              *MonitorConfigurationAnomalyRum
 	MonitorConfigurationAnomalyTrace            *MonitorConfigurationAnomalyTrace
 	MonitorConfigurationCertificateExpiry       *MonitorConfigurationCertificateExpiry
 	MonitorConfigurationFaultyDeployment        *MonitorConfigurationFaultyDeployment
@@ -25,6 +26,7 @@ type OngoingMonitorAlertMonitorConfiguration struct {
 	MonitorConfigurationLog                     *MonitorConfigurationLog
 	MonitorConfigurationLogErrorPatternIncrease *MonitorConfigurationLogErrorPatternIncrease
 	MonitorConfigurationMetric                  *MonitorConfigurationMetric
+	MonitorConfigurationRum                     *MonitorConfigurationRum
 	MonitorConfigurationTrace                   *MonitorConfigurationTrace
 }
 
@@ -39,6 +41,13 @@ func MonitorConfigurationAnomalyLogAsOngoingMonitorAlertMonitorConfiguration(v *
 func MonitorConfigurationAnomalyMetricAsOngoingMonitorAlertMonitorConfiguration(v *MonitorConfigurationAnomalyMetric) OngoingMonitorAlertMonitorConfiguration {
 	return OngoingMonitorAlertMonitorConfiguration{
 		MonitorConfigurationAnomalyMetric: v,
+	}
+}
+
+// MonitorConfigurationAnomalyRumAsOngoingMonitorAlertMonitorConfiguration is a convenience function that returns MonitorConfigurationAnomalyRum wrapped in OngoingMonitorAlertMonitorConfiguration
+func MonitorConfigurationAnomalyRumAsOngoingMonitorAlertMonitorConfiguration(v *MonitorConfigurationAnomalyRum) OngoingMonitorAlertMonitorConfiguration {
+	return OngoingMonitorAlertMonitorConfiguration{
+		MonitorConfigurationAnomalyRum: v,
 	}
 }
 
@@ -91,6 +100,13 @@ func MonitorConfigurationMetricAsOngoingMonitorAlertMonitorConfiguration(v *Moni
 	}
 }
 
+// MonitorConfigurationRumAsOngoingMonitorAlertMonitorConfiguration is a convenience function that returns MonitorConfigurationRum wrapped in OngoingMonitorAlertMonitorConfiguration
+func MonitorConfigurationRumAsOngoingMonitorAlertMonitorConfiguration(v *MonitorConfigurationRum) OngoingMonitorAlertMonitorConfiguration {
+	return OngoingMonitorAlertMonitorConfiguration{
+		MonitorConfigurationRum: v,
+	}
+}
+
 // MonitorConfigurationTraceAsOngoingMonitorAlertMonitorConfiguration is a convenience function that returns MonitorConfigurationTrace wrapped in OngoingMonitorAlertMonitorConfiguration
 func MonitorConfigurationTraceAsOngoingMonitorAlertMonitorConfiguration(v *MonitorConfigurationTrace) OngoingMonitorAlertMonitorConfiguration {
 	return OngoingMonitorAlertMonitorConfiguration{
@@ -129,6 +145,18 @@ func (dst *OngoingMonitorAlertMonitorConfiguration) UnmarshalJSON(data []byte) e
 		} else {
 			dst.MonitorConfigurationAnomalyMetric = nil
 			return fmt.Errorf("failed to unmarshal OngoingMonitorAlertMonitorConfiguration as MonitorConfigurationAnomalyMetric: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'anomaly-rum'
+	if jsonDict["type"] == "anomaly-rum" {
+		// try to unmarshal JSON data into MonitorConfigurationAnomalyRum
+		err = json.Unmarshal(data, &dst.MonitorConfigurationAnomalyRum)
+		if err == nil {
+			return nil // data stored in dst.MonitorConfigurationAnomalyRum, return on the first match
+		} else {
+			dst.MonitorConfigurationAnomalyRum = nil
+			return fmt.Errorf("failed to unmarshal OngoingMonitorAlertMonitorConfiguration as MonitorConfigurationAnomalyRum: %s", err.Error())
 		}
 	}
 
@@ -216,6 +244,18 @@ func (dst *OngoingMonitorAlertMonitorConfiguration) UnmarshalJSON(data []byte) e
 		}
 	}
 
+	// check if the discriminator value is 'rum'
+	if jsonDict["type"] == "rum" {
+		// try to unmarshal JSON data into MonitorConfigurationRum
+		err = json.Unmarshal(data, &dst.MonitorConfigurationRum)
+		if err == nil {
+			return nil // data stored in dst.MonitorConfigurationRum, return on the first match
+		} else {
+			dst.MonitorConfigurationRum = nil
+			return fmt.Errorf("failed to unmarshal OngoingMonitorAlertMonitorConfiguration as MonitorConfigurationRum: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'trace'
 	if jsonDict["type"] == "trace" {
 		// try to unmarshal JSON data into MonitorConfigurationTrace
@@ -239,6 +279,10 @@ func (src OngoingMonitorAlertMonitorConfiguration) MarshalJSON() ([]byte, error)
 
 	if src.MonitorConfigurationAnomalyMetric != nil {
 		return json.Marshal(&src.MonitorConfigurationAnomalyMetric)
+	}
+
+	if src.MonitorConfigurationAnomalyRum != nil {
+		return json.Marshal(&src.MonitorConfigurationAnomalyRum)
 	}
 
 	if src.MonitorConfigurationAnomalyTrace != nil {
@@ -269,6 +313,10 @@ func (src OngoingMonitorAlertMonitorConfiguration) MarshalJSON() ([]byte, error)
 		return json.Marshal(&src.MonitorConfigurationMetric)
 	}
 
+	if src.MonitorConfigurationRum != nil {
+		return json.Marshal(&src.MonitorConfigurationRum)
+	}
+
 	if src.MonitorConfigurationTrace != nil {
 		return json.Marshal(&src.MonitorConfigurationTrace)
 	}
@@ -287,6 +335,10 @@ func (obj *OngoingMonitorAlertMonitorConfiguration) GetActualInstance() interfac
 
 	if obj.MonitorConfigurationAnomalyMetric != nil {
 		return obj.MonitorConfigurationAnomalyMetric
+	}
+
+	if obj.MonitorConfigurationAnomalyRum != nil {
+		return obj.MonitorConfigurationAnomalyRum
 	}
 
 	if obj.MonitorConfigurationAnomalyTrace != nil {
@@ -317,6 +369,10 @@ func (obj *OngoingMonitorAlertMonitorConfiguration) GetActualInstance() interfac
 		return obj.MonitorConfigurationMetric
 	}
 
+	if obj.MonitorConfigurationRum != nil {
+		return obj.MonitorConfigurationRum
+	}
+
 	if obj.MonitorConfigurationTrace != nil {
 		return obj.MonitorConfigurationTrace
 	}
@@ -333,6 +389,10 @@ func (obj OngoingMonitorAlertMonitorConfiguration) GetActualInstanceValue() inte
 
 	if obj.MonitorConfigurationAnomalyMetric != nil {
 		return *obj.MonitorConfigurationAnomalyMetric
+	}
+
+	if obj.MonitorConfigurationAnomalyRum != nil {
+		return *obj.MonitorConfigurationAnomalyRum
 	}
 
 	if obj.MonitorConfigurationAnomalyTrace != nil {
@@ -361,6 +421,10 @@ func (obj OngoingMonitorAlertMonitorConfiguration) GetActualInstanceValue() inte
 
 	if obj.MonitorConfigurationMetric != nil {
 		return *obj.MonitorConfigurationMetric
+	}
+
+	if obj.MonitorConfigurationRum != nil {
+		return *obj.MonitorConfigurationRum
 	}
 
 	if obj.MonitorConfigurationTrace != nil {

@@ -21,7 +21,7 @@ var _ MappedNullable = &QueryPromqlRequest{}
 type QueryPromqlRequest struct {
 	// PromQL expression to evaluate.
 	Query string `json:"query"`
-	// Evaluation step interval (e.g. `1m`, `5m`, `1h`). Must be a valid Prometheus duration string.
+	// Evaluation step interval: a positive whole number followed by one unit, `s`, `m`, `h`, `d`, or `w`, such as `60s`, `1m`, or `1h`. A number without a unit, such as `60`, is not accepted.
 	Step                 string         `json:"step"`
 	TimeRange            InputTimeRange `json:"timeRange"`
 	AdditionalProperties map[string]interface{}

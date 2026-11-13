@@ -35,6 +35,7 @@ Name | Type | Description | Notes
 **GroupByMode** | Pointer to **string** | &#x60;absolute&#x60; keeps each group at its own value; &#x60;relative&#x60; shows it as a percentage of the ungrouped total (defaults to absolute) | [optional] 
 **CustomLink** | Pointer to [**InputCustomLink**](InputCustomLink.md) |  | [optional] 
 **IsStacked** | Pointer to **bool** | Requests stacked rendering for a top-list widget. Tsuga renders stacked rows only for one count or sum query with exactly two grouped fields, no formula, non-negative values, and a single-cluster context; otherwise the widget renders as a normal top list. | [optional] 
+**Sections** | [**[]InputTimelineSection**](InputTimelineSection.md) | Rules that assign each time bucket to a state. Among the sections whose condition the value matches, the one whose &#x60;value&#x60; is closest to it applies, so &#x60;&gt; 5&#x60; overrides &#x60;&gt; 0&#x60; above 5 regardless of order. &#x60;not_equal&#x60; sections apply only when nothing else matches, and ties go to the earlier section. Buckets that match no section are shown in a neutral color. | 
 **Group** | Pointer to **string** | Attribute that switches the count to \&quot;Groups\&quot; mode: records are grouped by this attribute, the aggregation produces one value per group, and the chart buckets those per-group values. When omitted, individual records are bucketed. | [optional] 
 **BoundsScale** | Pointer to **string** | Spacing of the bucket boundaries across the distribution range. &#x60;linear&#x60; splits the range into equal-width buckets; &#x60;log&#x60; widens each bucket logarithmically, giving finer resolution near the lower bound. | [optional] 
 **Columns** | [**[]InputTableColumn**](InputTableColumn.md) | Each column defines an independent aggregation displayed as a table column | 
@@ -53,7 +54,7 @@ Name | Type | Description | Notes
 
 ### NewUpdateDashboardGraphRequestVisualization
 
-`func NewUpdateDashboardGraphRequestVisualization(type_ string, connectionId string, queries []InputAggregationQuery, query string, source string, columns []InputTableColumn, display []string, ) *UpdateDashboardGraphRequestVisualization`
+`func NewUpdateDashboardGraphRequestVisualization(type_ string, connectionId string, queries []InputAggregationQuery, query string, source string, sections []InputTimelineSection, columns []InputTableColumn, display []string, ) *UpdateDashboardGraphRequestVisualization`
 
 NewUpdateDashboardGraphRequestVisualization instantiates a new UpdateDashboardGraphRequestVisualization object
 This constructor will assign default values to properties that have it defined,
@@ -817,6 +818,26 @@ SetIsStacked sets IsStacked field to given value.
 `func (o *UpdateDashboardGraphRequestVisualization) HasIsStacked() bool`
 
 HasIsStacked returns a boolean if a field has been set.
+
+### GetSections
+
+`func (o *UpdateDashboardGraphRequestVisualization) GetSections() []InputTimelineSection`
+
+GetSections returns the Sections field if non-nil, zero value otherwise.
+
+### GetSectionsOk
+
+`func (o *UpdateDashboardGraphRequestVisualization) GetSectionsOk() (*[]InputTimelineSection, bool)`
+
+GetSectionsOk returns a tuple with the Sections field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSections
+
+`func (o *UpdateDashboardGraphRequestVisualization) SetSections(v []InputTimelineSection)`
+
+SetSections sets Sections field to given value.
+
 
 ### GetGroup
 

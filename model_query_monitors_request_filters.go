@@ -16,7 +16,7 @@ import (
 // checks if the QueryMonitorsRequestFilters type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &QueryMonitorsRequestFilters{}
 
-// QueryMonitorsRequestFilters struct for QueryMonitorsRequestFilters
+// QueryMonitorsRequestFilters Filters applied to narrow the returned monitors
 type QueryMonitorsRequestFilters struct {
 	// Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder.
 	FolderId    NullableString                          `json:"folderId,omitempty"`

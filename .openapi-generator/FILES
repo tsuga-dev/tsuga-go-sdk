@@ -382,6 +382,7 @@ docs/GraphVisualizationSloFiltersOwners.md
 docs/GraphVisualizationSloFiltersStatuses.md
 docs/GraphVisualizationSloFiltersTags.md
 docs/GraphVisualizationTable.md
+docs/GraphVisualizationTimeline.md
 docs/GraphVisualizationTimeseries.md
 docs/GraphVisualizationTimeseriesConnection.md
 docs/GraphVisualizationTimeseriesConnectionLineStyleOptionsValue.md
@@ -464,6 +465,7 @@ docs/InputGraphVisualizationSloFilters.md
 docs/InputGraphVisualizationSloFiltersKeysInner.md
 docs/InputGraphVisualizationSloFiltersStatuses.md
 docs/InputGraphVisualizationTable.md
+docs/InputGraphVisualizationTimeline.md
 docs/InputGraphVisualizationTimeseries.md
 docs/InputGraphVisualizationTimeseriesConnection.md
 docs/InputGraphVisualizationTimeseriesConnectionYAxisSettings.md
@@ -479,6 +481,7 @@ docs/InputMonitorAggregationQuery.md
 docs/InputMonitorConfigurationAnomalyLog.md
 docs/InputMonitorConfigurationAnomalyLogCondition.md
 docs/InputMonitorConfigurationAnomalyMetric.md
+docs/InputMonitorConfigurationAnomalyRum.md
 docs/InputMonitorConfigurationAnomalyTrace.md
 docs/InputMonitorConfigurationCertificateExpiry.md
 docs/InputMonitorConfigurationFaultyDeployment.md
@@ -493,6 +496,7 @@ docs/InputMonitorConfigurationLogErrorPatternIncreaseFilter.md
 docs/InputMonitorConfigurationMetric.md
 docs/InputMonitorConfigurationMetricConditionsInner.md
 docs/InputMonitorConfigurationMetricGroupByFieldsInner.md
+docs/InputMonitorConfigurationRum.md
 docs/InputMonitorConfigurationTrace.md
 docs/InputNormalizer.md
 docs/InputProcessor.md
@@ -533,6 +537,7 @@ docs/InputThresholdAlert.md
 docs/InputThresholdMarker.md
 docs/InputTimeRange.md
 docs/InputTimeSliceSloConfiguration.md
+docs/InputTimelineSection.md
 docs/InputTsugaAssetTagPolicy.md
 docs/InputV2TimeRange.md
 docs/InputWidgetListColumn.md
@@ -618,6 +623,7 @@ docs/MonitorConfiguration.md
 docs/MonitorConfigurationAnomalyLog.md
 docs/MonitorConfigurationAnomalyLogCondition.md
 docs/MonitorConfigurationAnomalyMetric.md
+docs/MonitorConfigurationAnomalyRum.md
 docs/MonitorConfigurationAnomalyTrace.md
 docs/MonitorConfigurationCertificateExpiry.md
 docs/MonitorConfigurationFaultyDeployment.md
@@ -632,6 +638,7 @@ docs/MonitorConfigurationLogErrorPatternIncreaseFilter.md
 docs/MonitorConfigurationMetric.md
 docs/MonitorConfigurationMetricConditionsInner.md
 docs/MonitorConfigurationMetricGroupByFieldsInner.md
+docs/MonitorConfigurationRum.md
 docs/MonitorConfigurationTrace.md
 docs/MonitorFolder.md
 docs/MonitorFolderWithMonitorCount.md
@@ -954,6 +961,7 @@ docs/ThresholdAlert.md
 docs/ThresholdMarker.md
 docs/TimeSliceSloConfiguration.md
 docs/TimeSliceSloConfigurationThreshold.md
+docs/TimelineSection.md
 docs/TimeseriesAggregationResponse.md
 docs/TimeseriesAggregationResponseV2.md
 docs/TracesAPI.md
@@ -1369,6 +1377,7 @@ model_graph_visualization_slo_filters_owners.go
 model_graph_visualization_slo_filters_statuses.go
 model_graph_visualization_slo_filters_tags.go
 model_graph_visualization_table.go
+model_graph_visualization_timeline.go
 model_graph_visualization_timeseries.go
 model_graph_visualization_timeseries_connection.go
 model_graph_visualization_timeseries_connection_line_style_options_value.go
@@ -1449,6 +1458,7 @@ model_input_graph_visualization_slo_filters.go
 model_input_graph_visualization_slo_filters_keys_inner.go
 model_input_graph_visualization_slo_filters_statuses.go
 model_input_graph_visualization_table.go
+model_input_graph_visualization_timeline.go
 model_input_graph_visualization_timeseries.go
 model_input_graph_visualization_timeseries_connection.go
 model_input_graph_visualization_timeseries_connection_y_axis_settings.go
@@ -1464,6 +1474,7 @@ model_input_monitor_aggregation_query.go
 model_input_monitor_configuration_anomaly_log.go
 model_input_monitor_configuration_anomaly_log_condition.go
 model_input_monitor_configuration_anomaly_metric.go
+model_input_monitor_configuration_anomaly_rum.go
 model_input_monitor_configuration_anomaly_trace.go
 model_input_monitor_configuration_certificate_expiry.go
 model_input_monitor_configuration_faulty_deployment.go
@@ -1478,6 +1489,7 @@ model_input_monitor_configuration_log_error_pattern_increase_filter.go
 model_input_monitor_configuration_metric.go
 model_input_monitor_configuration_metric_conditions_inner.go
 model_input_monitor_configuration_metric_group_by_fields_inner.go
+model_input_monitor_configuration_rum.go
 model_input_monitor_configuration_trace.go
 model_input_normalizer.go
 model_input_processor.go
@@ -1518,6 +1530,7 @@ model_input_threshold_alert.go
 model_input_threshold_marker.go
 model_input_time_range.go
 model_input_time_slice_slo_configuration.go
+model_input_timeline_section.go
 model_input_tsuga_asset_tag_policy.go
 model_input_v2_time_range.go
 model_input_widget_list_column.go
@@ -1596,6 +1609,7 @@ model_monitor_configuration.go
 model_monitor_configuration_anomaly_log.go
 model_monitor_configuration_anomaly_log_condition.go
 model_monitor_configuration_anomaly_metric.go
+model_monitor_configuration_anomaly_rum.go
 model_monitor_configuration_anomaly_trace.go
 model_monitor_configuration_certificate_expiry.go
 model_monitor_configuration_faulty_deployment.go
@@ -1610,6 +1624,7 @@ model_monitor_configuration_log_error_pattern_increase_filter.go
 model_monitor_configuration_metric.go
 model_monitor_configuration_metric_conditions_inner.go
 model_monitor_configuration_metric_group_by_fields_inner.go
+model_monitor_configuration_rum.go
 model_monitor_configuration_trace.go
 model_monitor_folder.go
 model_monitor_folder_with_monitor_count.go
@@ -1912,6 +1927,7 @@ model_threshold_alert.go
 model_threshold_marker.go
 model_time_slice_slo_configuration.go
 model_time_slice_slo_configuration_threshold.go
+model_timeline_section.go
 model_timeseries_aggregation_response.go
 model_timeseries_aggregation_response_v2.go
 model_tsuga_asset_tag_policy.go

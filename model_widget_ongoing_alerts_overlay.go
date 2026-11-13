@@ -21,9 +21,9 @@ var _ MappedNullable = &WidgetOngoingAlertsOverlay{}
 type WidgetOngoingAlertsOverlay struct {
 	// Draws monitor and SLO alerts over the chart
 	Type string `json:"type"`
-	// Kinds of alert drawn over the chart. Both monitor and SLO alerts are drawn when omitted.
+	// Kinds of alert drawn over the chart. Both monitor and SLO alerts are drawn when omitted. On its own, it does not make the overlay draw: set `query` or a filter too.
 	AlertTypes []string `json:"alertTypes,omitempty"`
-	// Case-insensitive substring matched against the alert, the same way the Ongoing alerts page matches its search box. Every alert is drawn when omitted.
+	// Case-insensitive substring matched against the alert, the same way the Ongoing alerts page matches its search box. An empty string matches every alert. Nothing is drawn unless `query` or at least one filter is set.
 	Query                *string                            `json:"query,omitempty"`
 	Filters              *WidgetOngoingAlertsOverlayFilters `json:"filters,omitempty"`
 	AdditionalProperties map[string]interface{}
