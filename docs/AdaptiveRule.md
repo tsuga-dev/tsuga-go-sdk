@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **Name** | **string** | Display name of the adaptive notification rule. | 
 **Owner** | **string** | Team ID that owns and manages the rule. | 
 **IsActive** | **bool** | Whether the rule currently sends notifications when one of its monitors fires. | 
-**ShouldCreateInvestigation** | **bool** | Whether each page records an investigation holding the sampled traces and the call graph the destination was resolved from, linked from the notification body. | 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
 **MonitorIds** | **[]string** | Monitors this rule reacts to. | 
 **SloIds** | **[]string** | SLOs this rule reacts to. | 
@@ -18,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewAdaptiveRule
 
-`func NewAdaptiveRule(id string, name string, owner string, isActive bool, shouldCreateInvestigation bool, monitorIds []string, sloIds []string, fallbackTarget RuleTargetsInner, ) *AdaptiveRule`
+`func NewAdaptiveRule(id string, name string, owner string, isActive bool, monitorIds []string, sloIds []string, fallbackTarget RuleTargetsInner, ) *AdaptiveRule`
 
 NewAdaptiveRule instantiates a new AdaptiveRule object
 This constructor will assign default values to properties that have it defined,
@@ -111,26 +110,6 @@ and a boolean to check if the value has been set.
 `func (o *AdaptiveRule) SetIsActive(v bool)`
 
 SetIsActive sets IsActive field to given value.
-
-
-### GetShouldCreateInvestigation
-
-`func (o *AdaptiveRule) GetShouldCreateInvestigation() bool`
-
-GetShouldCreateInvestigation returns the ShouldCreateInvestigation field if non-nil, zero value otherwise.
-
-### GetShouldCreateInvestigationOk
-
-`func (o *AdaptiveRule) GetShouldCreateInvestigationOk() (*bool, bool)`
-
-GetShouldCreateInvestigationOk returns a tuple with the ShouldCreateInvestigation field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetShouldCreateInvestigation
-
-`func (o *AdaptiveRule) SetShouldCreateInvestigation(v bool)`
-
-SetShouldCreateInvestigation sets ShouldCreateInvestigation field to given value.
 
 
 ### GetTags

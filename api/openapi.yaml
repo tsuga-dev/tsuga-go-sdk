@@ -8513,7 +8513,6 @@ paths:
               name: Checkout latency
               owner: team-123-abc
               isActive: true
-              shouldCreateInvestigation: true
               tags:
               - key: channel
                 value: alerts
@@ -8746,7 +8745,6 @@ paths:
               name: Checkout latency
               owner: team-123-abc
               isActive: true
-              shouldCreateInvestigation: true
               tags:
               - key: channel
                 value: alerts
@@ -20107,7 +20105,6 @@ components:
         name: name
         owner: owner
         isActive: true
-        shouldCreateInvestigation: true
         tags:
         - key: key
           value: value
@@ -20150,11 +20147,6 @@ components:
           description: Whether the rule currently sends notifications when one of
             its monitors fires.
           type: boolean
-        shouldCreateInvestigation:
-          description: "Whether each page records an investigation holding the sampled\
-            \ traces and the call graph the destination was resolved from, linked\
-            \ from the notification body."
-          type: boolean
         tags:
           description: Key/value tags applied to the resource. Use them to organize
             resources and to satisfy tag policies.
@@ -20184,7 +20176,6 @@ components:
       - monitorIds
       - name
       - owner
-      - shouldCreateInvestigation
       - sloIds
     ListAdaptiveNotificationRulesResponse:
       example:
@@ -20194,7 +20185,6 @@ components:
           name: name
           owner: owner
           isActive: true
-          shouldCreateInvestigation: true
           tags:
           - key: key
             value: value
@@ -20226,7 +20216,6 @@ components:
           name: name
           owner: owner
           isActive: true
-          shouldCreateInvestigation: true
           tags:
           - key: key
             value: value
@@ -20280,7 +20269,6 @@ components:
           name: name
           owner: owner
           isActive: true
-          shouldCreateInvestigation: true
           tags:
           - key: key
             value: value
@@ -20325,7 +20313,6 @@ components:
           name: name
           owner: owner
           isActive: true
-          shouldCreateInvestigation: true
           tags:
           - key: key
             value: value
@@ -20370,7 +20357,6 @@ components:
           name: name
           owner: owner
           isActive: true
-          shouldCreateInvestigation: true
           tags:
           - key: key
             value: value
@@ -37898,11 +37884,6 @@ components:
           description: Set to true for the rule to send notifications when one of
             its monitors fires.
           type: boolean
-        shouldCreateInvestigation:
-          description: "Set to true to record an investigation for each page, holding\
-            \ the sampled traces and the call graph the destination was resolved from,\
-            \ and to link it from the notification body. Defaults to false."
-          type: boolean
         monitorIds:
           description: "Monitors this rule reacts to. Only trace monitors and metric\
             \ monitors over OTel span metrics are eligible. On update, omitting this\
@@ -37969,11 +37950,6 @@ components:
         isActive:
           description: Set to true for the rule to send notifications when one of
             its monitors fires.
-          type: boolean
-        shouldCreateInvestigation:
-          description: "Set to true to record an investigation for each page, holding\
-            \ the sampled traces and the call graph the destination was resolved from,\
-            \ and to link it from the notification body. Defaults to false."
           type: boolean
         monitorIds:
           description: "Monitors this rule reacts to. Only trace monitors and metric\
