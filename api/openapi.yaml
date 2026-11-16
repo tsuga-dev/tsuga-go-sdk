@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261112.38.0+6ec54d3
+  version: 20261113.34.0+6c1acf6
 servers:
 - url: https://api.tsuga.com
 security:
@@ -8513,6 +8513,7 @@ paths:
               name: Checkout latency
               owner: team-123-abc
               isActive: true
+              shouldCreateInvestigation: true
               tags:
               - key: channel
                 value: alerts
@@ -8745,6 +8746,7 @@ paths:
               name: Checkout latency
               owner: team-123-abc
               isActive: true
+              shouldCreateInvestigation: true
               tags:
               - key: channel
                 value: alerts
@@ -11481,9 +11483,9 @@ paths:
       - services
   /v1/short-urls/{id}:
     get:
-      description: "Resolves a short link copied from the Logs or Traces page to the\
-        \ app URL it opens, which carries the query, filters and time range. An expired\
-        \ or unknown code returns 404."
+      description: "Resolves a short link copied with **Copy page URL** to the app\
+        \ URL it opens, which carries the page state, such as the query, filters and\
+        \ time range. An expired or unknown code returns 404."
       operationId: getShortUrl
       parameters:
       - description: "Code of the short link, the last path segment of `https://app.tsuga.com/l/<id>`."
@@ -20105,6 +20107,7 @@ components:
         name: name
         owner: owner
         isActive: true
+        shouldCreateInvestigation: true
         tags:
         - key: key
           value: value
@@ -20147,6 +20150,11 @@ components:
           description: Whether the rule currently sends notifications when one of
             its monitors fires.
           type: boolean
+        shouldCreateInvestigation:
+          description: "Whether each page records an investigation holding the sampled\
+            \ traces and the call graph the destination was resolved from, linked\
+            \ from the notification body."
+          type: boolean
         tags:
           description: Key/value tags applied to the resource. Use them to organize
             resources and to satisfy tag policies.
@@ -20176,6 +20184,7 @@ components:
       - monitorIds
       - name
       - owner
+      - shouldCreateInvestigation
       - sloIds
     ListAdaptiveNotificationRulesResponse:
       example:
@@ -20185,6 +20194,7 @@ components:
           name: name
           owner: owner
           isActive: true
+          shouldCreateInvestigation: true
           tags:
           - key: key
             value: value
@@ -20216,6 +20226,7 @@ components:
           name: name
           owner: owner
           isActive: true
+          shouldCreateInvestigation: true
           tags:
           - key: key
             value: value
@@ -20269,6 +20280,7 @@ components:
           name: name
           owner: owner
           isActive: true
+          shouldCreateInvestigation: true
           tags:
           - key: key
             value: value
@@ -20313,6 +20325,7 @@ components:
           name: name
           owner: owner
           isActive: true
+          shouldCreateInvestigation: true
           tags:
           - key: key
             value: value
@@ -20357,6 +20370,7 @@ components:
           name: name
           owner: owner
           isActive: true
+          shouldCreateInvestigation: true
           tags:
           - key: key
             value: value
@@ -22486,8 +22500,8 @@ components:
       - data
       - requestId
     ShortUrl:
-      description: "A short link copied with **Copy page URL** on the Logs or Traces\
-        \ page, resolved to the app URL it opens. See [Share the current search](/documentation/explore/logs#share-the-current-search)."
+      description: "A short link copied with **Copy page URL** in the app, resolved\
+        \ to the app URL it opens. See [Copy and paste](/documentation/keyboard-shortcuts#copy-and-paste)."
       example:
         id: id
         url: url
@@ -27254,6 +27268,16 @@ components:
       required:
       - type
       title: InputOngoingAlertsOverlay
+    SloWidgetOrganizeBySlo:
+      properties:
+        type:
+          description: Groups the results by their SLO
+          enum:
+          - slo
+          type: string
+      required:
+      - type
+      title: SLO
     SloWidgetOrganizeByTeam:
       properties:
         type:
@@ -27406,6 +27430,12 @@ components:
             $ref: "#/components/schemas/WidgetListColumn"
           type: array
           default: null
+        listColumnsAliases:
+          additionalProperties:
+            type: string
+          description: Column headers by column attribute. A column without an alias
+            shows its attribute.
+          type: object
         listColumnsSize:
           additionalProperties:
             description: List column width by column id
@@ -27561,14 +27591,6 @@ components:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer"
-        legendMode:
-          description: "Controls whether and how the widget displays legend or series\
-            \ details (e.g. table, legend-only, or no legend)"
-          enum:
-          - table
-          - legend-only
-          - no-legend
-          type: string
       required:
       - connectionId
       - queries
@@ -27669,14 +27691,6 @@ components:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer"
-        legendMode:
-          description: "Controls whether and how the widget displays legend or series\
-            \ details (e.g. table, legend-only, or no legend)"
-          enum:
-          - table
-          - legend-only
-          - no-legend
-          type: string
       required:
       - queries
       - type
@@ -28290,14 +28304,6 @@ components:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/Normalizer"
-        legendMode:
-          description: "Controls whether and how the widget displays legend or series\
-            \ details (e.g. table, legend-only, or no legend)"
-          enum:
-          - table
-          - legend-only
-          - no-legend
-          type: string
       required:
       - queries
       - source
@@ -28661,6 +28667,12 @@ components:
             $ref: "#/components/schemas/WidgetListColumn"
           type: array
           default: null
+        listColumnsAliases:
+          additionalProperties:
+            type: string
+          description: Column headers by column attribute. A column without an alias
+            shows its attribute.
+          type: object
         listColumnsSize:
           additionalProperties:
             description: List column width by column id
@@ -28774,6 +28786,12 @@ components:
             $ref: "#/components/schemas/WidgetListColumn"
           type: array
           default: null
+        listColumnsAliases:
+          additionalProperties:
+            type: string
+          description: Column headers by column attribute. A column without an alias
+            shows its attribute.
+          type: object
         listColumnsSize:
           additionalProperties:
             description: List column width by column id
@@ -28815,6 +28833,12 @@ components:
             $ref: "#/components/schemas/WidgetListColumn"
           type: array
           default: null
+        listColumnsAliases:
+          additionalProperties:
+            type: string
+          description: Column headers by column attribute. A column without an alias
+            shows its attribute.
+          type: object
         listColumnsSize:
           additionalProperties:
             description: List column width by column id
@@ -28956,6 +28980,14 @@ components:
             $ref: "#/components/schemas/InputWidgetListColumn"
           type: array
           default: null
+        listColumnsAliases:
+          additionalProperties:
+            maxLength: 250
+            minLength: 0
+            type: string
+          description: Column headers by column attribute. A column without an alias
+            shows its attribute.
+          type: object
         listColumnsSize:
           additionalProperties:
             description: List column width by column id
@@ -29144,14 +29176,6 @@ components:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/InputNormalizer"
-        legendMode:
-          description: "Controls whether and how the widget displays legend or series\
-            \ details (e.g. table, legend-only, or no legend)"
-          enum:
-          - table
-          - legend-only
-          - no-legend
-          type: string
       required:
       - connectionId
       - queries
@@ -29256,14 +29280,6 @@ components:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/InputNormalizer"
-        legendMode:
-          description: "Controls whether and how the widget displays legend or series\
-            \ details (e.g. table, legend-only, or no legend)"
-          enum:
-          - table
-          - legend-only
-          - no-legend
-          type: string
       required:
       - queries
       - type
@@ -29975,14 +29991,6 @@ components:
           $ref: "#/components/schemas/GraphVisualizationQueryValueConnection_precision"
         normalizer:
           $ref: "#/components/schemas/InputNormalizer"
-        legendMode:
-          description: "Controls whether and how the widget displays legend or series\
-            \ details (e.g. table, legend-only, or no legend)"
-          enum:
-          - table
-          - legend-only
-          - no-legend
-          type: string
       required:
       - queries
       - source
@@ -30425,6 +30433,14 @@ components:
             $ref: "#/components/schemas/InputWidgetListColumn"
           type: array
           default: null
+        listColumnsAliases:
+          additionalProperties:
+            maxLength: 250
+            minLength: 0
+            type: string
+          description: Column headers by column attribute. A column without an alias
+            shows its attribute.
+          type: object
         listColumnsSize:
           additionalProperties:
             description: List column width by column id
@@ -30537,6 +30553,14 @@ components:
             $ref: "#/components/schemas/InputWidgetListColumn"
           type: array
           default: null
+        listColumnsAliases:
+          additionalProperties:
+            maxLength: 250
+            minLength: 0
+            type: string
+          description: Column headers by column attribute. A column without an alias
+            shows its attribute.
+          type: object
         listColumnsSize:
           additionalProperties:
             description: List column width by column id
@@ -30586,6 +30610,14 @@ components:
             $ref: "#/components/schemas/InputWidgetListColumn"
           type: array
           default: null
+        listColumnsAliases:
+          additionalProperties:
+            maxLength: 250
+            minLength: 0
+            type: string
+          description: Column headers by column attribute. A column without an alias
+            shows its attribute.
+          type: object
         listColumnsSize:
           additionalProperties:
             description: List column width by column id
@@ -32954,22 +32986,24 @@ components:
       - id
       title: TableDefaultSorting
     SloWidgetOrganizeBy:
-      description: "Groups the results by owning team, or by the value of a tag key\
-        \ or group-by field. Omit it to list results ungrouped. Only the `table` section\
-        \ is grouped, so include `table` in `display`."
+      description: "Groups the results by SLO, by owning team, or by the value of\
+        \ a tag key or group-by field. Omit it to list results ungrouped. Only the\
+        \ `table` section is grouped, so include `table` in `display`."
       discriminator:
         mapping:
+          slo: "#/components/schemas/SloWidgetOrganizeBySlo"
           team: "#/components/schemas/SloWidgetOrganizeByTeam"
           key: "#/components/schemas/SloWidgetOrganizeByKey"
         propertyName: type
       oneOf:
+      - $ref: "#/components/schemas/SloWidgetOrganizeBySlo"
       - $ref: "#/components/schemas/SloWidgetOrganizeByTeam"
       - $ref: "#/components/schemas/SloWidgetOrganizeByKey"
       required:
       - type
       title: SloWidgetOrganizeBy
       errorMessage:
-        discriminator: "value of tag \"type\" must be one of: team, key"
+        discriminator: "value of tag \"type\" must be one of: slo, team, key"
     InputThresholdMarker:
       description: "Marker line drawn across the chart at a fixed value, colored by\
         \ its level."
@@ -33349,22 +33383,24 @@ components:
       - id
       title: InputTableDefaultSorting
     InputSloWidgetOrganizeBy:
-      description: "Groups the results by owning team, or by the value of a tag key\
-        \ or group-by field. Omit it to list results ungrouped. Only the `table` section\
-        \ is grouped, so include `table` in `display`."
+      description: "Groups the results by SLO, by owning team, or by the value of\
+        \ a tag key or group-by field. Omit it to list results ungrouped. Only the\
+        \ `table` section is grouped, so include `table` in `display`."
       discriminator:
         mapping:
+          slo: "#/components/schemas/SloWidgetOrganizeBySlo"
           team: "#/components/schemas/SloWidgetOrganizeByTeam"
           key: "#/components/schemas/InputSloWidgetOrganizeByKey"
         propertyName: type
       oneOf:
+      - $ref: "#/components/schemas/SloWidgetOrganizeBySlo"
       - $ref: "#/components/schemas/SloWidgetOrganizeByTeam"
       - $ref: "#/components/schemas/InputSloWidgetOrganizeByKey"
       required:
       - type
       title: InputSloWidgetOrganizeBy
       errorMessage:
-        discriminator: "value of tag \"type\" must be one of: team, key"
+        discriminator: "value of tag \"type\" must be one of: slo, team, key"
     InputGraph:
       description: "Single dashboard widget, combining its identity, its visualization\
         \ configuration, and its position on the dashboard grid."
@@ -37884,6 +37920,11 @@ components:
           description: Set to true for the rule to send notifications when one of
             its monitors fires.
           type: boolean
+        shouldCreateInvestigation:
+          description: "Set to true to record an investigation for each page, holding\
+            \ the sampled traces and the call graph the destination was resolved from,\
+            \ and to link it from the notification body. Defaults to false."
+          type: boolean
         monitorIds:
           description: "Monitors this rule reacts to. Only trace monitors and metric\
             \ monitors over OTel span metrics are eligible. On update, omitting this\
@@ -37950,6 +37991,11 @@ components:
         isActive:
           description: Set to true for the rule to send notifications when one of
             its monitors fires.
+          type: boolean
+        shouldCreateInvestigation:
+          description: "Set to true to record an investigation for each page, holding\
+            \ the sampled traces and the call graph the destination was resolved from,\
+            \ and to link it from the notification body. Defaults to false."
           type: boolean
         monitorIds:
           description: "Monitors this rule reacts to. Only trace monitors and metric\

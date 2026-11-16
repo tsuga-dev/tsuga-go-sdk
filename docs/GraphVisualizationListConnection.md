@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **ConnectionId** | **string** | The ID of the connection to use to query the datastore. | 
 **Query** | **string** | The read-only SQL query to execute against the connection. | 
 **ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each database row | [optional] 
+**ListColumnsAliases** | Pointer to **map[string]string** | Column headers by column attribute. A column without an alias shows its attribute. | [optional] 
 **ListColumnsSize** | Pointer to **map[string]float32** | List column widths in pixels, keyed by the &#x60;attribute&#x60; of the matching &#x60;listColumns&#x60; entry. Columns without an entry keep their default width. | [optional] 
 **IsCellWrapped** | Pointer to **bool** | Whether list widget cell text wraps instead of truncating. Applies to connection list widgets. | [optional] 
 **DefaultSorting** | Pointer to [**[]ListDefaultSorting**](ListDefaultSorting.md) | Default sorting applied to a list widget. Applies to log, span, RUM event, or connection list widgets. Users can still change sorting by selecting columns in the rendered list. | [optional] 
@@ -115,6 +116,31 @@ SetListColumns sets ListColumns field to given value.
 `func (o *GraphVisualizationListConnection) HasListColumns() bool`
 
 HasListColumns returns a boolean if a field has been set.
+
+### GetListColumnsAliases
+
+`func (o *GraphVisualizationListConnection) GetListColumnsAliases() map[string]string`
+
+GetListColumnsAliases returns the ListColumnsAliases field if non-nil, zero value otherwise.
+
+### GetListColumnsAliasesOk
+
+`func (o *GraphVisualizationListConnection) GetListColumnsAliasesOk() (*map[string]string, bool)`
+
+GetListColumnsAliasesOk returns a tuple with the ListColumnsAliases field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetListColumnsAliases
+
+`func (o *GraphVisualizationListConnection) SetListColumnsAliases(v map[string]string)`
+
+SetListColumnsAliases sets ListColumnsAliases field to given value.
+
+### HasListColumnsAliases
+
+`func (o *GraphVisualizationListConnection) HasListColumnsAliases() bool`
+
+HasListColumnsAliases returns a boolean if a field has been set.
 
 ### GetListColumnsSize
 

@@ -14,9 +14,10 @@ import (
 	"fmt"
 )
 
-// InputSloWidgetOrganizeBy - Groups the results by owning team, or by the value of a tag key or group-by field. Omit it to list results ungrouped. Only the `table` section is grouped, so include `table` in `display`.
+// InputSloWidgetOrganizeBy - Groups the results by SLO, by owning team, or by the value of a tag key or group-by field. Omit it to list results ungrouped. Only the `table` section is grouped, so include `table` in `display`.
 type InputSloWidgetOrganizeBy struct {
 	InputSloWidgetOrganizeByKey *InputSloWidgetOrganizeByKey
+	SloWidgetOrganizeBySlo      *SloWidgetOrganizeBySlo
 	SloWidgetOrganizeByTeam     *SloWidgetOrganizeByTeam
 }
 
@@ -24,6 +25,13 @@ type InputSloWidgetOrganizeBy struct {
 func InputSloWidgetOrganizeByKeyAsInputSloWidgetOrganizeBy(v *InputSloWidgetOrganizeByKey) InputSloWidgetOrganizeBy {
 	return InputSloWidgetOrganizeBy{
 		InputSloWidgetOrganizeByKey: v,
+	}
+}
+
+// SloWidgetOrganizeBySloAsInputSloWidgetOrganizeBy is a convenience function that returns SloWidgetOrganizeBySlo wrapped in InputSloWidgetOrganizeBy
+func SloWidgetOrganizeBySloAsInputSloWidgetOrganizeBy(v *SloWidgetOrganizeBySlo) InputSloWidgetOrganizeBy {
+	return InputSloWidgetOrganizeBy{
+		SloWidgetOrganizeBySlo: v,
 	}
 }
 
@@ -56,6 +64,18 @@ func (dst *InputSloWidgetOrganizeBy) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'slo'
+	if jsonDict["type"] == "slo" {
+		// try to unmarshal JSON data into SloWidgetOrganizeBySlo
+		err = json.Unmarshal(data, &dst.SloWidgetOrganizeBySlo)
+		if err == nil {
+			return nil // data stored in dst.SloWidgetOrganizeBySlo, return on the first match
+		} else {
+			dst.SloWidgetOrganizeBySlo = nil
+			return fmt.Errorf("failed to unmarshal InputSloWidgetOrganizeBy as SloWidgetOrganizeBySlo: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'team'
 	if jsonDict["type"] == "team" {
 		// try to unmarshal JSON data into SloWidgetOrganizeByTeam
@@ -77,6 +97,10 @@ func (src InputSloWidgetOrganizeBy) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.InputSloWidgetOrganizeByKey)
 	}
 
+	if src.SloWidgetOrganizeBySlo != nil {
+		return json.Marshal(&src.SloWidgetOrganizeBySlo)
+	}
+
 	if src.SloWidgetOrganizeByTeam != nil {
 		return json.Marshal(&src.SloWidgetOrganizeByTeam)
 	}
@@ -93,6 +117,10 @@ func (obj *InputSloWidgetOrganizeBy) GetActualInstance() interface{} {
 		return obj.InputSloWidgetOrganizeByKey
 	}
 
+	if obj.SloWidgetOrganizeBySlo != nil {
+		return obj.SloWidgetOrganizeBySlo
+	}
+
 	if obj.SloWidgetOrganizeByTeam != nil {
 		return obj.SloWidgetOrganizeByTeam
 	}
@@ -105,6 +133,10 @@ func (obj *InputSloWidgetOrganizeBy) GetActualInstance() interface{} {
 func (obj InputSloWidgetOrganizeBy) GetActualInstanceValue() interface{} {
 	if obj.InputSloWidgetOrganizeByKey != nil {
 		return *obj.InputSloWidgetOrganizeByKey
+	}
+
+	if obj.SloWidgetOrganizeBySlo != nil {
+		return *obj.SloWidgetOrganizeBySlo
 	}
 
 	if obj.SloWidgetOrganizeByTeam != nil {

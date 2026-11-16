@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Type** | **string** | Displays matching RUM events in a tabular list | 
 **Query** | **string** | Query that selects RUM events for the list. Prefix every field with the stream it belongs to (&#x60;measurements.&#x60;, &#x60;events.&#x60;, or &#x60;exceptions.&#x60;) and filter on a single stream per query. A query without stream-prefixed fields searches the &#x60;events&#x60; stream. | 
 **ListColumns** | Pointer to [**[]InputWidgetListColumn**](InputWidgetListColumn.md) | Custom columns to display for each RUM event. Set attributes without their stream prefix, e.g. &#x60;view.name&#x60; rather than &#x60;events.view.name&#x60;. Omit it and the list renders no columns: there is no default set. | [optional] 
+**ListColumnsAliases** | Pointer to **map[string]string** | Column headers by column attribute. A column without an alias shows its attribute. | [optional] 
 **ListColumnsSize** | Pointer to **map[string]float32** | List column widths in pixels, keyed by the &#x60;attribute&#x60; of the matching &#x60;listColumns&#x60; entry. Columns without an entry keep their default width. | [optional] 
 **IsCellWrapped** | Pointer to **bool** | Whether list widget cell text wraps instead of truncating. Applies to RUM event list widgets. Optional; omit or set false to use truncated cells. | [optional] 
 **DefaultSorting** | Pointer to [**[]InputListDefaultSorting**](InputListDefaultSorting.md) | Default sorting applied to a list widget. Optional on create or update for log, span, RUM event, or connection list widgets. Users can still change sorting by selecting columns in the rendered list. | [optional] 
@@ -94,6 +95,31 @@ SetListColumns sets ListColumns field to given value.
 `func (o *InputGraphVisualizationListRum) HasListColumns() bool`
 
 HasListColumns returns a boolean if a field has been set.
+
+### GetListColumnsAliases
+
+`func (o *InputGraphVisualizationListRum) GetListColumnsAliases() map[string]string`
+
+GetListColumnsAliases returns the ListColumnsAliases field if non-nil, zero value otherwise.
+
+### GetListColumnsAliasesOk
+
+`func (o *InputGraphVisualizationListRum) GetListColumnsAliasesOk() (*map[string]string, bool)`
+
+GetListColumnsAliasesOk returns a tuple with the ListColumnsAliases field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetListColumnsAliases
+
+`func (o *InputGraphVisualizationListRum) SetListColumnsAliases(v map[string]string)`
+
+SetListColumnsAliases sets ListColumnsAliases field to given value.
+
+### HasListColumnsAliases
+
+`func (o *InputGraphVisualizationListRum) HasListColumnsAliases() bool`
+
+HasListColumnsAliases returns a boolean if a field has been set.
 
 ### GetListColumnsSize
 

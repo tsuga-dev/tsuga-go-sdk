@@ -25,6 +25,8 @@ type GraphVisualizationListRum struct {
 	Query string `json:"query"`
 	// Custom columns to display for each RUM event. Attributes are read without their stream prefix, e.g. `view.name` rather than `events.view.name`.
 	ListColumns []WidgetListColumn `json:"listColumns,omitempty"`
+	// Column headers by column attribute. A column without an alias shows its attribute.
+	ListColumnsAliases *map[string]string `json:"listColumnsAliases,omitempty"`
 	// List column widths in pixels, keyed by the `attribute` of the matching `listColumns` entry. Columns without an entry keep their default width.
 	ListColumnsSize *map[string]float32 `json:"listColumnsSize,omitempty"`
 	// Whether list widget cell text wraps instead of truncating. Applies to RUM event list widgets.
@@ -133,6 +135,38 @@ func (o *GraphVisualizationListRum) HasListColumns() bool {
 // SetListColumns gets a reference to the given []WidgetListColumn and assigns it to the ListColumns field.
 func (o *GraphVisualizationListRum) SetListColumns(v []WidgetListColumn) {
 	o.ListColumns = v
+}
+
+// GetListColumnsAliases returns the ListColumnsAliases field value if set, zero value otherwise.
+func (o *GraphVisualizationListRum) GetListColumnsAliases() map[string]string {
+	if o == nil || IsNil(o.ListColumnsAliases) {
+		var ret map[string]string
+		return ret
+	}
+	return *o.ListColumnsAliases
+}
+
+// GetListColumnsAliasesOk returns a tuple with the ListColumnsAliases field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphVisualizationListRum) GetListColumnsAliasesOk() (*map[string]string, bool) {
+	if o == nil || IsNil(o.ListColumnsAliases) {
+		return nil, false
+	}
+	return o.ListColumnsAliases, true
+}
+
+// HasListColumnsAliases returns a boolean if a field has been set.
+func (o *GraphVisualizationListRum) HasListColumnsAliases() bool {
+	if o != nil && !IsNil(o.ListColumnsAliases) {
+		return true
+	}
+
+	return false
+}
+
+// SetListColumnsAliases gets a reference to the given map[string]string and assigns it to the ListColumnsAliases field.
+func (o *GraphVisualizationListRum) SetListColumnsAliases(v map[string]string) {
+	o.ListColumnsAliases = &v
 }
 
 // GetListColumnsSize returns the ListColumnsSize field value if set, zero value otherwise.
@@ -246,6 +280,9 @@ func (o GraphVisualizationListRum) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ListColumns) {
 		toSerialize["listColumns"] = o.ListColumns
 	}
+	if !IsNil(o.ListColumnsAliases) {
+		toSerialize["listColumnsAliases"] = o.ListColumnsAliases
+	}
 	if !IsNil(o.ListColumnsSize) {
 		toSerialize["listColumnsSize"] = o.ListColumnsSize
 	}
@@ -302,6 +339,7 @@ func (o *GraphVisualizationListRum) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "query")
 		delete(additionalProperties, "listColumns")
+		delete(additionalProperties, "listColumnsAliases")
 		delete(additionalProperties, "listColumnsSize")
 		delete(additionalProperties, "isCellWrapped")
 		delete(additionalProperties, "defaultSorting")

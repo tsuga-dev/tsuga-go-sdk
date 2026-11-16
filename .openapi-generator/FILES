@@ -938,6 +938,7 @@ docs/SloConfiguration.md
 docs/SloQueryFormula.md
 docs/SloWidgetOrganizeBy.md
 docs/SloWidgetOrganizeByKey.md
+docs/SloWidgetOrganizeBySlo.md
 docs/SloWidgetOrganizeByTeam.md
 docs/SlosAPI.md
 docs/SpecificTeams.md
@@ -1908,6 +1909,7 @@ model_slo_configuration.go
 model_slo_query_formula.go
 model_slo_widget_organize_by.go
 model_slo_widget_organize_by_key.go
+model_slo_widget_organize_by_slo.go
 model_slo_widget_organize_by_team.go
 model_specific_teams.go
 model_summarize_trace_response.go

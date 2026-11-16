@@ -17,7 +17,7 @@ import (
 // checks if the ShortUrl type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ShortUrl{}
 
-// ShortUrl A short link copied with **Copy page URL** on the Logs or Traces page, resolved to the app URL it opens. See [Share the current search](/documentation/explore/logs#share-the-current-search).
+// ShortUrl A short link copied with **Copy page URL** in the app, resolved to the app URL it opens. See [Copy and paste](/documentation/keyboard-shortcuts#copy-and-paste).
 type ShortUrl struct {
 	// Code of the short link, the last path segment of `https://app.tsuga.com/l/<id>`.
 	Id string `json:"id"`

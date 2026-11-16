@@ -27,6 +27,8 @@ type CreateAdaptiveNotificationRuleRequest struct {
 	Tags []InputTag `json:"tags,omitempty"`
 	// Set to true for the rule to send notifications when one of its monitors fires.
 	IsActive bool `json:"isActive"`
+	// Set to true to record an investigation for each page, holding the sampled traces and the call graph the destination was resolved from, and to link it from the notification body. Defaults to false.
+	ShouldCreateInvestigation *bool `json:"shouldCreateInvestigation,omitempty"`
 	// Monitors this rule reacts to. Only trace monitors and metric monitors over OTel span metrics are eligible. On update, omitting this field keeps the current monitors; send an empty array to remove them. Send at least one monitor or SLO.
 	MonitorIds []*string `json:"monitorIds,omitempty"`
 	// SLOs this rule reacts to. Only SLOs over traces or OTel span metrics are eligible. On update, omitting this field keeps the current SLOs; send an empty array to remove them. Send at least one monitor or SLO.
@@ -162,6 +164,38 @@ func (o *CreateAdaptiveNotificationRuleRequest) SetIsActive(v bool) {
 	o.IsActive = v
 }
 
+// GetShouldCreateInvestigation returns the ShouldCreateInvestigation field value if set, zero value otherwise.
+func (o *CreateAdaptiveNotificationRuleRequest) GetShouldCreateInvestigation() bool {
+	if o == nil || IsNil(o.ShouldCreateInvestigation) {
+		var ret bool
+		return ret
+	}
+	return *o.ShouldCreateInvestigation
+}
+
+// GetShouldCreateInvestigationOk returns a tuple with the ShouldCreateInvestigation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateAdaptiveNotificationRuleRequest) GetShouldCreateInvestigationOk() (*bool, bool) {
+	if o == nil || IsNil(o.ShouldCreateInvestigation) {
+		return nil, false
+	}
+	return o.ShouldCreateInvestigation, true
+}
+
+// HasShouldCreateInvestigation returns a boolean if a field has been set.
+func (o *CreateAdaptiveNotificationRuleRequest) HasShouldCreateInvestigation() bool {
+	if o != nil && !IsNil(o.ShouldCreateInvestigation) {
+		return true
+	}
+
+	return false
+}
+
+// SetShouldCreateInvestigation gets a reference to the given bool and assigns it to the ShouldCreateInvestigation field.
+func (o *CreateAdaptiveNotificationRuleRequest) SetShouldCreateInvestigation(v bool) {
+	o.ShouldCreateInvestigation = &v
+}
+
 // GetMonitorIds returns the MonitorIds field value if set, zero value otherwise.
 func (o *CreateAdaptiveNotificationRuleRequest) GetMonitorIds() []*string {
 	if o == nil || IsNil(o.MonitorIds) {
@@ -266,6 +300,9 @@ func (o CreateAdaptiveNotificationRuleRequest) ToMap() (map[string]interface{}, 
 		toSerialize["tags"] = o.Tags
 	}
 	toSerialize["isActive"] = o.IsActive
+	if !IsNil(o.ShouldCreateInvestigation) {
+		toSerialize["shouldCreateInvestigation"] = o.ShouldCreateInvestigation
+	}
 	if !IsNil(o.MonitorIds) {
 		toSerialize["monitorIds"] = o.MonitorIds
 	}
@@ -323,6 +360,7 @@ func (o *CreateAdaptiveNotificationRuleRequest) UnmarshalJSON(data []byte) (err 
 		delete(additionalProperties, "owner")
 		delete(additionalProperties, "tags")
 		delete(additionalProperties, "isActive")
+		delete(additionalProperties, "shouldCreateInvestigation")
 		delete(additionalProperties, "monitorIds")
 		delete(additionalProperties, "sloIds")
 		delete(additionalProperties, "fallbackTarget")

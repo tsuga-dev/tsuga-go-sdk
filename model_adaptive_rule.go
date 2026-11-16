@@ -27,6 +27,8 @@ type AdaptiveRule struct {
 	Owner string `json:"owner"`
 	// Whether the rule currently sends notifications when one of its monitors fires.
 	IsActive bool `json:"isActive"`
+	// Whether each page records an investigation holding the sampled traces and the call graph the destination was resolved from, linked from the notification body.
+	ShouldCreateInvestigation bool `json:"shouldCreateInvestigation"`
 	// Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies.
 	Tags []Tag `json:"tags,omitempty"`
 	// Monitors this rule reacts to.
@@ -43,12 +45,13 @@ type _AdaptiveRule AdaptiveRule
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAdaptiveRule(id string, name string, owner string, isActive bool, monitorIds []string, sloIds []string, fallbackTarget RuleTargetsInner) *AdaptiveRule {
+func NewAdaptiveRule(id string, name string, owner string, isActive bool, shouldCreateInvestigation bool, monitorIds []string, sloIds []string, fallbackTarget RuleTargetsInner) *AdaptiveRule {
 	this := AdaptiveRule{}
 	this.Id = id
 	this.Name = name
 	this.Owner = owner
 	this.IsActive = isActive
+	this.ShouldCreateInvestigation = shouldCreateInvestigation
 	this.MonitorIds = monitorIds
 	this.SloIds = sloIds
 	this.FallbackTarget = fallbackTarget
@@ -157,6 +160,30 @@ func (o *AdaptiveRule) GetIsActiveOk() (*bool, bool) {
 // SetIsActive sets field value
 func (o *AdaptiveRule) SetIsActive(v bool) {
 	o.IsActive = v
+}
+
+// GetShouldCreateInvestigation returns the ShouldCreateInvestigation field value
+func (o *AdaptiveRule) GetShouldCreateInvestigation() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.ShouldCreateInvestigation
+}
+
+// GetShouldCreateInvestigationOk returns a tuple with the ShouldCreateInvestigation field value
+// and a boolean to check if the value has been set.
+func (o *AdaptiveRule) GetShouldCreateInvestigationOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ShouldCreateInvestigation, true
+}
+
+// SetShouldCreateInvestigation sets field value
+func (o *AdaptiveRule) SetShouldCreateInvestigation(v bool) {
+	o.ShouldCreateInvestigation = v
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
@@ -277,6 +304,7 @@ func (o AdaptiveRule) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name
 	toSerialize["owner"] = o.Owner
 	toSerialize["isActive"] = o.IsActive
+	toSerialize["shouldCreateInvestigation"] = o.ShouldCreateInvestigation
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
@@ -300,6 +328,7 @@ func (o *AdaptiveRule) UnmarshalJSON(data []byte) (err error) {
 		"name",
 		"owner",
 		"isActive",
+		"shouldCreateInvestigation",
 		"monitorIds",
 		"sloIds",
 		"fallbackTarget",
@@ -336,6 +365,7 @@ func (o *AdaptiveRule) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "owner")
 		delete(additionalProperties, "isActive")
+		delete(additionalProperties, "shouldCreateInvestigation")
 		delete(additionalProperties, "tags")
 		delete(additionalProperties, "monitorIds")
 		delete(additionalProperties, "sloIds")

@@ -27,6 +27,8 @@ type InputGraphVisualizationListConnection struct {
 	Query string `json:"query"`
 	// Custom columns to display for each database row. Omit it and the list renders no columns: there is no default set.
 	ListColumns []InputWidgetListColumn `json:"listColumns,omitempty"`
+	// Column headers by column attribute. A column without an alias shows its attribute.
+	ListColumnsAliases *map[string]string `json:"listColumnsAliases,omitempty"`
 	// List column widths in pixels, keyed by the `attribute` of the matching `listColumns` entry. Columns without an entry keep their default width.
 	ListColumnsSize *map[string]float32 `json:"listColumnsSize,omitempty"`
 	// Whether list widget cell text wraps instead of truncating. Applies to connection list widgets. Optional; omit or set false to use truncated cells.
@@ -162,6 +164,38 @@ func (o *InputGraphVisualizationListConnection) SetListColumns(v []InputWidgetLi
 	o.ListColumns = v
 }
 
+// GetListColumnsAliases returns the ListColumnsAliases field value if set, zero value otherwise.
+func (o *InputGraphVisualizationListConnection) GetListColumnsAliases() map[string]string {
+	if o == nil || IsNil(o.ListColumnsAliases) {
+		var ret map[string]string
+		return ret
+	}
+	return *o.ListColumnsAliases
+}
+
+// GetListColumnsAliasesOk returns a tuple with the ListColumnsAliases field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputGraphVisualizationListConnection) GetListColumnsAliasesOk() (*map[string]string, bool) {
+	if o == nil || IsNil(o.ListColumnsAliases) {
+		return nil, false
+	}
+	return o.ListColumnsAliases, true
+}
+
+// HasListColumnsAliases returns a boolean if a field has been set.
+func (o *InputGraphVisualizationListConnection) HasListColumnsAliases() bool {
+	if o != nil && !IsNil(o.ListColumnsAliases) {
+		return true
+	}
+
+	return false
+}
+
+// SetListColumnsAliases gets a reference to the given map[string]string and assigns it to the ListColumnsAliases field.
+func (o *InputGraphVisualizationListConnection) SetListColumnsAliases(v map[string]string) {
+	o.ListColumnsAliases = &v
+}
+
 // GetListColumnsSize returns the ListColumnsSize field value if set, zero value otherwise.
 func (o *InputGraphVisualizationListConnection) GetListColumnsSize() map[string]float32 {
 	if o == nil || IsNil(o.ListColumnsSize) {
@@ -274,6 +308,9 @@ func (o InputGraphVisualizationListConnection) ToMap() (map[string]interface{}, 
 	if !IsNil(o.ListColumns) {
 		toSerialize["listColumns"] = o.ListColumns
 	}
+	if !IsNil(o.ListColumnsAliases) {
+		toSerialize["listColumnsAliases"] = o.ListColumnsAliases
+	}
 	if !IsNil(o.ListColumnsSize) {
 		toSerialize["listColumnsSize"] = o.ListColumnsSize
 	}
@@ -332,6 +369,7 @@ func (o *InputGraphVisualizationListConnection) UnmarshalJSON(data []byte) (err 
 		delete(additionalProperties, "connectionId")
 		delete(additionalProperties, "query")
 		delete(additionalProperties, "listColumns")
+		delete(additionalProperties, "listColumnsAliases")
 		delete(additionalProperties, "listColumnsSize")
 		delete(additionalProperties, "isCellWrapped")
 		delete(additionalProperties, "defaultSorting")

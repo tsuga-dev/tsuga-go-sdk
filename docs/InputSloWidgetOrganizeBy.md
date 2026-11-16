@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | Groups the results by the team owning their SLO | 
+**Type** | **string** | Groups the results by their SLO | 
 **Key** | **string** | Tag key or group-by field to group by, such as &#x60;env&#x60; or &#x60;context.team&#x60;. A result falls under each value it has for this key: its group-by value when its SLO groups by this field, and its SLO&#39;s tag values for this key. Results with no value for the key are not shown. | 
 
 ## Methods

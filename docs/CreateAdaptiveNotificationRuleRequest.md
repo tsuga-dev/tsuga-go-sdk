@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Owner** | **string** | Team ID that owns and manages the rule | 
 **Tags** | Pointer to [**[]InputTag**](InputTag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **IsActive** | **bool** | Set to true for the rule to send notifications when one of its monitors fires. | 
+**ShouldCreateInvestigation** | Pointer to **bool** | Set to true to record an investigation for each page, holding the sampled traces and the call graph the destination was resolved from, and to link it from the notification body. Defaults to false. | [optional] 
 **MonitorIds** | Pointer to **[]string** | Monitors this rule reacts to. Only trace monitors and metric monitors over OTel span metrics are eligible. On update, omitting this field keeps the current monitors; send an empty array to remove them. Send at least one monitor or SLO. | [optional] 
 **SloIds** | Pointer to **[]string** | SLOs this rule reacts to. Only SLOs over traces or OTel span metrics are eligible. On update, omitting this field keeps the current SLOs; send an empty array to remove them. Send at least one monitor or SLO. | [optional] 
 **FallbackTarget** | [**CreateNotificationRuleRequestTargetsInner**](CreateNotificationRuleRequestTargetsInner.md) |  | 
@@ -115,6 +116,31 @@ and a boolean to check if the value has been set.
 
 SetIsActive sets IsActive field to given value.
 
+
+### GetShouldCreateInvestigation
+
+`func (o *CreateAdaptiveNotificationRuleRequest) GetShouldCreateInvestigation() bool`
+
+GetShouldCreateInvestigation returns the ShouldCreateInvestigation field if non-nil, zero value otherwise.
+
+### GetShouldCreateInvestigationOk
+
+`func (o *CreateAdaptiveNotificationRuleRequest) GetShouldCreateInvestigationOk() (*bool, bool)`
+
+GetShouldCreateInvestigationOk returns a tuple with the ShouldCreateInvestigation field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShouldCreateInvestigation
+
+`func (o *CreateAdaptiveNotificationRuleRequest) SetShouldCreateInvestigation(v bool)`
+
+SetShouldCreateInvestigation sets ShouldCreateInvestigation field to given value.
+
+### HasShouldCreateInvestigation
+
+`func (o *CreateAdaptiveNotificationRuleRequest) HasShouldCreateInvestigation() bool`
+
+HasShouldCreateInvestigation returns a boolean if a field has been set.
 
 ### GetMonitorIds
 

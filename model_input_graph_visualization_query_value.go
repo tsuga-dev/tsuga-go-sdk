@@ -33,11 +33,9 @@ type InputGraphVisualizationQueryValue struct {
 	// Controls whether the widget uses a solid or transparent background
 	BackgroundMode *string `json:"backgroundMode,omitempty"`
 	// Conditional formatting rules applied to the raw query value, before the unit is applied
-	Conditions []InputConditionalFormatting                     `json:"conditions,omitempty"`
-	Precision  *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
-	Normalizer *InputNormalizer                                 `json:"normalizer,omitempty"`
-	// Controls whether and how the widget displays legend or series details (e.g. table, legend-only, or no legend)
-	LegendMode           *string `json:"legendMode,omitempty"`
+	Conditions           []InputConditionalFormatting                     `json:"conditions,omitempty"`
+	Precision            *GraphVisualizationQueryValueConnectionPrecision `json:"precision,omitempty"`
+	Normalizer           *InputNormalizer                                 `json:"normalizer,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -359,38 +357,6 @@ func (o *InputGraphVisualizationQueryValue) SetNormalizer(v InputNormalizer) {
 	o.Normalizer = &v
 }
 
-// GetLegendMode returns the LegendMode field value if set, zero value otherwise.
-func (o *InputGraphVisualizationQueryValue) GetLegendMode() string {
-	if o == nil || IsNil(o.LegendMode) {
-		var ret string
-		return ret
-	}
-	return *o.LegendMode
-}
-
-// GetLegendModeOk returns a tuple with the LegendMode field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *InputGraphVisualizationQueryValue) GetLegendModeOk() (*string, bool) {
-	if o == nil || IsNil(o.LegendMode) {
-		return nil, false
-	}
-	return o.LegendMode, true
-}
-
-// HasLegendMode returns a boolean if a field has been set.
-func (o *InputGraphVisualizationQueryValue) HasLegendMode() bool {
-	if o != nil && !IsNil(o.LegendMode) {
-		return true
-	}
-
-	return false
-}
-
-// SetLegendMode gets a reference to the given string and assigns it to the LegendMode field.
-func (o *InputGraphVisualizationQueryValue) SetLegendMode(v string) {
-	o.LegendMode = &v
-}
-
 func (o InputGraphVisualizationQueryValue) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -424,9 +390,6 @@ func (o InputGraphVisualizationQueryValue) ToMap() (map[string]interface{}, erro
 	}
 	if !IsNil(o.Normalizer) {
 		toSerialize["normalizer"] = o.Normalizer
-	}
-	if !IsNil(o.LegendMode) {
-		toSerialize["legendMode"] = o.LegendMode
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -483,7 +446,6 @@ func (o *InputGraphVisualizationQueryValue) UnmarshalJSON(data []byte) (err erro
 		delete(additionalProperties, "conditions")
 		delete(additionalProperties, "precision")
 		delete(additionalProperties, "normalizer")
-		delete(additionalProperties, "legendMode")
 		o.AdditionalProperties = additionalProperties
 	}
 
