@@ -39,7 +39,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the Tsuga Public API API v20261113.34.0+6c1acf6
+// APIClient manages communication with the Tsuga Public API API v20261116.33.0+2aa1465
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration

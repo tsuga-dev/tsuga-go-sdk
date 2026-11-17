@@ -26,7 +26,9 @@ type CloudAccount struct {
 	// Cloud-native account identifier: an AWS account ID, GCP project ID, or Azure subscription ID.
 	CloudAccountId string `json:"cloudAccountId"`
 	// Human-readable name for the account shown in Tsuga.
-	AccountFriendlyName  *string `json:"accountFriendlyName,omitempty"`
+	AccountFriendlyName *string `json:"accountFriendlyName,omitempty"`
+	// Team ID that owns the account.
+	Owner                *string `json:"owner,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,6 +158,38 @@ func (o *CloudAccount) SetAccountFriendlyName(v string) {
 	o.AccountFriendlyName = &v
 }
 
+// GetOwner returns the Owner field value if set, zero value otherwise.
+func (o *CloudAccount) GetOwner() string {
+	if o == nil || IsNil(o.Owner) {
+		var ret string
+		return ret
+	}
+	return *o.Owner
+}
+
+// GetOwnerOk returns a tuple with the Owner field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CloudAccount) GetOwnerOk() (*string, bool) {
+	if o == nil || IsNil(o.Owner) {
+		return nil, false
+	}
+	return o.Owner, true
+}
+
+// HasOwner returns a boolean if a field has been set.
+func (o *CloudAccount) HasOwner() bool {
+	if o != nil && !IsNil(o.Owner) {
+		return true
+	}
+
+	return false
+}
+
+// SetOwner gets a reference to the given string and assigns it to the Owner field.
+func (o *CloudAccount) SetOwner(v string) {
+	o.Owner = &v
+}
+
 func (o CloudAccount) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -171,6 +205,9 @@ func (o CloudAccount) ToMap() (map[string]interface{}, error) {
 	toSerialize["cloudAccountId"] = o.CloudAccountId
 	if !IsNil(o.AccountFriendlyName) {
 		toSerialize["accountFriendlyName"] = o.AccountFriendlyName
+	}
+	if !IsNil(o.Owner) {
+		toSerialize["owner"] = o.Owner
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -221,6 +258,7 @@ func (o *CloudAccount) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "cloudType")
 		delete(additionalProperties, "cloudAccountId")
 		delete(additionalProperties, "accountFriendlyName")
+		delete(additionalProperties, "owner")
 		o.AdditionalProperties = additionalProperties
 	}
 

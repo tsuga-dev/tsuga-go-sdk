@@ -14,55 +14,208 @@ import (
 	"fmt"
 )
 
+// checks if the InviteUsersRequestInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InviteUsersRequestInner{}
+
 // InviteUsersRequestInner struct for InviteUsersRequestInner
 type InviteUsersRequestInner struct {
-	InviteUsersRequestInnerAnyOf  *InviteUsersRequestInnerAnyOf
-	InviteUsersRequestInnerAnyOf1 *InviteUsersRequestInnerAnyOf1
+	// Lowercase email address to invite into the organization.
+	Email string `json:"email"`
+	// Team ID to add the invited user to after acceptance.
+	TeamId string `json:"teamId"`
+	// Role the invited user receives in the target team once accepted: `admin`, `editor`, or `viewer`.
+	TeamRole             string                          `json:"teamRole"`
+	UserRole             InviteUsersRequestInnerUserRole `json:"userRole"`
+	AdditionalProperties map[string]interface{}
 }
 
-// Unmarshal JSON data into any of the pointers in the struct
-func (dst *InviteUsersRequestInner) UnmarshalJSON(data []byte) error {
-	var err error
-	// try to unmarshal JSON data into InviteUsersRequestInnerAnyOf
-	err = json.Unmarshal(data, &dst.InviteUsersRequestInnerAnyOf)
-	if err == nil {
-		jsonInviteUsersRequestInnerAnyOf, _ := json.Marshal(dst.InviteUsersRequestInnerAnyOf)
-		if string(jsonInviteUsersRequestInnerAnyOf) == "{}" { // empty struct
-			dst.InviteUsersRequestInnerAnyOf = nil
-		} else {
-			return nil // data stored in dst.InviteUsersRequestInnerAnyOf, return on the first match
-		}
-	} else {
-		dst.InviteUsersRequestInnerAnyOf = nil
-	}
+type _InviteUsersRequestInner InviteUsersRequestInner
 
-	// try to unmarshal JSON data into InviteUsersRequestInnerAnyOf1
-	err = json.Unmarshal(data, &dst.InviteUsersRequestInnerAnyOf1)
-	if err == nil {
-		jsonInviteUsersRequestInnerAnyOf1, _ := json.Marshal(dst.InviteUsersRequestInnerAnyOf1)
-		if string(jsonInviteUsersRequestInnerAnyOf1) == "{}" { // empty struct
-			dst.InviteUsersRequestInnerAnyOf1 = nil
-		} else {
-			return nil // data stored in dst.InviteUsersRequestInnerAnyOf1, return on the first match
-		}
-	} else {
-		dst.InviteUsersRequestInnerAnyOf1 = nil
-	}
-
-	return fmt.Errorf("data failed to match schemas in anyOf(InviteUsersRequestInner)")
+// NewInviteUsersRequestInner instantiates a new InviteUsersRequestInner object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewInviteUsersRequestInner(email string, teamId string, teamRole string, userRole InviteUsersRequestInnerUserRole) *InviteUsersRequestInner {
+	this := InviteUsersRequestInner{}
+	this.Email = email
+	this.TeamId = teamId
+	this.TeamRole = teamRole
+	this.UserRole = userRole
+	return &this
 }
 
-// Marshal data from the first non-nil pointers in the struct to JSON
-func (src InviteUsersRequestInner) MarshalJSON() ([]byte, error) {
-	if src.InviteUsersRequestInnerAnyOf != nil {
-		return json.Marshal(&src.InviteUsersRequestInnerAnyOf)
+// NewInviteUsersRequestInnerWithDefaults instantiates a new InviteUsersRequestInner object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewInviteUsersRequestInnerWithDefaults() *InviteUsersRequestInner {
+	this := InviteUsersRequestInner{}
+	return &this
+}
+
+// GetEmail returns the Email field value
+func (o *InviteUsersRequestInner) GetEmail() string {
+	if o == nil {
+		var ret string
+		return ret
 	}
 
-	if src.InviteUsersRequestInnerAnyOf1 != nil {
-		return json.Marshal(&src.InviteUsersRequestInnerAnyOf1)
+	return o.Email
+}
+
+// GetEmailOk returns a tuple with the Email field value
+// and a boolean to check if the value has been set.
+func (o *InviteUsersRequestInner) GetEmailOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Email, true
+}
+
+// SetEmail sets field value
+func (o *InviteUsersRequestInner) SetEmail(v string) {
+	o.Email = v
+}
+
+// GetTeamId returns the TeamId field value
+func (o *InviteUsersRequestInner) GetTeamId() string {
+	if o == nil {
+		var ret string
+		return ret
 	}
 
-	return nil, nil // no data in anyOf schemas
+	return o.TeamId
+}
+
+// GetTeamIdOk returns a tuple with the TeamId field value
+// and a boolean to check if the value has been set.
+func (o *InviteUsersRequestInner) GetTeamIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TeamId, true
+}
+
+// SetTeamId sets field value
+func (o *InviteUsersRequestInner) SetTeamId(v string) {
+	o.TeamId = v
+}
+
+// GetTeamRole returns the TeamRole field value
+func (o *InviteUsersRequestInner) GetTeamRole() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TeamRole
+}
+
+// GetTeamRoleOk returns a tuple with the TeamRole field value
+// and a boolean to check if the value has been set.
+func (o *InviteUsersRequestInner) GetTeamRoleOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TeamRole, true
+}
+
+// SetTeamRole sets field value
+func (o *InviteUsersRequestInner) SetTeamRole(v string) {
+	o.TeamRole = v
+}
+
+// GetUserRole returns the UserRole field value
+func (o *InviteUsersRequestInner) GetUserRole() InviteUsersRequestInnerUserRole {
+	if o == nil {
+		var ret InviteUsersRequestInnerUserRole
+		return ret
+	}
+
+	return o.UserRole
+}
+
+// GetUserRoleOk returns a tuple with the UserRole field value
+// and a boolean to check if the value has been set.
+func (o *InviteUsersRequestInner) GetUserRoleOk() (*InviteUsersRequestInnerUserRole, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UserRole, true
+}
+
+// SetUserRole sets field value
+func (o *InviteUsersRequestInner) SetUserRole(v InviteUsersRequestInnerUserRole) {
+	o.UserRole = v
+}
+
+func (o InviteUsersRequestInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InviteUsersRequestInner) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["email"] = o.Email
+	toSerialize["teamId"] = o.TeamId
+	toSerialize["teamRole"] = o.TeamRole
+	toSerialize["userRole"] = o.UserRole
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *InviteUsersRequestInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"email",
+		"teamId",
+		"teamRole",
+		"userRole",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varInviteUsersRequestInner := _InviteUsersRequestInner{}
+
+	err = json.Unmarshal(data, &varInviteUsersRequestInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = InviteUsersRequestInner(varInviteUsersRequestInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "teamId")
+		delete(additionalProperties, "teamRole")
+		delete(additionalProperties, "userRole")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableInviteUsersRequestInner struct {

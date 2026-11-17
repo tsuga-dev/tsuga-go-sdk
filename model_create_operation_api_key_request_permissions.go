@@ -18,8 +18,6 @@ var _ MappedNullable = &CreateOperationApiKeyRequestPermissions{}
 
 // CreateOperationApiKeyRequestPermissions Resource types the key can act on, each mapped to `read` or `write`. `write` also grants read access. A resource type absent from the map is not accessible to the key at all.
 type CreateOperationApiKeyRequestPermissions struct {
-	// Investigations, the records collecting the timeline and findings of an incident analysis.
-	Investigations *string `json:"investigations,omitempty"`
 	// Dashboards and the graphs they contain.
 	Dashboard *string `json:"dashboard,omitempty"`
 	// Folders organizing dashboards.
@@ -114,38 +112,6 @@ func NewCreateOperationApiKeyRequestPermissions() *CreateOperationApiKeyRequestP
 func NewCreateOperationApiKeyRequestPermissionsWithDefaults() *CreateOperationApiKeyRequestPermissions {
 	this := CreateOperationApiKeyRequestPermissions{}
 	return &this
-}
-
-// GetInvestigations returns the Investigations field value if set, zero value otherwise.
-func (o *CreateOperationApiKeyRequestPermissions) GetInvestigations() string {
-	if o == nil || IsNil(o.Investigations) {
-		var ret string
-		return ret
-	}
-	return *o.Investigations
-}
-
-// GetInvestigationsOk returns a tuple with the Investigations field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateOperationApiKeyRequestPermissions) GetInvestigationsOk() (*string, bool) {
-	if o == nil || IsNil(o.Investigations) {
-		return nil, false
-	}
-	return o.Investigations, true
-}
-
-// HasInvestigations returns a boolean if a field has been set.
-func (o *CreateOperationApiKeyRequestPermissions) HasInvestigations() bool {
-	if o != nil && !IsNil(o.Investigations) {
-		return true
-	}
-
-	return false
-}
-
-// SetInvestigations gets a reference to the given string and assigns it to the Investigations field.
-func (o *CreateOperationApiKeyRequestPermissions) SetInvestigations(v string) {
-	o.Investigations = &v
 }
 
 // GetDashboard returns the Dashboard field value if set, zero value otherwise.
@@ -1342,9 +1308,6 @@ func (o CreateOperationApiKeyRequestPermissions) MarshalJSON() ([]byte, error) {
 
 func (o CreateOperationApiKeyRequestPermissions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Investigations) {
-		toSerialize["investigations"] = o.Investigations
-	}
 	if !IsNil(o.Dashboard) {
 		toSerialize["dashboard"] = o.Dashboard
 	}
@@ -1478,7 +1441,6 @@ func (o *CreateOperationApiKeyRequestPermissions) UnmarshalJSON(data []byte) (er
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "investigations")
 		delete(additionalProperties, "dashboard")
 		delete(additionalProperties, "dashboard-folder")
 		delete(additionalProperties, "monitor-folder")

@@ -27,7 +27,7 @@ type GraphVisualizationListConnection struct {
 	Query string `json:"query"`
 	// Custom columns to display for each database row
 	ListColumns []WidgetListColumn `json:"listColumns,omitempty"`
-	// Column headers by column attribute. A column without an alias shows its attribute.
+	// Column headers, keyed by the `attribute` of the matching `listColumns` entry. A column without an entry shows its attribute.
 	ListColumnsAliases *map[string]string `json:"listColumnsAliases,omitempty"`
 	// List column widths in pixels, keyed by the `attribute` of the matching `listColumns` entry. Columns without an entry keep their default width.
 	ListColumnsSize *map[string]float32 `json:"listColumnsSize,omitempty"`

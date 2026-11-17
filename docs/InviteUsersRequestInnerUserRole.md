@@ -1,67 +1,67 @@
-# UserRoleAnyOfOneOf
+# InviteUsersRequestInnerUserRole
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | The user holds a custom role. | 
-**CustomRoleId** | **string** | Identifier of the custom role. Use it with the custom role endpoints to read what the role grants. | 
+**Type** | **string** | Built-in organization role: &#x60;admin&#x60;, &#x60;public_editor&#x60;, &#x60;public_viewer&#x60;, or &#x60;teams_only&#x60;. | 
+**CustomRoleId** | **string** | Identifier of the custom role to assign. Use the &#x60;id&#x60; returned by the custom role endpoints. | 
 
 ## Methods
 
-### NewUserRoleAnyOfOneOf
+### NewInviteUsersRequestInnerUserRole
 
-`func NewUserRoleAnyOfOneOf(type_ string, customRoleId string, ) *UserRoleAnyOfOneOf`
+`func NewInviteUsersRequestInnerUserRole(type_ string, customRoleId string, ) *InviteUsersRequestInnerUserRole`
 
-NewUserRoleAnyOfOneOf instantiates a new UserRoleAnyOfOneOf object
+NewInviteUsersRequestInnerUserRole instantiates a new InviteUsersRequestInnerUserRole object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewUserRoleAnyOfOneOfWithDefaults
+### NewInviteUsersRequestInnerUserRoleWithDefaults
 
-`func NewUserRoleAnyOfOneOfWithDefaults() *UserRoleAnyOfOneOf`
+`func NewInviteUsersRequestInnerUserRoleWithDefaults() *InviteUsersRequestInnerUserRole`
 
-NewUserRoleAnyOfOneOfWithDefaults instantiates a new UserRoleAnyOfOneOf object
+NewInviteUsersRequestInnerUserRoleWithDefaults instantiates a new InviteUsersRequestInnerUserRole object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetType
 
-`func (o *UserRoleAnyOfOneOf) GetType() string`
+`func (o *InviteUsersRequestInnerUserRole) GetType() string`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *UserRoleAnyOfOneOf) GetTypeOk() (*string, bool)`
+`func (o *InviteUsersRequestInnerUserRole) GetTypeOk() (*string, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *UserRoleAnyOfOneOf) SetType(v string)`
+`func (o *InviteUsersRequestInnerUserRole) SetType(v string)`
 
 SetType sets Type field to given value.
 
 
 ### GetCustomRoleId
 
-`func (o *UserRoleAnyOfOneOf) GetCustomRoleId() string`
+`func (o *InviteUsersRequestInnerUserRole) GetCustomRoleId() string`
 
 GetCustomRoleId returns the CustomRoleId field if non-nil, zero value otherwise.
 
 ### GetCustomRoleIdOk
 
-`func (o *UserRoleAnyOfOneOf) GetCustomRoleIdOk() (*string, bool)`
+`func (o *InviteUsersRequestInnerUserRole) GetCustomRoleIdOk() (*string, bool)`
 
 GetCustomRoleIdOk returns a tuple with the CustomRoleId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCustomRoleId
 
-`func (o *UserRoleAnyOfOneOf) SetCustomRoleId(v string)`
+`func (o *InviteUsersRequestInnerUserRole) SetCustomRoleId(v string)`
 
 SetCustomRoleId sets CustomRoleId field to given value.
 

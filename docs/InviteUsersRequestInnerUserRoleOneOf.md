@@ -1,4 +1,4 @@
-# InviteUsersRequestInnerAnyOf1UserRoleOneOf
+# InviteUsersRequestInnerUserRoleOneOf
 
 ## Properties
 
@@ -8,39 +8,39 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewInviteUsersRequestInnerAnyOf1UserRoleOneOf
+### NewInviteUsersRequestInnerUserRoleOneOf
 
-`func NewInviteUsersRequestInnerAnyOf1UserRoleOneOf(type_ string, ) *InviteUsersRequestInnerAnyOf1UserRoleOneOf`
+`func NewInviteUsersRequestInnerUserRoleOneOf(type_ string, ) *InviteUsersRequestInnerUserRoleOneOf`
 
-NewInviteUsersRequestInnerAnyOf1UserRoleOneOf instantiates a new InviteUsersRequestInnerAnyOf1UserRoleOneOf object
+NewInviteUsersRequestInnerUserRoleOneOf instantiates a new InviteUsersRequestInnerUserRoleOneOf object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewInviteUsersRequestInnerAnyOf1UserRoleOneOfWithDefaults
+### NewInviteUsersRequestInnerUserRoleOneOfWithDefaults
 
-`func NewInviteUsersRequestInnerAnyOf1UserRoleOneOfWithDefaults() *InviteUsersRequestInnerAnyOf1UserRoleOneOf`
+`func NewInviteUsersRequestInnerUserRoleOneOfWithDefaults() *InviteUsersRequestInnerUserRoleOneOf`
 
-NewInviteUsersRequestInnerAnyOf1UserRoleOneOfWithDefaults instantiates a new InviteUsersRequestInnerAnyOf1UserRoleOneOf object
+NewInviteUsersRequestInnerUserRoleOneOfWithDefaults instantiates a new InviteUsersRequestInnerUserRoleOneOf object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetType
 
-`func (o *InviteUsersRequestInnerAnyOf1UserRoleOneOf) GetType() string`
+`func (o *InviteUsersRequestInnerUserRoleOneOf) GetType() string`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *InviteUsersRequestInnerAnyOf1UserRoleOneOf) GetTypeOk() (*string, bool)`
+`func (o *InviteUsersRequestInnerUserRoleOneOf) GetTypeOk() (*string, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *InviteUsersRequestInnerAnyOf1UserRoleOneOf) SetType(v string)`
+`func (o *InviteUsersRequestInnerUserRoleOneOf) SetType(v string)`
 
 SetType sets Type field to given value.
 

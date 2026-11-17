@@ -20,8 +20,9 @@ var _ MappedNullable = &CreateMetricRouteRequestProcessorsInnerOneOfParams{}
 // CreateMetricRouteRequestProcessorsInnerOneOfParams struct for CreateMetricRouteRequestProcessorsInnerOneOfParams
 type CreateMetricRouteRequestProcessorsInnerOneOfParams struct {
 	// Mappings that map individual attributes to new targets
-	Attributes           []CreateMetricRouteRequestProcessorsInnerOneOfParamsAttributesInner `json:"attributes"`
-	Subtype              string                                                              `json:"subtype"`
+	Attributes []CreateMetricRouteRequestProcessorsInnerOneOfParamsAttributesInner `json:"attributes"`
+	// Copies or moves one or more source attributes to target attributes.
+	Subtype              string `json:"subtype"`
 	AdditionalProperties map[string]interface{}
 }
 

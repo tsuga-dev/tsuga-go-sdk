@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Attributes** | [**[]CreateMetricRouteRequestProcessorsInnerOneOfParamsAttributesInner**](CreateMetricRouteRequestProcessorsInnerOneOfParamsAttributesInner.md) | Mappings that map individual attributes to new targets | 
-**Subtype** | **string** |  | 
+**Subtype** | **string** | Copies or moves one or more source attributes to target attributes. | 
 
 ## Methods
 

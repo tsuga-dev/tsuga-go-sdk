@@ -20,7 +20,9 @@ var _ MappedNullable = &UpdateCloudAccountRequest{}
 // UpdateCloudAccountRequest struct for UpdateCloudAccountRequest
 type UpdateCloudAccountRequest struct {
 	// Human-readable name for the account shown in Tsuga.
-	AccountFriendlyName  string `json:"accountFriendlyName"`
+	AccountFriendlyName string `json:"accountFriendlyName"`
+	// Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder.
+	Owner                NullableString `json:"owner,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -68,6 +70,49 @@ func (o *UpdateCloudAccountRequest) SetAccountFriendlyName(v string) {
 	o.AccountFriendlyName = v
 }
 
+// GetOwner returns the Owner field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateCloudAccountRequest) GetOwner() string {
+	if o == nil || IsNil(o.Owner.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Owner.Get()
+}
+
+// GetOwnerOk returns a tuple with the Owner field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateCloudAccountRequest) GetOwnerOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Owner.Get(), o.Owner.IsSet()
+}
+
+// HasOwner returns a boolean if a field has been set.
+func (o *UpdateCloudAccountRequest) HasOwner() bool {
+	if o != nil && o.Owner.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetOwner gets a reference to the given NullableString and assigns it to the Owner field.
+func (o *UpdateCloudAccountRequest) SetOwner(v string) {
+	o.Owner.Set(&v)
+}
+
+// SetOwnerNil sets the value for Owner to be an explicit nil
+func (o *UpdateCloudAccountRequest) SetOwnerNil() {
+	o.Owner.Set(nil)
+}
+
+// UnsetOwner ensures that no value is present for Owner, not even an explicit nil
+func (o *UpdateCloudAccountRequest) UnsetOwner() {
+	o.Owner.Unset()
+}
+
 func (o UpdateCloudAccountRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -79,6 +124,9 @@ func (o UpdateCloudAccountRequest) MarshalJSON() ([]byte, error) {
 func (o UpdateCloudAccountRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["accountFriendlyName"] = o.AccountFriendlyName
+	if o.Owner.IsSet() {
+		toSerialize["owner"] = o.Owner.Get()
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -123,6 +171,7 @@ func (o *UpdateCloudAccountRequest) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accountFriendlyName")
+		delete(additionalProperties, "owner")
 		o.AdditionalProperties = additionalProperties
 	}
 

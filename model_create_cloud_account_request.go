@@ -24,7 +24,9 @@ type CreateCloudAccountRequest struct {
 	// Cloud-native account identifier: an AWS account ID, GCP project ID, or Azure subscription ID.
 	CloudAccountId string `json:"cloudAccountId"`
 	// Human-readable name for the account shown in Tsuga.
-	AccountFriendlyName  *string                                     `json:"accountFriendlyName,omitempty"`
+	AccountFriendlyName *string `json:"accountFriendlyName,omitempty"`
+	// Team ID that will own the account.
+	Owner                *string                                     `json:"owner,omitempty"`
 	ConnectionSettings   CreateCloudAccountRequestConnectionSettings `json:"connectionSettings"`
 	AdditionalProperties map[string]interface{}
 }
@@ -131,6 +133,38 @@ func (o *CreateCloudAccountRequest) SetAccountFriendlyName(v string) {
 	o.AccountFriendlyName = &v
 }
 
+// GetOwner returns the Owner field value if set, zero value otherwise.
+func (o *CreateCloudAccountRequest) GetOwner() string {
+	if o == nil || IsNil(o.Owner) {
+		var ret string
+		return ret
+	}
+	return *o.Owner
+}
+
+// GetOwnerOk returns a tuple with the Owner field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCloudAccountRequest) GetOwnerOk() (*string, bool) {
+	if o == nil || IsNil(o.Owner) {
+		return nil, false
+	}
+	return o.Owner, true
+}
+
+// HasOwner returns a boolean if a field has been set.
+func (o *CreateCloudAccountRequest) HasOwner() bool {
+	if o != nil && !IsNil(o.Owner) {
+		return true
+	}
+
+	return false
+}
+
+// SetOwner gets a reference to the given string and assigns it to the Owner field.
+func (o *CreateCloudAccountRequest) SetOwner(v string) {
+	o.Owner = &v
+}
+
 // GetConnectionSettings returns the ConnectionSettings field value
 func (o *CreateCloudAccountRequest) GetConnectionSettings() CreateCloudAccountRequestConnectionSettings {
 	if o == nil {
@@ -169,6 +203,9 @@ func (o CreateCloudAccountRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["cloudAccountId"] = o.CloudAccountId
 	if !IsNil(o.AccountFriendlyName) {
 		toSerialize["accountFriendlyName"] = o.AccountFriendlyName
+	}
+	if !IsNil(o.Owner) {
+		toSerialize["owner"] = o.Owner
 	}
 	toSerialize["connectionSettings"] = o.ConnectionSettings
 
@@ -219,6 +256,7 @@ func (o *CreateCloudAccountRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "cloudType")
 		delete(additionalProperties, "cloudAccountId")
 		delete(additionalProperties, "accountFriendlyName")
+		delete(additionalProperties, "owner")
 		delete(additionalProperties, "connectionSettings")
 		o.AdditionalProperties = additionalProperties
 	}

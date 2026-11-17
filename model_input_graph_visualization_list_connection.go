@@ -27,7 +27,7 @@ type InputGraphVisualizationListConnection struct {
 	Query string `json:"query"`
 	// Custom columns to display for each database row. Omit it and the list renders no columns: there is no default set.
 	ListColumns []InputWidgetListColumn `json:"listColumns,omitempty"`
-	// Column headers by column attribute. A column without an alias shows its attribute.
+	// Column headers, keyed by the `attribute` of the matching `listColumns` entry. A column without an entry shows its attribute; an empty string shows an empty header. An entry whose key matches no column has no effect.
 	ListColumnsAliases *map[string]string `json:"listColumnsAliases,omitempty"`
 	// List column widths in pixels, keyed by the `attribute` of the matching `listColumns` entry. Columns without an entry keep their default width.
 	ListColumnsSize *map[string]float32 `json:"listColumnsSize,omitempty"`

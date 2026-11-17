@@ -70,8 +70,6 @@ type CreateCustomRoleRequestAssets struct {
 	// Access granted on this resource type. `write` implies `read`.
 	IngestionApiKey *string `json:"ingestion-api-key,omitempty"`
 	// Access granted on this resource type. `write` implies `read`.
-	Investigation *string `json:"investigation,omitempty"`
-	// Access granted on this resource type. `write` implies `read`.
 	LogRoute *string `json:"log-route,omitempty"`
 	// Access granted on this resource type. `write` implies `read`.
 	MetricRoute *string `json:"metric-route,omitempty"`
@@ -930,38 +928,6 @@ func (o *CreateCustomRoleRequestAssets) SetIngestionApiKey(v string) {
 	o.IngestionApiKey = &v
 }
 
-// GetInvestigation returns the Investigation field value if set, zero value otherwise.
-func (o *CreateCustomRoleRequestAssets) GetInvestigation() string {
-	if o == nil || IsNil(o.Investigation) {
-		var ret string
-		return ret
-	}
-	return *o.Investigation
-}
-
-// GetInvestigationOk returns a tuple with the Investigation field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateCustomRoleRequestAssets) GetInvestigationOk() (*string, bool) {
-	if o == nil || IsNil(o.Investigation) {
-		return nil, false
-	}
-	return o.Investigation, true
-}
-
-// HasInvestigation returns a boolean if a field has been set.
-func (o *CreateCustomRoleRequestAssets) HasInvestigation() bool {
-	if o != nil && !IsNil(o.Investigation) {
-		return true
-	}
-
-	return false
-}
-
-// SetInvestigation gets a reference to the given string and assigns it to the Investigation field.
-func (o *CreateCustomRoleRequestAssets) SetInvestigation(v string) {
-	o.Investigation = &v
-}
-
 // GetLogRoute returns the LogRoute field value if set, zero value otherwise.
 func (o *CreateCustomRoleRequestAssets) GetLogRoute() string {
 	if o == nil || IsNil(o.LogRoute) {
@@ -1615,9 +1581,6 @@ func (o CreateCustomRoleRequestAssets) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IngestionApiKey) {
 		toSerialize["ingestion-api-key"] = o.IngestionApiKey
 	}
-	if !IsNil(o.Investigation) {
-		toSerialize["investigation"] = o.Investigation
-	}
 	if !IsNil(o.LogRoute) {
 		toSerialize["log-route"] = o.LogRoute
 	}
@@ -1738,7 +1701,6 @@ func (o *CreateCustomRoleRequestAssets) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "dashboard-share")
 		delete(additionalProperties, "dashboard")
 		delete(additionalProperties, "ingestion-api-key")
-		delete(additionalProperties, "investigation")
 		delete(additionalProperties, "log-route")
 		delete(additionalProperties, "metric-route")
 		delete(additionalProperties, "span-route")

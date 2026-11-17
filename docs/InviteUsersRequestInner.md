@@ -7,13 +7,13 @@ Name | Type | Description | Notes
 **Email** | **string** | Lowercase email address to invite into the organization. | 
 **TeamId** | **string** | Team ID to add the invited user to after acceptance. | 
 **TeamRole** | **string** | Role the invited user receives in the target team once accepted: &#x60;admin&#x60;, &#x60;editor&#x60;, or &#x60;viewer&#x60;. | 
-**UserRole** | [**InviteUsersRequestInnerAnyOf1UserRole**](InviteUsersRequestInnerAnyOf1UserRole.md) |  | 
+**UserRole** | [**InviteUsersRequestInnerUserRole**](InviteUsersRequestInnerUserRole.md) |  | 
 
 ## Methods
 
 ### NewInviteUsersRequestInner
 
-`func NewInviteUsersRequestInner(email string, teamId string, teamRole string, userRole InviteUsersRequestInnerAnyOf1UserRole, ) *InviteUsersRequestInner`
+`func NewInviteUsersRequestInner(email string, teamId string, teamRole string, userRole InviteUsersRequestInnerUserRole, ) *InviteUsersRequestInner`
 
 NewInviteUsersRequestInner instantiates a new InviteUsersRequestInner object
 This constructor will assign default values to properties that have it defined,
@@ -90,20 +90,20 @@ SetTeamRole sets TeamRole field to given value.
 
 ### GetUserRole
 
-`func (o *InviteUsersRequestInner) GetUserRole() InviteUsersRequestInnerAnyOf1UserRole`
+`func (o *InviteUsersRequestInner) GetUserRole() InviteUsersRequestInnerUserRole`
 
 GetUserRole returns the UserRole field if non-nil, zero value otherwise.
 
 ### GetUserRoleOk
 
-`func (o *InviteUsersRequestInner) GetUserRoleOk() (*InviteUsersRequestInnerAnyOf1UserRole, bool)`
+`func (o *InviteUsersRequestInner) GetUserRoleOk() (*InviteUsersRequestInnerUserRole, bool)`
 
 GetUserRoleOk returns a tuple with the UserRole field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUserRole
 
-`func (o *InviteUsersRequestInner) SetUserRole(v InviteUsersRequestInnerAnyOf1UserRole)`
+`func (o *InviteUsersRequestInner) SetUserRole(v InviteUsersRequestInnerUserRole)`
 
 SetUserRole sets UserRole field to given value.
 

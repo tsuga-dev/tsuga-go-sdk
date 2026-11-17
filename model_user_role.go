@@ -14,55 +14,105 @@ import (
 	"fmt"
 )
 
-// UserRole Organization role for the user, either as a role key or as an object with the role `type` and, for a custom role, its `customRoleId`. Handle both forms: the object form replaces the role key.
+// UserRole - Organization role for the user: a built-in role `type`, or `custom` with the `customRoleId` of the custom role.
 type UserRole struct {
-	UserRoleAnyOf *UserRoleAnyOf
-	String        *string
+	InviteUsersRequestInnerUserRoleOneOf *InviteUsersRequestInnerUserRoleOneOf
+	UserRoleOneOf                        *UserRoleOneOf
 }
 
-// Unmarshal JSON data into any of the pointers in the struct
+// InviteUsersRequestInnerUserRoleOneOfAsUserRole is a convenience function that returns InviteUsersRequestInnerUserRoleOneOf wrapped in UserRole
+func InviteUsersRequestInnerUserRoleOneOfAsUserRole(v *InviteUsersRequestInnerUserRoleOneOf) UserRole {
+	return UserRole{
+		InviteUsersRequestInnerUserRoleOneOf: v,
+	}
+}
+
+// UserRoleOneOfAsUserRole is a convenience function that returns UserRoleOneOf wrapped in UserRole
+func UserRoleOneOfAsUserRole(v *UserRoleOneOf) UserRole {
+	return UserRole{
+		UserRoleOneOf: v,
+	}
+}
+
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *UserRole) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal JSON data into UserRoleAnyOf
-	err = json.Unmarshal(data, &dst.UserRoleAnyOf)
-	if err == nil {
-		jsonUserRoleAnyOf, _ := json.Marshal(dst.UserRoleAnyOf)
-		if string(jsonUserRoleAnyOf) == "{}" { // empty struct
-			dst.UserRoleAnyOf = nil
-		} else {
-			return nil // data stored in dst.UserRoleAnyOf, return on the first match
-		}
-	} else {
-		dst.UserRoleAnyOf = nil
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// try to unmarshal JSON data into String
-	err = json.Unmarshal(data, &dst.String)
-	if err == nil {
-		jsonString, _ := json.Marshal(dst.String)
-		if string(jsonString) == "{}" { // empty struct
-			dst.String = nil
+	// check if the discriminator value is 'User_role_oneOf'
+	if jsonDict["type"] == "User_role_oneOf" {
+		// try to unmarshal JSON data into UserRoleOneOf
+		err = json.Unmarshal(data, &dst.UserRoleOneOf)
+		if err == nil {
+			return nil // data stored in dst.UserRoleOneOf, return on the first match
 		} else {
-			return nil // data stored in dst.String, return on the first match
+			dst.UserRoleOneOf = nil
+			return fmt.Errorf("failed to unmarshal UserRole as UserRoleOneOf: %s", err.Error())
 		}
-	} else {
-		dst.String = nil
 	}
 
-	return fmt.Errorf("data failed to match schemas in anyOf(UserRole)")
+	// check if the discriminator value is 'inviteUsers_request_inner_userRole_oneOf'
+	if jsonDict["type"] == "inviteUsers_request_inner_userRole_oneOf" {
+		// try to unmarshal JSON data into InviteUsersRequestInnerUserRoleOneOf
+		err = json.Unmarshal(data, &dst.InviteUsersRequestInnerUserRoleOneOf)
+		if err == nil {
+			return nil // data stored in dst.InviteUsersRequestInnerUserRoleOneOf, return on the first match
+		} else {
+			dst.InviteUsersRequestInnerUserRoleOneOf = nil
+			return fmt.Errorf("failed to unmarshal UserRole as InviteUsersRequestInnerUserRoleOneOf: %s", err.Error())
+		}
+	}
+
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src UserRole) MarshalJSON() ([]byte, error) {
-	if src.UserRoleAnyOf != nil {
-		return json.Marshal(&src.UserRoleAnyOf)
+	if src.InviteUsersRequestInnerUserRoleOneOf != nil {
+		return json.Marshal(&src.InviteUsersRequestInnerUserRoleOneOf)
 	}
 
-	if src.String != nil {
-		return json.Marshal(&src.String)
+	if src.UserRoleOneOf != nil {
+		return json.Marshal(&src.UserRoleOneOf)
 	}
 
-	return nil, nil // no data in anyOf schemas
+	return nil, nil // no data in oneOf schemas
+}
+
+// Get the actual instance
+func (obj *UserRole) GetActualInstance() interface{} {
+	if obj == nil {
+		return nil
+	}
+	if obj.InviteUsersRequestInnerUserRoleOneOf != nil {
+		return obj.InviteUsersRequestInnerUserRoleOneOf
+	}
+
+	if obj.UserRoleOneOf != nil {
+		return obj.UserRoleOneOf
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj UserRole) GetActualInstanceValue() interface{} {
+	if obj.InviteUsersRequestInnerUserRoleOneOf != nil {
+		return *obj.InviteUsersRequestInnerUserRoleOneOf
+	}
+
+	if obj.UserRoleOneOf != nil {
+		return *obj.UserRoleOneOf
+	}
+
+	// all schemas are nil
+	return nil
 }
 
 type NullableUserRole struct {

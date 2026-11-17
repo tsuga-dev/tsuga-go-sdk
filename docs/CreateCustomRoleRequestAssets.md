@@ -29,7 +29,6 @@ Name | Type | Description | Notes
 **DashboardShare** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **Dashboard** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **IngestionApiKey** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
-**Investigation** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **LogRoute** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **MetricRoute** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **SpanRoute** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
@@ -692,31 +691,6 @@ SetIngestionApiKey sets IngestionApiKey field to given value.
 `func (o *CreateCustomRoleRequestAssets) HasIngestionApiKey() bool`
 
 HasIngestionApiKey returns a boolean if a field has been set.
-
-### GetInvestigation
-
-`func (o *CreateCustomRoleRequestAssets) GetInvestigation() string`
-
-GetInvestigation returns the Investigation field if non-nil, zero value otherwise.
-
-### GetInvestigationOk
-
-`func (o *CreateCustomRoleRequestAssets) GetInvestigationOk() (*string, bool)`
-
-GetInvestigationOk returns a tuple with the Investigation field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetInvestigation
-
-`func (o *CreateCustomRoleRequestAssets) SetInvestigation(v string)`
-
-SetInvestigation sets Investigation field to given value.
-
-### HasInvestigation
-
-`func (o *CreateCustomRoleRequestAssets) HasInvestigation() bool`
-
-HasInvestigation returns a boolean if a field has been set.
 
 ### GetLogRoute
 

@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Investigations** | Pointer to **string** | Investigations, the records collecting the timeline and findings of an incident analysis. | [optional] 
 **Dashboard** | Pointer to **string** | Dashboards and the graphs they contain. | [optional] 
 **DashboardFolder** | Pointer to **string** | Folders organizing dashboards. | [optional] 
 **MonitorFolder** | Pointer to **string** | Folders organizing monitors. | [optional] 
@@ -61,31 +60,6 @@ will change when the set of required properties is changed
 NewCreateOperationApiKeyRequestPermissionsWithDefaults instantiates a new CreateOperationApiKeyRequestPermissions object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetInvestigations
-
-`func (o *CreateOperationApiKeyRequestPermissions) GetInvestigations() string`
-
-GetInvestigations returns the Investigations field if non-nil, zero value otherwise.
-
-### GetInvestigationsOk
-
-`func (o *CreateOperationApiKeyRequestPermissions) GetInvestigationsOk() (*string, bool)`
-
-GetInvestigationsOk returns a tuple with the Investigations field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetInvestigations
-
-`func (o *CreateOperationApiKeyRequestPermissions) SetInvestigations(v string)`
-
-SetInvestigations sets Investigations field to given value.
-
-### HasInvestigations
-
-`func (o *CreateOperationApiKeyRequestPermissions) HasInvestigations() bool`
-
-HasInvestigations returns a boolean if a field has been set.
 
 ### GetDashboard
 

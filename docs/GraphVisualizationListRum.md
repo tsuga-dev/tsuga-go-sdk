@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Type** | **string** | Displays matching RUM events in a tabular list | 
 **Query** | **string** | Query that selects RUM events for the list | 
 **ListColumns** | Pointer to [**[]WidgetListColumn**](WidgetListColumn.md) | Custom columns to display for each RUM event. Attributes are read without their stream prefix, e.g. &#x60;view.name&#x60; rather than &#x60;events.view.name&#x60;. | [optional] 
-**ListColumnsAliases** | Pointer to **map[string]string** | Column headers by column attribute. A column without an alias shows its attribute. | [optional] 
+**ListColumnsAliases** | Pointer to **map[string]string** | Column headers, keyed by the &#x60;attribute&#x60; of the matching &#x60;listColumns&#x60; entry. A column without an entry shows its attribute. | [optional] 
 **ListColumnsSize** | Pointer to **map[string]float32** | List column widths in pixels, keyed by the &#x60;attribute&#x60; of the matching &#x60;listColumns&#x60; entry. Columns without an entry keep their default width. | [optional] 
 **IsCellWrapped** | Pointer to **bool** | Whether list widget cell text wraps instead of truncating. Applies to RUM event list widgets. | [optional] 
 **DefaultSorting** | Pointer to [**[]ListDefaultSorting**](ListDefaultSorting.md) | Default sorting applied to a list widget. Applies to log, span, RUM event, or connection list widgets. Users can still change sorting by selecting columns in the rendered list. | [optional] 

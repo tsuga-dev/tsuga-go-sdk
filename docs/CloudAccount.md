@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **CloudType** | **string** | Cloud provider of the account. | 
 **CloudAccountId** | **string** | Cloud-native account identifier: an AWS account ID, GCP project ID, or Azure subscription ID. | 
 **AccountFriendlyName** | Pointer to **string** | Human-readable name for the account shown in Tsuga. | [optional] 
+**Owner** | Pointer to **string** | Team ID that owns the account. | [optional] 
 
 ## Methods
 
@@ -112,6 +113,31 @@ SetAccountFriendlyName sets AccountFriendlyName field to given value.
 `func (o *CloudAccount) HasAccountFriendlyName() bool`
 
 HasAccountFriendlyName returns a boolean if a field has been set.
+
+### GetOwner
+
+`func (o *CloudAccount) GetOwner() string`
+
+GetOwner returns the Owner field if non-nil, zero value otherwise.
+
+### GetOwnerOk
+
+`func (o *CloudAccount) GetOwnerOk() (*string, bool)`
+
+GetOwnerOk returns a tuple with the Owner field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOwner
+
+`func (o *CloudAccount) SetOwner(v string)`
+
+SetOwner sets Owner field to given value.
+
+### HasOwner
+
+`func (o *CloudAccount) HasOwner() bool`
+
+HasOwner returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

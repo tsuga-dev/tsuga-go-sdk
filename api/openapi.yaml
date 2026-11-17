@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261113.34.0+6c1acf6
+  version: 20261116.33.0+2aa1465
 servers:
 - url: https://api.tsuga.com
 security:
@@ -4474,6 +4474,7 @@ paths:
               cloudType: aws
               cloudAccountId: "123456789012"
               accountFriendlyName: Production AWS
+              owner: team-123-abc
               connectionSettings:
                 type: aws
                 accountId: "123456789012"
@@ -4682,6 +4683,7 @@ paths:
           application/json:
             example:
               accountFriendlyName: Production AWS
+              owner: team-123-abc
             schema:
               $ref: "#/components/schemas/updateCloudAccount_request"
         required: true
@@ -8513,7 +8515,6 @@ paths:
               name: Checkout latency
               owner: team-123-abc
               isActive: true
-              shouldCreateInvestigation: true
               tags:
               - key: channel
                 value: alerts
@@ -8746,7 +8747,6 @@ paths:
               name: Checkout latency
               owner: team-123-abc
               isActive: true
-              shouldCreateInvestigation: true
               tags:
               - key: channel
                 value: alerts
@@ -14056,19 +14056,6 @@ components:
           $ref: "#/components/schemas/ResponseMetadata_pagination"
       required:
       - pagination
-    DeleteResponse:
-      description: Confirmation that the targeted resource was deleted.
-      example:
-        success: true
-      properties:
-        success:
-          description: Always `true` when the delete request completed and the resource
-            was removed.
-          enum:
-          - true
-          type: boolean
-      required:
-      - success
     QueryOngoingAlertsResponse:
       example:
         requestId: requestId
@@ -14253,6 +14240,19 @@ components:
       required:
       - data
       - requestId
+    DeleteResponse:
+      description: Confirmation that the targeted resource was deleted.
+      example:
+        success: true
+      properties:
+        success:
+          description: Always `true` when the delete request completed and the resource
+            was removed.
+          enum:
+          - true
+          type: boolean
+      required:
+      - success
     CreateIngestionApiKeyResponse:
       example:
         requestId: requestId
@@ -14449,7 +14449,6 @@ components:
           owner: owner
           scope: all
           permissions:
-            investigations: read
             dashboard: read
             dashboard-folder: read
             monitor-folder: read
@@ -14513,7 +14512,6 @@ components:
           value: value
         scope: all
         permissions:
-          investigations: read
           dashboard: read
           dashboard-folder: read
           monitor-folder: read
@@ -14621,7 +14619,6 @@ components:
             value: value
           scope: all
           permissions:
-            investigations: read
             dashboard: read
             dashboard-folder: read
             monitor-folder: read
@@ -14671,7 +14668,6 @@ components:
             value: value
           scope: all
           permissions:
-            investigations: read
             dashboard: read
             dashboard-folder: read
             monitor-folder: read
@@ -14743,7 +14739,6 @@ components:
             value: value
           scope: all
           permissions:
-            investigations: read
             dashboard: read
             dashboard-folder: read
             monitor-folder: read
@@ -14832,7 +14827,6 @@ components:
             value: value
           scope: all
           permissions:
-            investigations: read
             dashboard: read
             dashboard-folder: read
             monitor-folder: read
@@ -15273,7 +15267,6 @@ components:
           dashboard-share: read
           dashboard: read
           ingestion-api-key: read
-          investigation: read
           log-route: read
           metric-route: read
           span-route: read
@@ -15379,7 +15372,6 @@ components:
             dashboard-share: read
             dashboard: read
             ingestion-api-key: read
-            investigation: read
             log-route: read
             metric-route: read
             span-route: read
@@ -15441,7 +15433,6 @@ components:
             dashboard-share: read
             dashboard: read
             ingestion-api-key: read
-            investigation: read
             log-route: read
             metric-route: read
             span-route: read
@@ -15519,7 +15510,6 @@ components:
             dashboard-share: read
             dashboard: read
             ingestion-api-key: read
-            investigation: read
             log-route: read
             metric-route: read
             span-route: read
@@ -15594,7 +15584,6 @@ components:
             dashboard-share: read
             dashboard: read
             ingestion-api-key: read
-            investigation: read
             log-route: read
             metric-route: read
             span-route: read
@@ -15669,7 +15658,6 @@ components:
             dashboard-share: read
             dashboard: read
             ingestion-api-key: read
-            investigation: read
             log-route: read
             metric-route: read
             span-route: read
@@ -17803,6 +17791,7 @@ components:
         cloudType: aws
         cloudAccountId: cloudAccountId
         accountFriendlyName: accountFriendlyName
+        owner: owner
       properties:
         id:
           description: Identifier of the cloud account. Generated by Tsuga.
@@ -17821,6 +17810,9 @@ components:
         accountFriendlyName:
           description: Human-readable name for the account shown in Tsuga.
           type: string
+        owner:
+          description: Team ID that owns the account.
+          type: string
       required:
       - cloudAccountId
       - cloudType
@@ -17833,10 +17825,12 @@ components:
           cloudType: aws
           cloudAccountId: cloudAccountId
           accountFriendlyName: accountFriendlyName
+          owner: owner
         - id: id
           cloudType: aws
           cloudAccountId: cloudAccountId
           accountFriendlyName: accountFriendlyName
+          owner: owner
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -17857,6 +17851,7 @@ components:
           cloudType: aws
           cloudAccountId: cloudAccountId
           accountFriendlyName: accountFriendlyName
+          owner: owner
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -17874,6 +17869,7 @@ components:
           cloudType: aws
           cloudAccountId: cloudAccountId
           accountFriendlyName: accountFriendlyName
+          owner: owner
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -17891,6 +17887,7 @@ components:
           cloudType: aws
           cloudAccountId: cloudAccountId
           accountFriendlyName: accountFriendlyName
+          owner: owner
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -20107,7 +20104,6 @@ components:
         name: name
         owner: owner
         isActive: true
-        shouldCreateInvestigation: true
         tags:
         - key: key
           value: value
@@ -20150,11 +20146,6 @@ components:
           description: Whether the rule currently sends notifications when one of
             its monitors fires.
           type: boolean
-        shouldCreateInvestigation:
-          description: "Whether each page records an investigation holding the sampled\
-            \ traces and the call graph the destination was resolved from, linked\
-            \ from the notification body."
-          type: boolean
         tags:
           description: Key/value tags applied to the resource. Use them to organize
             resources and to satisfy tag policies.
@@ -20184,7 +20175,6 @@ components:
       - monitorIds
       - name
       - owner
-      - shouldCreateInvestigation
       - sloIds
     ListAdaptiveNotificationRulesResponse:
       example:
@@ -20194,7 +20184,6 @@ components:
           name: name
           owner: owner
           isActive: true
-          shouldCreateInvestigation: true
           tags:
           - key: key
             value: value
@@ -20226,7 +20215,6 @@ components:
           name: name
           owner: owner
           isActive: true
-          shouldCreateInvestigation: true
           tags:
           - key: key
             value: value
@@ -20280,7 +20268,6 @@ components:
           name: name
           owner: owner
           isActive: true
-          shouldCreateInvestigation: true
           tags:
           - key: key
             value: value
@@ -20325,7 +20312,6 @@ components:
           name: name
           owner: owner
           isActive: true
-          shouldCreateInvestigation: true
           tags:
           - key: key
             value: value
@@ -20370,7 +20356,6 @@ components:
           name: name
           owner: owner
           isActive: true
-          shouldCreateInvestigation: true
           tags:
           - key: key
             value: value
@@ -21117,7 +21102,8 @@ components:
           - k8s-recommended-metrics
           - k8s-recommended-change-events
           - otel-collector-self-metrics
-          - span-metrics-delta-temporality
+          - histograms-delta-temporality
+          - service-telemetry-coverage
           - use-standard-attributes
           - no-unused-operation-api-keys
           - no-unused-ingestion-api-keys
@@ -24130,8 +24116,8 @@ components:
         email: email
         id: id
         name: name
-        role: admin
-        customRoleId: customRoleId
+        role:
+          type: admin
       properties:
         email:
           description: "Lowercase email address for the user. Use this for display\
@@ -24146,11 +24132,6 @@ components:
           type: string
         role:
           $ref: "#/components/schemas/User_role"
-        customRoleId:
-          description: "Identifier of the custom role held by the user, when `role`\
-            \ is the `custom` key. The object form of `role` carries it instead. Use\
-            \ it with the custom role endpoints to read what the role grants."
-          type: string
       required:
       - email
       - id
@@ -24163,13 +24144,13 @@ components:
         - email: email
           id: id
           name: name
-          role: admin
-          customRoleId: customRoleId
+          role:
+            type: admin
         - email: email
           id: id
           name: name
-          role: admin
-          customRoleId: customRoleId
+          role:
+            type: admin
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -24189,8 +24170,8 @@ components:
           email: email
           id: id
           name: name
-          role: admin
-          customRoleId: customRoleId
+          role:
+            type: admin
       properties:
         requestId:
           description: Identifier used to trace the lifecycle of this API request
@@ -27433,8 +27414,8 @@ components:
         listColumnsAliases:
           additionalProperties:
             type: string
-          description: Column headers by column attribute. A column without an alias
-            shows its attribute.
+          description: "Column headers, keyed by the `attribute` of the matching `listColumns`\
+            \ entry. A column without an entry shows its attribute."
           type: object
         listColumnsSize:
           additionalProperties:
@@ -28670,8 +28651,8 @@ components:
         listColumnsAliases:
           additionalProperties:
             type: string
-          description: Column headers by column attribute. A column without an alias
-            shows its attribute.
+          description: "Column headers, keyed by the `attribute` of the matching `listColumns`\
+            \ entry. A column without an entry shows its attribute."
           type: object
         listColumnsSize:
           additionalProperties:
@@ -28789,8 +28770,8 @@ components:
         listColumnsAliases:
           additionalProperties:
             type: string
-          description: Column headers by column attribute. A column without an alias
-            shows its attribute.
+          description: "Column headers, keyed by the `attribute` of the matching `listColumns`\
+            \ entry. A column without an entry shows its attribute."
           type: object
         listColumnsSize:
           additionalProperties:
@@ -28836,8 +28817,8 @@ components:
         listColumnsAliases:
           additionalProperties:
             type: string
-          description: Column headers by column attribute. A column without an alias
-            shows its attribute.
+          description: "Column headers, keyed by the `attribute` of the matching `listColumns`\
+            \ entry. A column without an entry shows its attribute."
           type: object
         listColumnsSize:
           additionalProperties:
@@ -28985,8 +28966,9 @@ components:
             maxLength: 250
             minLength: 0
             type: string
-          description: Column headers by column attribute. A column without an alias
-            shows its attribute.
+          description: "Column headers, keyed by the `attribute` of the matching `listColumns`\
+            \ entry. A column without an entry shows its attribute; an empty string\
+            \ shows an empty header. An entry whose key matches no column has no effect."
           type: object
         listColumnsSize:
           additionalProperties:
@@ -30438,8 +30420,9 @@ components:
             maxLength: 250
             minLength: 0
             type: string
-          description: Column headers by column attribute. A column without an alias
-            shows its attribute.
+          description: "Column headers, keyed by the `attribute` of the matching `listColumns`\
+            \ entry. A column without an entry shows its attribute; an empty string\
+            \ shows an empty header. An entry whose key matches no column has no effect."
           type: object
         listColumnsSize:
           additionalProperties:
@@ -30558,8 +30541,9 @@ components:
             maxLength: 250
             minLength: 0
             type: string
-          description: Column headers by column attribute. A column without an alias
-            shows its attribute.
+          description: "Column headers, keyed by the `attribute` of the matching `listColumns`\
+            \ entry. A column without an entry shows its attribute; an empty string\
+            \ shows an empty header. An entry whose key matches no column has no effect."
           type: object
         listColumnsSize:
           additionalProperties:
@@ -30615,8 +30599,9 @@ components:
             maxLength: 250
             minLength: 0
             type: string
-          description: Column headers by column attribute. A column without an alias
-            shows its attribute.
+          description: "Column headers, keyed by the `attribute` of the matching `listColumns`\
+            \ entry. A column without an entry shows its attribute; an empty string\
+            \ shows an empty header. An entry whose key matches no column has no effect."
           type: object
         listColumnsSize:
           additionalProperties:
@@ -31277,7 +31262,6 @@ components:
         owner: owner
         scope: all
         permissions:
-          investigations: read
           dashboard: read
           dashboard-folder: read
           monitor-folder: read
@@ -34111,7 +34095,6 @@ components:
         \ `write` also grants read access. A resource type absent from the map is\
         \ not accessible to the key at all."
       example:
-        investigations: read
         dashboard: read
         dashboard-folder: read
         monitor-folder: read
@@ -34150,13 +34133,6 @@ components:
         user: read
         user-invitation: read
       properties:
-        investigations:
-          description: "Investigations, the records collecting the timeline and findings\
-            \ of an incident analysis."
-          enum:
-          - read
-          - write
-          type: string
         dashboard:
           description: Dashboards and the graphs they contain.
           enum:
@@ -34727,7 +34703,6 @@ components:
         dashboard-share: read
         dashboard: read
         ingestion-api-key: read
-        investigation: read
         log-route: read
         metric-route: read
         span-route: read
@@ -34887,12 +34862,6 @@ components:
           - write
           type: string
         ingestion-api-key:
-          description: Access granted on this resource type. `write` implies `read`.
-          enum:
-          - read
-          - write
-          type: string
-        investigation:
           description: Access granted on this resource type. `write` implies `read`.
           enum:
           - read
@@ -36105,96 +36074,9 @@ components:
           default: null
       required:
       - scope
-    inviteUsers_request_inner_anyOf_oneOf:
-      properties:
-        email:
-          description: Lowercase email address to invite into the organization.
-          format: lowercase-email
-          maxLength: 254
-          minLength: 0
-          type: string
-          errorMessage:
-            format: Must be a valid lowercase email address.
-        teamId:
-          description: Team ID to add the invited user to after acceptance.
-          maxLength: 250
-          minLength: 0
-          type: string
-        teamRole:
-          description: "Role the invited user receives in the target team once accepted:\
-            \ `admin`, `editor`, or `viewer`."
-          enum:
-          - admin
-          - editor
-          - viewer
-          type: string
-        userRole:
-          description: "Organization role the invited user receives after acceptance:\
-            \ `admin`, `public_editor`, `public_viewer`, or `teams_only`."
-          enum:
-          - admin
-          - public_editor
-          - public_viewer
-          - teams_only
-          type: string
-      required:
-      - email
-      - teamId
-      - teamRole
-      - userRole
-    inviteUsers_request_inner_anyOf_oneOf_1:
-      properties:
-        email:
-          description: Lowercase email address to invite into the organization.
-          format: lowercase-email
-          maxLength: 254
-          minLength: 0
-          type: string
-          errorMessage:
-            format: Must be a valid lowercase email address.
-        teamId:
-          description: Team ID to add the invited user to after acceptance.
-          maxLength: 250
-          minLength: 0
-          type: string
-        teamRole:
-          description: "Role the invited user receives in the target team once accepted:\
-            \ `admin`, `editor`, or `viewer`."
-          enum:
-          - admin
-          - editor
-          - viewer
-          type: string
-        userRole:
-          description: Assigns the custom role identified by `customRoleId` after
-            acceptance.
-          enum:
-          - custom
-          type: string
-        customRoleId:
-          description: Identifier of the custom role to assign. Use the `id` returned
-            by the custom role endpoints.
-          maxLength: 250
-          minLength: 1
-          type: string
-      required:
-      - customRoleId
-      - email
-      - teamId
-      - teamRole
-      - userRole
-    inviteUsers_request_inner_anyOf:
-      discriminator:
-        propertyName: userRole
-      oneOf:
-      - $ref: "#/components/schemas/inviteUsers_request_inner_anyOf_oneOf"
-      - $ref: "#/components/schemas/inviteUsers_request_inner_anyOf_oneOf_1"
-      required:
-      - userRole
-      errorMessage:
-        discriminator: "value of tag \"userRole\" must be one of: admin, public_editor,\
-          \ public_viewer, teams_only, custom"
-    inviteUsers_request_inner_anyOf_1_userRole_oneOf:
+    inviteUsers_request_inner_userRole_oneOf:
+      example:
+        type: admin
       properties:
         type:
           description: "Built-in organization role: `admin`, `public_editor`, `public_viewer`,\
@@ -36207,7 +36089,7 @@ components:
           type: string
       required:
       - type
-    inviteUsers_request_inner_anyOf_1_userRole_oneOf_1:
+    inviteUsers_request_inner_userRole_oneOf_1:
       properties:
         type:
           description: Assigns the custom role `customRoleId`.
@@ -36223,20 +36105,20 @@ components:
       required:
       - customRoleId
       - type
-    inviteUsers_request_inner_anyOf_1_userRole:
+    inviteUsers_request_inner_userRole:
       description: "Organization role to assign: a built-in role `type`, or `custom`\
         \ with the `customRoleId` of a custom role."
       discriminator:
         propertyName: type
       oneOf:
-      - $ref: "#/components/schemas/inviteUsers_request_inner_anyOf_1_userRole_oneOf"
-      - $ref: "#/components/schemas/inviteUsers_request_inner_anyOf_1_userRole_oneOf_1"
+      - $ref: "#/components/schemas/inviteUsers_request_inner_userRole_oneOf"
+      - $ref: "#/components/schemas/inviteUsers_request_inner_userRole_oneOf_1"
       required:
       - type
       errorMessage:
         discriminator: "value of tag \"type\" must be one of: admin, public_editor,\
           \ public_viewer, teams_only, custom"
-    inviteUsers_request_inner_anyOf_1:
+    inviteUsers_request_inner:
       properties:
         email:
           description: Lowercase email address to invite into the organization.
@@ -36260,16 +36142,12 @@ components:
           - viewer
           type: string
         userRole:
-          $ref: "#/components/schemas/inviteUsers_request_inner_anyOf_1_userRole"
+          $ref: "#/components/schemas/inviteUsers_request_inner_userRole"
       required:
       - email
       - teamId
       - teamRole
       - userRole
-    inviteUsers_request_inner:
-      anyOf:
-      - $ref: "#/components/schemas/inviteUsers_request_inner_anyOf"
-      - $ref: "#/components/schemas/inviteUsers_request_inner_anyOf_1"
     queryInvitations_request_filters_searchQuery:
       description: "Substring matched against the invitation email, team name, or\
         \ status"
@@ -36660,6 +36538,11 @@ components:
           maxLength: 250
           minLength: 0
           type: string
+        owner:
+          description: Team ID that will own the account.
+          maxLength: 250
+          minLength: 1
+          type: string
         connectionSettings:
           $ref: "#/components/schemas/createCloudAccount_request_connectionSettings"
       required:
@@ -36672,6 +36555,14 @@ components:
           description: Human-readable name for the account shown in Tsuga.
           maxLength: 250
           minLength: 0
+          type: string
+        owner:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
           type: string
       required:
       - accountFriendlyName
@@ -36708,6 +36599,7 @@ components:
           type: array
           default: null
         subtype:
+          description: Copies or moves one or more source attributes to target attributes.
           enum:
           - map-attributes
           type: string
@@ -37920,11 +37812,6 @@ components:
           description: Set to true for the rule to send notifications when one of
             its monitors fires.
           type: boolean
-        shouldCreateInvestigation:
-          description: "Set to true to record an investigation for each page, holding\
-            \ the sampled traces and the call graph the destination was resolved from,\
-            \ and to link it from the notification body. Defaults to false."
-          type: boolean
         monitorIds:
           description: "Monitors this rule reacts to. Only trace monitors and metric\
             \ monitors over OTel span metrics are eligible. On update, omitting this\
@@ -37991,11 +37878,6 @@ components:
         isActive:
           description: Set to true for the rule to send notifications when one of
             its monitors fires.
-          type: boolean
-        shouldCreateInvestigation:
-          description: "Set to true to record an investigation for each page, holding\
-            \ the sampled traces and the call graph the destination was resolved from,\
-            \ and to link it from the notification body. Defaults to false."
           type: boolean
         monitorIds:
           description: "Monitors this rule reacts to. Only trace monitors and metric\
@@ -44052,6 +43934,7 @@ components:
           type: array
           default: null
         subtype:
+          description: Copies or moves one or more source attributes to target attributes.
           enum:
           - map-attributes
           type: string
@@ -45977,7 +45860,7 @@ components:
       - contrastSets
       - failedAttributeCount
       - targetGroupCount
-    User_role_anyOf_oneOf:
+    User_role_oneOf:
       properties:
         type:
           description: The user holds a custom role.
@@ -45991,32 +45874,19 @@ components:
       required:
       - customRoleId
       - type
-    User_role_anyOf:
+    User_role:
+      description: "Organization role for the user: a built-in role `type`, or `custom`\
+        \ with the `customRoleId` of the custom role."
       discriminator:
         propertyName: type
       oneOf:
-      - $ref: "#/components/schemas/inviteUsers_request_inner_anyOf_1_userRole_oneOf"
-      - $ref: "#/components/schemas/User_role_anyOf_oneOf"
+      - $ref: "#/components/schemas/inviteUsers_request_inner_userRole_oneOf"
+      - $ref: "#/components/schemas/User_role_oneOf"
       required:
       - type
       errorMessage:
         discriminator: "value of tag \"type\" must be one of: admin, public_editor,\
           \ public_viewer, teams_only, custom"
-    User_role:
-      anyOf:
-      - description: "Organization role for the user: `admin`, `public_editor`, `public_viewer`,\
-          \ `teams_only`, or `custom` when the user holds a custom role."
-        enum:
-        - admin
-        - public_editor
-        - public_viewer
-        - teams_only
-        - custom
-        type: string
-      - $ref: "#/components/schemas/User_role_anyOf"
-      description: "Organization role for the user, either as a role key or as an\
-        \ object with the role `type` and, for a custom role, its `customRoleId`.\
-        \ Handle both forms: the object form replaces the role key."
     GrokInvalidSyntax_error:
       description: Position and parser message for the syntax failure.
       properties:
