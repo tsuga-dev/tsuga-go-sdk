@@ -179,7 +179,7 @@ func main() {
 	from := int64(1704067200) // int64 | Start of the query window as a Unix timestamp in seconds
 	to := int64(1704070800) // int64 | End of the query window as a Unix timestamp in seconds
 	query := "query_example" // string | Tsuga query selecting spans to return. Omit to search all spans in the range with `*`. (optional) (default to "*")
-	maxResults := int32(56) // int32 | Maximum number of spans to return. Defaults to 100. Valid values are 1 through 10000. (optional) (default to 100)
+	maxResults := int32(56) // int32 | Maximum number of spans to return. Defaults to 100. Valid values are 1 through 1000. (optional) (default to 100)
 	clusterId := "clusterId_example" // string | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -208,7 +208,7 @@ Name | Type | Description  | Notes
  **from** | **int64** | Start of the query window as a Unix timestamp in seconds | 
  **to** | **int64** | End of the query window as a Unix timestamp in seconds | 
  **query** | **string** | Tsuga query selecting spans to return. Omit to search all spans in the range with &#x60;*&#x60;. | [default to &quot;*&quot;]
- **maxResults** | **int32** | Maximum number of spans to return. Defaults to 100. Valid values are 1 through 10000. | [default to 100]
+ **maxResults** | **int32** | Maximum number of spans to return. Defaults to 100. Valid values are 1 through 1000. | [default to 100]
  **clusterId** | **string** | Telemetry cluster to target. Required when the organization has multiple clusters; omit only for single-cluster organizations. | 
 
 ### Return type

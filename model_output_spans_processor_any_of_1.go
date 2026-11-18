@@ -14,11 +14,11 @@ import (
 	"fmt"
 )
 
-// checks if the MetricRouteProcessorsInnerOneOf2 type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &MetricRouteProcessorsInnerOneOf2{}
+// checks if the OutputSpansProcessorAnyOf1 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OutputSpansProcessorAnyOf1{}
 
-// MetricRouteProcessorsInnerOneOf2 struct for MetricRouteProcessorsInnerOneOf2
-type MetricRouteProcessorsInnerOneOf2 struct {
+// OutputSpansProcessorAnyOf1 struct for OutputSpansProcessorAnyOf1
+type OutputSpansProcessorAnyOf1 struct {
 	// Unique identifier of the processor within the route. Used to preserve processor identity during updates.
 	Id string `json:"id"`
 	// Optional user-provided processor note.
@@ -26,37 +26,37 @@ type MetricRouteProcessorsInnerOneOf2 struct {
 	// Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies.
 	Tags []Tag `json:"tags,omitempty"`
 	// Timestamp when Tsuga last updated the processor.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
-	// Create processor. It writes a new attribute from a format string, formula, or category rule.
-	Type                 string                                 `json:"type"`
-	Params               MetricRouteProcessorsInnerOneOf2Params `json:"params"`
+	UpdatedAt *string                          `json:"updatedAt,omitempty"`
+	Params    OutputSpansProcessorAnyOf1Params `json:"params"`
+	// Split processor. It sends each span through the first matching conditional branch.
+	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _MetricRouteProcessorsInnerOneOf2 MetricRouteProcessorsInnerOneOf2
+type _OutputSpansProcessorAnyOf1 OutputSpansProcessorAnyOf1
 
-// NewMetricRouteProcessorsInnerOneOf2 instantiates a new MetricRouteProcessorsInnerOneOf2 object
+// NewOutputSpansProcessorAnyOf1 instantiates a new OutputSpansProcessorAnyOf1 object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMetricRouteProcessorsInnerOneOf2(id string, type_ string, params MetricRouteProcessorsInnerOneOf2Params) *MetricRouteProcessorsInnerOneOf2 {
-	this := MetricRouteProcessorsInnerOneOf2{}
+func NewOutputSpansProcessorAnyOf1(id string, params OutputSpansProcessorAnyOf1Params, type_ string) *OutputSpansProcessorAnyOf1 {
+	this := OutputSpansProcessorAnyOf1{}
 	this.Id = id
-	this.Type = type_
 	this.Params = params
+	this.Type = type_
 	return &this
 }
 
-// NewMetricRouteProcessorsInnerOneOf2WithDefaults instantiates a new MetricRouteProcessorsInnerOneOf2 object
+// NewOutputSpansProcessorAnyOf1WithDefaults instantiates a new OutputSpansProcessorAnyOf1 object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewMetricRouteProcessorsInnerOneOf2WithDefaults() *MetricRouteProcessorsInnerOneOf2 {
-	this := MetricRouteProcessorsInnerOneOf2{}
+func NewOutputSpansProcessorAnyOf1WithDefaults() *OutputSpansProcessorAnyOf1 {
+	this := OutputSpansProcessorAnyOf1{}
 	return &this
 }
 
 // GetId returns the Id field value
-func (o *MetricRouteProcessorsInnerOneOf2) GetId() string {
+func (o *OutputSpansProcessorAnyOf1) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -67,7 +67,7 @@ func (o *MetricRouteProcessorsInnerOneOf2) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOf2) GetIdOk() (*string, bool) {
+func (o *OutputSpansProcessorAnyOf1) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -75,12 +75,12 @@ func (o *MetricRouteProcessorsInnerOneOf2) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value
-func (o *MetricRouteProcessorsInnerOneOf2) SetId(v string) {
+func (o *OutputSpansProcessorAnyOf1) SetId(v string) {
 	o.Id = v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
-func (o *MetricRouteProcessorsInnerOneOf2) GetDescription() string {
+func (o *OutputSpansProcessorAnyOf1) GetDescription() string {
 	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
@@ -90,7 +90,7 @@ func (o *MetricRouteProcessorsInnerOneOf2) GetDescription() string {
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOf2) GetDescriptionOk() (*string, bool) {
+func (o *OutputSpansProcessorAnyOf1) GetDescriptionOk() (*string, bool) {
 	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
@@ -98,7 +98,7 @@ func (o *MetricRouteProcessorsInnerOneOf2) GetDescriptionOk() (*string, bool) {
 }
 
 // HasDescription returns a boolean if a field has been set.
-func (o *MetricRouteProcessorsInnerOneOf2) HasDescription() bool {
+func (o *OutputSpansProcessorAnyOf1) HasDescription() bool {
 	if o != nil && !IsNil(o.Description) {
 		return true
 	}
@@ -107,12 +107,12 @@ func (o *MetricRouteProcessorsInnerOneOf2) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *MetricRouteProcessorsInnerOneOf2) SetDescription(v string) {
+func (o *OutputSpansProcessorAnyOf1) SetDescription(v string) {
 	o.Description = &v
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *MetricRouteProcessorsInnerOneOf2) GetTags() []Tag {
+func (o *OutputSpansProcessorAnyOf1) GetTags() []Tag {
 	if o == nil || IsNil(o.Tags) {
 		var ret []Tag
 		return ret
@@ -122,7 +122,7 @@ func (o *MetricRouteProcessorsInnerOneOf2) GetTags() []Tag {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOf2) GetTagsOk() ([]Tag, bool) {
+func (o *OutputSpansProcessorAnyOf1) GetTagsOk() ([]Tag, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -130,7 +130,7 @@ func (o *MetricRouteProcessorsInnerOneOf2) GetTagsOk() ([]Tag, bool) {
 }
 
 // HasTags returns a boolean if a field has been set.
-func (o *MetricRouteProcessorsInnerOneOf2) HasTags() bool {
+func (o *OutputSpansProcessorAnyOf1) HasTags() bool {
 	if o != nil && !IsNil(o.Tags) {
 		return true
 	}
@@ -139,12 +139,12 @@ func (o *MetricRouteProcessorsInnerOneOf2) HasTags() bool {
 }
 
 // SetTags gets a reference to the given []Tag and assigns it to the Tags field.
-func (o *MetricRouteProcessorsInnerOneOf2) SetTags(v []Tag) {
+func (o *OutputSpansProcessorAnyOf1) SetTags(v []Tag) {
 	o.Tags = v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *MetricRouteProcessorsInnerOneOf2) GetUpdatedAt() string {
+func (o *OutputSpansProcessorAnyOf1) GetUpdatedAt() string {
 	if o == nil || IsNil(o.UpdatedAt) {
 		var ret string
 		return ret
@@ -154,7 +154,7 @@ func (o *MetricRouteProcessorsInnerOneOf2) GetUpdatedAt() string {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOf2) GetUpdatedAtOk() (*string, bool) {
+func (o *OutputSpansProcessorAnyOf1) GetUpdatedAtOk() (*string, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -162,7 +162,7 @@ func (o *MetricRouteProcessorsInnerOneOf2) GetUpdatedAtOk() (*string, bool) {
 }
 
 // HasUpdatedAt returns a boolean if a field has been set.
-func (o *MetricRouteProcessorsInnerOneOf2) HasUpdatedAt() bool {
+func (o *OutputSpansProcessorAnyOf1) HasUpdatedAt() bool {
 	if o != nil && !IsNil(o.UpdatedAt) {
 		return true
 	}
@@ -171,12 +171,36 @@ func (o *MetricRouteProcessorsInnerOneOf2) HasUpdatedAt() bool {
 }
 
 // SetUpdatedAt gets a reference to the given string and assigns it to the UpdatedAt field.
-func (o *MetricRouteProcessorsInnerOneOf2) SetUpdatedAt(v string) {
+func (o *OutputSpansProcessorAnyOf1) SetUpdatedAt(v string) {
 	o.UpdatedAt = &v
 }
 
+// GetParams returns the Params field value
+func (o *OutputSpansProcessorAnyOf1) GetParams() OutputSpansProcessorAnyOf1Params {
+	if o == nil {
+		var ret OutputSpansProcessorAnyOf1Params
+		return ret
+	}
+
+	return o.Params
+}
+
+// GetParamsOk returns a tuple with the Params field value
+// and a boolean to check if the value has been set.
+func (o *OutputSpansProcessorAnyOf1) GetParamsOk() (*OutputSpansProcessorAnyOf1Params, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Params, true
+}
+
+// SetParams sets field value
+func (o *OutputSpansProcessorAnyOf1) SetParams(v OutputSpansProcessorAnyOf1Params) {
+	o.Params = v
+}
+
 // GetType returns the Type field value
-func (o *MetricRouteProcessorsInnerOneOf2) GetType() string {
+func (o *OutputSpansProcessorAnyOf1) GetType() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -187,7 +211,7 @@ func (o *MetricRouteProcessorsInnerOneOf2) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOf2) GetTypeOk() (*string, bool) {
+func (o *OutputSpansProcessorAnyOf1) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -195,35 +219,11 @@ func (o *MetricRouteProcessorsInnerOneOf2) GetTypeOk() (*string, bool) {
 }
 
 // SetType sets field value
-func (o *MetricRouteProcessorsInnerOneOf2) SetType(v string) {
+func (o *OutputSpansProcessorAnyOf1) SetType(v string) {
 	o.Type = v
 }
 
-// GetParams returns the Params field value
-func (o *MetricRouteProcessorsInnerOneOf2) GetParams() MetricRouteProcessorsInnerOneOf2Params {
-	if o == nil {
-		var ret MetricRouteProcessorsInnerOneOf2Params
-		return ret
-	}
-
-	return o.Params
-}
-
-// GetParamsOk returns a tuple with the Params field value
-// and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOf2) GetParamsOk() (*MetricRouteProcessorsInnerOneOf2Params, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Params, true
-}
-
-// SetParams sets field value
-func (o *MetricRouteProcessorsInnerOneOf2) SetParams(v MetricRouteProcessorsInnerOneOf2Params) {
-	o.Params = v
-}
-
-func (o MetricRouteProcessorsInnerOneOf2) MarshalJSON() ([]byte, error) {
+func (o OutputSpansProcessorAnyOf1) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -231,7 +231,7 @@ func (o MetricRouteProcessorsInnerOneOf2) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o MetricRouteProcessorsInnerOneOf2) ToMap() (map[string]interface{}, error) {
+func (o OutputSpansProcessorAnyOf1) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	if !IsNil(o.Description) {
@@ -243,8 +243,8 @@ func (o MetricRouteProcessorsInnerOneOf2) ToMap() (map[string]interface{}, error
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
-	toSerialize["type"] = o.Type
 	toSerialize["params"] = o.Params
+	toSerialize["type"] = o.Type
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -253,14 +253,14 @@ func (o MetricRouteProcessorsInnerOneOf2) ToMap() (map[string]interface{}, error
 	return toSerialize, nil
 }
 
-func (o *MetricRouteProcessorsInnerOneOf2) UnmarshalJSON(data []byte) (err error) {
+func (o *OutputSpansProcessorAnyOf1) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"id",
-		"type",
 		"params",
+		"type",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -277,15 +277,15 @@ func (o *MetricRouteProcessorsInnerOneOf2) UnmarshalJSON(data []byte) (err error
 		}
 	}
 
-	varMetricRouteProcessorsInnerOneOf2 := _MetricRouteProcessorsInnerOneOf2{}
+	varOutputSpansProcessorAnyOf1 := _OutputSpansProcessorAnyOf1{}
 
-	err = json.Unmarshal(data, &varMetricRouteProcessorsInnerOneOf2)
+	err = json.Unmarshal(data, &varOutputSpansProcessorAnyOf1)
 
 	if err != nil {
 		return err
 	}
 
-	*o = MetricRouteProcessorsInnerOneOf2(varMetricRouteProcessorsInnerOneOf2)
+	*o = OutputSpansProcessorAnyOf1(varOutputSpansProcessorAnyOf1)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -294,46 +294,46 @@ func (o *MetricRouteProcessorsInnerOneOf2) UnmarshalJSON(data []byte) (err error
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "tags")
 		delete(additionalProperties, "updatedAt")
-		delete(additionalProperties, "type")
 		delete(additionalProperties, "params")
+		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
 }
 
-type NullableMetricRouteProcessorsInnerOneOf2 struct {
-	value *MetricRouteProcessorsInnerOneOf2
+type NullableOutputSpansProcessorAnyOf1 struct {
+	value *OutputSpansProcessorAnyOf1
 	isSet bool
 }
 
-func (v NullableMetricRouteProcessorsInnerOneOf2) Get() *MetricRouteProcessorsInnerOneOf2 {
+func (v NullableOutputSpansProcessorAnyOf1) Get() *OutputSpansProcessorAnyOf1 {
 	return v.value
 }
 
-func (v *NullableMetricRouteProcessorsInnerOneOf2) Set(val *MetricRouteProcessorsInnerOneOf2) {
+func (v *NullableOutputSpansProcessorAnyOf1) Set(val *OutputSpansProcessorAnyOf1) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableMetricRouteProcessorsInnerOneOf2) IsSet() bool {
+func (v NullableOutputSpansProcessorAnyOf1) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableMetricRouteProcessorsInnerOneOf2) Unset() {
+func (v *NullableOutputSpansProcessorAnyOf1) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableMetricRouteProcessorsInnerOneOf2(val *MetricRouteProcessorsInnerOneOf2) *NullableMetricRouteProcessorsInnerOneOf2 {
-	return &NullableMetricRouteProcessorsInnerOneOf2{value: val, isSet: true}
+func NewNullableOutputSpansProcessorAnyOf1(val *OutputSpansProcessorAnyOf1) *NullableOutputSpansProcessorAnyOf1 {
+	return &NullableOutputSpansProcessorAnyOf1{value: val, isSet: true}
 }
 
-func (v NullableMetricRouteProcessorsInnerOneOf2) MarshalJSON() ([]byte, error) {
+func (v NullableOutputSpansProcessorAnyOf1) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableMetricRouteProcessorsInnerOneOf2) UnmarshalJSON(src []byte) error {
+func (v *NullableOutputSpansProcessorAnyOf1) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

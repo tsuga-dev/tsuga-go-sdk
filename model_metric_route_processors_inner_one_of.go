@@ -27,7 +27,7 @@ type MetricRouteProcessorsInnerOneOf struct {
 	Tags []Tag `json:"tags,omitempty"`
 	// Timestamp when Tsuga last updated the processor.
 	UpdatedAt *string `json:"updatedAt,omitempty"`
-	// Map processor. It moves, copies, or normalizes existing log attributes.
+	// Parse processor. It extracts structured fields from a text attribute.
 	Type                 string                                `json:"type"`
 	Params               MetricRouteProcessorsInnerOneOfParams `json:"params"`
 	AdditionalProperties map[string]interface{}

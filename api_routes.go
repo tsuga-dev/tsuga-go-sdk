@@ -81,7 +81,7 @@ type RoutesAPI interface {
 	/*
 		UpdateRoute Method for UpdateRoute
 
-		Updates an existing log route by ID without changing its evaluation order. Fields omitted from the request keep their existing values. Routes affect only newly ingested logs after the cluster receives the updated configuration.
+		Updates an existing log route by ID without changing its evaluation order. An omitted `description` or `tags` keeps its existing value. Routes affect only newly ingested logs after the cluster receives the updated configuration.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Identifier of the log route to update. Use the `id` returned by route list, get, or create responses.
@@ -657,7 +657,7 @@ func (r RoutesAPIUpdateRouteRequest) Execute() (*UpdateRouteResponse, *http.Resp
 /*
 UpdateRoute Method for UpdateRoute
 
-Updates an existing log route by ID without changing its evaluation order. Fields omitted from the request keep their existing values. Routes affect only newly ingested logs after the cluster receives the updated configuration.
+Updates an existing log route by ID without changing its evaluation order. An omitted `description` or `tags` keeps its existing value. Routes affect only newly ingested logs after the cluster receives the updated configuration.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Identifier of the log route to update. Use the `id` returned by route list, get, or create responses.

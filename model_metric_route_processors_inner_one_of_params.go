@@ -19,10 +19,13 @@ var _ MappedNullable = &MetricRouteProcessorsInnerOneOfParams{}
 
 // MetricRouteProcessorsInnerOneOfParams struct for MetricRouteProcessorsInnerOneOfParams
 type MetricRouteProcessorsInnerOneOfParams struct {
-	// Mappings that map individual attributes to new targets
-	Attributes []MetricRouteProcessorsInnerOneOfParamsAttributesInner `json:"attributes"`
-	// Copies or moves one or more source attributes to target attributes.
-	Subtype              string `json:"subtype"`
+	// Attribute whose value will be parsed with Grok rules
+	AttributeName string `json:"attributeName"`
+	// Ordered Grok rules evaluated until one matches.
+	Rules []string `json:"rules"`
+	// Example log lines for validating the Grok rules.
+	Samples              []string `json:"samples,omitempty"`
+	Subtype              string   `json:"subtype"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,9 +35,10 @@ type _MetricRouteProcessorsInnerOneOfParams MetricRouteProcessorsInnerOneOfParam
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMetricRouteProcessorsInnerOneOfParams(attributes []MetricRouteProcessorsInnerOneOfParamsAttributesInner, subtype string) *MetricRouteProcessorsInnerOneOfParams {
+func NewMetricRouteProcessorsInnerOneOfParams(attributeName string, rules []string, subtype string) *MetricRouteProcessorsInnerOneOfParams {
 	this := MetricRouteProcessorsInnerOneOfParams{}
-	this.Attributes = attributes
+	this.AttributeName = attributeName
+	this.Rules = rules
 	this.Subtype = subtype
 	return &this
 }
@@ -47,28 +51,84 @@ func NewMetricRouteProcessorsInnerOneOfParamsWithDefaults() *MetricRouteProcesso
 	return &this
 }
 
-// GetAttributes returns the Attributes field value
-func (o *MetricRouteProcessorsInnerOneOfParams) GetAttributes() []MetricRouteProcessorsInnerOneOfParamsAttributesInner {
+// GetAttributeName returns the AttributeName field value
+func (o *MetricRouteProcessorsInnerOneOfParams) GetAttributeName() string {
 	if o == nil {
-		var ret []MetricRouteProcessorsInnerOneOfParamsAttributesInner
+		var ret string
 		return ret
 	}
 
-	return o.Attributes
+	return o.AttributeName
 }
 
-// GetAttributesOk returns a tuple with the Attributes field value
+// GetAttributeNameOk returns a tuple with the AttributeName field value
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOfParams) GetAttributesOk() ([]MetricRouteProcessorsInnerOneOfParamsAttributesInner, bool) {
+func (o *MetricRouteProcessorsInnerOneOfParams) GetAttributeNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Attributes, true
+	return &o.AttributeName, true
 }
 
-// SetAttributes sets field value
-func (o *MetricRouteProcessorsInnerOneOfParams) SetAttributes(v []MetricRouteProcessorsInnerOneOfParamsAttributesInner) {
-	o.Attributes = v
+// SetAttributeName sets field value
+func (o *MetricRouteProcessorsInnerOneOfParams) SetAttributeName(v string) {
+	o.AttributeName = v
+}
+
+// GetRules returns the Rules field value
+func (o *MetricRouteProcessorsInnerOneOfParams) GetRules() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+
+	return o.Rules
+}
+
+// GetRulesOk returns a tuple with the Rules field value
+// and a boolean to check if the value has been set.
+func (o *MetricRouteProcessorsInnerOneOfParams) GetRulesOk() ([]string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Rules, true
+}
+
+// SetRules sets field value
+func (o *MetricRouteProcessorsInnerOneOfParams) SetRules(v []string) {
+	o.Rules = v
+}
+
+// GetSamples returns the Samples field value if set, zero value otherwise.
+func (o *MetricRouteProcessorsInnerOneOfParams) GetSamples() []string {
+	if o == nil || IsNil(o.Samples) {
+		var ret []string
+		return ret
+	}
+	return o.Samples
+}
+
+// GetSamplesOk returns a tuple with the Samples field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRouteProcessorsInnerOneOfParams) GetSamplesOk() ([]string, bool) {
+	if o == nil || IsNil(o.Samples) {
+		return nil, false
+	}
+	return o.Samples, true
+}
+
+// HasSamples returns a boolean if a field has been set.
+func (o *MetricRouteProcessorsInnerOneOfParams) HasSamples() bool {
+	if o != nil && !IsNil(o.Samples) {
+		return true
+	}
+
+	return false
+}
+
+// SetSamples gets a reference to the given []string and assigns it to the Samples field.
+func (o *MetricRouteProcessorsInnerOneOfParams) SetSamples(v []string) {
+	o.Samples = v
 }
 
 // GetSubtype returns the Subtype field value
@@ -105,7 +165,11 @@ func (o MetricRouteProcessorsInnerOneOfParams) MarshalJSON() ([]byte, error) {
 
 func (o MetricRouteProcessorsInnerOneOfParams) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["attributes"] = o.Attributes
+	toSerialize["attributeName"] = o.AttributeName
+	toSerialize["rules"] = o.Rules
+	if !IsNil(o.Samples) {
+		toSerialize["samples"] = o.Samples
+	}
 	toSerialize["subtype"] = o.Subtype
 
 	for key, value := range o.AdditionalProperties {
@@ -120,7 +184,8 @@ func (o *MetricRouteProcessorsInnerOneOfParams) UnmarshalJSON(data []byte) (err 
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"attributes",
+		"attributeName",
+		"rules",
 		"subtype",
 	}
 
@@ -151,7 +216,9 @@ func (o *MetricRouteProcessorsInnerOneOfParams) UnmarshalJSON(data []byte) (err 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "attributes")
+		delete(additionalProperties, "attributeName")
+		delete(additionalProperties, "rules")
+		delete(additionalProperties, "samples")
 		delete(additionalProperties, "subtype")
 		o.AdditionalProperties = additionalProperties
 	}

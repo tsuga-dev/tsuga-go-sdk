@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Owners** | Pointer to [**QueryDashboardsRequestFiltersOwners**](QueryDashboardsRequestFiltersOwners.md) |  | [optional] 
 **SearchQuery** | Pointer to [**QueryDashboardsRequestFiltersSearchQuery**](QueryDashboardsRequestFiltersSearchQuery.md) |  | [optional] 
+**WidgetQuery** | Pointer to [**QueryDashboardsRequestFiltersWidgetQuery**](QueryDashboardsRequestFiltersWidgetQuery.md) |  | [optional] 
 **Tags** | Pointer to [**QueryDashboardsRequestFiltersTags**](QueryDashboardsRequestFiltersTags.md) |  | [optional] 
 **FolderId** | Pointer to **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
 
@@ -77,6 +78,31 @@ SetSearchQuery sets SearchQuery field to given value.
 `func (o *QueryDashboardsRequestFilters) HasSearchQuery() bool`
 
 HasSearchQuery returns a boolean if a field has been set.
+
+### GetWidgetQuery
+
+`func (o *QueryDashboardsRequestFilters) GetWidgetQuery() QueryDashboardsRequestFiltersWidgetQuery`
+
+GetWidgetQuery returns the WidgetQuery field if non-nil, zero value otherwise.
+
+### GetWidgetQueryOk
+
+`func (o *QueryDashboardsRequestFilters) GetWidgetQueryOk() (*QueryDashboardsRequestFiltersWidgetQuery, bool)`
+
+GetWidgetQueryOk returns a tuple with the WidgetQuery field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWidgetQuery
+
+`func (o *QueryDashboardsRequestFilters) SetWidgetQuery(v QueryDashboardsRequestFiltersWidgetQuery)`
+
+SetWidgetQuery sets WidgetQuery field to given value.
+
+### HasWidgetQuery
+
+`func (o *QueryDashboardsRequestFilters) HasWidgetQuery() bool`
+
+HasWidgetQuery returns a boolean if a field has been set.
 
 ### GetTags
 

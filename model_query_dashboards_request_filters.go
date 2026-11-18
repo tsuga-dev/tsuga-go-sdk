@@ -20,6 +20,7 @@ var _ MappedNullable = &QueryDashboardsRequestFilters{}
 type QueryDashboardsRequestFilters struct {
 	Owners      *QueryDashboardsRequestFiltersOwners      `json:"owners,omitempty"`
 	SearchQuery *QueryDashboardsRequestFiltersSearchQuery `json:"searchQuery,omitempty"`
+	WidgetQuery *QueryDashboardsRequestFiltersWidgetQuery `json:"widgetQuery,omitempty"`
 	Tags        *QueryDashboardsRequestFiltersTags        `json:"tags,omitempty"`
 	// Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder.
 	FolderId             NullableString `json:"folderId,omitempty"`
@@ -107,6 +108,38 @@ func (o *QueryDashboardsRequestFilters) HasSearchQuery() bool {
 // SetSearchQuery gets a reference to the given QueryDashboardsRequestFiltersSearchQuery and assigns it to the SearchQuery field.
 func (o *QueryDashboardsRequestFilters) SetSearchQuery(v QueryDashboardsRequestFiltersSearchQuery) {
 	o.SearchQuery = &v
+}
+
+// GetWidgetQuery returns the WidgetQuery field value if set, zero value otherwise.
+func (o *QueryDashboardsRequestFilters) GetWidgetQuery() QueryDashboardsRequestFiltersWidgetQuery {
+	if o == nil || IsNil(o.WidgetQuery) {
+		var ret QueryDashboardsRequestFiltersWidgetQuery
+		return ret
+	}
+	return *o.WidgetQuery
+}
+
+// GetWidgetQueryOk returns a tuple with the WidgetQuery field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *QueryDashboardsRequestFilters) GetWidgetQueryOk() (*QueryDashboardsRequestFiltersWidgetQuery, bool) {
+	if o == nil || IsNil(o.WidgetQuery) {
+		return nil, false
+	}
+	return o.WidgetQuery, true
+}
+
+// HasWidgetQuery returns a boolean if a field has been set.
+func (o *QueryDashboardsRequestFilters) HasWidgetQuery() bool {
+	if o != nil && !IsNil(o.WidgetQuery) {
+		return true
+	}
+
+	return false
+}
+
+// SetWidgetQuery gets a reference to the given QueryDashboardsRequestFiltersWidgetQuery and assigns it to the WidgetQuery field.
+func (o *QueryDashboardsRequestFilters) SetWidgetQuery(v QueryDashboardsRequestFiltersWidgetQuery) {
+	o.WidgetQuery = &v
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
@@ -200,6 +233,9 @@ func (o QueryDashboardsRequestFilters) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SearchQuery) {
 		toSerialize["searchQuery"] = o.SearchQuery
 	}
+	if !IsNil(o.WidgetQuery) {
+		toSerialize["widgetQuery"] = o.WidgetQuery
+	}
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
@@ -230,6 +266,7 @@ func (o *QueryDashboardsRequestFilters) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "owners")
 		delete(additionalProperties, "searchQuery")
+		delete(additionalProperties, "widgetQuery")
 		delete(additionalProperties, "tags")
 		delete(additionalProperties, "folderId")
 		o.AdditionalProperties = additionalProperties

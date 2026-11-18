@@ -14,7 +14,7 @@ import (
 	"fmt"
 )
 
-// CreateCloudAccountRequestConnectionSettings - Credentials Tsuga uses to scan the account, in the provider-specific shape selected by `type`. Credentials are stored as provided and are not validated at creation time; failures surface through `lastScanStatus`.
+// CreateCloudAccountRequestConnectionSettings - Credentials Tsuga uses to scan the account, in the provider-specific shape selected by `type`. Credentials are stored as provided and are not validated at creation time.
 type CreateCloudAccountRequestConnectionSettings struct {
 	AwsConnectionSettings   *AwsConnectionSettings
 	AzureConnectionSettings *AzureConnectionSettings

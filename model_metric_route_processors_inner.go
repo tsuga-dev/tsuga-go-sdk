@@ -18,7 +18,7 @@ import (
 type MetricRouteProcessorsInner struct {
 	MetricRouteProcessorsInnerOneOf  *MetricRouteProcessorsInnerOneOf
 	MetricRouteProcessorsInnerOneOf1 *MetricRouteProcessorsInnerOneOf1
-	MetricRouteProcessorsInnerOneOf2 *MetricRouteProcessorsInnerOneOf2
+	OutputSpansProcessorAnyOf        *OutputSpansProcessorAnyOf
 }
 
 // MetricRouteProcessorsInnerOneOfAsMetricRouteProcessorsInner is a convenience function that returns MetricRouteProcessorsInnerOneOf wrapped in MetricRouteProcessorsInner
@@ -35,10 +35,10 @@ func MetricRouteProcessorsInnerOneOf1AsMetricRouteProcessorsInner(v *MetricRoute
 	}
 }
 
-// MetricRouteProcessorsInnerOneOf2AsMetricRouteProcessorsInner is a convenience function that returns MetricRouteProcessorsInnerOneOf2 wrapped in MetricRouteProcessorsInner
-func MetricRouteProcessorsInnerOneOf2AsMetricRouteProcessorsInner(v *MetricRouteProcessorsInnerOneOf2) MetricRouteProcessorsInner {
+// OutputSpansProcessorAnyOfAsMetricRouteProcessorsInner is a convenience function that returns OutputSpansProcessorAnyOf wrapped in MetricRouteProcessorsInner
+func OutputSpansProcessorAnyOfAsMetricRouteProcessorsInner(v *OutputSpansProcessorAnyOf) MetricRouteProcessorsInner {
 	return MetricRouteProcessorsInner{
-		MetricRouteProcessorsInnerOneOf2: v,
+		OutputSpansProcessorAnyOf: v,
 	}
 }
 
@@ -76,15 +76,15 @@ func (dst *MetricRouteProcessorsInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'MetricRoute_processors_inner_oneOf_2'
-	if jsonDict["type"] == "MetricRoute_processors_inner_oneOf_2" {
-		// try to unmarshal JSON data into MetricRouteProcessorsInnerOneOf2
-		err = json.Unmarshal(data, &dst.MetricRouteProcessorsInnerOneOf2)
+	// check if the discriminator value is 'OutputSpansProcessor_anyOf'
+	if jsonDict["type"] == "OutputSpansProcessor_anyOf" {
+		// try to unmarshal JSON data into OutputSpansProcessorAnyOf
+		err = json.Unmarshal(data, &dst.OutputSpansProcessorAnyOf)
 		if err == nil {
-			return nil // data stored in dst.MetricRouteProcessorsInnerOneOf2, return on the first match
+			return nil // data stored in dst.OutputSpansProcessorAnyOf, return on the first match
 		} else {
-			dst.MetricRouteProcessorsInnerOneOf2 = nil
-			return fmt.Errorf("failed to unmarshal MetricRouteProcessorsInner as MetricRouteProcessorsInnerOneOf2: %s", err.Error())
+			dst.OutputSpansProcessorAnyOf = nil
+			return fmt.Errorf("failed to unmarshal MetricRouteProcessorsInner as OutputSpansProcessorAnyOf: %s", err.Error())
 		}
 	}
 
@@ -101,8 +101,8 @@ func (src MetricRouteProcessorsInner) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.MetricRouteProcessorsInnerOneOf1)
 	}
 
-	if src.MetricRouteProcessorsInnerOneOf2 != nil {
-		return json.Marshal(&src.MetricRouteProcessorsInnerOneOf2)
+	if src.OutputSpansProcessorAnyOf != nil {
+		return json.Marshal(&src.OutputSpansProcessorAnyOf)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -121,8 +121,8 @@ func (obj *MetricRouteProcessorsInner) GetActualInstance() interface{} {
 		return obj.MetricRouteProcessorsInnerOneOf1
 	}
 
-	if obj.MetricRouteProcessorsInnerOneOf2 != nil {
-		return obj.MetricRouteProcessorsInnerOneOf2
+	if obj.OutputSpansProcessorAnyOf != nil {
+		return obj.OutputSpansProcessorAnyOf
 	}
 
 	// all schemas are nil
@@ -139,8 +139,8 @@ func (obj MetricRouteProcessorsInner) GetActualInstanceValue() interface{} {
 		return *obj.MetricRouteProcessorsInnerOneOf1
 	}
 
-	if obj.MetricRouteProcessorsInnerOneOf2 != nil {
-		return *obj.MetricRouteProcessorsInnerOneOf2
+	if obj.OutputSpansProcessorAnyOf != nil {
+		return *obj.OutputSpansProcessorAnyOf
 	}
 
 	// all schemas are nil

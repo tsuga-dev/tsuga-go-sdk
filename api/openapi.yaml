@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261116.33.0+2aa1465
+  version: 20261118.35.0+2f9747c
 servers:
 - url: https://api.tsuga.com
 security:
@@ -134,6 +134,9 @@ tags:
 - description: "Operations for short links copied from the Logs and Traces pages.\
     \ Use these endpoints to resolve a short link to the app URL it opens. See [Logs](/documentation/explore/logs#share-the-current-search)."
   name: short-urls
+- description: "Operations for span routes and route processors. Use these endpoints\
+    \ to manage ingest-time span processing definitions. See [Routes](/documentation/process/routes/index)."
+  name: span-routes
 - description: "Operations for tag policies applied to Tsuga-managed assets or telemetry\
     \ data. Use these endpoints to configure required tags and allowed values. See\
     \ [Tag policies](/documentation/account-and-settings/tag-policies)."
@@ -1139,7 +1142,9 @@ paths:
   /v1/rum/attributes:
     get:
       description: "Lists the RUM attribute dot-paths that can be queried: the fields\
-        \ to search, filter or group RUM events by. See [RUM views](/documentation/categorize/rum-views/index)."
+        \ to search, filter or group RUM events by. The list is the fixed RUM schema:\
+        \ keys an app sends itself, such as `context.user.attributes.<KEY>`, are not\
+        \ listed. See [RUM views](/documentation/categorize/rum-views/index)."
       operationId: getRumAttributes
       parameters:
       - description: Telemetry cluster to target. Required when the organization has
@@ -2473,7 +2478,8 @@ paths:
       - data-deletion-requests
   /v1/dashboards/query:
     post:
-      description: "Lists or searches dashboards by name or ID substring, owning team,\
+      description: "Lists or searches dashboards by name or ID substring, by what\
+        \ their widgets query (a service, field, metric or function), owning team,\
         \ tags or folder. Results omit widgets (`graphs`) and give `widgetCount`;\
         \ get a dashboard by ID to read its widgets. See [Dashboards](/documentation/visualize/dashboards/index)."
       operationId: queryDashboards
@@ -2487,6 +2493,8 @@ paths:
                   - team-123-abc
                 searchQuery:
                   value: API
+                widgetQuery:
+                  value: service:api-gateway
                 tags:
                   values:
                   - key: service
@@ -4464,8 +4472,7 @@ paths:
       - inventory
     post:
       description: Registers a cloud account for inventory scanning. Connection settings
-        are stored as provided and are not validated at creation time; scan failures
-        surface through `lastScanStatus`.
+        are stored as provided and are not validated at creation time.
       operationId: createCloudAccount
       requestBody:
         content:
@@ -4660,7 +4667,8 @@ paths:
       tags:
       - inventory
     put:
-      description: Updates the friendly name of a cloud account by ID.
+      description: Updates the friendly name and owning team of a cloud account by
+        ID.
       operationId: updateCloudAccount
       parameters:
       - description: Identifier of the cloud account to update. Use the `id` returned
@@ -7235,7 +7243,7 @@ paths:
       - metric-routes
     put:
       description: Updates an existing metric route by ID without changing its evaluation
-        order. Fields omitted from the request keep their existing values. Metric
+        order. An omitted `description` or `tags` keeps its existing value. Metric
         routes affect only newly ingested metrics after the cluster receives the updated
         configuration.
       operationId: updateMetricRoute
@@ -10717,7 +10725,7 @@ paths:
       - routes
     put:
       description: Updates an existing log route by ID without changing its evaluation
-        order. Fields omitted from the request keep their existing values. Routes
+        order. An omitted `description` or `tags` keeps its existing value. Routes
         affect only newly ingested logs after the cluster receives the updated configuration.
       operationId: updateRoute
       parameters:
@@ -11960,6 +11968,384 @@ paths:
               style: simple
       tags:
       - slos
+  /v1/spans/routes:
+    get:
+      description: "Lists span routes: ingest pipelines that rename, parse or create\
+        \ attributes on incoming spans, in evaluation order, earlier routes first."
+      operationId: listSpanRoutes
+      parameters:
+      - description: Maximum number of items to return in this page. Omit to use the
+          public API default of 100.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - description: "Zero-based index of the first matching item to return. Increase\
+          \ it with `limit` to request later pages. If `limit` is provided without\
+          \ `offset`, the offset defaults to 0."
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListSpanRoutesResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - span-routes
+    post:
+      description: "Creates a span route, an ingest pipeline that renames, parses\
+        \ or creates attributes on incoming spans, at the end of the evaluation order.\
+        \ It applies only to spans ingested after the cluster receives the updated\
+        \ configuration."
+      operationId: createSpanRoute
+      requestBody:
+        content:
+          application/json:
+            example:
+              name: Normalize Checkout Spans
+              description: Maps legacy attribute names onto the OpenTelemetry conventions
+              isEnabled: true
+              query: context.service.name:checkout
+              tags:
+              - key: category
+                value: normalization
+              owner: team-123-abc
+              processors:
+              - id: map-http-method
+                type: mapper
+                tags: []
+                params:
+                  subtype: map-attributes
+                  attributes:
+                  - originAttribute: http.method
+                    targetAttribute: http.request.method
+                    keepOrigin: false
+                    overrideTarget: true
+            schema:
+              $ref: "#/components/schemas/createSpanRoute_request"
+        description: "Span route create or update request. Provide the route metadata,\
+          \ source query, owner team, enabled state, tags, and ordered processors."
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateSpanRouteResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - span-routes
+  /v1/spans/routes/{id}:
+    delete:
+      description: Deletes a span route by ID and compacts the evaluation order for
+        remaining routes. The route stops processing future spans after the cluster
+        receives the updated configuration.
+      operationId: deleteSpanRoute
+      parameters:
+      - description: "Identifier of the span route to delete. Use the `id` returned\
+          \ by span route list, create, or update responses."
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteSpanRouteResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - span-routes
+    get:
+      description: Retrieves one span route by ID.
+      operationId: getSpanRoute
+      parameters:
+      - description: Identifier of the span route to retrieve. Use the `id` returned
+          by span route list or create responses.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetSpanRouteResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - span-routes
+    put:
+      description: Updates an existing span route by ID without changing its evaluation
+        order. An omitted `description` or `tags` keeps its existing value. Span routes
+        affect only newly ingested spans after the cluster receives the updated configuration.
+      operationId: updateSpanRoute
+      parameters:
+      - description: "Identifier of the span route to update. Use the `id` returned\
+          \ by span route list, get, or create responses."
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: "Folder filter for dashboard query results. Optional; pass\
+            \ a folder ID to return dashboards in that folder, or null to return only\
+            \ dashboards that are not in any folder."
+          maxLength: 250
+          minLength: 1
+          nullable: true
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              name: Normalize Checkout Spans
+              description: Maps legacy attribute names onto the OpenTelemetry conventions
+              isEnabled: true
+              query: context.service.name:checkout
+              tags:
+              - key: category
+                value: normalization
+              owner: team-123-abc
+              processors:
+              - id: map-http-method
+                type: mapper
+                tags: []
+                params:
+                  subtype: map-attributes
+                  attributes:
+                  - originAttribute: http.method
+                    targetAttribute: http.request.method
+                    keepOrigin: false
+                    overrideTarget: true
+            schema:
+              $ref: "#/components/schemas/updateSpanRoute_request"
+        description: "Span route create or update request. Provide the route metadata,\
+          \ source query, owner team, enabled state, tags, and ordered processors."
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateSpanRouteResponse"
+          description: Successful response
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "4XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientErrorEnvelope"
+          description: Client error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerErrorEnvelope"
+          description: Server error
+          headers:
+            x-request-id:
+              description: "Unique identifier for this API request, useful for debugging\
+                \ and support"
+              explode: false
+              schema:
+                type: string
+              style: simple
+      tags:
+      - span-routes
   /v1/tag-policies:
     get:
       description: "Lists tag policies: required tags and allowed values enforced\
@@ -13154,14 +13540,14 @@ paths:
           type: string
         style: form
       - description: Maximum number of spans to return. Defaults to 100. Valid values
-          are 1 through 10000.
+          are 1 through 1000.
         explode: true
         in: query
         name: maxResults
         required: false
         schema:
           default: 100
-          maximum: 10000
+          maximum: 1000
           minimum: 1
           type: integer
         style: form
@@ -13800,6 +14186,18 @@ components:
       - $ref: "#/components/schemas/OutputProcessor_anyOf_1"
       - $ref: "#/components/schemas/OutputProcessor_anyOf_2"
       - $ref: "#/components/schemas/OutputProcessor_anyOf_3"
+    InputSpansProcessor:
+      anyOf:
+      - $ref: "#/components/schemas/createMetricRoute_request_processors_inner_oneOf"
+      - $ref: "#/components/schemas/InputProcessor_anyOf_1"
+      - $ref: "#/components/schemas/InputProcessor_anyOf_2"
+      - $ref: "#/components/schemas/InputSpansProcessor_anyOf"
+    OutputSpansProcessor:
+      anyOf:
+      - $ref: "#/components/schemas/OutputSpansProcessor_anyOf"
+      - $ref: "#/components/schemas/OutputProcessor_anyOf_1"
+      - $ref: "#/components/schemas/OutputProcessor_anyOf_2"
+      - $ref: "#/components/schemas/OutputSpansProcessor_anyOf_1"
     ClientErrorResponse:
       description: Standard envelope for client (4XX) API errors
       example:
@@ -21080,8 +21478,13 @@ components:
           - metric-unit-consistency
           - host-name-present
           - inconsistent-attribute-naming
+          - inconsistent-metric-naming
+          - inconsistent-log-attribute-naming
+          - inconsistent-span-attribute-naming
           - no-dynamic-log-attribute-names
           - no-dynamic-span-attribute-names
+          - no-excessive-log-attributes
+          - no-excessive-span-attributes
           - no-duplicate-attr-values
           - no-debug-logs-in-prod
           - no-multiline-logs
@@ -23252,6 +23655,444 @@ components:
       - data
       - requestId
     DeleteSloResponse:
+      example:
+        requestId: requestId
+        data:
+          success: true
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/DeleteResponse"
+      required:
+      - data
+      - requestId
+    SpanRoute:
+      description: "Team-owned spans processing definition that selects newly ingested\
+        \ spans with a query and applies ordered processors. See [Routes](/documentation/process/routes/index)."
+      example:
+        id: id
+        name: name
+        description: description
+        isEnabled: true
+        query: query
+        tags:
+        - key: key
+          value: value
+        - key: key
+          value: value
+        owner: owner
+        processors:
+        - id: id
+          description: description
+          tags:
+          - key: key
+            value: value
+          - key: key
+            value: value
+          updatedAt: updatedAt
+          type: mapper
+          params:
+            attributes:
+            - originAttribute: originAttribute
+              keepOrigin: true
+              overrideTarget: true
+              targetAttribute: targetAttribute
+            - originAttribute: originAttribute
+              keepOrigin: true
+              overrideTarget: true
+              targetAttribute: targetAttribute
+            subtype: map-attributes
+        - id: id
+          description: description
+          tags:
+          - key: key
+            value: value
+          - key: key
+            value: value
+          updatedAt: updatedAt
+          type: mapper
+          params:
+            attributes:
+            - originAttribute: originAttribute
+              keepOrigin: true
+              overrideTarget: true
+              targetAttribute: targetAttribute
+            - originAttribute: originAttribute
+              keepOrigin: true
+              overrideTarget: true
+              targetAttribute: targetAttribute
+            subtype: map-attributes
+      properties:
+        id:
+          description: Tsuga-generated span route ID assigned when the route is created.
+          type: string
+        name:
+          description: Human-readable span route name shown in Tsuga.
+          type: string
+        description:
+          description: "Optional free-text note about the span route's purpose, set\
+            \ by the caller. This metadata is not evaluated when matching or processing\
+            \ spans."
+          type: string
+        isEnabled:
+          description: Whether this route is active for newly ingested spans. Disabled
+            routes remain saved but do not process spans.
+          type: boolean
+        query:
+          description: Tsuga query that selects which newly ingested spans enter the
+            route processor chain.
+          type: string
+        tags:
+          description: Key/value tags applied to the resource. Use them to organize
+            resources and to satisfy tag policies.
+          items:
+            $ref: "#/components/schemas/Tag"
+          title: Tags
+          type: array
+          default: null
+        owner:
+          description: "ID of the team that owns the span route. Determines which\
+            \ team members can view and manage it. Only an org admin or an admin of\
+            \ this team may change fields other than `processors`, or delete the route."
+          type: string
+        processors:
+          description: "Processors applied in array order to spans that match the\
+            \ route, each transforming the output of the previous one."
+          items:
+            $ref: "#/components/schemas/OutputSpansProcessor"
+          type: array
+          default: null
+      required:
+      - id
+      - isEnabled
+      - name
+      - owner
+      - processors
+      - query
+    ListSpanRoutesResponse:
+      example:
+        requestId: requestId
+        data:
+        - id: id
+          name: name
+          description: description
+          isEnabled: true
+          query: query
+          tags:
+          - key: key
+            value: value
+          - key: key
+            value: value
+          owner: owner
+          processors:
+          - id: id
+            description: description
+            tags:
+            - key: key
+              value: value
+            - key: key
+              value: value
+            updatedAt: updatedAt
+            type: mapper
+            params:
+              attributes:
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              subtype: map-attributes
+          - id: id
+            description: description
+            tags:
+            - key: key
+              value: value
+            - key: key
+              value: value
+            updatedAt: updatedAt
+            type: mapper
+            params:
+              attributes:
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              subtype: map-attributes
+        - id: id
+          name: name
+          description: description
+          isEnabled: true
+          query: query
+          tags:
+          - key: key
+            value: value
+          - key: key
+            value: value
+          owner: owner
+          processors:
+          - id: id
+            description: description
+            tags:
+            - key: key
+              value: value
+            - key: key
+              value: value
+            updatedAt: updatedAt
+            type: mapper
+            params:
+              attributes:
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              subtype: map-attributes
+          - id: id
+            description: description
+            tags:
+            - key: key
+              value: value
+            - key: key
+              value: value
+            updatedAt: updatedAt
+            type: mapper
+            params:
+              attributes:
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              subtype: map-attributes
+        metadata:
+          pagination:
+            totalCount: 7
+            pageCount: 9
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          items:
+            $ref: "#/components/schemas/SpanRoute"
+          type: array
+          default: null
+        metadata:
+          $ref: "#/components/schemas/ResponseMetadata"
+      required:
+      - data
+      - requestId
+    GetSpanRouteResponse:
+      example:
+        requestId: requestId
+        data:
+          id: id
+          name: name
+          description: description
+          isEnabled: true
+          query: query
+          tags:
+          - key: key
+            value: value
+          - key: key
+            value: value
+          owner: owner
+          processors:
+          - id: id
+            description: description
+            tags:
+            - key: key
+              value: value
+            - key: key
+              value: value
+            updatedAt: updatedAt
+            type: mapper
+            params:
+              attributes:
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              subtype: map-attributes
+          - id: id
+            description: description
+            tags:
+            - key: key
+              value: value
+            - key: key
+              value: value
+            updatedAt: updatedAt
+            type: mapper
+            params:
+              attributes:
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              subtype: map-attributes
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/SpanRoute"
+      required:
+      - data
+      - requestId
+    CreateSpanRouteResponse:
+      example:
+        requestId: requestId
+        data:
+          id: id
+          name: name
+          description: description
+          isEnabled: true
+          query: query
+          tags:
+          - key: key
+            value: value
+          - key: key
+            value: value
+          owner: owner
+          processors:
+          - id: id
+            description: description
+            tags:
+            - key: key
+              value: value
+            - key: key
+              value: value
+            updatedAt: updatedAt
+            type: mapper
+            params:
+              attributes:
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              subtype: map-attributes
+          - id: id
+            description: description
+            tags:
+            - key: key
+              value: value
+            - key: key
+              value: value
+            updatedAt: updatedAt
+            type: mapper
+            params:
+              attributes:
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              subtype: map-attributes
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/SpanRoute"
+      required:
+      - data
+      - requestId
+    UpdateSpanRouteResponse:
+      example:
+        requestId: requestId
+        data:
+          id: id
+          name: name
+          description: description
+          isEnabled: true
+          query: query
+          tags:
+          - key: key
+            value: value
+          - key: key
+            value: value
+          owner: owner
+          processors:
+          - id: id
+            description: description
+            tags:
+            - key: key
+              value: value
+            - key: key
+              value: value
+            updatedAt: updatedAt
+            type: mapper
+            params:
+              attributes:
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              subtype: map-attributes
+          - id: id
+            description: description
+            tags:
+            - key: key
+              value: value
+            - key: key
+              value: value
+            updatedAt: updatedAt
+            type: mapper
+            params:
+              attributes:
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              - originAttribute: originAttribute
+                keepOrigin: true
+                overrideTarget: true
+                targetAttribute: targetAttribute
+              subtype: map-attributes
+      properties:
+        requestId:
+          description: Identifier used to trace the lifecycle of this API request
+          type: string
+        data:
+          $ref: "#/components/schemas/SpanRoute"
+      required:
+      - data
+      - requestId
+    DeleteSpanRouteResponse:
       example:
         requestId: requestId
         data:
@@ -30932,6 +31773,166 @@ components:
       required:
       - attributeName
       - subtype
+    OperationApiKeyIdentity:
+      description: "Identity and effective access for the operation API key used on\
+        \ the request. Returned when the bearer token is an operation API key. See\
+        \ [API keys](/documentation/account-and-settings/api-keys)."
+      example:
+        type: operation-api-key
+        id: id
+        name: name
+        owner: owner
+        scope: all
+        permissions:
+          dashboard: read
+          dashboard-folder: read
+          monitor-folder: read
+          documentation: read
+          ingestion-api-key: read
+          rum-public-token: read
+          operation-api-key: read
+          inventory: read
+          cloud-account: read
+          custom-role: read
+          data-deletion-request: read
+          logs: read
+          log-route: read
+          metrics: read
+          metric-route: read
+          span-route: read
+          monitor: read
+          allowed-domains: read
+          queue: read
+          quality-report: read
+          billing: read
+          service: read
+          service-target: read
+          slo: read
+          notification-rule: read
+          adaptive-notification-rule: read
+          notification-integration: read
+          notification-silence: read
+          custom-usage-tag: read
+          retention-policy: read
+          sandbox-configuration: read
+          tag-policy: read
+          team: read
+          traces: read
+          rum: read
+          user: read
+          user-invitation: read
+        keyLastCharacters: keyLastCharacters
+        expiresAt: expiresAt
+      properties:
+        type:
+          description: Credential type for this response variant. Set by Tsuga from
+            the bearer token used on the request. Returned as `operation-api-key`
+            when the request authenticated with an operation API key.
+          enum:
+          - operation-api-key
+          type: string
+        id:
+          description: Unique identifier of the operation API key. Generated by Tsuga
+            when the key is created. Use this as the stable key identifier when correlating
+            API calls with audit logs or key-management records.
+          type: string
+        name:
+          description: Display name of the operation API key. Set by the user who
+            created or last updated the key. Returned for every operation-key-authenticated
+            request so clients can show which saved key is active.
+          type: string
+        owner:
+          description: "Identifier of the team that owns the operation API key. Set\
+            \ when the key is created or updated. Combined with `scope`, it determines\
+            \ which team-owned resources the key can reach."
+          type: string
+        scope:
+          description: "Team-access boundary for the operation API key. Set when the\
+            \ key is created or updated. `all` can reach all teams, `owning-team-and-public`\
+            \ can reach the owning team and public teams, and `owning-team-only` can\
+            \ reach only the owning team."
+          enum:
+          - all
+          - owning-team-and-public
+          - owning-team-only
+          type: string
+        permissions:
+          $ref: "#/components/schemas/createOperationApiKey_request_permissions"
+        keyLastCharacters:
+          description: Last characters of the operation API key secret. Set by Tsuga
+            from the generated secret and returned because the full secret is only
+            shown once at creation. Use this to distinguish saved keys without exposing
+            the secret.
+          type: string
+        expiresAt:
+          description: Timestamp after which the operation API key stops authenticating.
+            Set when the key is created or updated. Returned only for keys that have
+            an expiration date.
+          type: string
+      required:
+      - id
+      - keyLastCharacters
+      - name
+      - owner
+      - permissions
+      - scope
+      - type
+    UserIdentity:
+      description: "Identity for the user OAuth access token used on the request.\
+        \ Returned when the bearer token is a user access token. Access follows the\
+        \ user organization role rather than an operation-key permission map. See\
+        \ [Members](/documentation/account-and-settings/members)."
+      properties:
+        type:
+          description: Credential type for this response variant. Set by Tsuga from
+            the bearer token used on the request. Returned as `user` when the request
+            authenticated with a user OAuth access token.
+          enum:
+          - user
+          type: string
+        email:
+          description: "Lowercase email address for the user. Use this for display\
+            \ and invitation matching, not as a stable identifier."
+          type: string
+        id:
+          description: Unique identifier of the user. Generated by Tsuga and stable
+            for the user lifetime.
+          type: string
+        name:
+          description: Display name of the user.
+          type: string
+        role:
+          $ref: "#/components/schemas/User_role"
+        orgId:
+          description: Identifier of the Tsuga organization the user belongs to.
+          type: string
+        orgName:
+          description: Display name of the Tsuga organization the user belongs to.
+            Absent when the organization record cannot be resolved.
+          type: string
+        favoriteDashboards:
+          description: "Dashboard IDs the user marked as favorites. Not pruned when\
+            \ a dashboard is deleted, so an ID may no longer resolve."
+          items:
+            type: string
+          type: array
+          default: null
+        favoriteFolders:
+          description: "Dashboard folder IDs the user marked as favorites. Not pruned\
+            \ when a folder is deleted, so an ID may no longer resolve."
+          items:
+            type: string
+          type: array
+          default: null
+      required:
+      - email
+      - favoriteDashboards
+      - favoriteFolders
+      - id
+      - name
+      - orgId
+      - role
+      - type
     ObservedServiceGraphNode:
       description: Service graph node matched to a service catalog entry by name and
         env. `id`/`namespace` are null when multiple namespaces share the observed
@@ -31250,166 +32251,6 @@ components:
       - sloAlert
       - transitionId
       - triggeredBy
-      - type
-    OperationApiKeyIdentity:
-      description: "Identity and effective access for the operation API key used on\
-        \ the request. Returned when the bearer token is an operation API key. See\
-        \ [API keys](/documentation/account-and-settings/api-keys)."
-      example:
-        type: operation-api-key
-        id: id
-        name: name
-        owner: owner
-        scope: all
-        permissions:
-          dashboard: read
-          dashboard-folder: read
-          monitor-folder: read
-          documentation: read
-          ingestion-api-key: read
-          rum-public-token: read
-          operation-api-key: read
-          inventory: read
-          cloud-account: read
-          custom-role: read
-          data-deletion-request: read
-          logs: read
-          log-route: read
-          metrics: read
-          metric-route: read
-          span-route: read
-          monitor: read
-          allowed-domains: read
-          queue: read
-          quality-report: read
-          billing: read
-          service: read
-          service-target: read
-          slo: read
-          notification-rule: read
-          adaptive-notification-rule: read
-          notification-integration: read
-          notification-silence: read
-          custom-usage-tag: read
-          retention-policy: read
-          sandbox-configuration: read
-          tag-policy: read
-          team: read
-          traces: read
-          rum: read
-          user: read
-          user-invitation: read
-        keyLastCharacters: keyLastCharacters
-        expiresAt: expiresAt
-      properties:
-        type:
-          description: Credential type for this response variant. Set by Tsuga from
-            the bearer token used on the request. Returned as `operation-api-key`
-            when the request authenticated with an operation API key.
-          enum:
-          - operation-api-key
-          type: string
-        id:
-          description: Unique identifier of the operation API key. Generated by Tsuga
-            when the key is created. Use this as the stable key identifier when correlating
-            API calls with audit logs or key-management records.
-          type: string
-        name:
-          description: Display name of the operation API key. Set by the user who
-            created or last updated the key. Returned for every operation-key-authenticated
-            request so clients can show which saved key is active.
-          type: string
-        owner:
-          description: "Identifier of the team that owns the operation API key. Set\
-            \ when the key is created or updated. Combined with `scope`, it determines\
-            \ which team-owned resources the key can reach."
-          type: string
-        scope:
-          description: "Team-access boundary for the operation API key. Set when the\
-            \ key is created or updated. `all` can reach all teams, `owning-team-and-public`\
-            \ can reach the owning team and public teams, and `owning-team-only` can\
-            \ reach only the owning team."
-          enum:
-          - all
-          - owning-team-and-public
-          - owning-team-only
-          type: string
-        permissions:
-          $ref: "#/components/schemas/createOperationApiKey_request_permissions"
-        keyLastCharacters:
-          description: Last characters of the operation API key secret. Set by Tsuga
-            from the generated secret and returned because the full secret is only
-            shown once at creation. Use this to distinguish saved keys without exposing
-            the secret.
-          type: string
-        expiresAt:
-          description: Timestamp after which the operation API key stops authenticating.
-            Set when the key is created or updated. Returned only for keys that have
-            an expiration date.
-          type: string
-      required:
-      - id
-      - keyLastCharacters
-      - name
-      - owner
-      - permissions
-      - scope
-      - type
-    UserIdentity:
-      description: "Identity for the user OAuth access token used on the request.\
-        \ Returned when the bearer token is a user access token. Access follows the\
-        \ user organization role rather than an operation-key permission map. See\
-        \ [Members](/documentation/account-and-settings/members)."
-      properties:
-        type:
-          description: Credential type for this response variant. Set by Tsuga from
-            the bearer token used on the request. Returned as `user` when the request
-            authenticated with a user OAuth access token.
-          enum:
-          - user
-          type: string
-        email:
-          description: "Lowercase email address for the user. Use this for display\
-            \ and invitation matching, not as a stable identifier."
-          type: string
-        id:
-          description: Unique identifier of the user. Generated by Tsuga and stable
-            for the user lifetime.
-          type: string
-        name:
-          description: Display name of the user.
-          type: string
-        role:
-          $ref: "#/components/schemas/User_role"
-        orgId:
-          description: Identifier of the Tsuga organization the user belongs to.
-          type: string
-        orgName:
-          description: Display name of the Tsuga organization the user belongs to.
-            Absent when the organization record cannot be resolved.
-          type: string
-        favoriteDashboards:
-          description: "Dashboard IDs the user marked as favorites. Not pruned when\
-            \ a dashboard is deleted, so an ID may no longer resolve."
-          items:
-            type: string
-          type: array
-          default: null
-        favoriteFolders:
-          description: "Dashboard folder IDs the user marked as favorites. Not pruned\
-            \ when a folder is deleted, so an ID may no longer resolve."
-          items:
-            type: string
-          type: array
-          default: null
-      required:
-      - email
-      - favoriteDashboards
-      - favoriteFolders
-      - id
-      - name
-      - orgId
-      - role
       - type
     InputTag:
       properties:
@@ -35239,6 +36080,28 @@ components:
           type: boolean
       required:
       - value
+    queryDashboards_request_filters_widgetQuery:
+      description: "Text filter for what dashboard widgets query, such as a service,\
+        \ field, metric or function. Returns dashboards with at least one matching\
+        \ widget or dashboard-wide filter; get a returned dashboard by ID to read\
+        \ its widgets."
+      properties:
+        value:
+          description: "Substring matched case-insensitively against every text value\
+            \ in the widget queries (filters, aggregate types such as `percentile`,\
+            \ fields, metric names and PromQL), in the group-by fields and in the\
+            \ dashboard-wide filters applied to every widget. Display settings, such\
+            \ as the widget type, legend or units, and note text are not matched.\
+            \ Omit the whole `widgetQuery` filter to skip it."
+          maxLength: 250
+          minLength: 1
+          type: string
+        exclude:
+          description: "If true, exclude dashboards with a matching widget or dashboard-wide\
+            \ filter instead of including them"
+          type: boolean
+      required:
+      - value
     queryDashboards_request_filters_tags:
       description: Restrict results to dashboards that have at least one of the listed
         key/value tags
@@ -35264,6 +36127,8 @@ components:
           $ref: "#/components/schemas/queryDashboards_request_filters_owners"
         searchQuery:
           $ref: "#/components/schemas/queryDashboards_request_filters_searchQuery"
+        widgetQuery:
+          $ref: "#/components/schemas/queryDashboards_request_filters_widgetQuery"
         tags:
           $ref: "#/components/schemas/queryDashboards_request_filters_tags"
         folderId:
@@ -36503,7 +37368,7 @@ components:
     createCloudAccount_request_connectionSettings:
       description: "Credentials Tsuga uses to scan the account, in the provider-specific\
         \ shape selected by `type`. Credentials are stored as provided and are not\
-        \ validated at creation time; failures surface through `lastScanStatus`."
+        \ validated at creation time."
       discriminator:
         mapping:
           aws: "#/components/schemas/AwsConnectionSettings"
@@ -39717,6 +40582,126 @@ components:
       - permissions
       - target
       - timeframeDays
+    createSpanRoute_request:
+      description: "Span route create or update request. Provide the route metadata,\
+        \ source query, owner team, enabled state, tags, and ordered processors."
+      properties:
+        name:
+          description: Human-readable span route name shown in Tsuga.
+          maxLength: 250
+          minLength: 1
+          type: string
+        description:
+          description: Message included in notifications triggered by this monitor.
+            Optional on create.
+          maxLength: 50000
+          minLength: 0
+          nullable: true
+          type: string
+        isEnabled:
+          description: Set to true for the span route to process newly ingested matching
+            spans. Set to false to save it without running it.
+          type: boolean
+        query:
+          description: Tsuga query that selects which newly ingested spans enter the
+            span route processor chain.
+          format: tsuga-query
+          maxLength: 10000
+          minLength: 0
+          type: string
+        tags:
+          description: Key/value tags to apply to the resource. Tag policies may require
+            specific keys or values.
+          items:
+            $ref: "#/components/schemas/InputTag"
+          maxItems: 50
+          title: InputTags
+          type: array
+          default: null
+        owner:
+          description: "ID of the team that will own the span route, determining which\
+            \ team members can view and manage it and which tag policies apply. Only\
+            \ an org admin or an admin of this team may change fields other than `processors`,\
+            \ or delete the route."
+          maxLength: 250
+          minLength: 1
+          type: string
+        processors:
+          description: "Processors applied in array order to spans that match the\
+            \ span route, each transforming the output of the previous one. A `split`\
+            \ processor forks the chain into branches and cannot be followed by another\
+            \ processor at the same level. Up to 50 are accepted."
+          items:
+            $ref: "#/components/schemas/InputSpansProcessor"
+          maxItems: 50
+          type: array
+          default: null
+      required:
+      - isEnabled
+      - name
+      - owner
+      - processors
+      - query
+    updateSpanRoute_request:
+      description: "Span route create or update request. Provide the route metadata,\
+        \ source query, owner team, enabled state, tags, and ordered processors."
+      properties:
+        name:
+          description: Human-readable span route name shown in Tsuga.
+          maxLength: 250
+          minLength: 1
+          type: string
+        description:
+          description: Optional free-text note about the span route's purpose. This
+            metadata is not evaluated when matching or processing spans.
+          maxLength: 50000
+          minLength: 0
+          nullable: true
+          type: string
+        isEnabled:
+          description: Set to true for the span route to process newly ingested matching
+            spans. Set to false to save it without running it.
+          type: boolean
+        query:
+          description: Tsuga query that selects which newly ingested spans enter the
+            span route processor chain.
+          format: tsuga-query
+          maxLength: 10000
+          minLength: 0
+          type: string
+        tags:
+          description: Key/value tags to apply to the resource. Tag policies may require
+            specific keys or values.
+          items:
+            $ref: "#/components/schemas/InputTag"
+          maxItems: 50
+          title: InputTags
+          type: array
+          default: null
+        owner:
+          description: "ID of the team that will own the span route, determining which\
+            \ team members can view and manage it and which tag policies apply. Only\
+            \ an org admin or an admin of this team may change fields other than `processors`,\
+            \ or delete the route."
+          maxLength: 250
+          minLength: 1
+          type: string
+        processors:
+          description: "Processors applied in array order to spans that match the\
+            \ span route, each transforming the output of the previous one. A `split`\
+            \ processor forks the chain into branches and cannot be followed by another\
+            \ processor at the same level. Up to 50 are accepted."
+          items:
+            $ref: "#/components/schemas/InputSpansProcessor"
+          maxItems: 50
+          type: array
+          default: null
+      required:
+      - isEnabled
+      - name
+      - owner
+      - processors
+      - query
     createTagPolicy_request_teamScope:
       description: Team scope to store for this policy. Omit this field to apply the
         policy to all teams.
@@ -40870,6 +41855,235 @@ components:
           $ref: "#/components/schemas/OutputProcessor_anyOf_3_params"
         type:
           description: Split processor. It sends each log through the first matching
+            conditional branch.
+          enum:
+          - split
+          type: string
+      required:
+      - id
+      - params
+      - type
+    InputSpansProcessor_anyOf_params_items_inner:
+      properties:
+        query:
+          description: Query that determines whether spans enter this branch
+          format: tsuga-query
+          maxLength: 10000
+          minLength: 0
+          type: string
+        processors:
+          description: Processors executed when the branch query matches
+          items:
+            $ref: "#/components/schemas/InputSpansProcessor"
+          maxItems: 50
+          type: array
+          default: null
+      required:
+      - processors
+      - query
+    InputSpansProcessor_anyOf_params:
+      properties:
+        items:
+          description: Conditional branches evaluated in order before falling back
+            to the default
+          items:
+            $ref: "#/components/schemas/InputSpansProcessor_anyOf_params_items_inner"
+          maxItems: 11
+          minItems: 2
+          type: array
+          default: null
+      required:
+      - items
+    InputSpansProcessor_anyOf:
+      properties:
+        id:
+          description: Unique identifier of the processor within the route. Preserve
+            it across updates for existing processors.
+          maxLength: 250
+          minLength: 1
+          type: string
+        description:
+          description: Optional processor note.
+          maxLength: 50000
+          minLength: 0
+          type: string
+        tags:
+          description: Key/value tags to apply to the resource. Tag policies may require
+            specific keys or values.
+          items:
+            $ref: "#/components/schemas/InputTag"
+          maxItems: 50
+          title: InputTags
+          type: array
+          default: null
+        updatedAt:
+          description: Backend-maintained timestamp for this processor. Omit this
+            field on create and update requests; Tsuga sets or preserves it based
+            on processor changes.
+          type: string
+        params:
+          $ref: "#/components/schemas/InputSpansProcessor_anyOf_params"
+        type:
+          description: Split processor. It sends each span through the first matching
+            conditional branch.
+          enum:
+          - split
+          type: string
+      required:
+      - id
+      - params
+      - type
+    OutputSpansProcessor_anyOf_params_attributes_inner:
+      example:
+        originAttribute: originAttribute
+        keepOrigin: true
+        overrideTarget: true
+        targetAttribute: targetAttribute
+      properties:
+        originAttribute:
+          description: Attribute name to map to the target attribute
+          type: string
+        keepOrigin:
+          description: Whether the source attribute is preserved after mapping.
+          type: boolean
+        overrideTarget:
+          description: Whether to overwrite the target attribute when it already exists.
+          type: boolean
+        targetAttribute:
+          description: Attribute name that will receive the mapped value
+          type: string
+      required:
+      - originAttribute
+      - targetAttribute
+    OutputSpansProcessor_anyOf_params:
+      example:
+        attributes:
+        - originAttribute: originAttribute
+          keepOrigin: true
+          overrideTarget: true
+          targetAttribute: targetAttribute
+        - originAttribute: originAttribute
+          keepOrigin: true
+          overrideTarget: true
+          targetAttribute: targetAttribute
+        subtype: map-attributes
+      properties:
+        attributes:
+          description: Mappings that map individual attributes to new targets
+          items:
+            $ref: "#/components/schemas/OutputSpansProcessor_anyOf_params_attributes_inner"
+          type: array
+          default: null
+        subtype:
+          description: Copies or moves one or more source attributes to target attributes.
+          enum:
+          - map-attributes
+          type: string
+      required:
+      - attributes
+      - subtype
+    OutputSpansProcessor_anyOf:
+      example:
+        id: id
+        description: description
+        tags:
+        - key: key
+          value: value
+        - key: key
+          value: value
+        updatedAt: updatedAt
+        type: mapper
+        params:
+          attributes:
+          - originAttribute: originAttribute
+            keepOrigin: true
+            overrideTarget: true
+            targetAttribute: targetAttribute
+          - originAttribute: originAttribute
+            keepOrigin: true
+            overrideTarget: true
+            targetAttribute: targetAttribute
+          subtype: map-attributes
+      properties:
+        id:
+          description: Unique identifier of the processor within the route. Used to
+            preserve processor identity during updates.
+          type: string
+        description:
+          description: Optional user-provided processor note.
+          type: string
+        tags:
+          description: Key/value tags applied to the resource. Use them to organize
+            resources and to satisfy tag policies.
+          items:
+            $ref: "#/components/schemas/Tag"
+          title: Tags
+          type: array
+          default: null
+        updatedAt:
+          description: Timestamp when Tsuga last updated the processor.
+          type: string
+        type:
+          description: "Map processor. It moves, copies, or normalizes existing log\
+            \ attributes."
+          enum:
+          - mapper
+          type: string
+        params:
+          $ref: "#/components/schemas/OutputSpansProcessor_anyOf_params"
+      required:
+      - id
+      - params
+      - type
+    OutputSpansProcessor_anyOf_1_params_items_inner:
+      properties:
+        query:
+          description: Query that determines whether spans enter this branch
+          type: string
+        processors:
+          description: Processors executed when the branch query matches
+          items:
+            $ref: "#/components/schemas/OutputSpansProcessor"
+          type: array
+          default: null
+      required:
+      - processors
+      - query
+    OutputSpansProcessor_anyOf_1_params:
+      properties:
+        items:
+          description: Conditional branches evaluated in order before falling back
+            to the default
+          items:
+            $ref: "#/components/schemas/OutputSpansProcessor_anyOf_1_params_items_inner"
+          type: array
+          default: null
+      required:
+      - items
+    OutputSpansProcessor_anyOf_1:
+      properties:
+        id:
+          description: Unique identifier of the processor within the route. Used to
+            preserve processor identity during updates.
+          type: string
+        description:
+          description: Optional user-provided processor note.
+          type: string
+        tags:
+          description: Key/value tags applied to the resource. Use them to organize
+            resources and to satisfy tag policies.
+          items:
+            $ref: "#/components/schemas/Tag"
+          title: Tags
+          type: array
+          default: null
+        updatedAt:
+          description: Timestamp when Tsuga last updated the processor.
+          type: string
+        params:
+          $ref: "#/components/schemas/OutputSpansProcessor_anyOf_1_params"
+        type:
+          description: Split processor. It sends each span through the first matching
             conditional branch.
           enum:
           - split
@@ -43892,109 +45106,7 @@ components:
       required:
       - name
       - type
-    MetricRoute_processors_inner_oneOf_params_attributes_inner:
-      example:
-        originAttribute: originAttribute
-        keepOrigin: true
-        overrideTarget: true
-        targetAttribute: targetAttribute
-      properties:
-        originAttribute:
-          description: Attribute name to map to the target attribute
-          type: string
-        keepOrigin:
-          description: Whether the source attribute is preserved after mapping.
-          type: boolean
-        overrideTarget:
-          description: Whether to overwrite the target attribute when it already exists.
-          type: boolean
-        targetAttribute:
-          description: Attribute name that will receive the mapped value
-          type: string
-      required:
-      - originAttribute
-      - targetAttribute
     MetricRoute_processors_inner_oneOf_params:
-      example:
-        attributes:
-        - originAttribute: originAttribute
-          keepOrigin: true
-          overrideTarget: true
-          targetAttribute: targetAttribute
-        - originAttribute: originAttribute
-          keepOrigin: true
-          overrideTarget: true
-          targetAttribute: targetAttribute
-        subtype: map-attributes
-      properties:
-        attributes:
-          description: Mappings that map individual attributes to new targets
-          items:
-            $ref: "#/components/schemas/MetricRoute_processors_inner_oneOf_params_attributes_inner"
-          type: array
-          default: null
-        subtype:
-          description: Copies or moves one or more source attributes to target attributes.
-          enum:
-          - map-attributes
-          type: string
-      required:
-      - attributes
-      - subtype
-    MetricRoute_processors_inner_oneOf:
-      example:
-        id: id
-        description: description
-        tags:
-        - key: key
-          value: value
-        - key: key
-          value: value
-        updatedAt: updatedAt
-        type: mapper
-        params:
-          attributes:
-          - originAttribute: originAttribute
-            keepOrigin: true
-            overrideTarget: true
-            targetAttribute: targetAttribute
-          - originAttribute: originAttribute
-            keepOrigin: true
-            overrideTarget: true
-            targetAttribute: targetAttribute
-          subtype: map-attributes
-      properties:
-        id:
-          description: Unique identifier of the processor within the route. Used to
-            preserve processor identity during updates.
-          type: string
-        description:
-          description: Optional user-provided processor note.
-          type: string
-        tags:
-          description: Key/value tags applied to the resource. Use them to organize
-            resources and to satisfy tag policies.
-          items:
-            $ref: "#/components/schemas/Tag"
-          title: Tags
-          type: array
-          default: null
-        updatedAt:
-          description: Timestamp when Tsuga last updated the processor.
-          type: string
-        type:
-          description: "Map processor. It moves, copies, or normalizes existing log\
-            \ attributes."
-          enum:
-          - mapper
-          type: string
-        params:
-          $ref: "#/components/schemas/MetricRoute_processors_inner_oneOf_params"
-      required:
-      - id
-      - params
-      - type
-    MetricRoute_processors_inner_oneOf_1_params:
       properties:
         attributeName:
           description: Attribute whose value will be parsed with Grok rules
@@ -44020,7 +45132,7 @@ components:
       - attributeName
       - rules
       - subtype
-    MetricRoute_processors_inner_oneOf_1:
+    MetricRoute_processors_inner_oneOf:
       properties:
         id:
           description: Unique identifier of the processor within the route. Used to
@@ -44047,12 +45159,12 @@ components:
           - parse-attribute
           type: string
         params:
-          $ref: "#/components/schemas/MetricRoute_processors_inner_oneOf_1_params"
+          $ref: "#/components/schemas/MetricRoute_processors_inner_oneOf_params"
       required:
       - id
       - params
       - type
-    MetricRoute_processors_inner_oneOf_2_params_oneOf:
+    MetricRoute_processors_inner_oneOf_1_params_oneOf:
       properties:
         targetAttribute:
           description: Attribute that will receive the formatted value
@@ -44074,7 +45186,7 @@ components:
       - formatString
       - subtype
       - targetAttribute
-    MetricRoute_processors_inner_oneOf_2_params_oneOf_1_clauses_inner:
+    MetricRoute_processors_inner_oneOf_1_params_oneOf_1_clauses_inner:
       properties:
         query:
           description: Query that selects logs for this category clause.
@@ -44085,7 +45197,7 @@ components:
       required:
       - query
       - value
-    MetricRoute_processors_inner_oneOf_2_params_oneOf_1:
+    MetricRoute_processors_inner_oneOf_1_params_oneOf_1:
       properties:
         targetAttribute:
           description: Attribute that will receive the category value
@@ -44093,7 +45205,7 @@ components:
         clauses:
           description: Conditions evaluated in order to determine the category value.
           items:
-            $ref: "#/components/schemas/MetricRoute_processors_inner_oneOf_2_params_oneOf_1_clauses_inner"
+            $ref: "#/components/schemas/MetricRoute_processors_inner_oneOf_1_params_oneOf_1_clauses_inner"
           type: array
           default: null
         defaultValue:
@@ -44107,17 +45219,17 @@ components:
       - clauses
       - subtype
       - targetAttribute
-    MetricRoute_processors_inner_oneOf_2_params:
+    MetricRoute_processors_inner_oneOf_1_params:
       discriminator:
         propertyName: subtype
       oneOf:
-      - $ref: "#/components/schemas/MetricRoute_processors_inner_oneOf_2_params_oneOf"
-      - $ref: "#/components/schemas/MetricRoute_processors_inner_oneOf_2_params_oneOf_1"
+      - $ref: "#/components/schemas/MetricRoute_processors_inner_oneOf_1_params_oneOf"
+      - $ref: "#/components/schemas/MetricRoute_processors_inner_oneOf_1_params_oneOf_1"
       required:
       - subtype
       errorMessage:
         discriminator: "value of tag \"subtype\" must be one of: format-string, category"
-    MetricRoute_processors_inner_oneOf_2:
+    MetricRoute_processors_inner_oneOf_1:
       properties:
         id:
           description: Unique identifier of the processor within the route. Used to
@@ -44144,7 +45256,7 @@ components:
           - creator
           type: string
         params:
-          $ref: "#/components/schemas/MetricRoute_processors_inner_oneOf_2_params"
+          $ref: "#/components/schemas/MetricRoute_processors_inner_oneOf_1_params"
       required:
       - id
       - params
@@ -44153,9 +45265,9 @@ components:
       discriminator:
         propertyName: type
       oneOf:
+      - $ref: "#/components/schemas/OutputSpansProcessor_anyOf"
       - $ref: "#/components/schemas/MetricRoute_processors_inner_oneOf"
       - $ref: "#/components/schemas/MetricRoute_processors_inner_oneOf_1"
-      - $ref: "#/components/schemas/MetricRoute_processors_inner_oneOf_2"
       required:
       - type
       errorMessage:

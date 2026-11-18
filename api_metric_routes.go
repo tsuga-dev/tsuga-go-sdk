@@ -81,7 +81,7 @@ type MetricRoutesAPI interface {
 	/*
 		UpdateMetricRoute Method for UpdateMetricRoute
 
-		Updates an existing metric route by ID without changing its evaluation order. Fields omitted from the request keep their existing values. Metric routes affect only newly ingested metrics after the cluster receives the updated configuration.
+		Updates an existing metric route by ID without changing its evaluation order. An omitted `description` or `tags` keeps its existing value. Metric routes affect only newly ingested metrics after the cluster receives the updated configuration.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Identifier of the metric route to update. Use the `id` returned by metric route list, get, or create responses.
@@ -657,7 +657,7 @@ func (r MetricRoutesAPIUpdateMetricRouteRequest) Execute() (*UpdateMetricRouteRe
 /*
 UpdateMetricRoute Method for UpdateMetricRoute
 
-Updates an existing metric route by ID without changing its evaluation order. Fields omitted from the request keep their existing values. Metric routes affect only newly ingested metrics after the cluster receives the updated configuration.
+Updates an existing metric route by ID without changing its evaluation order. An omitted `description` or `tags` keeps its existing value. Metric routes affect only newly ingested metrics after the cluster receives the updated configuration.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Identifier of the metric route to update. Use the `id` returned by metric route list, get, or create responses.

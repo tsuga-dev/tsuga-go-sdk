@@ -37,6 +37,7 @@ api_rum.go
 api_services.go
 api_short_urls.go
 api_slos.go
+api_span_routes.go
 api_tag_policies.go
 api_team_memberships.go
 api_teams.go
@@ -177,6 +178,8 @@ docs/CreateServiceNotificationTargetResponse.md
 docs/CreateSloRequest.md
 docs/CreateSloRequestAlertsInner.md
 docs/CreateSloResponse.md
+docs/CreateSpanRouteRequest.md
+docs/CreateSpanRouteResponse.md
 docs/CreateTagPolicyRequest.md
 docs/CreateTagPolicyRequestConfiguration.md
 docs/CreateTagPolicyRequestTeamScope.md
@@ -234,6 +237,7 @@ docs/DeleteRetentionPolicyResponse.md
 docs/DeleteRouteResponse.md
 docs/DeleteServiceNotificationTargetResponse.md
 docs/DeleteSloResponse.md
+docs/DeleteSpanRouteResponse.md
 docs/DeleteTagPolicyResponse.md
 docs/DeleteTeamResponse.md
 docs/DistributionContrastSet.md
@@ -338,6 +342,7 @@ docs/GetServiceGraphResponseDataNodesInner.md
 docs/GetServiceResponse.md
 docs/GetShortUrlResponse.md
 docs/GetSloResponse.md
+docs/GetSpanRouteResponse.md
 docs/GetTagPolicyResponse.md
 docs/GetTeamMembershipsResponse.md
 docs/GetTeamResponse.md
@@ -528,6 +533,10 @@ docs/InputSloAggregationQuery.md
 docs/InputSloQueryFormula.md
 docs/InputSloWidgetOrganizeBy.md
 docs/InputSloWidgetOrganizeByKey.md
+docs/InputSpansProcessor.md
+docs/InputSpansProcessorAnyOf.md
+docs/InputSpansProcessorAnyOfParams.md
+docs/InputSpansProcessorAnyOfParamsItemsInner.md
 docs/InputSpecificTeams.md
 docs/InputTableColumn.md
 docs/InputTableDefaultSorting.md
@@ -593,6 +602,7 @@ docs/ListQueuesResponse.md
 docs/ListRetentionPoliciesResponse.md
 docs/ListRoutesResponse.md
 docs/ListServiceNotificationTargetsResponse.md
+docs/ListSpanRoutesResponse.md
 docs/ListTagPoliciesResponse.md
 docs/ListTeamsResponse.md
 docs/ListUsersResponse.md
@@ -602,13 +612,10 @@ docs/MetricRouteProcessorsInner.md
 docs/MetricRouteProcessorsInnerOneOf.md
 docs/MetricRouteProcessorsInnerOneOf1.md
 docs/MetricRouteProcessorsInnerOneOf1Params.md
-docs/MetricRouteProcessorsInnerOneOf2.md
-docs/MetricRouteProcessorsInnerOneOf2Params.md
-docs/MetricRouteProcessorsInnerOneOf2ParamsOneOf.md
-docs/MetricRouteProcessorsInnerOneOf2ParamsOneOf1.md
-docs/MetricRouteProcessorsInnerOneOf2ParamsOneOf1ClausesInner.md
+docs/MetricRouteProcessorsInnerOneOf1ParamsOneOf.md
+docs/MetricRouteProcessorsInnerOneOf1ParamsOneOf1.md
+docs/MetricRouteProcessorsInnerOneOf1ParamsOneOf1ClausesInner.md
 docs/MetricRouteProcessorsInnerOneOfParams.md
-docs/MetricRouteProcessorsInnerOneOfParamsAttributesInner.md
 docs/MetricRoutesAPI.md
 docs/MetricsAPI.md
 docs/Monitor.md
@@ -696,6 +703,13 @@ docs/OutputProcessorAnyOfParams.md
 docs/OutputSilenceScheduleOneTime.md
 docs/OutputSilenceScheduleRecurring.md
 docs/OutputSilenceScheduleRecurringWeeklySchedule.md
+docs/OutputSpansProcessor.md
+docs/OutputSpansProcessorAnyOf.md
+docs/OutputSpansProcessorAnyOf1.md
+docs/OutputSpansProcessorAnyOf1Params.md
+docs/OutputSpansProcessorAnyOf1ParamsItemsInner.md
+docs/OutputSpansProcessorAnyOfParams.md
+docs/OutputSpansProcessorAnyOfParamsAttributesInner.md
 docs/ParseGrokRequest.md
 docs/ParseGrokResponse.md
 docs/ParseGrokResponseData.md
@@ -727,6 +741,7 @@ docs/QueryDashboardsRequestFilters.md
 docs/QueryDashboardsRequestFiltersOwners.md
 docs/QueryDashboardsRequestFiltersSearchQuery.md
 docs/QueryDashboardsRequestFiltersTags.md
+docs/QueryDashboardsRequestFiltersWidgetQuery.md
 docs/QueryDashboardsRequestSort.md
 docs/QueryDashboardsResponse.md
 docs/QueryInventoryResourcesRequest.md
@@ -937,6 +952,8 @@ docs/SloWidgetOrganizeByKey.md
 docs/SloWidgetOrganizeBySlo.md
 docs/SloWidgetOrganizeByTeam.md
 docs/SlosAPI.md
+docs/SpanRoute.md
+docs/SpanRoutesAPI.md
 docs/SpecificTeams.md
 docs/SummarizeTraceResponse.md
 docs/SummarizeTraceResponseData.md
@@ -1026,6 +1043,8 @@ docs/UpdateSloRequestAlertsInner.md
 docs/UpdateSloRequestAlertsInnerConfiguration.md
 docs/UpdateSloRequestConfiguration.md
 docs/UpdateSloResponse.md
+docs/UpdateSpanRouteRequest.md
+docs/UpdateSpanRouteResponse.md
 docs/UpdateTagPolicyRequest.md
 docs/UpdateTagPolicyRequestTeamScope.md
 docs/UpdateTagPolicyResponse.md
@@ -1175,6 +1194,8 @@ model_create_service_notification_target_response.go
 model_create_slo_request.go
 model_create_slo_request_alerts_inner.go
 model_create_slo_response.go
+model_create_span_route_request.go
+model_create_span_route_response.go
 model_create_tag_policy_request.go
 model_create_tag_policy_request_configuration.go
 model_create_tag_policy_request_team_scope.go
@@ -1227,6 +1248,7 @@ model_delete_retention_policy_response.go
 model_delete_route_response.go
 model_delete_service_notification_target_response.go
 model_delete_slo_response.go
+model_delete_span_route_response.go
 model_delete_tag_policy_response.go
 model_delete_team_response.go
 model_distribution_contrast_set.go
@@ -1329,6 +1351,7 @@ model_get_service_graph_response_data_nodes_inner.go
 model_get_service_response.go
 model_get_short_url_response.go
 model_get_slo_response.go
+model_get_span_route_response.go
 model_get_tag_policy_response.go
 model_get_team_memberships_response.go
 model_get_team_response.go
@@ -1517,6 +1540,10 @@ model_input_slo_aggregation_query.go
 model_input_slo_query_formula.go
 model_input_slo_widget_organize_by.go
 model_input_slo_widget_organize_by_key.go
+model_input_spans_processor.go
+model_input_spans_processor_any_of.go
+model_input_spans_processor_any_of_params.go
+model_input_spans_processor_any_of_params_items_inner.go
 model_input_specific_teams.go
 model_input_table_column.go
 model_input_table_default_sorting.go
@@ -1578,6 +1605,7 @@ model_list_queues_response.go
 model_list_retention_policies_response.go
 model_list_routes_response.go
 model_list_service_notification_targets_response.go
+model_list_span_routes_response.go
 model_list_tag_policies_response.go
 model_list_teams_response.go
 model_list_users_response.go
@@ -1586,13 +1614,10 @@ model_metric_route_processors_inner.go
 model_metric_route_processors_inner_one_of.go
 model_metric_route_processors_inner_one_of_1.go
 model_metric_route_processors_inner_one_of_1_params.go
-model_metric_route_processors_inner_one_of_2.go
-model_metric_route_processors_inner_one_of_2_params.go
-model_metric_route_processors_inner_one_of_2_params_one_of.go
-model_metric_route_processors_inner_one_of_2_params_one_of_1.go
-model_metric_route_processors_inner_one_of_2_params_one_of_1_clauses_inner.go
+model_metric_route_processors_inner_one_of_1_params_one_of.go
+model_metric_route_processors_inner_one_of_1_params_one_of_1.go
+model_metric_route_processors_inner_one_of_1_params_one_of_1_clauses_inner.go
 model_metric_route_processors_inner_one_of_params.go
-model_metric_route_processors_inner_one_of_params_attributes_inner.go
 model_monitor.go
 model_monitor_aggregation_query.go
 model_monitor_aggregation_query_fill.go
@@ -1671,6 +1696,13 @@ model_output_processor_any_of_params.go
 model_output_silence_schedule_one_time.go
 model_output_silence_schedule_recurring.go
 model_output_silence_schedule_recurring_weekly_schedule.go
+model_output_spans_processor.go
+model_output_spans_processor_any_of.go
+model_output_spans_processor_any_of_1.go
+model_output_spans_processor_any_of_1_params.go
+model_output_spans_processor_any_of_1_params_items_inner.go
+model_output_spans_processor_any_of_params.go
+model_output_spans_processor_any_of_params_attributes_inner.go
 model_parse_grok_request.go
 model_parse_grok_response.go
 model_parse_grok_response_data.go
@@ -1699,6 +1731,7 @@ model_query_dashboards_request_filters.go
 model_query_dashboards_request_filters_owners.go
 model_query_dashboards_request_filters_search_query.go
 model_query_dashboards_request_filters_tags.go
+model_query_dashboards_request_filters_widget_query.go
 model_query_dashboards_request_sort.go
 model_query_dashboards_response.go
 model_query_inventory_resources_request.go
@@ -1902,6 +1935,7 @@ model_slo_widget_organize_by.go
 model_slo_widget_organize_by_key.go
 model_slo_widget_organize_by_slo.go
 model_slo_widget_organize_by_team.go
+model_span_route.go
 model_specific_teams.go
 model_summarize_trace_response.go
 model_summarize_trace_response_data.go
@@ -1987,6 +2021,8 @@ model_update_slo_request_alerts_inner.go
 model_update_slo_request_alerts_inner_configuration.go
 model_update_slo_request_configuration.go
 model_update_slo_response.go
+model_update_span_route_request.go
+model_update_span_route_response.go
 model_update_tag_policy_request.go
 model_update_tag_policy_request_team_scope.go
 model_update_tag_policy_response.go

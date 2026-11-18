@@ -9,13 +9,13 @@ Name | Type | Description | Notes
 **Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
 **UpdatedAt** | Pointer to **string** | Timestamp when Tsuga last updated the processor. | [optional] 
 **Type** | **string** | Map processor. It moves, copies, or normalizes existing log attributes. | 
-**Params** | [**MetricRouteProcessorsInnerOneOf2Params**](MetricRouteProcessorsInnerOneOf2Params.md) |  | 
+**Params** | [**MetricRouteProcessorsInnerOneOf1Params**](MetricRouteProcessorsInnerOneOf1Params.md) |  | 
 
 ## Methods
 
 ### NewMetricRouteProcessorsInner
 
-`func NewMetricRouteProcessorsInner(id string, type_ string, params MetricRouteProcessorsInnerOneOf2Params, ) *MetricRouteProcessorsInner`
+`func NewMetricRouteProcessorsInner(id string, type_ string, params MetricRouteProcessorsInnerOneOf1Params, ) *MetricRouteProcessorsInner`
 
 NewMetricRouteProcessorsInner instantiates a new MetricRouteProcessorsInner object
 This constructor will assign default values to properties that have it defined,
@@ -147,20 +147,20 @@ SetType sets Type field to given value.
 
 ### GetParams
 
-`func (o *MetricRouteProcessorsInner) GetParams() MetricRouteProcessorsInnerOneOf2Params`
+`func (o *MetricRouteProcessorsInner) GetParams() MetricRouteProcessorsInnerOneOf1Params`
 
 GetParams returns the Params field if non-nil, zero value otherwise.
 
 ### GetParamsOk
 
-`func (o *MetricRouteProcessorsInner) GetParamsOk() (*MetricRouteProcessorsInnerOneOf2Params, bool)`
+`func (o *MetricRouteProcessorsInner) GetParamsOk() (*MetricRouteProcessorsInnerOneOf1Params, bool)`
 
 GetParamsOk returns a tuple with the Params field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetParams
 
-`func (o *MetricRouteProcessorsInner) SetParams(v MetricRouteProcessorsInnerOneOf2Params)`
+`func (o *MetricRouteProcessorsInner) SetParams(v MetricRouteProcessorsInnerOneOf1Params)`
 
 SetParams sets Params field to given value.
 

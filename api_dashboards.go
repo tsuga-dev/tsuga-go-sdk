@@ -67,7 +67,7 @@ type DashboardsAPI interface {
 	/*
 		QueryDashboards Method for QueryDashboards
 
-		Lists or searches dashboards by name or ID substring, owning team, tags or folder. Results omit widgets (`graphs`) and give `widgetCount`; get a dashboard by ID to read its widgets. See [Dashboards](/documentation/visualize/dashboards/index).
+		Lists or searches dashboards by name or ID substring, by what their widgets query (a service, field, metric or function), owning team, tags or folder. Results omit widgets (`graphs`) and give `widgetCount`; get a dashboard by ID to read its widgets. See [Dashboards](/documentation/visualize/dashboards/index).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return DashboardsAPIQueryDashboardsRequest
@@ -527,7 +527,7 @@ func (r DashboardsAPIQueryDashboardsRequest) Execute() (*QueryDashboardsResponse
 /*
 QueryDashboards Method for QueryDashboards
 
-Lists or searches dashboards by name or ID substring, owning team, tags or folder. Results omit widgets (`graphs`) and give `widgetCount`; get a dashboard by ID to read its widgets. See [Dashboards](/documentation/visualize/dashboards/index).
+Lists or searches dashboards by name or ID substring, by what their widgets query (a service, field, metric or function), owning team, tags or folder. Results omit widgets (`graphs`) and give `widgetCount`; get a dashboard by ID to read its widgets. See [Dashboards](/documentation/visualize/dashboards/index).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DashboardsAPIQueryDashboardsRequest

@@ -22,7 +22,7 @@ type RumAPI interface {
 	/*
 		GetRumAttributes Method for GetRumAttributes
 
-		Lists the RUM attribute dot-paths that can be queried: the fields to search, filter or group RUM events by. See [RUM views](/documentation/categorize/rum-views/index).
+		Lists the RUM attribute dot-paths that can be queried: the fields to search, filter or group RUM events by. The list is the fixed RUM schema: keys an app sends itself, such as `context.user.attributes.<KEY>`, are not listed. See [RUM views](/documentation/categorize/rum-views/index).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return RumAPIGetRumAttributesRequest
@@ -70,7 +70,7 @@ func (r RumAPIGetRumAttributesRequest) Execute() (*GetRumAttributesResponse, *ht
 /*
 GetRumAttributes Method for GetRumAttributes
 
-Lists the RUM attribute dot-paths that can be queried: the fields to search, filter or group RUM events by. See [RUM views](/documentation/categorize/rum-views/index).
+Lists the RUM attribute dot-paths that can be queried: the fields to search, filter or group RUM events by. The list is the fixed RUM schema: keys an app sends itself, such as `context.user.attributes.<KEY>`, are not listed. See [RUM views](/documentation/categorize/rum-views/index).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return RumAPIGetRumAttributesRequest

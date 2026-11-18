@@ -14,11 +14,11 @@ import (
 	"fmt"
 )
 
-// checks if the MetricRouteProcessorsInnerOneOf2ParamsOneOf type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &MetricRouteProcessorsInnerOneOf2ParamsOneOf{}
+// checks if the MetricRouteProcessorsInnerOneOf1ParamsOneOf type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MetricRouteProcessorsInnerOneOf1ParamsOneOf{}
 
-// MetricRouteProcessorsInnerOneOf2ParamsOneOf struct for MetricRouteProcessorsInnerOneOf2ParamsOneOf
-type MetricRouteProcessorsInnerOneOf2ParamsOneOf struct {
+// MetricRouteProcessorsInnerOneOf1ParamsOneOf struct for MetricRouteProcessorsInnerOneOf1ParamsOneOf
+type MetricRouteProcessorsInnerOneOf1ParamsOneOf struct {
 	// Attribute that will receive the formatted value
 	TargetAttribute string `json:"targetAttribute"`
 	// Template string used to build the target attribute value
@@ -31,30 +31,30 @@ type MetricRouteProcessorsInnerOneOf2ParamsOneOf struct {
 	AdditionalProperties  map[string]interface{}
 }
 
-type _MetricRouteProcessorsInnerOneOf2ParamsOneOf MetricRouteProcessorsInnerOneOf2ParamsOneOf
+type _MetricRouteProcessorsInnerOneOf1ParamsOneOf MetricRouteProcessorsInnerOneOf1ParamsOneOf
 
-// NewMetricRouteProcessorsInnerOneOf2ParamsOneOf instantiates a new MetricRouteProcessorsInnerOneOf2ParamsOneOf object
+// NewMetricRouteProcessorsInnerOneOf1ParamsOneOf instantiates a new MetricRouteProcessorsInnerOneOf1ParamsOneOf object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMetricRouteProcessorsInnerOneOf2ParamsOneOf(targetAttribute string, formatString string, subtype string) *MetricRouteProcessorsInnerOneOf2ParamsOneOf {
-	this := MetricRouteProcessorsInnerOneOf2ParamsOneOf{}
+func NewMetricRouteProcessorsInnerOneOf1ParamsOneOf(targetAttribute string, formatString string, subtype string) *MetricRouteProcessorsInnerOneOf1ParamsOneOf {
+	this := MetricRouteProcessorsInnerOneOf1ParamsOneOf{}
 	this.TargetAttribute = targetAttribute
 	this.FormatString = formatString
 	this.Subtype = subtype
 	return &this
 }
 
-// NewMetricRouteProcessorsInnerOneOf2ParamsOneOfWithDefaults instantiates a new MetricRouteProcessorsInnerOneOf2ParamsOneOf object
+// NewMetricRouteProcessorsInnerOneOf1ParamsOneOfWithDefaults instantiates a new MetricRouteProcessorsInnerOneOf1ParamsOneOf object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewMetricRouteProcessorsInnerOneOf2ParamsOneOfWithDefaults() *MetricRouteProcessorsInnerOneOf2ParamsOneOf {
-	this := MetricRouteProcessorsInnerOneOf2ParamsOneOf{}
+func NewMetricRouteProcessorsInnerOneOf1ParamsOneOfWithDefaults() *MetricRouteProcessorsInnerOneOf1ParamsOneOf {
+	this := MetricRouteProcessorsInnerOneOf1ParamsOneOf{}
 	return &this
 }
 
 // GetTargetAttribute returns the TargetAttribute field value
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetTargetAttribute() string {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetTargetAttribute() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -65,7 +65,7 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetTargetAttribute() strin
 
 // GetTargetAttributeOk returns a tuple with the TargetAttribute field value
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetTargetAttributeOk() (*string, bool) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetTargetAttributeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -73,12 +73,12 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetTargetAttributeOk() (*s
 }
 
 // SetTargetAttribute sets field value
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) SetTargetAttribute(v string) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) SetTargetAttribute(v string) {
 	o.TargetAttribute = v
 }
 
 // GetFormatString returns the FormatString field value
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetFormatString() string {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetFormatString() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -89,7 +89,7 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetFormatString() string {
 
 // GetFormatStringOk returns a tuple with the FormatString field value
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetFormatStringOk() (*string, bool) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetFormatStringOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -97,12 +97,12 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetFormatStringOk() (*stri
 }
 
 // SetFormatString sets field value
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) SetFormatString(v string) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) SetFormatString(v string) {
 	o.FormatString = v
 }
 
 // GetOverrideTarget returns the OverrideTarget field value if set, zero value otherwise.
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetOverrideTarget() bool {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetOverrideTarget() bool {
 	if o == nil || IsNil(o.OverrideTarget) {
 		var ret bool
 		return ret
@@ -112,7 +112,7 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetOverrideTarget() bool {
 
 // GetOverrideTargetOk returns a tuple with the OverrideTarget field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetOverrideTargetOk() (*bool, bool) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetOverrideTargetOk() (*bool, bool) {
 	if o == nil || IsNil(o.OverrideTarget) {
 		return nil, false
 	}
@@ -120,7 +120,7 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetOverrideTargetOk() (*bo
 }
 
 // HasOverrideTarget returns a boolean if a field has been set.
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) HasOverrideTarget() bool {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) HasOverrideTarget() bool {
 	if o != nil && !IsNil(o.OverrideTarget) {
 		return true
 	}
@@ -129,12 +129,12 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) HasOverrideTarget() bool {
 }
 
 // SetOverrideTarget gets a reference to the given bool and assigns it to the OverrideTarget field.
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) SetOverrideTarget(v bool) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) SetOverrideTarget(v bool) {
 	o.OverrideTarget = &v
 }
 
 // GetSubtype returns the Subtype field value
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetSubtype() string {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetSubtype() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -145,7 +145,7 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetSubtype() string {
 
 // GetSubtypeOk returns a tuple with the Subtype field value
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetSubtypeOk() (*string, bool) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetSubtypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -153,12 +153,12 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetSubtypeOk() (*string, b
 }
 
 // SetSubtype sets field value
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) SetSubtype(v string) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) SetSubtype(v string) {
 	o.Subtype = v
 }
 
 // GetReplaceMissingByEmpty returns the ReplaceMissingByEmpty field value if set, zero value otherwise.
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetReplaceMissingByEmpty() bool {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetReplaceMissingByEmpty() bool {
 	if o == nil || IsNil(o.ReplaceMissingByEmpty) {
 		var ret bool
 		return ret
@@ -168,7 +168,7 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetReplaceMissingByEmpty()
 
 // GetReplaceMissingByEmptyOk returns a tuple with the ReplaceMissingByEmpty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetReplaceMissingByEmptyOk() (*bool, bool) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetReplaceMissingByEmptyOk() (*bool, bool) {
 	if o == nil || IsNil(o.ReplaceMissingByEmpty) {
 		return nil, false
 	}
@@ -176,7 +176,7 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetReplaceMissingByEmptyOk
 }
 
 // HasReplaceMissingByEmpty returns a boolean if a field has been set.
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) HasReplaceMissingByEmpty() bool {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) HasReplaceMissingByEmpty() bool {
 	if o != nil && !IsNil(o.ReplaceMissingByEmpty) {
 		return true
 	}
@@ -185,11 +185,11 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) HasReplaceMissingByEmpty()
 }
 
 // SetReplaceMissingByEmpty gets a reference to the given bool and assigns it to the ReplaceMissingByEmpty field.
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) SetReplaceMissingByEmpty(v bool) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) SetReplaceMissingByEmpty(v bool) {
 	o.ReplaceMissingByEmpty = &v
 }
 
-func (o MetricRouteProcessorsInnerOneOf2ParamsOneOf) MarshalJSON() ([]byte, error) {
+func (o MetricRouteProcessorsInnerOneOf1ParamsOneOf) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -197,7 +197,7 @@ func (o MetricRouteProcessorsInnerOneOf2ParamsOneOf) MarshalJSON() ([]byte, erro
 	return json.Marshal(toSerialize)
 }
 
-func (o MetricRouteProcessorsInnerOneOf2ParamsOneOf) ToMap() (map[string]interface{}, error) {
+func (o MetricRouteProcessorsInnerOneOf1ParamsOneOf) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["targetAttribute"] = o.TargetAttribute
 	toSerialize["formatString"] = o.FormatString
@@ -216,7 +216,7 @@ func (o MetricRouteProcessorsInnerOneOf2ParamsOneOf) ToMap() (map[string]interfa
 	return toSerialize, nil
 }
 
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) UnmarshalJSON(data []byte) (err error) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -240,15 +240,15 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) UnmarshalJSON(data []byte)
 		}
 	}
 
-	varMetricRouteProcessorsInnerOneOf2ParamsOneOf := _MetricRouteProcessorsInnerOneOf2ParamsOneOf{}
+	varMetricRouteProcessorsInnerOneOf1ParamsOneOf := _MetricRouteProcessorsInnerOneOf1ParamsOneOf{}
 
-	err = json.Unmarshal(data, &varMetricRouteProcessorsInnerOneOf2ParamsOneOf)
+	err = json.Unmarshal(data, &varMetricRouteProcessorsInnerOneOf1ParamsOneOf)
 
 	if err != nil {
 		return err
 	}
 
-	*o = MetricRouteProcessorsInnerOneOf2ParamsOneOf(varMetricRouteProcessorsInnerOneOf2ParamsOneOf)
+	*o = MetricRouteProcessorsInnerOneOf1ParamsOneOf(varMetricRouteProcessorsInnerOneOf1ParamsOneOf)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -264,38 +264,38 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) UnmarshalJSON(data []byte)
 	return err
 }
 
-type NullableMetricRouteProcessorsInnerOneOf2ParamsOneOf struct {
-	value *MetricRouteProcessorsInnerOneOf2ParamsOneOf
+type NullableMetricRouteProcessorsInnerOneOf1ParamsOneOf struct {
+	value *MetricRouteProcessorsInnerOneOf1ParamsOneOf
 	isSet bool
 }
 
-func (v NullableMetricRouteProcessorsInnerOneOf2ParamsOneOf) Get() *MetricRouteProcessorsInnerOneOf2ParamsOneOf {
+func (v NullableMetricRouteProcessorsInnerOneOf1ParamsOneOf) Get() *MetricRouteProcessorsInnerOneOf1ParamsOneOf {
 	return v.value
 }
 
-func (v *NullableMetricRouteProcessorsInnerOneOf2ParamsOneOf) Set(val *MetricRouteProcessorsInnerOneOf2ParamsOneOf) {
+func (v *NullableMetricRouteProcessorsInnerOneOf1ParamsOneOf) Set(val *MetricRouteProcessorsInnerOneOf1ParamsOneOf) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableMetricRouteProcessorsInnerOneOf2ParamsOneOf) IsSet() bool {
+func (v NullableMetricRouteProcessorsInnerOneOf1ParamsOneOf) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableMetricRouteProcessorsInnerOneOf2ParamsOneOf) Unset() {
+func (v *NullableMetricRouteProcessorsInnerOneOf1ParamsOneOf) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableMetricRouteProcessorsInnerOneOf2ParamsOneOf(val *MetricRouteProcessorsInnerOneOf2ParamsOneOf) *NullableMetricRouteProcessorsInnerOneOf2ParamsOneOf {
-	return &NullableMetricRouteProcessorsInnerOneOf2ParamsOneOf{value: val, isSet: true}
+func NewNullableMetricRouteProcessorsInnerOneOf1ParamsOneOf(val *MetricRouteProcessorsInnerOneOf1ParamsOneOf) *NullableMetricRouteProcessorsInnerOneOf1ParamsOneOf {
+	return &NullableMetricRouteProcessorsInnerOneOf1ParamsOneOf{value: val, isSet: true}
 }
 
-func (v NullableMetricRouteProcessorsInnerOneOf2ParamsOneOf) MarshalJSON() ([]byte, error) {
+func (v NullableMetricRouteProcessorsInnerOneOf1ParamsOneOf) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableMetricRouteProcessorsInnerOneOf2ParamsOneOf) UnmarshalJSON(src []byte) error {
+func (v *NullableMetricRouteProcessorsInnerOneOf1ParamsOneOf) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

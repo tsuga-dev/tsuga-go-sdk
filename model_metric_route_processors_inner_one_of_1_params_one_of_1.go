@@ -14,45 +14,45 @@ import (
 	"fmt"
 )
 
-// checks if the MetricRouteProcessorsInnerOneOf2ParamsOneOf1 type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &MetricRouteProcessorsInnerOneOf2ParamsOneOf1{}
+// checks if the MetricRouteProcessorsInnerOneOf1ParamsOneOf1 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MetricRouteProcessorsInnerOneOf1ParamsOneOf1{}
 
-// MetricRouteProcessorsInnerOneOf2ParamsOneOf1 struct for MetricRouteProcessorsInnerOneOf2ParamsOneOf1
-type MetricRouteProcessorsInnerOneOf2ParamsOneOf1 struct {
+// MetricRouteProcessorsInnerOneOf1ParamsOneOf1 struct for MetricRouteProcessorsInnerOneOf1ParamsOneOf1
+type MetricRouteProcessorsInnerOneOf1ParamsOneOf1 struct {
 	// Attribute that will receive the category value
 	TargetAttribute string `json:"targetAttribute"`
 	// Conditions evaluated in order to determine the category value.
-	Clauses []MetricRouteProcessorsInnerOneOf2ParamsOneOf1ClausesInner `json:"clauses"`
+	Clauses []MetricRouteProcessorsInnerOneOf1ParamsOneOf1ClausesInner `json:"clauses"`
 	// String category value used when no clause matches.
 	DefaultValue         *string `json:"defaultValue,omitempty"`
 	Subtype              string  `json:"subtype"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _MetricRouteProcessorsInnerOneOf2ParamsOneOf1 MetricRouteProcessorsInnerOneOf2ParamsOneOf1
+type _MetricRouteProcessorsInnerOneOf1ParamsOneOf1 MetricRouteProcessorsInnerOneOf1ParamsOneOf1
 
-// NewMetricRouteProcessorsInnerOneOf2ParamsOneOf1 instantiates a new MetricRouteProcessorsInnerOneOf2ParamsOneOf1 object
+// NewMetricRouteProcessorsInnerOneOf1ParamsOneOf1 instantiates a new MetricRouteProcessorsInnerOneOf1ParamsOneOf1 object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMetricRouteProcessorsInnerOneOf2ParamsOneOf1(targetAttribute string, clauses []MetricRouteProcessorsInnerOneOf2ParamsOneOf1ClausesInner, subtype string) *MetricRouteProcessorsInnerOneOf2ParamsOneOf1 {
-	this := MetricRouteProcessorsInnerOneOf2ParamsOneOf1{}
+func NewMetricRouteProcessorsInnerOneOf1ParamsOneOf1(targetAttribute string, clauses []MetricRouteProcessorsInnerOneOf1ParamsOneOf1ClausesInner, subtype string) *MetricRouteProcessorsInnerOneOf1ParamsOneOf1 {
+	this := MetricRouteProcessorsInnerOneOf1ParamsOneOf1{}
 	this.TargetAttribute = targetAttribute
 	this.Clauses = clauses
 	this.Subtype = subtype
 	return &this
 }
 
-// NewMetricRouteProcessorsInnerOneOf2ParamsOneOf1WithDefaults instantiates a new MetricRouteProcessorsInnerOneOf2ParamsOneOf1 object
+// NewMetricRouteProcessorsInnerOneOf1ParamsOneOf1WithDefaults instantiates a new MetricRouteProcessorsInnerOneOf1ParamsOneOf1 object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewMetricRouteProcessorsInnerOneOf2ParamsOneOf1WithDefaults() *MetricRouteProcessorsInnerOneOf2ParamsOneOf1 {
-	this := MetricRouteProcessorsInnerOneOf2ParamsOneOf1{}
+func NewMetricRouteProcessorsInnerOneOf1ParamsOneOf1WithDefaults() *MetricRouteProcessorsInnerOneOf1ParamsOneOf1 {
+	this := MetricRouteProcessorsInnerOneOf1ParamsOneOf1{}
 	return &this
 }
 
 // GetTargetAttribute returns the TargetAttribute field value
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) GetTargetAttribute() string {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf1) GetTargetAttribute() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -63,7 +63,7 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) GetTargetAttribute() stri
 
 // GetTargetAttributeOk returns a tuple with the TargetAttribute field value
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) GetTargetAttributeOk() (*string, bool) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf1) GetTargetAttributeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -71,14 +71,14 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) GetTargetAttributeOk() (*
 }
 
 // SetTargetAttribute sets field value
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) SetTargetAttribute(v string) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf1) SetTargetAttribute(v string) {
 	o.TargetAttribute = v
 }
 
 // GetClauses returns the Clauses field value
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) GetClauses() []MetricRouteProcessorsInnerOneOf2ParamsOneOf1ClausesInner {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf1) GetClauses() []MetricRouteProcessorsInnerOneOf1ParamsOneOf1ClausesInner {
 	if o == nil {
-		var ret []MetricRouteProcessorsInnerOneOf2ParamsOneOf1ClausesInner
+		var ret []MetricRouteProcessorsInnerOneOf1ParamsOneOf1ClausesInner
 		return ret
 	}
 
@@ -87,7 +87,7 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) GetClauses() []MetricRout
 
 // GetClausesOk returns a tuple with the Clauses field value
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) GetClausesOk() ([]MetricRouteProcessorsInnerOneOf2ParamsOneOf1ClausesInner, bool) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf1) GetClausesOk() ([]MetricRouteProcessorsInnerOneOf1ParamsOneOf1ClausesInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -95,12 +95,12 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) GetClausesOk() ([]MetricR
 }
 
 // SetClauses sets field value
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) SetClauses(v []MetricRouteProcessorsInnerOneOf2ParamsOneOf1ClausesInner) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf1) SetClauses(v []MetricRouteProcessorsInnerOneOf1ParamsOneOf1ClausesInner) {
 	o.Clauses = v
 }
 
 // GetDefaultValue returns the DefaultValue field value if set, zero value otherwise.
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) GetDefaultValue() string {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf1) GetDefaultValue() string {
 	if o == nil || IsNil(o.DefaultValue) {
 		var ret string
 		return ret
@@ -110,7 +110,7 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) GetDefaultValue() string 
 
 // GetDefaultValueOk returns a tuple with the DefaultValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) GetDefaultValueOk() (*string, bool) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf1) GetDefaultValueOk() (*string, bool) {
 	if o == nil || IsNil(o.DefaultValue) {
 		return nil, false
 	}
@@ -118,7 +118,7 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) GetDefaultValueOk() (*str
 }
 
 // HasDefaultValue returns a boolean if a field has been set.
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) HasDefaultValue() bool {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf1) HasDefaultValue() bool {
 	if o != nil && !IsNil(o.DefaultValue) {
 		return true
 	}
@@ -127,12 +127,12 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) HasDefaultValue() bool {
 }
 
 // SetDefaultValue gets a reference to the given string and assigns it to the DefaultValue field.
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) SetDefaultValue(v string) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf1) SetDefaultValue(v string) {
 	o.DefaultValue = &v
 }
 
 // GetSubtype returns the Subtype field value
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) GetSubtype() string {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf1) GetSubtype() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -143,7 +143,7 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) GetSubtype() string {
 
 // GetSubtypeOk returns a tuple with the Subtype field value
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) GetSubtypeOk() (*string, bool) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf1) GetSubtypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -151,11 +151,11 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) GetSubtypeOk() (*string, 
 }
 
 // SetSubtype sets field value
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) SetSubtype(v string) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf1) SetSubtype(v string) {
 	o.Subtype = v
 }
 
-func (o MetricRouteProcessorsInnerOneOf2ParamsOneOf1) MarshalJSON() ([]byte, error) {
+func (o MetricRouteProcessorsInnerOneOf1ParamsOneOf1) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -163,7 +163,7 @@ func (o MetricRouteProcessorsInnerOneOf2ParamsOneOf1) MarshalJSON() ([]byte, err
 	return json.Marshal(toSerialize)
 }
 
-func (o MetricRouteProcessorsInnerOneOf2ParamsOneOf1) ToMap() (map[string]interface{}, error) {
+func (o MetricRouteProcessorsInnerOneOf1ParamsOneOf1) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["targetAttribute"] = o.TargetAttribute
 	toSerialize["clauses"] = o.Clauses
@@ -179,7 +179,7 @@ func (o MetricRouteProcessorsInnerOneOf2ParamsOneOf1) ToMap() (map[string]interf
 	return toSerialize, nil
 }
 
-func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) UnmarshalJSON(data []byte) (err error) {
+func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf1) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -203,15 +203,15 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) UnmarshalJSON(data []byte
 		}
 	}
 
-	varMetricRouteProcessorsInnerOneOf2ParamsOneOf1 := _MetricRouteProcessorsInnerOneOf2ParamsOneOf1{}
+	varMetricRouteProcessorsInnerOneOf1ParamsOneOf1 := _MetricRouteProcessorsInnerOneOf1ParamsOneOf1{}
 
-	err = json.Unmarshal(data, &varMetricRouteProcessorsInnerOneOf2ParamsOneOf1)
+	err = json.Unmarshal(data, &varMetricRouteProcessorsInnerOneOf1ParamsOneOf1)
 
 	if err != nil {
 		return err
 	}
 
-	*o = MetricRouteProcessorsInnerOneOf2ParamsOneOf1(varMetricRouteProcessorsInnerOneOf2ParamsOneOf1)
+	*o = MetricRouteProcessorsInnerOneOf1ParamsOneOf1(varMetricRouteProcessorsInnerOneOf1ParamsOneOf1)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -226,38 +226,38 @@ func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) UnmarshalJSON(data []byte
 	return err
 }
 
-type NullableMetricRouteProcessorsInnerOneOf2ParamsOneOf1 struct {
-	value *MetricRouteProcessorsInnerOneOf2ParamsOneOf1
+type NullableMetricRouteProcessorsInnerOneOf1ParamsOneOf1 struct {
+	value *MetricRouteProcessorsInnerOneOf1ParamsOneOf1
 	isSet bool
 }
 
-func (v NullableMetricRouteProcessorsInnerOneOf2ParamsOneOf1) Get() *MetricRouteProcessorsInnerOneOf2ParamsOneOf1 {
+func (v NullableMetricRouteProcessorsInnerOneOf1ParamsOneOf1) Get() *MetricRouteProcessorsInnerOneOf1ParamsOneOf1 {
 	return v.value
 }
 
-func (v *NullableMetricRouteProcessorsInnerOneOf2ParamsOneOf1) Set(val *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) {
+func (v *NullableMetricRouteProcessorsInnerOneOf1ParamsOneOf1) Set(val *MetricRouteProcessorsInnerOneOf1ParamsOneOf1) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableMetricRouteProcessorsInnerOneOf2ParamsOneOf1) IsSet() bool {
+func (v NullableMetricRouteProcessorsInnerOneOf1ParamsOneOf1) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableMetricRouteProcessorsInnerOneOf2ParamsOneOf1) Unset() {
+func (v *NullableMetricRouteProcessorsInnerOneOf1ParamsOneOf1) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableMetricRouteProcessorsInnerOneOf2ParamsOneOf1(val *MetricRouteProcessorsInnerOneOf2ParamsOneOf1) *NullableMetricRouteProcessorsInnerOneOf2ParamsOneOf1 {
-	return &NullableMetricRouteProcessorsInnerOneOf2ParamsOneOf1{value: val, isSet: true}
+func NewNullableMetricRouteProcessorsInnerOneOf1ParamsOneOf1(val *MetricRouteProcessorsInnerOneOf1ParamsOneOf1) *NullableMetricRouteProcessorsInnerOneOf1ParamsOneOf1 {
+	return &NullableMetricRouteProcessorsInnerOneOf1ParamsOneOf1{value: val, isSet: true}
 }
 
-func (v NullableMetricRouteProcessorsInnerOneOf2ParamsOneOf1) MarshalJSON() ([]byte, error) {
+func (v NullableMetricRouteProcessorsInnerOneOf1ParamsOneOf1) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableMetricRouteProcessorsInnerOneOf2ParamsOneOf1) UnmarshalJSON(src []byte) error {
+func (v *NullableMetricRouteProcessorsInnerOneOf1ParamsOneOf1) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

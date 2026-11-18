@@ -14,11 +14,11 @@ import (
 	"fmt"
 )
 
-// checks if the MetricRouteProcessorsInnerOneOfParamsAttributesInner type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &MetricRouteProcessorsInnerOneOfParamsAttributesInner{}
+// checks if the OutputSpansProcessorAnyOfParamsAttributesInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OutputSpansProcessorAnyOfParamsAttributesInner{}
 
-// MetricRouteProcessorsInnerOneOfParamsAttributesInner struct for MetricRouteProcessorsInnerOneOfParamsAttributesInner
-type MetricRouteProcessorsInnerOneOfParamsAttributesInner struct {
+// OutputSpansProcessorAnyOfParamsAttributesInner struct for OutputSpansProcessorAnyOfParamsAttributesInner
+type OutputSpansProcessorAnyOfParamsAttributesInner struct {
 	// Attribute name to map to the target attribute
 	OriginAttribute string `json:"originAttribute"`
 	// Whether the source attribute is preserved after mapping.
@@ -30,29 +30,29 @@ type MetricRouteProcessorsInnerOneOfParamsAttributesInner struct {
 	AdditionalProperties map[string]interface{}
 }
 
-type _MetricRouteProcessorsInnerOneOfParamsAttributesInner MetricRouteProcessorsInnerOneOfParamsAttributesInner
+type _OutputSpansProcessorAnyOfParamsAttributesInner OutputSpansProcessorAnyOfParamsAttributesInner
 
-// NewMetricRouteProcessorsInnerOneOfParamsAttributesInner instantiates a new MetricRouteProcessorsInnerOneOfParamsAttributesInner object
+// NewOutputSpansProcessorAnyOfParamsAttributesInner instantiates a new OutputSpansProcessorAnyOfParamsAttributesInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMetricRouteProcessorsInnerOneOfParamsAttributesInner(originAttribute string, targetAttribute string) *MetricRouteProcessorsInnerOneOfParamsAttributesInner {
-	this := MetricRouteProcessorsInnerOneOfParamsAttributesInner{}
+func NewOutputSpansProcessorAnyOfParamsAttributesInner(originAttribute string, targetAttribute string) *OutputSpansProcessorAnyOfParamsAttributesInner {
+	this := OutputSpansProcessorAnyOfParamsAttributesInner{}
 	this.OriginAttribute = originAttribute
 	this.TargetAttribute = targetAttribute
 	return &this
 }
 
-// NewMetricRouteProcessorsInnerOneOfParamsAttributesInnerWithDefaults instantiates a new MetricRouteProcessorsInnerOneOfParamsAttributesInner object
+// NewOutputSpansProcessorAnyOfParamsAttributesInnerWithDefaults instantiates a new OutputSpansProcessorAnyOfParamsAttributesInner object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewMetricRouteProcessorsInnerOneOfParamsAttributesInnerWithDefaults() *MetricRouteProcessorsInnerOneOfParamsAttributesInner {
-	this := MetricRouteProcessorsInnerOneOfParamsAttributesInner{}
+func NewOutputSpansProcessorAnyOfParamsAttributesInnerWithDefaults() *OutputSpansProcessorAnyOfParamsAttributesInner {
+	this := OutputSpansProcessorAnyOfParamsAttributesInner{}
 	return &this
 }
 
 // GetOriginAttribute returns the OriginAttribute field value
-func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) GetOriginAttribute() string {
+func (o *OutputSpansProcessorAnyOfParamsAttributesInner) GetOriginAttribute() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -63,7 +63,7 @@ func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) GetOriginAttribut
 
 // GetOriginAttributeOk returns a tuple with the OriginAttribute field value
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) GetOriginAttributeOk() (*string, bool) {
+func (o *OutputSpansProcessorAnyOfParamsAttributesInner) GetOriginAttributeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -71,12 +71,12 @@ func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) GetOriginAttribut
 }
 
 // SetOriginAttribute sets field value
-func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) SetOriginAttribute(v string) {
+func (o *OutputSpansProcessorAnyOfParamsAttributesInner) SetOriginAttribute(v string) {
 	o.OriginAttribute = v
 }
 
 // GetKeepOrigin returns the KeepOrigin field value if set, zero value otherwise.
-func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) GetKeepOrigin() bool {
+func (o *OutputSpansProcessorAnyOfParamsAttributesInner) GetKeepOrigin() bool {
 	if o == nil || IsNil(o.KeepOrigin) {
 		var ret bool
 		return ret
@@ -86,7 +86,7 @@ func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) GetKeepOrigin() b
 
 // GetKeepOriginOk returns a tuple with the KeepOrigin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) GetKeepOriginOk() (*bool, bool) {
+func (o *OutputSpansProcessorAnyOfParamsAttributesInner) GetKeepOriginOk() (*bool, bool) {
 	if o == nil || IsNil(o.KeepOrigin) {
 		return nil, false
 	}
@@ -94,7 +94,7 @@ func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) GetKeepOriginOk()
 }
 
 // HasKeepOrigin returns a boolean if a field has been set.
-func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) HasKeepOrigin() bool {
+func (o *OutputSpansProcessorAnyOfParamsAttributesInner) HasKeepOrigin() bool {
 	if o != nil && !IsNil(o.KeepOrigin) {
 		return true
 	}
@@ -103,12 +103,12 @@ func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) HasKeepOrigin() b
 }
 
 // SetKeepOrigin gets a reference to the given bool and assigns it to the KeepOrigin field.
-func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) SetKeepOrigin(v bool) {
+func (o *OutputSpansProcessorAnyOfParamsAttributesInner) SetKeepOrigin(v bool) {
 	o.KeepOrigin = &v
 }
 
 // GetOverrideTarget returns the OverrideTarget field value if set, zero value otherwise.
-func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) GetOverrideTarget() bool {
+func (o *OutputSpansProcessorAnyOfParamsAttributesInner) GetOverrideTarget() bool {
 	if o == nil || IsNil(o.OverrideTarget) {
 		var ret bool
 		return ret
@@ -118,7 +118,7 @@ func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) GetOverrideTarget
 
 // GetOverrideTargetOk returns a tuple with the OverrideTarget field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) GetOverrideTargetOk() (*bool, bool) {
+func (o *OutputSpansProcessorAnyOfParamsAttributesInner) GetOverrideTargetOk() (*bool, bool) {
 	if o == nil || IsNil(o.OverrideTarget) {
 		return nil, false
 	}
@@ -126,7 +126,7 @@ func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) GetOverrideTarget
 }
 
 // HasOverrideTarget returns a boolean if a field has been set.
-func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) HasOverrideTarget() bool {
+func (o *OutputSpansProcessorAnyOfParamsAttributesInner) HasOverrideTarget() bool {
 	if o != nil && !IsNil(o.OverrideTarget) {
 		return true
 	}
@@ -135,12 +135,12 @@ func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) HasOverrideTarget
 }
 
 // SetOverrideTarget gets a reference to the given bool and assigns it to the OverrideTarget field.
-func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) SetOverrideTarget(v bool) {
+func (o *OutputSpansProcessorAnyOfParamsAttributesInner) SetOverrideTarget(v bool) {
 	o.OverrideTarget = &v
 }
 
 // GetTargetAttribute returns the TargetAttribute field value
-func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) GetTargetAttribute() string {
+func (o *OutputSpansProcessorAnyOfParamsAttributesInner) GetTargetAttribute() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -151,7 +151,7 @@ func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) GetTargetAttribut
 
 // GetTargetAttributeOk returns a tuple with the TargetAttribute field value
 // and a boolean to check if the value has been set.
-func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) GetTargetAttributeOk() (*string, bool) {
+func (o *OutputSpansProcessorAnyOfParamsAttributesInner) GetTargetAttributeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -159,11 +159,11 @@ func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) GetTargetAttribut
 }
 
 // SetTargetAttribute sets field value
-func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) SetTargetAttribute(v string) {
+func (o *OutputSpansProcessorAnyOfParamsAttributesInner) SetTargetAttribute(v string) {
 	o.TargetAttribute = v
 }
 
-func (o MetricRouteProcessorsInnerOneOfParamsAttributesInner) MarshalJSON() ([]byte, error) {
+func (o OutputSpansProcessorAnyOfParamsAttributesInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -171,7 +171,7 @@ func (o MetricRouteProcessorsInnerOneOfParamsAttributesInner) MarshalJSON() ([]b
 	return json.Marshal(toSerialize)
 }
 
-func (o MetricRouteProcessorsInnerOneOfParamsAttributesInner) ToMap() (map[string]interface{}, error) {
+func (o OutputSpansProcessorAnyOfParamsAttributesInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["originAttribute"] = o.OriginAttribute
 	if !IsNil(o.KeepOrigin) {
@@ -189,7 +189,7 @@ func (o MetricRouteProcessorsInnerOneOfParamsAttributesInner) ToMap() (map[strin
 	return toSerialize, nil
 }
 
-func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) UnmarshalJSON(data []byte) (err error) {
+func (o *OutputSpansProcessorAnyOfParamsAttributesInner) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -212,15 +212,15 @@ func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) UnmarshalJSON(dat
 		}
 	}
 
-	varMetricRouteProcessorsInnerOneOfParamsAttributesInner := _MetricRouteProcessorsInnerOneOfParamsAttributesInner{}
+	varOutputSpansProcessorAnyOfParamsAttributesInner := _OutputSpansProcessorAnyOfParamsAttributesInner{}
 
-	err = json.Unmarshal(data, &varMetricRouteProcessorsInnerOneOfParamsAttributesInner)
+	err = json.Unmarshal(data, &varOutputSpansProcessorAnyOfParamsAttributesInner)
 
 	if err != nil {
 		return err
 	}
 
-	*o = MetricRouteProcessorsInnerOneOfParamsAttributesInner(varMetricRouteProcessorsInnerOneOfParamsAttributesInner)
+	*o = OutputSpansProcessorAnyOfParamsAttributesInner(varOutputSpansProcessorAnyOfParamsAttributesInner)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -235,38 +235,38 @@ func (o *MetricRouteProcessorsInnerOneOfParamsAttributesInner) UnmarshalJSON(dat
 	return err
 }
 
-type NullableMetricRouteProcessorsInnerOneOfParamsAttributesInner struct {
-	value *MetricRouteProcessorsInnerOneOfParamsAttributesInner
+type NullableOutputSpansProcessorAnyOfParamsAttributesInner struct {
+	value *OutputSpansProcessorAnyOfParamsAttributesInner
 	isSet bool
 }
 
-func (v NullableMetricRouteProcessorsInnerOneOfParamsAttributesInner) Get() *MetricRouteProcessorsInnerOneOfParamsAttributesInner {
+func (v NullableOutputSpansProcessorAnyOfParamsAttributesInner) Get() *OutputSpansProcessorAnyOfParamsAttributesInner {
 	return v.value
 }
 
-func (v *NullableMetricRouteProcessorsInnerOneOfParamsAttributesInner) Set(val *MetricRouteProcessorsInnerOneOfParamsAttributesInner) {
+func (v *NullableOutputSpansProcessorAnyOfParamsAttributesInner) Set(val *OutputSpansProcessorAnyOfParamsAttributesInner) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableMetricRouteProcessorsInnerOneOfParamsAttributesInner) IsSet() bool {
+func (v NullableOutputSpansProcessorAnyOfParamsAttributesInner) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableMetricRouteProcessorsInnerOneOfParamsAttributesInner) Unset() {
+func (v *NullableOutputSpansProcessorAnyOfParamsAttributesInner) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableMetricRouteProcessorsInnerOneOfParamsAttributesInner(val *MetricRouteProcessorsInnerOneOfParamsAttributesInner) *NullableMetricRouteProcessorsInnerOneOfParamsAttributesInner {
-	return &NullableMetricRouteProcessorsInnerOneOfParamsAttributesInner{value: val, isSet: true}
+func NewNullableOutputSpansProcessorAnyOfParamsAttributesInner(val *OutputSpansProcessorAnyOfParamsAttributesInner) *NullableOutputSpansProcessorAnyOfParamsAttributesInner {
+	return &NullableOutputSpansProcessorAnyOfParamsAttributesInner{value: val, isSet: true}
 }
 
-func (v NullableMetricRouteProcessorsInnerOneOfParamsAttributesInner) MarshalJSON() ([]byte, error) {
+func (v NullableOutputSpansProcessorAnyOfParamsAttributesInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableMetricRouteProcessorsInnerOneOfParamsAttributesInner) UnmarshalJSON(src []byte) error {
+func (v *NullableOutputSpansProcessorAnyOfParamsAttributesInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

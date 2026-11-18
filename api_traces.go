@@ -457,7 +457,7 @@ func (r TracesAPISearchSpansRequest) Query(query string) TracesAPISearchSpansReq
 	return r
 }
 
-// Maximum number of spans to return. Defaults to 100. Valid values are 1 through 10000.
+// Maximum number of spans to return. Defaults to 100. Valid values are 1 through 1000.
 func (r TracesAPISearchSpansRequest) MaxResults(maxResults int32) TracesAPISearchSpansRequest {
 	r.maxResults = &maxResults
 	return r

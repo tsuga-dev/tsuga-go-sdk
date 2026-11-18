@@ -4,16 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AttributeName** | **string** | Attribute whose value will be parsed with Grok rules | 
-**Rules** | **[]string** | Ordered Grok rules evaluated until one matches. | 
-**Samples** | Pointer to **[]string** | Example log lines for validating the Grok rules. | [optional] 
+**TargetAttribute** | **string** | Attribute that will receive the category value | 
+**FormatString** | **string** | Template string used to build the target attribute value | 
+**OverrideTarget** | Pointer to **bool** | Whether to overwrite the target attribute when it already exists. | [optional] 
 **Subtype** | **string** |  | 
+**ReplaceMissingByEmpty** | Pointer to **bool** | Whether missing referenced attributes render as empty strings. | [optional] 
+**Clauses** | [**[]MetricRouteProcessorsInnerOneOf1ParamsOneOf1ClausesInner**](MetricRouteProcessorsInnerOneOf1ParamsOneOf1ClausesInner.md) | Conditions evaluated in order to determine the category value. | 
+**DefaultValue** | Pointer to **string** | String category value used when no clause matches. | [optional] 
 
 ## Methods
 
 ### NewMetricRouteProcessorsInnerOneOf1Params
 
-`func NewMetricRouteProcessorsInnerOneOf1Params(attributeName string, rules []string, subtype string, ) *MetricRouteProcessorsInnerOneOf1Params`
+`func NewMetricRouteProcessorsInnerOneOf1Params(targetAttribute string, formatString string, subtype string, clauses []MetricRouteProcessorsInnerOneOf1ParamsOneOf1ClausesInner, ) *MetricRouteProcessorsInnerOneOf1Params`
 
 NewMetricRouteProcessorsInnerOneOf1Params instantiates a new MetricRouteProcessorsInnerOneOf1Params object
 This constructor will assign default values to properties that have it defined,
@@ -28,70 +31,70 @@ NewMetricRouteProcessorsInnerOneOf1ParamsWithDefaults instantiates a new MetricR
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetAttributeName
+### GetTargetAttribute
 
-`func (o *MetricRouteProcessorsInnerOneOf1Params) GetAttributeName() string`
+`func (o *MetricRouteProcessorsInnerOneOf1Params) GetTargetAttribute() string`
 
-GetAttributeName returns the AttributeName field if non-nil, zero value otherwise.
+GetTargetAttribute returns the TargetAttribute field if non-nil, zero value otherwise.
 
-### GetAttributeNameOk
+### GetTargetAttributeOk
 
-`func (o *MetricRouteProcessorsInnerOneOf1Params) GetAttributeNameOk() (*string, bool)`
+`func (o *MetricRouteProcessorsInnerOneOf1Params) GetTargetAttributeOk() (*string, bool)`
 
-GetAttributeNameOk returns a tuple with the AttributeName field if it's non-nil, zero value otherwise
+GetTargetAttributeOk returns a tuple with the TargetAttribute field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAttributeName
+### SetTargetAttribute
 
-`func (o *MetricRouteProcessorsInnerOneOf1Params) SetAttributeName(v string)`
+`func (o *MetricRouteProcessorsInnerOneOf1Params) SetTargetAttribute(v string)`
 
-SetAttributeName sets AttributeName field to given value.
+SetTargetAttribute sets TargetAttribute field to given value.
 
 
-### GetRules
+### GetFormatString
 
-`func (o *MetricRouteProcessorsInnerOneOf1Params) GetRules() []string`
+`func (o *MetricRouteProcessorsInnerOneOf1Params) GetFormatString() string`
 
-GetRules returns the Rules field if non-nil, zero value otherwise.
+GetFormatString returns the FormatString field if non-nil, zero value otherwise.
 
-### GetRulesOk
+### GetFormatStringOk
 
-`func (o *MetricRouteProcessorsInnerOneOf1Params) GetRulesOk() (*[]string, bool)`
+`func (o *MetricRouteProcessorsInnerOneOf1Params) GetFormatStringOk() (*string, bool)`
 
-GetRulesOk returns a tuple with the Rules field if it's non-nil, zero value otherwise
+GetFormatStringOk returns a tuple with the FormatString field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRules
+### SetFormatString
 
-`func (o *MetricRouteProcessorsInnerOneOf1Params) SetRules(v []string)`
+`func (o *MetricRouteProcessorsInnerOneOf1Params) SetFormatString(v string)`
 
-SetRules sets Rules field to given value.
+SetFormatString sets FormatString field to given value.
 
 
-### GetSamples
+### GetOverrideTarget
 
-`func (o *MetricRouteProcessorsInnerOneOf1Params) GetSamples() []string`
+`func (o *MetricRouteProcessorsInnerOneOf1Params) GetOverrideTarget() bool`
 
-GetSamples returns the Samples field if non-nil, zero value otherwise.
+GetOverrideTarget returns the OverrideTarget field if non-nil, zero value otherwise.
 
-### GetSamplesOk
+### GetOverrideTargetOk
 
-`func (o *MetricRouteProcessorsInnerOneOf1Params) GetSamplesOk() (*[]string, bool)`
+`func (o *MetricRouteProcessorsInnerOneOf1Params) GetOverrideTargetOk() (*bool, bool)`
 
-GetSamplesOk returns a tuple with the Samples field if it's non-nil, zero value otherwise
+GetOverrideTargetOk returns a tuple with the OverrideTarget field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSamples
+### SetOverrideTarget
 
-`func (o *MetricRouteProcessorsInnerOneOf1Params) SetSamples(v []string)`
+`func (o *MetricRouteProcessorsInnerOneOf1Params) SetOverrideTarget(v bool)`
 
-SetSamples sets Samples field to given value.
+SetOverrideTarget sets OverrideTarget field to given value.
 
-### HasSamples
+### HasOverrideTarget
 
-`func (o *MetricRouteProcessorsInnerOneOf1Params) HasSamples() bool`
+`func (o *MetricRouteProcessorsInnerOneOf1Params) HasOverrideTarget() bool`
 
-HasSamples returns a boolean if a field has been set.
+HasOverrideTarget returns a boolean if a field has been set.
 
 ### GetSubtype
 
@@ -112,6 +115,76 @@ and a boolean to check if the value has been set.
 
 SetSubtype sets Subtype field to given value.
 
+
+### GetReplaceMissingByEmpty
+
+`func (o *MetricRouteProcessorsInnerOneOf1Params) GetReplaceMissingByEmpty() bool`
+
+GetReplaceMissingByEmpty returns the ReplaceMissingByEmpty field if non-nil, zero value otherwise.
+
+### GetReplaceMissingByEmptyOk
+
+`func (o *MetricRouteProcessorsInnerOneOf1Params) GetReplaceMissingByEmptyOk() (*bool, bool)`
+
+GetReplaceMissingByEmptyOk returns a tuple with the ReplaceMissingByEmpty field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReplaceMissingByEmpty
+
+`func (o *MetricRouteProcessorsInnerOneOf1Params) SetReplaceMissingByEmpty(v bool)`
+
+SetReplaceMissingByEmpty sets ReplaceMissingByEmpty field to given value.
+
+### HasReplaceMissingByEmpty
+
+`func (o *MetricRouteProcessorsInnerOneOf1Params) HasReplaceMissingByEmpty() bool`
+
+HasReplaceMissingByEmpty returns a boolean if a field has been set.
+
+### GetClauses
+
+`func (o *MetricRouteProcessorsInnerOneOf1Params) GetClauses() []MetricRouteProcessorsInnerOneOf1ParamsOneOf1ClausesInner`
+
+GetClauses returns the Clauses field if non-nil, zero value otherwise.
+
+### GetClausesOk
+
+`func (o *MetricRouteProcessorsInnerOneOf1Params) GetClausesOk() (*[]MetricRouteProcessorsInnerOneOf1ParamsOneOf1ClausesInner, bool)`
+
+GetClausesOk returns a tuple with the Clauses field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClauses
+
+`func (o *MetricRouteProcessorsInnerOneOf1Params) SetClauses(v []MetricRouteProcessorsInnerOneOf1ParamsOneOf1ClausesInner)`
+
+SetClauses sets Clauses field to given value.
+
+
+### GetDefaultValue
+
+`func (o *MetricRouteProcessorsInnerOneOf1Params) GetDefaultValue() string`
+
+GetDefaultValue returns the DefaultValue field if non-nil, zero value otherwise.
+
+### GetDefaultValueOk
+
+`func (o *MetricRouteProcessorsInnerOneOf1Params) GetDefaultValueOk() (*string, bool)`
+
+GetDefaultValueOk returns a tuple with the DefaultValue field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDefaultValue
+
+`func (o *MetricRouteProcessorsInnerOneOf1Params) SetDefaultValue(v string)`
+
+SetDefaultValue sets DefaultValue field to given value.
+
+### HasDefaultValue
+
+`func (o *MetricRouteProcessorsInnerOneOf1Params) HasDefaultValue() bool`
+
+HasDefaultValue returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

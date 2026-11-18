@@ -4,14 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Attributes** | [**[]MetricRouteProcessorsInnerOneOfParamsAttributesInner**](MetricRouteProcessorsInnerOneOfParamsAttributesInner.md) | Mappings that map individual attributes to new targets | 
-**Subtype** | **string** | Copies or moves one or more source attributes to target attributes. | 
+**AttributeName** | **string** | Attribute whose value will be parsed with Grok rules | 
+**Rules** | **[]string** | Ordered Grok rules evaluated until one matches. | 
+**Samples** | Pointer to **[]string** | Example log lines for validating the Grok rules. | [optional] 
+**Subtype** | **string** |  | 
 
 ## Methods
 
 ### NewMetricRouteProcessorsInnerOneOfParams
 
-`func NewMetricRouteProcessorsInnerOneOfParams(attributes []MetricRouteProcessorsInnerOneOfParamsAttributesInner, subtype string, ) *MetricRouteProcessorsInnerOneOfParams`
+`func NewMetricRouteProcessorsInnerOneOfParams(attributeName string, rules []string, subtype string, ) *MetricRouteProcessorsInnerOneOfParams`
 
 NewMetricRouteProcessorsInnerOneOfParams instantiates a new MetricRouteProcessorsInnerOneOfParams object
 This constructor will assign default values to properties that have it defined,
@@ -26,25 +28,70 @@ NewMetricRouteProcessorsInnerOneOfParamsWithDefaults instantiates a new MetricRo
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetAttributes
+### GetAttributeName
 
-`func (o *MetricRouteProcessorsInnerOneOfParams) GetAttributes() []MetricRouteProcessorsInnerOneOfParamsAttributesInner`
+`func (o *MetricRouteProcessorsInnerOneOfParams) GetAttributeName() string`
 
-GetAttributes returns the Attributes field if non-nil, zero value otherwise.
+GetAttributeName returns the AttributeName field if non-nil, zero value otherwise.
 
-### GetAttributesOk
+### GetAttributeNameOk
 
-`func (o *MetricRouteProcessorsInnerOneOfParams) GetAttributesOk() (*[]MetricRouteProcessorsInnerOneOfParamsAttributesInner, bool)`
+`func (o *MetricRouteProcessorsInnerOneOfParams) GetAttributeNameOk() (*string, bool)`
 
-GetAttributesOk returns a tuple with the Attributes field if it's non-nil, zero value otherwise
+GetAttributeNameOk returns a tuple with the AttributeName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAttributes
+### SetAttributeName
 
-`func (o *MetricRouteProcessorsInnerOneOfParams) SetAttributes(v []MetricRouteProcessorsInnerOneOfParamsAttributesInner)`
+`func (o *MetricRouteProcessorsInnerOneOfParams) SetAttributeName(v string)`
 
-SetAttributes sets Attributes field to given value.
+SetAttributeName sets AttributeName field to given value.
 
+
+### GetRules
+
+`func (o *MetricRouteProcessorsInnerOneOfParams) GetRules() []string`
+
+GetRules returns the Rules field if non-nil, zero value otherwise.
+
+### GetRulesOk
+
+`func (o *MetricRouteProcessorsInnerOneOfParams) GetRulesOk() (*[]string, bool)`
+
+GetRulesOk returns a tuple with the Rules field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRules
+
+`func (o *MetricRouteProcessorsInnerOneOfParams) SetRules(v []string)`
+
+SetRules sets Rules field to given value.
+
+
+### GetSamples
+
+`func (o *MetricRouteProcessorsInnerOneOfParams) GetSamples() []string`
+
+GetSamples returns the Samples field if non-nil, zero value otherwise.
+
+### GetSamplesOk
+
+`func (o *MetricRouteProcessorsInnerOneOfParams) GetSamplesOk() (*[]string, bool)`
+
+GetSamplesOk returns a tuple with the Samples field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSamples
+
+`func (o *MetricRouteProcessorsInnerOneOfParams) SetSamples(v []string)`
+
+SetSamples sets Samples field to given value.
+
+### HasSamples
+
+`func (o *MetricRouteProcessorsInnerOneOfParams) HasSamples() bool`
+
+HasSamples returns a boolean if a field has been set.
 
 ### GetSubtype
 

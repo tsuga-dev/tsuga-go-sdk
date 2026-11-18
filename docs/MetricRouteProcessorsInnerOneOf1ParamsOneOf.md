@@ -1,4 +1,4 @@
-# MetricRouteProcessorsInnerOneOf2ParamsOneOf
+# MetricRouteProcessorsInnerOneOf1ParamsOneOf
 
 ## Properties
 
@@ -12,130 +12,130 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewMetricRouteProcessorsInnerOneOf2ParamsOneOf
+### NewMetricRouteProcessorsInnerOneOf1ParamsOneOf
 
-`func NewMetricRouteProcessorsInnerOneOf2ParamsOneOf(targetAttribute string, formatString string, subtype string, ) *MetricRouteProcessorsInnerOneOf2ParamsOneOf`
+`func NewMetricRouteProcessorsInnerOneOf1ParamsOneOf(targetAttribute string, formatString string, subtype string, ) *MetricRouteProcessorsInnerOneOf1ParamsOneOf`
 
-NewMetricRouteProcessorsInnerOneOf2ParamsOneOf instantiates a new MetricRouteProcessorsInnerOneOf2ParamsOneOf object
+NewMetricRouteProcessorsInnerOneOf1ParamsOneOf instantiates a new MetricRouteProcessorsInnerOneOf1ParamsOneOf object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewMetricRouteProcessorsInnerOneOf2ParamsOneOfWithDefaults
+### NewMetricRouteProcessorsInnerOneOf1ParamsOneOfWithDefaults
 
-`func NewMetricRouteProcessorsInnerOneOf2ParamsOneOfWithDefaults() *MetricRouteProcessorsInnerOneOf2ParamsOneOf`
+`func NewMetricRouteProcessorsInnerOneOf1ParamsOneOfWithDefaults() *MetricRouteProcessorsInnerOneOf1ParamsOneOf`
 
-NewMetricRouteProcessorsInnerOneOf2ParamsOneOfWithDefaults instantiates a new MetricRouteProcessorsInnerOneOf2ParamsOneOf object
+NewMetricRouteProcessorsInnerOneOf1ParamsOneOfWithDefaults instantiates a new MetricRouteProcessorsInnerOneOf1ParamsOneOf object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetTargetAttribute
 
-`func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetTargetAttribute() string`
+`func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetTargetAttribute() string`
 
 GetTargetAttribute returns the TargetAttribute field if non-nil, zero value otherwise.
 
 ### GetTargetAttributeOk
 
-`func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetTargetAttributeOk() (*string, bool)`
+`func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetTargetAttributeOk() (*string, bool)`
 
 GetTargetAttributeOk returns a tuple with the TargetAttribute field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTargetAttribute
 
-`func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) SetTargetAttribute(v string)`
+`func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) SetTargetAttribute(v string)`
 
 SetTargetAttribute sets TargetAttribute field to given value.
 
 
 ### GetFormatString
 
-`func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetFormatString() string`
+`func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetFormatString() string`
 
 GetFormatString returns the FormatString field if non-nil, zero value otherwise.
 
 ### GetFormatStringOk
 
-`func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetFormatStringOk() (*string, bool)`
+`func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetFormatStringOk() (*string, bool)`
 
 GetFormatStringOk returns a tuple with the FormatString field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFormatString
 
-`func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) SetFormatString(v string)`
+`func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) SetFormatString(v string)`
 
 SetFormatString sets FormatString field to given value.
 
 
 ### GetOverrideTarget
 
-`func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetOverrideTarget() bool`
+`func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetOverrideTarget() bool`
 
 GetOverrideTarget returns the OverrideTarget field if non-nil, zero value otherwise.
 
 ### GetOverrideTargetOk
 
-`func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetOverrideTargetOk() (*bool, bool)`
+`func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetOverrideTargetOk() (*bool, bool)`
 
 GetOverrideTargetOk returns a tuple with the OverrideTarget field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOverrideTarget
 
-`func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) SetOverrideTarget(v bool)`
+`func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) SetOverrideTarget(v bool)`
 
 SetOverrideTarget sets OverrideTarget field to given value.
 
 ### HasOverrideTarget
 
-`func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) HasOverrideTarget() bool`
+`func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) HasOverrideTarget() bool`
 
 HasOverrideTarget returns a boolean if a field has been set.
 
 ### GetSubtype
 
-`func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetSubtype() string`
+`func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetSubtype() string`
 
 GetSubtype returns the Subtype field if non-nil, zero value otherwise.
 
 ### GetSubtypeOk
 
-`func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetSubtypeOk() (*string, bool)`
+`func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetSubtypeOk() (*string, bool)`
 
 GetSubtypeOk returns a tuple with the Subtype field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSubtype
 
-`func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) SetSubtype(v string)`
+`func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) SetSubtype(v string)`
 
 SetSubtype sets Subtype field to given value.
 
 
 ### GetReplaceMissingByEmpty
 
-`func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetReplaceMissingByEmpty() bool`
+`func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetReplaceMissingByEmpty() bool`
 
 GetReplaceMissingByEmpty returns the ReplaceMissingByEmpty field if non-nil, zero value otherwise.
 
 ### GetReplaceMissingByEmptyOk
 
-`func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) GetReplaceMissingByEmptyOk() (*bool, bool)`
+`func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) GetReplaceMissingByEmptyOk() (*bool, bool)`
 
 GetReplaceMissingByEmptyOk returns a tuple with the ReplaceMissingByEmpty field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReplaceMissingByEmpty
 
-`func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) SetReplaceMissingByEmpty(v bool)`
+`func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) SetReplaceMissingByEmpty(v bool)`
 
 SetReplaceMissingByEmpty sets ReplaceMissingByEmpty field to given value.
 
 ### HasReplaceMissingByEmpty
 
-`func (o *MetricRouteProcessorsInnerOneOf2ParamsOneOf) HasReplaceMissingByEmpty() bool`
+`func (o *MetricRouteProcessorsInnerOneOf1ParamsOneOf) HasReplaceMissingByEmpty() bool`
 
 HasReplaceMissingByEmpty returns a boolean if a field has been set.
 

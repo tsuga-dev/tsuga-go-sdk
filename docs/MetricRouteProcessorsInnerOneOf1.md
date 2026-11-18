@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Optional user-provided processor note. | [optional] 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
 **UpdatedAt** | Pointer to **string** | Timestamp when Tsuga last updated the processor. | [optional] 
-**Type** | **string** | Parse processor. It extracts structured fields from a text attribute. | 
+**Type** | **string** | Create processor. It writes a new attribute from a format string, formula, or category rule. | 
 **Params** | [**MetricRouteProcessorsInnerOneOf1Params**](MetricRouteProcessorsInnerOneOf1Params.md) |  | 
 
 ## Methods

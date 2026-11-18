@@ -23,7 +23,7 @@ type InventoryAPI interface {
 	/*
 		CreateCloudAccount Method for CreateCloudAccount
 
-		Registers a cloud account for inventory scanning. Connection settings are stored as provided and are not validated at creation time; scan failures surface through `lastScanStatus`.
+		Registers a cloud account for inventory scanning. Connection settings are stored as provided and are not validated at creation time.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return InventoryAPICreateCloudAccountRequest
@@ -95,7 +95,7 @@ type InventoryAPI interface {
 	/*
 		UpdateCloudAccount Method for UpdateCloudAccount
 
-		Updates the friendly name of a cloud account by ID.
+		Updates the friendly name and owning team of a cloud account by ID.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param id Identifier of the cloud account to update. Use the `id` returned by the cloud account list or create operations.
@@ -129,7 +129,7 @@ func (r InventoryAPICreateCloudAccountRequest) Execute() (*CreateCloudAccountRes
 /*
 CreateCloudAccount Method for CreateCloudAccount
 
-Registers a cloud account for inventory scanning. Connection settings are stored as provided and are not validated at creation time; scan failures surface through `lastScanStatus`.
+Registers a cloud account for inventory scanning. Connection settings are stored as provided and are not validated at creation time.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return InventoryAPICreateCloudAccountRequest
@@ -778,7 +778,7 @@ func (r InventoryAPIUpdateCloudAccountRequest) Execute() (*UpdateCloudAccountRes
 /*
 UpdateCloudAccount Method for UpdateCloudAccount
 
-Updates the friendly name of a cloud account by ID.
+Updates the friendly name and owning team of a cloud account by ID.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id Identifier of the cloud account to update. Use the `id` returned by the cloud account list or create operations.
