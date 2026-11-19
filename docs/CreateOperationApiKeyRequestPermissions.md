@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **LogRoute** | Pointer to **string** | Log routes, which select newly ingested logs and apply processors to them. | [optional] 
 **Metrics** | Pointer to **string** | Ingested metrics, through query and aggregation endpoints. | [optional] 
 **MetricRoute** | Pointer to **string** | Metric routes, which select newly ingested metrics by name and apply processors to them. | [optional] 
+**RumRoute** | Pointer to **string** | RUM routes, which select newly ingested RUM events and apply processors to them. | [optional] 
 **SpanRoute** | Pointer to **string** | Span routes, which select newly ingested spans and apply processors to them. | [optional] 
 **Monitor** | Pointer to **string** | Monitors, the alert definitions evaluated against telemetry. | [optional] 
 **AllowedDomains** | Pointer to **string** | Email domains whose users are allowed to join the organization. | [optional] 
@@ -435,6 +436,31 @@ SetMetricRoute sets MetricRoute field to given value.
 `func (o *CreateOperationApiKeyRequestPermissions) HasMetricRoute() bool`
 
 HasMetricRoute returns a boolean if a field has been set.
+
+### GetRumRoute
+
+`func (o *CreateOperationApiKeyRequestPermissions) GetRumRoute() string`
+
+GetRumRoute returns the RumRoute field if non-nil, zero value otherwise.
+
+### GetRumRouteOk
+
+`func (o *CreateOperationApiKeyRequestPermissions) GetRumRouteOk() (*string, bool)`
+
+GetRumRouteOk returns a tuple with the RumRoute field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRumRoute
+
+`func (o *CreateOperationApiKeyRequestPermissions) SetRumRoute(v string)`
+
+SetRumRoute sets RumRoute field to given value.
+
+### HasRumRoute
+
+`func (o *CreateOperationApiKeyRequestPermissions) HasRumRoute() bool`
+
+HasRumRoute returns a boolean if a field has been set.
 
 ### GetSpanRoute
 

@@ -16,9 +16,9 @@ import (
 
 // CreateMetricRouteRequestProcessorsInner - struct for CreateMetricRouteRequestProcessorsInner
 type CreateMetricRouteRequestProcessorsInner struct {
-	CreateMetricRouteRequestProcessorsInnerOneOf  *CreateMetricRouteRequestProcessorsInnerOneOf
-	CreateMetricRouteRequestProcessorsInnerOneOf1 *CreateMetricRouteRequestProcessorsInnerOneOf1
-	CreateMetricRouteRequestProcessorsInnerOneOf2 *CreateMetricRouteRequestProcessorsInnerOneOf2
+	CreateMetricRouteRequestProcessorsInnerOneOf *CreateMetricRouteRequestProcessorsInnerOneOf
+	InputMetricsCreateProcessor                  *InputMetricsCreateProcessor
+	InputMetricsParseAttributeProcessor          *InputMetricsParseAttributeProcessor
 }
 
 // CreateMetricRouteRequestProcessorsInnerOneOfAsCreateMetricRouteRequestProcessorsInner is a convenience function that returns CreateMetricRouteRequestProcessorsInnerOneOf wrapped in CreateMetricRouteRequestProcessorsInner
@@ -28,17 +28,17 @@ func CreateMetricRouteRequestProcessorsInnerOneOfAsCreateMetricRouteRequestProce
 	}
 }
 
-// CreateMetricRouteRequestProcessorsInnerOneOf1AsCreateMetricRouteRequestProcessorsInner is a convenience function that returns CreateMetricRouteRequestProcessorsInnerOneOf1 wrapped in CreateMetricRouteRequestProcessorsInner
-func CreateMetricRouteRequestProcessorsInnerOneOf1AsCreateMetricRouteRequestProcessorsInner(v *CreateMetricRouteRequestProcessorsInnerOneOf1) CreateMetricRouteRequestProcessorsInner {
+// InputMetricsCreateProcessorAsCreateMetricRouteRequestProcessorsInner is a convenience function that returns InputMetricsCreateProcessor wrapped in CreateMetricRouteRequestProcessorsInner
+func InputMetricsCreateProcessorAsCreateMetricRouteRequestProcessorsInner(v *InputMetricsCreateProcessor) CreateMetricRouteRequestProcessorsInner {
 	return CreateMetricRouteRequestProcessorsInner{
-		CreateMetricRouteRequestProcessorsInnerOneOf1: v,
+		InputMetricsCreateProcessor: v,
 	}
 }
 
-// CreateMetricRouteRequestProcessorsInnerOneOf2AsCreateMetricRouteRequestProcessorsInner is a convenience function that returns CreateMetricRouteRequestProcessorsInnerOneOf2 wrapped in CreateMetricRouteRequestProcessorsInner
-func CreateMetricRouteRequestProcessorsInnerOneOf2AsCreateMetricRouteRequestProcessorsInner(v *CreateMetricRouteRequestProcessorsInnerOneOf2) CreateMetricRouteRequestProcessorsInner {
+// InputMetricsParseAttributeProcessorAsCreateMetricRouteRequestProcessorsInner is a convenience function that returns InputMetricsParseAttributeProcessor wrapped in CreateMetricRouteRequestProcessorsInner
+func InputMetricsParseAttributeProcessorAsCreateMetricRouteRequestProcessorsInner(v *InputMetricsParseAttributeProcessor) CreateMetricRouteRequestProcessorsInner {
 	return CreateMetricRouteRequestProcessorsInner{
-		CreateMetricRouteRequestProcessorsInnerOneOf2: v,
+		InputMetricsParseAttributeProcessor: v,
 	}
 }
 
@@ -50,6 +50,30 @@ func (dst *CreateMetricRouteRequestProcessorsInner) UnmarshalJSON(data []byte) e
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// check if the discriminator value is 'creator'
+	if jsonDict["type"] == "creator" {
+		// try to unmarshal JSON data into InputMetricsCreateProcessor
+		err = json.Unmarshal(data, &dst.InputMetricsCreateProcessor)
+		if err == nil {
+			return nil // data stored in dst.InputMetricsCreateProcessor, return on the first match
+		} else {
+			dst.InputMetricsCreateProcessor = nil
+			return fmt.Errorf("failed to unmarshal CreateMetricRouteRequestProcessorsInner as InputMetricsCreateProcessor: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'parse-attribute'
+	if jsonDict["type"] == "parse-attribute" {
+		// try to unmarshal JSON data into InputMetricsParseAttributeProcessor
+		err = json.Unmarshal(data, &dst.InputMetricsParseAttributeProcessor)
+		if err == nil {
+			return nil // data stored in dst.InputMetricsParseAttributeProcessor, return on the first match
+		} else {
+			dst.InputMetricsParseAttributeProcessor = nil
+			return fmt.Errorf("failed to unmarshal CreateMetricRouteRequestProcessorsInner as InputMetricsParseAttributeProcessor: %s", err.Error())
+		}
 	}
 
 	// check if the discriminator value is 'createMetricRoute_request_processors_inner_oneOf'
@@ -64,30 +88,6 @@ func (dst *CreateMetricRouteRequestProcessorsInner) UnmarshalJSON(data []byte) e
 		}
 	}
 
-	// check if the discriminator value is 'createMetricRoute_request_processors_inner_oneOf_1'
-	if jsonDict["type"] == "createMetricRoute_request_processors_inner_oneOf_1" {
-		// try to unmarshal JSON data into CreateMetricRouteRequestProcessorsInnerOneOf1
-		err = json.Unmarshal(data, &dst.CreateMetricRouteRequestProcessorsInnerOneOf1)
-		if err == nil {
-			return nil // data stored in dst.CreateMetricRouteRequestProcessorsInnerOneOf1, return on the first match
-		} else {
-			dst.CreateMetricRouteRequestProcessorsInnerOneOf1 = nil
-			return fmt.Errorf("failed to unmarshal CreateMetricRouteRequestProcessorsInner as CreateMetricRouteRequestProcessorsInnerOneOf1: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'createMetricRoute_request_processors_inner_oneOf_2'
-	if jsonDict["type"] == "createMetricRoute_request_processors_inner_oneOf_2" {
-		// try to unmarshal JSON data into CreateMetricRouteRequestProcessorsInnerOneOf2
-		err = json.Unmarshal(data, &dst.CreateMetricRouteRequestProcessorsInnerOneOf2)
-		if err == nil {
-			return nil // data stored in dst.CreateMetricRouteRequestProcessorsInnerOneOf2, return on the first match
-		} else {
-			dst.CreateMetricRouteRequestProcessorsInnerOneOf2 = nil
-			return fmt.Errorf("failed to unmarshal CreateMetricRouteRequestProcessorsInner as CreateMetricRouteRequestProcessorsInnerOneOf2: %s", err.Error())
-		}
-	}
-
 	return nil
 }
 
@@ -97,12 +97,12 @@ func (src CreateMetricRouteRequestProcessorsInner) MarshalJSON() ([]byte, error)
 		return json.Marshal(&src.CreateMetricRouteRequestProcessorsInnerOneOf)
 	}
 
-	if src.CreateMetricRouteRequestProcessorsInnerOneOf1 != nil {
-		return json.Marshal(&src.CreateMetricRouteRequestProcessorsInnerOneOf1)
+	if src.InputMetricsCreateProcessor != nil {
+		return json.Marshal(&src.InputMetricsCreateProcessor)
 	}
 
-	if src.CreateMetricRouteRequestProcessorsInnerOneOf2 != nil {
-		return json.Marshal(&src.CreateMetricRouteRequestProcessorsInnerOneOf2)
+	if src.InputMetricsParseAttributeProcessor != nil {
+		return json.Marshal(&src.InputMetricsParseAttributeProcessor)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -117,12 +117,12 @@ func (obj *CreateMetricRouteRequestProcessorsInner) GetActualInstance() interfac
 		return obj.CreateMetricRouteRequestProcessorsInnerOneOf
 	}
 
-	if obj.CreateMetricRouteRequestProcessorsInnerOneOf1 != nil {
-		return obj.CreateMetricRouteRequestProcessorsInnerOneOf1
+	if obj.InputMetricsCreateProcessor != nil {
+		return obj.InputMetricsCreateProcessor
 	}
 
-	if obj.CreateMetricRouteRequestProcessorsInnerOneOf2 != nil {
-		return obj.CreateMetricRouteRequestProcessorsInnerOneOf2
+	if obj.InputMetricsParseAttributeProcessor != nil {
+		return obj.InputMetricsParseAttributeProcessor
 	}
 
 	// all schemas are nil
@@ -135,12 +135,12 @@ func (obj CreateMetricRouteRequestProcessorsInner) GetActualInstanceValue() inte
 		return *obj.CreateMetricRouteRequestProcessorsInnerOneOf
 	}
 
-	if obj.CreateMetricRouteRequestProcessorsInnerOneOf1 != nil {
-		return *obj.CreateMetricRouteRequestProcessorsInnerOneOf1
+	if obj.InputMetricsCreateProcessor != nil {
+		return *obj.InputMetricsCreateProcessor
 	}
 
-	if obj.CreateMetricRouteRequestProcessorsInnerOneOf2 != nil {
-		return *obj.CreateMetricRouteRequestProcessorsInnerOneOf2
+	if obj.InputMetricsParseAttributeProcessor != nil {
+		return *obj.InputMetricsParseAttributeProcessor
 	}
 
 	// all schemas are nil

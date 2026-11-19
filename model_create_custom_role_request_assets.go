@@ -74,6 +74,8 @@ type CreateCustomRoleRequestAssets struct {
 	// Access granted on this resource type. `write` implies `read`.
 	MetricRoute *string `json:"metric-route,omitempty"`
 	// Access granted on this resource type. `write` implies `read`.
+	RumRoute *string `json:"rum-route,omitempty"`
+	// Access granted on this resource type. `write` implies `read`.
 	SpanRoute *string `json:"span-route,omitempty"`
 	// Access granted on this resource type. `write` implies `read`.
 	Monitor *string `json:"monitor,omitempty"`
@@ -992,6 +994,38 @@ func (o *CreateCustomRoleRequestAssets) SetMetricRoute(v string) {
 	o.MetricRoute = &v
 }
 
+// GetRumRoute returns the RumRoute field value if set, zero value otherwise.
+func (o *CreateCustomRoleRequestAssets) GetRumRoute() string {
+	if o == nil || IsNil(o.RumRoute) {
+		var ret string
+		return ret
+	}
+	return *o.RumRoute
+}
+
+// GetRumRouteOk returns a tuple with the RumRoute field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCustomRoleRequestAssets) GetRumRouteOk() (*string, bool) {
+	if o == nil || IsNil(o.RumRoute) {
+		return nil, false
+	}
+	return o.RumRoute, true
+}
+
+// HasRumRoute returns a boolean if a field has been set.
+func (o *CreateCustomRoleRequestAssets) HasRumRoute() bool {
+	if o != nil && !IsNil(o.RumRoute) {
+		return true
+	}
+
+	return false
+}
+
+// SetRumRoute gets a reference to the given string and assigns it to the RumRoute field.
+func (o *CreateCustomRoleRequestAssets) SetRumRoute(v string) {
+	o.RumRoute = &v
+}
+
 // GetSpanRoute returns the SpanRoute field value if set, zero value otherwise.
 func (o *CreateCustomRoleRequestAssets) GetSpanRoute() string {
 	if o == nil || IsNil(o.SpanRoute) {
@@ -1587,6 +1621,9 @@ func (o CreateCustomRoleRequestAssets) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MetricRoute) {
 		toSerialize["metric-route"] = o.MetricRoute
 	}
+	if !IsNil(o.RumRoute) {
+		toSerialize["rum-route"] = o.RumRoute
+	}
 	if !IsNil(o.SpanRoute) {
 		toSerialize["span-route"] = o.SpanRoute
 	}
@@ -1703,6 +1740,7 @@ func (o *CreateCustomRoleRequestAssets) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "ingestion-api-key")
 		delete(additionalProperties, "log-route")
 		delete(additionalProperties, "metric-route")
+		delete(additionalProperties, "rum-route")
 		delete(additionalProperties, "span-route")
 		delete(additionalProperties, "monitor")
 		delete(additionalProperties, "notebook")

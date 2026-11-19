@@ -17,12 +17,10 @@ import (
 // checks if the OutputSpansProcessorAnyOfParams type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &OutputSpansProcessorAnyOfParams{}
 
-// OutputSpansProcessorAnyOfParams struct for OutputSpansProcessorAnyOfParams
+// OutputSpansProcessorAnyOfParams Split configuration containing the ordered conditional branches.
 type OutputSpansProcessorAnyOfParams struct {
-	// Mappings that map individual attributes to new targets
-	Attributes []OutputSpansProcessorAnyOfParamsAttributesInner `json:"attributes"`
-	// Copies or moves one or more source attributes to target attributes.
-	Subtype              string `json:"subtype"`
+	// Branches evaluated in order; only the first matching branch runs. A final branch with an empty query matches all remaining events. If no branch matches, the event is unchanged.
+	Items                []OutputSpansProcessorAnyOfParamsItemsInner `json:"items"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,10 +30,9 @@ type _OutputSpansProcessorAnyOfParams OutputSpansProcessorAnyOfParams
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOutputSpansProcessorAnyOfParams(attributes []OutputSpansProcessorAnyOfParamsAttributesInner, subtype string) *OutputSpansProcessorAnyOfParams {
+func NewOutputSpansProcessorAnyOfParams(items []OutputSpansProcessorAnyOfParamsItemsInner) *OutputSpansProcessorAnyOfParams {
 	this := OutputSpansProcessorAnyOfParams{}
-	this.Attributes = attributes
-	this.Subtype = subtype
+	this.Items = items
 	return &this
 }
 
@@ -47,52 +44,28 @@ func NewOutputSpansProcessorAnyOfParamsWithDefaults() *OutputSpansProcessorAnyOf
 	return &this
 }
 
-// GetAttributes returns the Attributes field value
-func (o *OutputSpansProcessorAnyOfParams) GetAttributes() []OutputSpansProcessorAnyOfParamsAttributesInner {
+// GetItems returns the Items field value
+func (o *OutputSpansProcessorAnyOfParams) GetItems() []OutputSpansProcessorAnyOfParamsItemsInner {
 	if o == nil {
-		var ret []OutputSpansProcessorAnyOfParamsAttributesInner
+		var ret []OutputSpansProcessorAnyOfParamsItemsInner
 		return ret
 	}
 
-	return o.Attributes
+	return o.Items
 }
 
-// GetAttributesOk returns a tuple with the Attributes field value
+// GetItemsOk returns a tuple with the Items field value
 // and a boolean to check if the value has been set.
-func (o *OutputSpansProcessorAnyOfParams) GetAttributesOk() ([]OutputSpansProcessorAnyOfParamsAttributesInner, bool) {
+func (o *OutputSpansProcessorAnyOfParams) GetItemsOk() ([]OutputSpansProcessorAnyOfParamsItemsInner, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Attributes, true
+	return o.Items, true
 }
 
-// SetAttributes sets field value
-func (o *OutputSpansProcessorAnyOfParams) SetAttributes(v []OutputSpansProcessorAnyOfParamsAttributesInner) {
-	o.Attributes = v
-}
-
-// GetSubtype returns the Subtype field value
-func (o *OutputSpansProcessorAnyOfParams) GetSubtype() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Subtype
-}
-
-// GetSubtypeOk returns a tuple with the Subtype field value
-// and a boolean to check if the value has been set.
-func (o *OutputSpansProcessorAnyOfParams) GetSubtypeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Subtype, true
-}
-
-// SetSubtype sets field value
-func (o *OutputSpansProcessorAnyOfParams) SetSubtype(v string) {
-	o.Subtype = v
+// SetItems sets field value
+func (o *OutputSpansProcessorAnyOfParams) SetItems(v []OutputSpansProcessorAnyOfParamsItemsInner) {
+	o.Items = v
 }
 
 func (o OutputSpansProcessorAnyOfParams) MarshalJSON() ([]byte, error) {
@@ -105,8 +78,7 @@ func (o OutputSpansProcessorAnyOfParams) MarshalJSON() ([]byte, error) {
 
 func (o OutputSpansProcessorAnyOfParams) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["attributes"] = o.Attributes
-	toSerialize["subtype"] = o.Subtype
+	toSerialize["items"] = o.Items
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -120,8 +92,7 @@ func (o *OutputSpansProcessorAnyOfParams) UnmarshalJSON(data []byte) (err error)
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"attributes",
-		"subtype",
+		"items",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -151,8 +122,7 @@ func (o *OutputSpansProcessorAnyOfParams) UnmarshalJSON(data []byte) (err error)
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "attributes")
-		delete(additionalProperties, "subtype")
+		delete(additionalProperties, "items")
 		o.AdditionalProperties = additionalProperties
 	}
 

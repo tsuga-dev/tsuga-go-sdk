@@ -288,7 +288,7 @@ Name | Type | Description  | Notes
 
 ## UpdateMetricRoute
 
-> UpdateMetricRouteResponse UpdateMetricRoute(ctx, id).UpdateMetricRouteRequest(updateMetricRouteRequest).Execute()
+> UpdateMetricRouteResponse UpdateMetricRoute(ctx, id).CreateMetricRouteRequest(createMetricRouteRequest).Execute()
 
 
 
@@ -308,11 +308,11 @@ import (
 
 func main() {
 	id := "id_example" // string | Identifier of the metric route to update. Use the `id` returned by metric route list, get, or create responses.
-	updateMetricRouteRequest := *openapiclient.NewUpdateMetricRouteRequest("Name_example", false, "MetricNameRegex_example", "Owner_example", []openapiclient.UpdateMetricRouteRequestProcessorsInner{openapiclient.updateMetricRoute_request_processors_inner{CreateMetricRouteRequestProcessorsInnerOneOf: openapiclient.NewCreateMetricRouteRequestProcessorsInnerOneOf("Id_example", "Type_example", *openapiclient.NewCreateMetricRouteRequestProcessorsInnerOneOfParams([]openapiclient.CreateMetricRouteRequestProcessorsInnerOneOfParamsAttributesInner{*openapiclient.NewCreateMetricRouteRequestProcessorsInnerOneOfParamsAttributesInner("OriginAttribute_example", "TargetAttribute_example")}, "Subtype_example"))}}) // UpdateMetricRouteRequest | Metrics route create or update request. Provide the route metadata, metric name regex, owner team, enabled state, tags, and ordered processors.
+	createMetricRouteRequest := *openapiclient.NewCreateMetricRouteRequest("Name_example", false, "MetricNameRegex_example", "Owner_example", []openapiclient.CreateMetricRouteRequestProcessorsInner{openapiclient.createMetricRoute_request_processors_inner{CreateMetricRouteRequestProcessorsInnerOneOf: openapiclient.NewCreateMetricRouteRequestProcessorsInnerOneOf("Id_example", "Type_example", *openapiclient.NewCreateMetricRouteRequestProcessorsInnerOneOfParams([]openapiclient.CreateMetricRouteRequestProcessorsInnerOneOfParamsAttributesInner{*openapiclient.NewCreateMetricRouteRequestProcessorsInnerOneOfParamsAttributesInner("OriginAttribute_example", "TargetAttribute_example")}, "Subtype_example"))}}) // CreateMetricRouteRequest | Metrics route create or update request. Provide the route metadata, metric name regex, owner team, enabled state, tags, and ordered processors.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MetricRoutesAPI.UpdateMetricRoute(context.Background(), id).UpdateMetricRouteRequest(updateMetricRouteRequest).Execute()
+	resp, r, err := apiClient.MetricRoutesAPI.UpdateMetricRoute(context.Background(), id).CreateMetricRouteRequest(createMetricRouteRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MetricRoutesAPI.UpdateMetricRoute``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -338,7 +338,7 @@ Other parameters are passed through a pointer to a apiUpdateMetricRouteRequest s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **updateMetricRouteRequest** | [**UpdateMetricRouteRequest**](UpdateMetricRouteRequest.md) | Metrics route create or update request. Provide the route metadata, metric name regex, owner team, enabled state, tags, and ordered processors. | 
+ **createMetricRouteRequest** | [**CreateMetricRouteRequest**](CreateMetricRouteRequest.md) | Metrics route create or update request. Provide the route metadata, metric name regex, owner team, enabled state, tags, and ordered processors. | 
 
 ### Return type
 

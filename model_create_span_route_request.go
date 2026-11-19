@@ -31,7 +31,7 @@ type CreateSpanRouteRequest struct {
 	Tags []InputTag `json:"tags,omitempty"`
 	// ID of the team that will own the span route, determining which team members can view and manage it and which tag policies apply. Only an org admin or an admin of this team may change fields other than `processors`, or delete the route.
 	Owner string `json:"owner"`
-	// Processors applied in array order to spans that match the span route, each transforming the output of the previous one. A `split` processor forks the chain into branches and cannot be followed by another processor at the same level. Up to 50 are accepted.
+	// Processors applied in array order to spans that match the span route, each transforming the output of the previous one. A `split` processor forks the chain into branches and cannot be followed by another processor at the same level.
 	Processors           []InputSpansProcessor `json:"processors"`
 	AdditionalProperties map[string]interface{}
 }

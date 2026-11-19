@@ -44,8 +44,8 @@ func (dst *FindContrastSetsResponseDataContrastSetsInner) UnmarshalJSON(data []b
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'CategoricalContrastSet'
-	if jsonDict["type"] == "CategoricalContrastSet" {
+	// check if the discriminator value is 'categorical'
+	if jsonDict["type"] == "categorical" {
 		// try to unmarshal JSON data into CategoricalContrastSet
 		err = json.Unmarshal(data, &dst.CategoricalContrastSet)
 		if err == nil {
@@ -56,8 +56,8 @@ func (dst *FindContrastSetsResponseDataContrastSetsInner) UnmarshalJSON(data []b
 		}
 	}
 
-	// check if the discriminator value is 'DistributionContrastSet'
-	if jsonDict["type"] == "DistributionContrastSet" {
+	// check if the discriminator value is 'distribution'
+	if jsonDict["type"] == "distribution" {
 		// try to unmarshal JSON data into DistributionContrastSet
 		err = json.Unmarshal(data, &dst.DistributionContrastSet)
 		if err == nil {

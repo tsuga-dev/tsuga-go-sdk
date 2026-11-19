@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Query** | **string** | Query that selects logs for this category clause. Clauses are evaluated in order. | 
+**Query** | **string** | Query that selects events for this category clause. Clauses are evaluated in order. | 
 **Value** | **string** | String category value assigned when this clause matches. | 
 
 ## Methods

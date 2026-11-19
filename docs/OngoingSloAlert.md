@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Discriminator identifying an alert raised by an SLO. | 
-**Slo** | [**OngoingSloAlertSlo**](OngoingSloAlertSlo.md) |  | 
+**Slo** | [**Slo**](Slo.md) |  | 
 **SloAlert** | [**OngoingSloAlertSloAlert**](OngoingSloAlertSloAlert.md) |  | 
 **TransitionId** | **string** | ID of the state transition that opened this alert. It stays the same for as long as the alert remains open, so it identifies the alert across successive polls. | 
 **ClusterId** | Pointer to **string** | Cluster the alert was raised on. Omitted for alerts that are not scoped to a cluster. | [optional] 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewOngoingSloAlert
 
-`func NewOngoingSloAlert(type_ string, slo OngoingSloAlertSlo, sloAlert OngoingSloAlertSloAlert, transitionId string, currentState string, currentStateSince string, triggeredBy []map[string]OngoingMonitorAlertTriggeredByInnerValue, ) *OngoingSloAlert`
+`func NewOngoingSloAlert(type_ string, slo Slo, sloAlert OngoingSloAlertSloAlert, transitionId string, currentState string, currentStateSince string, triggeredBy []map[string]OngoingMonitorAlertTriggeredByInnerValue, ) *OngoingSloAlert`
 
 NewOngoingSloAlert instantiates a new OngoingSloAlert object
 This constructor will assign default values to properties that have it defined,
@@ -54,20 +54,20 @@ SetType sets Type field to given value.
 
 ### GetSlo
 
-`func (o *OngoingSloAlert) GetSlo() OngoingSloAlertSlo`
+`func (o *OngoingSloAlert) GetSlo() Slo`
 
 GetSlo returns the Slo field if non-nil, zero value otherwise.
 
 ### GetSloOk
 
-`func (o *OngoingSloAlert) GetSloOk() (*OngoingSloAlertSlo, bool)`
+`func (o *OngoingSloAlert) GetSloOk() (*Slo, bool)`
 
 GetSloOk returns a tuple with the Slo field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSlo
 
-`func (o *OngoingSloAlert) SetSlo(v OngoingSloAlertSlo)`
+`func (o *OngoingSloAlert) SetSlo(v Slo)`
 
 SetSlo sets Slo field to given value.
 

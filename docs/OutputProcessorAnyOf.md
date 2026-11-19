@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Optional user-provided processor note. | [optional] 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
 **UpdatedAt** | Pointer to **string** | Timestamp when Tsuga last updated the processor. | [optional] 
-**Type** | **string** | Map processor. It moves, copies, or normalizes existing log attributes. | 
+**Type** | **string** | Map processor. It moves, copies, or normalizes existing event attributes. | 
 **Params** | [**OutputProcessorAnyOfParams**](OutputProcessorAnyOfParams.md) |  | 
 
 ## Methods

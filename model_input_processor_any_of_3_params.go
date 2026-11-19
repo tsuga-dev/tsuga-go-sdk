@@ -17,9 +17,9 @@ import (
 // checks if the InputProcessorAnyOf3Params type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &InputProcessorAnyOf3Params{}
 
-// InputProcessorAnyOf3Params struct for InputProcessorAnyOf3Params
+// InputProcessorAnyOf3Params Split configuration containing the ordered conditional branches.
 type InputProcessorAnyOf3Params struct {
-	// Conditional branches evaluated in order before falling back to the default
+	// Branches evaluated in order; only the first matching branch runs. A final branch with an empty query matches all remaining events. If no branch matches, the event is unchanged.
 	Items                []InputProcessorAnyOf3ParamsItemsInner `json:"items"`
 	AdditionalProperties map[string]interface{}
 }

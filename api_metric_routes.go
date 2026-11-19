@@ -641,12 +641,12 @@ type MetricRoutesAPIUpdateMetricRouteRequest struct {
 	ctx                      context.Context
 	ApiService               MetricRoutesAPI
 	id                       string
-	updateMetricRouteRequest *UpdateMetricRouteRequest
+	createMetricRouteRequest *CreateMetricRouteRequest
 }
 
 // Metrics route create or update request. Provide the route metadata, metric name regex, owner team, enabled state, tags, and ordered processors.
-func (r MetricRoutesAPIUpdateMetricRouteRequest) UpdateMetricRouteRequest(updateMetricRouteRequest UpdateMetricRouteRequest) MetricRoutesAPIUpdateMetricRouteRequest {
-	r.updateMetricRouteRequest = &updateMetricRouteRequest
+func (r MetricRoutesAPIUpdateMetricRouteRequest) CreateMetricRouteRequest(createMetricRouteRequest CreateMetricRouteRequest) MetricRoutesAPIUpdateMetricRouteRequest {
+	r.createMetricRouteRequest = &createMetricRouteRequest
 	return r
 }
 
@@ -699,8 +699,8 @@ func (a *MetricRoutesAPIService) UpdateMetricRouteExecute(r MetricRoutesAPIUpdat
 	if strlen(r.id) > 250 {
 		return localVarReturnValue, nil, reportError("id must have less than 250 elements")
 	}
-	if r.updateMetricRouteRequest == nil {
-		return localVarReturnValue, nil, reportError("updateMetricRouteRequest is required and must be specified")
+	if r.createMetricRouteRequest == nil {
+		return localVarReturnValue, nil, reportError("createMetricRouteRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -721,7 +721,7 @@ func (a *MetricRoutesAPIService) UpdateMetricRouteExecute(r MetricRoutesAPIUpdat
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.updateMetricRouteRequest
+	localVarPostBody = r.createMetricRouteRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

@@ -16,10 +16,10 @@ import (
 
 // OutputSpansProcessor struct for OutputSpansProcessor
 type OutputSpansProcessor struct {
-	OutputProcessorAnyOf1      *OutputProcessorAnyOf1
-	OutputProcessorAnyOf2      *OutputProcessorAnyOf2
-	OutputSpansProcessorAnyOf  *OutputSpansProcessorAnyOf
-	OutputSpansProcessorAnyOf1 *OutputSpansProcessorAnyOf1
+	OutputProcessorAnyOf1     *OutputProcessorAnyOf1
+	OutputProcessorAnyOf2     *OutputProcessorAnyOf2
+	OutputRumProcessorAnyOf   *OutputRumProcessorAnyOf
+	OutputSpansProcessorAnyOf *OutputSpansProcessorAnyOf
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
@@ -51,6 +51,19 @@ func (dst *OutputSpansProcessor) UnmarshalJSON(data []byte) error {
 		dst.OutputProcessorAnyOf2 = nil
 	}
 
+	// try to unmarshal JSON data into OutputRumProcessorAnyOf
+	err = json.Unmarshal(data, &dst.OutputRumProcessorAnyOf)
+	if err == nil {
+		jsonOutputRumProcessorAnyOf, _ := json.Marshal(dst.OutputRumProcessorAnyOf)
+		if string(jsonOutputRumProcessorAnyOf) == "{}" { // empty struct
+			dst.OutputRumProcessorAnyOf = nil
+		} else {
+			return nil // data stored in dst.OutputRumProcessorAnyOf, return on the first match
+		}
+	} else {
+		dst.OutputRumProcessorAnyOf = nil
+	}
+
 	// try to unmarshal JSON data into OutputSpansProcessorAnyOf
 	err = json.Unmarshal(data, &dst.OutputSpansProcessorAnyOf)
 	if err == nil {
@@ -62,19 +75,6 @@ func (dst *OutputSpansProcessor) UnmarshalJSON(data []byte) error {
 		}
 	} else {
 		dst.OutputSpansProcessorAnyOf = nil
-	}
-
-	// try to unmarshal JSON data into OutputSpansProcessorAnyOf1
-	err = json.Unmarshal(data, &dst.OutputSpansProcessorAnyOf1)
-	if err == nil {
-		jsonOutputSpansProcessorAnyOf1, _ := json.Marshal(dst.OutputSpansProcessorAnyOf1)
-		if string(jsonOutputSpansProcessorAnyOf1) == "{}" { // empty struct
-			dst.OutputSpansProcessorAnyOf1 = nil
-		} else {
-			return nil // data stored in dst.OutputSpansProcessorAnyOf1, return on the first match
-		}
-	} else {
-		dst.OutputSpansProcessorAnyOf1 = nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in anyOf(OutputSpansProcessor)")
@@ -90,12 +90,12 @@ func (src OutputSpansProcessor) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.OutputProcessorAnyOf2)
 	}
 
-	if src.OutputSpansProcessorAnyOf != nil {
-		return json.Marshal(&src.OutputSpansProcessorAnyOf)
+	if src.OutputRumProcessorAnyOf != nil {
+		return json.Marshal(&src.OutputRumProcessorAnyOf)
 	}
 
-	if src.OutputSpansProcessorAnyOf1 != nil {
-		return json.Marshal(&src.OutputSpansProcessorAnyOf1)
+	if src.OutputSpansProcessorAnyOf != nil {
+		return json.Marshal(&src.OutputSpansProcessorAnyOf)
 	}
 
 	return nil, nil // no data in anyOf schemas

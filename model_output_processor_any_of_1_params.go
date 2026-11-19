@@ -16,45 +16,45 @@ import (
 
 // OutputProcessorAnyOf1Params - Parse processor configuration. The `subtype` discriminator selects which parser reads the source text attribute and which fields it extracts.
 type OutputProcessorAnyOf1Params struct {
-	OutputProcessorAnyOf1ParamsOneOf  *OutputProcessorAnyOf1ParamsOneOf
-	OutputProcessorAnyOf1ParamsOneOf1 *OutputProcessorAnyOf1ParamsOneOf1
-	OutputProcessorAnyOf1ParamsOneOf2 *OutputProcessorAnyOf1ParamsOneOf2
-	OutputProcessorAnyOf1ParamsOneOf3 *OutputProcessorAnyOf1ParamsOneOf3
-	OutputProcessorAnyOf1ParamsOneOf4 *OutputProcessorAnyOf1ParamsOneOf4
+	ProcessorParseGeoIp     *ProcessorParseGeoIp
+	ProcessorParseGrok      *ProcessorParseGrok
+	ProcessorParseKeyValue  *ProcessorParseKeyValue
+	ProcessorParseUrl       *ProcessorParseUrl
+	ProcessorParseUserAgent *ProcessorParseUserAgent
 }
 
-// OutputProcessorAnyOf1ParamsOneOfAsOutputProcessorAnyOf1Params is a convenience function that returns OutputProcessorAnyOf1ParamsOneOf wrapped in OutputProcessorAnyOf1Params
-func OutputProcessorAnyOf1ParamsOneOfAsOutputProcessorAnyOf1Params(v *OutputProcessorAnyOf1ParamsOneOf) OutputProcessorAnyOf1Params {
+// ProcessorParseGeoIpAsOutputProcessorAnyOf1Params is a convenience function that returns ProcessorParseGeoIp wrapped in OutputProcessorAnyOf1Params
+func ProcessorParseGeoIpAsOutputProcessorAnyOf1Params(v *ProcessorParseGeoIp) OutputProcessorAnyOf1Params {
 	return OutputProcessorAnyOf1Params{
-		OutputProcessorAnyOf1ParamsOneOf: v,
+		ProcessorParseGeoIp: v,
 	}
 }
 
-// OutputProcessorAnyOf1ParamsOneOf1AsOutputProcessorAnyOf1Params is a convenience function that returns OutputProcessorAnyOf1ParamsOneOf1 wrapped in OutputProcessorAnyOf1Params
-func OutputProcessorAnyOf1ParamsOneOf1AsOutputProcessorAnyOf1Params(v *OutputProcessorAnyOf1ParamsOneOf1) OutputProcessorAnyOf1Params {
+// ProcessorParseGrokAsOutputProcessorAnyOf1Params is a convenience function that returns ProcessorParseGrok wrapped in OutputProcessorAnyOf1Params
+func ProcessorParseGrokAsOutputProcessorAnyOf1Params(v *ProcessorParseGrok) OutputProcessorAnyOf1Params {
 	return OutputProcessorAnyOf1Params{
-		OutputProcessorAnyOf1ParamsOneOf1: v,
+		ProcessorParseGrok: v,
 	}
 }
 
-// OutputProcessorAnyOf1ParamsOneOf2AsOutputProcessorAnyOf1Params is a convenience function that returns OutputProcessorAnyOf1ParamsOneOf2 wrapped in OutputProcessorAnyOf1Params
-func OutputProcessorAnyOf1ParamsOneOf2AsOutputProcessorAnyOf1Params(v *OutputProcessorAnyOf1ParamsOneOf2) OutputProcessorAnyOf1Params {
+// ProcessorParseKeyValueAsOutputProcessorAnyOf1Params is a convenience function that returns ProcessorParseKeyValue wrapped in OutputProcessorAnyOf1Params
+func ProcessorParseKeyValueAsOutputProcessorAnyOf1Params(v *ProcessorParseKeyValue) OutputProcessorAnyOf1Params {
 	return OutputProcessorAnyOf1Params{
-		OutputProcessorAnyOf1ParamsOneOf2: v,
+		ProcessorParseKeyValue: v,
 	}
 }
 
-// OutputProcessorAnyOf1ParamsOneOf3AsOutputProcessorAnyOf1Params is a convenience function that returns OutputProcessorAnyOf1ParamsOneOf3 wrapped in OutputProcessorAnyOf1Params
-func OutputProcessorAnyOf1ParamsOneOf3AsOutputProcessorAnyOf1Params(v *OutputProcessorAnyOf1ParamsOneOf3) OutputProcessorAnyOf1Params {
+// ProcessorParseUrlAsOutputProcessorAnyOf1Params is a convenience function that returns ProcessorParseUrl wrapped in OutputProcessorAnyOf1Params
+func ProcessorParseUrlAsOutputProcessorAnyOf1Params(v *ProcessorParseUrl) OutputProcessorAnyOf1Params {
 	return OutputProcessorAnyOf1Params{
-		OutputProcessorAnyOf1ParamsOneOf3: v,
+		ProcessorParseUrl: v,
 	}
 }
 
-// OutputProcessorAnyOf1ParamsOneOf4AsOutputProcessorAnyOf1Params is a convenience function that returns OutputProcessorAnyOf1ParamsOneOf4 wrapped in OutputProcessorAnyOf1Params
-func OutputProcessorAnyOf1ParamsOneOf4AsOutputProcessorAnyOf1Params(v *OutputProcessorAnyOf1ParamsOneOf4) OutputProcessorAnyOf1Params {
+// ProcessorParseUserAgentAsOutputProcessorAnyOf1Params is a convenience function that returns ProcessorParseUserAgent wrapped in OutputProcessorAnyOf1Params
+func ProcessorParseUserAgentAsOutputProcessorAnyOf1Params(v *ProcessorParseUserAgent) OutputProcessorAnyOf1Params {
 	return OutputProcessorAnyOf1Params{
-		OutputProcessorAnyOf1ParamsOneOf4: v,
+		ProcessorParseUserAgent: v,
 	}
 }
 
@@ -68,63 +68,63 @@ func (dst *OutputProcessorAnyOf1Params) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'OutputProcessor_anyOf_1_params_oneOf'
-	if jsonDict["subtype"] == "OutputProcessor_anyOf_1_params_oneOf" {
-		// try to unmarshal JSON data into OutputProcessorAnyOf1ParamsOneOf
-		err = json.Unmarshal(data, &dst.OutputProcessorAnyOf1ParamsOneOf)
+	// check if the discriminator value is 'geo-ip'
+	if jsonDict["subtype"] == "geo-ip" {
+		// try to unmarshal JSON data into ProcessorParseGeoIp
+		err = json.Unmarshal(data, &dst.ProcessorParseGeoIp)
 		if err == nil {
-			return nil // data stored in dst.OutputProcessorAnyOf1ParamsOneOf, return on the first match
+			return nil // data stored in dst.ProcessorParseGeoIp, return on the first match
 		} else {
-			dst.OutputProcessorAnyOf1ParamsOneOf = nil
-			return fmt.Errorf("failed to unmarshal OutputProcessorAnyOf1Params as OutputProcessorAnyOf1ParamsOneOf: %s", err.Error())
+			dst.ProcessorParseGeoIp = nil
+			return fmt.Errorf("failed to unmarshal OutputProcessorAnyOf1Params as ProcessorParseGeoIp: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'OutputProcessor_anyOf_1_params_oneOf_1'
-	if jsonDict["subtype"] == "OutputProcessor_anyOf_1_params_oneOf_1" {
-		// try to unmarshal JSON data into OutputProcessorAnyOf1ParamsOneOf1
-		err = json.Unmarshal(data, &dst.OutputProcessorAnyOf1ParamsOneOf1)
+	// check if the discriminator value is 'grok'
+	if jsonDict["subtype"] == "grok" {
+		// try to unmarshal JSON data into ProcessorParseGrok
+		err = json.Unmarshal(data, &dst.ProcessorParseGrok)
 		if err == nil {
-			return nil // data stored in dst.OutputProcessorAnyOf1ParamsOneOf1, return on the first match
+			return nil // data stored in dst.ProcessorParseGrok, return on the first match
 		} else {
-			dst.OutputProcessorAnyOf1ParamsOneOf1 = nil
-			return fmt.Errorf("failed to unmarshal OutputProcessorAnyOf1Params as OutputProcessorAnyOf1ParamsOneOf1: %s", err.Error())
+			dst.ProcessorParseGrok = nil
+			return fmt.Errorf("failed to unmarshal OutputProcessorAnyOf1Params as ProcessorParseGrok: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'OutputProcessor_anyOf_1_params_oneOf_2'
-	if jsonDict["subtype"] == "OutputProcessor_anyOf_1_params_oneOf_2" {
-		// try to unmarshal JSON data into OutputProcessorAnyOf1ParamsOneOf2
-		err = json.Unmarshal(data, &dst.OutputProcessorAnyOf1ParamsOneOf2)
+	// check if the discriminator value is 'key-value'
+	if jsonDict["subtype"] == "key-value" {
+		// try to unmarshal JSON data into ProcessorParseKeyValue
+		err = json.Unmarshal(data, &dst.ProcessorParseKeyValue)
 		if err == nil {
-			return nil // data stored in dst.OutputProcessorAnyOf1ParamsOneOf2, return on the first match
+			return nil // data stored in dst.ProcessorParseKeyValue, return on the first match
 		} else {
-			dst.OutputProcessorAnyOf1ParamsOneOf2 = nil
-			return fmt.Errorf("failed to unmarshal OutputProcessorAnyOf1Params as OutputProcessorAnyOf1ParamsOneOf2: %s", err.Error())
+			dst.ProcessorParseKeyValue = nil
+			return fmt.Errorf("failed to unmarshal OutputProcessorAnyOf1Params as ProcessorParseKeyValue: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'OutputProcessor_anyOf_1_params_oneOf_3'
-	if jsonDict["subtype"] == "OutputProcessor_anyOf_1_params_oneOf_3" {
-		// try to unmarshal JSON data into OutputProcessorAnyOf1ParamsOneOf3
-		err = json.Unmarshal(data, &dst.OutputProcessorAnyOf1ParamsOneOf3)
+	// check if the discriminator value is 'url'
+	if jsonDict["subtype"] == "url" {
+		// try to unmarshal JSON data into ProcessorParseUrl
+		err = json.Unmarshal(data, &dst.ProcessorParseUrl)
 		if err == nil {
-			return nil // data stored in dst.OutputProcessorAnyOf1ParamsOneOf3, return on the first match
+			return nil // data stored in dst.ProcessorParseUrl, return on the first match
 		} else {
-			dst.OutputProcessorAnyOf1ParamsOneOf3 = nil
-			return fmt.Errorf("failed to unmarshal OutputProcessorAnyOf1Params as OutputProcessorAnyOf1ParamsOneOf3: %s", err.Error())
+			dst.ProcessorParseUrl = nil
+			return fmt.Errorf("failed to unmarshal OutputProcessorAnyOf1Params as ProcessorParseUrl: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'OutputProcessor_anyOf_1_params_oneOf_4'
-	if jsonDict["subtype"] == "OutputProcessor_anyOf_1_params_oneOf_4" {
-		// try to unmarshal JSON data into OutputProcessorAnyOf1ParamsOneOf4
-		err = json.Unmarshal(data, &dst.OutputProcessorAnyOf1ParamsOneOf4)
+	// check if the discriminator value is 'user-agent'
+	if jsonDict["subtype"] == "user-agent" {
+		// try to unmarshal JSON data into ProcessorParseUserAgent
+		err = json.Unmarshal(data, &dst.ProcessorParseUserAgent)
 		if err == nil {
-			return nil // data stored in dst.OutputProcessorAnyOf1ParamsOneOf4, return on the first match
+			return nil // data stored in dst.ProcessorParseUserAgent, return on the first match
 		} else {
-			dst.OutputProcessorAnyOf1ParamsOneOf4 = nil
-			return fmt.Errorf("failed to unmarshal OutputProcessorAnyOf1Params as OutputProcessorAnyOf1ParamsOneOf4: %s", err.Error())
+			dst.ProcessorParseUserAgent = nil
+			return fmt.Errorf("failed to unmarshal OutputProcessorAnyOf1Params as ProcessorParseUserAgent: %s", err.Error())
 		}
 	}
 
@@ -133,24 +133,24 @@ func (dst *OutputProcessorAnyOf1Params) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src OutputProcessorAnyOf1Params) MarshalJSON() ([]byte, error) {
-	if src.OutputProcessorAnyOf1ParamsOneOf != nil {
-		return json.Marshal(&src.OutputProcessorAnyOf1ParamsOneOf)
+	if src.ProcessorParseGeoIp != nil {
+		return json.Marshal(&src.ProcessorParseGeoIp)
 	}
 
-	if src.OutputProcessorAnyOf1ParamsOneOf1 != nil {
-		return json.Marshal(&src.OutputProcessorAnyOf1ParamsOneOf1)
+	if src.ProcessorParseGrok != nil {
+		return json.Marshal(&src.ProcessorParseGrok)
 	}
 
-	if src.OutputProcessorAnyOf1ParamsOneOf2 != nil {
-		return json.Marshal(&src.OutputProcessorAnyOf1ParamsOneOf2)
+	if src.ProcessorParseKeyValue != nil {
+		return json.Marshal(&src.ProcessorParseKeyValue)
 	}
 
-	if src.OutputProcessorAnyOf1ParamsOneOf3 != nil {
-		return json.Marshal(&src.OutputProcessorAnyOf1ParamsOneOf3)
+	if src.ProcessorParseUrl != nil {
+		return json.Marshal(&src.ProcessorParseUrl)
 	}
 
-	if src.OutputProcessorAnyOf1ParamsOneOf4 != nil {
-		return json.Marshal(&src.OutputProcessorAnyOf1ParamsOneOf4)
+	if src.ProcessorParseUserAgent != nil {
+		return json.Marshal(&src.ProcessorParseUserAgent)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -161,24 +161,24 @@ func (obj *OutputProcessorAnyOf1Params) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
-	if obj.OutputProcessorAnyOf1ParamsOneOf != nil {
-		return obj.OutputProcessorAnyOf1ParamsOneOf
+	if obj.ProcessorParseGeoIp != nil {
+		return obj.ProcessorParseGeoIp
 	}
 
-	if obj.OutputProcessorAnyOf1ParamsOneOf1 != nil {
-		return obj.OutputProcessorAnyOf1ParamsOneOf1
+	if obj.ProcessorParseGrok != nil {
+		return obj.ProcessorParseGrok
 	}
 
-	if obj.OutputProcessorAnyOf1ParamsOneOf2 != nil {
-		return obj.OutputProcessorAnyOf1ParamsOneOf2
+	if obj.ProcessorParseKeyValue != nil {
+		return obj.ProcessorParseKeyValue
 	}
 
-	if obj.OutputProcessorAnyOf1ParamsOneOf3 != nil {
-		return obj.OutputProcessorAnyOf1ParamsOneOf3
+	if obj.ProcessorParseUrl != nil {
+		return obj.ProcessorParseUrl
 	}
 
-	if obj.OutputProcessorAnyOf1ParamsOneOf4 != nil {
-		return obj.OutputProcessorAnyOf1ParamsOneOf4
+	if obj.ProcessorParseUserAgent != nil {
+		return obj.ProcessorParseUserAgent
 	}
 
 	// all schemas are nil
@@ -187,24 +187,24 @@ func (obj *OutputProcessorAnyOf1Params) GetActualInstance() interface{} {
 
 // Get the actual instance value
 func (obj OutputProcessorAnyOf1Params) GetActualInstanceValue() interface{} {
-	if obj.OutputProcessorAnyOf1ParamsOneOf != nil {
-		return *obj.OutputProcessorAnyOf1ParamsOneOf
+	if obj.ProcessorParseGeoIp != nil {
+		return *obj.ProcessorParseGeoIp
 	}
 
-	if obj.OutputProcessorAnyOf1ParamsOneOf1 != nil {
-		return *obj.OutputProcessorAnyOf1ParamsOneOf1
+	if obj.ProcessorParseGrok != nil {
+		return *obj.ProcessorParseGrok
 	}
 
-	if obj.OutputProcessorAnyOf1ParamsOneOf2 != nil {
-		return *obj.OutputProcessorAnyOf1ParamsOneOf2
+	if obj.ProcessorParseKeyValue != nil {
+		return *obj.ProcessorParseKeyValue
 	}
 
-	if obj.OutputProcessorAnyOf1ParamsOneOf3 != nil {
-		return *obj.OutputProcessorAnyOf1ParamsOneOf3
+	if obj.ProcessorParseUrl != nil {
+		return *obj.ProcessorParseUrl
 	}
 
-	if obj.OutputProcessorAnyOf1ParamsOneOf4 != nil {
-		return *obj.OutputProcessorAnyOf1ParamsOneOf4
+	if obj.ProcessorParseUserAgent != nil {
+		return *obj.ProcessorParseUserAgent
 	}
 
 	// all schemas are nil

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | [**[]OutputProcessorAnyOf3ParamsItemsInner**](OutputProcessorAnyOf3ParamsItemsInner.md) | Conditional branches evaluated in order before falling back to the default | 
+**Items** | [**[]OutputProcessorAnyOf3ParamsItemsInner**](OutputProcessorAnyOf3ParamsItemsInner.md) | Branches evaluated in order; only the first matching branch runs. A final branch with an empty query matches all remaining events. If no branch matches, the event is unchanged. | 
 
 ## Methods
 

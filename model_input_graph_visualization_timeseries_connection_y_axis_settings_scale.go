@@ -16,21 +16,21 @@ import (
 
 // InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale - Y-axis scale mode
 type InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale struct {
-	GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf1     *GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf1
-	InputGraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf *InputGraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf
+	InputAxisScaleBuiltIn *InputAxisScaleBuiltIn
+	InputAxisScalePower   *InputAxisScalePower
 }
 
-// GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf1AsInputGraphVisualizationTimeseriesConnectionYAxisSettingsScale is a convenience function that returns GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf1 wrapped in InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale
-func GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf1AsInputGraphVisualizationTimeseriesConnectionYAxisSettingsScale(v *GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf1) InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale {
+// InputAxisScaleBuiltInAsInputGraphVisualizationTimeseriesConnectionYAxisSettingsScale is a convenience function that returns InputAxisScaleBuiltIn wrapped in InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale
+func InputAxisScaleBuiltInAsInputGraphVisualizationTimeseriesConnectionYAxisSettingsScale(v *InputAxisScaleBuiltIn) InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale {
 	return InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale{
-		GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf1: v,
+		InputAxisScaleBuiltIn: v,
 	}
 }
 
-// InputGraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOfAsInputGraphVisualizationTimeseriesConnectionYAxisSettingsScale is a convenience function that returns InputGraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf wrapped in InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale
-func InputGraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOfAsInputGraphVisualizationTimeseriesConnectionYAxisSettingsScale(v *InputGraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf) InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale {
+// InputAxisScalePowerAsInputGraphVisualizationTimeseriesConnectionYAxisSettingsScale is a convenience function that returns InputAxisScalePower wrapped in InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale
+func InputAxisScalePowerAsInputGraphVisualizationTimeseriesConnectionYAxisSettingsScale(v *InputAxisScalePower) InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale {
 	return InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale{
-		InputGraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf: v,
+		InputAxisScalePower: v,
 	}
 }
 
@@ -44,27 +44,51 @@ func (dst *InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale) Unmars
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'GraphVisualizationTimeseriesConnection_yAxisSettings_scale_oneOf_1'
-	if jsonDict["type"] == "GraphVisualizationTimeseriesConnection_yAxisSettings_scale_oneOf_1" {
-		// try to unmarshal JSON data into GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf1
-		err = json.Unmarshal(data, &dst.GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf1)
+	// check if the discriminator value is 'linear'
+	if jsonDict["type"] == "linear" {
+		// try to unmarshal JSON data into InputAxisScaleBuiltIn
+		err = json.Unmarshal(data, &dst.InputAxisScaleBuiltIn)
 		if err == nil {
-			return nil // data stored in dst.GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf1, return on the first match
+			return nil // data stored in dst.InputAxisScaleBuiltIn, return on the first match
 		} else {
-			dst.GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf1 = nil
-			return fmt.Errorf("failed to unmarshal InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale as GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf1: %s", err.Error())
+			dst.InputAxisScaleBuiltIn = nil
+			return fmt.Errorf("failed to unmarshal InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale as InputAxisScaleBuiltIn: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'InputGraphVisualizationTimeseriesConnection_yAxisSettings_scale_oneOf'
-	if jsonDict["type"] == "InputGraphVisualizationTimeseriesConnection_yAxisSettings_scale_oneOf" {
-		// try to unmarshal JSON data into InputGraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf
-		err = json.Unmarshal(data, &dst.InputGraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf)
+	// check if the discriminator value is 'log'
+	if jsonDict["type"] == "log" {
+		// try to unmarshal JSON data into InputAxisScaleBuiltIn
+		err = json.Unmarshal(data, &dst.InputAxisScaleBuiltIn)
 		if err == nil {
-			return nil // data stored in dst.InputGraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf, return on the first match
+			return nil // data stored in dst.InputAxisScaleBuiltIn, return on the first match
 		} else {
-			dst.InputGraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf = nil
-			return fmt.Errorf("failed to unmarshal InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale as InputGraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf: %s", err.Error())
+			dst.InputAxisScaleBuiltIn = nil
+			return fmt.Errorf("failed to unmarshal InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale as InputAxisScaleBuiltIn: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'pow'
+	if jsonDict["type"] == "pow" {
+		// try to unmarshal JSON data into InputAxisScalePower
+		err = json.Unmarshal(data, &dst.InputAxisScalePower)
+		if err == nil {
+			return nil // data stored in dst.InputAxisScalePower, return on the first match
+		} else {
+			dst.InputAxisScalePower = nil
+			return fmt.Errorf("failed to unmarshal InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale as InputAxisScalePower: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'sqrt'
+	if jsonDict["type"] == "sqrt" {
+		// try to unmarshal JSON data into InputAxisScaleBuiltIn
+		err = json.Unmarshal(data, &dst.InputAxisScaleBuiltIn)
+		if err == nil {
+			return nil // data stored in dst.InputAxisScaleBuiltIn, return on the first match
+		} else {
+			dst.InputAxisScaleBuiltIn = nil
+			return fmt.Errorf("failed to unmarshal InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale as InputAxisScaleBuiltIn: %s", err.Error())
 		}
 	}
 
@@ -73,12 +97,12 @@ func (dst *InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale) Unmars
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale) MarshalJSON() ([]byte, error) {
-	if src.GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf1 != nil {
-		return json.Marshal(&src.GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf1)
+	if src.InputAxisScaleBuiltIn != nil {
+		return json.Marshal(&src.InputAxisScaleBuiltIn)
 	}
 
-	if src.InputGraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf != nil {
-		return json.Marshal(&src.InputGraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf)
+	if src.InputAxisScalePower != nil {
+		return json.Marshal(&src.InputAxisScalePower)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -89,12 +113,12 @@ func (obj *InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale) GetAct
 	if obj == nil {
 		return nil
 	}
-	if obj.GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf1 != nil {
-		return obj.GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf1
+	if obj.InputAxisScaleBuiltIn != nil {
+		return obj.InputAxisScaleBuiltIn
 	}
 
-	if obj.InputGraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf != nil {
-		return obj.InputGraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf
+	if obj.InputAxisScalePower != nil {
+		return obj.InputAxisScalePower
 	}
 
 	// all schemas are nil
@@ -103,12 +127,12 @@ func (obj *InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale) GetAct
 
 // Get the actual instance value
 func (obj InputGraphVisualizationTimeseriesConnectionYAxisSettingsScale) GetActualInstanceValue() interface{} {
-	if obj.GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf1 != nil {
-		return *obj.GraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf1
+	if obj.InputAxisScaleBuiltIn != nil {
+		return *obj.InputAxisScaleBuiltIn
 	}
 
-	if obj.InputGraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf != nil {
-		return *obj.InputGraphVisualizationTimeseriesConnectionYAxisSettingsScaleOneOf
+	if obj.InputAxisScalePower != nil {
+		return *obj.InputAxisScalePower
 	}
 
 	// all schemas are nil

@@ -44,8 +44,8 @@ func (dst *UpdateSloRequestConfiguration) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'InputEventSloConfiguration'
-	if jsonDict["type"] == "InputEventSloConfiguration" {
+	// check if the discriminator value is 'event'
+	if jsonDict["type"] == "event" {
 		// try to unmarshal JSON data into InputEventSloConfiguration
 		err = json.Unmarshal(data, &dst.InputEventSloConfiguration)
 		if err == nil {
@@ -56,8 +56,8 @@ func (dst *UpdateSloRequestConfiguration) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'InputTimeSliceSloConfiguration'
-	if jsonDict["type"] == "InputTimeSliceSloConfiguration" {
+	// check if the discriminator value is 'time'
+	if jsonDict["type"] == "time" {
 		// try to unmarshal JSON data into InputTimeSliceSloConfiguration
 		err = json.Unmarshal(data, &dst.InputTimeSliceSloConfiguration)
 		if err == nil {

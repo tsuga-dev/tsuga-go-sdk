@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AttributeName** | **string** | Attribute whose value will be parsed with Grok rules | 
 **Rules** | **[]string** | Ordered Grok rules evaluated until one matches. | 
-**Samples** | Pointer to **[]string** | Example log lines for validating the Grok rules. Samples are not sent to the ingestion engine. | [optional] 
+**Samples** | Pointer to **[]string** | Sample attribute values for validating the Grok rules. Samples are not sent to the ingestion engine. | [optional] 
 **Subtype** | **string** | Parses delimited key/value text into attributes. | 
 **SourceAttribute** | **string** | Attribute containing the key/value string segment to parse | 
 **TargetAttribute** | **string** | Target map attribute where extracted key/value pairs will be written | 

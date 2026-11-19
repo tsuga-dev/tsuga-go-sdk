@@ -23,7 +23,7 @@ type SpanRoute struct {
 	Id string `json:"id"`
 	// Human-readable span route name shown in Tsuga.
 	Name string `json:"name"`
-	// Optional free-text note about the span route's purpose, set by the caller. This metadata is not evaluated when matching or processing spans.
+	// Free-text note about the span route's purpose, set by the caller. This metadata is not evaluated when matching or processing spans.
 	Description *string `json:"description,omitempty"`
 	// Whether this route is active for newly ingested spans. Disabled routes remain saved but do not process spans.
 	IsEnabled bool `json:"isEnabled"`

@@ -16,37 +16,37 @@ import (
 
 // CustomRoleTeamScope - Teams the role grants its asset permissions on. `all` covers every team, `public` covers public teams only, `specific` covers the listed teams, and `all-except` covers every team but the listed ones.
 type CustomRoleTeamScope struct {
-	CustomRoleAllTeams       *CustomRoleAllTeams
-	CustomRoleAllTeamsExcept *CustomRoleAllTeamsExcept
-	CustomRolePublicTeams    *CustomRolePublicTeams
-	CustomRoleSpecificTeams  *CustomRoleSpecificTeams
+	CustomRoleTeamScopeAll            *CustomRoleTeamScopeAll
+	CustomRoleTeamScopeAllTeamsExcept *CustomRoleTeamScopeAllTeamsExcept
+	CustomRoleTeamScopePublic         *CustomRoleTeamScopePublic
+	CustomRoleTeamScopeSpecificTeams  *CustomRoleTeamScopeSpecificTeams
 }
 
-// CustomRoleAllTeamsAsCustomRoleTeamScope is a convenience function that returns CustomRoleAllTeams wrapped in CustomRoleTeamScope
-func CustomRoleAllTeamsAsCustomRoleTeamScope(v *CustomRoleAllTeams) CustomRoleTeamScope {
+// CustomRoleTeamScopeAllAsCustomRoleTeamScope is a convenience function that returns CustomRoleTeamScopeAll wrapped in CustomRoleTeamScope
+func CustomRoleTeamScopeAllAsCustomRoleTeamScope(v *CustomRoleTeamScopeAll) CustomRoleTeamScope {
 	return CustomRoleTeamScope{
-		CustomRoleAllTeams: v,
+		CustomRoleTeamScopeAll: v,
 	}
 }
 
-// CustomRoleAllTeamsExceptAsCustomRoleTeamScope is a convenience function that returns CustomRoleAllTeamsExcept wrapped in CustomRoleTeamScope
-func CustomRoleAllTeamsExceptAsCustomRoleTeamScope(v *CustomRoleAllTeamsExcept) CustomRoleTeamScope {
+// CustomRoleTeamScopeAllTeamsExceptAsCustomRoleTeamScope is a convenience function that returns CustomRoleTeamScopeAllTeamsExcept wrapped in CustomRoleTeamScope
+func CustomRoleTeamScopeAllTeamsExceptAsCustomRoleTeamScope(v *CustomRoleTeamScopeAllTeamsExcept) CustomRoleTeamScope {
 	return CustomRoleTeamScope{
-		CustomRoleAllTeamsExcept: v,
+		CustomRoleTeamScopeAllTeamsExcept: v,
 	}
 }
 
-// CustomRolePublicTeamsAsCustomRoleTeamScope is a convenience function that returns CustomRolePublicTeams wrapped in CustomRoleTeamScope
-func CustomRolePublicTeamsAsCustomRoleTeamScope(v *CustomRolePublicTeams) CustomRoleTeamScope {
+// CustomRoleTeamScopePublicAsCustomRoleTeamScope is a convenience function that returns CustomRoleTeamScopePublic wrapped in CustomRoleTeamScope
+func CustomRoleTeamScopePublicAsCustomRoleTeamScope(v *CustomRoleTeamScopePublic) CustomRoleTeamScope {
 	return CustomRoleTeamScope{
-		CustomRolePublicTeams: v,
+		CustomRoleTeamScopePublic: v,
 	}
 }
 
-// CustomRoleSpecificTeamsAsCustomRoleTeamScope is a convenience function that returns CustomRoleSpecificTeams wrapped in CustomRoleTeamScope
-func CustomRoleSpecificTeamsAsCustomRoleTeamScope(v *CustomRoleSpecificTeams) CustomRoleTeamScope {
+// CustomRoleTeamScopeSpecificTeamsAsCustomRoleTeamScope is a convenience function that returns CustomRoleTeamScopeSpecificTeams wrapped in CustomRoleTeamScope
+func CustomRoleTeamScopeSpecificTeamsAsCustomRoleTeamScope(v *CustomRoleTeamScopeSpecificTeams) CustomRoleTeamScope {
 	return CustomRoleTeamScope{
-		CustomRoleSpecificTeams: v,
+		CustomRoleTeamScopeSpecificTeams: v,
 	}
 }
 
@@ -60,51 +60,51 @@ func (dst *CustomRoleTeamScope) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'CustomRoleAllTeams'
-	if jsonDict["type"] == "CustomRoleAllTeams" {
-		// try to unmarshal JSON data into CustomRoleAllTeams
-		err = json.Unmarshal(data, &dst.CustomRoleAllTeams)
+	// check if the discriminator value is 'all'
+	if jsonDict["type"] == "all" {
+		// try to unmarshal JSON data into CustomRoleTeamScopeAll
+		err = json.Unmarshal(data, &dst.CustomRoleTeamScopeAll)
 		if err == nil {
-			return nil // data stored in dst.CustomRoleAllTeams, return on the first match
+			return nil // data stored in dst.CustomRoleTeamScopeAll, return on the first match
 		} else {
-			dst.CustomRoleAllTeams = nil
-			return fmt.Errorf("failed to unmarshal CustomRoleTeamScope as CustomRoleAllTeams: %s", err.Error())
+			dst.CustomRoleTeamScopeAll = nil
+			return fmt.Errorf("failed to unmarshal CustomRoleTeamScope as CustomRoleTeamScopeAll: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'CustomRoleAllTeamsExcept'
-	if jsonDict["type"] == "CustomRoleAllTeamsExcept" {
-		// try to unmarshal JSON data into CustomRoleAllTeamsExcept
-		err = json.Unmarshal(data, &dst.CustomRoleAllTeamsExcept)
+	// check if the discriminator value is 'all-except'
+	if jsonDict["type"] == "all-except" {
+		// try to unmarshal JSON data into CustomRoleTeamScopeAllTeamsExcept
+		err = json.Unmarshal(data, &dst.CustomRoleTeamScopeAllTeamsExcept)
 		if err == nil {
-			return nil // data stored in dst.CustomRoleAllTeamsExcept, return on the first match
+			return nil // data stored in dst.CustomRoleTeamScopeAllTeamsExcept, return on the first match
 		} else {
-			dst.CustomRoleAllTeamsExcept = nil
-			return fmt.Errorf("failed to unmarshal CustomRoleTeamScope as CustomRoleAllTeamsExcept: %s", err.Error())
+			dst.CustomRoleTeamScopeAllTeamsExcept = nil
+			return fmt.Errorf("failed to unmarshal CustomRoleTeamScope as CustomRoleTeamScopeAllTeamsExcept: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'CustomRolePublicTeams'
-	if jsonDict["type"] == "CustomRolePublicTeams" {
-		// try to unmarshal JSON data into CustomRolePublicTeams
-		err = json.Unmarshal(data, &dst.CustomRolePublicTeams)
+	// check if the discriminator value is 'public'
+	if jsonDict["type"] == "public" {
+		// try to unmarshal JSON data into CustomRoleTeamScopePublic
+		err = json.Unmarshal(data, &dst.CustomRoleTeamScopePublic)
 		if err == nil {
-			return nil // data stored in dst.CustomRolePublicTeams, return on the first match
+			return nil // data stored in dst.CustomRoleTeamScopePublic, return on the first match
 		} else {
-			dst.CustomRolePublicTeams = nil
-			return fmt.Errorf("failed to unmarshal CustomRoleTeamScope as CustomRolePublicTeams: %s", err.Error())
+			dst.CustomRoleTeamScopePublic = nil
+			return fmt.Errorf("failed to unmarshal CustomRoleTeamScope as CustomRoleTeamScopePublic: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'CustomRoleSpecificTeams'
-	if jsonDict["type"] == "CustomRoleSpecificTeams" {
-		// try to unmarshal JSON data into CustomRoleSpecificTeams
-		err = json.Unmarshal(data, &dst.CustomRoleSpecificTeams)
+	// check if the discriminator value is 'specific'
+	if jsonDict["type"] == "specific" {
+		// try to unmarshal JSON data into CustomRoleTeamScopeSpecificTeams
+		err = json.Unmarshal(data, &dst.CustomRoleTeamScopeSpecificTeams)
 		if err == nil {
-			return nil // data stored in dst.CustomRoleSpecificTeams, return on the first match
+			return nil // data stored in dst.CustomRoleTeamScopeSpecificTeams, return on the first match
 		} else {
-			dst.CustomRoleSpecificTeams = nil
-			return fmt.Errorf("failed to unmarshal CustomRoleTeamScope as CustomRoleSpecificTeams: %s", err.Error())
+			dst.CustomRoleTeamScopeSpecificTeams = nil
+			return fmt.Errorf("failed to unmarshal CustomRoleTeamScope as CustomRoleTeamScopeSpecificTeams: %s", err.Error())
 		}
 	}
 
@@ -113,20 +113,20 @@ func (dst *CustomRoleTeamScope) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src CustomRoleTeamScope) MarshalJSON() ([]byte, error) {
-	if src.CustomRoleAllTeams != nil {
-		return json.Marshal(&src.CustomRoleAllTeams)
+	if src.CustomRoleTeamScopeAll != nil {
+		return json.Marshal(&src.CustomRoleTeamScopeAll)
 	}
 
-	if src.CustomRoleAllTeamsExcept != nil {
-		return json.Marshal(&src.CustomRoleAllTeamsExcept)
+	if src.CustomRoleTeamScopeAllTeamsExcept != nil {
+		return json.Marshal(&src.CustomRoleTeamScopeAllTeamsExcept)
 	}
 
-	if src.CustomRolePublicTeams != nil {
-		return json.Marshal(&src.CustomRolePublicTeams)
+	if src.CustomRoleTeamScopePublic != nil {
+		return json.Marshal(&src.CustomRoleTeamScopePublic)
 	}
 
-	if src.CustomRoleSpecificTeams != nil {
-		return json.Marshal(&src.CustomRoleSpecificTeams)
+	if src.CustomRoleTeamScopeSpecificTeams != nil {
+		return json.Marshal(&src.CustomRoleTeamScopeSpecificTeams)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -137,20 +137,20 @@ func (obj *CustomRoleTeamScope) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
-	if obj.CustomRoleAllTeams != nil {
-		return obj.CustomRoleAllTeams
+	if obj.CustomRoleTeamScopeAll != nil {
+		return obj.CustomRoleTeamScopeAll
 	}
 
-	if obj.CustomRoleAllTeamsExcept != nil {
-		return obj.CustomRoleAllTeamsExcept
+	if obj.CustomRoleTeamScopeAllTeamsExcept != nil {
+		return obj.CustomRoleTeamScopeAllTeamsExcept
 	}
 
-	if obj.CustomRolePublicTeams != nil {
-		return obj.CustomRolePublicTeams
+	if obj.CustomRoleTeamScopePublic != nil {
+		return obj.CustomRoleTeamScopePublic
 	}
 
-	if obj.CustomRoleSpecificTeams != nil {
-		return obj.CustomRoleSpecificTeams
+	if obj.CustomRoleTeamScopeSpecificTeams != nil {
+		return obj.CustomRoleTeamScopeSpecificTeams
 	}
 
 	// all schemas are nil
@@ -159,20 +159,20 @@ func (obj *CustomRoleTeamScope) GetActualInstance() interface{} {
 
 // Get the actual instance value
 func (obj CustomRoleTeamScope) GetActualInstanceValue() interface{} {
-	if obj.CustomRoleAllTeams != nil {
-		return *obj.CustomRoleAllTeams
+	if obj.CustomRoleTeamScopeAll != nil {
+		return *obj.CustomRoleTeamScopeAll
 	}
 
-	if obj.CustomRoleAllTeamsExcept != nil {
-		return *obj.CustomRoleAllTeamsExcept
+	if obj.CustomRoleTeamScopeAllTeamsExcept != nil {
+		return *obj.CustomRoleTeamScopeAllTeamsExcept
 	}
 
-	if obj.CustomRolePublicTeams != nil {
-		return *obj.CustomRolePublicTeams
+	if obj.CustomRoleTeamScopePublic != nil {
+		return *obj.CustomRoleTeamScopePublic
 	}
 
-	if obj.CustomRoleSpecificTeams != nil {
-		return *obj.CustomRoleSpecificTeams
+	if obj.CustomRoleTeamScopeSpecificTeams != nil {
+		return *obj.CustomRoleTeamScopeSpecificTeams
 	}
 
 	// all schemas are nil

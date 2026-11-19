@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **TargetAttribute** | **string** | Attribute that will receive the category value | 
-**Clauses** | [**[]CreateMetricRouteRequestProcessorsInnerOneOf2ParamsOneOf1ClausesInner**](CreateMetricRouteRequestProcessorsInnerOneOf2ParamsOneOf1ClausesInner.md) | Conditions evaluated in order to determine the category value. The first matching clause wins. | 
+**Clauses** | [**[]InputProcessorParamsCreatorCategoryClausesInner**](InputProcessorParamsCreatorCategoryClausesInner.md) | Conditions evaluated in order to determine the category value. The first matching clause wins. | 
 **DefaultValue** | Pointer to **string** | String category value used when no clause matches. If omitted and no clause matches, no category value is written. | [optional] 
 **Subtype** | **string** | Assigns the first matching category value from ordered query clauses, with an optional default. | 
 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewInputProcessorParamsCreatorCategory
 
-`func NewInputProcessorParamsCreatorCategory(targetAttribute string, clauses []CreateMetricRouteRequestProcessorsInnerOneOf2ParamsOneOf1ClausesInner, subtype string, ) *InputProcessorParamsCreatorCategory`
+`func NewInputProcessorParamsCreatorCategory(targetAttribute string, clauses []InputProcessorParamsCreatorCategoryClausesInner, subtype string, ) *InputProcessorParamsCreatorCategory`
 
 NewInputProcessorParamsCreatorCategory instantiates a new InputProcessorParamsCreatorCategory object
 This constructor will assign default values to properties that have it defined,
@@ -50,20 +50,20 @@ SetTargetAttribute sets TargetAttribute field to given value.
 
 ### GetClauses
 
-`func (o *InputProcessorParamsCreatorCategory) GetClauses() []CreateMetricRouteRequestProcessorsInnerOneOf2ParamsOneOf1ClausesInner`
+`func (o *InputProcessorParamsCreatorCategory) GetClauses() []InputProcessorParamsCreatorCategoryClausesInner`
 
 GetClauses returns the Clauses field if non-nil, zero value otherwise.
 
 ### GetClausesOk
 
-`func (o *InputProcessorParamsCreatorCategory) GetClausesOk() (*[]CreateMetricRouteRequestProcessorsInnerOneOf2ParamsOneOf1ClausesInner, bool)`
+`func (o *InputProcessorParamsCreatorCategory) GetClausesOk() (*[]InputProcessorParamsCreatorCategoryClausesInner, bool)`
 
 GetClausesOk returns a tuple with the Clauses field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetClauses
 
-`func (o *InputProcessorParamsCreatorCategory) SetClauses(v []CreateMetricRouteRequestProcessorsInnerOneOf2ParamsOneOf1ClausesInner)`
+`func (o *InputProcessorParamsCreatorCategory) SetClauses(v []InputProcessorParamsCreatorCategoryClausesInner)`
 
 SetClauses sets Clauses field to given value.
 

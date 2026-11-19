@@ -44,8 +44,8 @@ func (dst *SloAlertsInnerConfiguration) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'BurnRateAlert'
-	if jsonDict["type"] == "BurnRateAlert" {
+	// check if the discriminator value is 'burn-rate'
+	if jsonDict["type"] == "burn-rate" {
 		// try to unmarshal JSON data into BurnRateAlert
 		err = json.Unmarshal(data, &dst.BurnRateAlert)
 		if err == nil {
@@ -56,8 +56,8 @@ func (dst *SloAlertsInnerConfiguration) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'ThresholdAlert'
-	if jsonDict["type"] == "ThresholdAlert" {
+	// check if the discriminator value is 'threshold'
+	if jsonDict["type"] == "threshold" {
 		// try to unmarshal JSON data into ThresholdAlert
 		err = json.Unmarshal(data, &dst.ThresholdAlert)
 		if err == nil {

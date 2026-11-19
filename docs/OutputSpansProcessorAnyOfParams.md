@@ -4,14 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Attributes** | [**[]OutputSpansProcessorAnyOfParamsAttributesInner**](OutputSpansProcessorAnyOfParamsAttributesInner.md) | Mappings that map individual attributes to new targets | 
-**Subtype** | **string** | Copies or moves one or more source attributes to target attributes. | 
+**Items** | [**[]OutputSpansProcessorAnyOfParamsItemsInner**](OutputSpansProcessorAnyOfParamsItemsInner.md) | Branches evaluated in order; only the first matching branch runs. A final branch with an empty query matches all remaining events. If no branch matches, the event is unchanged. | 
 
 ## Methods
 
 ### NewOutputSpansProcessorAnyOfParams
 
-`func NewOutputSpansProcessorAnyOfParams(attributes []OutputSpansProcessorAnyOfParamsAttributesInner, subtype string, ) *OutputSpansProcessorAnyOfParams`
+`func NewOutputSpansProcessorAnyOfParams(items []OutputSpansProcessorAnyOfParamsItemsInner, ) *OutputSpansProcessorAnyOfParams`
 
 NewOutputSpansProcessorAnyOfParams instantiates a new OutputSpansProcessorAnyOfParams object
 This constructor will assign default values to properties that have it defined,
@@ -26,44 +25,24 @@ NewOutputSpansProcessorAnyOfParamsWithDefaults instantiates a new OutputSpansPro
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetAttributes
+### GetItems
 
-`func (o *OutputSpansProcessorAnyOfParams) GetAttributes() []OutputSpansProcessorAnyOfParamsAttributesInner`
+`func (o *OutputSpansProcessorAnyOfParams) GetItems() []OutputSpansProcessorAnyOfParamsItemsInner`
 
-GetAttributes returns the Attributes field if non-nil, zero value otherwise.
+GetItems returns the Items field if non-nil, zero value otherwise.
 
-### GetAttributesOk
+### GetItemsOk
 
-`func (o *OutputSpansProcessorAnyOfParams) GetAttributesOk() (*[]OutputSpansProcessorAnyOfParamsAttributesInner, bool)`
+`func (o *OutputSpansProcessorAnyOfParams) GetItemsOk() (*[]OutputSpansProcessorAnyOfParamsItemsInner, bool)`
 
-GetAttributesOk returns a tuple with the Attributes field if it's non-nil, zero value otherwise
+GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAttributes
+### SetItems
 
-`func (o *OutputSpansProcessorAnyOfParams) SetAttributes(v []OutputSpansProcessorAnyOfParamsAttributesInner)`
+`func (o *OutputSpansProcessorAnyOfParams) SetItems(v []OutputSpansProcessorAnyOfParamsItemsInner)`
 
-SetAttributes sets Attributes field to given value.
-
-
-### GetSubtype
-
-`func (o *OutputSpansProcessorAnyOfParams) GetSubtype() string`
-
-GetSubtype returns the Subtype field if non-nil, zero value otherwise.
-
-### GetSubtypeOk
-
-`func (o *OutputSpansProcessorAnyOfParams) GetSubtypeOk() (*string, bool)`
-
-GetSubtypeOk returns a tuple with the Subtype field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSubtype
-
-`func (o *OutputSpansProcessorAnyOfParams) SetSubtype(v string)`
-
-SetSubtype sets Subtype field to given value.
+SetItems sets Items field to given value.
 
 
 

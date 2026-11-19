@@ -17,9 +17,9 @@ import (
 // checks if the InputSpansProcessorAnyOfParams type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &InputSpansProcessorAnyOfParams{}
 
-// InputSpansProcessorAnyOfParams struct for InputSpansProcessorAnyOfParams
+// InputSpansProcessorAnyOfParams Split configuration containing the ordered conditional branches.
 type InputSpansProcessorAnyOfParams struct {
-	// Conditional branches evaluated in order before falling back to the default
+	// Branches evaluated in order; only the first matching branch runs. A final branch with an empty query matches all remaining events. If no branch matches, the event is unchanged.
 	Items                []InputSpansProcessorAnyOfParamsItemsInner `json:"items"`
 	AdditionalProperties map[string]interface{}
 }

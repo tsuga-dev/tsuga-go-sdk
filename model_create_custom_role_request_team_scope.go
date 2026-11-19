@@ -16,37 +16,37 @@ import (
 
 // CreateCustomRoleRequestTeamScope - Teams the role grants its asset permissions on. `all` covers every team, `public` covers public teams only, `specific` covers the listed teams, and `all-except` covers every team but the listed ones.
 type CreateCustomRoleRequestTeamScope struct {
-	CreateCustomRoleRequestTeamScopeOneOf  *CreateCustomRoleRequestTeamScopeOneOf
-	CreateCustomRoleRequestTeamScopeOneOf1 *CreateCustomRoleRequestTeamScopeOneOf1
-	CreateCustomRoleRequestTeamScopeOneOf2 *CreateCustomRoleRequestTeamScopeOneOf2
-	CreateCustomRoleRequestTeamScopeOneOf3 *CreateCustomRoleRequestTeamScopeOneOf3
+	InputCustomRoleTeamScopeAll            *InputCustomRoleTeamScopeAll
+	InputCustomRoleTeamScopeAllTeamsExcept *InputCustomRoleTeamScopeAllTeamsExcept
+	InputCustomRoleTeamScopePublic         *InputCustomRoleTeamScopePublic
+	InputCustomRoleTeamScopeSpecificTeams  *InputCustomRoleTeamScopeSpecificTeams
 }
 
-// CreateCustomRoleRequestTeamScopeOneOfAsCreateCustomRoleRequestTeamScope is a convenience function that returns CreateCustomRoleRequestTeamScopeOneOf wrapped in CreateCustomRoleRequestTeamScope
-func CreateCustomRoleRequestTeamScopeOneOfAsCreateCustomRoleRequestTeamScope(v *CreateCustomRoleRequestTeamScopeOneOf) CreateCustomRoleRequestTeamScope {
+// InputCustomRoleTeamScopeAllAsCreateCustomRoleRequestTeamScope is a convenience function that returns InputCustomRoleTeamScopeAll wrapped in CreateCustomRoleRequestTeamScope
+func InputCustomRoleTeamScopeAllAsCreateCustomRoleRequestTeamScope(v *InputCustomRoleTeamScopeAll) CreateCustomRoleRequestTeamScope {
 	return CreateCustomRoleRequestTeamScope{
-		CreateCustomRoleRequestTeamScopeOneOf: v,
+		InputCustomRoleTeamScopeAll: v,
 	}
 }
 
-// CreateCustomRoleRequestTeamScopeOneOf1AsCreateCustomRoleRequestTeamScope is a convenience function that returns CreateCustomRoleRequestTeamScopeOneOf1 wrapped in CreateCustomRoleRequestTeamScope
-func CreateCustomRoleRequestTeamScopeOneOf1AsCreateCustomRoleRequestTeamScope(v *CreateCustomRoleRequestTeamScopeOneOf1) CreateCustomRoleRequestTeamScope {
+// InputCustomRoleTeamScopeAllTeamsExceptAsCreateCustomRoleRequestTeamScope is a convenience function that returns InputCustomRoleTeamScopeAllTeamsExcept wrapped in CreateCustomRoleRequestTeamScope
+func InputCustomRoleTeamScopeAllTeamsExceptAsCreateCustomRoleRequestTeamScope(v *InputCustomRoleTeamScopeAllTeamsExcept) CreateCustomRoleRequestTeamScope {
 	return CreateCustomRoleRequestTeamScope{
-		CreateCustomRoleRequestTeamScopeOneOf1: v,
+		InputCustomRoleTeamScopeAllTeamsExcept: v,
 	}
 }
 
-// CreateCustomRoleRequestTeamScopeOneOf2AsCreateCustomRoleRequestTeamScope is a convenience function that returns CreateCustomRoleRequestTeamScopeOneOf2 wrapped in CreateCustomRoleRequestTeamScope
-func CreateCustomRoleRequestTeamScopeOneOf2AsCreateCustomRoleRequestTeamScope(v *CreateCustomRoleRequestTeamScopeOneOf2) CreateCustomRoleRequestTeamScope {
+// InputCustomRoleTeamScopePublicAsCreateCustomRoleRequestTeamScope is a convenience function that returns InputCustomRoleTeamScopePublic wrapped in CreateCustomRoleRequestTeamScope
+func InputCustomRoleTeamScopePublicAsCreateCustomRoleRequestTeamScope(v *InputCustomRoleTeamScopePublic) CreateCustomRoleRequestTeamScope {
 	return CreateCustomRoleRequestTeamScope{
-		CreateCustomRoleRequestTeamScopeOneOf2: v,
+		InputCustomRoleTeamScopePublic: v,
 	}
 }
 
-// CreateCustomRoleRequestTeamScopeOneOf3AsCreateCustomRoleRequestTeamScope is a convenience function that returns CreateCustomRoleRequestTeamScopeOneOf3 wrapped in CreateCustomRoleRequestTeamScope
-func CreateCustomRoleRequestTeamScopeOneOf3AsCreateCustomRoleRequestTeamScope(v *CreateCustomRoleRequestTeamScopeOneOf3) CreateCustomRoleRequestTeamScope {
+// InputCustomRoleTeamScopeSpecificTeamsAsCreateCustomRoleRequestTeamScope is a convenience function that returns InputCustomRoleTeamScopeSpecificTeams wrapped in CreateCustomRoleRequestTeamScope
+func InputCustomRoleTeamScopeSpecificTeamsAsCreateCustomRoleRequestTeamScope(v *InputCustomRoleTeamScopeSpecificTeams) CreateCustomRoleRequestTeamScope {
 	return CreateCustomRoleRequestTeamScope{
-		CreateCustomRoleRequestTeamScopeOneOf3: v,
+		InputCustomRoleTeamScopeSpecificTeams: v,
 	}
 }
 
@@ -60,51 +60,51 @@ func (dst *CreateCustomRoleRequestTeamScope) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'createCustomRole_request_teamScope_oneOf'
-	if jsonDict["type"] == "createCustomRole_request_teamScope_oneOf" {
-		// try to unmarshal JSON data into CreateCustomRoleRequestTeamScopeOneOf
-		err = json.Unmarshal(data, &dst.CreateCustomRoleRequestTeamScopeOneOf)
+	// check if the discriminator value is 'all'
+	if jsonDict["type"] == "all" {
+		// try to unmarshal JSON data into InputCustomRoleTeamScopeAll
+		err = json.Unmarshal(data, &dst.InputCustomRoleTeamScopeAll)
 		if err == nil {
-			return nil // data stored in dst.CreateCustomRoleRequestTeamScopeOneOf, return on the first match
+			return nil // data stored in dst.InputCustomRoleTeamScopeAll, return on the first match
 		} else {
-			dst.CreateCustomRoleRequestTeamScopeOneOf = nil
-			return fmt.Errorf("failed to unmarshal CreateCustomRoleRequestTeamScope as CreateCustomRoleRequestTeamScopeOneOf: %s", err.Error())
+			dst.InputCustomRoleTeamScopeAll = nil
+			return fmt.Errorf("failed to unmarshal CreateCustomRoleRequestTeamScope as InputCustomRoleTeamScopeAll: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'createCustomRole_request_teamScope_oneOf_1'
-	if jsonDict["type"] == "createCustomRole_request_teamScope_oneOf_1" {
-		// try to unmarshal JSON data into CreateCustomRoleRequestTeamScopeOneOf1
-		err = json.Unmarshal(data, &dst.CreateCustomRoleRequestTeamScopeOneOf1)
+	// check if the discriminator value is 'all-except'
+	if jsonDict["type"] == "all-except" {
+		// try to unmarshal JSON data into InputCustomRoleTeamScopeAllTeamsExcept
+		err = json.Unmarshal(data, &dst.InputCustomRoleTeamScopeAllTeamsExcept)
 		if err == nil {
-			return nil // data stored in dst.CreateCustomRoleRequestTeamScopeOneOf1, return on the first match
+			return nil // data stored in dst.InputCustomRoleTeamScopeAllTeamsExcept, return on the first match
 		} else {
-			dst.CreateCustomRoleRequestTeamScopeOneOf1 = nil
-			return fmt.Errorf("failed to unmarshal CreateCustomRoleRequestTeamScope as CreateCustomRoleRequestTeamScopeOneOf1: %s", err.Error())
+			dst.InputCustomRoleTeamScopeAllTeamsExcept = nil
+			return fmt.Errorf("failed to unmarshal CreateCustomRoleRequestTeamScope as InputCustomRoleTeamScopeAllTeamsExcept: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'createCustomRole_request_teamScope_oneOf_2'
-	if jsonDict["type"] == "createCustomRole_request_teamScope_oneOf_2" {
-		// try to unmarshal JSON data into CreateCustomRoleRequestTeamScopeOneOf2
-		err = json.Unmarshal(data, &dst.CreateCustomRoleRequestTeamScopeOneOf2)
+	// check if the discriminator value is 'public'
+	if jsonDict["type"] == "public" {
+		// try to unmarshal JSON data into InputCustomRoleTeamScopePublic
+		err = json.Unmarshal(data, &dst.InputCustomRoleTeamScopePublic)
 		if err == nil {
-			return nil // data stored in dst.CreateCustomRoleRequestTeamScopeOneOf2, return on the first match
+			return nil // data stored in dst.InputCustomRoleTeamScopePublic, return on the first match
 		} else {
-			dst.CreateCustomRoleRequestTeamScopeOneOf2 = nil
-			return fmt.Errorf("failed to unmarshal CreateCustomRoleRequestTeamScope as CreateCustomRoleRequestTeamScopeOneOf2: %s", err.Error())
+			dst.InputCustomRoleTeamScopePublic = nil
+			return fmt.Errorf("failed to unmarshal CreateCustomRoleRequestTeamScope as InputCustomRoleTeamScopePublic: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'createCustomRole_request_teamScope_oneOf_3'
-	if jsonDict["type"] == "createCustomRole_request_teamScope_oneOf_3" {
-		// try to unmarshal JSON data into CreateCustomRoleRequestTeamScopeOneOf3
-		err = json.Unmarshal(data, &dst.CreateCustomRoleRequestTeamScopeOneOf3)
+	// check if the discriminator value is 'specific'
+	if jsonDict["type"] == "specific" {
+		// try to unmarshal JSON data into InputCustomRoleTeamScopeSpecificTeams
+		err = json.Unmarshal(data, &dst.InputCustomRoleTeamScopeSpecificTeams)
 		if err == nil {
-			return nil // data stored in dst.CreateCustomRoleRequestTeamScopeOneOf3, return on the first match
+			return nil // data stored in dst.InputCustomRoleTeamScopeSpecificTeams, return on the first match
 		} else {
-			dst.CreateCustomRoleRequestTeamScopeOneOf3 = nil
-			return fmt.Errorf("failed to unmarshal CreateCustomRoleRequestTeamScope as CreateCustomRoleRequestTeamScopeOneOf3: %s", err.Error())
+			dst.InputCustomRoleTeamScopeSpecificTeams = nil
+			return fmt.Errorf("failed to unmarshal CreateCustomRoleRequestTeamScope as InputCustomRoleTeamScopeSpecificTeams: %s", err.Error())
 		}
 	}
 
@@ -113,20 +113,20 @@ func (dst *CreateCustomRoleRequestTeamScope) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src CreateCustomRoleRequestTeamScope) MarshalJSON() ([]byte, error) {
-	if src.CreateCustomRoleRequestTeamScopeOneOf != nil {
-		return json.Marshal(&src.CreateCustomRoleRequestTeamScopeOneOf)
+	if src.InputCustomRoleTeamScopeAll != nil {
+		return json.Marshal(&src.InputCustomRoleTeamScopeAll)
 	}
 
-	if src.CreateCustomRoleRequestTeamScopeOneOf1 != nil {
-		return json.Marshal(&src.CreateCustomRoleRequestTeamScopeOneOf1)
+	if src.InputCustomRoleTeamScopeAllTeamsExcept != nil {
+		return json.Marshal(&src.InputCustomRoleTeamScopeAllTeamsExcept)
 	}
 
-	if src.CreateCustomRoleRequestTeamScopeOneOf2 != nil {
-		return json.Marshal(&src.CreateCustomRoleRequestTeamScopeOneOf2)
+	if src.InputCustomRoleTeamScopePublic != nil {
+		return json.Marshal(&src.InputCustomRoleTeamScopePublic)
 	}
 
-	if src.CreateCustomRoleRequestTeamScopeOneOf3 != nil {
-		return json.Marshal(&src.CreateCustomRoleRequestTeamScopeOneOf3)
+	if src.InputCustomRoleTeamScopeSpecificTeams != nil {
+		return json.Marshal(&src.InputCustomRoleTeamScopeSpecificTeams)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -137,20 +137,20 @@ func (obj *CreateCustomRoleRequestTeamScope) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
-	if obj.CreateCustomRoleRequestTeamScopeOneOf != nil {
-		return obj.CreateCustomRoleRequestTeamScopeOneOf
+	if obj.InputCustomRoleTeamScopeAll != nil {
+		return obj.InputCustomRoleTeamScopeAll
 	}
 
-	if obj.CreateCustomRoleRequestTeamScopeOneOf1 != nil {
-		return obj.CreateCustomRoleRequestTeamScopeOneOf1
+	if obj.InputCustomRoleTeamScopeAllTeamsExcept != nil {
+		return obj.InputCustomRoleTeamScopeAllTeamsExcept
 	}
 
-	if obj.CreateCustomRoleRequestTeamScopeOneOf2 != nil {
-		return obj.CreateCustomRoleRequestTeamScopeOneOf2
+	if obj.InputCustomRoleTeamScopePublic != nil {
+		return obj.InputCustomRoleTeamScopePublic
 	}
 
-	if obj.CreateCustomRoleRequestTeamScopeOneOf3 != nil {
-		return obj.CreateCustomRoleRequestTeamScopeOneOf3
+	if obj.InputCustomRoleTeamScopeSpecificTeams != nil {
+		return obj.InputCustomRoleTeamScopeSpecificTeams
 	}
 
 	// all schemas are nil
@@ -159,20 +159,20 @@ func (obj *CreateCustomRoleRequestTeamScope) GetActualInstance() interface{} {
 
 // Get the actual instance value
 func (obj CreateCustomRoleRequestTeamScope) GetActualInstanceValue() interface{} {
-	if obj.CreateCustomRoleRequestTeamScopeOneOf != nil {
-		return *obj.CreateCustomRoleRequestTeamScopeOneOf
+	if obj.InputCustomRoleTeamScopeAll != nil {
+		return *obj.InputCustomRoleTeamScopeAll
 	}
 
-	if obj.CreateCustomRoleRequestTeamScopeOneOf1 != nil {
-		return *obj.CreateCustomRoleRequestTeamScopeOneOf1
+	if obj.InputCustomRoleTeamScopeAllTeamsExcept != nil {
+		return *obj.InputCustomRoleTeamScopeAllTeamsExcept
 	}
 
-	if obj.CreateCustomRoleRequestTeamScopeOneOf2 != nil {
-		return *obj.CreateCustomRoleRequestTeamScopeOneOf2
+	if obj.InputCustomRoleTeamScopePublic != nil {
+		return *obj.InputCustomRoleTeamScopePublic
 	}
 
-	if obj.CreateCustomRoleRequestTeamScopeOneOf3 != nil {
-		return *obj.CreateCustomRoleRequestTeamScopeOneOf3
+	if obj.InputCustomRoleTeamScopeSpecificTeams != nil {
+		return *obj.InputCustomRoleTeamScopeSpecificTeams
 	}
 
 	// all schemas are nil

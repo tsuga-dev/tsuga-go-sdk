@@ -16,45 +16,45 @@ import (
 
 // InputProcessorAnyOf1Params - Parse processor configuration. The `subtype` discriminator selects which parser reads the source text attribute and which fields it extracts.
 type InputProcessorAnyOf1Params struct {
-	InputProcessorAnyOf1ParamsOneOf  *InputProcessorAnyOf1ParamsOneOf
-	InputProcessorAnyOf1ParamsOneOf1 *InputProcessorAnyOf1ParamsOneOf1
-	InputProcessorAnyOf1ParamsOneOf2 *InputProcessorAnyOf1ParamsOneOf2
-	InputProcessorAnyOf1ParamsOneOf3 *InputProcessorAnyOf1ParamsOneOf3
-	InputProcessorAnyOf1ParamsOneOf4 *InputProcessorAnyOf1ParamsOneOf4
+	InputProcessorParseGeoIp     *InputProcessorParseGeoIp
+	InputProcessorParseGrok      *InputProcessorParseGrok
+	InputProcessorParseKeyValue  *InputProcessorParseKeyValue
+	InputProcessorParseUrl       *InputProcessorParseUrl
+	InputProcessorParseUserAgent *InputProcessorParseUserAgent
 }
 
-// InputProcessorAnyOf1ParamsOneOfAsInputProcessorAnyOf1Params is a convenience function that returns InputProcessorAnyOf1ParamsOneOf wrapped in InputProcessorAnyOf1Params
-func InputProcessorAnyOf1ParamsOneOfAsInputProcessorAnyOf1Params(v *InputProcessorAnyOf1ParamsOneOf) InputProcessorAnyOf1Params {
+// InputProcessorParseGeoIpAsInputProcessorAnyOf1Params is a convenience function that returns InputProcessorParseGeoIp wrapped in InputProcessorAnyOf1Params
+func InputProcessorParseGeoIpAsInputProcessorAnyOf1Params(v *InputProcessorParseGeoIp) InputProcessorAnyOf1Params {
 	return InputProcessorAnyOf1Params{
-		InputProcessorAnyOf1ParamsOneOf: v,
+		InputProcessorParseGeoIp: v,
 	}
 }
 
-// InputProcessorAnyOf1ParamsOneOf1AsInputProcessorAnyOf1Params is a convenience function that returns InputProcessorAnyOf1ParamsOneOf1 wrapped in InputProcessorAnyOf1Params
-func InputProcessorAnyOf1ParamsOneOf1AsInputProcessorAnyOf1Params(v *InputProcessorAnyOf1ParamsOneOf1) InputProcessorAnyOf1Params {
+// InputProcessorParseGrokAsInputProcessorAnyOf1Params is a convenience function that returns InputProcessorParseGrok wrapped in InputProcessorAnyOf1Params
+func InputProcessorParseGrokAsInputProcessorAnyOf1Params(v *InputProcessorParseGrok) InputProcessorAnyOf1Params {
 	return InputProcessorAnyOf1Params{
-		InputProcessorAnyOf1ParamsOneOf1: v,
+		InputProcessorParseGrok: v,
 	}
 }
 
-// InputProcessorAnyOf1ParamsOneOf2AsInputProcessorAnyOf1Params is a convenience function that returns InputProcessorAnyOf1ParamsOneOf2 wrapped in InputProcessorAnyOf1Params
-func InputProcessorAnyOf1ParamsOneOf2AsInputProcessorAnyOf1Params(v *InputProcessorAnyOf1ParamsOneOf2) InputProcessorAnyOf1Params {
+// InputProcessorParseKeyValueAsInputProcessorAnyOf1Params is a convenience function that returns InputProcessorParseKeyValue wrapped in InputProcessorAnyOf1Params
+func InputProcessorParseKeyValueAsInputProcessorAnyOf1Params(v *InputProcessorParseKeyValue) InputProcessorAnyOf1Params {
 	return InputProcessorAnyOf1Params{
-		InputProcessorAnyOf1ParamsOneOf2: v,
+		InputProcessorParseKeyValue: v,
 	}
 }
 
-// InputProcessorAnyOf1ParamsOneOf3AsInputProcessorAnyOf1Params is a convenience function that returns InputProcessorAnyOf1ParamsOneOf3 wrapped in InputProcessorAnyOf1Params
-func InputProcessorAnyOf1ParamsOneOf3AsInputProcessorAnyOf1Params(v *InputProcessorAnyOf1ParamsOneOf3) InputProcessorAnyOf1Params {
+// InputProcessorParseUrlAsInputProcessorAnyOf1Params is a convenience function that returns InputProcessorParseUrl wrapped in InputProcessorAnyOf1Params
+func InputProcessorParseUrlAsInputProcessorAnyOf1Params(v *InputProcessorParseUrl) InputProcessorAnyOf1Params {
 	return InputProcessorAnyOf1Params{
-		InputProcessorAnyOf1ParamsOneOf3: v,
+		InputProcessorParseUrl: v,
 	}
 }
 
-// InputProcessorAnyOf1ParamsOneOf4AsInputProcessorAnyOf1Params is a convenience function that returns InputProcessorAnyOf1ParamsOneOf4 wrapped in InputProcessorAnyOf1Params
-func InputProcessorAnyOf1ParamsOneOf4AsInputProcessorAnyOf1Params(v *InputProcessorAnyOf1ParamsOneOf4) InputProcessorAnyOf1Params {
+// InputProcessorParseUserAgentAsInputProcessorAnyOf1Params is a convenience function that returns InputProcessorParseUserAgent wrapped in InputProcessorAnyOf1Params
+func InputProcessorParseUserAgentAsInputProcessorAnyOf1Params(v *InputProcessorParseUserAgent) InputProcessorAnyOf1Params {
 	return InputProcessorAnyOf1Params{
-		InputProcessorAnyOf1ParamsOneOf4: v,
+		InputProcessorParseUserAgent: v,
 	}
 }
 
@@ -68,63 +68,63 @@ func (dst *InputProcessorAnyOf1Params) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'InputProcessor_anyOf_1_params_oneOf'
-	if jsonDict["subtype"] == "InputProcessor_anyOf_1_params_oneOf" {
-		// try to unmarshal JSON data into InputProcessorAnyOf1ParamsOneOf
-		err = json.Unmarshal(data, &dst.InputProcessorAnyOf1ParamsOneOf)
+	// check if the discriminator value is 'geo-ip'
+	if jsonDict["subtype"] == "geo-ip" {
+		// try to unmarshal JSON data into InputProcessorParseGeoIp
+		err = json.Unmarshal(data, &dst.InputProcessorParseGeoIp)
 		if err == nil {
-			return nil // data stored in dst.InputProcessorAnyOf1ParamsOneOf, return on the first match
+			return nil // data stored in dst.InputProcessorParseGeoIp, return on the first match
 		} else {
-			dst.InputProcessorAnyOf1ParamsOneOf = nil
-			return fmt.Errorf("failed to unmarshal InputProcessorAnyOf1Params as InputProcessorAnyOf1ParamsOneOf: %s", err.Error())
+			dst.InputProcessorParseGeoIp = nil
+			return fmt.Errorf("failed to unmarshal InputProcessorAnyOf1Params as InputProcessorParseGeoIp: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'InputProcessor_anyOf_1_params_oneOf_1'
-	if jsonDict["subtype"] == "InputProcessor_anyOf_1_params_oneOf_1" {
-		// try to unmarshal JSON data into InputProcessorAnyOf1ParamsOneOf1
-		err = json.Unmarshal(data, &dst.InputProcessorAnyOf1ParamsOneOf1)
+	// check if the discriminator value is 'grok'
+	if jsonDict["subtype"] == "grok" {
+		// try to unmarshal JSON data into InputProcessorParseGrok
+		err = json.Unmarshal(data, &dst.InputProcessorParseGrok)
 		if err == nil {
-			return nil // data stored in dst.InputProcessorAnyOf1ParamsOneOf1, return on the first match
+			return nil // data stored in dst.InputProcessorParseGrok, return on the first match
 		} else {
-			dst.InputProcessorAnyOf1ParamsOneOf1 = nil
-			return fmt.Errorf("failed to unmarshal InputProcessorAnyOf1Params as InputProcessorAnyOf1ParamsOneOf1: %s", err.Error())
+			dst.InputProcessorParseGrok = nil
+			return fmt.Errorf("failed to unmarshal InputProcessorAnyOf1Params as InputProcessorParseGrok: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'InputProcessor_anyOf_1_params_oneOf_2'
-	if jsonDict["subtype"] == "InputProcessor_anyOf_1_params_oneOf_2" {
-		// try to unmarshal JSON data into InputProcessorAnyOf1ParamsOneOf2
-		err = json.Unmarshal(data, &dst.InputProcessorAnyOf1ParamsOneOf2)
+	// check if the discriminator value is 'key-value'
+	if jsonDict["subtype"] == "key-value" {
+		// try to unmarshal JSON data into InputProcessorParseKeyValue
+		err = json.Unmarshal(data, &dst.InputProcessorParseKeyValue)
 		if err == nil {
-			return nil // data stored in dst.InputProcessorAnyOf1ParamsOneOf2, return on the first match
+			return nil // data stored in dst.InputProcessorParseKeyValue, return on the first match
 		} else {
-			dst.InputProcessorAnyOf1ParamsOneOf2 = nil
-			return fmt.Errorf("failed to unmarshal InputProcessorAnyOf1Params as InputProcessorAnyOf1ParamsOneOf2: %s", err.Error())
+			dst.InputProcessorParseKeyValue = nil
+			return fmt.Errorf("failed to unmarshal InputProcessorAnyOf1Params as InputProcessorParseKeyValue: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'InputProcessor_anyOf_1_params_oneOf_3'
-	if jsonDict["subtype"] == "InputProcessor_anyOf_1_params_oneOf_3" {
-		// try to unmarshal JSON data into InputProcessorAnyOf1ParamsOneOf3
-		err = json.Unmarshal(data, &dst.InputProcessorAnyOf1ParamsOneOf3)
+	// check if the discriminator value is 'url'
+	if jsonDict["subtype"] == "url" {
+		// try to unmarshal JSON data into InputProcessorParseUrl
+		err = json.Unmarshal(data, &dst.InputProcessorParseUrl)
 		if err == nil {
-			return nil // data stored in dst.InputProcessorAnyOf1ParamsOneOf3, return on the first match
+			return nil // data stored in dst.InputProcessorParseUrl, return on the first match
 		} else {
-			dst.InputProcessorAnyOf1ParamsOneOf3 = nil
-			return fmt.Errorf("failed to unmarshal InputProcessorAnyOf1Params as InputProcessorAnyOf1ParamsOneOf3: %s", err.Error())
+			dst.InputProcessorParseUrl = nil
+			return fmt.Errorf("failed to unmarshal InputProcessorAnyOf1Params as InputProcessorParseUrl: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'InputProcessor_anyOf_1_params_oneOf_4'
-	if jsonDict["subtype"] == "InputProcessor_anyOf_1_params_oneOf_4" {
-		// try to unmarshal JSON data into InputProcessorAnyOf1ParamsOneOf4
-		err = json.Unmarshal(data, &dst.InputProcessorAnyOf1ParamsOneOf4)
+	// check if the discriminator value is 'user-agent'
+	if jsonDict["subtype"] == "user-agent" {
+		// try to unmarshal JSON data into InputProcessorParseUserAgent
+		err = json.Unmarshal(data, &dst.InputProcessorParseUserAgent)
 		if err == nil {
-			return nil // data stored in dst.InputProcessorAnyOf1ParamsOneOf4, return on the first match
+			return nil // data stored in dst.InputProcessorParseUserAgent, return on the first match
 		} else {
-			dst.InputProcessorAnyOf1ParamsOneOf4 = nil
-			return fmt.Errorf("failed to unmarshal InputProcessorAnyOf1Params as InputProcessorAnyOf1ParamsOneOf4: %s", err.Error())
+			dst.InputProcessorParseUserAgent = nil
+			return fmt.Errorf("failed to unmarshal InputProcessorAnyOf1Params as InputProcessorParseUserAgent: %s", err.Error())
 		}
 	}
 
@@ -133,24 +133,24 @@ func (dst *InputProcessorAnyOf1Params) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src InputProcessorAnyOf1Params) MarshalJSON() ([]byte, error) {
-	if src.InputProcessorAnyOf1ParamsOneOf != nil {
-		return json.Marshal(&src.InputProcessorAnyOf1ParamsOneOf)
+	if src.InputProcessorParseGeoIp != nil {
+		return json.Marshal(&src.InputProcessorParseGeoIp)
 	}
 
-	if src.InputProcessorAnyOf1ParamsOneOf1 != nil {
-		return json.Marshal(&src.InputProcessorAnyOf1ParamsOneOf1)
+	if src.InputProcessorParseGrok != nil {
+		return json.Marshal(&src.InputProcessorParseGrok)
 	}
 
-	if src.InputProcessorAnyOf1ParamsOneOf2 != nil {
-		return json.Marshal(&src.InputProcessorAnyOf1ParamsOneOf2)
+	if src.InputProcessorParseKeyValue != nil {
+		return json.Marshal(&src.InputProcessorParseKeyValue)
 	}
 
-	if src.InputProcessorAnyOf1ParamsOneOf3 != nil {
-		return json.Marshal(&src.InputProcessorAnyOf1ParamsOneOf3)
+	if src.InputProcessorParseUrl != nil {
+		return json.Marshal(&src.InputProcessorParseUrl)
 	}
 
-	if src.InputProcessorAnyOf1ParamsOneOf4 != nil {
-		return json.Marshal(&src.InputProcessorAnyOf1ParamsOneOf4)
+	if src.InputProcessorParseUserAgent != nil {
+		return json.Marshal(&src.InputProcessorParseUserAgent)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -161,24 +161,24 @@ func (obj *InputProcessorAnyOf1Params) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
-	if obj.InputProcessorAnyOf1ParamsOneOf != nil {
-		return obj.InputProcessorAnyOf1ParamsOneOf
+	if obj.InputProcessorParseGeoIp != nil {
+		return obj.InputProcessorParseGeoIp
 	}
 
-	if obj.InputProcessorAnyOf1ParamsOneOf1 != nil {
-		return obj.InputProcessorAnyOf1ParamsOneOf1
+	if obj.InputProcessorParseGrok != nil {
+		return obj.InputProcessorParseGrok
 	}
 
-	if obj.InputProcessorAnyOf1ParamsOneOf2 != nil {
-		return obj.InputProcessorAnyOf1ParamsOneOf2
+	if obj.InputProcessorParseKeyValue != nil {
+		return obj.InputProcessorParseKeyValue
 	}
 
-	if obj.InputProcessorAnyOf1ParamsOneOf3 != nil {
-		return obj.InputProcessorAnyOf1ParamsOneOf3
+	if obj.InputProcessorParseUrl != nil {
+		return obj.InputProcessorParseUrl
 	}
 
-	if obj.InputProcessorAnyOf1ParamsOneOf4 != nil {
-		return obj.InputProcessorAnyOf1ParamsOneOf4
+	if obj.InputProcessorParseUserAgent != nil {
+		return obj.InputProcessorParseUserAgent
 	}
 
 	// all schemas are nil
@@ -187,24 +187,24 @@ func (obj *InputProcessorAnyOf1Params) GetActualInstance() interface{} {
 
 // Get the actual instance value
 func (obj InputProcessorAnyOf1Params) GetActualInstanceValue() interface{} {
-	if obj.InputProcessorAnyOf1ParamsOneOf != nil {
-		return *obj.InputProcessorAnyOf1ParamsOneOf
+	if obj.InputProcessorParseGeoIp != nil {
+		return *obj.InputProcessorParseGeoIp
 	}
 
-	if obj.InputProcessorAnyOf1ParamsOneOf1 != nil {
-		return *obj.InputProcessorAnyOf1ParamsOneOf1
+	if obj.InputProcessorParseGrok != nil {
+		return *obj.InputProcessorParseGrok
 	}
 
-	if obj.InputProcessorAnyOf1ParamsOneOf2 != nil {
-		return *obj.InputProcessorAnyOf1ParamsOneOf2
+	if obj.InputProcessorParseKeyValue != nil {
+		return *obj.InputProcessorParseKeyValue
 	}
 
-	if obj.InputProcessorAnyOf1ParamsOneOf3 != nil {
-		return *obj.InputProcessorAnyOf1ParamsOneOf3
+	if obj.InputProcessorParseUrl != nil {
+		return *obj.InputProcessorParseUrl
 	}
 
-	if obj.InputProcessorAnyOf1ParamsOneOf4 != nil {
-		return *obj.InputProcessorAnyOf1ParamsOneOf4
+	if obj.InputProcessorParseUserAgent != nil {
+		return *obj.InputProcessorParseUserAgent
 	}
 
 	// all schemas are nil

@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	createNotificationIntegrationRequest := *openapiclient.NewCreateNotificationIntegrationRequest("Name_example", "Owner_example", openapiclient.createNotificationIntegration_request_setting{CreateNotificationIntegrationRequestSettingOneOf: openapiclient.NewCreateNotificationIntegrationRequestSettingOneOf("Type_example", "AlertSourceConfigId_example", "Token_example")}) // CreateNotificationIntegrationRequest | Notification integration create request containing the display name, owning team, destination setting, and tags. `setting.type` cannot be `slack`; add Slack integrations from the app instead.
+	createNotificationIntegrationRequest := *openapiclient.NewCreateNotificationIntegrationRequest("Name_example", "Owner_example", openapiclient.createNotificationIntegration_request_setting{InputNotificationIntegrationGoogleChatSetting: openapiclient.NewInputNotificationIntegrationGoogleChatSetting("Type_example", "WebhookUrl_example")}) // CreateNotificationIntegrationRequest | Notification integration create request containing the display name, owning team, destination setting, and tags. `setting.type` cannot be `slack`; add Slack integrations from the app instead.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

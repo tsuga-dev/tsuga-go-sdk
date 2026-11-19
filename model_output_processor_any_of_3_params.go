@@ -17,9 +17,9 @@ import (
 // checks if the OutputProcessorAnyOf3Params type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &OutputProcessorAnyOf3Params{}
 
-// OutputProcessorAnyOf3Params struct for OutputProcessorAnyOf3Params
+// OutputProcessorAnyOf3Params Split configuration containing the ordered conditional branches.
 type OutputProcessorAnyOf3Params struct {
-	// Conditional branches evaluated in order before falling back to the default
+	// Branches evaluated in order; only the first matching branch runs. A final branch with an empty query matches all remaining events. If no branch matches, the event is unchanged.
 	Items                []OutputProcessorAnyOf3ParamsItemsInner `json:"items"`
 	AdditionalProperties map[string]interface{}
 }

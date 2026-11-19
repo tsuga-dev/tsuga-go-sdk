@@ -44,8 +44,8 @@ func (dst *TagPolicyConfiguration) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'TelemetryTagPolicy'
-	if jsonDict["type"] == "TelemetryTagPolicy" {
+	// check if the discriminator value is 'telemetry'
+	if jsonDict["type"] == "telemetry" {
 		// try to unmarshal JSON data into TelemetryTagPolicy
 		err = json.Unmarshal(data, &dst.TelemetryTagPolicy)
 		if err == nil {
@@ -56,8 +56,8 @@ func (dst *TagPolicyConfiguration) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'TsugaAssetTagPolicy'
-	if jsonDict["type"] == "TsugaAssetTagPolicy" {
+	// check if the discriminator value is 'tsuga_asset'
+	if jsonDict["type"] == "tsuga_asset" {
 		// try to unmarshal JSON data into TsugaAssetTagPolicy
 		err = json.Unmarshal(data, &dst.TsugaAssetTagPolicy)
 		if err == nil {

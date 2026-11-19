@@ -11,14 +11,14 @@ Name | Type | Description | Notes
 **CurrentState** | **string** | Current alert state. &#x60;alert&#x60; means the condition is breached; &#x60;alert_no_data&#x60; means evaluation stopped receiving data and the monitor is configured to alert on that. | 
 **CurrentStateSince** | **string** | Time the alert entered &#x60;currentState&#x60;. Use it as the anchor when building the time range of a query that investigates the alert. | 
 **TriggeredBy** | [**[]map[string]OngoingMonitorAlertTriggeredByInnerValue**](map[string]OngoingMonitorAlertTriggeredByInnerValue.md) | Group-by dimension values that triggered the alert, one entry per firing group. Empty when the monitor or SLO has no group-by. Combine these with the asset configuration to scope an investigation query to the firing group. | 
-**Slo** | [**OngoingSloAlertSlo**](OngoingSloAlertSlo.md) |  | 
+**Slo** | [**Slo**](Slo.md) |  | 
 **SloAlert** | [**OngoingSloAlertSloAlert**](OngoingSloAlertSloAlert.md) |  | 
 
 ## Methods
 
 ### NewQueryOngoingAlertsResponseDataAlertsPageInner
 
-`func NewQueryOngoingAlertsResponseDataAlertsPageInner(type_ string, monitor OngoingMonitorAlertMonitor, transitionId string, currentState string, currentStateSince string, triggeredBy []map[string]OngoingMonitorAlertTriggeredByInnerValue, slo OngoingSloAlertSlo, sloAlert OngoingSloAlertSloAlert, ) *QueryOngoingAlertsResponseDataAlertsPageInner`
+`func NewQueryOngoingAlertsResponseDataAlertsPageInner(type_ string, monitor OngoingMonitorAlertMonitor, transitionId string, currentState string, currentStateSince string, triggeredBy []map[string]OngoingMonitorAlertTriggeredByInnerValue, slo Slo, sloAlert OngoingSloAlertSloAlert, ) *QueryOngoingAlertsResponseDataAlertsPageInner`
 
 NewQueryOngoingAlertsResponseDataAlertsPageInner instantiates a new QueryOngoingAlertsResponseDataAlertsPageInner object
 This constructor will assign default values to properties that have it defined,
@@ -180,20 +180,20 @@ SetTriggeredBy sets TriggeredBy field to given value.
 
 ### GetSlo
 
-`func (o *QueryOngoingAlertsResponseDataAlertsPageInner) GetSlo() OngoingSloAlertSlo`
+`func (o *QueryOngoingAlertsResponseDataAlertsPageInner) GetSlo() Slo`
 
 GetSlo returns the Slo field if non-nil, zero value otherwise.
 
 ### GetSloOk
 
-`func (o *QueryOngoingAlertsResponseDataAlertsPageInner) GetSloOk() (*OngoingSloAlertSlo, bool)`
+`func (o *QueryOngoingAlertsResponseDataAlertsPageInner) GetSloOk() (*Slo, bool)`
 
 GetSloOk returns a tuple with the Slo field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSlo
 
-`func (o *QueryOngoingAlertsResponseDataAlertsPageInner) SetSlo(v OngoingSloAlertSlo)`
+`func (o *QueryOngoingAlertsResponseDataAlertsPageInner) SetSlo(v Slo)`
 
 SetSlo sets Slo field to given value.
 

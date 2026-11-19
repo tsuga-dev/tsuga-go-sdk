@@ -27,7 +27,7 @@ type OutputProcessorAnyOf struct {
 	Tags []Tag `json:"tags,omitempty"`
 	// Timestamp when Tsuga last updated the processor.
 	UpdatedAt *string `json:"updatedAt,omitempty"`
-	// Map processor. It moves, copies, or normalizes existing log attributes.
+	// Map processor. It moves, copies, or normalizes existing event attributes.
 	Type                 string                     `json:"type"`
 	Params               OutputProcessorAnyOfParams `json:"params"`
 	AdditionalProperties map[string]interface{}

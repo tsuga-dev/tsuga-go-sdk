@@ -26,10 +26,10 @@ type OutputSpansProcessorAnyOf struct {
 	// Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies.
 	Tags []Tag `json:"tags,omitempty"`
 	// Timestamp when Tsuga last updated the processor.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
-	// Map processor. It moves, copies, or normalizes existing log attributes.
-	Type                 string                          `json:"type"`
-	Params               OutputSpansProcessorAnyOfParams `json:"params"`
+	UpdatedAt *string                         `json:"updatedAt,omitempty"`
+	Params    OutputSpansProcessorAnyOfParams `json:"params"`
+	// Split processor. It sends each span through the first matching conditional branch.
+	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -39,11 +39,11 @@ type _OutputSpansProcessorAnyOf OutputSpansProcessorAnyOf
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOutputSpansProcessorAnyOf(id string, type_ string, params OutputSpansProcessorAnyOfParams) *OutputSpansProcessorAnyOf {
+func NewOutputSpansProcessorAnyOf(id string, params OutputSpansProcessorAnyOfParams, type_ string) *OutputSpansProcessorAnyOf {
 	this := OutputSpansProcessorAnyOf{}
 	this.Id = id
-	this.Type = type_
 	this.Params = params
+	this.Type = type_
 	return &this
 }
 
@@ -175,30 +175,6 @@ func (o *OutputSpansProcessorAnyOf) SetUpdatedAt(v string) {
 	o.UpdatedAt = &v
 }
 
-// GetType returns the Type field value
-func (o *OutputSpansProcessorAnyOf) GetType() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Type
-}
-
-// GetTypeOk returns a tuple with the Type field value
-// and a boolean to check if the value has been set.
-func (o *OutputSpansProcessorAnyOf) GetTypeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Type, true
-}
-
-// SetType sets field value
-func (o *OutputSpansProcessorAnyOf) SetType(v string) {
-	o.Type = v
-}
-
 // GetParams returns the Params field value
 func (o *OutputSpansProcessorAnyOf) GetParams() OutputSpansProcessorAnyOfParams {
 	if o == nil {
@@ -223,6 +199,30 @@ func (o *OutputSpansProcessorAnyOf) SetParams(v OutputSpansProcessorAnyOfParams)
 	o.Params = v
 }
 
+// GetType returns the Type field value
+func (o *OutputSpansProcessorAnyOf) GetType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *OutputSpansProcessorAnyOf) GetTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *OutputSpansProcessorAnyOf) SetType(v string) {
+	o.Type = v
+}
+
 func (o OutputSpansProcessorAnyOf) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -243,8 +243,8 @@ func (o OutputSpansProcessorAnyOf) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
-	toSerialize["type"] = o.Type
 	toSerialize["params"] = o.Params
+	toSerialize["type"] = o.Type
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -259,8 +259,8 @@ func (o *OutputSpansProcessorAnyOf) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"id",
-		"type",
 		"params",
+		"type",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -294,8 +294,8 @@ func (o *OutputSpansProcessorAnyOf) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "tags")
 		delete(additionalProperties, "updatedAt")
-		delete(additionalProperties, "type")
 		delete(additionalProperties, "params")
+		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
 	}
 

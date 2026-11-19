@@ -617,12 +617,12 @@ type CustomRolesAPIUpdateCustomRoleRequest struct {
 	ctx                     context.Context
 	ApiService              CustomRolesAPI
 	id                      string
-	updateCustomRoleRequest *UpdateCustomRoleRequest
+	createCustomRoleRequest *CreateCustomRoleRequest
 }
 
 // Custom role create or update request. Provide the role name, optional description, team scope, resource type grants, readable telemetry signals, and optional telemetry restriction.
-func (r CustomRolesAPIUpdateCustomRoleRequest) UpdateCustomRoleRequest(updateCustomRoleRequest UpdateCustomRoleRequest) CustomRolesAPIUpdateCustomRoleRequest {
-	r.updateCustomRoleRequest = &updateCustomRoleRequest
+func (r CustomRolesAPIUpdateCustomRoleRequest) CreateCustomRoleRequest(createCustomRoleRequest CreateCustomRoleRequest) CustomRolesAPIUpdateCustomRoleRequest {
+	r.createCustomRoleRequest = &createCustomRoleRequest
 	return r
 }
 
@@ -675,8 +675,8 @@ func (a *CustomRolesAPIService) UpdateCustomRoleExecute(r CustomRolesAPIUpdateCu
 	if strlen(r.id) > 250 {
 		return localVarReturnValue, nil, reportError("id must have less than 250 elements")
 	}
-	if r.updateCustomRoleRequest == nil {
-		return localVarReturnValue, nil, reportError("updateCustomRoleRequest is required and must be specified")
+	if r.createCustomRoleRequest == nil {
+		return localVarReturnValue, nil, reportError("createCustomRoleRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -697,7 +697,7 @@ func (a *CustomRolesAPIService) UpdateCustomRoleExecute(r CustomRolesAPIUpdateCu
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.updateCustomRoleRequest
+	localVarPostBody = r.createCustomRoleRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

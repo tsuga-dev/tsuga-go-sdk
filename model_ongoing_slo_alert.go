@@ -21,7 +21,7 @@ var _ MappedNullable = &OngoingSloAlert{}
 type OngoingSloAlert struct {
 	// Discriminator identifying an alert raised by an SLO.
 	Type     string                  `json:"type"`
-	Slo      OngoingSloAlertSlo      `json:"slo"`
+	Slo      Slo                     `json:"slo"`
 	SloAlert OngoingSloAlertSloAlert `json:"sloAlert"`
 	// ID of the state transition that opened this alert. It stays the same for as long as the alert remains open, so it identifies the alert across successive polls.
 	TransitionId string `json:"transitionId"`
@@ -42,7 +42,7 @@ type _OngoingSloAlert OngoingSloAlert
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOngoingSloAlert(type_ string, slo OngoingSloAlertSlo, sloAlert OngoingSloAlertSloAlert, transitionId string, currentState string, currentStateSince string, triggeredBy []map[string]OngoingMonitorAlertTriggeredByInnerValue) *OngoingSloAlert {
+func NewOngoingSloAlert(type_ string, slo Slo, sloAlert OngoingSloAlertSloAlert, transitionId string, currentState string, currentStateSince string, triggeredBy []map[string]OngoingMonitorAlertTriggeredByInnerValue) *OngoingSloAlert {
 	this := OngoingSloAlert{}
 	this.Type = type_
 	this.Slo = slo
@@ -87,9 +87,9 @@ func (o *OngoingSloAlert) SetType(v string) {
 }
 
 // GetSlo returns the Slo field value
-func (o *OngoingSloAlert) GetSlo() OngoingSloAlertSlo {
+func (o *OngoingSloAlert) GetSlo() Slo {
 	if o == nil {
-		var ret OngoingSloAlertSlo
+		var ret Slo
 		return ret
 	}
 
@@ -98,7 +98,7 @@ func (o *OngoingSloAlert) GetSlo() OngoingSloAlertSlo {
 
 // GetSloOk returns a tuple with the Slo field value
 // and a boolean to check if the value has been set.
-func (o *OngoingSloAlert) GetSloOk() (*OngoingSloAlertSlo, bool) {
+func (o *OngoingSloAlert) GetSloOk() (*Slo, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -106,7 +106,7 @@ func (o *OngoingSloAlert) GetSloOk() (*OngoingSloAlertSlo, bool) {
 }
 
 // SetSlo sets field value
-func (o *OngoingSloAlert) SetSlo(v OngoingSloAlertSlo) {
+func (o *OngoingSloAlert) SetSlo(v Slo) {
 	o.Slo = v
 }
 

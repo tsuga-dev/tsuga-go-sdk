@@ -11,16 +11,16 @@ Name | Type | Description | Notes
 **IntegrationKey** | **string** |  | 
 **WebhookUrl** | **string** |  | 
 **Method** | Pointer to **string** |  | [optional] 
-**Authentication** | Pointer to [**UpdateNotificationIntegrationRequestSettingOneOf2Authentication**](UpdateNotificationIntegrationRequestSettingOneOf2Authentication.md) |  | [optional] 
+**Authentication** | Pointer to [**InputNotificationIntegrationWebhookSettingUpdateAuthentication**](InputNotificationIntegrationWebhookSettingUpdateAuthentication.md) |  | [optional] 
 **CustomHeaders** | Pointer to **map[string]string** |  | [optional] 
-**PayloadTemplate** | Pointer to [**CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate**](CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate.md) |  | [optional] 
-**EventNameMapping** | Pointer to [**NullableUpdateNotificationIntegrationRequestSettingOneOf2EventNameMapping**](UpdateNotificationIntegrationRequestSettingOneOf2EventNameMapping.md) |  | [optional] 
-**InstanceName** | Pointer to **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
-**Username** | Pointer to **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
-**Password** | Pointer to **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
+**PayloadTemplate** | Pointer to [**InputNotificationIntegrationWebhookSettingUpdatePayloadTemplate**](InputNotificationIntegrationWebhookSettingUpdatePayloadTemplate.md) |  | [optional] 
+**EventNameMapping** | Pointer to [**NullableInputNotificationIntegrationWebhookSettingUpdateEventNameMapping**](InputNotificationIntegrationWebhookSettingUpdateEventNameMapping.md) |  | [optional] 
+**InstanceName** | Pointer to **string** |  | [optional] 
+**Username** | Pointer to **string** |  | [optional] 
+**Password** | Pointer to **string** |  | [optional] 
 **SiteUrl** | Pointer to **string** |  | [optional] 
-**Email** | Pointer to **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
-**ApiToken** | Pointer to **NullableString** | Folder filter for dashboard query results. Optional; pass a folder ID to return dashboards in that folder, or null to return only dashboards that are not in any folder. | [optional] 
+**Email** | Pointer to **string** |  | [optional] 
+**ApiToken** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -188,20 +188,20 @@ HasMethod returns a boolean if a field has been set.
 
 ### GetAuthentication
 
-`func (o *UpdateNotificationIntegrationRequestSetting) GetAuthentication() UpdateNotificationIntegrationRequestSettingOneOf2Authentication`
+`func (o *UpdateNotificationIntegrationRequestSetting) GetAuthentication() InputNotificationIntegrationWebhookSettingUpdateAuthentication`
 
 GetAuthentication returns the Authentication field if non-nil, zero value otherwise.
 
 ### GetAuthenticationOk
 
-`func (o *UpdateNotificationIntegrationRequestSetting) GetAuthenticationOk() (*UpdateNotificationIntegrationRequestSettingOneOf2Authentication, bool)`
+`func (o *UpdateNotificationIntegrationRequestSetting) GetAuthenticationOk() (*InputNotificationIntegrationWebhookSettingUpdateAuthentication, bool)`
 
 GetAuthenticationOk returns a tuple with the Authentication field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAuthentication
 
-`func (o *UpdateNotificationIntegrationRequestSetting) SetAuthentication(v UpdateNotificationIntegrationRequestSettingOneOf2Authentication)`
+`func (o *UpdateNotificationIntegrationRequestSetting) SetAuthentication(v InputNotificationIntegrationWebhookSettingUpdateAuthentication)`
 
 SetAuthentication sets Authentication field to given value.
 
@@ -238,20 +238,20 @@ HasCustomHeaders returns a boolean if a field has been set.
 
 ### GetPayloadTemplate
 
-`func (o *UpdateNotificationIntegrationRequestSetting) GetPayloadTemplate() CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate`
+`func (o *UpdateNotificationIntegrationRequestSetting) GetPayloadTemplate() InputNotificationIntegrationWebhookSettingUpdatePayloadTemplate`
 
 GetPayloadTemplate returns the PayloadTemplate field if non-nil, zero value otherwise.
 
 ### GetPayloadTemplateOk
 
-`func (o *UpdateNotificationIntegrationRequestSetting) GetPayloadTemplateOk() (*CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate, bool)`
+`func (o *UpdateNotificationIntegrationRequestSetting) GetPayloadTemplateOk() (*InputNotificationIntegrationWebhookSettingUpdatePayloadTemplate, bool)`
 
 GetPayloadTemplateOk returns a tuple with the PayloadTemplate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPayloadTemplate
 
-`func (o *UpdateNotificationIntegrationRequestSetting) SetPayloadTemplate(v CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate)`
+`func (o *UpdateNotificationIntegrationRequestSetting) SetPayloadTemplate(v InputNotificationIntegrationWebhookSettingUpdatePayloadTemplate)`
 
 SetPayloadTemplate sets PayloadTemplate field to given value.
 
@@ -263,20 +263,20 @@ HasPayloadTemplate returns a boolean if a field has been set.
 
 ### GetEventNameMapping
 
-`func (o *UpdateNotificationIntegrationRequestSetting) GetEventNameMapping() UpdateNotificationIntegrationRequestSettingOneOf2EventNameMapping`
+`func (o *UpdateNotificationIntegrationRequestSetting) GetEventNameMapping() InputNotificationIntegrationWebhookSettingUpdateEventNameMapping`
 
 GetEventNameMapping returns the EventNameMapping field if non-nil, zero value otherwise.
 
 ### GetEventNameMappingOk
 
-`func (o *UpdateNotificationIntegrationRequestSetting) GetEventNameMappingOk() (*UpdateNotificationIntegrationRequestSettingOneOf2EventNameMapping, bool)`
+`func (o *UpdateNotificationIntegrationRequestSetting) GetEventNameMappingOk() (*InputNotificationIntegrationWebhookSettingUpdateEventNameMapping, bool)`
 
 GetEventNameMappingOk returns a tuple with the EventNameMapping field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEventNameMapping
 
-`func (o *UpdateNotificationIntegrationRequestSetting) SetEventNameMapping(v UpdateNotificationIntegrationRequestSettingOneOf2EventNameMapping)`
+`func (o *UpdateNotificationIntegrationRequestSetting) SetEventNameMapping(v InputNotificationIntegrationWebhookSettingUpdateEventNameMapping)`
 
 SetEventNameMapping sets EventNameMapping field to given value.
 
@@ -321,16 +321,6 @@ SetInstanceName sets InstanceName field to given value.
 
 HasInstanceName returns a boolean if a field has been set.
 
-### SetInstanceNameNil
-
-`func (o *UpdateNotificationIntegrationRequestSetting) SetInstanceNameNil(b bool)`
-
- SetInstanceNameNil sets the value for InstanceName to be an explicit nil
-
-### UnsetInstanceName
-`func (o *UpdateNotificationIntegrationRequestSetting) UnsetInstanceName()`
-
-UnsetInstanceName ensures that no value is present for InstanceName, not even an explicit nil
 ### GetUsername
 
 `func (o *UpdateNotificationIntegrationRequestSetting) GetUsername() string`
@@ -356,16 +346,6 @@ SetUsername sets Username field to given value.
 
 HasUsername returns a boolean if a field has been set.
 
-### SetUsernameNil
-
-`func (o *UpdateNotificationIntegrationRequestSetting) SetUsernameNil(b bool)`
-
- SetUsernameNil sets the value for Username to be an explicit nil
-
-### UnsetUsername
-`func (o *UpdateNotificationIntegrationRequestSetting) UnsetUsername()`
-
-UnsetUsername ensures that no value is present for Username, not even an explicit nil
 ### GetPassword
 
 `func (o *UpdateNotificationIntegrationRequestSetting) GetPassword() string`
@@ -391,16 +371,6 @@ SetPassword sets Password field to given value.
 
 HasPassword returns a boolean if a field has been set.
 
-### SetPasswordNil
-
-`func (o *UpdateNotificationIntegrationRequestSetting) SetPasswordNil(b bool)`
-
- SetPasswordNil sets the value for Password to be an explicit nil
-
-### UnsetPassword
-`func (o *UpdateNotificationIntegrationRequestSetting) UnsetPassword()`
-
-UnsetPassword ensures that no value is present for Password, not even an explicit nil
 ### GetSiteUrl
 
 `func (o *UpdateNotificationIntegrationRequestSetting) GetSiteUrl() string`
@@ -451,16 +421,6 @@ SetEmail sets Email field to given value.
 
 HasEmail returns a boolean if a field has been set.
 
-### SetEmailNil
-
-`func (o *UpdateNotificationIntegrationRequestSetting) SetEmailNil(b bool)`
-
- SetEmailNil sets the value for Email to be an explicit nil
-
-### UnsetEmail
-`func (o *UpdateNotificationIntegrationRequestSetting) UnsetEmail()`
-
-UnsetEmail ensures that no value is present for Email, not even an explicit nil
 ### GetApiToken
 
 `func (o *UpdateNotificationIntegrationRequestSetting) GetApiToken() string`
@@ -486,16 +446,6 @@ SetApiToken sets ApiToken field to given value.
 
 HasApiToken returns a boolean if a field has been set.
 
-### SetApiTokenNil
-
-`func (o *UpdateNotificationIntegrationRequestSetting) SetApiTokenNil(b bool)`
-
- SetApiTokenNil sets the value for ApiToken to be an explicit nil
-
-### UnsetApiToken
-`func (o *UpdateNotificationIntegrationRequestSetting) UnsetApiToken()`
-
-UnsetApiToken ensures that no value is present for ApiToken, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

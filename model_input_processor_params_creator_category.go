@@ -22,7 +22,7 @@ type InputProcessorParamsCreatorCategory struct {
 	// Attribute that will receive the category value
 	TargetAttribute string `json:"targetAttribute"`
 	// Conditions evaluated in order to determine the category value. The first matching clause wins.
-	Clauses []CreateMetricRouteRequestProcessorsInnerOneOf2ParamsOneOf1ClausesInner `json:"clauses"`
+	Clauses []InputProcessorParamsCreatorCategoryClausesInner `json:"clauses"`
 	// String category value used when no clause matches. If omitted and no clause matches, no category value is written.
 	DefaultValue *string `json:"defaultValue,omitempty"`
 	// Assigns the first matching category value from ordered query clauses, with an optional default.
@@ -36,7 +36,7 @@ type _InputProcessorParamsCreatorCategory InputProcessorParamsCreatorCategory
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInputProcessorParamsCreatorCategory(targetAttribute string, clauses []CreateMetricRouteRequestProcessorsInnerOneOf2ParamsOneOf1ClausesInner, subtype string) *InputProcessorParamsCreatorCategory {
+func NewInputProcessorParamsCreatorCategory(targetAttribute string, clauses []InputProcessorParamsCreatorCategoryClausesInner, subtype string) *InputProcessorParamsCreatorCategory {
 	this := InputProcessorParamsCreatorCategory{}
 	this.TargetAttribute = targetAttribute
 	this.Clauses = clauses
@@ -77,9 +77,9 @@ func (o *InputProcessorParamsCreatorCategory) SetTargetAttribute(v string) {
 }
 
 // GetClauses returns the Clauses field value
-func (o *InputProcessorParamsCreatorCategory) GetClauses() []CreateMetricRouteRequestProcessorsInnerOneOf2ParamsOneOf1ClausesInner {
+func (o *InputProcessorParamsCreatorCategory) GetClauses() []InputProcessorParamsCreatorCategoryClausesInner {
 	if o == nil {
-		var ret []CreateMetricRouteRequestProcessorsInnerOneOf2ParamsOneOf1ClausesInner
+		var ret []InputProcessorParamsCreatorCategoryClausesInner
 		return ret
 	}
 
@@ -88,7 +88,7 @@ func (o *InputProcessorParamsCreatorCategory) GetClauses() []CreateMetricRouteRe
 
 // GetClausesOk returns a tuple with the Clauses field value
 // and a boolean to check if the value has been set.
-func (o *InputProcessorParamsCreatorCategory) GetClausesOk() ([]CreateMetricRouteRequestProcessorsInnerOneOf2ParamsOneOf1ClausesInner, bool) {
+func (o *InputProcessorParamsCreatorCategory) GetClausesOk() ([]InputProcessorParamsCreatorCategoryClausesInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -96,7 +96,7 @@ func (o *InputProcessorParamsCreatorCategory) GetClausesOk() ([]CreateMetricRout
 }
 
 // SetClauses sets field value
-func (o *InputProcessorParamsCreatorCategory) SetClauses(v []CreateMetricRouteRequestProcessorsInnerOneOf2ParamsOneOf1ClausesInner) {
+func (o *InputProcessorParamsCreatorCategory) SetClauses(v []InputProcessorParamsCreatorCategoryClausesInner) {
 	o.Clauses = v
 }
 

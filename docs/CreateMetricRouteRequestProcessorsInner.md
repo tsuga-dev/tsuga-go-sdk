@@ -8,14 +8,14 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Optional processor note. | [optional] 
 **Tags** | Pointer to [**[]InputTag**](InputTag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **UpdatedAt** | Pointer to **string** | Backend-maintained timestamp for this processor. Omit this field on create and update requests; Tsuga sets or preserves it based on processor changes. | [optional] 
-**Type** | **string** | Map processor. It moves, copies, or normalizes existing log attributes. | 
-**Params** | [**CreateMetricRouteRequestProcessorsInnerOneOf2Params**](CreateMetricRouteRequestProcessorsInnerOneOf2Params.md) |  | 
+**Type** | **string** | Map processor. It moves, copies, or normalizes existing event attributes. | 
+**Params** | [**InputMetricsCreateProcessorParams**](InputMetricsCreateProcessorParams.md) |  | 
 
 ## Methods
 
 ### NewCreateMetricRouteRequestProcessorsInner
 
-`func NewCreateMetricRouteRequestProcessorsInner(id string, type_ string, params CreateMetricRouteRequestProcessorsInnerOneOf2Params, ) *CreateMetricRouteRequestProcessorsInner`
+`func NewCreateMetricRouteRequestProcessorsInner(id string, type_ string, params InputMetricsCreateProcessorParams, ) *CreateMetricRouteRequestProcessorsInner`
 
 NewCreateMetricRouteRequestProcessorsInner instantiates a new CreateMetricRouteRequestProcessorsInner object
 This constructor will assign default values to properties that have it defined,
@@ -147,20 +147,20 @@ SetType sets Type field to given value.
 
 ### GetParams
 
-`func (o *CreateMetricRouteRequestProcessorsInner) GetParams() CreateMetricRouteRequestProcessorsInnerOneOf2Params`
+`func (o *CreateMetricRouteRequestProcessorsInner) GetParams() InputMetricsCreateProcessorParams`
 
 GetParams returns the Params field if non-nil, zero value otherwise.
 
 ### GetParamsOk
 
-`func (o *CreateMetricRouteRequestProcessorsInner) GetParamsOk() (*CreateMetricRouteRequestProcessorsInnerOneOf2Params, bool)`
+`func (o *CreateMetricRouteRequestProcessorsInner) GetParamsOk() (*InputMetricsCreateProcessorParams, bool)`
 
 GetParamsOk returns a tuple with the Params field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetParams
 
-`func (o *CreateMetricRouteRequestProcessorsInner) SetParams(v CreateMetricRouteRequestProcessorsInnerOneOf2Params)`
+`func (o *CreateMetricRouteRequestProcessorsInner) SetParams(v InputMetricsCreateProcessorParams)`
 
 SetParams sets Params field to given value.
 

@@ -19,7 +19,7 @@ var _ MappedNullable = &ProcessorParamsCreatorCategoryClausesInner{}
 
 // ProcessorParamsCreatorCategoryClausesInner struct for ProcessorParamsCreatorCategoryClausesInner
 type ProcessorParamsCreatorCategoryClausesInner struct {
-	// Query that selects logs for this category clause. Clauses are evaluated in order.
+	// Query that selects events for this category clause. Clauses are evaluated in order.
 	Query string `json:"query"`
 	// String category value assigned when this clause matches.
 	Value                string `json:"value"`

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Query** | **string** | Tsuga query that selects which newly ingested spans enter the span route processor chain. | 
 **Tags** | Pointer to [**[]InputTag**](InputTag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **Owner** | **string** | ID of the team that will own the span route, determining which team members can view and manage it and which tag policies apply. Only an org admin or an admin of this team may change fields other than &#x60;processors&#x60;, or delete the route. | 
-**Processors** | [**[]InputSpansProcessor**](InputSpansProcessor.md) | Processors applied in array order to spans that match the span route, each transforming the output of the previous one. A &#x60;split&#x60; processor forks the chain into branches and cannot be followed by another processor at the same level. Up to 50 are accepted. | 
+**Processors** | [**[]InputSpansProcessor**](InputSpansProcessor.md) | Processors applied in array order to spans that match the span route, each transforming the output of the previous one. A &#x60;split&#x60; processor forks the chain into branches and cannot be followed by another processor at the same level. | 
 
 ## Methods
 

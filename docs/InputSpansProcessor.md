@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Optional processor note. | [optional] 
 **Tags** | Pointer to [**[]InputTag**](InputTag.md) | Key/value tags to apply to the resource. Tag policies may require specific keys or values. | [optional] 
 **UpdatedAt** | Pointer to **string** | Backend-maintained timestamp for this processor. Omit this field on create and update requests; Tsuga sets or preserves it based on processor changes. | [optional] 
-**Type** | **string** | Map processor. It moves, copies, or normalizes existing log attributes. | 
+**Type** | **string** | Map processor. It moves, copies, or normalizes existing event attributes. | 
 **Params** | [**InputSpansProcessorAnyOfParams**](InputSpansProcessorAnyOfParams.md) |  | 
 
 ## Methods

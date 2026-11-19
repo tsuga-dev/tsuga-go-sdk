@@ -16,21 +16,21 @@ import (
 
 // InviteUsersRequestInnerUserRole - Organization role to assign: a built-in role `type`, or `custom` with the `customRoleId` of a custom role.
 type InviteUsersRequestInnerUserRole struct {
-	InviteUsersRequestInnerUserRoleOneOf  *InviteUsersRequestInnerUserRoleOneOf
-	InviteUsersRequestInnerUserRoleOneOf1 *InviteUsersRequestInnerUserRoleOneOf1
+	InputUserRoleBuiltIn *InputUserRoleBuiltIn
+	InputUserRoleCustom  *InputUserRoleCustom
 }
 
-// InviteUsersRequestInnerUserRoleOneOfAsInviteUsersRequestInnerUserRole is a convenience function that returns InviteUsersRequestInnerUserRoleOneOf wrapped in InviteUsersRequestInnerUserRole
-func InviteUsersRequestInnerUserRoleOneOfAsInviteUsersRequestInnerUserRole(v *InviteUsersRequestInnerUserRoleOneOf) InviteUsersRequestInnerUserRole {
+// InputUserRoleBuiltInAsInviteUsersRequestInnerUserRole is a convenience function that returns InputUserRoleBuiltIn wrapped in InviteUsersRequestInnerUserRole
+func InputUserRoleBuiltInAsInviteUsersRequestInnerUserRole(v *InputUserRoleBuiltIn) InviteUsersRequestInnerUserRole {
 	return InviteUsersRequestInnerUserRole{
-		InviteUsersRequestInnerUserRoleOneOf: v,
+		InputUserRoleBuiltIn: v,
 	}
 }
 
-// InviteUsersRequestInnerUserRoleOneOf1AsInviteUsersRequestInnerUserRole is a convenience function that returns InviteUsersRequestInnerUserRoleOneOf1 wrapped in InviteUsersRequestInnerUserRole
-func InviteUsersRequestInnerUserRoleOneOf1AsInviteUsersRequestInnerUserRole(v *InviteUsersRequestInnerUserRoleOneOf1) InviteUsersRequestInnerUserRole {
+// InputUserRoleCustomAsInviteUsersRequestInnerUserRole is a convenience function that returns InputUserRoleCustom wrapped in InviteUsersRequestInnerUserRole
+func InputUserRoleCustomAsInviteUsersRequestInnerUserRole(v *InputUserRoleCustom) InviteUsersRequestInnerUserRole {
 	return InviteUsersRequestInnerUserRole{
-		InviteUsersRequestInnerUserRoleOneOf1: v,
+		InputUserRoleCustom: v,
 	}
 }
 
@@ -44,27 +44,63 @@ func (dst *InviteUsersRequestInnerUserRole) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'inviteUsers_request_inner_userRole_oneOf'
-	if jsonDict["type"] == "inviteUsers_request_inner_userRole_oneOf" {
-		// try to unmarshal JSON data into InviteUsersRequestInnerUserRoleOneOf
-		err = json.Unmarshal(data, &dst.InviteUsersRequestInnerUserRoleOneOf)
+	// check if the discriminator value is 'admin'
+	if jsonDict["type"] == "admin" {
+		// try to unmarshal JSON data into InputUserRoleBuiltIn
+		err = json.Unmarshal(data, &dst.InputUserRoleBuiltIn)
 		if err == nil {
-			return nil // data stored in dst.InviteUsersRequestInnerUserRoleOneOf, return on the first match
+			return nil // data stored in dst.InputUserRoleBuiltIn, return on the first match
 		} else {
-			dst.InviteUsersRequestInnerUserRoleOneOf = nil
-			return fmt.Errorf("failed to unmarshal InviteUsersRequestInnerUserRole as InviteUsersRequestInnerUserRoleOneOf: %s", err.Error())
+			dst.InputUserRoleBuiltIn = nil
+			return fmt.Errorf("failed to unmarshal InviteUsersRequestInnerUserRole as InputUserRoleBuiltIn: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'inviteUsers_request_inner_userRole_oneOf_1'
-	if jsonDict["type"] == "inviteUsers_request_inner_userRole_oneOf_1" {
-		// try to unmarshal JSON data into InviteUsersRequestInnerUserRoleOneOf1
-		err = json.Unmarshal(data, &dst.InviteUsersRequestInnerUserRoleOneOf1)
+	// check if the discriminator value is 'custom'
+	if jsonDict["type"] == "custom" {
+		// try to unmarshal JSON data into InputUserRoleCustom
+		err = json.Unmarshal(data, &dst.InputUserRoleCustom)
 		if err == nil {
-			return nil // data stored in dst.InviteUsersRequestInnerUserRoleOneOf1, return on the first match
+			return nil // data stored in dst.InputUserRoleCustom, return on the first match
 		} else {
-			dst.InviteUsersRequestInnerUserRoleOneOf1 = nil
-			return fmt.Errorf("failed to unmarshal InviteUsersRequestInnerUserRole as InviteUsersRequestInnerUserRoleOneOf1: %s", err.Error())
+			dst.InputUserRoleCustom = nil
+			return fmt.Errorf("failed to unmarshal InviteUsersRequestInnerUserRole as InputUserRoleCustom: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'public_editor'
+	if jsonDict["type"] == "public_editor" {
+		// try to unmarshal JSON data into InputUserRoleBuiltIn
+		err = json.Unmarshal(data, &dst.InputUserRoleBuiltIn)
+		if err == nil {
+			return nil // data stored in dst.InputUserRoleBuiltIn, return on the first match
+		} else {
+			dst.InputUserRoleBuiltIn = nil
+			return fmt.Errorf("failed to unmarshal InviteUsersRequestInnerUserRole as InputUserRoleBuiltIn: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'public_viewer'
+	if jsonDict["type"] == "public_viewer" {
+		// try to unmarshal JSON data into InputUserRoleBuiltIn
+		err = json.Unmarshal(data, &dst.InputUserRoleBuiltIn)
+		if err == nil {
+			return nil // data stored in dst.InputUserRoleBuiltIn, return on the first match
+		} else {
+			dst.InputUserRoleBuiltIn = nil
+			return fmt.Errorf("failed to unmarshal InviteUsersRequestInnerUserRole as InputUserRoleBuiltIn: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'teams_only'
+	if jsonDict["type"] == "teams_only" {
+		// try to unmarshal JSON data into InputUserRoleBuiltIn
+		err = json.Unmarshal(data, &dst.InputUserRoleBuiltIn)
+		if err == nil {
+			return nil // data stored in dst.InputUserRoleBuiltIn, return on the first match
+		} else {
+			dst.InputUserRoleBuiltIn = nil
+			return fmt.Errorf("failed to unmarshal InviteUsersRequestInnerUserRole as InputUserRoleBuiltIn: %s", err.Error())
 		}
 	}
 
@@ -73,12 +109,12 @@ func (dst *InviteUsersRequestInnerUserRole) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src InviteUsersRequestInnerUserRole) MarshalJSON() ([]byte, error) {
-	if src.InviteUsersRequestInnerUserRoleOneOf != nil {
-		return json.Marshal(&src.InviteUsersRequestInnerUserRoleOneOf)
+	if src.InputUserRoleBuiltIn != nil {
+		return json.Marshal(&src.InputUserRoleBuiltIn)
 	}
 
-	if src.InviteUsersRequestInnerUserRoleOneOf1 != nil {
-		return json.Marshal(&src.InviteUsersRequestInnerUserRoleOneOf1)
+	if src.InputUserRoleCustom != nil {
+		return json.Marshal(&src.InputUserRoleCustom)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -89,12 +125,12 @@ func (obj *InviteUsersRequestInnerUserRole) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
-	if obj.InviteUsersRequestInnerUserRoleOneOf != nil {
-		return obj.InviteUsersRequestInnerUserRoleOneOf
+	if obj.InputUserRoleBuiltIn != nil {
+		return obj.InputUserRoleBuiltIn
 	}
 
-	if obj.InviteUsersRequestInnerUserRoleOneOf1 != nil {
-		return obj.InviteUsersRequestInnerUserRoleOneOf1
+	if obj.InputUserRoleCustom != nil {
+		return obj.InputUserRoleCustom
 	}
 
 	// all schemas are nil
@@ -103,12 +139,12 @@ func (obj *InviteUsersRequestInnerUserRole) GetActualInstance() interface{} {
 
 // Get the actual instance value
 func (obj InviteUsersRequestInnerUserRole) GetActualInstanceValue() interface{} {
-	if obj.InviteUsersRequestInnerUserRoleOneOf != nil {
-		return *obj.InviteUsersRequestInnerUserRoleOneOf
+	if obj.InputUserRoleBuiltIn != nil {
+		return *obj.InputUserRoleBuiltIn
 	}
 
-	if obj.InviteUsersRequestInnerUserRoleOneOf1 != nil {
-		return *obj.InviteUsersRequestInnerUserRoleOneOf1
+	if obj.InputUserRoleCustom != nil {
+		return *obj.InputUserRoleCustom
 	}
 
 	// all schemas are nil

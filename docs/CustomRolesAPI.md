@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	createCustomRoleRequest := *openapiclient.NewCreateCustomRoleRequest("Name_example", openapiclient.createCustomRole_request_teamScope{CreateCustomRoleRequestTeamScopeOneOf: openapiclient.NewCreateCustomRoleRequestTeamScopeOneOf("Type_example")}, *openapiclient.NewCreateCustomRoleRequestAssets("Team_example"), []string{"Telemetry_example"}) // CreateCustomRoleRequest | Custom role create or update request. Provide the role name, optional description, team scope, resource type grants, readable telemetry signals, and optional telemetry restriction.
+	createCustomRoleRequest := *openapiclient.NewCreateCustomRoleRequest("Name_example", openapiclient.createCustomRole_request_teamScope{InputCustomRoleTeamScopeAll: openapiclient.NewInputCustomRoleTeamScopeAll("Type_example")}, *openapiclient.NewCreateCustomRoleRequestAssets("Team_example"), []string{"Telemetry_example"}) // CreateCustomRoleRequest | Custom role create or update request. Provide the role name, optional description, team scope, resource type grants, readable telemetry signals, and optional telemetry restriction.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -281,7 +281,7 @@ Other parameters are passed through a pointer to a apiListCustomRolesRequest str
 
 ## UpdateCustomRole
 
-> UpdateCustomRoleResponse UpdateCustomRole(ctx, id).UpdateCustomRoleRequest(updateCustomRoleRequest).Execute()
+> UpdateCustomRoleResponse UpdateCustomRole(ctx, id).CreateCustomRoleRequest(createCustomRoleRequest).Execute()
 
 
 
@@ -301,11 +301,11 @@ import (
 
 func main() {
 	id := "id_example" // string | Identifier of the custom role to update. Use the `id` returned by custom role list, get, or create responses.
-	updateCustomRoleRequest := *openapiclient.NewUpdateCustomRoleRequest("Name_example", openapiclient.updateCustomRole_request_teamScope{CreateCustomRoleRequestTeamScopeOneOf: openapiclient.NewCreateCustomRoleRequestTeamScopeOneOf("Type_example")}, *openapiclient.NewCreateCustomRoleRequestAssets("Team_example"), []string{"Telemetry_example"}) // UpdateCustomRoleRequest | Custom role create or update request. Provide the role name, optional description, team scope, resource type grants, readable telemetry signals, and optional telemetry restriction.
+	createCustomRoleRequest := *openapiclient.NewCreateCustomRoleRequest("Name_example", openapiclient.createCustomRole_request_teamScope{InputCustomRoleTeamScopeAll: openapiclient.NewInputCustomRoleTeamScopeAll("Type_example")}, *openapiclient.NewCreateCustomRoleRequestAssets("Team_example"), []string{"Telemetry_example"}) // CreateCustomRoleRequest | Custom role create or update request. Provide the role name, optional description, team scope, resource type grants, readable telemetry signals, and optional telemetry restriction.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomRolesAPI.UpdateCustomRole(context.Background(), id).UpdateCustomRoleRequest(updateCustomRoleRequest).Execute()
+	resp, r, err := apiClient.CustomRolesAPI.UpdateCustomRole(context.Background(), id).CreateCustomRoleRequest(createCustomRoleRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesAPI.UpdateCustomRole``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -331,7 +331,7 @@ Other parameters are passed through a pointer to a apiUpdateCustomRoleRequest st
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **updateCustomRoleRequest** | [**UpdateCustomRoleRequest**](UpdateCustomRoleRequest.md) | Custom role create or update request. Provide the role name, optional description, team scope, resource type grants, readable telemetry signals, and optional telemetry restriction. | 
+ **createCustomRoleRequest** | [**CreateCustomRoleRequest**](CreateCustomRoleRequest.md) | Custom role create or update request. Provide the role name, optional description, team scope, resource type grants, readable telemetry signals, and optional telemetry restriction. | 
 
 ### Return type
 

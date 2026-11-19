@@ -11,10 +11,10 @@ Name | Type | Description | Notes
 **IntegrationKeyLastChars** | **string** |  | 
 **WebhookUrlLastChars** | **string** |  | 
 **Method** | **string** |  | 
-**Authentication** | [**NotificationIntegrationSettingOneOf4Authentication**](NotificationIntegrationSettingOneOf4Authentication.md) |  | 
+**Authentication** | [**NotificationIntegrationSettingWebhookAuthentication**](NotificationIntegrationSettingWebhookAuthentication.md) |  | 
 **CustomHeaders** | Pointer to **map[string]string** |  | [optional] 
-**PayloadTemplate** | [**CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate**](CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate.md) |  | 
-**EventNameMapping** | Pointer to [**NotificationIntegrationSettingOneOf4EventNameMapping**](NotificationIntegrationSettingOneOf4EventNameMapping.md) |  | [optional] 
+**PayloadTemplate** | [**NotificationIntegrationSettingWebhookPayloadTemplate**](NotificationIntegrationSettingWebhookPayloadTemplate.md) |  | 
+**EventNameMapping** | Pointer to [**NotificationIntegrationSettingWebhookEventNameMapping**](NotificationIntegrationSettingWebhookEventNameMapping.md) |  | [optional] 
 **InstanceName** | **string** |  | 
 **Username** | **string** |  | 
 **PasswordLastChars** | **string** |  | 
@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 
 ### NewNotificationIntegrationSetting
 
-`func NewNotificationIntegrationSetting(type_ string, alertSourceConfigId string, tokenLastChars string, urlLastChars string, integrationKeyLastChars string, webhookUrlLastChars string, method string, authentication NotificationIntegrationSettingOneOf4Authentication, payloadTemplate CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate, instanceName string, username string, passwordLastChars string, siteUrl string, email string, apiTokenLastChars string, ) *NotificationIntegrationSetting`
+`func NewNotificationIntegrationSetting(type_ string, alertSourceConfigId string, tokenLastChars string, urlLastChars string, integrationKeyLastChars string, webhookUrlLastChars string, method string, authentication NotificationIntegrationSettingWebhookAuthentication, payloadTemplate NotificationIntegrationSettingWebhookPayloadTemplate, instanceName string, username string, passwordLastChars string, siteUrl string, email string, apiTokenLastChars string, ) *NotificationIntegrationSetting`
 
 NewNotificationIntegrationSetting instantiates a new NotificationIntegrationSetting object
 This constructor will assign default values to properties that have it defined,
@@ -183,20 +183,20 @@ SetMethod sets Method field to given value.
 
 ### GetAuthentication
 
-`func (o *NotificationIntegrationSetting) GetAuthentication() NotificationIntegrationSettingOneOf4Authentication`
+`func (o *NotificationIntegrationSetting) GetAuthentication() NotificationIntegrationSettingWebhookAuthentication`
 
 GetAuthentication returns the Authentication field if non-nil, zero value otherwise.
 
 ### GetAuthenticationOk
 
-`func (o *NotificationIntegrationSetting) GetAuthenticationOk() (*NotificationIntegrationSettingOneOf4Authentication, bool)`
+`func (o *NotificationIntegrationSetting) GetAuthenticationOk() (*NotificationIntegrationSettingWebhookAuthentication, bool)`
 
 GetAuthenticationOk returns a tuple with the Authentication field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAuthentication
 
-`func (o *NotificationIntegrationSetting) SetAuthentication(v NotificationIntegrationSettingOneOf4Authentication)`
+`func (o *NotificationIntegrationSetting) SetAuthentication(v NotificationIntegrationSettingWebhookAuthentication)`
 
 SetAuthentication sets Authentication field to given value.
 
@@ -228,40 +228,40 @@ HasCustomHeaders returns a boolean if a field has been set.
 
 ### GetPayloadTemplate
 
-`func (o *NotificationIntegrationSetting) GetPayloadTemplate() CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate`
+`func (o *NotificationIntegrationSetting) GetPayloadTemplate() NotificationIntegrationSettingWebhookPayloadTemplate`
 
 GetPayloadTemplate returns the PayloadTemplate field if non-nil, zero value otherwise.
 
 ### GetPayloadTemplateOk
 
-`func (o *NotificationIntegrationSetting) GetPayloadTemplateOk() (*CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate, bool)`
+`func (o *NotificationIntegrationSetting) GetPayloadTemplateOk() (*NotificationIntegrationSettingWebhookPayloadTemplate, bool)`
 
 GetPayloadTemplateOk returns a tuple with the PayloadTemplate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPayloadTemplate
 
-`func (o *NotificationIntegrationSetting) SetPayloadTemplate(v CreateNotificationIntegrationRequestSettingOneOf4PayloadTemplate)`
+`func (o *NotificationIntegrationSetting) SetPayloadTemplate(v NotificationIntegrationSettingWebhookPayloadTemplate)`
 
 SetPayloadTemplate sets PayloadTemplate field to given value.
 
 
 ### GetEventNameMapping
 
-`func (o *NotificationIntegrationSetting) GetEventNameMapping() NotificationIntegrationSettingOneOf4EventNameMapping`
+`func (o *NotificationIntegrationSetting) GetEventNameMapping() NotificationIntegrationSettingWebhookEventNameMapping`
 
 GetEventNameMapping returns the EventNameMapping field if non-nil, zero value otherwise.
 
 ### GetEventNameMappingOk
 
-`func (o *NotificationIntegrationSetting) GetEventNameMappingOk() (*NotificationIntegrationSettingOneOf4EventNameMapping, bool)`
+`func (o *NotificationIntegrationSetting) GetEventNameMappingOk() (*NotificationIntegrationSettingWebhookEventNameMapping, bool)`
 
 GetEventNameMappingOk returns a tuple with the EventNameMapping field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEventNameMapping
 
-`func (o *NotificationIntegrationSetting) SetEventNameMapping(v NotificationIntegrationSettingOneOf4EventNameMapping)`
+`func (o *NotificationIntegrationSetting) SetEventNameMapping(v NotificationIntegrationSettingWebhookEventNameMapping)`
 
 SetEventNameMapping sets EventNameMapping field to given value.
 

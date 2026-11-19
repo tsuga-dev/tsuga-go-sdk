@@ -8,14 +8,14 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Optional user-provided processor note. | [optional] 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
 **UpdatedAt** | Pointer to **string** | Timestamp when Tsuga last updated the processor. | [optional] 
-**Type** | **string** | Map processor. It moves, copies, or normalizes existing log attributes. | 
-**Params** | [**MetricRouteProcessorsInnerOneOf1Params**](MetricRouteProcessorsInnerOneOf1Params.md) |  | 
+**Type** | **string** | Map processor. It moves, copies, or normalizes existing event attributes. | 
+**Params** | [**MetricsCreateProcessorParams**](MetricsCreateProcessorParams.md) |  | 
 
 ## Methods
 
 ### NewMetricRouteProcessorsInner
 
-`func NewMetricRouteProcessorsInner(id string, type_ string, params MetricRouteProcessorsInnerOneOf1Params, ) *MetricRouteProcessorsInner`
+`func NewMetricRouteProcessorsInner(id string, type_ string, params MetricsCreateProcessorParams, ) *MetricRouteProcessorsInner`
 
 NewMetricRouteProcessorsInner instantiates a new MetricRouteProcessorsInner object
 This constructor will assign default values to properties that have it defined,
@@ -147,20 +147,20 @@ SetType sets Type field to given value.
 
 ### GetParams
 
-`func (o *MetricRouteProcessorsInner) GetParams() MetricRouteProcessorsInnerOneOf1Params`
+`func (o *MetricRouteProcessorsInner) GetParams() MetricsCreateProcessorParams`
 
 GetParams returns the Params field if non-nil, zero value otherwise.
 
 ### GetParamsOk
 
-`func (o *MetricRouteProcessorsInner) GetParamsOk() (*MetricRouteProcessorsInnerOneOf1Params, bool)`
+`func (o *MetricRouteProcessorsInner) GetParamsOk() (*MetricsCreateProcessorParams, bool)`
 
 GetParamsOk returns a tuple with the Params field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetParams
 
-`func (o *MetricRouteProcessorsInner) SetParams(v MetricRouteProcessorsInnerOneOf1Params)`
+`func (o *MetricRouteProcessorsInner) SetParams(v MetricsCreateProcessorParams)`
 
 SetParams sets Params field to given value.
 

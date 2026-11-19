@@ -16,29 +16,29 @@ import (
 
 // OngoingMonitorAlertTriggeredByInnerValue - struct for OngoingMonitorAlertTriggeredByInnerValue
 type OngoingMonitorAlertTriggeredByInnerValue struct {
-	OngoingMonitorAlertTriggeredByInnerValueOneOf  *OngoingMonitorAlertTriggeredByInnerValueOneOf
-	OngoingMonitorAlertTriggeredByInnerValueOneOf1 *OngoingMonitorAlertTriggeredByInnerValueOneOf1
-	OngoingMonitorAlertTriggeredByInnerValueOneOf2 *OngoingMonitorAlertTriggeredByInnerValueOneOf2
+	GroupByNumber    *GroupByNumber
+	GroupByString    *GroupByString
+	GroupByTimestamp *GroupByTimestamp
 }
 
-// OngoingMonitorAlertTriggeredByInnerValueOneOfAsOngoingMonitorAlertTriggeredByInnerValue is a convenience function that returns OngoingMonitorAlertTriggeredByInnerValueOneOf wrapped in OngoingMonitorAlertTriggeredByInnerValue
-func OngoingMonitorAlertTriggeredByInnerValueOneOfAsOngoingMonitorAlertTriggeredByInnerValue(v *OngoingMonitorAlertTriggeredByInnerValueOneOf) OngoingMonitorAlertTriggeredByInnerValue {
+// GroupByNumberAsOngoingMonitorAlertTriggeredByInnerValue is a convenience function that returns GroupByNumber wrapped in OngoingMonitorAlertTriggeredByInnerValue
+func GroupByNumberAsOngoingMonitorAlertTriggeredByInnerValue(v *GroupByNumber) OngoingMonitorAlertTriggeredByInnerValue {
 	return OngoingMonitorAlertTriggeredByInnerValue{
-		OngoingMonitorAlertTriggeredByInnerValueOneOf: v,
+		GroupByNumber: v,
 	}
 }
 
-// OngoingMonitorAlertTriggeredByInnerValueOneOf1AsOngoingMonitorAlertTriggeredByInnerValue is a convenience function that returns OngoingMonitorAlertTriggeredByInnerValueOneOf1 wrapped in OngoingMonitorAlertTriggeredByInnerValue
-func OngoingMonitorAlertTriggeredByInnerValueOneOf1AsOngoingMonitorAlertTriggeredByInnerValue(v *OngoingMonitorAlertTriggeredByInnerValueOneOf1) OngoingMonitorAlertTriggeredByInnerValue {
+// GroupByStringAsOngoingMonitorAlertTriggeredByInnerValue is a convenience function that returns GroupByString wrapped in OngoingMonitorAlertTriggeredByInnerValue
+func GroupByStringAsOngoingMonitorAlertTriggeredByInnerValue(v *GroupByString) OngoingMonitorAlertTriggeredByInnerValue {
 	return OngoingMonitorAlertTriggeredByInnerValue{
-		OngoingMonitorAlertTriggeredByInnerValueOneOf1: v,
+		GroupByString: v,
 	}
 }
 
-// OngoingMonitorAlertTriggeredByInnerValueOneOf2AsOngoingMonitorAlertTriggeredByInnerValue is a convenience function that returns OngoingMonitorAlertTriggeredByInnerValueOneOf2 wrapped in OngoingMonitorAlertTriggeredByInnerValue
-func OngoingMonitorAlertTriggeredByInnerValueOneOf2AsOngoingMonitorAlertTriggeredByInnerValue(v *OngoingMonitorAlertTriggeredByInnerValueOneOf2) OngoingMonitorAlertTriggeredByInnerValue {
+// GroupByTimestampAsOngoingMonitorAlertTriggeredByInnerValue is a convenience function that returns GroupByTimestamp wrapped in OngoingMonitorAlertTriggeredByInnerValue
+func GroupByTimestampAsOngoingMonitorAlertTriggeredByInnerValue(v *GroupByTimestamp) OngoingMonitorAlertTriggeredByInnerValue {
 	return OngoingMonitorAlertTriggeredByInnerValue{
-		OngoingMonitorAlertTriggeredByInnerValueOneOf2: v,
+		GroupByTimestamp: v,
 	}
 }
 
@@ -52,39 +52,39 @@ func (dst *OngoingMonitorAlertTriggeredByInnerValue) UnmarshalJSON(data []byte) 
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'OngoingMonitorAlert_triggeredBy_inner_value_oneOf'
-	if jsonDict["type"] == "OngoingMonitorAlert_triggeredBy_inner_value_oneOf" {
-		// try to unmarshal JSON data into OngoingMonitorAlertTriggeredByInnerValueOneOf
-		err = json.Unmarshal(data, &dst.OngoingMonitorAlertTriggeredByInnerValueOneOf)
+	// check if the discriminator value is 'number'
+	if jsonDict["type"] == "number" {
+		// try to unmarshal JSON data into GroupByNumber
+		err = json.Unmarshal(data, &dst.GroupByNumber)
 		if err == nil {
-			return nil // data stored in dst.OngoingMonitorAlertTriggeredByInnerValueOneOf, return on the first match
+			return nil // data stored in dst.GroupByNumber, return on the first match
 		} else {
-			dst.OngoingMonitorAlertTriggeredByInnerValueOneOf = nil
-			return fmt.Errorf("failed to unmarshal OngoingMonitorAlertTriggeredByInnerValue as OngoingMonitorAlertTriggeredByInnerValueOneOf: %s", err.Error())
+			dst.GroupByNumber = nil
+			return fmt.Errorf("failed to unmarshal OngoingMonitorAlertTriggeredByInnerValue as GroupByNumber: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'OngoingMonitorAlert_triggeredBy_inner_value_oneOf_1'
-	if jsonDict["type"] == "OngoingMonitorAlert_triggeredBy_inner_value_oneOf_1" {
-		// try to unmarshal JSON data into OngoingMonitorAlertTriggeredByInnerValueOneOf1
-		err = json.Unmarshal(data, &dst.OngoingMonitorAlertTriggeredByInnerValueOneOf1)
+	// check if the discriminator value is 'string'
+	if jsonDict["type"] == "string" {
+		// try to unmarshal JSON data into GroupByString
+		err = json.Unmarshal(data, &dst.GroupByString)
 		if err == nil {
-			return nil // data stored in dst.OngoingMonitorAlertTriggeredByInnerValueOneOf1, return on the first match
+			return nil // data stored in dst.GroupByString, return on the first match
 		} else {
-			dst.OngoingMonitorAlertTriggeredByInnerValueOneOf1 = nil
-			return fmt.Errorf("failed to unmarshal OngoingMonitorAlertTriggeredByInnerValue as OngoingMonitorAlertTriggeredByInnerValueOneOf1: %s", err.Error())
+			dst.GroupByString = nil
+			return fmt.Errorf("failed to unmarshal OngoingMonitorAlertTriggeredByInnerValue as GroupByString: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'OngoingMonitorAlert_triggeredBy_inner_value_oneOf_2'
-	if jsonDict["type"] == "OngoingMonitorAlert_triggeredBy_inner_value_oneOf_2" {
-		// try to unmarshal JSON data into OngoingMonitorAlertTriggeredByInnerValueOneOf2
-		err = json.Unmarshal(data, &dst.OngoingMonitorAlertTriggeredByInnerValueOneOf2)
+	// check if the discriminator value is 'timestamp'
+	if jsonDict["type"] == "timestamp" {
+		// try to unmarshal JSON data into GroupByTimestamp
+		err = json.Unmarshal(data, &dst.GroupByTimestamp)
 		if err == nil {
-			return nil // data stored in dst.OngoingMonitorAlertTriggeredByInnerValueOneOf2, return on the first match
+			return nil // data stored in dst.GroupByTimestamp, return on the first match
 		} else {
-			dst.OngoingMonitorAlertTriggeredByInnerValueOneOf2 = nil
-			return fmt.Errorf("failed to unmarshal OngoingMonitorAlertTriggeredByInnerValue as OngoingMonitorAlertTriggeredByInnerValueOneOf2: %s", err.Error())
+			dst.GroupByTimestamp = nil
+			return fmt.Errorf("failed to unmarshal OngoingMonitorAlertTriggeredByInnerValue as GroupByTimestamp: %s", err.Error())
 		}
 	}
 
@@ -93,16 +93,16 @@ func (dst *OngoingMonitorAlertTriggeredByInnerValue) UnmarshalJSON(data []byte) 
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src OngoingMonitorAlertTriggeredByInnerValue) MarshalJSON() ([]byte, error) {
-	if src.OngoingMonitorAlertTriggeredByInnerValueOneOf != nil {
-		return json.Marshal(&src.OngoingMonitorAlertTriggeredByInnerValueOneOf)
+	if src.GroupByNumber != nil {
+		return json.Marshal(&src.GroupByNumber)
 	}
 
-	if src.OngoingMonitorAlertTriggeredByInnerValueOneOf1 != nil {
-		return json.Marshal(&src.OngoingMonitorAlertTriggeredByInnerValueOneOf1)
+	if src.GroupByString != nil {
+		return json.Marshal(&src.GroupByString)
 	}
 
-	if src.OngoingMonitorAlertTriggeredByInnerValueOneOf2 != nil {
-		return json.Marshal(&src.OngoingMonitorAlertTriggeredByInnerValueOneOf2)
+	if src.GroupByTimestamp != nil {
+		return json.Marshal(&src.GroupByTimestamp)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -113,16 +113,16 @@ func (obj *OngoingMonitorAlertTriggeredByInnerValue) GetActualInstance() interfa
 	if obj == nil {
 		return nil
 	}
-	if obj.OngoingMonitorAlertTriggeredByInnerValueOneOf != nil {
-		return obj.OngoingMonitorAlertTriggeredByInnerValueOneOf
+	if obj.GroupByNumber != nil {
+		return obj.GroupByNumber
 	}
 
-	if obj.OngoingMonitorAlertTriggeredByInnerValueOneOf1 != nil {
-		return obj.OngoingMonitorAlertTriggeredByInnerValueOneOf1
+	if obj.GroupByString != nil {
+		return obj.GroupByString
 	}
 
-	if obj.OngoingMonitorAlertTriggeredByInnerValueOneOf2 != nil {
-		return obj.OngoingMonitorAlertTriggeredByInnerValueOneOf2
+	if obj.GroupByTimestamp != nil {
+		return obj.GroupByTimestamp
 	}
 
 	// all schemas are nil
@@ -131,16 +131,16 @@ func (obj *OngoingMonitorAlertTriggeredByInnerValue) GetActualInstance() interfa
 
 // Get the actual instance value
 func (obj OngoingMonitorAlertTriggeredByInnerValue) GetActualInstanceValue() interface{} {
-	if obj.OngoingMonitorAlertTriggeredByInnerValueOneOf != nil {
-		return *obj.OngoingMonitorAlertTriggeredByInnerValueOneOf
+	if obj.GroupByNumber != nil {
+		return *obj.GroupByNumber
 	}
 
-	if obj.OngoingMonitorAlertTriggeredByInnerValueOneOf1 != nil {
-		return *obj.OngoingMonitorAlertTriggeredByInnerValueOneOf1
+	if obj.GroupByString != nil {
+		return *obj.GroupByString
 	}
 
-	if obj.OngoingMonitorAlertTriggeredByInnerValueOneOf2 != nil {
-		return *obj.OngoingMonitorAlertTriggeredByInnerValueOneOf2
+	if obj.GroupByTimestamp != nil {
+		return *obj.GroupByTimestamp
 	}
 
 	// all schemas are nil

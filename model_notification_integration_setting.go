@@ -16,77 +16,77 @@ import (
 
 // NotificationIntegrationSetting - struct for NotificationIntegrationSetting
 type NotificationIntegrationSetting struct {
-	NotificationIntegrationSettingOneOf  *NotificationIntegrationSettingOneOf
-	NotificationIntegrationSettingOneOf1 *NotificationIntegrationSettingOneOf1
-	NotificationIntegrationSettingOneOf2 *NotificationIntegrationSettingOneOf2
-	NotificationIntegrationSettingOneOf3 *NotificationIntegrationSettingOneOf3
-	NotificationIntegrationSettingOneOf4 *NotificationIntegrationSettingOneOf4
-	NotificationIntegrationSettingOneOf5 *NotificationIntegrationSettingOneOf5
-	NotificationIntegrationSettingOneOf6 *NotificationIntegrationSettingOneOf6
-	NotificationIntegrationSettingOneOf7 *NotificationIntegrationSettingOneOf7
-	NotificationIntegrationSettingOneOf8 *NotificationIntegrationSettingOneOf8
+	NotificationIntegrationSettingGoogleChat     *NotificationIntegrationSettingGoogleChat
+	NotificationIntegrationSettingGrafanaIrm     *NotificationIntegrationSettingGrafanaIrm
+	NotificationIntegrationSettingIncidentIo     *NotificationIntegrationSettingIncidentIo
+	NotificationIntegrationSettingJira           *NotificationIntegrationSettingJira
+	NotificationIntegrationSettingMicrosoftTeams *NotificationIntegrationSettingMicrosoftTeams
+	NotificationIntegrationSettingPagerduty      *NotificationIntegrationSettingPagerduty
+	NotificationIntegrationSettingServicenow     *NotificationIntegrationSettingServicenow
+	NotificationIntegrationSettingSquadcast      *NotificationIntegrationSettingSquadcast
+	NotificationIntegrationSettingWebhook        *NotificationIntegrationSettingWebhook
 }
 
-// NotificationIntegrationSettingOneOfAsNotificationIntegrationSetting is a convenience function that returns NotificationIntegrationSettingOneOf wrapped in NotificationIntegrationSetting
-func NotificationIntegrationSettingOneOfAsNotificationIntegrationSetting(v *NotificationIntegrationSettingOneOf) NotificationIntegrationSetting {
+// NotificationIntegrationSettingGoogleChatAsNotificationIntegrationSetting is a convenience function that returns NotificationIntegrationSettingGoogleChat wrapped in NotificationIntegrationSetting
+func NotificationIntegrationSettingGoogleChatAsNotificationIntegrationSetting(v *NotificationIntegrationSettingGoogleChat) NotificationIntegrationSetting {
 	return NotificationIntegrationSetting{
-		NotificationIntegrationSettingOneOf: v,
+		NotificationIntegrationSettingGoogleChat: v,
 	}
 }
 
-// NotificationIntegrationSettingOneOf1AsNotificationIntegrationSetting is a convenience function that returns NotificationIntegrationSettingOneOf1 wrapped in NotificationIntegrationSetting
-func NotificationIntegrationSettingOneOf1AsNotificationIntegrationSetting(v *NotificationIntegrationSettingOneOf1) NotificationIntegrationSetting {
+// NotificationIntegrationSettingGrafanaIrmAsNotificationIntegrationSetting is a convenience function that returns NotificationIntegrationSettingGrafanaIrm wrapped in NotificationIntegrationSetting
+func NotificationIntegrationSettingGrafanaIrmAsNotificationIntegrationSetting(v *NotificationIntegrationSettingGrafanaIrm) NotificationIntegrationSetting {
 	return NotificationIntegrationSetting{
-		NotificationIntegrationSettingOneOf1: v,
+		NotificationIntegrationSettingGrafanaIrm: v,
 	}
 }
 
-// NotificationIntegrationSettingOneOf2AsNotificationIntegrationSetting is a convenience function that returns NotificationIntegrationSettingOneOf2 wrapped in NotificationIntegrationSetting
-func NotificationIntegrationSettingOneOf2AsNotificationIntegrationSetting(v *NotificationIntegrationSettingOneOf2) NotificationIntegrationSetting {
+// NotificationIntegrationSettingIncidentIoAsNotificationIntegrationSetting is a convenience function that returns NotificationIntegrationSettingIncidentIo wrapped in NotificationIntegrationSetting
+func NotificationIntegrationSettingIncidentIoAsNotificationIntegrationSetting(v *NotificationIntegrationSettingIncidentIo) NotificationIntegrationSetting {
 	return NotificationIntegrationSetting{
-		NotificationIntegrationSettingOneOf2: v,
+		NotificationIntegrationSettingIncidentIo: v,
 	}
 }
 
-// NotificationIntegrationSettingOneOf3AsNotificationIntegrationSetting is a convenience function that returns NotificationIntegrationSettingOneOf3 wrapped in NotificationIntegrationSetting
-func NotificationIntegrationSettingOneOf3AsNotificationIntegrationSetting(v *NotificationIntegrationSettingOneOf3) NotificationIntegrationSetting {
+// NotificationIntegrationSettingJiraAsNotificationIntegrationSetting is a convenience function that returns NotificationIntegrationSettingJira wrapped in NotificationIntegrationSetting
+func NotificationIntegrationSettingJiraAsNotificationIntegrationSetting(v *NotificationIntegrationSettingJira) NotificationIntegrationSetting {
 	return NotificationIntegrationSetting{
-		NotificationIntegrationSettingOneOf3: v,
+		NotificationIntegrationSettingJira: v,
 	}
 }
 
-// NotificationIntegrationSettingOneOf4AsNotificationIntegrationSetting is a convenience function that returns NotificationIntegrationSettingOneOf4 wrapped in NotificationIntegrationSetting
-func NotificationIntegrationSettingOneOf4AsNotificationIntegrationSetting(v *NotificationIntegrationSettingOneOf4) NotificationIntegrationSetting {
+// NotificationIntegrationSettingMicrosoftTeamsAsNotificationIntegrationSetting is a convenience function that returns NotificationIntegrationSettingMicrosoftTeams wrapped in NotificationIntegrationSetting
+func NotificationIntegrationSettingMicrosoftTeamsAsNotificationIntegrationSetting(v *NotificationIntegrationSettingMicrosoftTeams) NotificationIntegrationSetting {
 	return NotificationIntegrationSetting{
-		NotificationIntegrationSettingOneOf4: v,
+		NotificationIntegrationSettingMicrosoftTeams: v,
 	}
 }
 
-// NotificationIntegrationSettingOneOf5AsNotificationIntegrationSetting is a convenience function that returns NotificationIntegrationSettingOneOf5 wrapped in NotificationIntegrationSetting
-func NotificationIntegrationSettingOneOf5AsNotificationIntegrationSetting(v *NotificationIntegrationSettingOneOf5) NotificationIntegrationSetting {
+// NotificationIntegrationSettingPagerdutyAsNotificationIntegrationSetting is a convenience function that returns NotificationIntegrationSettingPagerduty wrapped in NotificationIntegrationSetting
+func NotificationIntegrationSettingPagerdutyAsNotificationIntegrationSetting(v *NotificationIntegrationSettingPagerduty) NotificationIntegrationSetting {
 	return NotificationIntegrationSetting{
-		NotificationIntegrationSettingOneOf5: v,
+		NotificationIntegrationSettingPagerduty: v,
 	}
 }
 
-// NotificationIntegrationSettingOneOf6AsNotificationIntegrationSetting is a convenience function that returns NotificationIntegrationSettingOneOf6 wrapped in NotificationIntegrationSetting
-func NotificationIntegrationSettingOneOf6AsNotificationIntegrationSetting(v *NotificationIntegrationSettingOneOf6) NotificationIntegrationSetting {
+// NotificationIntegrationSettingServicenowAsNotificationIntegrationSetting is a convenience function that returns NotificationIntegrationSettingServicenow wrapped in NotificationIntegrationSetting
+func NotificationIntegrationSettingServicenowAsNotificationIntegrationSetting(v *NotificationIntegrationSettingServicenow) NotificationIntegrationSetting {
 	return NotificationIntegrationSetting{
-		NotificationIntegrationSettingOneOf6: v,
+		NotificationIntegrationSettingServicenow: v,
 	}
 }
 
-// NotificationIntegrationSettingOneOf7AsNotificationIntegrationSetting is a convenience function that returns NotificationIntegrationSettingOneOf7 wrapped in NotificationIntegrationSetting
-func NotificationIntegrationSettingOneOf7AsNotificationIntegrationSetting(v *NotificationIntegrationSettingOneOf7) NotificationIntegrationSetting {
+// NotificationIntegrationSettingSquadcastAsNotificationIntegrationSetting is a convenience function that returns NotificationIntegrationSettingSquadcast wrapped in NotificationIntegrationSetting
+func NotificationIntegrationSettingSquadcastAsNotificationIntegrationSetting(v *NotificationIntegrationSettingSquadcast) NotificationIntegrationSetting {
 	return NotificationIntegrationSetting{
-		NotificationIntegrationSettingOneOf7: v,
+		NotificationIntegrationSettingSquadcast: v,
 	}
 }
 
-// NotificationIntegrationSettingOneOf8AsNotificationIntegrationSetting is a convenience function that returns NotificationIntegrationSettingOneOf8 wrapped in NotificationIntegrationSetting
-func NotificationIntegrationSettingOneOf8AsNotificationIntegrationSetting(v *NotificationIntegrationSettingOneOf8) NotificationIntegrationSetting {
+// NotificationIntegrationSettingWebhookAsNotificationIntegrationSetting is a convenience function that returns NotificationIntegrationSettingWebhook wrapped in NotificationIntegrationSetting
+func NotificationIntegrationSettingWebhookAsNotificationIntegrationSetting(v *NotificationIntegrationSettingWebhook) NotificationIntegrationSetting {
 	return NotificationIntegrationSetting{
-		NotificationIntegrationSettingOneOf8: v,
+		NotificationIntegrationSettingWebhook: v,
 	}
 }
 
@@ -100,111 +100,111 @@ func (dst *NotificationIntegrationSetting) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'NotificationIntegration_setting_oneOf'
-	if jsonDict["type"] == "NotificationIntegration_setting_oneOf" {
-		// try to unmarshal JSON data into NotificationIntegrationSettingOneOf
-		err = json.Unmarshal(data, &dst.NotificationIntegrationSettingOneOf)
+	// check if the discriminator value is 'google-chat'
+	if jsonDict["type"] == "google-chat" {
+		// try to unmarshal JSON data into NotificationIntegrationSettingGoogleChat
+		err = json.Unmarshal(data, &dst.NotificationIntegrationSettingGoogleChat)
 		if err == nil {
-			return nil // data stored in dst.NotificationIntegrationSettingOneOf, return on the first match
+			return nil // data stored in dst.NotificationIntegrationSettingGoogleChat, return on the first match
 		} else {
-			dst.NotificationIntegrationSettingOneOf = nil
-			return fmt.Errorf("failed to unmarshal NotificationIntegrationSetting as NotificationIntegrationSettingOneOf: %s", err.Error())
+			dst.NotificationIntegrationSettingGoogleChat = nil
+			return fmt.Errorf("failed to unmarshal NotificationIntegrationSetting as NotificationIntegrationSettingGoogleChat: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'NotificationIntegration_setting_oneOf_1'
-	if jsonDict["type"] == "NotificationIntegration_setting_oneOf_1" {
-		// try to unmarshal JSON data into NotificationIntegrationSettingOneOf1
-		err = json.Unmarshal(data, &dst.NotificationIntegrationSettingOneOf1)
+	// check if the discriminator value is 'grafana-irm'
+	if jsonDict["type"] == "grafana-irm" {
+		// try to unmarshal JSON data into NotificationIntegrationSettingGrafanaIrm
+		err = json.Unmarshal(data, &dst.NotificationIntegrationSettingGrafanaIrm)
 		if err == nil {
-			return nil // data stored in dst.NotificationIntegrationSettingOneOf1, return on the first match
+			return nil // data stored in dst.NotificationIntegrationSettingGrafanaIrm, return on the first match
 		} else {
-			dst.NotificationIntegrationSettingOneOf1 = nil
-			return fmt.Errorf("failed to unmarshal NotificationIntegrationSetting as NotificationIntegrationSettingOneOf1: %s", err.Error())
+			dst.NotificationIntegrationSettingGrafanaIrm = nil
+			return fmt.Errorf("failed to unmarshal NotificationIntegrationSetting as NotificationIntegrationSettingGrafanaIrm: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'NotificationIntegration_setting_oneOf_2'
-	if jsonDict["type"] == "NotificationIntegration_setting_oneOf_2" {
-		// try to unmarshal JSON data into NotificationIntegrationSettingOneOf2
-		err = json.Unmarshal(data, &dst.NotificationIntegrationSettingOneOf2)
+	// check if the discriminator value is 'incident-io'
+	if jsonDict["type"] == "incident-io" {
+		// try to unmarshal JSON data into NotificationIntegrationSettingIncidentIo
+		err = json.Unmarshal(data, &dst.NotificationIntegrationSettingIncidentIo)
 		if err == nil {
-			return nil // data stored in dst.NotificationIntegrationSettingOneOf2, return on the first match
+			return nil // data stored in dst.NotificationIntegrationSettingIncidentIo, return on the first match
 		} else {
-			dst.NotificationIntegrationSettingOneOf2 = nil
-			return fmt.Errorf("failed to unmarshal NotificationIntegrationSetting as NotificationIntegrationSettingOneOf2: %s", err.Error())
+			dst.NotificationIntegrationSettingIncidentIo = nil
+			return fmt.Errorf("failed to unmarshal NotificationIntegrationSetting as NotificationIntegrationSettingIncidentIo: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'NotificationIntegration_setting_oneOf_3'
-	if jsonDict["type"] == "NotificationIntegration_setting_oneOf_3" {
-		// try to unmarshal JSON data into NotificationIntegrationSettingOneOf3
-		err = json.Unmarshal(data, &dst.NotificationIntegrationSettingOneOf3)
+	// check if the discriminator value is 'jira'
+	if jsonDict["type"] == "jira" {
+		// try to unmarshal JSON data into NotificationIntegrationSettingJira
+		err = json.Unmarshal(data, &dst.NotificationIntegrationSettingJira)
 		if err == nil {
-			return nil // data stored in dst.NotificationIntegrationSettingOneOf3, return on the first match
+			return nil // data stored in dst.NotificationIntegrationSettingJira, return on the first match
 		} else {
-			dst.NotificationIntegrationSettingOneOf3 = nil
-			return fmt.Errorf("failed to unmarshal NotificationIntegrationSetting as NotificationIntegrationSettingOneOf3: %s", err.Error())
+			dst.NotificationIntegrationSettingJira = nil
+			return fmt.Errorf("failed to unmarshal NotificationIntegrationSetting as NotificationIntegrationSettingJira: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'NotificationIntegration_setting_oneOf_4'
-	if jsonDict["type"] == "NotificationIntegration_setting_oneOf_4" {
-		// try to unmarshal JSON data into NotificationIntegrationSettingOneOf4
-		err = json.Unmarshal(data, &dst.NotificationIntegrationSettingOneOf4)
+	// check if the discriminator value is 'microsoft-teams'
+	if jsonDict["type"] == "microsoft-teams" {
+		// try to unmarshal JSON data into NotificationIntegrationSettingMicrosoftTeams
+		err = json.Unmarshal(data, &dst.NotificationIntegrationSettingMicrosoftTeams)
 		if err == nil {
-			return nil // data stored in dst.NotificationIntegrationSettingOneOf4, return on the first match
+			return nil // data stored in dst.NotificationIntegrationSettingMicrosoftTeams, return on the first match
 		} else {
-			dst.NotificationIntegrationSettingOneOf4 = nil
-			return fmt.Errorf("failed to unmarshal NotificationIntegrationSetting as NotificationIntegrationSettingOneOf4: %s", err.Error())
+			dst.NotificationIntegrationSettingMicrosoftTeams = nil
+			return fmt.Errorf("failed to unmarshal NotificationIntegrationSetting as NotificationIntegrationSettingMicrosoftTeams: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'NotificationIntegration_setting_oneOf_5'
-	if jsonDict["type"] == "NotificationIntegration_setting_oneOf_5" {
-		// try to unmarshal JSON data into NotificationIntegrationSettingOneOf5
-		err = json.Unmarshal(data, &dst.NotificationIntegrationSettingOneOf5)
+	// check if the discriminator value is 'pagerduty'
+	if jsonDict["type"] == "pagerduty" {
+		// try to unmarshal JSON data into NotificationIntegrationSettingPagerduty
+		err = json.Unmarshal(data, &dst.NotificationIntegrationSettingPagerduty)
 		if err == nil {
-			return nil // data stored in dst.NotificationIntegrationSettingOneOf5, return on the first match
+			return nil // data stored in dst.NotificationIntegrationSettingPagerduty, return on the first match
 		} else {
-			dst.NotificationIntegrationSettingOneOf5 = nil
-			return fmt.Errorf("failed to unmarshal NotificationIntegrationSetting as NotificationIntegrationSettingOneOf5: %s", err.Error())
+			dst.NotificationIntegrationSettingPagerduty = nil
+			return fmt.Errorf("failed to unmarshal NotificationIntegrationSetting as NotificationIntegrationSettingPagerduty: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'NotificationIntegration_setting_oneOf_6'
-	if jsonDict["type"] == "NotificationIntegration_setting_oneOf_6" {
-		// try to unmarshal JSON data into NotificationIntegrationSettingOneOf6
-		err = json.Unmarshal(data, &dst.NotificationIntegrationSettingOneOf6)
+	// check if the discriminator value is 'servicenow'
+	if jsonDict["type"] == "servicenow" {
+		// try to unmarshal JSON data into NotificationIntegrationSettingServicenow
+		err = json.Unmarshal(data, &dst.NotificationIntegrationSettingServicenow)
 		if err == nil {
-			return nil // data stored in dst.NotificationIntegrationSettingOneOf6, return on the first match
+			return nil // data stored in dst.NotificationIntegrationSettingServicenow, return on the first match
 		} else {
-			dst.NotificationIntegrationSettingOneOf6 = nil
-			return fmt.Errorf("failed to unmarshal NotificationIntegrationSetting as NotificationIntegrationSettingOneOf6: %s", err.Error())
+			dst.NotificationIntegrationSettingServicenow = nil
+			return fmt.Errorf("failed to unmarshal NotificationIntegrationSetting as NotificationIntegrationSettingServicenow: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'NotificationIntegration_setting_oneOf_7'
-	if jsonDict["type"] == "NotificationIntegration_setting_oneOf_7" {
-		// try to unmarshal JSON data into NotificationIntegrationSettingOneOf7
-		err = json.Unmarshal(data, &dst.NotificationIntegrationSettingOneOf7)
+	// check if the discriminator value is 'squadcast'
+	if jsonDict["type"] == "squadcast" {
+		// try to unmarshal JSON data into NotificationIntegrationSettingSquadcast
+		err = json.Unmarshal(data, &dst.NotificationIntegrationSettingSquadcast)
 		if err == nil {
-			return nil // data stored in dst.NotificationIntegrationSettingOneOf7, return on the first match
+			return nil // data stored in dst.NotificationIntegrationSettingSquadcast, return on the first match
 		} else {
-			dst.NotificationIntegrationSettingOneOf7 = nil
-			return fmt.Errorf("failed to unmarshal NotificationIntegrationSetting as NotificationIntegrationSettingOneOf7: %s", err.Error())
+			dst.NotificationIntegrationSettingSquadcast = nil
+			return fmt.Errorf("failed to unmarshal NotificationIntegrationSetting as NotificationIntegrationSettingSquadcast: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'NotificationIntegration_setting_oneOf_8'
-	if jsonDict["type"] == "NotificationIntegration_setting_oneOf_8" {
-		// try to unmarshal JSON data into NotificationIntegrationSettingOneOf8
-		err = json.Unmarshal(data, &dst.NotificationIntegrationSettingOneOf8)
+	// check if the discriminator value is 'webhook'
+	if jsonDict["type"] == "webhook" {
+		// try to unmarshal JSON data into NotificationIntegrationSettingWebhook
+		err = json.Unmarshal(data, &dst.NotificationIntegrationSettingWebhook)
 		if err == nil {
-			return nil // data stored in dst.NotificationIntegrationSettingOneOf8, return on the first match
+			return nil // data stored in dst.NotificationIntegrationSettingWebhook, return on the first match
 		} else {
-			dst.NotificationIntegrationSettingOneOf8 = nil
-			return fmt.Errorf("failed to unmarshal NotificationIntegrationSetting as NotificationIntegrationSettingOneOf8: %s", err.Error())
+			dst.NotificationIntegrationSettingWebhook = nil
+			return fmt.Errorf("failed to unmarshal NotificationIntegrationSetting as NotificationIntegrationSettingWebhook: %s", err.Error())
 		}
 	}
 
@@ -213,40 +213,40 @@ func (dst *NotificationIntegrationSetting) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src NotificationIntegrationSetting) MarshalJSON() ([]byte, error) {
-	if src.NotificationIntegrationSettingOneOf != nil {
-		return json.Marshal(&src.NotificationIntegrationSettingOneOf)
+	if src.NotificationIntegrationSettingGoogleChat != nil {
+		return json.Marshal(&src.NotificationIntegrationSettingGoogleChat)
 	}
 
-	if src.NotificationIntegrationSettingOneOf1 != nil {
-		return json.Marshal(&src.NotificationIntegrationSettingOneOf1)
+	if src.NotificationIntegrationSettingGrafanaIrm != nil {
+		return json.Marshal(&src.NotificationIntegrationSettingGrafanaIrm)
 	}
 
-	if src.NotificationIntegrationSettingOneOf2 != nil {
-		return json.Marshal(&src.NotificationIntegrationSettingOneOf2)
+	if src.NotificationIntegrationSettingIncidentIo != nil {
+		return json.Marshal(&src.NotificationIntegrationSettingIncidentIo)
 	}
 
-	if src.NotificationIntegrationSettingOneOf3 != nil {
-		return json.Marshal(&src.NotificationIntegrationSettingOneOf3)
+	if src.NotificationIntegrationSettingJira != nil {
+		return json.Marshal(&src.NotificationIntegrationSettingJira)
 	}
 
-	if src.NotificationIntegrationSettingOneOf4 != nil {
-		return json.Marshal(&src.NotificationIntegrationSettingOneOf4)
+	if src.NotificationIntegrationSettingMicrosoftTeams != nil {
+		return json.Marshal(&src.NotificationIntegrationSettingMicrosoftTeams)
 	}
 
-	if src.NotificationIntegrationSettingOneOf5 != nil {
-		return json.Marshal(&src.NotificationIntegrationSettingOneOf5)
+	if src.NotificationIntegrationSettingPagerduty != nil {
+		return json.Marshal(&src.NotificationIntegrationSettingPagerduty)
 	}
 
-	if src.NotificationIntegrationSettingOneOf6 != nil {
-		return json.Marshal(&src.NotificationIntegrationSettingOneOf6)
+	if src.NotificationIntegrationSettingServicenow != nil {
+		return json.Marshal(&src.NotificationIntegrationSettingServicenow)
 	}
 
-	if src.NotificationIntegrationSettingOneOf7 != nil {
-		return json.Marshal(&src.NotificationIntegrationSettingOneOf7)
+	if src.NotificationIntegrationSettingSquadcast != nil {
+		return json.Marshal(&src.NotificationIntegrationSettingSquadcast)
 	}
 
-	if src.NotificationIntegrationSettingOneOf8 != nil {
-		return json.Marshal(&src.NotificationIntegrationSettingOneOf8)
+	if src.NotificationIntegrationSettingWebhook != nil {
+		return json.Marshal(&src.NotificationIntegrationSettingWebhook)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -257,40 +257,40 @@ func (obj *NotificationIntegrationSetting) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
-	if obj.NotificationIntegrationSettingOneOf != nil {
-		return obj.NotificationIntegrationSettingOneOf
+	if obj.NotificationIntegrationSettingGoogleChat != nil {
+		return obj.NotificationIntegrationSettingGoogleChat
 	}
 
-	if obj.NotificationIntegrationSettingOneOf1 != nil {
-		return obj.NotificationIntegrationSettingOneOf1
+	if obj.NotificationIntegrationSettingGrafanaIrm != nil {
+		return obj.NotificationIntegrationSettingGrafanaIrm
 	}
 
-	if obj.NotificationIntegrationSettingOneOf2 != nil {
-		return obj.NotificationIntegrationSettingOneOf2
+	if obj.NotificationIntegrationSettingIncidentIo != nil {
+		return obj.NotificationIntegrationSettingIncidentIo
 	}
 
-	if obj.NotificationIntegrationSettingOneOf3 != nil {
-		return obj.NotificationIntegrationSettingOneOf3
+	if obj.NotificationIntegrationSettingJira != nil {
+		return obj.NotificationIntegrationSettingJira
 	}
 
-	if obj.NotificationIntegrationSettingOneOf4 != nil {
-		return obj.NotificationIntegrationSettingOneOf4
+	if obj.NotificationIntegrationSettingMicrosoftTeams != nil {
+		return obj.NotificationIntegrationSettingMicrosoftTeams
 	}
 
-	if obj.NotificationIntegrationSettingOneOf5 != nil {
-		return obj.NotificationIntegrationSettingOneOf5
+	if obj.NotificationIntegrationSettingPagerduty != nil {
+		return obj.NotificationIntegrationSettingPagerduty
 	}
 
-	if obj.NotificationIntegrationSettingOneOf6 != nil {
-		return obj.NotificationIntegrationSettingOneOf6
+	if obj.NotificationIntegrationSettingServicenow != nil {
+		return obj.NotificationIntegrationSettingServicenow
 	}
 
-	if obj.NotificationIntegrationSettingOneOf7 != nil {
-		return obj.NotificationIntegrationSettingOneOf7
+	if obj.NotificationIntegrationSettingSquadcast != nil {
+		return obj.NotificationIntegrationSettingSquadcast
 	}
 
-	if obj.NotificationIntegrationSettingOneOf8 != nil {
-		return obj.NotificationIntegrationSettingOneOf8
+	if obj.NotificationIntegrationSettingWebhook != nil {
+		return obj.NotificationIntegrationSettingWebhook
 	}
 
 	// all schemas are nil
@@ -299,40 +299,40 @@ func (obj *NotificationIntegrationSetting) GetActualInstance() interface{} {
 
 // Get the actual instance value
 func (obj NotificationIntegrationSetting) GetActualInstanceValue() interface{} {
-	if obj.NotificationIntegrationSettingOneOf != nil {
-		return *obj.NotificationIntegrationSettingOneOf
+	if obj.NotificationIntegrationSettingGoogleChat != nil {
+		return *obj.NotificationIntegrationSettingGoogleChat
 	}
 
-	if obj.NotificationIntegrationSettingOneOf1 != nil {
-		return *obj.NotificationIntegrationSettingOneOf1
+	if obj.NotificationIntegrationSettingGrafanaIrm != nil {
+		return *obj.NotificationIntegrationSettingGrafanaIrm
 	}
 
-	if obj.NotificationIntegrationSettingOneOf2 != nil {
-		return *obj.NotificationIntegrationSettingOneOf2
+	if obj.NotificationIntegrationSettingIncidentIo != nil {
+		return *obj.NotificationIntegrationSettingIncidentIo
 	}
 
-	if obj.NotificationIntegrationSettingOneOf3 != nil {
-		return *obj.NotificationIntegrationSettingOneOf3
+	if obj.NotificationIntegrationSettingJira != nil {
+		return *obj.NotificationIntegrationSettingJira
 	}
 
-	if obj.NotificationIntegrationSettingOneOf4 != nil {
-		return *obj.NotificationIntegrationSettingOneOf4
+	if obj.NotificationIntegrationSettingMicrosoftTeams != nil {
+		return *obj.NotificationIntegrationSettingMicrosoftTeams
 	}
 
-	if obj.NotificationIntegrationSettingOneOf5 != nil {
-		return *obj.NotificationIntegrationSettingOneOf5
+	if obj.NotificationIntegrationSettingPagerduty != nil {
+		return *obj.NotificationIntegrationSettingPagerduty
 	}
 
-	if obj.NotificationIntegrationSettingOneOf6 != nil {
-		return *obj.NotificationIntegrationSettingOneOf6
+	if obj.NotificationIntegrationSettingServicenow != nil {
+		return *obj.NotificationIntegrationSettingServicenow
 	}
 
-	if obj.NotificationIntegrationSettingOneOf7 != nil {
-		return *obj.NotificationIntegrationSettingOneOf7
+	if obj.NotificationIntegrationSettingSquadcast != nil {
+		return *obj.NotificationIntegrationSettingSquadcast
 	}
 
-	if obj.NotificationIntegrationSettingOneOf8 != nil {
-		return *obj.NotificationIntegrationSettingOneOf8
+	if obj.NotificationIntegrationSettingWebhook != nil {
+		return *obj.NotificationIntegrationSettingWebhook
 	}
 
 	// all schemas are nil

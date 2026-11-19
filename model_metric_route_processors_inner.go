@@ -16,29 +16,29 @@ import (
 
 // MetricRouteProcessorsInner - struct for MetricRouteProcessorsInner
 type MetricRouteProcessorsInner struct {
-	MetricRouteProcessorsInnerOneOf  *MetricRouteProcessorsInnerOneOf
-	MetricRouteProcessorsInnerOneOf1 *MetricRouteProcessorsInnerOneOf1
-	OutputSpansProcessorAnyOf        *OutputSpansProcessorAnyOf
+	MetricsCreateProcessor         *MetricsCreateProcessor
+	MetricsParseAttributeProcessor *MetricsParseAttributeProcessor
+	OutputRumProcessorAnyOf        *OutputRumProcessorAnyOf
 }
 
-// MetricRouteProcessorsInnerOneOfAsMetricRouteProcessorsInner is a convenience function that returns MetricRouteProcessorsInnerOneOf wrapped in MetricRouteProcessorsInner
-func MetricRouteProcessorsInnerOneOfAsMetricRouteProcessorsInner(v *MetricRouteProcessorsInnerOneOf) MetricRouteProcessorsInner {
+// MetricsCreateProcessorAsMetricRouteProcessorsInner is a convenience function that returns MetricsCreateProcessor wrapped in MetricRouteProcessorsInner
+func MetricsCreateProcessorAsMetricRouteProcessorsInner(v *MetricsCreateProcessor) MetricRouteProcessorsInner {
 	return MetricRouteProcessorsInner{
-		MetricRouteProcessorsInnerOneOf: v,
+		MetricsCreateProcessor: v,
 	}
 }
 
-// MetricRouteProcessorsInnerOneOf1AsMetricRouteProcessorsInner is a convenience function that returns MetricRouteProcessorsInnerOneOf1 wrapped in MetricRouteProcessorsInner
-func MetricRouteProcessorsInnerOneOf1AsMetricRouteProcessorsInner(v *MetricRouteProcessorsInnerOneOf1) MetricRouteProcessorsInner {
+// MetricsParseAttributeProcessorAsMetricRouteProcessorsInner is a convenience function that returns MetricsParseAttributeProcessor wrapped in MetricRouteProcessorsInner
+func MetricsParseAttributeProcessorAsMetricRouteProcessorsInner(v *MetricsParseAttributeProcessor) MetricRouteProcessorsInner {
 	return MetricRouteProcessorsInner{
-		MetricRouteProcessorsInnerOneOf1: v,
+		MetricsParseAttributeProcessor: v,
 	}
 }
 
-// OutputSpansProcessorAnyOfAsMetricRouteProcessorsInner is a convenience function that returns OutputSpansProcessorAnyOf wrapped in MetricRouteProcessorsInner
-func OutputSpansProcessorAnyOfAsMetricRouteProcessorsInner(v *OutputSpansProcessorAnyOf) MetricRouteProcessorsInner {
+// OutputRumProcessorAnyOfAsMetricRouteProcessorsInner is a convenience function that returns OutputRumProcessorAnyOf wrapped in MetricRouteProcessorsInner
+func OutputRumProcessorAnyOfAsMetricRouteProcessorsInner(v *OutputRumProcessorAnyOf) MetricRouteProcessorsInner {
 	return MetricRouteProcessorsInner{
-		OutputSpansProcessorAnyOf: v,
+		OutputRumProcessorAnyOf: v,
 	}
 }
 
@@ -52,39 +52,39 @@ func (dst *MetricRouteProcessorsInner) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'MetricRoute_processors_inner_oneOf'
-	if jsonDict["type"] == "MetricRoute_processors_inner_oneOf" {
-		// try to unmarshal JSON data into MetricRouteProcessorsInnerOneOf
-		err = json.Unmarshal(data, &dst.MetricRouteProcessorsInnerOneOf)
+	// check if the discriminator value is 'creator'
+	if jsonDict["type"] == "creator" {
+		// try to unmarshal JSON data into MetricsCreateProcessor
+		err = json.Unmarshal(data, &dst.MetricsCreateProcessor)
 		if err == nil {
-			return nil // data stored in dst.MetricRouteProcessorsInnerOneOf, return on the first match
+			return nil // data stored in dst.MetricsCreateProcessor, return on the first match
 		} else {
-			dst.MetricRouteProcessorsInnerOneOf = nil
-			return fmt.Errorf("failed to unmarshal MetricRouteProcessorsInner as MetricRouteProcessorsInnerOneOf: %s", err.Error())
+			dst.MetricsCreateProcessor = nil
+			return fmt.Errorf("failed to unmarshal MetricRouteProcessorsInner as MetricsCreateProcessor: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'MetricRoute_processors_inner_oneOf_1'
-	if jsonDict["type"] == "MetricRoute_processors_inner_oneOf_1" {
-		// try to unmarshal JSON data into MetricRouteProcessorsInnerOneOf1
-		err = json.Unmarshal(data, &dst.MetricRouteProcessorsInnerOneOf1)
+	// check if the discriminator value is 'parse-attribute'
+	if jsonDict["type"] == "parse-attribute" {
+		// try to unmarshal JSON data into MetricsParseAttributeProcessor
+		err = json.Unmarshal(data, &dst.MetricsParseAttributeProcessor)
 		if err == nil {
-			return nil // data stored in dst.MetricRouteProcessorsInnerOneOf1, return on the first match
+			return nil // data stored in dst.MetricsParseAttributeProcessor, return on the first match
 		} else {
-			dst.MetricRouteProcessorsInnerOneOf1 = nil
-			return fmt.Errorf("failed to unmarshal MetricRouteProcessorsInner as MetricRouteProcessorsInnerOneOf1: %s", err.Error())
+			dst.MetricsParseAttributeProcessor = nil
+			return fmt.Errorf("failed to unmarshal MetricRouteProcessorsInner as MetricsParseAttributeProcessor: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'OutputSpansProcessor_anyOf'
-	if jsonDict["type"] == "OutputSpansProcessor_anyOf" {
-		// try to unmarshal JSON data into OutputSpansProcessorAnyOf
-		err = json.Unmarshal(data, &dst.OutputSpansProcessorAnyOf)
+	// check if the discriminator value is 'OutputRumProcessor_anyOf'
+	if jsonDict["type"] == "OutputRumProcessor_anyOf" {
+		// try to unmarshal JSON data into OutputRumProcessorAnyOf
+		err = json.Unmarshal(data, &dst.OutputRumProcessorAnyOf)
 		if err == nil {
-			return nil // data stored in dst.OutputSpansProcessorAnyOf, return on the first match
+			return nil // data stored in dst.OutputRumProcessorAnyOf, return on the first match
 		} else {
-			dst.OutputSpansProcessorAnyOf = nil
-			return fmt.Errorf("failed to unmarshal MetricRouteProcessorsInner as OutputSpansProcessorAnyOf: %s", err.Error())
+			dst.OutputRumProcessorAnyOf = nil
+			return fmt.Errorf("failed to unmarshal MetricRouteProcessorsInner as OutputRumProcessorAnyOf: %s", err.Error())
 		}
 	}
 
@@ -93,16 +93,16 @@ func (dst *MetricRouteProcessorsInner) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src MetricRouteProcessorsInner) MarshalJSON() ([]byte, error) {
-	if src.MetricRouteProcessorsInnerOneOf != nil {
-		return json.Marshal(&src.MetricRouteProcessorsInnerOneOf)
+	if src.MetricsCreateProcessor != nil {
+		return json.Marshal(&src.MetricsCreateProcessor)
 	}
 
-	if src.MetricRouteProcessorsInnerOneOf1 != nil {
-		return json.Marshal(&src.MetricRouteProcessorsInnerOneOf1)
+	if src.MetricsParseAttributeProcessor != nil {
+		return json.Marshal(&src.MetricsParseAttributeProcessor)
 	}
 
-	if src.OutputSpansProcessorAnyOf != nil {
-		return json.Marshal(&src.OutputSpansProcessorAnyOf)
+	if src.OutputRumProcessorAnyOf != nil {
+		return json.Marshal(&src.OutputRumProcessorAnyOf)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -113,16 +113,16 @@ func (obj *MetricRouteProcessorsInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
-	if obj.MetricRouteProcessorsInnerOneOf != nil {
-		return obj.MetricRouteProcessorsInnerOneOf
+	if obj.MetricsCreateProcessor != nil {
+		return obj.MetricsCreateProcessor
 	}
 
-	if obj.MetricRouteProcessorsInnerOneOf1 != nil {
-		return obj.MetricRouteProcessorsInnerOneOf1
+	if obj.MetricsParseAttributeProcessor != nil {
+		return obj.MetricsParseAttributeProcessor
 	}
 
-	if obj.OutputSpansProcessorAnyOf != nil {
-		return obj.OutputSpansProcessorAnyOf
+	if obj.OutputRumProcessorAnyOf != nil {
+		return obj.OutputRumProcessorAnyOf
 	}
 
 	// all schemas are nil
@@ -131,16 +131,16 @@ func (obj *MetricRouteProcessorsInner) GetActualInstance() interface{} {
 
 // Get the actual instance value
 func (obj MetricRouteProcessorsInner) GetActualInstanceValue() interface{} {
-	if obj.MetricRouteProcessorsInnerOneOf != nil {
-		return *obj.MetricRouteProcessorsInnerOneOf
+	if obj.MetricsCreateProcessor != nil {
+		return *obj.MetricsCreateProcessor
 	}
 
-	if obj.MetricRouteProcessorsInnerOneOf1 != nil {
-		return *obj.MetricRouteProcessorsInnerOneOf1
+	if obj.MetricsParseAttributeProcessor != nil {
+		return *obj.MetricsParseAttributeProcessor
 	}
 
-	if obj.OutputSpansProcessorAnyOf != nil {
-		return *obj.OutputSpansProcessorAnyOf
+	if obj.OutputRumProcessorAnyOf != nil {
+		return *obj.OutputRumProcessorAnyOf
 	}
 
 	// all schemas are nil

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Tsuga-generated span route ID assigned when the route is created. | 
 **Name** | **string** | Human-readable span route name shown in Tsuga. | 
-**Description** | Pointer to **string** | Optional free-text note about the span route&#39;s purpose, set by the caller. This metadata is not evaluated when matching or processing spans. | [optional] 
+**Description** | Pointer to **string** | Free-text note about the span route&#39;s purpose, set by the caller. This metadata is not evaluated when matching or processing spans. | [optional] 
 **IsEnabled** | **bool** | Whether this route is active for newly ingested spans. Disabled routes remain saved but do not process spans. | 
 **Query** | **string** | Tsuga query that selects which newly ingested spans enter the route processor chain. | 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 

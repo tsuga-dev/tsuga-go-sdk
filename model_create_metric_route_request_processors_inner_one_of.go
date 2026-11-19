@@ -27,7 +27,7 @@ type CreateMetricRouteRequestProcessorsInnerOneOf struct {
 	Tags []InputTag `json:"tags,omitempty"`
 	// Backend-maintained timestamp for this processor. Omit this field on create and update requests; Tsuga sets or preserves it based on processor changes.
 	UpdatedAt *string `json:"updatedAt,omitempty"`
-	// Map processor. It moves, copies, or normalizes existing log attributes.
+	// Map processor. It moves, copies, or normalizes existing event attributes.
 	Type                 string                                             `json:"type"`
 	Params               CreateMetricRouteRequestProcessorsInnerOneOfParams `json:"params"`
 	AdditionalProperties map[string]interface{}

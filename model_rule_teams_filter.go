@@ -16,29 +16,29 @@ import (
 
 // RuleTeamsFilter - Team visibility filter used when matching alert transitions. Tsuga validates create and update requests against the caller permissions.
 type RuleTeamsFilter struct {
-	AllPublicTeams *AllPublicTeams
-	AllTeams       *AllTeams
-	SpecificTeams  *SpecificTeams
+	TeamsFilterAllPublicTeams *TeamsFilterAllPublicTeams
+	TeamsFilterAllTeams       *TeamsFilterAllTeams
+	TeamsFilterSpecificTeams  *TeamsFilterSpecificTeams
 }
 
-// AllPublicTeamsAsRuleTeamsFilter is a convenience function that returns AllPublicTeams wrapped in RuleTeamsFilter
-func AllPublicTeamsAsRuleTeamsFilter(v *AllPublicTeams) RuleTeamsFilter {
+// TeamsFilterAllPublicTeamsAsRuleTeamsFilter is a convenience function that returns TeamsFilterAllPublicTeams wrapped in RuleTeamsFilter
+func TeamsFilterAllPublicTeamsAsRuleTeamsFilter(v *TeamsFilterAllPublicTeams) RuleTeamsFilter {
 	return RuleTeamsFilter{
-		AllPublicTeams: v,
+		TeamsFilterAllPublicTeams: v,
 	}
 }
 
-// AllTeamsAsRuleTeamsFilter is a convenience function that returns AllTeams wrapped in RuleTeamsFilter
-func AllTeamsAsRuleTeamsFilter(v *AllTeams) RuleTeamsFilter {
+// TeamsFilterAllTeamsAsRuleTeamsFilter is a convenience function that returns TeamsFilterAllTeams wrapped in RuleTeamsFilter
+func TeamsFilterAllTeamsAsRuleTeamsFilter(v *TeamsFilterAllTeams) RuleTeamsFilter {
 	return RuleTeamsFilter{
-		AllTeams: v,
+		TeamsFilterAllTeams: v,
 	}
 }
 
-// SpecificTeamsAsRuleTeamsFilter is a convenience function that returns SpecificTeams wrapped in RuleTeamsFilter
-func SpecificTeamsAsRuleTeamsFilter(v *SpecificTeams) RuleTeamsFilter {
+// TeamsFilterSpecificTeamsAsRuleTeamsFilter is a convenience function that returns TeamsFilterSpecificTeams wrapped in RuleTeamsFilter
+func TeamsFilterSpecificTeamsAsRuleTeamsFilter(v *TeamsFilterSpecificTeams) RuleTeamsFilter {
 	return RuleTeamsFilter{
-		SpecificTeams: v,
+		TeamsFilterSpecificTeams: v,
 	}
 }
 
@@ -52,39 +52,39 @@ func (dst *RuleTeamsFilter) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'AllPublicTeams'
-	if jsonDict["type"] == "AllPublicTeams" {
-		// try to unmarshal JSON data into AllPublicTeams
-		err = json.Unmarshal(data, &dst.AllPublicTeams)
+	// check if the discriminator value is 'all-public-teams'
+	if jsonDict["type"] == "all-public-teams" {
+		// try to unmarshal JSON data into TeamsFilterAllPublicTeams
+		err = json.Unmarshal(data, &dst.TeamsFilterAllPublicTeams)
 		if err == nil {
-			return nil // data stored in dst.AllPublicTeams, return on the first match
+			return nil // data stored in dst.TeamsFilterAllPublicTeams, return on the first match
 		} else {
-			dst.AllPublicTeams = nil
-			return fmt.Errorf("failed to unmarshal RuleTeamsFilter as AllPublicTeams: %s", err.Error())
+			dst.TeamsFilterAllPublicTeams = nil
+			return fmt.Errorf("failed to unmarshal RuleTeamsFilter as TeamsFilterAllPublicTeams: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'AllTeams'
-	if jsonDict["type"] == "AllTeams" {
-		// try to unmarshal JSON data into AllTeams
-		err = json.Unmarshal(data, &dst.AllTeams)
+	// check if the discriminator value is 'all-teams'
+	if jsonDict["type"] == "all-teams" {
+		// try to unmarshal JSON data into TeamsFilterAllTeams
+		err = json.Unmarshal(data, &dst.TeamsFilterAllTeams)
 		if err == nil {
-			return nil // data stored in dst.AllTeams, return on the first match
+			return nil // data stored in dst.TeamsFilterAllTeams, return on the first match
 		} else {
-			dst.AllTeams = nil
-			return fmt.Errorf("failed to unmarshal RuleTeamsFilter as AllTeams: %s", err.Error())
+			dst.TeamsFilterAllTeams = nil
+			return fmt.Errorf("failed to unmarshal RuleTeamsFilter as TeamsFilterAllTeams: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'SpecificTeams'
-	if jsonDict["type"] == "SpecificTeams" {
-		// try to unmarshal JSON data into SpecificTeams
-		err = json.Unmarshal(data, &dst.SpecificTeams)
+	// check if the discriminator value is 'specific-teams'
+	if jsonDict["type"] == "specific-teams" {
+		// try to unmarshal JSON data into TeamsFilterSpecificTeams
+		err = json.Unmarshal(data, &dst.TeamsFilterSpecificTeams)
 		if err == nil {
-			return nil // data stored in dst.SpecificTeams, return on the first match
+			return nil // data stored in dst.TeamsFilterSpecificTeams, return on the first match
 		} else {
-			dst.SpecificTeams = nil
-			return fmt.Errorf("failed to unmarshal RuleTeamsFilter as SpecificTeams: %s", err.Error())
+			dst.TeamsFilterSpecificTeams = nil
+			return fmt.Errorf("failed to unmarshal RuleTeamsFilter as TeamsFilterSpecificTeams: %s", err.Error())
 		}
 	}
 
@@ -93,16 +93,16 @@ func (dst *RuleTeamsFilter) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src RuleTeamsFilter) MarshalJSON() ([]byte, error) {
-	if src.AllPublicTeams != nil {
-		return json.Marshal(&src.AllPublicTeams)
+	if src.TeamsFilterAllPublicTeams != nil {
+		return json.Marshal(&src.TeamsFilterAllPublicTeams)
 	}
 
-	if src.AllTeams != nil {
-		return json.Marshal(&src.AllTeams)
+	if src.TeamsFilterAllTeams != nil {
+		return json.Marshal(&src.TeamsFilterAllTeams)
 	}
 
-	if src.SpecificTeams != nil {
-		return json.Marshal(&src.SpecificTeams)
+	if src.TeamsFilterSpecificTeams != nil {
+		return json.Marshal(&src.TeamsFilterSpecificTeams)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -113,16 +113,16 @@ func (obj *RuleTeamsFilter) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
-	if obj.AllPublicTeams != nil {
-		return obj.AllPublicTeams
+	if obj.TeamsFilterAllPublicTeams != nil {
+		return obj.TeamsFilterAllPublicTeams
 	}
 
-	if obj.AllTeams != nil {
-		return obj.AllTeams
+	if obj.TeamsFilterAllTeams != nil {
+		return obj.TeamsFilterAllTeams
 	}
 
-	if obj.SpecificTeams != nil {
-		return obj.SpecificTeams
+	if obj.TeamsFilterSpecificTeams != nil {
+		return obj.TeamsFilterSpecificTeams
 	}
 
 	// all schemas are nil
@@ -131,16 +131,16 @@ func (obj *RuleTeamsFilter) GetActualInstance() interface{} {
 
 // Get the actual instance value
 func (obj RuleTeamsFilter) GetActualInstanceValue() interface{} {
-	if obj.AllPublicTeams != nil {
-		return *obj.AllPublicTeams
+	if obj.TeamsFilterAllPublicTeams != nil {
+		return *obj.TeamsFilterAllPublicTeams
 	}
 
-	if obj.AllTeams != nil {
-		return *obj.AllTeams
+	if obj.TeamsFilterAllTeams != nil {
+		return *obj.TeamsFilterAllTeams
 	}
 
-	if obj.SpecificTeams != nil {
-		return *obj.SpecificTeams
+	if obj.TeamsFilterSpecificTeams != nil {
+		return *obj.TeamsFilterSpecificTeams
 	}
 
 	// all schemas are nil

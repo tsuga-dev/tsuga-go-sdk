@@ -16,21 +16,21 @@ import (
 
 // GraphVisualizationTimeseriesConnectionYAxisSettingsMin - Axis bound mode: automatic or fixed numeric value
 type GraphVisualizationTimeseriesConnectionYAxisSettingsMin struct {
-	GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf  *GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf
-	GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1 *GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1
+	AxisBoundAuto   *AxisBoundAuto
+	AxisBoundNumber *AxisBoundNumber
 }
 
-// GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOfAsGraphVisualizationTimeseriesConnectionYAxisSettingsMin is a convenience function that returns GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf wrapped in GraphVisualizationTimeseriesConnectionYAxisSettingsMin
-func GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOfAsGraphVisualizationTimeseriesConnectionYAxisSettingsMin(v *GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf) GraphVisualizationTimeseriesConnectionYAxisSettingsMin {
+// AxisBoundAutoAsGraphVisualizationTimeseriesConnectionYAxisSettingsMin is a convenience function that returns AxisBoundAuto wrapped in GraphVisualizationTimeseriesConnectionYAxisSettingsMin
+func AxisBoundAutoAsGraphVisualizationTimeseriesConnectionYAxisSettingsMin(v *AxisBoundAuto) GraphVisualizationTimeseriesConnectionYAxisSettingsMin {
 	return GraphVisualizationTimeseriesConnectionYAxisSettingsMin{
-		GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf: v,
+		AxisBoundAuto: v,
 	}
 }
 
-// GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1AsGraphVisualizationTimeseriesConnectionYAxisSettingsMin is a convenience function that returns GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1 wrapped in GraphVisualizationTimeseriesConnectionYAxisSettingsMin
-func GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1AsGraphVisualizationTimeseriesConnectionYAxisSettingsMin(v *GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1) GraphVisualizationTimeseriesConnectionYAxisSettingsMin {
+// AxisBoundNumberAsGraphVisualizationTimeseriesConnectionYAxisSettingsMin is a convenience function that returns AxisBoundNumber wrapped in GraphVisualizationTimeseriesConnectionYAxisSettingsMin
+func AxisBoundNumberAsGraphVisualizationTimeseriesConnectionYAxisSettingsMin(v *AxisBoundNumber) GraphVisualizationTimeseriesConnectionYAxisSettingsMin {
 	return GraphVisualizationTimeseriesConnectionYAxisSettingsMin{
-		GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1: v,
+		AxisBoundNumber: v,
 	}
 }
 
@@ -44,27 +44,27 @@ func (dst *GraphVisualizationTimeseriesConnectionYAxisSettingsMin) UnmarshalJSON
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'GraphVisualizationTimeseriesConnection_yAxisSettings_min_oneOf'
-	if jsonDict["type"] == "GraphVisualizationTimeseriesConnection_yAxisSettings_min_oneOf" {
-		// try to unmarshal JSON data into GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf
-		err = json.Unmarshal(data, &dst.GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf)
+	// check if the discriminator value is 'auto'
+	if jsonDict["type"] == "auto" {
+		// try to unmarshal JSON data into AxisBoundAuto
+		err = json.Unmarshal(data, &dst.AxisBoundAuto)
 		if err == nil {
-			return nil // data stored in dst.GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf, return on the first match
+			return nil // data stored in dst.AxisBoundAuto, return on the first match
 		} else {
-			dst.GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualizationTimeseriesConnectionYAxisSettingsMin as GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf: %s", err.Error())
+			dst.AxisBoundAuto = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualizationTimeseriesConnectionYAxisSettingsMin as AxisBoundAuto: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'GraphVisualizationTimeseriesConnection_yAxisSettings_min_oneOf_1'
-	if jsonDict["type"] == "GraphVisualizationTimeseriesConnection_yAxisSettings_min_oneOf_1" {
-		// try to unmarshal JSON data into GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1
-		err = json.Unmarshal(data, &dst.GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1)
+	// check if the discriminator value is 'number'
+	if jsonDict["type"] == "number" {
+		// try to unmarshal JSON data into AxisBoundNumber
+		err = json.Unmarshal(data, &dst.AxisBoundNumber)
 		if err == nil {
-			return nil // data stored in dst.GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1, return on the first match
+			return nil // data stored in dst.AxisBoundNumber, return on the first match
 		} else {
-			dst.GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1 = nil
-			return fmt.Errorf("failed to unmarshal GraphVisualizationTimeseriesConnectionYAxisSettingsMin as GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1: %s", err.Error())
+			dst.AxisBoundNumber = nil
+			return fmt.Errorf("failed to unmarshal GraphVisualizationTimeseriesConnectionYAxisSettingsMin as AxisBoundNumber: %s", err.Error())
 		}
 	}
 
@@ -73,12 +73,12 @@ func (dst *GraphVisualizationTimeseriesConnectionYAxisSettingsMin) UnmarshalJSON
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src GraphVisualizationTimeseriesConnectionYAxisSettingsMin) MarshalJSON() ([]byte, error) {
-	if src.GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf != nil {
-		return json.Marshal(&src.GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf)
+	if src.AxisBoundAuto != nil {
+		return json.Marshal(&src.AxisBoundAuto)
 	}
 
-	if src.GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1 != nil {
-		return json.Marshal(&src.GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1)
+	if src.AxisBoundNumber != nil {
+		return json.Marshal(&src.AxisBoundNumber)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -89,12 +89,12 @@ func (obj *GraphVisualizationTimeseriesConnectionYAxisSettingsMin) GetActualInst
 	if obj == nil {
 		return nil
 	}
-	if obj.GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf != nil {
-		return obj.GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf
+	if obj.AxisBoundAuto != nil {
+		return obj.AxisBoundAuto
 	}
 
-	if obj.GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1 != nil {
-		return obj.GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1
+	if obj.AxisBoundNumber != nil {
+		return obj.AxisBoundNumber
 	}
 
 	// all schemas are nil
@@ -103,12 +103,12 @@ func (obj *GraphVisualizationTimeseriesConnectionYAxisSettingsMin) GetActualInst
 
 // Get the actual instance value
 func (obj GraphVisualizationTimeseriesConnectionYAxisSettingsMin) GetActualInstanceValue() interface{} {
-	if obj.GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf != nil {
-		return *obj.GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf
+	if obj.AxisBoundAuto != nil {
+		return *obj.AxisBoundAuto
 	}
 
-	if obj.GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1 != nil {
-		return *obj.GraphVisualizationTimeseriesConnectionYAxisSettingsMinOneOf1
+	if obj.AxisBoundNumber != nil {
+		return *obj.AxisBoundNumber
 	}
 
 	// all schemas are nil

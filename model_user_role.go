@@ -16,21 +16,21 @@ import (
 
 // UserRole - Organization role for the user: a built-in role `type`, or `custom` with the `customRoleId` of the custom role.
 type UserRole struct {
-	InviteUsersRequestInnerUserRoleOneOf *InviteUsersRequestInnerUserRoleOneOf
-	UserRoleOneOf                        *UserRoleOneOf
+	UserRoleBuiltIn *UserRoleBuiltIn
+	UserRoleCustom  *UserRoleCustom
 }
 
-// InviteUsersRequestInnerUserRoleOneOfAsUserRole is a convenience function that returns InviteUsersRequestInnerUserRoleOneOf wrapped in UserRole
-func InviteUsersRequestInnerUserRoleOneOfAsUserRole(v *InviteUsersRequestInnerUserRoleOneOf) UserRole {
+// UserRoleBuiltInAsUserRole is a convenience function that returns UserRoleBuiltIn wrapped in UserRole
+func UserRoleBuiltInAsUserRole(v *UserRoleBuiltIn) UserRole {
 	return UserRole{
-		InviteUsersRequestInnerUserRoleOneOf: v,
+		UserRoleBuiltIn: v,
 	}
 }
 
-// UserRoleOneOfAsUserRole is a convenience function that returns UserRoleOneOf wrapped in UserRole
-func UserRoleOneOfAsUserRole(v *UserRoleOneOf) UserRole {
+// UserRoleCustomAsUserRole is a convenience function that returns UserRoleCustom wrapped in UserRole
+func UserRoleCustomAsUserRole(v *UserRoleCustom) UserRole {
 	return UserRole{
-		UserRoleOneOf: v,
+		UserRoleCustom: v,
 	}
 }
 
@@ -44,27 +44,63 @@ func (dst *UserRole) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'User_role_oneOf'
-	if jsonDict["type"] == "User_role_oneOf" {
-		// try to unmarshal JSON data into UserRoleOneOf
-		err = json.Unmarshal(data, &dst.UserRoleOneOf)
+	// check if the discriminator value is 'admin'
+	if jsonDict["type"] == "admin" {
+		// try to unmarshal JSON data into UserRoleBuiltIn
+		err = json.Unmarshal(data, &dst.UserRoleBuiltIn)
 		if err == nil {
-			return nil // data stored in dst.UserRoleOneOf, return on the first match
+			return nil // data stored in dst.UserRoleBuiltIn, return on the first match
 		} else {
-			dst.UserRoleOneOf = nil
-			return fmt.Errorf("failed to unmarshal UserRole as UserRoleOneOf: %s", err.Error())
+			dst.UserRoleBuiltIn = nil
+			return fmt.Errorf("failed to unmarshal UserRole as UserRoleBuiltIn: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'inviteUsers_request_inner_userRole_oneOf'
-	if jsonDict["type"] == "inviteUsers_request_inner_userRole_oneOf" {
-		// try to unmarshal JSON data into InviteUsersRequestInnerUserRoleOneOf
-		err = json.Unmarshal(data, &dst.InviteUsersRequestInnerUserRoleOneOf)
+	// check if the discriminator value is 'custom'
+	if jsonDict["type"] == "custom" {
+		// try to unmarshal JSON data into UserRoleCustom
+		err = json.Unmarshal(data, &dst.UserRoleCustom)
 		if err == nil {
-			return nil // data stored in dst.InviteUsersRequestInnerUserRoleOneOf, return on the first match
+			return nil // data stored in dst.UserRoleCustom, return on the first match
 		} else {
-			dst.InviteUsersRequestInnerUserRoleOneOf = nil
-			return fmt.Errorf("failed to unmarshal UserRole as InviteUsersRequestInnerUserRoleOneOf: %s", err.Error())
+			dst.UserRoleCustom = nil
+			return fmt.Errorf("failed to unmarshal UserRole as UserRoleCustom: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'public_editor'
+	if jsonDict["type"] == "public_editor" {
+		// try to unmarshal JSON data into UserRoleBuiltIn
+		err = json.Unmarshal(data, &dst.UserRoleBuiltIn)
+		if err == nil {
+			return nil // data stored in dst.UserRoleBuiltIn, return on the first match
+		} else {
+			dst.UserRoleBuiltIn = nil
+			return fmt.Errorf("failed to unmarshal UserRole as UserRoleBuiltIn: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'public_viewer'
+	if jsonDict["type"] == "public_viewer" {
+		// try to unmarshal JSON data into UserRoleBuiltIn
+		err = json.Unmarshal(data, &dst.UserRoleBuiltIn)
+		if err == nil {
+			return nil // data stored in dst.UserRoleBuiltIn, return on the first match
+		} else {
+			dst.UserRoleBuiltIn = nil
+			return fmt.Errorf("failed to unmarshal UserRole as UserRoleBuiltIn: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'teams_only'
+	if jsonDict["type"] == "teams_only" {
+		// try to unmarshal JSON data into UserRoleBuiltIn
+		err = json.Unmarshal(data, &dst.UserRoleBuiltIn)
+		if err == nil {
+			return nil // data stored in dst.UserRoleBuiltIn, return on the first match
+		} else {
+			dst.UserRoleBuiltIn = nil
+			return fmt.Errorf("failed to unmarshal UserRole as UserRoleBuiltIn: %s", err.Error())
 		}
 	}
 
@@ -73,12 +109,12 @@ func (dst *UserRole) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src UserRole) MarshalJSON() ([]byte, error) {
-	if src.InviteUsersRequestInnerUserRoleOneOf != nil {
-		return json.Marshal(&src.InviteUsersRequestInnerUserRoleOneOf)
+	if src.UserRoleBuiltIn != nil {
+		return json.Marshal(&src.UserRoleBuiltIn)
 	}
 
-	if src.UserRoleOneOf != nil {
-		return json.Marshal(&src.UserRoleOneOf)
+	if src.UserRoleCustom != nil {
+		return json.Marshal(&src.UserRoleCustom)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -89,12 +125,12 @@ func (obj *UserRole) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
-	if obj.InviteUsersRequestInnerUserRoleOneOf != nil {
-		return obj.InviteUsersRequestInnerUserRoleOneOf
+	if obj.UserRoleBuiltIn != nil {
+		return obj.UserRoleBuiltIn
 	}
 
-	if obj.UserRoleOneOf != nil {
-		return obj.UserRoleOneOf
+	if obj.UserRoleCustom != nil {
+		return obj.UserRoleCustom
 	}
 
 	// all schemas are nil
@@ -103,12 +139,12 @@ func (obj *UserRole) GetActualInstance() interface{} {
 
 // Get the actual instance value
 func (obj UserRole) GetActualInstanceValue() interface{} {
-	if obj.InviteUsersRequestInnerUserRoleOneOf != nil {
-		return *obj.InviteUsersRequestInnerUserRoleOneOf
+	if obj.UserRoleBuiltIn != nil {
+		return *obj.UserRoleBuiltIn
 	}
 
-	if obj.UserRoleOneOf != nil {
-		return *obj.UserRoleOneOf
+	if obj.UserRoleCustom != nil {
+		return *obj.UserRoleCustom
 	}
 
 	// all schemas are nil

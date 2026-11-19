@@ -31,6 +31,7 @@ Name | Type | Description | Notes
 **IngestionApiKey** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **LogRoute** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **MetricRoute** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
+**RumRoute** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **SpanRoute** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **Monitor** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
 **Notebook** | Pointer to **string** | Access granted on this resource type. &#x60;write&#x60; implies &#x60;read&#x60;. | [optional] 
@@ -741,6 +742,31 @@ SetMetricRoute sets MetricRoute field to given value.
 `func (o *CreateCustomRoleRequestAssets) HasMetricRoute() bool`
 
 HasMetricRoute returns a boolean if a field has been set.
+
+### GetRumRoute
+
+`func (o *CreateCustomRoleRequestAssets) GetRumRoute() string`
+
+GetRumRoute returns the RumRoute field if non-nil, zero value otherwise.
+
+### GetRumRouteOk
+
+`func (o *CreateCustomRoleRequestAssets) GetRumRouteOk() (*string, bool)`
+
+GetRumRouteOk returns a tuple with the RumRoute field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRumRoute
+
+`func (o *CreateCustomRoleRequestAssets) SetRumRoute(v string)`
+
+SetRumRoute sets RumRoute field to given value.
+
+### HasRumRoute
+
+`func (o *CreateCustomRoleRequestAssets) HasRumRoute() bool`
+
+HasRumRoute returns a boolean if a field has been set.
 
 ### GetSpanRoute
 

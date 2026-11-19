@@ -30,7 +30,7 @@ import (
 )
 
 func main() {
-	inviteUsersRequestInner := []openapiclient.InviteUsersRequestInner{*openapiclient.NewInviteUsersRequestInner("Email_example", "TeamId_example", "TeamRole_example", openapiclient.inviteUsers_request_inner_userRole{InviteUsersRequestInnerUserRoleOneOf: openapiclient.NewInviteUsersRequestInnerUserRoleOneOf("Type_example")})} // []InviteUsersRequestInner | Invitations to create.
+	inviteUsersRequestInner := []openapiclient.InviteUsersRequestInner{*openapiclient.NewInviteUsersRequestInner("Email_example", "TeamId_example", "TeamRole_example", openapiclient.inviteUsers_request_inner_userRole{InputUserRoleBuiltIn: openapiclient.NewInputUserRoleBuiltIn("Type_example")})} // []InviteUsersRequestInner | Invitations to create.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

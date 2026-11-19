@@ -48,6 +48,8 @@ type CreateOperationApiKeyRequestPermissions struct {
 	Metrics *string `json:"metrics,omitempty"`
 	// Metric routes, which select newly ingested metrics by name and apply processors to them.
 	MetricRoute *string `json:"metric-route,omitempty"`
+	// RUM routes, which select newly ingested RUM events and apply processors to them.
+	RumRoute *string `json:"rum-route,omitempty"`
 	// Span routes, which select newly ingested spans and apply processors to them.
 	SpanRoute *string `json:"span-route,omitempty"`
 	// Monitors, the alert definitions evaluated against telemetry.
@@ -592,6 +594,38 @@ func (o *CreateOperationApiKeyRequestPermissions) HasMetricRoute() bool {
 // SetMetricRoute gets a reference to the given string and assigns it to the MetricRoute field.
 func (o *CreateOperationApiKeyRequestPermissions) SetMetricRoute(v string) {
 	o.MetricRoute = &v
+}
+
+// GetRumRoute returns the RumRoute field value if set, zero value otherwise.
+func (o *CreateOperationApiKeyRequestPermissions) GetRumRoute() string {
+	if o == nil || IsNil(o.RumRoute) {
+		var ret string
+		return ret
+	}
+	return *o.RumRoute
+}
+
+// GetRumRouteOk returns a tuple with the RumRoute field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateOperationApiKeyRequestPermissions) GetRumRouteOk() (*string, bool) {
+	if o == nil || IsNil(o.RumRoute) {
+		return nil, false
+	}
+	return o.RumRoute, true
+}
+
+// HasRumRoute returns a boolean if a field has been set.
+func (o *CreateOperationApiKeyRequestPermissions) HasRumRoute() bool {
+	if o != nil && !IsNil(o.RumRoute) {
+		return true
+	}
+
+	return false
+}
+
+// SetRumRoute gets a reference to the given string and assigns it to the RumRoute field.
+func (o *CreateOperationApiKeyRequestPermissions) SetRumRoute(v string) {
+	o.RumRoute = &v
 }
 
 // GetSpanRoute returns the SpanRoute field value if set, zero value otherwise.
@@ -1353,6 +1387,9 @@ func (o CreateOperationApiKeyRequestPermissions) ToMap() (map[string]interface{}
 	if !IsNil(o.MetricRoute) {
 		toSerialize["metric-route"] = o.MetricRoute
 	}
+	if !IsNil(o.RumRoute) {
+		toSerialize["rum-route"] = o.RumRoute
+	}
 	if !IsNil(o.SpanRoute) {
 		toSerialize["span-route"] = o.SpanRoute
 	}
@@ -1456,6 +1493,7 @@ func (o *CreateOperationApiKeyRequestPermissions) UnmarshalJSON(data []byte) (er
 		delete(additionalProperties, "log-route")
 		delete(additionalProperties, "metrics")
 		delete(additionalProperties, "metric-route")
+		delete(additionalProperties, "rum-route")
 		delete(additionalProperties, "span-route")
 		delete(additionalProperties, "monitor")
 		delete(additionalProperties, "allowed-domains")

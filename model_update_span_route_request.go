@@ -21,7 +21,7 @@ var _ MappedNullable = &UpdateSpanRouteRequest{}
 type UpdateSpanRouteRequest struct {
 	// Human-readable span route name shown in Tsuga.
 	Name string `json:"name"`
-	// Optional free-text note about the span route's purpose. This metadata is not evaluated when matching or processing spans.
+	// Free-text note about the span route's purpose. This metadata is not evaluated when matching or processing spans.
 	Description NullableString `json:"description,omitempty"`
 	// Set to true for the span route to process newly ingested matching spans. Set to false to save it without running it.
 	IsEnabled bool `json:"isEnabled"`
@@ -31,7 +31,7 @@ type UpdateSpanRouteRequest struct {
 	Tags []InputTag `json:"tags,omitempty"`
 	// ID of the team that will own the span route, determining which team members can view and manage it and which tag policies apply. Only an org admin or an admin of this team may change fields other than `processors`, or delete the route.
 	Owner string `json:"owner"`
-	// Processors applied in array order to spans that match the span route, each transforming the output of the previous one. A `split` processor forks the chain into branches and cannot be followed by another processor at the same level. Up to 50 are accepted.
+	// Processors applied in array order to spans that match the span route, each transforming the output of the previous one. A `split` processor forks the chain into branches and cannot be followed by another processor at the same level.
 	Processors           []InputSpansProcessor `json:"processors"`
 	AdditionalProperties map[string]interface{}
 }

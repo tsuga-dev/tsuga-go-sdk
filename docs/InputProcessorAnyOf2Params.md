@@ -11,14 +11,14 @@ Name | Type | Description | Notes
 **ReplaceMissingByEmpty** | Pointer to **bool** | Set to true for missing referenced attributes to render as empty strings. Defaults to true. | [optional] 
 **Formula** | **string** | Mathematical formula evaluated to populate the target attribute | 
 **ReplaceMissingBy0** | Pointer to **bool** | Set to true for missing referenced attributes to evaluate as zero. Defaults to true. | [optional] 
-**Clauses** | [**[]CreateMetricRouteRequestProcessorsInnerOneOf2ParamsOneOf1ClausesInner**](CreateMetricRouteRequestProcessorsInnerOneOf2ParamsOneOf1ClausesInner.md) | Conditions evaluated in order to determine the category value. The first matching clause wins. | 
+**Clauses** | [**[]InputProcessorParamsCreatorCategoryClausesInner**](InputProcessorParamsCreatorCategoryClausesInner.md) | Conditions evaluated in order to determine the category value. The first matching clause wins. | 
 **DefaultValue** | Pointer to **string** | String category value used when no clause matches. If omitted and no clause matches, no category value is written. | [optional] 
 
 ## Methods
 
 ### NewInputProcessorAnyOf2Params
 
-`func NewInputProcessorAnyOf2Params(targetAttribute string, formatString string, subtype string, formula string, clauses []CreateMetricRouteRequestProcessorsInnerOneOf2ParamsOneOf1ClausesInner, ) *InputProcessorAnyOf2Params`
+`func NewInputProcessorAnyOf2Params(targetAttribute string, formatString string, subtype string, formula string, clauses []InputProcessorParamsCreatorCategoryClausesInner, ) *InputProcessorAnyOf2Params`
 
 NewInputProcessorAnyOf2Params instantiates a new InputProcessorAnyOf2Params object
 This constructor will assign default values to properties that have it defined,
@@ -190,20 +190,20 @@ HasReplaceMissingBy0 returns a boolean if a field has been set.
 
 ### GetClauses
 
-`func (o *InputProcessorAnyOf2Params) GetClauses() []CreateMetricRouteRequestProcessorsInnerOneOf2ParamsOneOf1ClausesInner`
+`func (o *InputProcessorAnyOf2Params) GetClauses() []InputProcessorParamsCreatorCategoryClausesInner`
 
 GetClauses returns the Clauses field if non-nil, zero value otherwise.
 
 ### GetClausesOk
 
-`func (o *InputProcessorAnyOf2Params) GetClausesOk() (*[]CreateMetricRouteRequestProcessorsInnerOneOf2ParamsOneOf1ClausesInner, bool)`
+`func (o *InputProcessorAnyOf2Params) GetClausesOk() (*[]InputProcessorParamsCreatorCategoryClausesInner, bool)`
 
 GetClausesOk returns a tuple with the Clauses field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetClauses
 
-`func (o *InputProcessorAnyOf2Params) SetClauses(v []CreateMetricRouteRequestProcessorsInnerOneOf2ParamsOneOf1ClausesInner)`
+`func (o *InputProcessorAnyOf2Params) SetClauses(v []InputProcessorParamsCreatorCategoryClausesInner)`
 
 SetClauses sets Clauses field to given value.
 

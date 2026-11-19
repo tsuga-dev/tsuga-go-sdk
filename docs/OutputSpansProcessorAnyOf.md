@@ -8,14 +8,14 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Optional user-provided processor note. | [optional] 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | Key/value tags applied to the resource. Use them to organize resources and to satisfy tag policies. | [optional] 
 **UpdatedAt** | Pointer to **string** | Timestamp when Tsuga last updated the processor. | [optional] 
-**Type** | **string** | Map processor. It moves, copies, or normalizes existing log attributes. | 
 **Params** | [**OutputSpansProcessorAnyOfParams**](OutputSpansProcessorAnyOfParams.md) |  | 
+**Type** | **string** | Split processor. It sends each span through the first matching conditional branch. | 
 
 ## Methods
 
 ### NewOutputSpansProcessorAnyOf
 
-`func NewOutputSpansProcessorAnyOf(id string, type_ string, params OutputSpansProcessorAnyOfParams, ) *OutputSpansProcessorAnyOf`
+`func NewOutputSpansProcessorAnyOf(id string, params OutputSpansProcessorAnyOfParams, type_ string, ) *OutputSpansProcessorAnyOf`
 
 NewOutputSpansProcessorAnyOf instantiates a new OutputSpansProcessorAnyOf object
 This constructor will assign default values to properties that have it defined,
@@ -125,26 +125,6 @@ SetUpdatedAt sets UpdatedAt field to given value.
 
 HasUpdatedAt returns a boolean if a field has been set.
 
-### GetType
-
-`func (o *OutputSpansProcessorAnyOf) GetType() string`
-
-GetType returns the Type field if non-nil, zero value otherwise.
-
-### GetTypeOk
-
-`func (o *OutputSpansProcessorAnyOf) GetTypeOk() (*string, bool)`
-
-GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetType
-
-`func (o *OutputSpansProcessorAnyOf) SetType(v string)`
-
-SetType sets Type field to given value.
-
-
 ### GetParams
 
 `func (o *OutputSpansProcessorAnyOf) GetParams() OutputSpansProcessorAnyOfParams`
@@ -163,6 +143,26 @@ and a boolean to check if the value has been set.
 `func (o *OutputSpansProcessorAnyOf) SetParams(v OutputSpansProcessorAnyOfParams)`
 
 SetParams sets Params field to given value.
+
+
+### GetType
+
+`func (o *OutputSpansProcessorAnyOf) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *OutputSpansProcessorAnyOf) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *OutputSpansProcessorAnyOf) SetType(v string)`
+
+SetType sets Type field to given value.
 
 
 
