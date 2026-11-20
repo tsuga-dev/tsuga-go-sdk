@@ -21,9 +21,9 @@ var _ MappedNullable = &DocSearchResult{}
 type DocSearchResult struct {
 	// `doc` for documentation pages (guides, references, release notes); `api` for API-reference endpoints indexed from the OpenAPI spec. Use this to decide how to present or follow up on the result.
 	Kind string `json:"kind"`
-	// Path identifying the result. Documentation pages use a slug path (e.g. `data-collection/guides/how-to-add-resource-attributes`). API-reference results use `api/<operationId>` (e.g. `api/aggregateScalar`).
+	// Path identifying the result. Documentation pages use a slug path (e.g. `data-collection/guides/how-to-add-resource-attributes`). API-reference results use `api/<operationId>` (e.g. `api/aggregateScalarV2`).
 	Path string `json:"path"`
-	// Title of the result (e.g. \"How to Add Resource Attributes\" or \"POST /v1/aggregation/multi-query/scalar\")
+	// Title of the result (e.g. \"How to Add Resource Attributes\" or \"POST /v2/aggregation/multi-query/scalar\")
 	Title string `json:"title"`
 	// For documentation pages: the heading path inside the page that matched (e.g. \"Language setup\"). For API results: the matched field or parameter breadcrumb (e.g. \"Body › queries\"). Absent when the match is the page or endpoint intro.
 	Subsection *string `json:"subsection,omitempty"`

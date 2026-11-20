@@ -19,9 +19,9 @@ var _ MappedNullable = &DocPage{}
 
 // DocPage A documentation or API-reference page with its raw markdown content
 type DocPage struct {
-	// Path identifying the page. Documentation pages use a slug path (e.g. `getting-started/send-your-first-logs`). API-reference pages use `api/<operationId>` (e.g. `api/aggregateScalar`).
+	// Path identifying the page. Documentation pages use a slug path (e.g. `getting-started/send-your-first-logs`). API-reference pages use `api/<operationId>` (e.g. `api/aggregateScalarV2`).
 	Path string `json:"path"`
-	// Title of the page (e.g. \"Send your first logs\" or \"POST /v1/aggregation/multi-query/scalar\")
+	// Title of the page (e.g. \"Send your first logs\" or \"POST /v2/aggregation/multi-query/scalar\")
 	Title string `json:"title"`
 	// Raw markdown content of the page
 	Content              string `json:"content"`

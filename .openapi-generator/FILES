@@ -871,8 +871,6 @@ docs/QueryOngoingAlertsRequestSort.md
 docs/QueryOngoingAlertsResponse.md
 docs/QueryOngoingAlertsResponseData.md
 docs/QueryOngoingAlertsResponseDataAlertsPageInner.md
-docs/QueryPromqlRequest.md
-docs/QueryPromqlResponse.md
 docs/QueryPromqlV2Request.md
 docs/QueryPromqlV2Response.md
 docs/QueryServicesRequest.md
@@ -951,10 +949,8 @@ docs/SearchSpansResponseDataSpansInnerContextService.md
 docs/SearchSpansResponseDataSpansInnerError.md
 docs/SearchSpansResponseDataSpansInnerEventsInner.md
 docs/SearchSpansResponseDataSpansInnerSpan.md
-docs/Series.md
-docs/SeriesGroupValue.md
-docs/SeriesPointsInner.md
 docs/SeriesV2.md
+docs/SeriesV2GroupValue.md
 docs/ServerErrorEnvelope.md
 docs/ServerErrorResponse.md
 docs/Service.md
@@ -1006,7 +1002,6 @@ docs/ThresholdMarker.md
 docs/TimeSliceSloConfiguration.md
 docs/TimeSliceSloConfigurationThreshold.md
 docs/TimelineSection.md
-docs/TimeseriesAggregationResponse.md
 docs/TimeseriesAggregationResponseV2.md
 docs/TracesAPI.md
 docs/TsugaAssetTagPolicy.md
@@ -1884,8 +1879,6 @@ model_query_ongoing_alerts_request_sort.go
 model_query_ongoing_alerts_response.go
 model_query_ongoing_alerts_response_data.go
 model_query_ongoing_alerts_response_data_alerts_page_inner.go
-model_query_promql_request.go
-model_query_promql_response.go
 model_query_promql_v2_request.go
 model_query_promql_v2_response.go
 model_query_services_request.go
@@ -1959,10 +1952,8 @@ model_search_spans_response_data_spans_inner_context_service.go
 model_search_spans_response_data_spans_inner_error.go
 model_search_spans_response_data_spans_inner_events_inner.go
 model_search_spans_response_data_spans_inner_span.go
-model_series.go
-model_series_group_value.go
-model_series_points_inner.go
 model_series_v2.go
+model_series_v2_group_value.go
 model_server_error_envelope.go
 model_server_error_response.go
 model_service.go
@@ -2007,7 +1998,6 @@ model_threshold_marker.go
 model_time_slice_slo_configuration.go
 model_time_slice_slo_configuration_threshold.go
 model_timeline_section.go
-model_timeseries_aggregation_response.go
 model_timeseries_aggregation_response_v2.go
 model_tsuga_asset_tag_policy.go
 model_update_adaptive_notification_rule_request.go

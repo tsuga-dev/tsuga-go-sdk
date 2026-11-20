@@ -14,14 +14,14 @@ import (
 	"fmt"
 )
 
-// SeriesGroupValue struct for SeriesGroupValue
-type SeriesGroupValue struct {
+// SeriesV2GroupValue struct for SeriesV2GroupValue
+type SeriesV2GroupValue struct {
 	Float32 *float32
 	String  *string
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
-func (dst *SeriesGroupValue) UnmarshalJSON(data []byte) error {
+func (dst *SeriesV2GroupValue) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal JSON data into Float32
 	err = json.Unmarshal(data, &dst.Float32)
@@ -49,11 +49,11 @@ func (dst *SeriesGroupValue) UnmarshalJSON(data []byte) error {
 		dst.String = nil
 	}
 
-	return fmt.Errorf("data failed to match schemas in anyOf(SeriesGroupValue)")
+	return fmt.Errorf("data failed to match schemas in anyOf(SeriesV2GroupValue)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src SeriesGroupValue) MarshalJSON() ([]byte, error) {
+func (src SeriesV2GroupValue) MarshalJSON() ([]byte, error) {
 	if src.Float32 != nil {
 		return json.Marshal(&src.Float32)
 	}
@@ -65,38 +65,38 @@ func (src SeriesGroupValue) MarshalJSON() ([]byte, error) {
 	return nil, nil // no data in anyOf schemas
 }
 
-type NullableSeriesGroupValue struct {
-	value *SeriesGroupValue
+type NullableSeriesV2GroupValue struct {
+	value *SeriesV2GroupValue
 	isSet bool
 }
 
-func (v NullableSeriesGroupValue) Get() *SeriesGroupValue {
+func (v NullableSeriesV2GroupValue) Get() *SeriesV2GroupValue {
 	return v.value
 }
 
-func (v *NullableSeriesGroupValue) Set(val *SeriesGroupValue) {
+func (v *NullableSeriesV2GroupValue) Set(val *SeriesV2GroupValue) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableSeriesGroupValue) IsSet() bool {
+func (v NullableSeriesV2GroupValue) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableSeriesGroupValue) Unset() {
+func (v *NullableSeriesV2GroupValue) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableSeriesGroupValue(val *SeriesGroupValue) *NullableSeriesGroupValue {
-	return &NullableSeriesGroupValue{value: val, isSet: true}
+func NewNullableSeriesV2GroupValue(val *SeriesV2GroupValue) *NullableSeriesV2GroupValue {
+	return &NullableSeriesV2GroupValue{value: val, isSet: true}
 }
 
-func (v NullableSeriesGroupValue) MarshalJSON() ([]byte, error) {
+func (v NullableSeriesV2GroupValue) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableSeriesGroupValue) UnmarshalJSON(src []byte) error {
+func (v *NullableSeriesV2GroupValue) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

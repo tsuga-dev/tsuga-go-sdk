@@ -8,7 +8,7 @@ info:
     \ and retrieve documentation or API-reference content. Public API requests authenticate\
     \ with Bearer tokens such as operation keys. See [API reference](/documentation/api)."
   title: Tsuga Public API
-  version: 20261119.26.0+cfc3f78
+  version: 20261120.14.0+a4a9034
 servers:
 - url: https://api.tsuga.com
 security:
@@ -9716,14 +9716,15 @@ paths:
               style: simple
       tags:
       - organization
-  /v1/promql:
+  /v2/promql:
     post:
       description: "Runs a PromQL (Prometheus query language) range query over metrics\
-        \ and returns timeseries. Use a metric name exactly as the metrics list returns\
-        \ it: names are not translated between OpenTelemetry dots and Prometheus underscores,\
+        \ and returns one shared time axis in milliseconds with one series per group\
+        \ aligned to it. Use a metric name exactly as the metrics list returns it:\
+        \ names are not translated between OpenTelemetry dots and Prometheus underscores,\
         \ and a dotted metric or label name must be quoted, as in `{\"k8s.pod.memory.working_set\"\
         }`. See [How to write PromQL queries](/documentation/visualize/guides/how-to-write-promql-queries)."
-      operationId: queryPromql
+      operationId: queryPromqlV2
       parameters:
       - description: "Telemetry cluster to query. Set by the client as the clusterId\
           \ query parameter, not in the JSON body. Required when the organization\
@@ -9740,88 +9741,6 @@ paths:
           maxLength: 250
           minLength: 1
           nullable: true
-          type: string
-        style: form
-      requestBody:
-        content:
-          application/json:
-            example:
-              query: "sum by (\"context.service.name\") (sum_over_time({\"traces.span.metrics.calls\"\
-                , \"span.kind\"=\"SPAN_KIND_SERVER\"}[5m]))"
-              timeRange:
-                from: 1782201500
-                to: 1782203400
-              step: 1m
-            schema:
-              $ref: "#/components/schemas/queryPromql_request"
-        description: "PromQL range-query request. Send clusterId as a query parameter,\
-          \ not in this JSON body."
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/QueryPromqlResponse"
-          description: Successful response
-          headers:
-            x-request-id:
-              description: "Unique identifier for this API request, useful for debugging\
-                \ and support"
-              explode: false
-              schema:
-                type: string
-              style: simple
-        "4XX":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ClientErrorEnvelope"
-          description: Client error
-          headers:
-            x-request-id:
-              description: "Unique identifier for this API request, useful for debugging\
-                \ and support"
-              explode: false
-              schema:
-                type: string
-              style: simple
-        "5XX":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ServerErrorEnvelope"
-          description: Server error
-          headers:
-            x-request-id:
-              description: "Unique identifier for this API request, useful for debugging\
-                \ and support"
-              explode: false
-              schema:
-                type: string
-              style: simple
-      tags:
-      - promql
-  /v2/promql:
-    post:
-      description: "Runs a PromQL range query over Tsuga metric data and returns one\
-        \ shared time axis in milliseconds with one series per group aligned to it.\
-        \ Same request as `POST /v1/promql`, with `timeRange` in milliseconds. See\
-        \ [How to write PromQL queries](/documentation/visualize/guides/how-to-write-promql-queries)\
-        \ for query syntax and examples."
-      operationId: queryPromqlV2
-      parameters:
-      - description: "Telemetry cluster to query. Set by the client as the clusterId\
-          \ query parameter, not in the JSON body. Required when the organization\
-          \ has multiple clusters; omit only for single-cluster organizations. Unknown\
-          \ cluster IDs return 404."
-        explode: true
-        in: query
-        name: clusterId
-        required: false
-        schema:
-          maxLength: 250
-          minLength: 1
           type: string
         style: form
       requestBody:
@@ -14919,36 +14838,6 @@ components:
       required:
       - error
       - requestId
-    TimeseriesAggregationResponse:
-      description: Timeseries aggregation response with timestamped points over time.
-      example:
-        series:
-        - id: id
-          group:
-            key: Series_group_value
-          points:
-          - timestamp: 0
-            value: 6.027456183070403
-          - timestamp: 0
-            value: 6.027456183070403
-        - id: id
-          group:
-            key: Series_group_value
-          points:
-          - timestamp: 0
-            value: 6.027456183070403
-          - timestamp: 0
-            value: 6.027456183070403
-      properties:
-        series:
-          description: One time series per query or formula and group.
-          items:
-            $ref: "#/components/schemas/Series"
-          type: array
-          default: null
-      required:
-      - series
-      title: TimeseriesAggregationResponse
     TimeseriesAggregationResponseV2:
       description: "Timeseries aggregation response: a shared time axis and one series\
         \ per group aligned to it."
@@ -14958,13 +14847,13 @@ components:
         - 0
         series:
         - group:
-            key: Series_group_value
+            key: SeriesV2_group_value
           values:
             key:
             - 6.027456183070403
             - 6.027456183070403
         - group:
-            key: Series_group_value
+            key: SeriesV2_group_value
           values:
             key:
             - 6.027456183070403
@@ -18347,10 +18236,10 @@ components:
         path:
           description: Path identifying the page. Documentation pages use a slug path
             (e.g. `getting-started/send-your-first-logs`). API-reference pages use
-            `api/<operationId>` (e.g. `api/aggregateScalar`).
+            `api/<operationId>` (e.g. `api/aggregateScalarV2`).
           type: string
         title:
-          description: Title of the page (e.g. "Send your first logs" or "POST /v1/aggregation/multi-query/scalar")
+          description: Title of the page (e.g. "Send your first logs" or "POST /v2/aggregation/multi-query/scalar")
           type: string
         content:
           description: Raw markdown content of the page
@@ -18399,11 +18288,11 @@ components:
         path:
           description: Path identifying the result. Documentation pages use a slug
             path (e.g. `data-collection/guides/how-to-add-resource-attributes`). API-reference
-            results use `api/<operationId>` (e.g. `api/aggregateScalar`).
+            results use `api/<operationId>` (e.g. `api/aggregateScalarV2`).
           type: string
         title:
           description: Title of the result (e.g. "How to Add Resource Attributes"
-            or "POST /v1/aggregation/multi-query/scalar")
+            or "POST /v2/aggregation/multi-query/scalar")
           type: string
         subsection:
           description: "For documentation pages: the heading path inside the page\
@@ -21923,36 +21812,6 @@ components:
       required:
       - data
       - requestId
-    QueryPromqlResponse:
-      example:
-        requestId: requestId
-        data:
-          series:
-          - id: id
-            group:
-              key: Series_group_value
-            points:
-            - timestamp: 0
-              value: 6.027456183070403
-            - timestamp: 0
-              value: 6.027456183070403
-          - id: id
-            group:
-              key: Series_group_value
-            points:
-            - timestamp: 0
-              value: 6.027456183070403
-            - timestamp: 0
-              value: 6.027456183070403
-      properties:
-        requestId:
-          description: Identifier used to trace the lifecycle of this API request
-          type: string
-        data:
-          $ref: "#/components/schemas/TimeseriesAggregationResponse"
-      required:
-      - data
-      - requestId
     QueryPromqlV2Response:
       example:
         requestId: requestId
@@ -21962,13 +21821,13 @@ components:
           - 0
           series:
           - group:
-              key: Series_group_value
+              key: SeriesV2_group_value
             values:
               key:
               - 6.027456183070403
               - 6.027456183070403
           - group:
-              key: Series_group_value
+              key: SeriesV2_group_value
             values:
               key:
               - 6.027456183070403
@@ -35511,42 +35370,10 @@ components:
       title: Tags
       type: array
       default: null
-    Series:
-      example:
-        id: id
-        group:
-          key: Series_group_value
-        points:
-        - timestamp: 0
-          value: 6.027456183070403
-        - timestamp: 0
-          value: 6.027456183070403
-      properties:
-        id:
-          description: "Result identifier. Query results use `q1`, `q2`, and so on;\
-            \ formula results use `value`."
-          type: string
-        group:
-          additionalProperties:
-            $ref: "#/components/schemas/Series_group_value"
-          description: Group-by field values for this result. Empty when no group-by
-            is requested.
-          type: object
-        points:
-          description: Ordered data points for this query or formula and group.
-          items:
-            $ref: "#/components/schemas/Series_points_inner"
-          type: array
-          default: null
-      required:
-      - group
-      - id
-      - points
-      title: Series
     SeriesV2:
       example:
         group:
-          key: Series_group_value
+          key: SeriesV2_group_value
         values:
           key:
           - 6.027456183070403
@@ -35554,7 +35381,7 @@ components:
       properties:
         group:
           additionalProperties:
-            $ref: "#/components/schemas/Series_group_value"
+            $ref: "#/components/schemas/SeriesV2_group_value"
           description: "Group-by field values for this row, keyed by field name. Empty\
             \ when no group-by is requested."
           type: object
@@ -37124,26 +36951,6 @@ components:
       - id
       - visualization
       title: InputGraph
-    InputTimeRange:
-      description: Inclusive time range for telemetry queries. Use Unix timestamps
-        in seconds unless the field description says milliseconds.
-      properties:
-        from:
-          description: Start of the query window as a Unix timestamp in seconds
-          format: int64
-          maximum: 4927737600
-          minimum: 1456444800
-          type: integer
-        to:
-          description: End of the query window as a Unix timestamp in seconds
-          format: int64
-          maximum: 4927737600
-          minimum: 1456444800
-          type: integer
-      required:
-      - from
-      - to
-      title: InputTimeRange
     InputV2TimeRange:
       description: Inclusive time range for telemetry queries using Unix timestamps
         in milliseconds.
@@ -37164,6 +36971,26 @@ components:
       - from
       - to
       title: InputV2TimeRange
+    InputTimeRange:
+      description: Inclusive time range for telemetry queries. Use Unix timestamps
+        in seconds unless the field description says milliseconds.
+      properties:
+        from:
+          description: Start of the query window as a Unix timestamp in seconds
+          format: int64
+          maximum: 4927737600
+          minimum: 1456444800
+          type: integer
+        to:
+          description: End of the query window as a Unix timestamp in seconds
+          format: int64
+          maximum: 4927737600
+          minimum: 1456444800
+          type: integer
+      required:
+      - from
+      - to
+      title: InputTimeRange
     queryOngoingAlerts_request_filters_owners:
       description: "Restrict results to alerts whose monitor, or whose SLO for an\
         \ SLO alert, is owned by any of these team IDs"
@@ -41140,28 +40967,6 @@ components:
           default: null
       required:
       - allowedDomains
-    queryPromql_request:
-      description: "PromQL range-query request. Send clusterId as a query parameter,\
-        \ not in this JSON body."
-      properties:
-        query:
-          description: PromQL expression to evaluate.
-          maxLength: 50000
-          minLength: 1
-          type: string
-        step:
-          description: "Evaluation step interval: a positive whole number followed\
-            \ by one unit, `s`, `m`, `h`, `d`, or `w`, such as `60s`, `1m`, or `1h`.\
-            \ A number without a unit, such as `60`, is not accepted."
-          maxLength: 250
-          minLength: 1
-          type: string
-        timeRange:
-          $ref: "#/components/schemas/InputTimeRange"
-      required:
-      - query
-      - step
-      - timeRange
     queryPromqlV2_request:
       description: "PromQL range-query request with the time range in milliseconds.\
         \ Send clusterId as a query parameter, not in this JSON body."
@@ -49857,24 +49662,10 @@ components:
       - configuration
       - id
       - priority
-    Series_group_value:
+    SeriesV2_group_value:
       anyOf:
       - type: string
       - type: number
-    Series_points_inner:
-      example:
-        timestamp: 0
-        value: 6.027456183070403
-      properties:
-        timestamp:
-          description: "Unix timestamp in milliseconds for this point, spaced by `aggregationWindow`."
-          type: integer
-        value:
-          description: Aggregated value at this timestamp.
-          type: number
-      required:
-      - timestamp
-      - value
     Graph_visualization:
       description: Widget visualization configuration. The `type` discriminator selects
         the widget kind and its required fields.

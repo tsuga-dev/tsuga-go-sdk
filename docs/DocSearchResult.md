@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Kind** | **string** | &#x60;doc&#x60; for documentation pages (guides, references, release notes); &#x60;api&#x60; for API-reference endpoints indexed from the OpenAPI spec. Use this to decide how to present or follow up on the result. | 
-**Path** | **string** | Path identifying the result. Documentation pages use a slug path (e.g. &#x60;data-collection/guides/how-to-add-resource-attributes&#x60;). API-reference results use &#x60;api/&lt;operationId&gt;&#x60; (e.g. &#x60;api/aggregateScalar&#x60;). | 
-**Title** | **string** | Title of the result (e.g. \&quot;How to Add Resource Attributes\&quot; or \&quot;POST /v1/aggregation/multi-query/scalar\&quot;) | 
+**Path** | **string** | Path identifying the result. Documentation pages use a slug path (e.g. &#x60;data-collection/guides/how-to-add-resource-attributes&#x60;). API-reference results use &#x60;api/&lt;operationId&gt;&#x60; (e.g. &#x60;api/aggregateScalarV2&#x60;). | 
+**Title** | **string** | Title of the result (e.g. \&quot;How to Add Resource Attributes\&quot; or \&quot;POST /v2/aggregation/multi-query/scalar\&quot;) | 
 **Subsection** | Pointer to **string** | For documentation pages: the heading path inside the page that matched (e.g. \&quot;Language setup\&quot;). For API results: the matched field or parameter breadcrumb (e.g. \&quot;Body › queries\&quot;). Absent when the match is the page or endpoint intro. | [optional] 
 **Tab** | Pointer to **string** | Tab label inside the page that the result matched. Set when the matching content is inside a &lt;Tabs&gt;&lt;Tab label&#x3D;\&quot;…\&quot;&gt; block. Always absent for API results. | [optional] 
 **Anchor** | Pointer to **string** | For documentation pages: the slugified heading ID used as the URL fragment (e.g. &#x60;language-setup&#x60;). For API results: the Scalar deep-link fragment (&#x60;tag/&lt;tag&gt;/&lt;METHOD&gt;&lt;path&gt;&#x60;). The &#x60;link&#x60; field already has this baked in. | [optional] 

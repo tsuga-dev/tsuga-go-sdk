@@ -20,7 +20,7 @@ var _ MappedNullable = &SeriesV2{}
 // SeriesV2 struct for SeriesV2
 type SeriesV2 struct {
 	// Group-by field values for this row, keyed by field name. Empty when no group-by is requested.
-	Group map[string]SeriesGroupValue `json:"group"`
+	Group map[string]SeriesV2GroupValue `json:"group"`
 	// One value per entry of `timestamps`, `null` where the bucket has none. Keyed by result id: `q1`, `q2`, and so on for each query in submission order, plus `f1`, `f2`, and so on for each entry of `formulas` in submission order, or `value` for a PromQL query. Every row has the same keys.
 	Values               map[string][]*float32 `json:"values"`
 	AdditionalProperties map[string]interface{}
@@ -32,7 +32,7 @@ type _SeriesV2 SeriesV2
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSeriesV2(group map[string]SeriesGroupValue, values map[string][]*float32) *SeriesV2 {
+func NewSeriesV2(group map[string]SeriesV2GroupValue, values map[string][]*float32) *SeriesV2 {
 	this := SeriesV2{}
 	this.Group = group
 	this.Values = values
@@ -48,9 +48,9 @@ func NewSeriesV2WithDefaults() *SeriesV2 {
 }
 
 // GetGroup returns the Group field value
-func (o *SeriesV2) GetGroup() map[string]SeriesGroupValue {
+func (o *SeriesV2) GetGroup() map[string]SeriesV2GroupValue {
 	if o == nil {
-		var ret map[string]SeriesGroupValue
+		var ret map[string]SeriesV2GroupValue
 		return ret
 	}
 
@@ -59,15 +59,15 @@ func (o *SeriesV2) GetGroup() map[string]SeriesGroupValue {
 
 // GetGroupOk returns a tuple with the Group field value
 // and a boolean to check if the value has been set.
-func (o *SeriesV2) GetGroupOk() (map[string]SeriesGroupValue, bool) {
+func (o *SeriesV2) GetGroupOk() (map[string]SeriesV2GroupValue, bool) {
 	if o == nil {
-		return map[string]SeriesGroupValue{}, false
+		return map[string]SeriesV2GroupValue{}, false
 	}
 	return o.Group, true
 }
 
 // SetGroup sets field value
-func (o *SeriesV2) SetGroup(v map[string]SeriesGroupValue) {
+func (o *SeriesV2) SetGroup(v map[string]SeriesV2GroupValue) {
 	o.Group = v
 }
 

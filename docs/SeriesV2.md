@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Group** | [**map[string]SeriesGroupValue**](SeriesGroupValue.md) | Group-by field values for this row, keyed by field name. Empty when no group-by is requested. | 
+**Group** | [**map[string]SeriesV2GroupValue**](SeriesV2GroupValue.md) | Group-by field values for this row, keyed by field name. Empty when no group-by is requested. | 
 **Values** | **map[string][]*float32** | One value per entry of &#x60;timestamps&#x60;, &#x60;null&#x60; where the bucket has none. Keyed by result id: &#x60;q1&#x60;, &#x60;q2&#x60;, and so on for each query in submission order, plus &#x60;f1&#x60;, &#x60;f2&#x60;, and so on for each entry of &#x60;formulas&#x60; in submission order, or &#x60;value&#x60; for a PromQL query. Every row has the same keys. | 
 
 ## Methods
 
 ### NewSeriesV2
 
-`func NewSeriesV2(group map[string]SeriesGroupValue, values map[string][]*float32, ) *SeriesV2`
+`func NewSeriesV2(group map[string]SeriesV2GroupValue, values map[string][]*float32, ) *SeriesV2`
 
 NewSeriesV2 instantiates a new SeriesV2 object
 This constructor will assign default values to properties that have it defined,
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetGroup
 
-`func (o *SeriesV2) GetGroup() map[string]SeriesGroupValue`
+`func (o *SeriesV2) GetGroup() map[string]SeriesV2GroupValue`
 
 GetGroup returns the Group field if non-nil, zero value otherwise.
 
 ### GetGroupOk
 
-`func (o *SeriesV2) GetGroupOk() (*map[string]SeriesGroupValue, bool)`
+`func (o *SeriesV2) GetGroupOk() (*map[string]SeriesV2GroupValue, bool)`
 
 GetGroupOk returns a tuple with the Group field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroup
 
-`func (o *SeriesV2) SetGroup(v map[string]SeriesGroupValue)`
+`func (o *SeriesV2) SetGroup(v map[string]SeriesV2GroupValue)`
 
 SetGroup sets Group field to given value.
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Path** | **string** | Path identifying the page. Documentation pages use a slug path (e.g. &#x60;getting-started/send-your-first-logs&#x60;). API-reference pages use &#x60;api/&lt;operationId&gt;&#x60; (e.g. &#x60;api/aggregateScalar&#x60;). | 
-**Title** | **string** | Title of the page (e.g. \&quot;Send your first logs\&quot; or \&quot;POST /v1/aggregation/multi-query/scalar\&quot;) | 
+**Path** | **string** | Path identifying the page. Documentation pages use a slug path (e.g. &#x60;getting-started/send-your-first-logs&#x60;). API-reference pages use &#x60;api/&lt;operationId&gt;&#x60; (e.g. &#x60;api/aggregateScalarV2&#x60;). | 
+**Title** | **string** | Title of the page (e.g. \&quot;Send your first logs\&quot; or \&quot;POST /v2/aggregation/multi-query/scalar\&quot;) | 
 **Content** | **string** | Raw markdown content of the page | 
 
 ## Methods
